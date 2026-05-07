@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Tải tài liệu — QS Technology</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/qs.css">
+<style>
+.dl-hero{
+  background:linear-gradient(180deg,#fafaf7,#f0eee8);
+  border-bottom:1px solid var(--line);position:relative;overflow:hidden;
+}
+.dl-hero .qs-grid-bg{position:absolute;inset:0;opacity:.5}
+.dl-hero .wrap{max-width:var(--maxw);margin:0 auto;padding:48px var(--pad) 64px;position:relative}
+.dl-hero .crumb{margin-bottom:32px}
+.dl-hero .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.dl-hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(48px,6vw,84px);line-height:.95;margin:0;letter-spacing:-.02em}
+.dl-hero h1 em{font-style:normal;font-weight:600;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dl-hero .lede{margin-top:22px;font-size:17px;line-height:1.65;color:#3a3a3a;max-width:55ch}
+.dl-hero .search{
+  margin-top:32px;display:flex;align-items:center;
+  background:#fff;border:1px solid var(--ink);
+  padding:0;
+}
+.dl-hero .search input{
+  flex:1;border:0;padding:18px 22px;font:inherit;font-size:15px;background:transparent;
+}
+.dl-hero .search input:focus{outline:0}
+.dl-hero .search button{
+  background:var(--ink);color:#fff;border:0;padding:18px 24px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+}
+.dl-hero .quicks{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.dl-hero .quicks a{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;background:#fff;border:1px solid var(--line);
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;
+}
+.dl-hero .quicks a:hover{border-color:var(--ink);color:var(--ink)}
+
+/* hero stack visual: stacked papers */
+.dl-stack{
+  position:relative;aspect-ratio:5/6;
+  display:grid;place-items:center;
+}
+.dl-stack .doc{
+  position:absolute;width:62%;aspect-ratio:8.5/11;
+  background:#fff;border:1px solid var(--line);
+  box-shadow:0 8px 24px rgba(20,15,5,.08);
+  padding:18px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.dl-stack .doc::after{
+  content:"";position:absolute;top:14px;right:14px;
+  width:42px;height:6px;background:var(--gold);
+}
+.dl-stack .doc .h{
+  height:8px;background:var(--ink);width:60%;
+}
+.dl-stack .doc .l{height:4px;background:#cfc9b8}
+.dl-stack .doc .l.s{width:80%}
+.dl-stack .doc .l.m{width:65%}
+.dl-stack .doc .l.k{width:90%}
+.dl-stack .doc .img{
+  margin-top:6px;flex:1;
+  background:repeating-linear-gradient(45deg,#f0eee8 0 8px,#fff 8px 16px);
+  border:1px solid var(--line);
+}
+.dl-stack .doc .ft{
+  display:flex;justify-content:space-between;align-items:end;
+  padding-top:8px;border-top:1px solid var(--line);
+  font-family:var(--font-mono);font-size:7px;color:var(--muted);letter-spacing:.16em;
+}
+.dl-stack .doc.d3{transform:rotate(-8deg) translate(-30%,2%);z-index:1;opacity:.7}
+.dl-stack .doc.d2{transform:rotate(4deg) translate(20%,-2%);z-index:2;opacity:.85}
+.dl-stack .doc.d1{transform:rotate(-2deg);z-index:3}
+
+/* CATEGORY GRID */
+.dl-cats{padding:96px 0;background:#fff}
+.dl-cats .head{display:flex;justify-content:space-between;align-items:end;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.dl-cats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+
+.dl-cat{
+  background:#fff;border:1px solid var(--line);
+  padding:0;display:flex;flex-direction:column;
+  transition:transform .15s,border-color .15s;
+}
+.dl-cat:hover{transform:translateY(-2px);border-color:var(--ink)}
+.dl-cat .cover{
+  aspect-ratio:5/4;background:var(--paper);
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line);
+  display:grid;place-items:center;
+}
+.dl-cat .cover svg{width:60%;height:60%}
+.dl-cat .cover .stamp{
+  position:absolute;top:12px;left:12px;
+  font-family:var(--font-mono);font-size:9px;color:var(--gold-3);letter-spacing:.16em;
+}
+.dl-cat .cover .ribbon{
+  position:absolute;bottom:12px;right:12px;
+  background:var(--ink);color:var(--gold-2);
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;padding:4px 10px;text-transform:uppercase;
+}
+.dl-cat .body{padding:20px;display:flex;flex-direction:column;gap:10px}
+.dl-cat .body h3{margin:0;font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:-.005em}
+.dl-cat .body p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+.dl-cat .body .more{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:6px;padding-top:12px;border-top:1px solid var(--line);
+  font-family:var(--font-mono);font-size:11px;color:var(--ink);letter-spacing:.12em;text-transform:uppercase;
+}
+
+/* FEATURED ROW */
+.dl-feat{padding:96px 0;background:#0e0e0c;color:#cfc9b8}
+.dl-feat .head{display:flex;justify-content:space-between;align-items:end;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid #3a3530}
+.dl-feat h2{color:#fff;margin:0}
+.dl-feat .row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#2a2620;border:1px solid #2a2620}
+.dl-feat .item{
+  background:#1a1815;padding:28px 24px;display:flex;flex-direction:column;gap:14px;
+  position:relative;
+}
+.dl-feat .item::before{content:"";position:absolute;top:0;left:0;height:2px;width:48px;background:var(--gold)}
+.dl-feat .item .ic{
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.dl-feat .item .ic .ext{
+  font-family:var(--font-display);font-weight:800;font-size:24px;
+  background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  letter-spacing:-.01em;
+}
+.dl-feat .item .ic .meta{font-family:var(--font-mono);font-size:10px;color:#7a7570;letter-spacing:.12em;text-align:right}
+.dl-feat .item h4{margin:0;font-family:var(--font-display);font-size:18px;color:#fff;font-weight:600;line-height:1.2}
+.dl-feat .item p{margin:0;font-size:13px;color:#a8a499;line-height:1.5}
+.dl-feat .item .ft{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:auto;padding-top:14px;border-top:1px solid #3a3530;
+}
+.dl-feat .item .ft .sz{font-family:var(--font-mono);font-size:10px;color:#7a7570;letter-spacing:.1em}
+.dl-feat .item .ft a{
+  color:var(--gold-2);font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:6px;
+}
+
+/* HELP STRIP */
+.dl-help{padding:80px 0;background:var(--paper)}
+.dl-help .grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.dl-help .card{
+  background:#fff;border:1px solid var(--line);
+  padding:40px;display:flex;flex-direction:column;gap:18px;
+}
+.dl-help .card .num{font-family:var(--font-mono);font-size:11px;color:var(--gold-3);letter-spacing:.16em}
+.dl-help .card h3{margin:0;font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-.01em}
+.dl-help .card p{margin:0;color:#3a3a3a;line-height:1.6}
+.dl-help .card .actions{display:flex;gap:10px;margin-top:6px}
+</style>
+</head>
+<body>
+<script src="scripts/qs-shell.js"></script>
+<div id="qs-shell"></div>
+
+<!-- HERO -->
+<section class="dl-hero" data-screen-label="01 Downloads Hero">
+  <div class="qs-grid-bg"></div>
+  <div class="wrap">
+    <div class="qs-crumb crumb">
+      <a href="index.html">Trang chủ</a><span class="sep">/</span>
+      <span class="here">Tải tài liệu</span>
+    </div>
+    <div class="grid">
+      <div>
+        <div class="qs-eyebrow">Document Center · 2026</div>
+        <h1 style="margin-top:14px">Catalogue,<br>datasheet &amp; <em>firmware</em></h1>
+        <p class="lede">Tất cả tài liệu kỹ thuật của QS Technology — catalogue dòng controller, datasheet từng model, sách hướng dẫn vận hành, firmware mới nhất và bản vẽ CAD lắp đặt.</p>
+        <div class="search">
+          <input placeholder="Tìm theo model, ví dụ: F54, Astro 6AH…">
+          <button>Tìm ↵</button>
+        </div>
+        <div class="quicks">
+          <span class="qs-mono" style="font-size:10px;color:var(--muted);padding:6px 0">PHỔ BIẾN:</span>
+          <a href="downloads-list.html">Catalogue 2026</a>
+          <a href="downloads-list.html">F54 · Datasheet</a>
+          <a href="downloads-list.html">Astro 6AH · Manual</a>
+          <a href="downloads-list.html">Firmware v2.1.4</a>
+        </div>
+      </div>
+      <div class="dl-stack">
+        <div class="doc d3">
+          <div class="h" style="width:50%"></div>
+          <div class="l s"></div><div class="l m"></div>
+          <div class="img"></div>
+          <div class="ft"><span>QS</span><span>P. 04</span></div>
+        </div>
+        <div class="doc d2">
+          <div class="h" style="width:70%"></div>
+          <div class="l k"></div><div class="l s"></div><div class="l m"></div>
+          <div class="img"></div>
+          <div class="ft"><span>QS · F86</span><span>P. 02</span></div>
+        </div>
+        <div class="doc d1">
+          <div class="h"></div>
+          <div class="l k"></div><div class="l s"></div><div class="l m"></div><div class="l k"></div>
+          <div class="img"></div>
+          <div class="ft"><span>QS · CATALOGUE</span><span>P. 01 / 64</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="dl-cats">
+  <div class="qs-wrap">
+    <div class="head">
+      <div>
+        <span class="qs-mono" style="font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase">[ Browse · 04 categories ]</span>
+        <h2 class="qs-h2" style="margin-top:8px">Theo loại tài liệu</h2>
+      </div>
+      <div class="qs-mono" style="font-size:11px;color:var(--muted)">Cập nhật T03/2026</div>
+    </div>
+    <div class="grid">
+      <a class="dl-cat" href="downloads-list.html">
+        <div class="cover">
+          <span class="stamp">[ 24 docs ]</span>
+          <svg viewBox="0 0 100 100"><rect x="20" y="14" width="60" height="80" fill="#fff" stroke="#1a1815" stroke-width="1.5"/><line x1="30" y1="32" x2="70" y2="32" stroke="#c9a35a" stroke-width="2"/><line x1="30" y1="44" x2="60" y2="44" stroke="#1a1815"/><line x1="30" y1="52" x2="70" y2="52" stroke="#1a1815"/><line x1="30" y1="60" x2="56" y2="60" stroke="#1a1815"/><rect x="30" y="70" width="40" height="18" fill="#cfc9b8"/></svg>
+          <span class="ribbon">PDF</span>
+        </div>
+        <div class="body">
+          <h3>Catalogue tổng</h3>
+          <p>Bộ catalogue đầy đủ 6 dòng controller F-series và Astro-series — bản tiếng Việt và tiếng Anh.</p>
+          <div class="more">Xem 24 tài liệu <span>→</span></div>
+        </div>
+      </a>
+      <a class="dl-cat" href="downloads-list.html">
+        <div class="cover">
+          <span class="stamp">[ 38 docs ]</span>
+          <svg viewBox="0 0 100 100"><rect x="14" y="20" width="72" height="60" fill="#fff" stroke="#1a1815" stroke-width="1.5"/><rect x="20" y="28" width="32" height="40" fill="#0a1a2a"/><line x1="56" y1="32" x2="80" y2="32" stroke="#c9a35a"/><line x1="56" y1="40" x2="80" y2="40" stroke="#1a1815"/><line x1="56" y1="48" x2="78" y2="48" stroke="#1a1815"/><line x1="56" y1="56" x2="74" y2="56" stroke="#1a1815"/><line x1="56" y1="64" x2="80" y2="64" stroke="#1a1815"/></svg>
+          <span class="ribbon">PDF</span>
+        </div>
+        <div class="body">
+          <h3>Datasheet kỹ thuật</h3>
+          <p>Thông số chi tiết từng model: I/O, điện áp, kích thước, sơ đồ chân kết nối servo và biến tần.</p>
+          <div class="more">Xem 38 tài liệu <span>→</span></div>
+        </div>
+      </a>
+      <a class="dl-cat" href="downloads-list.html">
+        <div class="cover">
+          <span class="stamp">[ 16 docs ]</span>
+          <svg viewBox="0 0 100 100"><rect x="20" y="14" width="60" height="80" fill="#fff" stroke="#1a1815" stroke-width="1.5"/><rect x="28" y="22" width="44" height="22" fill="#cfc9b8"/><circle cx="50" cy="33" r="6" fill="#3a8d4d"/><line x1="28" y1="54" x2="72" y2="54" stroke="#1a1815"/><line x1="28" y1="62" x2="62" y2="62" stroke="#1a1815"/><line x1="28" y1="70" x2="68" y2="70" stroke="#1a1815"/><line x1="28" y1="78" x2="58" y2="78" stroke="#1a1815"/></svg>
+          <span class="ribbon">PDF</span>
+        </div>
+        <div class="body">
+          <h3>Hướng dẫn vận hành</h3>
+          <p>Sách hướng dẫn cho thợ vận hành: thao tác HMI, cài đặt thông số, xử lý alarm thường gặp.</p>
+          <div class="more">Xem 16 tài liệu <span>→</span></div>
+        </div>
+      </a>
+      <a class="dl-cat" href="downloads-list.html">
+        <div class="cover">
+          <span class="stamp">[ 22 files ]</span>
+          <svg viewBox="0 0 100 100"><rect x="14" y="20" width="72" height="60" fill="#0e0e0c" stroke="#1a1815" stroke-width="1.5"/><text x="50" y="46" font-family="JetBrains Mono,monospace" font-size="10" fill="#5ab8e0" text-anchor="middle">v2.1.4</text><text x="50" y="62" font-family="JetBrains Mono,monospace" font-size="6" fill="#e8c878" text-anchor="middle">FIRMWARE.BIN</text><circle cx="80" cy="28" r="3" fill="#3a8d4d"/></svg>
+          <span class="ribbon" style="background:var(--gold);color:var(--ink)">FW · CAD</span>
+        </div>
+        <div class="body">
+          <h3>Firmware &amp; CAD</h3>
+          <p>Bản firmware mới nhất cho từng model, bản vẽ DXF/STEP để tích hợp vào tủ điện máy.</p>
+          <div class="more">Xem 22 tệp <span>→</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="dl-feat">
+  <div class="qs-wrap">
+    <div class="head">
+      <div>
+        <span class="qs-mono" style="font-size:11px;color:var(--gold-2);letter-spacing:.16em;text-transform:uppercase">[ Featured · this month ]</span>
+        <h2 class="qs-h2" style="margin-top:8px">Tài liệu nổi bật</h2>
+      </div>
+      <a class="qs-btn ghost sm" href="downloads-list.html" style="border-color:#3a3530;color:#cfc9b8">Xem tất cả →</a>
+    </div>
+    <div class="row">
+      <div class="item">
+        <div class="ic"><div class="ext">PDF</div><div class="meta">12.8 MB<br>64 pages</div></div>
+        <h4>Catalogue tổng QS 2026<br>(Tiếng Việt)</h4>
+        <p>Tổng hợp 6 dòng controller, sơ đồ ứng dụng, bảng so sánh thông số và phụ kiện đi kèm.</p>
+        <div class="ft"><span class="sz">QS-CAT-2026-VN · v3.1</span><a href="#">Tải ↓</a></div>
+      </div>
+      <div class="item">
+        <div class="ic"><div class="ext">PDF</div><div class="meta">2.4 MB<br>16 pages</div></div>
+        <h4>Astro 6AH<br>Datasheet kỹ thuật</h4>
+        <p>Sơ đồ chân, thông số servo, kích thước cơ khí và quy chuẩn lắp đặt vào tủ điện.</p>
+        <div class="ft"><span class="sz">QS-DS-A6AH · v2.4</span><a href="#">Tải ↓</a></div>
+      </div>
+      <div class="item">
+        <div class="ic"><div class="ext">BIN</div><div class="meta">8.6 MB<br>v2.1.4</div></div>
+        <h4>Firmware F-series<br>v2.1.4 (stable)</h4>
+        <p>Bản cập nhật ổn định cho F54/F86/F10T với cải tiến look-ahead và sửa lỗi alarm 27.</p>
+        <div class="ft"><span class="sz">QS-FW-F-2.1.4 · 03/2026</span><a href="#">Tải ↓</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HELP -->
+<section class="dl-help">
+  <div class="qs-wrap">
+    <div class="grid">
+      <div class="card">
+        <div class="num">[ Need an account? ]</div>
+        <h3>Tài liệu kỹ thuật mở rộng</h3>
+        <p>Một số tài liệu đặc biệt — sơ đồ điện chi tiết, source ladder mẫu, troubleshooting nâng cao — được cấp riêng cho khách hàng đã ký hợp đồng dịch vụ kỹ thuật.</p>
+        <div class="actions">
+          <a class="qs-btn">Đăng ký tài khoản</a>
+          <a class="qs-btn ghost">Đăng nhập</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="num">[ Can't find it? ]</div>
+        <h3>Yêu cầu tài liệu riêng</h3>
+        <p>Cần tài liệu cụ thể không có trong thư viện công khai — bản vẽ EPLAN, sample G-code, video demo? Đội kỹ thuật QS sẽ gửi qua email trong vòng 24 giờ.</p>
+        <div class="actions">
+          <a class="qs-btn">Yêu cầu tài liệu</a>
+          <a class="qs-btn ghost" href="service.html">Liên hệ kỹ thuật</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>QS.mount('downloads');</script>
+</body>
+</html>

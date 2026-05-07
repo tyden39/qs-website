@@ -44,15 +44,15 @@ nextjs/
 
 ```bash
 cd nextjs
-npm install
-npm run dev          # http://localhost:3000
+yarn install
+yarn dev             # http://localhost:3000
 ```
 
 Build & export tĩnh:
 
 ```bash
-npm run build
-npx next start       # hoặc deploy lên Vercel
+yarn build
+yarn next start      # hoặc deploy lên Vercel
 ```
 
 ## Design tokens (Tailwind)

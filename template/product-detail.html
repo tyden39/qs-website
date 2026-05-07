@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Bộ điều khiển CNC F54 — QS Technology</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/qs.css">
+<style>
+/* ── product hero ───────────────────────────────── */
+.pd-hero{
+  background:linear-gradient(180deg,#fafaf7,#f0eee8);
+  border-bottom:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.pd-hero .qs-grid-bg{position:absolute;inset:0;opacity:.5}
+.pd-hero .wrap{
+  max-width:var(--maxw);margin:0 auto;
+  padding:48px var(--pad) 64px;
+  position:relative;
+}
+.pd-hero .crumb{margin-bottom:32px}
+.pd-hero .grid{
+  display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center;
+}
+.pd-hero h1 small{
+  display:block;font-family:var(--font-mono);font-size:12px;
+  color:var(--gold-3);letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.pd-hero .feats{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+.pd-hero .feats .f{
+  display:flex;align-items:flex-start;gap:14px;
+}
+.pd-hero .feats .f .marker{
+  width:24px;height:24px;border:1px solid var(--gold);
+  display:grid;place-items:center;
+  font-family:var(--font-mono);font-size:10px;color:var(--gold-3);
+  flex-shrink:0;margin-top:2px;
+}
+.pd-hero .feats .f b{display:block;font-weight:600;font-size:15px}
+.pd-hero .feats .f span{color:var(--muted);font-size:13px}
+.pd-hero .ctas{display:flex;gap:12px;margin-top:36px}
+
+.pd-hero .visual{
+  background:#fff;border:1px solid var(--line);
+  padding:40px;
+  position:relative;
+  aspect-ratio:5/4;
+}
+.pd-hero .visual::before{
+  content:"";position:absolute;inset:12px;border:1px solid var(--gold);opacity:.3;pointer-events:none;
+}
+.pd-hero .visual .corner-stamp{
+  position:absolute;top:0;right:0;background:var(--ink);color:var(--gold-2);
+  font-family:var(--font-mono);font-size:10px;padding:8px 14px;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.pd-hero .visual svg{width:100%;height:100%}
+.pd-hero .visual .ruler{
+  position:absolute;left:40px;right:40px;bottom:8px;
+  font-family:var(--font-mono);font-size:9px;color:var(--muted);
+  display:flex;justify-content:space-between;
+  letter-spacing:.1em;
+}
+
+/* ── layout: sidebar + main ────────────────────── */
+.pd-body{padding:64px 0}
+.pd-body .layout{
+  display:grid;grid-template-columns:240px 1fr;gap:64px;
+}
+.pd-side{position:sticky;top:96px;align-self:start}
+.pd-side h4{
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);margin:0 0 16px;
+  padding-bottom:14px;border-bottom:1px solid var(--ink);
+}
+.pd-side ul{list-style:none;padding:0;margin:0}
+.pd-side li{
+  border-bottom:1px solid var(--line);
+}
+.pd-side li > a{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;
+  font-size:14px;font-weight:500;
+}
+.pd-side li > a:hover{color:var(--gold-3)}
+.pd-side li ul{padding:0 0 12px 16px}
+.pd-side li li{border:0}
+.pd-side li li a{
+  display:block;padding:6px 0;color:var(--muted);font-size:13px;font-weight:400;
+  border-left:1px solid var(--line);padding-left:12px;
+}
+.pd-side li li a.on{color:var(--ink);border-color:var(--gold);font-weight:500}
+
+/* tabs */
+.pd-tabs{
+  display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:32px;
+}
+.pd-tabs button{
+  padding:14px 22px;
+  font-family:var(--font-display);font-weight:600;font-size:14px;
+  color:var(--muted);
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  transition:color .15s, border-color .15s;
+}
+.pd-tabs button.on{color:var(--ink);border-color:var(--ink)}
+.pd-tabs button:hover{color:var(--ink)}
+.pd-tabs .num{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);margin-right:8px}
+
+/* spec table */
+.pd-spec{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid var(--line);background:#fff;
+}
+.pd-spec .row{
+  display:grid;grid-template-columns:200px 1fr;
+  border-bottom:1px solid var(--line);
+}
+.pd-spec .row:nth-child(odd){background:#fafaf7}
+.pd-spec .row:last-child,.pd-spec .row:nth-last-child(2){border-bottom:0}
+.pd-spec .row .k{
+  padding:14px 18px;
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  border-right:1px solid var(--line);
+}
+.pd-spec .row .v{
+  padding:14px 18px;
+  font-weight:600;font-size:14px;
+  font-family:var(--font-mono);
+}
+.pd-spec .row.span{grid-column:1/-1}
+
+.pd-quote-bar{
+  background:var(--ink);color:#fff;
+  padding:24px 28px;
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:32px;
+  border-left:4px solid var(--gold);
+}
+.pd-quote-bar h4{margin:0;font-family:var(--font-display);font-weight:600;font-size:18px}
+.pd-quote-bar p{margin:4px 0 0;color:#a8a499;font-size:13px}
+
+/* gallery */
+.pd-gallery{
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;
+}
+.pd-gallery .item{
+  background:#fff;border:1px solid var(--line);padding:24px;
+  position:relative;
+}
+.pd-gallery .item .lbl{
+  position:absolute;top:12px;left:12px;
+  font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold-3);
+}
+.pd-gallery .item .num{
+  position:absolute;top:12px;right:12px;
+  font-family:var(--font-mono);font-size:10px;color:var(--muted);
+}
+.pd-gallery .item svg{width:100%;height:auto;max-height:240px;display:block}
+.pd-gallery .item.wide{grid-column:1/-1}
+
+.pd-prose{
+  background:#fff;border:1px solid var(--line);
+  padding:32px;margin-top:32px;
+}
+.pd-prose h3{margin-top:0;font-family:var(--font-display);font-weight:600;font-size:20px}
+.pd-prose p{color:#3a3a3a;line-height:1.7;margin:12px 0}
+.pd-prose .pull{
+  border-left:3px solid var(--gold);
+  padding:6px 16px;
+  font-style:italic;color:var(--muted);
+  margin:20px 0;
+}
+
+/* full package diagram */
+.pd-package{
+  margin-top:64px;background:#fff;border:1px solid var(--line);padding:48px;
+  position:relative;
+}
+.pd-package h3{
+  text-align:center;font-family:var(--font-display);font-weight:700;
+  font-size:26px;margin:0 0 6px;letter-spacing:-.01em;
+}
+.pd-package .sub{text-align:center;font-family:var(--font-mono);font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase;margin-bottom:48px}
+.pd-package .diagram{
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+  position:relative;
+}
+.pd-package .diagram .col{display:flex;flex-direction:column;gap:24px;align-items:center}
+.pd-package .node{
+  background:#fafaf7;border:1px solid var(--line);
+  padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px;
+  width:160px;text-align:center;
+  position:relative;
+}
+.pd-package .node svg{width:80px;height:80px}
+.pd-package .node .lbl{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.pd-package .node b{font-size:13px;font-weight:600}
+.pd-package .center{
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+}
+.pd-package .center .core{
+  background:var(--ink);color:#fff;
+  padding:20px;width:200px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  position:relative;
+}
+.pd-package .center .core::before,
+.pd-package .center .core::after{
+  content:"";position:absolute;width:8px;height:8px;background:var(--gold);
+}
+.pd-package .center .core::before{top:-4px;left:-4px}
+.pd-package .center .core::after{bottom:-4px;right:-4px}
+.pd-package .center .core svg{width:80px;height:80px;background:#fafaf7;padding:6px}
+.pd-package .center .core b{font-family:var(--font-display);font-size:16px}
+
+/* related */
+.pd-related{margin-top:64px}
+.pd-related .head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:24px;
+}
+.pd-related .nav{display:flex;gap:8px}
+.pd-related .nav button{
+  width:36px;height:36px;border:1px solid var(--line);background:#fff;
+  display:grid;place-items:center;
+}
+.pd-related .nav button:hover{border-color:var(--ink);background:var(--ink);color:#fff}
+.pd-related .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rel-card{
+  background:#fff;border:1px solid var(--line);padding:20px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:border-color .15s,transform .15s;
+}
+.rel-card:hover{border-color:var(--ink-3);transform:translateY(-2px)}
+.rel-card .img{
+  aspect-ratio:5/4;background:radial-gradient(circle, #fff, #f0eee8);
+  display:grid;place-items:center;border:1px solid var(--line);
+}
+.rel-card .lbl{display:flex;justify-content:space-between;align-items:center}
+.rel-card .lbl b{font-family:var(--font-display);font-weight:600;font-size:15px}
+.rel-card .lbl span{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.14em}
+</style>
+</head>
+<body>
+<script src="scripts/qs-shell.js"></script>
+<div id="qs-shell"></div>
+
+<!-- HERO -->
+<section class="pd-hero" data-screen-label="01 Hero">
+  <div class="qs-grid-bg"></div>
+  <div class="wrap">
+    <div class="qs-crumb crumb">
+      <a href="index.html">Trang chủ</a><span class="sep">/</span>
+      <a href="products.html">Sản phẩm</a><span class="sep">/</span>
+      <a href="products.html">Bộ điều khiển CNC</a><span class="sep">/</span>
+      <span class="here">F54</span>
+    </div>
+    <div class="grid">
+      <div>
+        <h1 class="qs-h1"><small>Model · F54 · Series 2026</small>Bộ điều khiển CNC F54</h1>
+        <div class="feats">
+          <div class="f"><div class="marker">01</div><div><b>Hiệu năng vượt trội</b><span>Vi xử lý hiệu năng cao, độ phân giải 480×272 px</span></div></div>
+          <div class="f"><div class="marker">02</div><div><b>Tính năng đa dạng</b><span>Hồi tiếp encoder phase Z + tích hợp PLC ladder</span></div></div>
+          <div class="f"><div class="marker">03</div><div><b>Khả năng tùy biến cao</b><span>Mở rộng I/O, lập trình ứng dụng theo yêu cầu</span></div></div>
+        </div>
+        <div class="ctas">
+          <a class="qs-btn gold" href="#quote">Nhận báo giá <span class="arr">→</span></a>
+          <a class="qs-btn ghost" href="#specs">Xem thông số</a>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="corner-stamp">QS · F54</div>
+        <svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="metal2" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#e8e6e0"/><stop offset="1" stop-color="#a8a499"/>
+            </linearGradient>
+            <linearGradient id="screen2" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#1a3a52"/><stop offset="1" stop-color="#0a1a2a"/>
+            </linearGradient>
+          </defs>
+          <rect x="40" y="40" width="400" height="290" rx="8" fill="url(#metal2)" stroke="#6a6660"/>
+          <rect x="44" y="44" width="392" height="282" rx="6" fill="none" stroke="rgba(255,255,255,.5)"/>
+          <rect x="60" y="60" width="220" height="160" fill="url(#screen2)" stroke="#000"/>
+          <text x="68" y="78" font-family="JetBrains Mono,monospace" font-size="10" fill="#5ab8e0">QS COORD</text>
+          <text x="240" y="78" font-family="JetBrains Mono,monospace" font-size="9" fill="#cfc9b8">15:10:13</text>
+          <text x="68" y="106" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700" fill="#fff">X  279.030</text>
+          <text x="68" y="130" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700" fill="#fff">Y  235.003</text>
+          <text x="68" y="154" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700" fill="#fff">Z  102.322</text>
+          <text x="68" y="178" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700" fill="#e8c878">A -154.497</text>
+          <text x="68" y="206" font-family="JetBrains Mono,monospace" font-size="8" fill="#8aa">FEED 3000  ACT 0.0</text>
+          <g fill="#3a3530" stroke="#1a1a1a">
+            <rect x="295" y="60" width="28" height="28" rx="3"/><rect x="328" y="60" width="28" height="28" rx="3"/><rect x="361" y="60" width="28" height="28" rx="3"/><rect x="394" y="60" width="28" height="28" rx="3"/>
+            <rect x="295" y="93" width="28" height="28" rx="3"/><rect x="328" y="93" width="28" height="28" rx="3"/><rect x="361" y="93" width="28" height="28" rx="3"/><rect x="394" y="93" width="28" height="28" rx="3"/>
+            <rect x="295" y="126" width="28" height="28" rx="3"/><rect x="328" y="126" width="28" height="28" rx="3"/><rect x="361" y="126" width="28" height="28" rx="3"/><rect x="394" y="126" width="28" height="28" rx="3"/>
+            <rect x="295" y="159" width="28" height="28" rx="3"/><rect x="328" y="159" width="28" height="28" rx="3"/><rect x="361" y="159" width="28" height="28" rx="3"/><rect x="394" y="159" width="28" height="28" rx="3"/>
+            <rect x="295" y="192" width="61" height="28" rx="3"/><rect x="361" y="192" width="61" height="28" rx="3" fill="#5a3a20"/>
+          </g>
+          <g font-family="JetBrains Mono,monospace" font-size="10" fill="#cfc9b8" text-anchor="middle">
+            <text x="309" y="79">7</text><text x="342" y="79">8</text><text x="375" y="79">9</text><text x="408" y="79">F</text>
+            <text x="309" y="112">4</text><text x="342" y="112">5</text><text x="375" y="112">6</text><text x="408" y="112">.</text>
+            <text x="309" y="145">1</text><text x="342" y="145">2</text><text x="375" y="145">3</text><text x="408" y="145">←</text>
+            <text x="309" y="178">0</text><text x="342" y="178">-</text><text x="375" y="178">x</text><text x="408" y="178" fill="#e8c878">Y</text>
+            <text x="325" y="211">SPACE</text><text x="392" y="211" fill="#e8c878">ENTER</text>
+          </g>
+          <g fill="#2a2520" stroke="#1a1a1a">
+            <rect x="60" y="240" width="44" height="60" rx="4"/>
+            <rect x="110" y="240" width="44" height="60" rx="4"/>
+            <rect x="160" y="240" width="44" height="60" rx="4"/>
+            <rect x="210" y="240" width="44" height="60" rx="4"/>
+            <rect x="260" y="240" width="44" height="60" rx="4"/>
+            <rect x="310" y="240" width="44" height="60" rx="4"/>
+            <rect x="360" y="240" width="44" height="60" rx="4"/>
+            <circle cx="420" cy="260" r="12" fill="#c8553d"/>
+            <circle cx="420" cy="290" r="8" fill="#3a8d4d"/>
+          </g>
+        </svg>
+        <div class="ruler"><span>0</span><span>100</span><span>200</span><span>mm</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BODY -->
+<section class="pd-body">
+  <div class="qs-wrap">
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="pd-side">
+        <h4>Bộ điều khiển CNC</h4>
+        <ul>
+          <li>
+            <a href="#">Máy phay <span style="color:var(--gold-3)">▾</span></a>
+            <ul>
+              <li><a href="#" class="on">Máy 3 trục</a></li>
+              <li><a href="#">Máy 4 trục</a></li>
+              <li><a href="#">Máy 5 trục</a></li>
+              <li><a href="#">Máy 6 trục</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Máy uốn ống <span>›</span></a></li>
+          <li><a href="#">Máy uốn lò xo <span>›</span></a></li>
+          <li><a href="#">Máy cưa lọng <span>›</span></a></li>
+          <li><a href="#">Máy làm mộng <span>›</span></a></li>
+          <li><a href="#">Máy dán keo <span>›</span></a></li>
+          <li><a href="#">Máy hàn / cắt plasma <span>›</span></a></li>
+          <li><a href="#">Máy kim hoàn <span>›</span></a></li>
+        </ul>
+        <div style="margin-top:32px;padding:20px;background:var(--ink);color:#cfc9b8">
+          <div class="qs-mono" style="font-size:10px;color:var(--gold-2);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px">Hỗ trợ kỹ thuật</div>
+          <div style="font-family:var(--font-display);font-weight:600;font-size:18px;color:#fff">+84 28 3636 1234</div>
+          <div style="font-size:12px;margin-top:6px">tech@qstechnology.vn</div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main id="specs">
+        <div class="pd-tabs">
+          <button class="on"><span class="num">01</span>Thông số kỹ thuật</button>
+          <button><span class="num">02</span>Tài liệu</button>
+          <button><span class="num">03</span>Phần mềm</button>
+          <button><span class="num">04</span>Bản vẽ</button>
+        </div>
+
+        <div class="pd-spec">
+          <div class="row"><div class="k">Số trục điều khiển</div><div class="v">4 trục</div></div>
+          <div class="row"><div class="k">Kích thước</div><div class="v">220 × 140 × 30 mm</div></div>
+          <div class="row"><div class="k">Màn hình</div><div class="v">5 inches · 480 × 272 px</div></div>
+          <div class="row"><div class="k">Số cổng I/O</div><div class="v">16 / 6</div></div>
+          <div class="row"><div class="k">Bộ nhớ</div><div class="v">4 GB</div></div>
+          <div class="row"><div class="k">PLC</div><div class="v">Ladder tích hợp</div></div>
+          <div class="row"><div class="k">Encoder</div><div class="v">Hồi tiếp phase Z</div></div>
+          <div class="row"><div class="k">Điện áp</div><div class="v">24 VDC ± 10%</div></div>
+        </div>
+
+        <div class="pd-quote-bar" id="quote">
+          <div>
+            <h4>Yêu cầu báo giá F54</h4>
+            <p>Phản hồi trong vòng 24 giờ làm việc · giá đại lý cho đơn hàng ≥ 10 cái</p>
+          </div>
+          <a class="qs-btn gold" href="#">Nhận báo giá <span class="arr">→</span></a>
+        </div>
+
+        <div class="pd-prose">
+          <h3>Tổng quan</h3>
+          <p>Bộ điều khiển CNC 4 trục F54 là dạng bộ điều khiển được thiết kế nhỏ gọn, nhưng hiệu năng vô cùng mạnh mẽ. Có hồi tiếp encoder phase Z cùng với việc được tích hợp PLC ladder cho phép người dùng có thể theo dõi trạng thái của máy cũng như lập trình để mở rộng ứng dụng của máy.</p>
+          <div class="pull">Với bộ vi xử lý hiệu năng cao, kích thước màn hình 5 inches có độ phân giải 480 × 272 px giúp người dùng có thể dễ dàng theo dõi các thông số, thông tin hiển thị trên bộ điều khiển.</div>
+          <p>Thiết kế chống nhiễu công nghiệp với cấp bảo vệ IP54 cho phép vận hành trong môi trường nhà máy khắc nghiệt. Các port I/O sử dụng kết nối tiêu chuẩn, dễ dàng tích hợp với hệ thống servo có sẵn.</p>
+        </div>
+
+        <!-- gallery -->
+        <div class="pd-gallery">
+          <div class="item">
+            <div class="lbl">View 01 · Front</div>
+            <div class="num">FIG. 01</div>
+            <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="40" width="320" height="180" rx="6" fill="#cfc9b8" stroke="#6a6660"/>
+              <rect x="40" y="60" width="170" height="120" fill="#0a1a2a" stroke="#000"/>
+              <text x="50" y="85" font-family="JetBrains Mono,monospace" font-size="10" fill="#5ab8e0">QS COORD</text>
+              <text x="50" y="108" font-family="JetBrains Mono,monospace" font-size="13" fill="#fff">X   67.800</text>
+              <text x="50" y="126" font-family="JetBrains Mono,monospace" font-size="13" fill="#fff">Y  -49.500</text>
+              <text x="50" y="144" font-family="JetBrains Mono,monospace" font-size="13" fill="#fff">Z  121.800</text>
+              <text x="50" y="162" font-family="JetBrains Mono,monospace" font-size="13" fill="#e8c878">A  -12.800</text>
+              <g fill="#3a3530">
+                <rect x="225" y="60" width="20" height="20"/><rect x="250" y="60" width="20" height="20"/><rect x="275" y="60" width="20" height="20"/><rect x="300" y="60" width="20" height="20"/>
+                <rect x="225" y="85" width="20" height="20"/><rect x="250" y="85" width="20" height="20"/><rect x="275" y="85" width="20" height="20"/><rect x="300" y="85" width="20" height="20"/>
+                <rect x="225" y="110" width="20" height="20"/><rect x="250" y="110" width="20" height="20"/><rect x="275" y="110" width="20" height="20"/><rect x="300" y="110" width="20" height="20"/>
+                <rect x="225" y="135" width="20" height="20"/><rect x="250" y="135" width="20" height="20"/><rect x="275" y="135" width="20" height="20"/><rect x="300" y="135" width="20" height="20"/>
+                <rect x="225" y="160" width="95" height="20"/>
+              </g>
+              <g fill="#2a2520">
+                <rect x="40" y="190" width="30" height="22"/><rect x="75" y="190" width="30" height="22"/><rect x="110" y="190" width="30" height="22"/><rect x="145" y="190" width="30" height="22"/><rect x="180" y="190" width="30" height="22"/><rect x="215" y="190" width="30" height="22"/>
+                <circle cx="290" cy="200" r="8" fill="#c8553d"/>
+              </g>
+            </svg>
+          </div>
+          <div class="item">
+            <div class="lbl">View 02 · I/O Board</div>
+            <div class="num">FIG. 02</div>
+            <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="40" width="320" height="180" rx="6" fill="#3a8d4d" stroke="#1a4a25"/>
+              <rect x="20" y="40" width="320" height="180" rx="6" fill="none" stroke="rgba(255,255,255,.2)"/>
+              <!-- terminals top -->
+              <g fill="#e8c878" stroke="#8a6f35">
+                <rect x="35" y="55" width="60" height="14"/><rect x="100" y="55" width="60" height="14"/><rect x="165" y="55" width="60" height="14"/><rect x="230" y="55" width="60" height="14"/>
+              </g>
+              <!-- chips -->
+              <g fill="#1a1a1a">
+                <rect x="40" y="100" width="40" height="50"/><rect x="90" y="100" width="40" height="50"/>
+                <rect x="180" y="115" width="60" height="35"/>
+              </g>
+              <!-- ports -->
+              <g fill="#2a2520" stroke="#000">
+                <rect x="260" y="100" width="60" height="40"/>
+                <circle cx="170" cy="195" r="20" fill="#c9a35a" stroke="#8a6f35"/>
+              </g>
+              <!-- traces -->
+              <g stroke="#1a4a25" stroke-width="1" fill="none">
+                <path d="M50 75 L50 95 L60 95 L60 100"/>
+                <path d="M120 75 L120 100"/>
+                <path d="M195 75 L195 115"/>
+              </g>
+              <text x="180" y="35" font-family="JetBrains Mono,monospace" font-size="10" fill="#1a4a25" text-anchor="middle" font-weight="600">QS · I/O LINK BOARD · 07_V10723</text>
+            </svg>
+          </div>
+          <div class="item wide">
+            <div class="lbl">View 03 · Display Output</div>
+            <div class="num">FIG. 03</div>
+            <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="720" height="240" fill="#0a1a2a" stroke="#000"/>
+              <rect x="0" y="0" width="720" height="24" fill="#1a3a52"/>
+              <text x="12" y="16" font-family="JetBrains Mono,monospace" font-size="10" fill="#5ab8e0">QS COORD</text>
+              <text x="640" y="16" font-family="JetBrains Mono,monospace" font-size="10" fill="#cfc9b8">10:48:11 · 10/03/2024</text>
+              <text x="690" y="16" font-family="JetBrains Mono,monospace" font-size="10" fill="#e8c878">JOG</text>
+              <text x="20" y="50" font-family="JetBrains Mono,monospace" font-size="10" fill="#8aa">MACHINE POS</text>
+              <text x="20" y="90" font-family="JetBrains Mono,monospace" font-size="32" fill="#fff" font-weight="700">X</text>
+              <text x="350" y="90" font-family="JetBrains Mono,monospace" font-size="32" fill="#fff" font-weight="700" text-anchor="end">0.000</text>
+              <text x="20" y="130" font-family="JetBrains Mono,monospace" font-size="32" fill="#fff" font-weight="700">Y</text>
+              <text x="350" y="130" font-family="JetBrains Mono,monospace" font-size="32" fill="#fff" font-weight="700" text-anchor="end">0.000</text>
+              <text x="20" y="170" font-family="JetBrains Mono,monospace" font-size="32" fill="#fff" font-weight="700">Z</text>
+              <text x="350" y="170" font-family="JetBrains Mono,monospace" font-size="32" fill="#fff" font-weight="700" text-anchor="end">0.000</text>
+              <text x="20" y="210" font-family="JetBrains Mono,monospace" font-size="32" fill="#e8c878" font-weight="700">A</text>
+              <text x="350" y="210" font-family="JetBrains Mono,monospace" font-size="32" fill="#e8c878" font-weight="700" text-anchor="end">0.000</text>
+              <line x1="380" y1="40" x2="380" y2="220" stroke="#1a3a52"/>
+              <text x="400" y="50" font-family="JetBrains Mono,monospace" font-size="10" fill="#8aa">ABS POS</text>
+              <text x="400" y="80" font-family="JetBrains Mono,monospace" font-size="14" fill="#fff">X      0.000</text>
+              <text x="400" y="100" font-family="JetBrains Mono,monospace" font-size="14" fill="#fff">Y      0.000</text>
+              <text x="400" y="120" font-family="JetBrains Mono,monospace" font-size="14" fill="#fff">Z      0.000</text>
+              <text x="400" y="140" font-family="JetBrains Mono,monospace" font-size="14" fill="#e8c878">A      0.000</text>
+              <text x="400" y="170" font-family="JetBrains Mono,monospace" font-size="10" fill="#8aa">DIS TO GO</text>
+              <text x="400" y="195" font-family="JetBrains Mono,monospace" font-size="14" fill="#fff">X      0.000  Y      0.000</text>
+              <text x="400" y="215" font-family="JetBrains Mono,monospace" font-size="14" fill="#fff">Z      0.000  A      0.000</text>
+              <rect x="0" y="220" width="720" height="20" fill="#1a3a52"/>
+              <text x="20" y="234" font-family="JetBrains Mono,monospace" font-size="9" fill="#cfc9b8">JOG    5 100%   RPD 100%   F 100%</text>
+              <text x="650" y="234" font-family="JetBrains Mono,monospace" font-size="9" fill="#3a8d4d" font-weight="700">READY</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- FULL PACKAGE DIAGRAM -->
+        <div class="pd-package">
+          <h3>CNC Controller — Full Package</h3>
+          <div class="sub">[ Hệ thống tích hợp · F54 ]</div>
+          <div class="diagram">
+            <div class="col">
+              <div class="node">
+                <svg viewBox="0 0 80 80"><rect x="10" y="20" width="60" height="50" fill="#1a1a1a"/><rect x="14" y="24" width="52" height="32" fill="#2a2520"/><circle cx="40" cy="64" r="6" fill="#3a3530"/><circle cx="20" cy="14" r="4" fill="#cfc9b8"/><circle cx="40" cy="14" r="4" fill="#cfc9b8"/><circle cx="60" cy="14" r="4" fill="#cfc9b8"/></svg>
+                <div class="lbl">[ 01 ]</div><b>Servo Motor × 4</b>
+              </div>
+              <div class="node">
+                <svg viewBox="0 0 80 80"><rect x="20" y="14" width="40" height="60" fill="#3a3530" rx="2"/><rect x="24" y="20" width="32" height="20" fill="#1a1a1a"/><text x="40" y="34" font-family="JetBrains Mono,monospace" font-size="7" fill="#5ab8e0" text-anchor="middle">DRIVE</text><rect x="26" y="46" width="28" height="3" fill="#5a5650"/><rect x="26" y="52" width="28" height="3" fill="#5a5650"/><rect x="26" y="58" width="28" height="3" fill="#5a5650"/></svg>
+                <div class="lbl">[ 02 ]</div><b>Servo Drive × 4</b>
+              </div>
+            </div>
+            <div class="center">
+              <div class="core">
+                <div class="qs-mono" style="font-size:10px;color:var(--gold-2);letter-spacing:.16em">F54 · CONTROLLER</div>
+                <svg viewBox="0 0 80 80"><rect x="10" y="20" width="60" height="50" fill="#cfc9b8"/><rect x="14" y="24" width="30" height="20" fill="#0a1a2a"/><g fill="#3a3530"><rect x="48" y="24" width="6" height="6"/><rect x="56" y="24" width="6" height="6"/><rect x="64" y="24" width="6" height="6"/><rect x="48" y="32" width="6" height="6"/><rect x="56" y="32" width="6" height="6"/><rect x="64" y="32" width="6" height="6"/></g></svg>
+                <b>F54 Controller</b>
+                <div style="font-family:var(--font-mono);font-size:10px;color:#a8a499">4-axis · 5"</div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="node">
+                <svg viewBox="0 0 80 80"><rect x="10" y="25" width="60" height="40" fill="#3a8d4d"/><g fill="#e8c878"><rect x="15" y="30" width="10" height="6"/><rect x="28" y="30" width="10" height="6"/><rect x="41" y="30" width="10" height="6"/><rect x="54" y="30" width="10" height="6"/></g><g fill="#1a1a1a"><rect x="20" y="42" width="20" height="14"/><rect x="44" y="42" width="20" height="14"/></g></svg>
+                <div class="lbl">[ 03 ]</div><b>I/O Link Board</b>
+              </div>
+              <div class="node">
+                <svg viewBox="0 0 80 80"><rect x="10" y="25" width="60" height="40" fill="#cfc9b8" stroke="#8a8680"/><rect x="14" y="30" width="20" height="20" fill="#3a3530"/><rect x="38" y="30" width="20" height="20" fill="#3a3530"/><circle cx="62" cy="40" r="3" fill="#3a8d4d"/><text x="22" y="62" font-family="JetBrains Mono,monospace" font-size="6" fill="#3a3530">24V</text></svg>
+                <div class="lbl">[ 04 ]</div><b>24V Power Supply</b>
+              </div>
+              <div class="node">
+                <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="22" fill="#cfc9b8" stroke="#8a8680"/><circle cx="40" cy="40" r="10" fill="#1a1a1a"/><circle cx="40" cy="40" r="3" fill="#e8c878"/><rect x="36" y="62" width="8" height="14" fill="#3a3530"/></svg>
+                <div class="lbl">[ 05 ]</div><b>MPG Pendant</b>
+              </div>
+            </div>
+            <!-- center vertical line -->
+            <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);transform:translateX(-50%)"></div>
+          </div>
+        </div>
+
+        <!-- RELATED -->
+        <div class="pd-related">
+          <div class="head">
+            <div>
+              <span class="qs-mono" style="font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase">[ 05 / Same family ]</span>
+              <h3 class="qs-h2" style="font-size:24px;margin-top:6px">Các sản phẩm liên quan</h3>
+            </div>
+            <div class="nav">
+              <button>‹</button>
+              <button>›</button>
+            </div>
+          </div>
+          <div class="grid">
+            <a class="rel-card" href="#">
+              <div class="img">
+                <svg viewBox="0 0 200 160" width="100%"><rect x="20" y="20" width="160" height="120" fill="#cfc9b8" stroke="#8a8680" rx="4"/><rect x="35" y="32" width="80" height="50" fill="#0a1a2a"/><g fill="#3a3530"><rect x="120" y="32" width="14" height="14"/><rect x="138" y="32" width="14" height="14"/><rect x="156" y="32" width="14" height="14"/><rect x="120" y="50" width="14" height="14"/><rect x="138" y="50" width="14" height="14"/><rect x="156" y="50" width="14" height="14"/></g><g fill="#2a2520"><rect x="35" y="92" width="20" height="36"/><rect x="60" y="92" width="20" height="36"/><rect x="85" y="92" width="20" height="36"/><rect x="110" y="92" width="20" height="36"/><rect x="135" y="92" width="20" height="36"/></g></svg>
+              </div>
+              <div class="lbl"><b>Astro 6AH</b><span>3 trục</span></div>
+            </a>
+            <a class="rel-card" href="#">
+              <div class="img">
+                <svg viewBox="0 0 200 160" width="100%"><rect x="20" y="20" width="160" height="120" fill="#cfc9b8" stroke="#8a8680" rx="4"/><rect x="35" y="32" width="100" height="48" fill="#0a1a2a"/><g fill="#3a3530"><rect x="140" y="32" width="14" height="14"/><rect x="158" y="32" width="14" height="14"/><rect x="140" y="50" width="14" height="14"/><rect x="158" y="50" width="14" height="14"/></g><g fill="#2a2520"><rect x="35" y="90" width="40" height="40"/><rect x="80" y="90" width="40" height="40"/><circle cx="160" cy="110" r="14" fill="#c8553d"/></g></svg>
+              </div>
+              <div class="lbl"><b>Astro 6AV</b><span>6 trục</span></div>
+            </a>
+            <a class="rel-card" href="#">
+              <div class="img">
+                <svg viewBox="0 0 200 160" width="100%"><rect x="20" y="20" width="160" height="120" fill="#cfc9b8" stroke="#8a8680" rx="4"/><rect x="35" y="32" width="130" height="60" fill="#0a1a2a"/><g fill="#3a3530"><rect x="35" y="100" width="14" height="14"/><rect x="53" y="100" width="14" height="14"/><rect x="71" y="100" width="14" height="14"/><rect x="89" y="100" width="14" height="14"/><rect x="107" y="100" width="14" height="14"/><rect x="125" y="100" width="14" height="14"/></g><circle cx="155" cy="120" r="10" fill="#c8553d"/></svg>
+              </div>
+              <div class="lbl"><b>Astro 10i</b><span>10.4"</span></div>
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<script>
+QS.mount('products');
+// tab switch
+document.querySelectorAll('.pd-tabs button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.pd-tabs button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+  });
+});
+</script>
+</body>
+</html>

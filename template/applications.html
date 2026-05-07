@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Ứng dụng — QS Technology</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/qs.css">
+<style>
+.ap-hero{
+  background:linear-gradient(180deg,#fafaf7,#f0eee8);
+  border-bottom:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.ap-hero .qs-grid-bg{position:absolute;inset:0;opacity:.5}
+.ap-hero .wrap{
+  max-width:var(--maxw);margin:0 auto;
+  padding:48px var(--pad) 56px;position:relative;
+}
+.ap-hero .crumb{margin-bottom:24px}
+.ap-hero .grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:center}
+
+.ap-hero .pcb{
+  position:relative;aspect-ratio:16/9;
+  background:linear-gradient(135deg,#0a0a0a 0%, #1a1a1a 100%);
+  border:1px solid #2a2a2a;
+  overflow:hidden;
+}
+.ap-hero .pcb svg{width:100%;height:100%}
+.ap-hero .pcb::after{
+  content:"PCB · QS TECHNOLOGY · v2026";
+  position:absolute;bottom:14px;left:14px;
+  font-family:var(--font-mono);font-size:10px;color:var(--gold-2);
+  letter-spacing:.18em;text-transform:uppercase;
+}
+.ap-hero .pcb::before{
+  content:"";position:absolute;top:14px;right:14px;
+  width:60px;height:1px;background:var(--gold);
+}
+
+.ap-intro{
+  padding:64px 0;
+}
+.ap-intro .wrap p{
+  font-size:17px;line-height:1.7;color:#3a3a3a;max-width:80ch;
+}
+.ap-intro .wrap p+p{margin-top:14px}
+
+.ap-section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:32px;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:32px;
+}
+
+.ap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.ap-card{
+  background:#fff;padding:24px;
+  display:flex;flex-direction:column;gap:14px;
+  position:relative;
+  transition:background .15s;
+  min-height:300px;
+}
+.ap-card:hover{background:var(--paper)}
+.ap-card .num{font-family:var(--font-mono);font-size:11px;color:var(--gold-3);letter-spacing:.16em}
+.ap-card .img{
+  flex:1;
+  background:radial-gradient(circle, #fff, #f0eee8);
+  border:1px solid var(--line);
+  display:grid;place-items:center;padding:16px;
+}
+.ap-card .img svg{max-width:100%;max-height:120px}
+.ap-card .lbl{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.ap-card h3{font-family:var(--font-display);font-weight:600;font-size:17px;margin:0;letter-spacing:-.01em}
+.ap-card .more{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:12px;border-top:1px solid var(--line);margin-top:auto;
+}
+.ap-card .more .arr{
+  width:28px;height:28px;border:1px solid var(--ink);
+  display:grid;place-items:center;
+  transition:background .15s,color .15s;
+}
+.ap-card:hover .more .arr{background:var(--ink);color:#fff}
+
+.ap-pager{
+  display:flex;justify-content:center;gap:6px;margin-top:48px;
+}
+.ap-pager button{
+  width:40px;height:40px;border:1px solid var(--line);background:#fff;
+  font-family:var(--font-mono);font-size:13px;font-weight:600;
+}
+.ap-pager button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ap-pager button:hover{border-color:var(--ink)}
+</style>
+</head>
+<body>
+<script src="scripts/qs-shell.js"></script>
+<div id="qs-shell"></div>
+
+<!-- HERO -->
+<section class="ap-hero" data-screen-label="01 Apps Hero">
+  <div class="qs-grid-bg"></div>
+  <div class="wrap">
+    <div class="qs-crumb crumb">
+      <a href="index.html">Trang chủ</a><span class="sep">/</span>
+      <span class="here">Ứng dụng</span>
+    </div>
+    <div class="grid">
+      <div>
+        <div class="qs-eyebrow">Industrial Applications</div>
+        <h1 class="qs-h1" style="margin-top:14px">Ứng Dụng</h1>
+        <p class="qs-lede" style="margin-top:18px">Bộ điều khiển QS đang vận hành trong tám loại máy gia công khác nhau — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm. Mỗi case study là một bài toán kỹ thuật riêng.</p>
+        <div style="display:flex;gap:32px;margin-top:32px">
+          <div><div style="font-family:var(--font-display);font-weight:700;font-size:32px">8</div><div class="qs-mono" style="font-size:10px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase">Loại ứng dụng</div></div>
+          <div><div style="font-family:var(--font-display);font-weight:700;font-size:32px">800+</div><div class="qs-mono" style="font-size:10px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase">Hệ thống đã giao</div></div>
+          <div><div style="font-family:var(--font-display);font-weight:700;font-size:32px">12</div><div class="qs-mono" style="font-size:10px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase">Năm vận hành</div></div>
+        </div>
+      </div>
+      <div class="pcb">
+        <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg">
+          <!-- PCB substrate -->
+          <rect x="0" y="0" width="600" height="340" fill="#1a1a1a"/>
+          <!-- traces -->
+          <g stroke="#c9a35a" stroke-width="1" fill="none" opacity=".5">
+            <path d="M0 50 L120 50 L140 70 L300 70"/>
+            <path d="M0 100 L80 100 L100 120 L300 120"/>
+            <path d="M0 200 L100 200 L120 180 L300 180"/>
+            <path d="M0 250 L80 250 L100 270 L300 270"/>
+            <path d="M600 50 L500 50 L480 70 L320 70"/>
+            <path d="M600 150 L520 150 L500 130 L320 130"/>
+            <path d="M600 250 L500 250 L480 230 L320 230"/>
+            <path d="M150 0 L150 40 L170 60"/>
+            <path d="M250 0 L250 30 L270 50"/>
+            <path d="M450 0 L450 30 L430 50"/>
+            <path d="M150 340 L150 300 L170 280"/>
+            <path d="M450 340 L450 300 L430 280"/>
+          </g>
+          <!-- chip ICs -->
+          <g>
+            <rect x="80" y="60" width="50" height="40" fill="#0a0a0a" stroke="#3a3530"/>
+            <rect x="84" y="64" width="42" height="32" fill="none" stroke="#cfc9b8" opacity=".3"/>
+            <text x="105" y="84" font-family="JetBrains Mono,monospace" font-size="6" fill="#cfc9b8" text-anchor="middle">QS-IC1</text>
+            <g fill="#8a8680"><rect x="76" y="64" width="4" height="3"/><rect x="76" y="71" width="4" height="3"/><rect x="76" y="78" width="4" height="3"/><rect x="76" y="85" width="4" height="3"/><rect x="76" y="92" width="4" height="3"/><rect x="130" y="64" width="4" height="3"/><rect x="130" y="71" width="4" height="3"/><rect x="130" y="78" width="4" height="3"/><rect x="130" y="85" width="4" height="3"/><rect x="130" y="92" width="4" height="3"/></g>
+          </g>
+          <!-- center main chip -->
+          <g>
+            <rect x="240" y="130" width="120" height="100" fill="#0a0a0a" stroke="#5a5650" stroke-width="2"/>
+            <rect x="248" y="138" width="104" height="84" fill="none" stroke="#c9a35a" opacity=".5"/>
+            <text x="300" y="178" font-family="Inter Tight,sans-serif" font-size="14" font-weight="800" fill="#c9a35a" text-anchor="middle">QS</text>
+            <text x="300" y="194" font-family="JetBrains Mono,monospace" font-size="7" fill="#cfc9b8" text-anchor="middle">F54-CORE-V2</text>
+            <text x="300" y="208" font-family="JetBrains Mono,monospace" font-size="6" fill="#8a8680" text-anchor="middle">VIETNAM</text>
+            <!-- pins around -->
+            <g fill="#cfc9b8">
+              <rect x="232" y="138" width="6" height="3"/><rect x="232" y="146" width="6" height="3"/><rect x="232" y="154" width="6" height="3"/><rect x="232" y="162" width="6" height="3"/><rect x="232" y="170" width="6" height="3"/><rect x="232" y="178" width="6" height="3"/><rect x="232" y="186" width="6" height="3"/><rect x="232" y="194" width="6" height="3"/><rect x="232" y="202" width="6" height="3"/><rect x="232" y="210" width="6" height="3"/>
+              <rect x="362" y="138" width="6" height="3"/><rect x="362" y="146" width="6" height="3"/><rect x="362" y="154" width="6" height="3"/><rect x="362" y="162" width="6" height="3"/><rect x="362" y="170" width="6" height="3"/><rect x="362" y="178" width="6" height="3"/><rect x="362" y="186" width="6" height="3"/><rect x="362" y="194" width="6" height="3"/><rect x="362" y="202" width="6" height="3"/><rect x="362" y="210" width="6" height="3"/>
+            </g>
+          </g>
+          <!-- right chip -->
+          <g>
+            <rect x="450" y="50" width="60" height="44" fill="#0a0a0a" stroke="#3a3530"/>
+            <text x="480" y="76" font-family="JetBrains Mono,monospace" font-size="6" fill="#cfc9b8" text-anchor="middle">QS-IO</text>
+          </g>
+          <g>
+            <rect x="450" y="220" width="60" height="44" fill="#0a0a0a" stroke="#3a3530"/>
+            <text x="480" y="246" font-family="JetBrains Mono,monospace" font-size="6" fill="#cfc9b8" text-anchor="middle">QS-PWR</text>
+          </g>
+          <!-- caps -->
+          <g fill="#3a8d4d"><circle cx="180" cy="160" r="6"/><circle cx="180" cy="180" r="6"/><circle cx="180" cy="200" r="6"/></g>
+          <g fill="#c8553d"><circle cx="420" cy="100" r="5"/><circle cx="420" cy="180" r="5"/></g>
+          <!-- resistors -->
+          <g fill="#c9a35a"><rect x="160" y="240" width="14" height="4"/><rect x="180" y="240" width="14" height="4"/><rect x="200" y="240" width="14" height="4"/></g>
+          <!-- markings -->
+          <text x="20" y="20" font-family="JetBrains Mono,monospace" font-size="8" fill="#c9a35a">CN3</text>
+          <text x="540" y="20" font-family="JetBrains Mono,monospace" font-size="8" fill="#c9a35a">U21</text>
+          <text x="20" y="320" font-family="JetBrains Mono,monospace" font-size="8" fill="#c9a35a">F-OLINE_2</text>
+          <text x="540" y="320" font-family="JetBrains Mono,monospace" font-size="8" fill="#c9a35a">R246</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="ap-intro">
+  <div class="qs-wrap">
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:64px">
+      <div>
+        <div class="qs-eyebrow">Overview</div>
+        <h2 class="qs-h2" style="margin-top:14px">Một bộ điều khiển — tám loại máy</h2>
+      </div>
+      <div>
+        <p>Cùng một dòng controller QS có thể được cấu hình cho nhiều loại máy gia công khác nhau, từ phay CNC tiêu chuẩn đến các máy chuyên dụng như uốn lò xo và dán keo. Khả năng mở rộng I/O và tích hợp PLC ladder cho phép tùy biến cho từng ứng dụng cụ thể.</p>
+        <p>Mỗi case study dưới đây là một bài toán kỹ thuật thực tế đã được QS triển khai cho các xưởng cơ khí, gỗ, kim hoàn và thực phẩm tại Việt Nam — từ Hà Nội đến Cần Thơ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIAL APPS GRID -->
+<section class="qs-section tight">
+  <div class="qs-wrap">
+    <div class="ap-section-head">
+      <div>
+        <span class="qs-mono" style="font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase">[ Catalog · 01 / 02 ]</span>
+        <h2 class="qs-h2" style="margin-top:6px">Ứng Dụng Công Nghiệp</h2>
+      </div>
+      <div class="qs-mono" style="font-size:11px;color:var(--muted);letter-spacing:.1em">7 / 14 case studies</div>
+    </div>
+
+    <div class="ap-grid">
+      ${''/* generated below */}
+      <a class="ap-card" href="application-detail.html">
+        <div style="display:flex;justify-content:space-between"><div class="num">[ 01 ]</div><div class="lbl">Phay CNC</div></div>
+        <div class="img"><svg viewBox="0 0 200 160"><rect x="40" y="20" width="120" height="40" fill="#cfc9b8" stroke="#8a8680"/><rect x="50" y="60" width="100" height="80" fill="#a8a499" stroke="#5a5650"/><rect x="90" y="0" width="20" height="30" fill="#3a3530"/><rect x="60" y="100" width="80" height="20" fill="#1a1a1a"/></svg></div>
+        <div>
+          <div class="lbl">Bộ điều khiển cho</div>
+          <h3>Máy Phay CNC</h3>
+        </div>
+        <div class="more"><span class="qs-tag">Chi tiết</span><div class="arr">→</div></div>
+      </a>
+      <a class="ap-card" href="application-detail.html">
+        <div style="display:flex;justify-content:space-between"><div class="num">[ 02 ]</div><div class="lbl">Cưa Lọng</div></div>
+        <div class="img"><svg viewBox="0 0 200 160"><rect x="20" y="60" width="160" height="60" fill="#cfc9b8" stroke="#8a8680"/><circle cx="100" cy="40" r="20" fill="#3a3530"/><rect x="40" y="120" width="120" height="20" fill="#1a1a1a"/><line x1="100" y1="40" x2="100" y2="90" stroke="#8a8680" stroke-width="3"/></svg></div>
+        <div>
+          <div class="lbl">Bộ điều khiển cho</div>
+          <h3>Máy Cưa Lọng</h3>
+        </div>
+        <div class="more"><span class="qs-tag">Chi tiết</span><div class="arr">→</div></div>
+      </a>
+      <a class="ap-card" href="application-detail.html">
+        <div style="display:flex;justify-content:space-between"><div class="num">[ 03 ]</div><div class="lbl">Dán Keo</div></div>
+        <div class="img"><svg viewBox="0 0 200 160"><rect x="30" y="40" width="140" height="80" fill="#cfc9b8" stroke="#8a8680"/><circle cx="100" cy="80" r="22" fill="#e8c878"/><rect x="40" y="120" width="120" height="20" fill="#1a1a1a"/><rect x="80" y="20" width="40" height="20" fill="#3a3530"/></svg></div>
+        <div>
+          <div class="lbl">Bộ điều khiển cho</div>
+          <h3>Máy Dán Keo</h3>
+        </div>
+        <div class="more"><span class="qs-tag">Chi tiết</span><div class="arr">→</div></div>
+      </a>
+      <a class="ap-card" href="application-detail.html">
+        <div style="display:flex;justify-content:space-between"><div class="num">[ 04 ]</div><div class="lbl">Thực Phẩm</div></div>
+        <div class="img"><svg viewBox="0 0 200 160"><rect x="30" y="50" width="140" height="60" fill="#cfc9b8" stroke="#8a8680"/><rect x="50" y="20" width="100" height="30" fill="#a8a499"/><circle cx="100" cy="80" r="14" fill="#3a3530"/><rect x="40" y="110" width="120" height="20" fill="#1a1a1a"/></svg></div>
+        <div>
+          <div class="lbl">Bộ điều khiển cho</div>
+          <h3>Máy Cắt Thực Phẩm</h3>
+        </div>
+        <div class="more"><span class="qs-tag">Chi tiết</span><div class="arr">→</div></div>
+      </a>
+      <a class="ap-card" href="application-detail.html">
+        <div style="display:flex;justify-content:space-between"><div class="num">[ 05 ]</div><div class="lbl">Lò Xo</div></div>
+        <div class="img"><svg viewBox="0 0 200 160"><path d="M30 100 Q100 20 170 100" fill="none" stroke="#8a8680" stroke-width="6"/><rect x="20" y="100" width="160" height="20" fill="#1a1a1a"/><circle cx="30" cy="100" r="10" fill="#cfc9b8" stroke="#8a8680"/><circle cx="170" cy="100" r="10" fill="#cfc9b8" stroke="#8a8680"/><rect x="80" y="40" width="40" height="30" fill="#3a3530"/></svg></div>
+        <div>
+          <div class="lbl">Bộ điều khiển cho</div>
+          <h3>Máy Uốn Lò Xo</h3>
+        </div>
+        <div class="more"><span class="qs-tag">Chi tiết</span><div class="arr">→</div></div>
+      </a>
+      <a class="ap-card" href="application-detail.html">
+        <div style="display:flex;justify-content:space-between"><div class="num">[ 06 ]</div><div class="lbl">Mộng Gỗ</div></div>
+        <div class="img"><svg viewBox="0 0 200 160"><rect x="20" y="60" width="160" height="60" fill="#cfc9b8" stroke="#8a8680"/><rect x="60" y="30" width="80" height="30" fill="#3a3530"/><rect x="40" y="120" width="120" height="20" fill="#1a1a1a"/></svg></div>
+        <div>
+          <div class="lbl">Bộ điều khiển cho</div>
+          <h3>Máy Làm Mộng</h3>
+        </div>
+        <div class="more"><span class="qs-tag">Chi tiết</span><div class="arr">→</div></div>
+      </a>
+      <a class="ap-card" href="application-detail.html">
+        <div style="display:flex;justify-content:space-between"><div class="num">[ 07 ]</div><div class="lbl">Kim Hoàn</div></div>
+        <div class="img"><svg viewBox="0 0 200 160"><polygon points="100,30 140,80 100,130 60,80" fill="#e8c878" stroke="#8a6f35"/><rect x="40" y="130" width="120" height="20" fill="#1a1a1a"/><rect x="80" y="0" width="40" height="30" fill="#3a3530"/></svg></div>
+        <div>
+          <div class="lbl">Bộ điều khiển cho</div>
+          <h3>Máy Kim Hoàn</h3>
+        </div>
+        <div class="more"><span class="qs-tag">Chi tiết</span><div class="arr">→</div></div>
+      </a>
+      <div class="ap-card" style="background:var(--ink);color:#cfc9b8;align-items:center;justify-content:center;text-align:center">
+        <div class="num" style="color:var(--gold-2)">+ 07 more</div>
+        <h3 style="color:#fff;font-size:20px">Tải catalogue<br>đầy đủ</h3>
+        <p style="font-size:13px;color:#a8a499;margin:0">Hơn 14 ứng dụng đã triển khai cho khách hàng trong và ngoài nước.</p>
+        <a class="qs-btn gold sm">Tải PDF ↓</a>
+      </div>
+    </div>
+
+    <div class="ap-pager">
+      <button>‹</button>
+      <button class="on">1</button>
+      <button>2</button>
+      <button>›</button>
+    </div>
+  </div>
+</section>
+
+<script>QS.mount('apps');</script>
+</body>
+</html>

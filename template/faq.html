@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Câu hỏi thường gặp — QS Technology</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/qs.css">
+<style>
+.fq-hero{background:linear-gradient(180deg,#fafaf7,#f0eee8);border-bottom:1px solid var(--line);padding:64px 0 48px;position:relative;overflow:hidden}
+.fq-hero .qs-grid-bg{position:absolute;inset:0;opacity:.5}
+.fq-hero .row{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:end;position:relative}
+.fq-hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(56px,7vw,80px);line-height:.95;letter-spacing:-.025em;margin:14px 0 0}
+.fq-hero h1 em{font-style:normal;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fq-hero p{font-size:16px;line-height:1.7;color:#3a3a3a;max-width:50ch;margin:0}
+
+.fq-search{padding:24px 0;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:72px;z-index:30}
+.fq-search .box{display:flex;align-items:center;gap:14px;border:1px solid var(--line);background:#fff;padding:14px 18px}
+.fq-search .box svg{flex-shrink:0;opacity:.5}
+.fq-search input{flex:1;border:0;outline:0;font:inherit;font-size:16px;font-family:var(--font-display);font-weight:500}
+.fq-search input::placeholder{color:var(--muted);font-weight:400}
+.fq-search .kbd{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;border:1px solid var(--line);padding:3px 8px}
+
+.fq-doc{padding:64px 0;background:#fff}
+.fq-doc .grid{display:grid;grid-template-columns:240px 1fr;gap:64px;align-items:start}
+.fq-doc .toc{position:sticky;top:160px;border-left:1px solid var(--line);padding-left:20px}
+.fq-doc .toc .lbl{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+.fq-doc .toc ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.fq-doc .toc a{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;font-size:13px;color:#4a4842;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
+.fq-doc .toc a:hover{color:var(--ink);border-color:var(--line)}
+.fq-doc .toc a .ct{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.08em}
+
+.fq-doc article{display:flex;flex-direction:column;gap:48px}
+.fq-doc .group h2{font-family:var(--font-display);font-size:30px;font-weight:700;letter-spacing:-.015em;margin:0 0 8px;display:flex;align-items:baseline;gap:14px}
+.fq-doc .group h2 .n{font-family:var(--font-mono);font-size:12px;color:var(--gold-3);letter-spacing:.16em}
+.fq-doc .group .desc{font-size:14px;color:#4a4842;margin:0 0 20px;line-height:1.65;max-width:60ch}
+
+.fq-list{display:flex;flex-direction:column;border:1px solid var(--line)}
+.fq-q{border-bottom:1px solid var(--line);background:#fff}
+.fq-q:last-child{border-bottom:0}
+.fq-q summary{padding:22px 26px;display:flex;justify-content:space-between;gap:18px;align-items:flex-start;cursor:pointer;list-style:none;position:relative}
+.fq-q summary::-webkit-details-marker{display:none}
+.fq-q summary::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);opacity:0;transition:opacity .15s}
+.fq-q[open] summary::before,.fq-q summary:hover::before{opacity:1}
+.fq-q .qno{font-family:var(--font-mono);font-size:11px;color:var(--gold-3);letter-spacing:.14em;flex-shrink:0;padding-top:4px;width:48px}
+.fq-q .qt{flex:1;font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.005em;line-height:1.4;text-wrap:balance}
+.fq-q .toggle{flex-shrink:0;width:28px;height:28px;border:1px solid var(--line);display:grid;place-items:center;font-family:var(--font-mono);font-size:14px;color:var(--ink);transition:background .15s,transform .2s}
+.fq-q[open] .toggle{background:var(--ink);color:var(--gold-2);transform:rotate(45deg)}
+.fq-q .ans{padding:0 26px 24px 74px;color:#1a1a1a;font-size:14.5px;line-height:1.75;max-width:62ch}
+.fq-q .ans p{margin:0 0 12px}
+.fq-q .ans p:last-child{margin-bottom:0}
+.fq-q .ans ul{margin:0 0 12px;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.fq-q .ans li::marker{color:var(--gold-3)}
+.fq-q .ans code{font-family:var(--font-mono);background:var(--paper);padding:2px 6px;font-size:13px;border:1px solid var(--line)}
+.fq-q .ans .help{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:14px;font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;align-items:center}
+.fq-q .ans .help b{color:var(--ink);font-family:var(--font-display);font-weight:600;letter-spacing:0;text-transform:none;font-size:13px}
+.fq-q .ans .help button{padding:5px 10px;border:1px solid var(--line);background:#fff;font:inherit;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:border-color .15s,color .15s}
+.fq-q .ans .help button:hover{border-color:var(--ink);color:var(--ink)}
+
+.fq-bottom{padding:64px 0;background:var(--paper);border-top:1px solid var(--line)}
+.fq-bottom .box{background:var(--ink);color:#cfc9b8;padding:40px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.fq-bottom h3{margin:0;font-family:var(--font-display);font-size:24px;color:#fff;font-weight:700;letter-spacing:-.01em}
+.fq-bottom p{margin:6px 0 0;color:#a8a499;font-size:14px}
+</style>
+</head>
+<body>
+<script src="scripts/qs-shell.js"></script>
+<div id="qs-shell"></div>
+
+<section class="fq-hero">
+  <div class="qs-grid-bg"></div>
+  <div class="qs-wrap row">
+    <div>
+      <nav class="qs-crumb"><a href="home.html">Home</a><span class="sep">/</span><a href="support.html">Hỗ trợ</a><span class="sep">/</span><span class="here">FAQ</span></nav>
+      <h1>34 câu hỏi.<br>Trả lời bởi <em>kỹ sư</em>,<br>không phải bot.</h1>
+    </div>
+    <p>Đây là những câu hỏi xuất hiện nhiều nhất trong helpdesk QS — được tổng hợp và biên tập lại bởi đội kỹ thuật. Nếu không thấy câu trả lời ở đây, mở ticket trực tiếp từ trang Hỗ trợ.</p>
+  </div>
+</section>
+
+<section class="fq-search">
+  <div class="qs-wrap">
+    <div class="box">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+      <input placeholder="Tìm trong FAQ — &quot;firmware&quot;, &quot;EtherCAT&quot;, &quot;F86 alarm&quot;...">
+      <span class="kbd">⌘ K</span>
+    </div>
+  </div>
+</section>
+
+<section class="fq-doc">
+  <div class="qs-wrap">
+    <div class="grid">
+      <aside class="toc">
+        <div class="lbl">[ Nhóm câu hỏi ]</div>
+        <ul>
+          <li><a href="#g1"><span>Sản phẩm &amp; mua hàng</span><span class="ct">08</span></a></li>
+          <li><a href="#g2"><span>Lắp đặt &amp; vận hành</span><span class="ct">07</span></a></li>
+          <li><a href="#g3"><span>Firmware &amp; cập nhật</span><span class="ct">06</span></a></li>
+          <li><a href="#g4"><span>Sự cố thường gặp</span><span class="ct">07</span></a></li>
+          <li><a href="#g5"><span>Bảo hành &amp; dịch vụ</span><span class="ct">06</span></a></li>
+        </ul>
+      </aside>
+
+      <article>
+        <div class="group" id="g1">
+          <h2><span class="n">[ 01 ]</span> Sản phẩm &amp; mua hàng</h2>
+          <p class="desc">Lựa chọn model, cấu hình, báo giá và đặt hàng.</p>
+          <div class="fq-list">
+            <details class="fq-q" open>
+              <summary>
+                <span class="qno">Q.01</span>
+                <span class="qt">Tôi nên chọn F-series hay Astro-series cho máy phay 3 trục?</span>
+                <span class="toggle">+</span>
+              </summary>
+              <div class="ans">
+                <p>Chọn <b>F-series</b> nếu máy của bạn dùng motor bước (open-loop) hoặc servo cơ bản, ngân sách dưới 30 triệu/bộ. F54 phù hợp 80% nhu cầu phay router, đục gỗ, dán keo.</p>
+                <p>Chọn <b>Astro-series</b> nếu yêu cầu độ chính xác ±0.005mm, dùng servo vòng kín, EtherCAT, hoặc cần kết nối MES. Astro 6AH/10i phù hợp gia công khuôn mẫu, linh kiện ô tô, y tế.</p>
+                <div class="help"><b>Câu trả lời này hữu ích?</b> <button>Có</button> <button>Không</button> · 142 lượt xem</div>
+              </div>
+            </details>
+            <details class="fq-q">
+              <summary><span class="qno">Q.02</span><span class="qt">Thời gian giao hàng cho đơn hàng tiêu chuẩn là bao lâu?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>F-series có sẵn kho, giao trong 3–5 ngày làm việc tại miền Nam, 5–7 ngày miền Bắc. Astro-series sản xuất theo cấu hình, lead time 14–21 ngày. Đơn hàng OEM &gt;10 unit có lịch riêng.</p></div>
+            </details>
+            <details class="fq-q">
+              <summary><span class="qno">Q.03</span><span class="qt">QS có hỗ trợ thiết kế controller theo yêu cầu (custom) không?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>Có. Đội R&amp;D QS thiết kế PCB, viết firmware riêng cho dây chuyền đặc thù. Lead time 8 tuần, MOQ 5 unit. Liên hệ <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4d7c5c8c1d7e4d5d7d0c1c7cccacbc8cbc3dd8ad2ca">[email&#160;protected]</a></code> để nhận quy trình ODM/OEM.</p></div>
+            </details>
+            <details class="fq-q">
+              <summary><span class="qno">Q.04</span><span class="qt">Có thể test demo controller tại văn phòng QS trước khi mua không?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>Có. Showroom QS tại 123 KCN Tân Bình bố trí sẵn 6 model demo, đặt lịch trước 1 ngày. Khách hàng từ tỉnh khác có thể yêu cầu kit demo đặt cọc 50%, hoàn trả khi đặt hàng chính thức.</p></div>
+            </details>
+          </div>
+        </div>
+
+        <div class="group" id="g2">
+          <h2><span class="n">[ 02 ]</span> Lắp đặt &amp; vận hành</h2>
+          <p class="desc">Wiring, cấu hình ban đầu, vận hành lần đầu.</p>
+          <div class="fq-list">
+            <details class="fq-q">
+              <summary><span class="qno">Q.05</span><span class="qt">Controller có hỗ trợ servo Yaskawa, Delta, Mitsubishi không?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>Astro-series hỗ trợ EtherCAT chuẩn, tương thích với servo Yaskawa Σ-7, Delta ASD-A2, Mitsubishi MR-J4 qua Pulse/Direction. Bảng tương thích chi tiết trong manual chương 4.</p></div>
+            </details>
+            <details class="fq-q">
+              <summary><span class="qno">Q.06</span><span class="qt">Cách import G-code từ Mastercam / SolidCAM vào controller?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>QS cung cấp post-processor cho Mastercam (từ v2023), SolidCAM, Fusion 360, ArtCAM. Tải tại <code>downloads.html → Post-processor</code>. G-code chuẩn theo ISO 6983, thêm hỗ trợ macro QS riêng.</p></div>
+            </details>
+            <details class="fq-q">
+              <summary><span class="qno">Q.07</span><span class="qt">Controller cần nguồn 24V hay 220V?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>F54: 24V DC · 60W. F86 / F10T: 24V DC · 90W. Astro-series: 24V DC · 120W + nguồn riêng cho servo. Tất cả đều cần adapter từ 220V → 24V (đi kèm hoặc mua riêng).</p></div>
+            </details>
+          </div>
+        </div>
+
+        <div class="group" id="g3">
+          <h2><span class="n">[ 03 ]</span> Firmware &amp; cập nhật</h2>
+          <div class="fq-list">
+            <details class="fq-q">
+              <summary><span class="qno">Q.12</span><span class="qt">Cập nhật firmware có làm mất dữ liệu chương trình đã lưu không?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>Không. Firmware lưu ở partition riêng với data người dùng. Tuy nhiên QS khuyến cáo backup G-code và parameter trước mỗi lần update — qua menu <code>System → Backup</code> hoặc cắm USB.</p></div>
+            </details>
+            <details class="fq-q">
+              <summary><span class="qno">Q.13</span><span class="qt">Firmware v4.2 có gì mới so với v4.1?</span><span class="toggle">+</span></summary>
+              <div class="ans">
+                <p>Phiên bản 4.2 (phát hành 04/2026) bổ sung:</p>
+                <ul>
+                  <li>Post-processor Mastercam 2026 chính thức.</li>
+                  <li>Hỗ trợ G-code <code>G65/G66</code> macro tuỳ biến.</li>
+                  <li>Cải thiện look-ahead — tăng tốc 18% trên đường cong.</li>
+                  <li>Sửa bug rare race condition khi đổi tool ở tốc độ cao.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="group" id="g4">
+          <h2><span class="n">[ 04 ]</span> Sự cố thường gặp</h2>
+          <div class="fq-list">
+            <details class="fq-q">
+              <summary><span class="qno">Q.18</span><span class="qt">Alarm <code>ER-2104</code> "Servo following error" — làm sao xử lý?</span><span class="toggle">+</span></summary>
+              <div class="ans">
+                <p>ER-2104 thường do servo bị quá tải hoặc tham số gain chưa tối ưu. Kiểm tra theo thứ tự:</p>
+                <ul>
+                  <li>Kiểm tra cơ khí: trục có bị kẹt, dây đai trùng, vít me bám phoi không.</li>
+                  <li>Giảm <code>P-201 Pos Loop Gain</code> từ 80 xuống 50, chạy lại.</li>
+                  <li>Nếu vẫn lỗi — gửi log qua helpdesk, đội kỹ sư sẽ phân tích.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="fq-q">
+              <summary><span class="qno">Q.19</span><span class="qt">Màn hình bị tối/đen sau khi bật nguồn — controller có chết không?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>Trong 95% trường hợp đây là lỗi cáp LVDS lỏng do va đập trong vận chuyển. Tắt nguồn, mở mặt sau, cắm lại cáp 30-pin nối từ board chính sang panel. Nếu vẫn đen, gửi ảnh đèn LED qua Zalo helpdesk.</p></div>
+            </details>
+          </div>
+        </div>
+
+        <div class="group" id="g5">
+          <h2><span class="n">[ 05 ]</span> Bảo hành &amp; dịch vụ</h2>
+          <div class="fq-list">
+            <details class="fq-q">
+              <summary><span class="qno">Q.25</span><span class="qt">Thời gian bảo hành phần cứng là bao lâu?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>F-series: 12 tháng. Astro-series: 24 tháng phần cứng + cập nhật firmware trọn đời. Pin lưu, quạt, cáp: 6 tháng (linh kiện hao mòn). Chi tiết loại trừ trong điều khoản bảo hành.</p></div>
+            </details>
+            <details class="fq-q">
+              <summary><span class="qno">Q.26</span><span class="qt">Có gói SLA Premium 24/7 không? Phí thế nào?</span><span class="toggle">+</span></summary>
+              <div class="ans"><p>Có. Gói SLA Premium gồm: hotline 24/7 phản hồi 5 phút, FAE on-site trong 4h (HCM/HN), thay thế phần cứng trong 24h. Phí 8% giá trị hợp đồng/năm, MOQ 10 unit.</p></div>
+            </details>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="fq-bottom">
+  <div class="qs-wrap">
+    <div class="box">
+      <div>
+        <h3>Không thấy câu trả lời cần tìm?</h3>
+        <p>Mở ticket trực tiếp với đội kỹ sư QS — phản hồi trong 4 giờ làm việc.</p>
+      </div>
+      <a class="qs-btn gold" href="support.html">Mở ticket →</a>
+    </div>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>QS.mount('');</script>
+</body>
+</html>

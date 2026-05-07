@@ -138,34 +138,37 @@ QS.foot = () => `
       <h5>Sản phẩm</h5>
       <ul>
         <li><a href="products.html">Bộ điều khiển CNC</a></li>
-        <li><a href="#">Bộ điều khiển robot</a></li>
-        <li><a href="#">Thiết bị DNC</a></li>
-        <li><a href="#">Servo motor & drive</a></li>
-        <li><a href="#">Phụ kiện CNC</a></li>
+        <li><a href="products.html">Bộ điều khiển robot</a></li>
+        <li><a href="products.html">Thiết bị DNC</a></li>
+        <li><a href="products.html">Servo motor & drive</a></li>
+        <li><a href="products.html">Phụ kiện CNC</a></li>
       </ul>
     </div>
     <div>
       <h5>Công ty</h5>
       <ul>
-        <li><a href="#">Giới thiệu</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
         <li><a href="applications.html">Ứng dụng</a></li>
         <li><a href="services.html">Dịch vụ</a></li>
-        <li><a href="downloads.html">Tài liệu kỹ thuật</a></li>
-        <li><a href="#">Tin tức</a></li>
+        <li><a href="case-studies.html">Khách hàng</a></li>
+        <li><a href="careers.html">Tuyển dụng</a></li>
+        <li><a href="news.html">Tin tức</a></li>
       </ul>
     </div>
     <div>
-      <h5>Liên hệ</h5>
+      <h5>Hỗ trợ</h5>
       <ul>
-        <li>123 KCN Tân Bình<br>TP. Hồ Chí Minh</li>
+        <li><a href="support.html">Hỗ trợ kỹ thuật</a></li>
+        <li><a href="faq.html">Câu hỏi thường gặp</a></li>
+        <li><a href="downloads.html">Tài liệu kỹ thuật</a></li>
+        <li><a href="contact.html">Liên hệ</a></li>
         <li>+84 28 3636 1234</li>
-        <li>sales@qstechnology.vn</li>
       </ul>
     </div>
   </div>
   <div class="bottom">
     <div>© 2026 QS Technology Co., Ltd · All rights reserved</div>
-    <div>Privacy · Terms · Cookies</div>
+    <div><a href="privacy.html" style="color:inherit">Privacy</a> · <a href="terms.html" style="color:inherit">Terms</a> · <a href="cookies.html" style="color:inherit">Cookies</a></div>
   </div>
 </footer>`;
 

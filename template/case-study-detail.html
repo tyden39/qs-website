@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Precitech Long An — Case study | QS Technology</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/qs.css">
+<style>
+.csd-hero{background:#0e0e0c;color:#cfc9b8;padding:64px 0 96px;position:relative;overflow:hidden}
+.csd-hero .qs-grid-bg{position:absolute;inset:0;opacity:.12}
+.csd-hero .wrap{position:relative}
+.csd-hero .qs-crumb a,.csd-hero .qs-crumb{color:#7a7570}
+.csd-hero .qs-crumb .here{color:#cfc9b8}
+.csd-hero .stamp{font-family:var(--font-mono);font-size:11px;color:var(--gold-2);letter-spacing:.18em;text-transform:uppercase;display:flex;gap:10px;align-items:center;margin-top:18px}
+.csd-hero .stamp::before{content:"";width:24px;height:1px;background:var(--gold)}
+.csd-hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,5.4vw,72px);line-height:1.02;letter-spacing:-.02em;margin:14px 0 0;color:#fff;max-width:22ch}
+.csd-hero h1 em{font-style:normal;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.csd-hero .lede{margin-top:24px;font-size:17px;line-height:1.7;color:#a8a499;max-width:60ch}
+.csd-hero .meta{margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2a2620;border:1px solid #2a2620}
+.csd-hero .m{background:#0e0e0c;padding:18px 22px}
+.csd-hero .m .l{font-family:var(--font-mono);font-size:10px;color:#7a7570;letter-spacing:.16em;text-transform:uppercase}
+.csd-hero .m .v{font-family:var(--font-display);font-size:17px;font-weight:600;color:#fff;margin-top:6px}
+
+.csd-cover{background:#fff;margin-top:-64px;position:relative;z-index:5;border:1px solid var(--line);overflow:hidden;aspect-ratio:21/9}
+.csd-cover svg{width:100%;height:100%;display:block}
+
+.csd-stats{padding:48px 0;background:var(--paper);border-bottom:1px solid var(--line)}
+.csd-stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.csd-stats .c{background:#fff;padding:28px;position:relative}
+.csd-stats .c::before{content:"";position:absolute;top:0;left:0;width:32px;height:2px;background:var(--gold)}
+.csd-stats .v{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.csd-stats .l{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin-top:8px}
+.csd-stats .d{font-size:12px;color:#4a4842;margin-top:6px;line-height:1.5}
+
+.csd-body{padding:96px 0;background:#fff}
+.csd-body .grid{display:grid;grid-template-columns:240px 1fr 280px;gap:48px;align-items:start}
+.csd-body .toc{position:sticky;top:96px;border-left:1px solid var(--line);padding-left:18px}
+.csd-body .toc .lbl{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+.csd-body .toc ol{list-style:none;padding:0;margin:0;counter-reset:c;display:flex;flex-direction:column;gap:6px}
+.csd-body .toc li{counter-increment:c}
+.csd-body .toc a{display:flex;gap:10px;padding:6px 0;font-size:13px;color:#4a4842;line-height:1.5}
+.csd-body .toc a::before{content:counter(c,decimal-leading-zero);font-family:var(--font-mono);font-size:10px;color:var(--gold-3);flex-shrink:0;padding-top:1px}
+.csd-body .toc a:hover{color:var(--ink)}
+
+.csd-body article h2{font-family:var(--font-display);font-size:28px;font-weight:700;letter-spacing:-.015em;margin:48px 0 16px;padding-top:24px;border-top:1px solid var(--line)}
+.csd-body article h2:first-child{margin-top:0;padding-top:0;border-top:0}
+.csd-body article p{font-size:15.5px;line-height:1.8;color:#1a1a1a;margin:0 0 16px;max-width:62ch}
+.csd-body article ul{padding:0 0 0 18px;margin:0 0 18px;display:flex;flex-direction:column;gap:8px}
+.csd-body article li{font-size:14.5px;line-height:1.7;color:#2a2a2a;max-width:60ch}
+.csd-body article li::marker{color:var(--gold-3)}
+.csd-body article .quote{margin:32px 0;padding:32px;background:var(--paper);border-left:3px solid var(--gold);font-family:var(--font-display);font-size:22px;font-weight:500;line-height:1.45;letter-spacing:-.005em;color:var(--ink);max-width:none}
+.csd-body article .quote::before{content:"❝";font-size:48px;color:var(--gold);line-height:.5;display:block;margin-bottom:14px}
+.csd-body article .quote .who{margin-top:18px;font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.csd-body article .quote .who b{color:var(--ink);font-weight:600}
+
+.csd-body .side{position:sticky;top:96px;display:flex;flex-direction:column;gap:24px}
+.csd-body .side .card{border:1px solid var(--line);padding:24px;background:#fff}
+.csd-body .side .card .lbl{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+.csd-body .side .card .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.csd-body .side .card .row:last-child{border-bottom:0}
+.csd-body .side .card .row .k{color:var(--muted);font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.csd-body .side .card .row .v{font-family:var(--font-display);font-weight:600;color:var(--ink);font-size:13px;text-align:right}
+
+.csd-related{padding:80px 0;background:var(--paper);border-top:1px solid var(--line)}
+.csd-related .head{margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.csd-related .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.csd-related a{background:#fff;padding:24px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--ink);transition:background .15s}
+.csd-related a:hover{background:var(--paper-2)}
+.csd-related .cat{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase}
+.csd-related h4{margin:6px 0 0;font-family:var(--font-display);font-size:16px;font-weight:600;line-height:1.35}
+.csd-related .ft{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.12em;padding-top:12px;border-top:1px solid var(--line);margin-top:auto;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<script src="scripts/qs-shell.js"></script>
+<div id="qs-shell"></div>
+
+<section class="csd-hero">
+  <div class="qs-grid-bg"></div>
+  <div class="qs-wrap wrap">
+    <nav class="qs-crumb"><a href="home.html">Home</a><span class="sep">/</span><a href="case-studies.html">Khách hàng</a><span class="sep">/</span><span class="here">Precitech Long An</span></nav>
+    <div class="stamp">[ Case 01 · Cơ khí chính xác · Q1/2026 ]</div>
+    <h1>Precitech Long An — 24 dòng phay vận hành đồng bộ với <em>F86</em></h1>
+    <p class="lede">Tổng công ty cơ khí PRECITECH (Long An) thay thế hệ điều khiển cũ trên 24 máy phay 6 trục bằng controller QS F86, kết nối EtherCAT với hệ MES nội bộ. Sau 6 tháng, sản lượng tăng 38%, phế phẩm giảm về 0,4%, và thời gian setup chuyển job rút từ 22 phút xuống 6 phút.</p>
+    <div class="meta">
+      <div class="m"><div class="l">Khách hàng</div><div class="v">PRECITECH JSC</div></div>
+      <div class="m"><div class="l">Địa điểm</div><div class="v">Bến Lức · Long An</div></div>
+      <div class="m"><div class="l">Quy mô</div><div class="v">24 controller F86</div></div>
+      <div class="m"><div class="l">Hoàn thành</div><div class="v">04 · 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="qs-wrap">
+  <div class="csd-cover">
+    <svg viewBox="0 0 1280 540" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1a1815"/><stop offset="1" stop-color="#2a2520"/></linearGradient>
+      </defs>
+      <rect width="1280" height="540" fill="url(#bg)"/>
+      <g opacity=".15" stroke="#cfc9b8"><line x1="0" y1="180" x2="1280" y2="180"/><line x1="0" y1="360" x2="1280" y2="360"/><line x1="320" y1="0" x2="320" y2="540"/><line x1="640" y1="0" x2="640" y2="540"/><line x1="960" y1="0" x2="960" y2="540"/></g>
+      <g>
+        <rect x="120" y="120" width="320" height="300" fill="#cfc9b8" stroke="#5a5650" stroke-width="2"/>
+        <rect x="140" y="140" width="180" height="120" fill="#0a1a2a"/>
+        <text x="156" y="170" font-family="JetBrains Mono,monospace" font-size="11" fill="#5ab8e0">UNIT 01</text>
+        <text x="156" y="200" font-family="JetBrains Mono,monospace" font-size="20" font-weight="700" fill="#fff">RUN 14:32</text>
+        <g fill="#3a3530"><rect x="340" y="140" width="20" height="20"/><rect x="364" y="140" width="20" height="20"/><rect x="388" y="140" width="20" height="20"/><rect x="412" y="140" width="20" height="20"/><rect x="340" y="164" width="20" height="20"/><rect x="364" y="164" width="20" height="20"/><rect x="388" y="164" width="20" height="20"/><rect x="412" y="164" width="20" height="20"/></g>
+      </g>
+      <g transform="translate(480,0)">
+        <rect x="120" y="120" width="320" height="300" fill="#cfc9b8" stroke="#5a5650" stroke-width="2"/>
+        <rect x="140" y="140" width="180" height="120" fill="#0a3a3a"/>
+        <text x="156" y="170" font-family="JetBrains Mono,monospace" font-size="11" fill="#5ab8e0">UNIT 02</text>
+        <text x="156" y="200" font-family="JetBrains Mono,monospace" font-size="20" font-weight="700" fill="#fff">RUN 14:32</text>
+        <g fill="#3a3530"><rect x="340" y="140" width="20" height="20"/><rect x="364" y="140" width="20" height="20"/><rect x="388" y="140" width="20" height="20"/></g>
+      </g>
+      <g transform="translate(960,0)">
+        <rect x="120" y="120" width="200" height="300" fill="#cfc9b8" stroke="#5a5650" stroke-width="2"/>
+        <rect x="140" y="140" width="160" height="100" fill="#0a1a2a"/>
+        <text x="156" y="170" font-family="JetBrains Mono,monospace" font-size="11" fill="#5ab8e0">UNIT 03</text>
+        <text x="156" y="200" font-family="JetBrains Mono,monospace" font-size="20" font-weight="700" fill="#fff">RUN</text>
+      </g>
+      <text x="640" y="500" font-family="JetBrains Mono,monospace" font-size="11" fill="#7a7570" text-anchor="middle" letter-spacing="3">FIG. 01 · PRECITECH LINE 04 · 24 × QS F86 · ETHERCAT SYNCHRONIZED</text>
+    </svg>
+  </div>
+</div>
+
+<section class="csd-stats">
+  <div class="qs-wrap">
+    <div class="grid">
+      <div class="c"><div class="v">+38%</div><div class="l">Sản lượng</div><div class="d">So với 6 tháng trước retrofit.</div></div>
+      <div class="c"><div class="v">0.4%</div><div class="l">Phế phẩm</div><div class="d">Giảm từ 2,1% xuống còn 0,4%.</div></div>
+      <div class="c"><div class="v">6 ph</div><div class="l">Setup job</div><div class="d">Trước đây mất 22 phút.</div></div>
+      <div class="c"><div class="v">14 th</div><div class="l">Hoàn vốn</div><div class="d">ROI tính trên giảm phế và tăng OEE.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="csd-body">
+  <div class="qs-wrap">
+    <div class="grid">
+      <aside class="toc">
+        <div class="lbl">[ Mục lục ]</div>
+        <ol>
+          <li><a href="#bg">Bối cảnh</a></li>
+          <li><a href="#prob">Vấn đề</a></li>
+          <li><a href="#sol">Giải pháp QS</a></li>
+          <li><a href="#impl">Triển khai</a></li>
+          <li><a href="#res">Kết quả</a></li>
+          <li><a href="#next">Bước tiếp theo</a></li>
+        </ol>
+      </aside>
+
+      <article>
+        <h2 id="bg">Bối cảnh</h2>
+        <p>PRECITECH JSC là nhà sản xuất linh kiện ô tô top 5 phía Nam, cung cấp cho các OEM Nhật Bản và Hàn Quốc tại Việt Nam. Nhà máy Bến Lức vận hành 4 line phay 6 trục, mỗi line 6 máy Hartford VMC.</p>
+        <p>Trước retrofit, các controller cũ (Fanuc 0i-MD đời 2008) không hỗ trợ kết nối MES, không log dữ liệu OEE, và mỗi lần đổi job đều phải nạp G-code thủ công qua USB.</p>
+
+        <h2 id="prob">Vấn đề</h2>
+        <ul>
+          <li>Sản lượng line 04 luôn thấp hơn 25% so với target — không xác định được nút thắt.</li>
+          <li>Phế phẩm 2,1% chủ yếu do người vận hành chọn nhầm chương trình.</li>
+          <li>Không có dữ liệu thời gian thực để bộ phận kế hoạch điều phối.</li>
+          <li>Linh kiện thay thế cho Fanuc đời cũ ngày càng khó tìm và đắt.</li>
+        </ul>
+
+        <div class="quote">
+          QS không chỉ bán cho chúng tôi controller. Các bạn ấy ngồi cùng đội kỹ thuật của Precitech 3 tuần để hiểu workflow thực tế, rồi mới đưa ra cấu hình firmware riêng cho line 04.
+          <div class="who"><b>Anh Trần Quốc Hùng</b> · Giám đốc kỹ thuật, Precitech JSC</div>
+        </div>
+
+        <h2 id="sol">Giải pháp QS</h2>
+        <p>Đội kỹ thuật QS đề xuất gói retrofit toàn diện sử dụng <b>F86 (8″ touch, 6 trục, EtherCAT)</b> cho 24 máy phay, kèm:</p>
+        <ul>
+          <li>Module gateway <b>QS Bridge</b> kết nối controller với MES nội bộ qua MQTT.</li>
+          <li>Firmware tuỳ biến với 8 macro cho các họ chi tiết phổ biến.</li>
+          <li>Quy trình quét QR code chương trình từ phiếu công nghệ — chống chọn nhầm job.</li>
+          <li>Bảng dashboard OEE thời gian thực hiển thị tại văn phòng phân xưởng.</li>
+        </ul>
+
+        <h2 id="impl">Triển khai</h2>
+        <p>Triển khai chia thành 3 đợt, mỗi đợt 8 máy, kéo dài 14 ngày. QS bố trí 2 kỹ sư on-site toàn thời gian. Đào tạo vận hành viên kéo dài 4 buổi trước go-live, mỗi buổi 2 tiếng.</p>
+
+        <h2 id="res">Kết quả sau 6 tháng</h2>
+        <p>Sau 6 tháng vận hành ổn định, các chỉ số chính vượt cam kết hợp đồng. OEE line 04 đạt 87%, đứng đầu nhà máy. Phòng kế hoạch lần đầu tiên có dashboard cập nhật theo phút thay vì báo cáo hàng ngày.</p>
+
+        <h2 id="next">Bước tiếp theo</h2>
+        <p>Q3/2026 Precitech sẽ retrofit thêm 18 máy bên line 02 và 03, dự kiến hoàn tất phủ sóng QS toàn nhà máy Bến Lức vào cuối 2026.</p>
+      </article>
+
+      <aside class="side">
+        <div class="card">
+          <div class="lbl">[ Bộ điều khiển ]</div>
+          <div class="row"><span class="k">Model</span><span class="v">F86</span></div>
+          <div class="row"><span class="k">Số trục</span><span class="v">6 trục</span></div>
+          <div class="row"><span class="k">Display</span><span class="v">8″ Touch</span></div>
+          <div class="row"><span class="k">Bus</span><span class="v">EtherCAT</span></div>
+          <div class="row"><span class="k">Số lượng</span><span class="v">24 unit</span></div>
+        </div>
+        <div class="card">
+          <div class="lbl">[ Hỗ trợ kỹ thuật ]</div>
+          <div class="row"><span class="k">PM dự án</span><span class="v">Lê Thanh Tú</span></div>
+          <div class="row"><span class="k">FAE on-site</span><span class="v">2 kỹ sư · 14 ngày</span></div>
+          <div class="row"><span class="k">SLA bảo hành</span><span class="v">24 tháng</span></div>
+        </div>
+        <a class="qs-btn gold" href="contact.html" style="justify-content:center">Đặt khảo sát tương tự →</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="csd-related">
+  <div class="qs-wrap">
+    <div class="head" style="display:flex;justify-content:space-between;align-items:end">
+      <div>
+        <span class="qs-mono" style="font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase">[ Liên quan · 03 of 18 ]</span>
+        <h2 class="qs-h2" style="margin-top:6px">Case studies khác</h2>
+      </div>
+      <a class="qs-link" href="case-studies.html">Xem tất cả →</a>
+    </div>
+    <div class="grid">
+      <a href="case-study-detail.html"><span class="cat">[ Khuôn mẫu ]</span><h4>VinaMold Bình Dương — Astro 10i cho khuôn nhôm 5 trục</h4><div class="ft"><b>Astro 10i</b><span>03/2026</span></div></a>
+      <a href="case-study-detail.html"><span class="cat">[ Lò xo ]</span><h4>Hà Nam Spring — máy uốn lò xo 8 trục với F86</h4><div class="ft"><b>F86</b><span>02/2026</span></div></a>
+      <a href="case-study-detail.html"><span class="cat">[ Dán keo ]</span><h4>Foxconn Bắc Ninh — robot dán keo cho dây chuyền điện tử</h4><div class="ft"><b>Astro 6AH</b><span>12/2025</span></div></a>
+    </div>
+  </div>
+</section>
+
+<script>QS.mount('');</script>
+</body>
+</html>

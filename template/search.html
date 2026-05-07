@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Kết quả tìm kiếm — QS Technology</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/qs.css">
+<style>
+.sr-hero{background:linear-gradient(180deg,#fafaf7,#f0eee8);border-bottom:1px solid var(--line);padding:48px 0 32px;position:relative;overflow:hidden}
+.sr-hero .qs-grid-bg{position:absolute;inset:0;opacity:.5}
+.sr-hero .wrap{position:relative}
+.sr-hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(34px,3.6vw,44px);line-height:1.05;letter-spacing:-.015em;margin:14px 0 0}
+.sr-hero h1 em{font-style:normal;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sr-hero .meta{margin-top:14px;font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.sr-hero .meta b{color:var(--ink);font-weight:500}
+
+.sr-input{padding:24px 0;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:72px;z-index:30}
+.sr-input form{display:flex;gap:14px;align-items:center;border:1px solid var(--ink);background:#fff;padding:14px 18px}
+.sr-input form svg{flex-shrink:0;opacity:.5}
+.sr-input input{flex:1;border:0;outline:0;font:inherit;font-size:18px;font-family:var(--font-display);font-weight:500;color:var(--ink)}
+.sr-input button{padding:10px 16px;background:var(--ink);color:#fff;font:inherit;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+
+.sr-tabs{padding:0 0 0;background:#fff;border-bottom:1px solid var(--line)}
+.sr-tabs .tabs{display:flex;gap:0;flex-wrap:wrap}
+.sr-tabs .tab{padding:14px 18px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:0;border-left:0;border-right:0}
+.sr-tabs .tab b{font-family:var(--font-display);font-size:13px;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:600}
+.sr-tabs .tab .ct{font-family:var(--font-mono);font-size:11px;color:var(--gold-3);margin-left:8px}
+.sr-tabs .tab.active{border-bottom-color:var(--ink);color:var(--ink)}
+.sr-tabs .tab:hover{color:var(--ink)}
+
+.sr-body{padding:48px 0 96px;background:#fff}
+.sr-body .grid{display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start}
+
+.sr-results{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)}
+.sr-r{background:#fff;padding:24px 28px;display:grid;grid-template-columns:120px 1fr;gap:24px;text-decoration:none;color:var(--ink);transition:background .15s,padding .15s;position:relative}
+.sr-r:hover{background:var(--paper);padding-left:34px}
+.sr-r::before{content:"";position:absolute;top:0;left:0;width:0;height:100%;background:var(--gold);transition:width .15s}
+.sr-r:hover::before{width:3px}
+.sr-r .thumb{aspect-ratio:5/4;background:var(--paper-2);border:1px solid var(--line);overflow:hidden;display:grid;place-items:center}
+.sr-r .thumb svg{width:100%;height:100%}
+.sr-r .body .nm{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase;display:flex;gap:14px}
+.sr-r .body .nm .url{color:var(--muted)}
+.sr-r .body h3{margin:6px 0 6px;font-family:var(--font-display);font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.005em}
+.sr-r .body h3 mark{background:#fff5d8;color:var(--ink);padding:0 2px;border-bottom:1px solid var(--gold)}
+.sr-r .body p{margin:0;color:#3a3a3a;font-size:13.5px;line-height:1.6;max-width:65ch}
+.sr-r .body p mark{background:#fff5d8;color:var(--ink);padding:0 2px}
+.sr-r .body .ft{margin-top:10px;font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;display:flex;gap:18px}
+
+.sr-pager{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
+.sr-pager .pgs{display:flex;gap:4px}
+.sr-pager .pg{width:36px;height:36px;border:1px solid var(--line);display:grid;place-items:center;font-family:var(--font-mono);font-size:12px;color:var(--ink);cursor:pointer;background:#fff;text-decoration:none}
+.sr-pager .pg.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sr-pager .info{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.12em}
+
+.sr-side{position:sticky;top:160px;display:flex;flex-direction:column;gap:24px}
+.sr-side .card{border:1px solid var(--line);background:var(--paper);padding:22px}
+.sr-side .card .lbl{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+.sr-side .card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column}
+.sr-side .card .filter li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
+.sr-side .card .filter li:last-child{border-bottom:0}
+.sr-side .card .filter li.on{font-weight:600}
+.sr-side .card .filter li .ct{font-family:var(--font-mono);font-size:10px;color:var(--gold-3)}
+.sr-side .card .related a{display:block;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13px;color:#3a3a3a;line-height:1.5}
+.sr-side .card .related a:last-child{border-bottom:0}
+.sr-side .card .related a:hover{color:var(--ink)}
+.sr-side .card .related .h{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.1em;display:block;margin-bottom:2px}
+
+.sr-empty{padding:64px 32px;background:var(--paper);border:1px solid var(--line);text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.sr-empty h3{margin:0;font-family:var(--font-display);font-size:22px;font-weight:700}
+.sr-empty p{margin:0;color:var(--muted);font-size:14px;max-width:48ch;line-height:1.6}
+</style>
+</head>
+<body>
+<script src="scripts/qs-shell.js"></script>
+<div id="qs-shell"></div>
+
+<section class="sr-hero">
+  <div class="qs-grid-bg"></div>
+  <div class="qs-wrap wrap">
+    <nav class="qs-crumb"><a href="home.html">Home</a><span class="sep">/</span><span class="here">Tìm kiếm</span></nav>
+    <h1>Kết quả cho "<em>F86 EtherCAT</em>"</h1>
+    <div class="meta"><b>24</b> kết quả · 0,18 giây · sắp xếp theo độ liên quan</div>
+  </div>
+</section>
+
+<section class="sr-input">
+  <div class="qs-wrap">
+    <form onsubmit="event.preventDefault()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+      <input value="F86 EtherCAT" autocomplete="off">
+      <button>Tìm</button>
+    </form>
+  </div>
+</section>
+
+<section class="sr-tabs">
+  <div class="qs-wrap">
+    <div class="tabs">
+      <button class="tab active"><b>Tất cả</b><span class="ct">24</span></button>
+      <button class="tab"><b>Sản phẩm</b><span class="ct">06</span></button>
+      <button class="tab"><b>Tài liệu</b><span class="ct">08</span></button>
+      <button class="tab"><b>Tin tức</b><span class="ct">04</span></button>
+      <button class="tab"><b>Case studies</b><span class="ct">03</span></button>
+      <button class="tab"><b>FAQ</b><span class="ct">03</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="sr-body">
+  <div class="qs-wrap grid">
+    <div>
+      <div class="sr-results">
+
+        <a class="sr-r" href="product-detail.html">
+          <div class="thumb"><svg viewBox="0 0 100 80"><rect x="6" y="10" width="88" height="60" fill="#1a1a1a" stroke="#3a3a3a"/><rect x="14" y="18" width="60" height="36" fill="#0a3a3a"/><g fill="#3a3a3a"><rect x="78" y="18" width="12" height="10"/><rect x="78" y="32" width="12" height="10"/><rect x="78" y="46" width="12" height="10"/></g><rect x="14" y="58" width="60" height="6" fill="#e8c878"/></svg></div>
+          <div class="body">
+            <div class="nm"><span>[ Sản phẩm · F-series ]</span><span class="url">qstechnology.vn / products / f86</span></div>
+            <h3><mark>F86</mark> — controller 6 trục, 8" touch, <mark>EtherCAT</mark></h3>
+            <p>Bộ điều khiển CNC 6 trục với màn hình cảm ứng 8 inch, hỗ trợ <mark>EtherCAT</mark> chuẩn cho servo Yaskawa, Delta, Mitsubishi. Sản phẩm chủ lực của QS cho dây chuyền cơ khí chính xác.</p>
+            <div class="ft"><span>Sản phẩm</span><span>Cập nhật 04/2026</span><span>Score · 9.8</span></div>
+          </div>
+        </a>
+
+        <a class="sr-r" href="downloads.html">
+          <div class="thumb"><svg viewBox="0 0 100 80"><rect x="14" y="6" width="60" height="68" fill="#fff" stroke="#d8d6cf"/><rect x="14" y="6" width="20" height="20" fill="#f5f3ee"/><rect x="20" y="48" width="48" height="12" fill="#c8553d"/><text x="44" y="58" font-family="JetBrains Mono,monospace" font-size="6" font-weight="700" fill="#fff" text-anchor="middle">PDF</text></svg></div>
+          <div class="body">
+            <div class="nm"><span>[ Manual · F-series ]</span><span class="url">downloads / f86-manual-vn-v4.2.pdf</span></div>
+            <h3>Hướng dẫn lập trình <mark>F86</mark> — chương 4: cấu hình <mark>EtherCAT</mark></h3>
+            <p>Hướng dẫn chi tiết cấu hình bus <mark>EtherCAT</mark> trên controller <mark>F86</mark>: ánh xạ slave, cài tham số PDO, đồng bộ DC, đặt chu kỳ giao tiếp. Bao gồm bảng tương thích với 12 dòng servo phổ biến.</p>
+            <div class="ft"><span>PDF · 8.4 MB</span><span>Tiếng Việt · v4.2</span><span>Score · 9.5</span></div>
+          </div>
+        </a>
+
+        <a class="sr-r" href="case-study-detail.html">
+          <div class="thumb"><svg viewBox="0 0 100 80"><rect width="100" height="80" fill="#1a1815"/><rect x="20" y="20" width="60" height="40" fill="#cfc9b8"/><rect x="26" y="26" width="30" height="20" fill="#0a1a2a"/></svg></div>
+          <div class="body">
+            <div class="nm"><span>[ Case study · Q1/2026 ]</span><span class="url">case-studies / precitech-long-an</span></div>
+            <h3>Precitech Long An — 24 dòng phay đồng bộ <mark>EtherCAT</mark> với <mark>F86</mark></h3>
+            <p>Tổng công ty PRECITECH triển khai 24 controller <mark>F86</mark> trên dây chuyền gia công linh kiện ô tô, đồng bộ qua <mark>EtherCAT</mark>. Sản lượng tăng 38%, phế phẩm giảm về 0,4%.</p>
+            <div class="ft"><span>Case study</span><span>04/2026</span><span>Score · 9.2</span></div>
+          </div>
+        </a>
+
+        <a class="sr-r" href="news-detail.html">
+          <div class="thumb"><svg viewBox="0 0 100 80"><rect width="100" height="80" fill="#2a2520"/><rect x="14" y="20" width="72" height="40" fill="#cfc9b8"/><circle cx="50" cy="40" r="10" fill="#e8c878"/></svg></div>
+          <div class="body">
+            <div class="nm"><span>[ Tin tức · Kỹ thuật ]</span><span class="url">news / firmware-v4-2-mastercam</span></div>
+            <h3>Firmware v4.2 cho <mark>F86</mark> &amp; Astro — bổ sung post-processor Mastercam</h3>
+            <p>Phiên bản 4.2 cải thiện look-ahead 18% trên đường cong, hỗ trợ G-code macro tuỳ biến G65/G66, và đồng bộ <mark>EtherCAT</mark> ổn định hơn ở tốc độ cao.</p>
+            <div class="ft"><span>Tin tức</span><span>02/04/2026</span><span>Score · 8.9</span></div>
+          </div>
+        </a>
+
+        <a class="sr-r" href="faq.html">
+          <div class="thumb" style="background:var(--ink);color:var(--gold-2);font-family:var(--font-display);font-size:32px;font-weight:700">?</div>
+          <div class="body">
+            <div class="nm"><span>[ FAQ · Q.05 ]</span><span class="url">faq / installation</span></div>
+            <h3>Controller có hỗ trợ servo Yaskawa, Delta, Mitsubishi qua <mark>EtherCAT</mark> không?</h3>
+            <p>Astro-series và <mark>F86</mark> hỗ trợ <mark>EtherCAT</mark> chuẩn, tương thích với servo Yaskawa Σ-7, Delta ASD-A2, Mitsubishi MR-J4. Bảng tương thích chi tiết trong manual chương 4.</p>
+            <div class="ft"><span>FAQ</span><span>Cập nhật 03/2026</span><span>Score · 8.4</span></div>
+          </div>
+        </a>
+
+        <a class="sr-r" href="application-detail.html">
+          <div class="thumb"><svg viewBox="0 0 100 80"><rect x="20" y="14" width="60" height="22" fill="#cfc9b8" stroke="#8a8680"/><rect x="26" y="38" width="48" height="32" fill="#a8a499" stroke="#5a5650"/></svg></div>
+          <div class="body">
+            <div class="nm"><span>[ Ứng dụng · Phay CNC ]</span><span class="url">applications / cnc-milling</span></div>
+            <h3>Máy phay CNC 6 trục với <mark>F86</mark> — cấu hình tiêu chuẩn QS</h3>
+            <p>Sơ đồ wiring, cấu hình servo, danh sách phụ kiện đề xuất khi ghép <mark>F86</mark> với máy phay BT30/BT40 phổ thông trên thị trường Việt Nam.</p>
+            <div class="ft"><span>Ứng dụng</span><span>14 ảnh kỹ thuật</span><span>Score · 8.1</span></div>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="sr-pager">
+        <div class="info">Hiển thị 1–6 / 24 kết quả</div>
+        <div class="pgs">
+          <a class="pg active" href="#">1</a>
+          <a class="pg" href="#">2</a>
+          <a class="pg" href="#">3</a>
+          <a class="pg" href="#">4</a>
+          <a class="pg" href="#">→</a>
+        </div>
+      </div>
+    </div>
+
+    <aside class="sr-side">
+      <div class="card">
+        <div class="lbl">[ Lọc theo loại ]</div>
+        <ul class="filter">
+          <li class="on"><span>Tất cả</span><span class="ct">24</span></li>
+          <li><span>Sản phẩm</span><span class="ct">06</span></li>
+          <li><span>Tài liệu PDF</span><span class="ct">08</span></li>
+          <li><span>Case studies</span><span class="ct">03</span></li>
+          <li><span>Tin tức</span><span class="ct">04</span></li>
+          <li><span>FAQ</span><span class="ct">03</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="lbl">[ Tìm kiếm gần đây ]</div>
+        <ul class="related">
+          <li><a href="#"><span class="h">02 / 05 / 26</span>F86 alarm 2104</a></li>
+          <li><a href="#"><span class="h">28 / 04 / 26</span>Astro 10i price</a></li>
+          <li><a href="#"><span class="h">25 / 04 / 26</span>post-processor Mastercam</a></li>
+          <li><a href="#"><span class="h">22 / 04 / 26</span>F54 datasheet</a></li>
+        </ul>
+      </div>
+      <div class="card" style="background:var(--ink);color:#cfc9b8;border-color:var(--ink)">
+        <div class="lbl" style="color:var(--gold-2)">[ Không thấy thứ cần tìm? ]</div>
+        <p style="margin:0 0 14px;font-size:13px;line-height:1.6;color:#a8a499">Đội kỹ thuật QS có thể tìm hộ bạn — gửi yêu cầu qua helpdesk hoặc Zalo.</p>
+        <a class="qs-btn gold sm" href="support.html" style="display:inline-flex">Liên hệ kỹ thuật →</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>QS.mount('');</script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Hỗ trợ kỹ thuật — QS Technology</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/qs.css">
+<style>
+.sp-hero{background:linear-gradient(180deg,#fafaf7,#f0eee8);border-bottom:1px solid var(--line);padding:64px 0 56px;position:relative;overflow:hidden}
+.sp-hero .qs-grid-bg{position:absolute;inset:0;opacity:.5}
+.sp-hero .row{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:end;position:relative}
+.sp-hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(56px,7vw,80px);line-height:.95;letter-spacing:-.025em;margin:14px 0 0}
+.sp-hero h1 em{font-style:normal;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sp-hero p{font-size:16px;line-height:1.7;color:#3a3a3a;max-width:50ch;margin:0}
+.sp-hero .live{margin-top:22px;display:inline-flex;gap:10px;align-items:center;padding:8px 14px;background:#fff;border:1px solid var(--line);font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.sp-hero .live::before{content:"";width:8px;height:8px;background:var(--ok);border-radius:50%;box-shadow:0 0 0 4px rgba(58,125,92,.2)}
+.sp-hero .live b{color:var(--ink)}
+
+.sp-channels{padding:64px 0;background:#fff;border-bottom:1px solid var(--line)}
+.sp-channels .head{margin-bottom:32px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.sp-channels .lbl{font-family:var(--font-mono);font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase}
+.sp-channels h2{margin:6px 0 0;font-family:var(--font-display);font-size:28px;font-weight:700;letter-spacing:-.01em}
+.sp-channels .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.sp-channels .c{background:#fff;padding:28px;display:flex;flex-direction:column;gap:14px;position:relative}
+.sp-channels .c::before{content:"";position:absolute;top:0;left:28px;width:32px;height:2px;background:var(--gold)}
+.sp-channels .ic{width:42px;height:42px;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);background:var(--paper)}
+.sp-channels .ic svg{width:22px;height:22px}
+.sp-channels .num{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.16em}
+.sp-channels h3{margin:0;font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:-.005em}
+.sp-channels p{margin:0;color:#4a4842;font-size:13.5px;line-height:1.6}
+.sp-channels .v{font-family:var(--font-mono);font-size:13px;color:var(--ink);font-weight:500;background:var(--paper);padding:8px 12px;border:1px solid var(--line);margin-top:auto}
+.sp-channels .meta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding-top:12px;border-top:1px solid var(--line)}
+
+.sp-form-sec{padding:80px 0;background:var(--paper)}
+.sp-form-sec .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}
+.sp-form-sec .left h2{font-family:var(--font-display);font-size:32px;font-weight:700;letter-spacing:-.015em;margin:8px 0 16px;line-height:1.1}
+.sp-form-sec .left p{font-size:15px;line-height:1.75;color:#3a3a3a;margin:0 0 16px}
+.sp-form-sec .left .check{margin-top:24px;border:1px solid var(--line);background:#fff;padding:24px}
+.sp-form-sec .left .check h4{margin:0 0 14px;font-family:var(--font-display);font-size:14px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:8px}
+.sp-form-sec .left .check h4::before{content:"";width:18px;height:1px;background:var(--gold)}
+.sp-form-sec .left .check ol{margin:0;padding:0 0 0 24px;display:flex;flex-direction:column;gap:8px}
+.sp-form-sec .left .check li{font-size:13.5px;line-height:1.65;color:#3a3a3a}
+.sp-form-sec .left .check li::marker{color:var(--gold-3);font-family:var(--font-mono);font-weight:600}
+
+.sp-form-sec form{background:#fff;border:1px solid var(--line);padding:32px}
+.sp-form-sec .ftit{font-family:var(--font-mono);font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase}
+.sp-form-sec h3{font-family:var(--font-display);font-size:22px;font-weight:700;margin:6px 0 22px}
+.sp-form-sec .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sp-form-sec .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.sp-form-sec label{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}
+.sp-form-sec input,.sp-form-sec select,.sp-form-sec textarea{border:1px solid var(--line);background:#fff;padding:10px 14px;font:inherit;font-size:14px;outline:0;transition:border-color .15s}
+.sp-form-sec input:focus,.sp-form-sec select:focus,.sp-form-sec textarea:focus{border-color:var(--ink)}
+.sp-form-sec textarea{resize:vertical;min-height:110px;line-height:1.6}
+.sp-form-sec .pri{display:flex;gap:6px;flex-wrap:wrap}
+.sp-form-sec .pri input{display:none}
+.sp-form-sec .pri label{padding:8px 14px;border:1px solid var(--line);background:#fff;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:#3a3530;transition:background .15s}
+.sp-form-sec .pri input:checked + label{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sp-form-sec button{width:100%;padding:14px;background:var(--ink);color:#fff;font:inherit;font-family:var(--font-display);font-weight:600;font-size:15px;cursor:pointer}
+
+.sp-status{padding:80px 0;background:#0e0e0c;color:#cfc9b8}
+.sp-status .head{display:flex;justify-content:space-between;align-items:end;padding-bottom:18px;border-bottom:1px solid #2a2620;margin-bottom:24px}
+.sp-status .head .lbl{font-family:var(--font-mono);font-size:11px;color:var(--gold-2);letter-spacing:.16em;text-transform:uppercase}
+.sp-status .head h2{margin:6px 0 0;font-family:var(--font-display);font-size:24px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.sp-status .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2a2620;border:1px solid #2a2620}
+.sp-status .c{background:#0e0e0c;padding:24px}
+.sp-status .nm{font-family:var(--font-mono);font-size:11px;color:#cfc9b8;letter-spacing:.1em;display:flex;align-items:center;gap:8px}
+.sp-status .nm::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.sp-status .c.warn .nm::before{background:var(--gold-2)}
+.sp-status .v{font-family:var(--font-display);font-size:18px;font-weight:600;color:#fff;margin-top:10px}
+.sp-status .d{font-size:12px;color:#7a7570;margin-top:6px;line-height:1.5}
+.sp-status .uptime{font-family:var(--font-mono);font-size:10px;color:#7a7570;letter-spacing:.12em;margin-top:14px;padding-top:12px;border-top:1px solid #2a2620}
+.sp-status .uptime b{color:var(--gold-2)}
+
+.sp-resources{padding:80px 0;background:#fff}
+.sp-resources .head{margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:end}
+.sp-resources .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.sp-resources a{background:#fff;padding:24px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--ink);transition:background .15s,padding .15s}
+.sp-resources a:hover{background:var(--paper);padding-left:30px}
+.sp-resources .num{font-family:var(--font-mono);font-size:10px;color:var(--gold-3);letter-spacing:.16em}
+.sp-resources h4{margin:6px 0 0;font-family:var(--font-display);font-size:17px;font-weight:600}
+.sp-resources p{margin:0;color:#4a4842;font-size:13px;line-height:1.6}
+.sp-resources .ft{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.12em;padding-top:12px;border-top:1px solid var(--line);margin-top:auto;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<script src="scripts/qs-shell.js"></script>
+<div id="qs-shell"></div>
+
+<section class="sp-hero">
+  <div class="qs-grid-bg"></div>
+  <div class="qs-wrap row">
+    <div>
+      <nav class="qs-crumb"><a href="home.html">Home</a><span class="sep">/</span><span class="here">Hỗ trợ</span></nav>
+      <h1>Đội <em>kỹ sư</em><br>không trực tổng đài.<br>Trực kỹ thuật.</h1>
+      <div class="live">Đang trực · <b>4 / 4</b> kỹ sư · GMT+7</div>
+    </div>
+    <p>Hỗ trợ kỹ thuật QS hoạt động 8h–18h từ Thứ 2 đến Thứ 7. Đường dây hotline khẩn cấp 24/7 dành cho khách hàng đã đăng ký gói SLA Premium. Mọi yêu cầu đều được phản hồi bởi kỹ sư đã từng đi setup thực tế — không qua tổng đài trung gian.</p>
+  </div>
+</section>
+
+<section class="sp-channels">
+  <div class="qs-wrap">
+    <div class="head">
+      <span class="lbl">[ Kênh hỗ trợ · 04 of 04 ]</span>
+      <h2>Chọn kênh phù hợp với mức độ khẩn</h2>
+    </div>
+    <div class="grid">
+      <div class="c">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="num">[ Channel · 01 ]</div>
+        <h3>Hotline khẩn cấp</h3>
+        <p>Cho dây chuyền dừng do controller — đường dây ưu tiên cao, kết nối thẳng kỹ sư trực.</p>
+        <div class="v">+84 28 3636 1234</div>
+        <div class="meta"><span>SLA · 5 phút</span><span>24/7 (Premium)</span></div>
+      </div>
+      <div class="c">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="num">[ Channel · 02 ]</div>
+        <h3>Email kỹ thuật</h3>
+        <p>Gửi log lỗi, tệp G-code, ảnh — phù hợp cho vấn đề không khẩn cấp, có thể đính kèm dữ liệu.</p>
+        <div class="v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="45363035352a37310534363120262d2b2a292a223c6b332b">[email&#160;protected]</a></div>
+        <div class="meta"><span>SLA · 4 giờ</span><span>T2–T7 · 8h–18h</span></div>
+      </div>
+      <div class="c">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        <div class="num">[ Channel · 03 ]</div>
+        <h3>Zalo · Telegram</h3>
+        <p>Chat trực tiếp với kỹ sư trực, gửi ảnh / video / log nhanh — kênh được khách hàng OEM dùng nhiều nhất.</p>
+        <div class="v">@qstech_support</div>
+        <div class="meta"><span>SLA · 30 phút</span><span>T2–T7 · 8h–22h</span></div>
+      </div>
+      <div class="c">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 2"/></svg></div>
+        <div class="num">[ Channel · 04 ]</div>
+        <h3>On-site visit</h3>
+        <p>Kỹ sư FAE đến tận xưởng — dành cho lắp đặt mới, retrofit, hoặc lỗi phần cứng cần thay thế.</p>
+        <div class="v">Đặt qua form bên dưới</div>
+        <div class="meta"><span>Sắp xếp · 2 ngày</span><span>Toàn quốc</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sp-form-sec">
+  <div class="qs-wrap">
+    <div class="grid">
+      <div class="left">
+        <span class="qs-mono" style="font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase">[ Mở ticket ]</span>
+        <h2>Cần kỹ sư phản hồi nhanh? Mở ticket trực tiếp.</h2>
+        <p>Form này tạo ticket trực tiếp trong hệ thống Helpdesk QS. Bạn nhận email xác nhận có mã ticket trong vòng 60 giây và sẽ có kỹ sư phản hồi theo SLA tương ứng với mức ưu tiên.</p>
+        <div class="check">
+          <h4>Trước khi gửi, vui lòng chuẩn bị</h4>
+          <ol>
+            <li>Mã serial controller (in trên tem mặt sau, dạng <span class="qs-mono">QS-F86-25xxxxx</span>).</li>
+            <li>Phiên bản firmware hiện tại (Menu → System → About).</li>
+            <li>Mô tả lỗi: lúc nào xảy ra, có lặp lại không, mã alarm hiển thị (nếu có).</li>
+            <li>Ảnh chụp màn hình hoặc video ngắn — giúp kỹ sư chẩn đoán nhanh hơn.</li>
+          </ol>
+        </div>
+      </div>
+
+      <form>
+        <div class="ftit">[ Helpdesk · QS-TKT-0824 ]</div>
+        <h3>Tạo yêu cầu hỗ trợ</h3>
+
+        <div class="row2">
+          <div class="field"><label>Họ tên *</label><input placeholder="Nguyễn Văn A"></div>
+          <div class="field"><label>Công ty *</label><input placeholder="Tên công ty"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>Email *</label><input placeholder="ban@congty.vn"></div>
+          <div class="field"><label>Điện thoại</label><input placeholder="+84 ..."></div>
+        </div>
+
+        <div class="field"><label>Model controller</label>
+          <select>
+            <option>F54</option><option>F86</option><option>F10T</option>
+            <option>Astro 6AH</option><option selected>Astro 10i</option>
+            <option>Servo drive</option><option>Khác</option>
+          </select>
+        </div>
+        <div class="field"><label>Serial number</label><input placeholder="QS-F86-2502345"></div>
+        <div class="field"><label>Firmware version</label><input placeholder="v4.2.1"></div>
+
+        <div class="field"><label>Mức ưu tiên *</label>
+          <div class="pri">
+            <input type="radio" name="pri" id="p1"><label for="p1">P3 · Thường</label>
+            <input type="radio" name="pri" id="p2" checked><label for="p2">P2 · Cao</label>
+            <input type="radio" name="pri" id="p3"><label for="p3">P1 · Khẩn</label>
+          </div>
+        </div>
+
+        <div class="field"><label>Mô tả vấn đề *</label><textarea placeholder="Mô tả triệu chứng, mã alarm, thời điểm xảy ra..."></textarea></div>
+
+        <button type="submit">Tạo ticket → nhận mã trong 60s</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="sp-status">
+  <div class="qs-wrap">
+    <div class="head">
+      <div>
+        <span class="lbl">[ System status · live ]</span>
+        <h2>Trạng thái dịch vụ QS Cloud</h2>
+      </div>
+      <span class="qs-mono" style="font-size:11px;color:#7a7570;letter-spacing:.12em">Cập nhật · 30s · last 14:32:08 GMT+7</span>
+    </div>
+    <div class="grid">
+      <div class="c"><div class="nm">Helpdesk API</div><div class="v">Hoạt động</div><div class="d">Phản hồi trung bình 142ms.</div><div class="uptime">90 ngày · <b>99.98%</b></div></div>
+      <div class="c"><div class="nm">Cổng Downloads</div><div class="v">Hoạt động</div><div class="d">CDN Singapore + HCM.</div><div class="uptime">90 ngày · <b>100.00%</b></div></div>
+      <div class="c warn"><div class="nm">Firmware OTA</div><div class="v">Bảo trì theo lịch</div><div class="d">Push tạm dừng đến 18h hôm nay.</div><div class="uptime">90 ngày · <b>99.84%</b></div></div>
+      <div class="c"><div class="nm">QS Bridge MQTT</div><div class="v">Hoạt động</div><div class="d">3.420 thiết bị đang online.</div><div class="uptime">90 ngày · <b>99.97%</b></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sp-resources">
+  <div class="qs-wrap">
+    <div class="head">
+      <div>
+        <span class="qs-mono" style="font-size:11px;color:var(--gold-3);letter-spacing:.16em;text-transform:uppercase">[ Tự phục vụ ]</span>
+        <h2 class="qs-h2" style="margin-top:6px">Tài nguyên trợ giúp</h2>
+      </div>
+    </div>
+    <div class="grid">
+      <a href="faq.html"><span class="num">[ 01 · FAQ ]</span><h4>Câu hỏi thường gặp</h4><p>34 câu hỏi đã được đội kỹ thuật QS tổng hợp theo nhóm chủ đề.</p><div class="ft"><span>34 mục</span><span>→</span></div></a>
+      <a href="downloads.html"><span class="num">[ 02 · Manual ]</span><h4>Hướng dẫn sử dụng &amp; lập trình</h4><p>Manual đầy đủ tiếng Việt, có index tìm theo mã G-code.</p><div class="ft"><span>PDF · 8 file</span><span>→</span></div></a>
+      <a href="downloads.html"><span class="num">[ 03 · Firmware ]</span><h4>Firmware mới nhất</h4><p>Cập nhật v4.2 vừa phát hành — bổ sung post-processor Mastercam.</p><div class="ft"><span>v4.2 · 04/2026</span><span>→</span></div></a>
+    </div>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>QS.mount('');</script>
+</body>
+</html>

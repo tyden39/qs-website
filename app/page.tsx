@@ -30,7 +30,7 @@ export default function Home() {
               </p>
               <div className="flex gap-3 mt-8">
                 <Link className="qs-btn qs-btn-gold" href="/products">Xem 6 model controller →</Link>
-                <Link className="qs-btn qs-btn-ghost" href="/service">Đặt chế tạo riêng</Link>
+                <Link className="qs-btn qs-btn-ghost" href="/services">Đặt chế tạo riêng</Link>
               </div>
               <div className="mt-12 pt-6 border-t border-line flex gap-8 items-center font-mono text-[11px] text-muted tracking-[.14em] uppercase">
                 <div><b className="block text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case">12</b>năm kinh nghiệm</div>
@@ -293,7 +293,7 @@ export default function Home() {
               <h3 className="font-display font-bold text-3xl text-white tracking-[-.01em] m-0">Cần controller cho dòng máy đặc thù?</h3>
               <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-[15px]">Đội kỹ thuật QS thiết kế PCB, viết firmware và bàn giao trọn gói trong 8 tuần — phù hợp 100% cho dây chuyền của bạn.</p>
             </div>
-            <Link className="qs-btn qs-btn-gold" href="/service">Đặt chế tạo riêng →</Link>
+            <Link className="qs-btn qs-btn-gold" href="/services">Đặt chế tạo riêng →</Link>
           </div>
         </div>
       </section>

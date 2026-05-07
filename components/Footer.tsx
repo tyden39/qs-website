@@ -39,7 +39,7 @@ export default function Footer() {
         <FootCol title="Công ty" links={[
           ["/about","Giới thiệu"],
           ["/applications","Ứng dụng"],
-          ["/service","Dịch vụ"],
+          ["/services","Dịch vụ"],
           ["/downloads","Tài liệu kỹ thuật"],
           ["/news","Tin tức"],
         ]}/>

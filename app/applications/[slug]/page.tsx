@@ -39,9 +39,10 @@ const relatedApps = [
   { slug:"uon-lo-xo",n:"05", t:"Máy Uốn Lò Xo" },
 ];
 
-export default function ApplicationDetail({ params }: { params: { slug: string } }) {
-  const machine = machineMap[params.slug] ?? params.slug.replace(/-/g, " ");
-  const idx = Object.keys(machineMap).indexOf(params.slug) + 1 || 1;
+export default async function ApplicationDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const machine = machineMap[slug] ?? slug.replace(/-/g, " ");
+  const idx = Object.keys(machineMap).indexOf(slug) + 1 || 1;
 
   return (
     <>

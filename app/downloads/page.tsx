@@ -5,16 +5,16 @@ export const metadata = { title: "Tải về — QS Technology" };
 const categories = [
   { lbl:"24 docs", type:"PDF", t:"Catalogue tổng",
     d:"Bộ catalogue đầy đủ 6 dòng controller F-series và Astro-series — bản tiếng Việt và tiếng Anh.",
-    cta:"Xem 24 tài liệu" },
+    cta:"Xem 24 tài liệu", href:"/downloads/datasheets" },
   { lbl:"38 docs", type:"PDF", t:"Datasheet kỹ thuật",
     d:"Thông số chi tiết từng model: I/O, điện áp, kích thước, sơ đồ chân kết nối servo và biến tần.",
-    cta:"Xem 38 tài liệu" },
+    cta:"Xem 38 tài liệu", href:"/downloads/datasheets" },
   { lbl:"16 docs", type:"PDF", t:"Hướng dẫn vận hành",
     d:"Sách hướng dẫn cho thợ vận hành: thao tác HMI, cài đặt thông số, xử lý alarm thường gặp.",
-    cta:"Xem 16 tài liệu" },
+    cta:"Xem 16 tài liệu", href:"/downloads/datasheets" },
   { lbl:"22 files", type:"FW · CAD", t:"Firmware & CAD",
     d:"Bản firmware mới nhất cho từng model, bản vẽ DXF/STEP để tích hợp vào tủ điện máy.",
-    cta:"Xem 22 tệp" },
+    cta:"Xem 22 tệp", href:"/downloads/datasheets" },
 ];
 
 const featured = [
@@ -103,7 +103,7 @@ export default function Downloads() {
           </div>
           <div className="grid md:grid-cols-4 gap-px bg-line border border-line">
             {categories.map(c => (
-              <Link key={c.t} href="#" className="bg-white p-6 flex flex-col gap-3.5 hover:bg-paper transition-colors relative
+              <Link key={c.t} href={c.href} className="bg-white p-6 flex flex-col gap-3.5 hover:bg-paper transition-colors relative
                                                   before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold">
                 <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ {c.lbl} ]</div>
                 <div className="self-start font-mono text-[10px] bg-ink text-white py-1 px-2 tracking-[.16em] uppercase font-semibold">{c.type}</div>

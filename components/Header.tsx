@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const left  = [["/products","Sản phẩm"],["/applications","Ứng dụng"],["/service","Dịch vụ"],["/downloads","Tải về"]] as const;
+const left  = [["/products","Sản phẩm"],["/applications","Ứng dụng"],["/services","Dịch vụ"],["/downloads","Tải về"]] as const;
 const right = [["/about","Giới thiệu"],["/news","Tin tức"],["/contact","Liên hệ"]] as const;
 
 function openSearch(){

@@ -39,11 +39,12 @@ const articleBody = {
   tags:["astro-12x","flagship","ethercat","12-axis","machine-vision","vme-2026","san-pham-moi"],
 };
 
-export default function NewsDetail({ params }: { params: { slug: string } }) {
-  const n = news.find(x => x.slug === params.slug);
+export default async function NewsDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const n = news.find(x => x.slug === slug);
   if (!n) notFound();
-  const others = news.filter(x => x.slug !== params.slug).slice(0, 3);
-  const isFlagship = params.slug === "astro-12x";
+  const others = news.filter(x => x.slug !== slug).slice(0, 3);
+  const isFlagship = slug === "astro-12x";
 
   return (
     <article>

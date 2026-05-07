@@ -6,11 +6,12 @@ export function generateStaticParams() {
   return products.map(p => ({ slug: p.slug }));
 }
 
-export default function ProductDetail({ params }: { params: { slug: string } }) {
-  const p = products.find(x => x.slug === params.slug);
+export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = products.find(x => x.slug === slug);
   if (!p) notFound();
-  const idx = products.findIndex(x => x.slug === params.slug);
-  const related = products.filter(x => x.slug !== params.slug).slice(0, 3);
+  const idx = products.findIndex(x => x.slug === slug);
+  const related = products.filter(x => x.slug !== slug).slice(0, 3);
 
   const features = [
     { n:"01", t:"Hiệu năng vượt trội",     d:"Vi xử lý hiệu năng cao, độ phân giải 480×272 px" },

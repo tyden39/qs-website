@@ -1,8 +1,45 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllNews } from "@/lib/data/news";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
-export const metadata = { title: "Tin tức — QS Technology" };
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+
+const titles: Record<string, string> = {
+  vi: "Tin tức & Sự kiện",
+  en: "News & Events",
+};
+const descs: Record<string, string> = {
+  vi: "Cập nhật mới nhất về sản phẩm, sự kiện và kỹ thuật từ QS Technology.",
+  en: "Latest updates on products, events, and technology from QS Technology.",
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const title = titles[locale] ?? titles.vi;
+  const description = descs[locale] ?? descs.vi;
+  return {
+    title,
+    description,
+    alternates: buildAlternates("/news"),
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: "/news",
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 const tabs = [
   ["Tất cả",     "148"],
@@ -18,9 +55,14 @@ export default async function News({ params }: { params: Promise<{ locale: Local
   const news = await getAllNews(locale);
   const feat = news[0];
   const rest = news.slice(1);
+  const breadcrumb = buildBreadcrumbList([
+    { name: locale === "en" ? "Home" : "Trang chủ", url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
+    { name: titles[locale] ?? titles.vi, url: `${APP_URL}${locale === "en" ? "/en" : ""}/news` },
+  ]);
 
   return (
     <>
+      <JsonLd data={breadcrumb} />
       {/* HEAD */}
       <section className="relative overflow-hidden border-b border-line py-16 pb-14"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>

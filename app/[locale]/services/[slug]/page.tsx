@@ -1,24 +1,67 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { services } from "@/data/services";
+import { getServiceBySlug, getServiceSlugs } from "@/lib/data/services";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildService, buildFAQPage, JsonLd } from "@/lib/seo/jsonld";
+import type { Locale } from "@/lib/i18n/config";
 
-export function generateStaticParams() {
-  return services.map(s => ({ slug: s.slug }));
+export async function generateStaticParams() {
+  // Combine static slugs from data file with DB slugs
+  const dbSlugs = await getServiceSlugs();
+  const staticSlugs = services.map((s) => s.slug);
+  const allSlugs = Array.from(new Set([...staticSlugs, ...dbSlugs]));
+  return allSlugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const s = services.find(x => x.slug === slug);
-  return { title: s ? `${s.name} — Dịch vụ | QS Technology` : "Dịch vụ — QS Technology" };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  // Try DB first, fall back to static data name
+  const dbService = await getServiceBySlug(slug, locale);
+  const staticService = services.find((x) => x.slug === slug);
+  const title = dbService?.title ?? staticService?.name ?? slug;
+  const description =
+    dbService?.hero.subhead?.slice(0, 160) ??
+    staticService?.lede?.slice(0, 160) ??
+    "";
+  return {
+    title,
+    description,
+    alternates: buildAlternates(`/services/${slug}`),
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: `/services/${slug}`,
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
 }
 
-export default async function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function ServiceDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
+  const { locale, slug } = await params;
   const s = services.find(x => x.slug === slug);
   if (!s) notFound();
 
+  // Fetch DB service for structured data (may be null if not yet in DB)
+  const dbService = await getServiceBySlug(slug, locale);
+  const serviceJsonLd = dbService ? buildService(dbService, locale) : null;
+  const faqJsonLd =
+    dbService && dbService.faqs.length > 0
+      ? buildFAQPage(dbService.faqs)
+      : null;
+
   return (
     <>
+      {serviceJsonLd && <JsonLd data={serviceJsonLd} />}
+      {faqJsonLd && <JsonLd data={faqJsonLd} />}
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7, #f0eee8)", padding: "48px 0 64px" }}>

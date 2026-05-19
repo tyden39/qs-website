@@ -1,8 +1,42 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllProducts, getProductBySlug, getProductSlugs } from "@/lib/data/products";
 import { routing } from "@/lib/i18n/routing";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildProduct, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const p = await getProductBySlug(slug, locale);
+  if (!p) return {};
+  return {
+    title: p.name,
+    description: p.desc?.slice(0, 160),
+    alternates: buildAlternates(`/products/${slug}`),
+    openGraph: {
+      title: p.name,
+      description: p.desc,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: `/products/${slug}`,
+      images: [
+        {
+          url: p.images?.[0]?.url ?? "/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: p.images?.[0]?.alt ?? p.name,
+        },
+      ],
+    },
+    twitter: { card: "summary_large_image", title: p.name, description: p.desc },
+  };
+}
 
 export async function generateStaticParams() {
   const slugs = await getProductSlugs();
@@ -15,6 +49,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   if (!p) notFound();
   const all = await getAllProducts(locale);
   const related = all.filter((x) => x.slug !== slug).slice(0, 3);
+  const productJsonLd = buildProduct(p, locale);
 
   const features = [
     { n:"01", t:"Hiệu năng vượt trội",     d:"Vi xử lý hiệu năng cao, độ phân giải 480×272 px" },
@@ -32,6 +67,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
   return (
     <>
+      <JsonLd data={productJsonLd} />
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>

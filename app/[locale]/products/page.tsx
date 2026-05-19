@@ -1,14 +1,56 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProducts } from "@/lib/data/products";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
-export const metadata = { title: "Bộ điều khiển CNC — QS Technology" };
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+
+const titles: Record<string, string> = {
+  vi: "Bộ điều khiển CNC",
+  en: "CNC Controllers",
+};
+const descs: Record<string, string> = {
+  vi: "Sáu dòng controller cho mọi cấu hình máy — từ phay 3 trục cơ bản đến hệ thống 6 trục công nghiệp với màn hình cảm ứng và EtherCAT.",
+  en: "Six controller lines for every machine configuration — from basic 3-axis milling to 6-axis industrial systems with touch screen and EtherCAT.",
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const title = titles[locale] ?? titles.vi;
+  const description = descs[locale] ?? descs.vi;
+  return {
+    title,
+    description,
+    alternates: buildAlternates("/products"),
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: "/products",
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 export default async function Products({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   const products = await getAllProducts(locale);
+  const breadcrumb = buildBreadcrumbList([
+    { name: locale === "en" ? "Home" : "Trang chủ", url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
+    { name: titles[locale] ?? titles.vi, url: `${APP_URL}${locale === "en" ? "/en" : ""}/products` },
+  ]);
   return (
     <>
+      <JsonLd data={breadcrumb} />
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>

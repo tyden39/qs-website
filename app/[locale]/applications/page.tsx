@@ -1,4 +1,44 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
+import type { Locale } from "@/lib/i18n/config";
+
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+
+const titles: Record<string, string> = {
+  vi: "Ứng dụng công nghiệp",
+  en: "Industrial Applications",
+};
+const descs: Record<string, string> = {
+  vi: "Bộ điều khiển QS đang vận hành trong nhiều loại máy gia công — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm.",
+  en: "QS controllers operate across many machine types — from metal milling to spring bending, gluing, and food processing.",
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const title = titles[locale] ?? titles.vi;
+  const description = descs[locale] ?? descs.vi;
+  return {
+    title,
+    description,
+    alternates: buildAlternates("/applications"),
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: "/applications",
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 const apps = [
   { slug:"phay-cnc",         n:"01", t:"Phay CNC",      machine:"Máy Phay CNC" },
@@ -10,11 +50,15 @@ const apps = [
   { slug:"kim-hoan",         n:"07", t:"Kim Hoàn",      machine:"Máy Kim Hoàn" },
 ];
 
-export const metadata = { title: "Ứng dụng — QS Technology" };
-
-export default function Applications() {
+export default async function Applications({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const breadcrumb = buildBreadcrumbList([
+    { name: locale === "en" ? "Home" : "Trang chủ", url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
+    { name: titles[locale] ?? titles.vi, url: `${APP_URL}${locale === "en" ? "/en" : ""}/applications` },
+  ]);
   return (
     <>
+      <JsonLd data={breadcrumb} />
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>

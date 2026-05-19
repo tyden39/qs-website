@@ -1,7 +1,42 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProducts } from "@/lib/data/products";
 import { getAllNews } from "@/lib/data/news";
+import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
+
+const titles: Record<string, string> = {
+  vi: "Bộ điều khiển CNC Made in Vietnam",
+  en: "CNC Controllers Made in Vietnam",
+};
+const descs: Record<string, string> = {
+  vi: "Sáu dòng controller cho phay, uốn, dán keo, kim hoàn — phần cứng QS, firmware QS, hỗ trợ kỹ thuật trong nước. Đã triển khai trên 800+ dây chuyền tại Việt Nam.",
+  en: "Six controller lines for milling, bending, gluing, and jewellery — QS hardware, QS firmware, domestic technical support. Deployed on 800+ production lines.",
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const title = titles[locale] ?? titles.vi;
+  const description = descs[locale] ?? descs.vi;
+  return {
+    title,
+    description,
+    alternates: buildAlternates("/"),
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: "/",
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;

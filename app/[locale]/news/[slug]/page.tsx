@@ -1,9 +1,44 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import DOMPurify from "isomorphic-dompurify";
 import { getAllNews, getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
 import { routing } from "@/lib/i18n/routing";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildArticle, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const n = await getNewsBySlug(slug, locale);
+  if (!n) return {};
+  return {
+    title: n.title,
+    description: n.excerpt?.slice(0, 160),
+    alternates: buildAlternates(`/news/${slug}`),
+    openGraph: {
+      title: n.title,
+      description: n.excerpt,
+      type: "article",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: `/news/${slug}`,
+      images: [
+        {
+          url: n.coverImage ?? "/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: n.title,
+        },
+      ],
+      publishedTime: n.publishedAt?.toISOString(),
+    },
+    twitter: { card: "summary_large_image", title: n.title, description: n.excerpt },
+  };
+}
 
 const ALLOWED_TAGS = [
   "p", "br", "strong", "em", "u", "s",
@@ -68,9 +103,11 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
   const allNews = await getAllNews(locale);
   const others = allNews.filter(x => x.slug !== slug).slice(0, 3);
   const isFlagship = slug === "astro-12x";
+  const articleJsonLd = buildArticle(n, locale);
 
   return (
     <article>
+      <JsonLd data={articleJsonLd} />
       {/* CRUMB */}
       <div className="bg-white border-b border-line py-3.5">
         <div className="max-w-wrap mx-auto px-12 flex items-center gap-2.5 font-mono text-[11px] text-muted tracking-[.12em] uppercase">

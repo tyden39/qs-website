@@ -1,6 +1,44 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
+import type { Locale } from "@/lib/i18n/config";
 
-export const metadata = { title: "Dịch vụ chế tạo — QS Technology" };
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+
+const titles: Record<string, string> = {
+  vi: "Dịch vụ chế tạo controller",
+  en: "Controller Manufacturing Services",
+};
+const descs: Record<string, string> = {
+  vi: "Thiết kế PCB, viết firmware và bàn giao controller theo yêu cầu — phù hợp 100% cho dây chuyền của bạn.",
+  en: "PCB design, firmware development, and turnkey controller delivery — 100% tailored to your production line.",
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const title = titles[locale] ?? titles.vi;
+  const description = descs[locale] ?? descs.vi;
+  return {
+    title,
+    description,
+    alternates: buildAlternates("/services"),
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: "/services",
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 const capabilities = [
   { n:"01", area:"Hardware",   t:"Thiết kế PCB & cơ khí vỏ",
@@ -22,9 +60,15 @@ const steps = [
   { w:"W7–8", n:"05", t:"Lắp đặt & bàn giao", d:"On-site tại xưởng, tuning, FAT/SAT, đào tạo vận hành. Bảo hành 24 tháng." },
 ];
 
-export default function Service() {
+export default async function Service({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const breadcrumb = buildBreadcrumbList([
+    { name: locale === "en" ? "Home" : "Trang chủ", url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
+    { name: titles[locale] ?? titles.vi, url: `${APP_URL}${locale === "en" ? "/en" : ""}/services` },
+  ]);
   return (
     <>
+      <JsonLd data={breadcrumb} />
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>

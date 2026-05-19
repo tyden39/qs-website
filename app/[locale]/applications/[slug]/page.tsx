@@ -1,4 +1,41 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { getApplicationBySlug } from "@/lib/data/applications";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildTechArticle, JsonLd } from "@/lib/seo/jsonld";
+import type { Locale } from "@/lib/i18n/config";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const a = await getApplicationBySlug(slug, locale);
+  const title = a?.title ?? slug.replace(/-/g, " ");
+  const description = a?.summary?.slice(0, 160) ?? "";
+  return {
+    title,
+    description,
+    alternates: buildAlternates(`/applications/${slug}`),
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: `/applications/${slug}`,
+      images: [
+        {
+          url: a?.heroImage ?? "/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
+}
 
 const machineMap: Record<string, string> = {
   "phay-cnc":   "Máy Phay CNC",
@@ -39,13 +76,16 @@ const relatedApps = [
   { slug:"uon-lo-xo",n:"05", t:"Máy Uốn Lò Xo" },
 ];
 
-export default async function ApplicationDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function ApplicationDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
+  const { locale, slug } = await params;
   const machine = machineMap[slug] ?? slug.replace(/-/g, " ");
   const idx = Object.keys(machineMap).indexOf(slug) + 1 || 1;
+  const appData = await getApplicationBySlug(slug, locale);
+  const techArticleJsonLd = appData ? buildTechArticle(appData, locale) : null;
 
   return (
     <>
+      {techArticleJsonLd && <JsonLd data={techArticleJsonLd} />}
       {/* DARK HERO */}
       <section className="relative overflow-hidden bg-ink text-[#cfc9b8] border-b border-[#2a2620]">
         <div className="absolute inset-0 qs-grid-bg opacity-[.15]"></div>

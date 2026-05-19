@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "i18n:check": "tsx scripts/check-i18n-keys.ts",
+    "i18n:bootstrap": "tsx scripts/translate-data.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -47,7 +49,9 @@
     "drizzle-kit": "^0.31.10",
     "postcss": "8.5.14",
     "react-email": "^6.1.5",
+    "schema-dts": "^2.0.0",
     "tailwindcss": "^4.3.0",
+    "tsx": "^4.20.0",
     "typescript": "6.0.3"
   }
 }

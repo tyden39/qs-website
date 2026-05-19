@@ -1,0 +1,60 @@
+{
+  "title": "Applications",
+  "new": "Add application",
+  "edit": "Edit application",
+  "list": {
+    "slug": "Slug",
+    "titleVi": "Title (VI)",
+    "status": "Status",
+    "updatedAt": "Updated",
+    "actions": "Actions",
+    "empty": "No applications found."
+  },
+  "form": {
+    "slug": "Slug",
+    "slugHint": "Lowercase letters, numbers, and hyphens only",
+    "titleVi": "Title (VI)",
+    "titleEn": "Title (EN)",
+    "summaryVi": "Summary (VI)",
+    "summaryEn": "Summary (EN)",
+    "heroImage": "Hero image",
+    "status": "Status",
+    "sort": "Sort order",
+    "workflow": "Application workflow",
+    "workflowAdd": "Add step",
+    "workflowStep": "Step #",
+    "stepN": "Step number",
+    "stepLabelVi": "Label (VI)",
+    "stepLabelEn": "Label (EN)",
+    "stepTitleVi": "Title (VI)",
+    "stepTitleEn": "Title (EN)",
+    "stepDescVi": "Description (VI)",
+    "stepDescEn": "Description (EN)",
+    "specs": "Technical specifications",
+    "specsAdd": "Add specification",
+    "specLabelVi": "Spec name (VI)",
+    "specLabelEn": "Spec name (EN)",
+    "specValueVi": "Value (VI)",
+    "specValueEn": "Value (EN)",
+    "deployments": "Real-world deployments",
+    "deploymentsAdd": "Add deployment",
+    "deploymentName": "Customer name",
+    "deploymentLocVi": "Location (VI)",
+    "deploymentLocEn": "Location (EN)",
+    "save": "Save",
+    "saving": "Saving…",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this application?",
+    "cancel": "Cancel",
+    "remove": "Remove item"
+  },
+  "status": {
+    "draft": "Draft",
+    "published": "Published"
+  },
+  "toast": {
+    "created": "Application created.",
+    "updated": "Application updated.",
+    "deleted": "Application deleted."
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "title": "User management",
+  "invite": "Invite user",
+  "inviteButton": "+ Invite user",
+  "results": "{count} users",
+  "filterRole": "Role",
+  "filterStatus": "Status",
+  "filterAll": "All",
+  "filterActive": "Active",
+  "filterBanned": "Deactivated",
+  "columns": {
+    "nameEmail": "Name / Email",
+    "role": "Role",
+    "status": "Status",
+    "createdAt": "Created",
+    "actions": "Actions"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "editor": "Editor",
+    "customer": "Customer"
+  },
+  "status": {
+    "active": "Active",
+    "banned": "Deactivated"
+  },
+  "actions": {
+    "deactivate": "Deactivate",
+    "deactivated": "Deactivated",
+    "deactivateConfirm": "Deactivate this account?",
+    "deactivating": "..."
+  },
+  "empty": "No users found.",
+  "selfGuard": "Cannot modify your own account",
+  "invitePage": {
+    "title": "Invite a new user",
+    "subtitle": "Send an email invitation. The recipient has 24 hours to activate their account.",
+    "breadcrumb": "List",
+    "fields": {
+      "email": "Email",
+      "name": "Display name",
+      "role": "Role",
+      "rolePlaceholderEditor": "Editor",
+      "rolePlaceholderAdmin": "Administrator"
+    },
+    "submit": "Send invitation →",
+    "submitting": "Sending...",
+    "successMessage": "Invitation sent to {email}.",
+    "errorFallback": "Something went wrong. Try again.",
+    "errorMissing": "Please fill in all required fields."
+  }
+}

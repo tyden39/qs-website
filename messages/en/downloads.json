@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Downloads — QS Technology",
+    "datasheetsTitle": "Technical Datasheets — Downloads — QS Technology"
+  },
+  "datasheets": {
+    "eyebrow": "Document Library · Datasheets",
+    "heading": "Technical Datasheets",
+    "description": "Detailed specifications, pin diagrams, and installation standards for each QS controller model.",
+    "stats": {
+      "docs": "Documents",
+      "version": "Version",
+      "lang": "Language"
+    },
+    "sidebar": {
+      "filter": "Category",
+      "category": "Category",
+      "series": "Product series"
+    },
+    "toolbar": {
+      "showing": "Showing {count} documents"
+    },
+    "table": {
+      "name": "Document name",
+      "series": "Series",
+      "lang": "Language",
+      "version": "Version",
+      "size": "File size",
+      "download": "Download"
+    },
+    "lang": {
+      "vi": "Vietnamese",
+      "en": "English",
+      "both": "VN / EN"
+    },
+    "empty": "No datasheets have been published yet."
+  },
+  "request": {
+    "emailLabel": "Enter email to download",
+    "emailPlaceholder": "email@company.com",
+    "submit": "Download ↓",
+    "submitting": "…",
+    "success": "Thank you! Your file is downloading.",
+    "successFallback": "Click here if download does not start",
+    "error": "Something went wrong. Please try again.",
+    "invalidEmail": "Invalid email address"
+  },
+  "inquiry": {
+    "eyebrow": "[ Service consultation request ]",
+    "submit": "Submit request →",
+    "submitting": "Submitting…",
+    "success": "Thank you! The QS team will contact you within 4 business hours.",
+    "sendAnother": "Send another request",
+    "error": "Something went wrong. Please try again."
+  }
+}

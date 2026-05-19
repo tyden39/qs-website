@@ -1,0 +1,21 @@
+{
+  "breadcrumb": {
+    "home": "Home",
+    "news": "News"
+  },
+  "meta": {
+    "author": "QS Newsroom",
+    "share": "Share",
+    "dateLabel": "Published",
+    "readTime": "Read time",
+    "category": "Category"
+  },
+  "related": {
+    "label": "Related articles",
+    "heading": "Read more",
+    "viewAll": "All news →"
+  },
+  "detail": {
+    "toc": "In this article"
+  }
+}

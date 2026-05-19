@@ -1,7 +1,7 @@
 ---
 phase: 8
 title: "i18n EN + Locale Switcher"
-status: pending
+status: completed
 priority: P2
 effort: "5d"
 dependencies: [2]

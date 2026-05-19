@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "title": "Services",
+    "description": "Technical services and support from QS"
+  },
+  "page": {
+    "heading": "Services",
+    "subheading": "Comprehensive technical solutions from QS",
+    "viewDetail": "View details",
+    "noResults": "No services found."
+  },
+  "detail": {
+    "process": "Process",
+    "included": "Included services",
+    "faqs": "Frequently asked questions",
+    "tiers": "Pricing plans",
+    "back": "Back to list",
+    "ctaContact": "Contact us now"
+  }
+}

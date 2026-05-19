@@ -1,0 +1,19 @@
+{
+  "siteName": "QS Technology",
+  "siteDescription": "Design and manufacture of CNC controllers, servo drives, and expansion boards in Vietnam. Direct support across 35 provinces, 24-month warranty.",
+  "defaultOgAlt": "QS Technology — CNC Controllers Made in Vietnam",
+  "productOgSuffix": "— CNC Controllers | QS Technology",
+  "newsOgSuffix": "— News | QS Technology",
+  "applicationOgSuffix": "— CNC Applications | QS Technology",
+  "serviceOgSuffix": "— Services | QS Technology",
+  "homeTitle": "CNC Controllers Made in Vietnam",
+  "homeDescription": "Six controller lines for milling, bending, dispensing, and jewelry — QS hardware, QS firmware, domestic technical support. Deployed on 800+ production lines across Vietnam.",
+  "productsTitle": "CNC Controllers",
+  "productsDescription": "Six controller lines for every machine configuration — from basic 3-axis milling to 6-axis industrial systems with touchscreen and EtherCAT.",
+  "newsTitle": "News & Events",
+  "newsDescription": "Latest product releases, events, and technical updates from QS Technology.",
+  "applicationsTitle": "Industrial Applications",
+  "applicationsDescription": "QS controllers are running in a wide range of machine types — from metal milling to spring bending, adhesive dispensing, and food processing.",
+  "servicesTitle": "Custom Controller Development",
+  "servicesDescription": "PCB design, firmware development, and controller delivery to specification — a 100% fit for your production line."
+}

@@ -1,0 +1,28 @@
+{
+  "list": {
+    "title": "Products",
+    "subtitle": "Explore QS Technology's CNC controller product lines",
+    "empty": "No products found.",
+    "viewDetails": "View details"
+  },
+  "detail": {
+    "specs": "Technical specifications",
+    "features": "Key features",
+    "images": "Images",
+    "contact": "Contact for consultation",
+    "download": "Download documentation"
+  },
+  "series": {
+    "F": "F Series",
+    "Astro": "Astro Series"
+  },
+  "status": {
+    "draft": "Draft",
+    "published": "Published",
+    "archived": "Archived"
+  },
+  "errors": {
+    "slugTaken": "This slug is already in use.",
+    "notFound": "Product not found."
+  }
+}

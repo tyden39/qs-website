@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "title": "Applications",
+    "description": "Industrial applications of QS equipment"
+  },
+  "page": {
+    "heading": "Applications",
+    "subheading": "QS equipment suited for a wide range of industries",
+    "viewDetail": "View details",
+    "noResults": "No applications found."
+  },
+  "detail": {
+    "workflow": "Application workflow",
+    "specs": "Technical specifications",
+    "deployments": "Real-world deployments",
+    "back": "Back to list"
+  }
+}

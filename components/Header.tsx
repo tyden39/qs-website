@@ -1,10 +1,8 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-
-const left  = [["/products","Sản phẩm"],["/applications","Ứng dụng"],["/services","Dịch vụ"],["/downloads","Tải về"]] as const;
-const right = [["/about","Giới thiệu"],["/news","Tin tức"],["/contact","Liên hệ"]] as const;
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/lib/i18n/navigation";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 
 function openSearch(){
   document.getElementById("qs-search-panel")?.classList.add("open");
@@ -13,8 +11,23 @@ function openSearch(){
 }
 
 export default function Header() {
+  const t = useTranslations("nav");
+  // i18n-aware usePathname returns the locale-stripped path so active-state
+  // matching works regardless of /en prefix.
   const path = usePathname();
   const is = (href: string) => path === href || (href !== "/" && path.startsWith(href));
+
+  const left = [
+    ["/products", t("products")],
+    ["/applications", t("applications")],
+    ["/services", t("services")],
+    ["/downloads", t("downloads")],
+  ] as const;
+  const right = [
+    ["/about", t("about")],
+    ["/news", t("news")],
+    ["/contact", t("contact")],
+  ] as const;
 
   return (
     <>
@@ -50,10 +63,10 @@ export default function Header() {
               ))}
             </div>
             <div className="flex items-center gap-1.5 pl-2 border-l border-line ml-1">
-              <button onClick={openSearch} aria-label="Tìm kiếm" className="qs-icon-btn">
+              <button onClick={openSearch} aria-label={t("search")} className="qs-icon-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
               </button>
-              <button aria-label="Ngôn ngữ" className="qs-icon-btn"><span className="flag"></span></button>
+              <LocaleSwitcher />
             </div>
           </div>
         </div>

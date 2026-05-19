@@ -1,0 +1,83 @@
+{
+  "list": {
+    "title": "Products",
+    "newButton": "Add product",
+    "searchPlaceholder": "Search by name, slug...",
+    "filterAll": "All",
+    "filterDraft": "Draft",
+    "filterPublished": "Published",
+    "filterArchived": "Archived",
+    "empty": "No products found.",
+    "emptyFiltered": "No products match your search.",
+    "cols": {
+      "thumbnail": "Image",
+      "name": "Product name",
+      "slug": "Slug",
+      "series": "Series",
+      "status": "Status",
+      "updatedAt": "Updated",
+      "actions": ""
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "form": {
+    "createTitle": "Add new product",
+    "editTitle": "Edit product",
+    "tabs": {
+      "vi": "Vietnamese",
+      "en": "English"
+    },
+    "fields": {
+      "slug": "Slug (URL)",
+      "slugHint": "Auto-generated from VI name. Lowercase letters, numbers, and hyphens only.",
+      "series": "Product series",
+      "axes": "Number of axes",
+      "display": "Display",
+      "badge": "Badge",
+      "badgePlaceholder": "e.g. New, Hot...",
+      "tag": "Classification tag",
+      "name": "Product name",
+      "desc": "Description",
+      "descPlaceholder": "Brief product description...",
+      "bullets": "Key features",
+      "bulletPlaceholder": "Add key feature...",
+      "specs": "Technical specifications",
+      "specLabel": "Spec name",
+      "specValue": "Value",
+      "images": "Images",
+      "status": "Status",
+      "sort": "Sort order",
+      "enOptional": "(optional, falls back to VI if empty)"
+    },
+    "status": {
+      "draft": "Draft",
+      "published": "Published",
+      "archived": "Archived"
+    },
+    "actions": {
+      "addBullet": "Add key feature",
+      "addSpec": "Add specification",
+      "removeBullet": "Remove",
+      "removeSpec": "Remove",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    }
+  },
+  "delete": {
+    "confirmTitle": "Confirm product deletion",
+    "confirmDesc": "Product \"{name}\" will be moved to archived status. This action can be undone by an admin.",
+    "confirm": "Confirm delete",
+    "cancel": "Cancel",
+    "deleting": "Deleting..."
+  },
+  "errors": {
+    "slugTaken": "This slug is already in use. Please choose a different slug.",
+    "notFound": "Product not found.",
+    "saveFailed": "Failed to save product. Please try again.",
+    "deleteFailed": "Failed to delete product. Please try again."
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "list": {
+    "title": "News",
+    "add": "Add article",
+    "filter": {
+      "all": "All",
+      "draft": "Draft",
+      "published": "Published"
+    },
+    "cols": {
+      "slug": "Slug",
+      "title": "Title (VI)",
+      "category": "Category",
+      "status": "Status",
+      "publishedAt": "Published date",
+      "updatedAt": "Updated"
+    },
+    "empty": "No articles found."
+  },
+  "form": {
+    "createTitle": "Add new article",
+    "editTitle": "Edit article",
+    "slug": "Slug",
+    "category": "Category",
+    "titleVi": "Title (VI)",
+    "titleEn": "Title (EN)",
+    "excerptVi": "Excerpt (VI)",
+    "excerptEn": "Excerpt (EN)",
+    "bodyVi": "Body (VI)",
+    "bodyEn": "Body (EN)",
+    "coverImage": "Cover image",
+    "tags": "Tags",
+    "status": "Status",
+    "publishedAt": "Published date",
+    "statusDraft": "Draft",
+    "statusPublished": "Published",
+    "save": "Save changes",
+    "create": "Create article",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "uploading": "Uploading…",
+    "recoverDraft": "Unsaved draft found. Restore?",
+    "tabVi": "Vietnamese",
+    "tabEn": "English"
+  },
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Delete article \"{slug}\"?"
+  }
+}

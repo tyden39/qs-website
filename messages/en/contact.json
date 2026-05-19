@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Contact — QS Technology"
+  },
+  "hero": {
+    "eyebrow": "Contact · Direct support 24h across 35 provinces",
+    "heading": "Speak directly with the engineers who write the firmware.",
+    "body": "Need controller consultation for a specific production line, custom manufacturing, bulk pricing, or urgent technical support — the QS team responds within 4 business hours and is on-site within 24 hours nationwide."
+  },
+  "form": {
+    "eyebrow": "[ 02 · Contact form ]",
+    "heading": "Request a quote & consultation",
+    "name": "Full name *",
+    "namePlaceholder": "John Smith",
+    "company": "Company",
+    "companyPlaceholder": "ABC Manufacturing Co., Ltd.",
+    "email": "Email *",
+    "emailPlaceholder": "name@company.com",
+    "phone": "Phone *",
+    "phonePlaceholder": "+84 28 3636 1234",
+    "message": "Request details",
+    "messagePlaceholder": "Describe your requirements, machine type, number of axes, products of interest…",
+    "submit": "Submit request →",
+    "submitting": "Submitting…",
+    "sendAnother": "Send another request"
+  },
+  "success": {
+    "eyebrow": "[ Submitted successfully ]",
+    "heading": "Thank you for contacting us!",
+    "body": "The QS team will respond within 4 business hours (8:00–17:30, Mon–Fri)."
+  },
+  "error": {
+    "generic": "Something went wrong. Please try again.",
+    "rateLimit": "Too many requests. Please wait and try again.",
+    "validation": {
+      "name": "Please enter your full name",
+      "email": "Invalid email address",
+      "phone": "Please enter your phone number"
+    }
+  },
+  "newsletter": {
+    "heading": "Subscribe to technical updates",
+    "description": "Receive the latest product releases, firmware updates, and documentation from QS.",
+    "placeholder": "email@company.com",
+    "submit": "Subscribe →",
+    "submitting": "…",
+    "success": "Subscribed successfully! You will receive technical updates from QS.",
+    "error": "Something went wrong. Please try again."
+  }
+}

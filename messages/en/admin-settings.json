@@ -1,0 +1,12 @@
+{
+  "title": "System settings",
+  "subtitle": "Detailed configuration will be available in a future release.",
+  "sections": {
+    "environment": "Environment information",
+    "comingSoon": "Brand color, default OG image and site identity settings will be available in Phase 11+"
+  },
+  "fields": {
+    "appUrl": "App URL",
+    "resendFrom": "Send-from email (RESEND_FROM)"
+  }
+}

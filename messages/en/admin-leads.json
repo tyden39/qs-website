@@ -1,0 +1,46 @@
+{
+  "title": "Contact inbox",
+  "filterAll": "All",
+  "filterStatus": "Filter by status",
+  "filterSource": "Filter by source",
+  "results": "{count} results",
+  "empty": "No leads match the current filter.",
+  "columns": {
+    "id": "#",
+    "nameEmail": "Name / Email",
+    "company": "Company",
+    "source": "Source",
+    "status": "Status",
+    "createdAt": "Date",
+    "actions": "Details"
+  },
+  "status": {
+    "new": "New",
+    "contacted": "Contacted",
+    "qualified": "Qualified",
+    "closed": "Closed"
+  },
+  "source": {
+    "contact": "Contact",
+    "newsletter": "Newsletter",
+    "datasheet": "Datasheet",
+    "inquiry": "Service inquiry"
+  },
+  "detail": {
+    "breadcrumb": "Leads",
+    "source": "Source",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "locale": "Language",
+    "createdAt": "Date",
+    "ip": "IP",
+    "message": "Message",
+    "payload": "Payload",
+    "history": "Activity history",
+    "historyEmpty": "No activity recorded.",
+    "manageStatus": "Manage status",
+    "updateStatus": "Update status",
+    "updating": "Saving…"
+  }
+}

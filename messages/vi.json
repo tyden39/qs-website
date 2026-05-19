@@ -1,0 +1,21 @@
+{
+  "common": {
+    "siteName": "QS Technology",
+    "tagline": "Bộ điều khiển CNC Made in Vietnam",
+    "loading": "Đang tải...",
+    "search": "Tìm kiếm",
+    "viewAll": "Xem tất cả",
+    "readMore": "Đọc thêm",
+    "contactUs": "Liên hệ"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "products": "Sản phẩm",
+    "applications": "Ứng dụng",
+    "services": "Dịch vụ",
+    "news": "Tin tức",
+    "downloads": "Tải xuống",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ"
+  }
+}

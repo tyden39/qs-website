@@ -3,3 +3,10 @@ node_modules
 *.tsbuildinfo
 next-env.d.ts
 *:Zone.Identifier
+
+# secrets
+.env
+.env.local
+.env.*.local
+.vercel
+.env*.local

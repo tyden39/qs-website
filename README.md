@@ -1,94 +1,108 @@
-# QS Technology — Next.js 14
+# QS Technology — Corporate Website
 
-Convert hoàn chỉnh từ HTML site sang **Next.js 14 App Router + TypeScript + Tailwind**.
+Vietnamese marketing site for **QS Technology Co., Ltd.**, a Vietnam-based manufacturer of CNC controllers, servo drives and automation boards. Built on **Next.js 16 App Router** with content rendered server-side from static TypeScript data modules.
 
 ## Stack
 
-- Next.js 14.2 (App Router) · React 18 · TypeScript 5
-- Tailwind CSS 3.4 với design tokens custom (paper / ink / gold / rust / line / muted)
-- Google Fonts: Inter Tight (display) · Inter (sans) · JetBrains Mono
-- Static-friendly — có thể `next build && next export`
+- **Next.js** 16.2 · **React** 19.2 · **TypeScript** 6
+- **Tailwind CSS** 4.2 (CSS-first config via `@theme` in `app/globals.css`)
+- **Fonts**: Inter Tight (display) · Inter (body) · JetBrains Mono (technical labels)
+- **Package manager**: yarn
+- **Static-friendly** — pages are RSC by default; no database, no API routes
 
-## Cấu trúc
+## Quick start
+
+```bash
+yarn install
+yarn dev          # http://localhost:3000
+yarn build && yarn start
+yarn lint
+```
+
+## Repository layout
 
 ```
-nextjs/
-├─ app/
-│  ├─ layout.tsx              # Header + Footer + SearchPanel + fonts
-│  ├─ globals.css             # Tailwind + utilities (qs-wrap, qs-btn, qs-eyebrow…)
-│  ├─ page.tsx                # Trang chủ
-│  ├─ products/page.tsx       # Catalog
-│  ├─ products/[slug]/        # Detail (static params)
-│  ├─ applications/…
-│  ├─ service/page.tsx
-│  ├─ downloads/page.tsx
-│  ├─ about/page.tsx
-│  ├─ news/                   # List + detail
-│  └─ contact/page.tsx
+qs-website/
+├─ app/                         # Next.js App Router
+│  ├─ layout.tsx                # Root layout — Header + SearchPanel + Footer
+│  ├─ globals.css               # Tailwind v4 + design tokens + qs-* utilities
+│  ├─ page.tsx                  # Home
+│  ├─ not-found.tsx             # 404
+│  ├─ products/                 # /products + [slug]
+│  ├─ services/                 # /services + [slug]
+│  ├─ applications/             # /applications + [slug]
+│  ├─ news/                     # /news + [slug]
+│  ├─ downloads/                # /downloads + datasheets
+│  ├─ about/                    # /about
+│  ├─ contact/                  # /contact
+│  └─ search/                   # /search?q=
 ├─ components/
-│  ├─ Header.tsx              # Sticky nav, active route, search trigger
-│  ├─ Footer.tsx              # 4 cột + bottom bar
-│  └─ SearchPanel.tsx         # Fullwidth dropdown search
+│  ├─ Header.tsx                # Sticky nav · client (active route + search trigger)
+│  ├─ Footer.tsx                # 4-col footer + social links
+│  └─ SearchPanel.tsx           # Fullwidth dropdown search (client)
 ├─ data/
-│  ├─ products.ts             # 6 model controller
-│  └─ news.ts                 # 6 bài tin
-├─ public/
-│  └─ logo-st.png             # Logo gốc (ST monogram)
-├─ tailwind.config.ts         # Design tokens
-├─ tsconfig.json
+│  ├─ products.ts               # 6 controller models (F-series + Astro)
+│  ├─ services.ts               # Custom-engineering / retrofit packages
+│  └─ news.ts                   # Press releases
+├─ public/                      # Static assets (logo)
+├─ template/                    # Original HTML reference (not bundled)
+├─ docs/                        # Project documentation (see ./docs)
 ├─ next.config.mjs
+├─ tsconfig.json
 └─ package.json
 ```
 
-## Chạy
+## Content model
 
-```bash
-cd nextjs
-yarn install
-yarn dev             # http://localhost:3000
-```
+All content is statically typed and lives in `data/*.ts`. There is no CMS, no database. Editing copy means editing TypeScript:
 
-Build & export tĩnh:
+| File                | Type             | Items |
+|---------------------|------------------|-------|
+| `data/products.ts`  | `Product[]`      | 6 controllers (F54, F86, F10T, Astro 6AH/6AV/10i) |
+| `data/services.ts`  | `Service[]`      | Retrofit packages with process / FAQs / pricing |
+| `data/news.ts`      | `News[]`         | Press releases & announcements |
 
-```bash
-yarn build
-yarn next start      # hoặc deploy lên Vercel
-```
+Dynamic routes (`[slug]/page.tsx`) call `generateStaticParams()` so every detail page is pre-rendered at build time.
 
-## Design tokens (Tailwind)
+## Design tokens
 
-| Token             | Value                                    | Dùng cho                       |
-|-------------------|------------------------------------------|--------------------------------|
-| `paper`           | `#fafaf7`                                | Nền chính                      |
-| `paper-2`         | `#f3efe6`                                | Nền card / placeholder         |
-| `ink`             | `#0e0e0c`                                | Text + button đen              |
-| `ink-2`           | `#1a1815`                                | Footer / hero tối              |
-| `gold-grad`       | `linear-gradient(135deg, …)`             | Heading accent + button vàng   |
-| `line`            | `#dedacc`                                | Border / divider               |
-| `muted`           | `#8a8680`                                | Text phụ + mono labels         |
+Tokens are declared in `app/globals.css` under `@theme` and consumed via Tailwind utilities. Full reference: [docs/design-guidelines.md](./docs/design-guidelines.md).
 
-## Component utilities (globals.css)
+| Token (CSS var)     | Hex                              | Usage                          |
+|---------------------|----------------------------------|--------------------------------|
+| `--color-paper`     | `#f5f3ee`                        | Default page background        |
+| `--color-paper-2`   | `#ecebe5`                        | Card / placeholder background  |
+| `--color-ink`       | `#0a0a0a`                        | Primary text · dark sections   |
+| `--color-line`      | `#d8d6cf`                        | Borders / dividers             |
+| `--color-muted`     | `#6b6960`                        | Secondary text · mono labels   |
+| `--color-gold`      | `#c9a35a`                        | Accent border / icon stroke    |
+| `--color-gold-grad` | gradient `#f0d28a → #8a6f35`     | Heading emphasis · gold buttons|
+| `--color-rust`      | `#c8553d`                        | Status indicator dots          |
 
-- `.qs-wrap` — container max 1280px
-- `.qs-eyebrow` — uppercase mono label với gạch vàng đầu
-- `.qs-h1` / `.qs-h2` — heading display (Inter Tight bold)
-- `.qs-btn` / `.qs-btn-gold` / `.qs-btn-ghost` / `.qs-btn-sm`
-- `.qs-grid-bg` — nền lưới kỹ thuật
+## Component primitives (`@layer components`)
 
-## Cần làm thêm (nếu muốn)
+- `.qs-wrap` — 1280px container with horizontal padding
+- `.qs-eyebrow` — uppercase mono label with leading gold rule
+- `.qs-h1` / `.qs-h2` / `.qs-h3` / `.qs-lede` — display typography
+- `.qs-btn` / `.qs-btn-gold` / `.qs-btn-ghost` / `.qs-btn-sm` — button variants
+- `.qs-card` — bordered white card with hover lift
+- `.qs-section-head` — section heading row with bottom rule
+- `.qs-grid-bg` — technical-drawing grid background
+- `.qs-tag` / `.qs-crumb` / `.qs-link` — supporting marks
 
-- [ ] SEO metadata chi tiết cho từng page (`generateMetadata`)
-- [ ] Sitemap.xml + robots.txt (`app/sitemap.ts`)
-- [ ] Form contact gắn API (Resend / email backend)
-- [ ] Images thật cho product/news (hiện dùng placeholder paper-2)
-- [ ] i18n vi/en bằng `next-intl`
-- [ ] MDX cho news content
-- [ ] Tweaks panel (nếu cần như HTML version)
+Header / footer / search use scoped `.qs-*` classes declared outside the component layer (also in `app/globals.css`).
 
-## Khác biệt so với HTML version
+## Documentation
 
-- **Routing**: Next.js App Router thay vì file `.html`
-- **Styling**: Tailwind utility classes thay cho `qs.css` global
-- **Components**: React Server Components mặc định; chỉ Header + SearchPanel là client (`"use client"`)
-- **Data**: Tách ra `/data/*.ts` — thay vì hardcode trong markup
-- **Logo**: Dùng `next/image` với priority cho logo header
+| Doc                              | Purpose                                    |
+|----------------------------------|--------------------------------------------|
+| [project-overview-pdr.md](./docs/project-overview-pdr.md) | Product scope · audience · requirements |
+| [codebase-summary.md](./docs/codebase-summary.md) | File-by-file overview                |
+| [system-architecture.md](./docs/system-architecture.md) | Rendering · routing · data flow        |
+| [code-standards.md](./docs/code-standards.md) | Conventions for naming, structure, styling |
+| [design-guidelines.md](./docs/design-guidelines.md) | Tokens · typography · layout patterns  |
+| [project-roadmap.md](./docs/project-roadmap.md) | Phases · milestones · open work         |
+
+## License & attribution
+
+Internal corporate website for QS Technology Co., Ltd. Logo and copy are property of QS Technology.

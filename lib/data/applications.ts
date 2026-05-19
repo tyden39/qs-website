@@ -90,3 +90,36 @@ export async function getApplicationCount(): Promise<number> {
   const [{ value }] = await db.select({ value: count() }).from(application);
   return Number(value ?? 0);
 }
+
+// ── Admin helpers (no caching — always fresh) ──────────────────────────────
+
+export type ApplicationRow = typeof application.$inferSelect;
+
+export async function adminListApplications(): Promise<ApplicationRow[]> {
+  return db
+    .select()
+    .from(application)
+    .orderBy(asc(application.sort), asc(application.slug));
+}
+
+export async function adminGetApplicationById(slug: string): Promise<ApplicationRow | null> {
+  const [row] = await db
+    .select()
+    .from(application)
+    .where(eq(application.slug, slug))
+    .limit(1);
+  return row ?? null;
+}
+
+export async function applicationSlugExists(
+  slug: string,
+  excludeSlug?: string,
+): Promise<boolean> {
+  const [row] = await db
+    .select({ slug: application.slug })
+    .from(application)
+    .where(eq(application.slug, slug))
+    .limit(1);
+  if (!row) return false;
+  return row.slug !== excludeSlug;
+}

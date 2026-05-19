@@ -1,0 +1,83 @@
+{
+  "list": {
+    "title": "Sản phẩm",
+    "newButton": "Thêm sản phẩm",
+    "searchPlaceholder": "Tìm theo tên, slug...",
+    "filterAll": "Tất cả",
+    "filterDraft": "Bản nháp",
+    "filterPublished": "Đã xuất bản",
+    "filterArchived": "Đã lưu trữ",
+    "empty": "Chưa có sản phẩm nào.",
+    "emptyFiltered": "Không tìm thấy sản phẩm phù hợp.",
+    "cols": {
+      "thumbnail": "Ảnh",
+      "name": "Tên sản phẩm",
+      "slug": "Slug",
+      "series": "Dòng",
+      "status": "Trạng thái",
+      "updatedAt": "Cập nhật",
+      "actions": ""
+    },
+    "actions": {
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
+    }
+  },
+  "form": {
+    "createTitle": "Thêm sản phẩm mới",
+    "editTitle": "Chỉnh sửa sản phẩm",
+    "tabs": {
+      "vi": "Tiếng Việt",
+      "en": "English"
+    },
+    "fields": {
+      "slug": "Slug (URL)",
+      "slugHint": "Tự động tạo từ tên VI. Chỉ chứa chữ thường, số, gạch ngang.",
+      "series": "Dòng sản phẩm",
+      "axes": "Số trục",
+      "display": "Màn hình",
+      "badge": "Nhãn (badge)",
+      "badgePlaceholder": "VD: Mới, Hot...",
+      "tag": "Tag phân loại",
+      "name": "Tên sản phẩm",
+      "desc": "Mô tả",
+      "descPlaceholder": "Mô tả ngắn về sản phẩm...",
+      "bullets": "Điểm nổi bật",
+      "bulletPlaceholder": "Thêm điểm nổi bật...",
+      "specs": "Thông số kỹ thuật",
+      "specLabel": "Tên thông số",
+      "specValue": "Giá trị",
+      "images": "Hình ảnh",
+      "status": "Trạng thái",
+      "sort": "Thứ tự sắp xếp",
+      "enOptional": "(không bắt buộc, dùng VI nếu để trống)"
+    },
+    "status": {
+      "draft": "Bản nháp",
+      "published": "Xuất bản",
+      "archived": "Lưu trữ"
+    },
+    "actions": {
+      "addBullet": "Thêm điểm nổi bật",
+      "addSpec": "Thêm thông số",
+      "removeBullet": "Xóa",
+      "removeSpec": "Xóa",
+      "save": "Lưu",
+      "saving": "Đang lưu...",
+      "cancel": "Hủy"
+    }
+  },
+  "delete": {
+    "confirmTitle": "Xác nhận xóa sản phẩm",
+    "confirmDesc": "Sản phẩm \"{name}\" sẽ được chuyển vào trạng thái lưu trữ. Hành động này có thể khôi phục bởi admin.",
+    "confirm": "Xác nhận xóa",
+    "cancel": "Hủy",
+    "deleting": "Đang xóa..."
+  },
+  "errors": {
+    "slugTaken": "Slug này đã được sử dụng. Vui lòng chọn slug khác.",
+    "notFound": "Không tìm thấy sản phẩm.",
+    "saveFailed": "Lưu sản phẩm thất bại. Vui lòng thử lại.",
+    "deleteFailed": "Xóa sản phẩm thất bại. Vui lòng thử lại."
+  }
+}

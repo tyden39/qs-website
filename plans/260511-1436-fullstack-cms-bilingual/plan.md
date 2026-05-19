@@ -93,12 +93,12 @@ Convert QS Technology static brochure Next.js site (currently hardcoded `data/*.
 
 | Phase | Name | Status | Dependencies | Execution |
 |-------|------|--------|--------------|-----------|
-| 1 | [Foundation](./phase-01-foundation.md) | Pending | — | Sequential |
-| 2 | [Schema + Data Layer + Admin Shell](./phase-02-schema-data-shell.md) | Pending | 1 | Sequential |
-| 3 | [Products CRUD](./phase-03-products-crud.md) | Pending | 2 | **Parallel stream A** |
-| 4 | [News CRUD (Tiptap)](./phase-04-news-tiptap.md) | Pending | 2 | **Parallel stream B** |
-| 5 | [Applications + Services CRUD](./phase-05-applications-services-crud.md) | Pending | 2 | **Parallel stream C** |
-| 6 | [Datasheets + Leads + Public Forms](./phase-06-datasheets-leads-forms.md) | Pending | 2 | **Parallel stream D** |
+| 1 | [Foundation](./phase-01-foundation.md) | Completed | — | Sequential |
+| 2 | [Schema + Data Layer + Admin Shell](./phase-02-schema-data-shell.md) | Completed | 1 | Sequential |
+| 3 | [Products CRUD](./phase-03-products-crud.md) | Completed | 2 | **Parallel stream A** |
+| 4 | [News CRUD (Tiptap)](./phase-04-news-tiptap.md) | Completed | 2 | **Parallel stream B** |
+| 5 | [Applications + Services CRUD](./phase-05-applications-services-crud.md) | Completed | 2 | **Parallel stream C** |
+| 6 | [Datasheets + Leads + Public Forms](./phase-06-datasheets-leads-forms.md) | Completed | 2 | **Parallel stream D** |
 | 7 | [SEO Complete](./phase-07-seo-complete.md) | Pending | 2 | **Parallel stream E** |
 | 8 | [i18n EN + Locale Switcher](./phase-08-i18n-en-locale-switcher.md) | Pending | 2 | **Parallel stream F** |
 | 9 | [Admin Polish (audit/users/invite)](./phase-09-admin-polish.md) | Pending | 2 | **Parallel stream G** |

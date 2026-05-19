@@ -1,0 +1,28 @@
+{
+  "list": {
+    "title": "Sản phẩm",
+    "subtitle": "Khám phá các dòng sản phẩm máy CNC của QS Technology",
+    "empty": "Chưa có sản phẩm nào.",
+    "viewDetails": "Xem chi tiết"
+  },
+  "detail": {
+    "specs": "Thông số kỹ thuật",
+    "features": "Tính năng nổi bật",
+    "images": "Hình ảnh",
+    "contact": "Liên hệ tư vấn",
+    "download": "Tải tài liệu"
+  },
+  "series": {
+    "F": "Dòng F",
+    "Astro": "Dòng Astro"
+  },
+  "status": {
+    "draft": "Bản nháp",
+    "published": "Xuất bản",
+    "archived": "Lưu trữ"
+  },
+  "errors": {
+    "slugTaken": "Slug này đã được sử dụng.",
+    "notFound": "Không tìm thấy sản phẩm."
+  }
+}

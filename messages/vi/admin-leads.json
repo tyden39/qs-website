@@ -1,0 +1,46 @@
+{
+  "title": "Inbox liên hệ",
+  "filterAll": "Tất cả",
+  "filterStatus": "Lọc trạng thái",
+  "filterSource": "Lọc nguồn",
+  "results": "{count} kết quả",
+  "empty": "Không có lead nào phù hợp bộ lọc.",
+  "columns": {
+    "id": "#",
+    "nameEmail": "Tên / Email",
+    "company": "Công ty",
+    "source": "Nguồn",
+    "status": "Trạng thái",
+    "createdAt": "Thời gian",
+    "actions": "Chi tiết"
+  },
+  "status": {
+    "new": "Mới",
+    "contacted": "Đã liên hệ",
+    "qualified": "Tiềm năng",
+    "closed": "Đóng"
+  },
+  "source": {
+    "contact": "Liên hệ",
+    "newsletter": "Newsletter",
+    "datasheet": "Datasheet",
+    "inquiry": "Dịch vụ"
+  },
+  "detail": {
+    "breadcrumb": "Leads",
+    "source": "Nguồn",
+    "email": "Email",
+    "phone": "Điện thoại",
+    "company": "Công ty",
+    "locale": "Ngôn ngữ",
+    "createdAt": "Thời gian",
+    "ip": "IP",
+    "message": "Nội dung",
+    "payload": "Payload",
+    "history": "Lịch sử thao tác",
+    "historyEmpty": "Chưa có thay đổi nào.",
+    "manageStatus": "Quản lý trạng thái",
+    "updateStatus": "Cập nhật trạng thái",
+    "updating": "Đang lưu…"
+  }
+}

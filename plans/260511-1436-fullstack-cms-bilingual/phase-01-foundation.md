@@ -1,7 +1,7 @@
 ---
 phase: 1
 title: "Foundation"
-status: pending
+status: completed
 priority: P1
 effort: "5d"
 dependencies: []

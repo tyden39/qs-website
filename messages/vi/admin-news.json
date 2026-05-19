@@ -1,0 +1,51 @@
+{
+  "list": {
+    "title": "Tin tức",
+    "add": "Thêm bài viết",
+    "filter": {
+      "all": "Tất cả",
+      "draft": "Nháp",
+      "published": "Đã đăng"
+    },
+    "cols": {
+      "slug": "Slug",
+      "title": "Tiêu đề VI",
+      "category": "Danh mục",
+      "status": "Trạng thái",
+      "publishedAt": "Ngày đăng",
+      "updatedAt": "Cập nhật"
+    },
+    "empty": "Không có bài viết nào."
+  },
+  "form": {
+    "createTitle": "Thêm bài viết mới",
+    "editTitle": "Sửa bài viết",
+    "slug": "Slug",
+    "category": "Danh mục",
+    "titleVi": "Tiêu đề (VI)",
+    "titleEn": "Tiêu đề (EN)",
+    "excerptVi": "Tóm tắt (VI)",
+    "excerptEn": "Tóm tắt (EN)",
+    "bodyVi": "Nội dung (VI)",
+    "bodyEn": "Nội dung (EN)",
+    "coverImage": "Ảnh bìa",
+    "tags": "Tags",
+    "status": "Trạng thái",
+    "publishedAt": "Ngày đăng",
+    "statusDraft": "Nháp",
+    "statusPublished": "Đã đăng",
+    "save": "Lưu thay đổi",
+    "create": "Tạo bài viết",
+    "saving": "Đang lưu…",
+    "cancel": "Hủy",
+    "uploading": "Đang upload…",
+    "recoverDraft": "Tìm thấy bản nháp chưa lưu. Khôi phục?",
+    "tabVi": "Tiếng Việt",
+    "tabEn": "English"
+  },
+  "actions": {
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "confirmDelete": "Xóa bài viết \"{slug}\"?"
+  }
+}

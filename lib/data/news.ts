@@ -5,6 +5,49 @@ import { news, type I18nText } from "@/lib/db/schema/catalog";
 import type { Locale } from "@/lib/i18n/config";
 import { pickLocale } from "./i18n-field";
 
+// ── Admin helpers (not cached — always fresh for the admin console) ──────────
+
+export type NewsAdminRow = {
+  slug: string;
+  titleVi: string;
+  category: string;
+  status: string;
+  publishedAt: Date | null;
+  updatedAt: Date;
+  tags: string[];
+};
+
+export async function getAllNewsForAdmin(): Promise<NewsAdminRow[]> {
+  const rows = await db
+    .select({
+      slug: news.slug,
+      title: news.title,
+      category: news.category,
+      status: news.status,
+      publishedAt: news.publishedAt,
+      updatedAt: news.updatedAt,
+      tags: news.tags,
+    })
+    .from(news)
+    .orderBy(desc(news.updatedAt));
+
+  return rows.map((r) => ({
+    slug: r.slug,
+    titleVi: (r.title as I18nText).vi ?? r.slug,
+    category: r.category,
+    status: r.status,
+    publishedAt: r.publishedAt,
+    updatedAt: r.updatedAt,
+    tags: r.tags ?? [],
+  }));
+}
+
+export async function getNewsByIdForAdmin(slug: string) {
+  const [row] = await db.select().from(news).where(eq(news.slug, slug)).limit(1);
+  if (!row) return null;
+  return row;
+}
+
 export type NewsView = {
   slug: string;
   title: string;

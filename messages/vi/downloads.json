@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Tải về — QS Technology",
+    "datasheetsTitle": "Datasheet kỹ thuật — Downloads — QS Technology"
+  },
+  "datasheets": {
+    "eyebrow": "Document Library · Datasheets",
+    "heading": "Datasheet kỹ thuật",
+    "description": "Thông số chi tiết, sơ đồ chân và quy chuẩn lắp đặt cho từng model controller QS.",
+    "stats": {
+      "docs": "Tài liệu",
+      "version": "Phiên bản",
+      "lang": "Ngôn ngữ"
+    },
+    "sidebar": {
+      "filter": "Danh mục",
+      "category": "Danh mục",
+      "series": "Dòng sản phẩm"
+    },
+    "toolbar": {
+      "showing": "Hiển thị {count} tài liệu"
+    },
+    "table": {
+      "name": "Tên tài liệu",
+      "series": "Dòng",
+      "lang": "Ngôn ngữ",
+      "version": "Phiên bản",
+      "size": "Dung lượng",
+      "download": "Tải về"
+    },
+    "lang": {
+      "vi": "Tiếng Việt",
+      "en": "English",
+      "both": "VN / EN"
+    },
+    "empty": "Chưa có datasheet nào được công bố."
+  },
+  "request": {
+    "emailLabel": "Nhập email để tải",
+    "emailPlaceholder": "email@company.vn",
+    "submit": "Tải ↓",
+    "submitting": "…",
+    "success": "Cảm ơn! File đang tải xuống.",
+    "successFallback": "Nhấn đây nếu không tự động",
+    "error": "Có lỗi xảy ra. Vui lòng thử lại.",
+    "invalidEmail": "Email không hợp lệ"
+  },
+  "inquiry": {
+    "eyebrow": "[ Yêu cầu tư vấn dịch vụ ]",
+    "submit": "Gửi yêu cầu →",
+    "submitting": "Đang gửi…",
+    "success": "Cảm ơn! Đội QS sẽ liên hệ trong 4 giờ làm việc.",
+    "sendAnother": "Gửi yêu cầu khác",
+    "error": "Có lỗi xảy ra. Vui lòng thử lại."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Liên hệ — QS Technology"
+  },
+  "hero": {
+    "eyebrow": "Liên hệ · Hỗ trợ trực tiếp 24h tại 35 tỉnh",
+    "heading": "Nói chuyện trực tiếp với người viết firmware.",
+    "body": "Bạn cần tư vấn controller cho dây chuyền cụ thể, đặt chế tạo riêng, báo giá lô hàng hay yêu cầu hỗ trợ kỹ thuật khẩn cấp — đội QS phản hồi trong 4 giờ làm việc, có mặt tại chỗ trong 24 giờ trên toàn quốc."
+  },
+  "form": {
+    "eyebrow": "[ 02 · Form liên hệ ]",
+    "heading": "Yêu cầu báo giá & tư vấn",
+    "name": "Họ & tên *",
+    "namePlaceholder": "Nguyễn Văn A",
+    "company": "Công ty",
+    "companyPlaceholder": "Công ty TNHH ABC",
+    "email": "Email *",
+    "emailPlaceholder": "name@company.vn",
+    "phone": "Điện thoại *",
+    "phonePlaceholder": "+84 28 3636 1234",
+    "message": "Nội dung yêu cầu",
+    "messagePlaceholder": "Mô tả nhu cầu, loại máy, số trục, sản phẩm quan tâm…",
+    "submit": "Gửi yêu cầu →",
+    "submitting": "Đang gửi…",
+    "sendAnother": "Gửi yêu cầu khác"
+  },
+  "success": {
+    "eyebrow": "[ Gửi thành công ]",
+    "heading": "Cảm ơn bạn đã liên hệ!",
+    "body": "Đội QS sẽ phản hồi trong vòng 4 giờ làm việc (8:00–17:30, T2–T6)."
+  },
+  "error": {
+    "generic": "Có lỗi xảy ra. Vui lòng thử lại.",
+    "rateLimit": "Quá nhiều yêu cầu. Vui lòng chờ và thử lại.",
+    "validation": {
+      "name": "Vui lòng nhập họ tên",
+      "email": "Email không hợp lệ",
+      "phone": "Vui lòng nhập số điện thoại"
+    }
+  },
+  "newsletter": {
+    "heading": "Nhận bản tin kỹ thuật",
+    "description": "Cập nhật sản phẩm, firmware và tài liệu mới nhất từ QS.",
+    "placeholder": "email@company.vn",
+    "submit": "Đăng ký →",
+    "submitting": "…",
+    "success": "Đăng ký thành công! Bạn sẽ nhận bản tin kỹ thuật từ QS.",
+    "error": "Có lỗi xảy ra. Vui lòng thử lại."
+  }
+}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { NewsletterForm } from "./newsletter-form";
 
 const fb = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.9l-.5 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>`;
 const yt = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.5 3.5 12 3.5 12 3.5s-4.5 0-7.8.3c-.5 0-1.4 0-2.3 1C1.2 5.4 1 7 1 7S.8 9 .8 11v1.9c0 2 .2 3.9.2 3.9s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 8 .2 8 .2s4.5 0 7.8-.3c.5 0 1.4 0 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.9V11c0-2-.2-3.9-.2-3.9zM9.7 15V8.5l5.8 3.3L9.7 15z"/></svg>`;
@@ -48,6 +49,14 @@ export default function Footer() {
           ["tel:+842836361234","+84 28 3636 1234"],
           ["mailto:sales@qstechnology.vn","sales@qstechnology.vn"],
         ]}/>
+
+        <div>
+          <h5>Nhận bản tin kỹ thuật</h5>
+          <p className="text-[#8a8676] text-[12px] leading-relaxed mt-1 mb-0 max-w-[28ch]">
+            Cập nhật sản phẩm, firmware và tài liệu mới nhất từ QS.
+          </p>
+          <NewsletterForm />
+        </div>
       </div>
 
       <div className="qs-foot-bottom">

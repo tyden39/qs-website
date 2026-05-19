@@ -1,7 +1,7 @@
 ---
 phase: 2
 title: "Schema + Data Layer + Admin Shell"
-status: pending
+status: completed
 priority: P1
 effort: "7d"  # Red Team Session 2 (F6): re-estimated to absorb content extraction work
 dependencies: [1]

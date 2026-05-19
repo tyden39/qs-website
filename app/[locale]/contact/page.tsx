@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ContactForm } from "./_components/contact-form";
 
 export const metadata = { title: "Liên hệ — QS Technology" };
 
@@ -99,35 +100,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <form className="bg-white border border-line p-8">
-            <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-5">[ 02 · Form liên hệ ]</div>
-            <h3 className="font-display font-semibold text-xl tracking-[-.005em] m-0 mb-6">Yêu cầu báo giá &amp; tư vấn</h3>
-            <div className="space-y-5">
-              <Field label="Họ & tên *" name="name"/>
-              <Field label="Công ty"  name="company"/>
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Email *"     name="email" type="email"/>
-                <Field label="Điện thoại *" name="phone" type="tel"/>
-              </div>
-              <RadioGroup label="Loại yêu cầu" name="reqtype" options={[
-                "Báo giá controller","Đặt chế tạo riêng (custom)","Tư vấn kỹ thuật / lắp đặt",
-                "Hỗ trợ sau bán hàng","Đặt lịch thăm nhà máy","Đối tác / phân phối","Khác",
-              ]}/>
-              <RadioGroup label="Sản phẩm quan tâm" name="product" options={[
-                "Chưa xác định — cần tư vấn",
-                "F-series (F54 / F86 / F10T)",
-                "Astro-series (Astro 6AH / 10i / 12X)",
-                "Servo motor & drive",
-                "Thiết bị DNC",
-                "Phụ kiện CNC",
-              ]}/>
-              <label className="flex items-start gap-3 text-[13px] text-[#3a3a3a] cursor-pointer">
-                <input type="checkbox" className="mt-1 accent-ink"/>
-                <span>Tôi đồng ý với <Link href="#" className="text-ink underline">chính sách bảo mật</Link> và cho phép QS lưu trữ thông tin để liên hệ phản hồi.</span>
-              </label>
-              <button type="submit" className="qs-btn qs-btn-gold w-full justify-center mt-2">Gửi yêu cầu →</button>
-            </div>
-          </form>
+          <ContactForm />
         </div>
       </section>
 
@@ -183,26 +156,3 @@ export default function Contact() {
   );
 }
 
-function Field({ label, name, type="text" }: { label:string; name:string; type?:string }) {
-  return (
-    <label className="block">
-      <span className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-1.5">{label}</span>
-      <input name={name} type={type} className="w-full border border-line bg-white px-4 py-3 text-sm focus:outline-none focus:border-ink transition-colors"/>
-    </label>
-  );
-}
-
-function RadioGroup({ label, name, options }: { label:string; name:string; options:string[] }) {
-  return (
-    <fieldset className="border-0 p-0 m-0">
-      <legend className="font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-2">{label}</legend>
-      <div className="flex flex-wrap gap-2">
-        {options.map(o => (
-          <label key={o} className="flex items-center gap-1.5 px-3 py-1.5 border border-line text-[13px] text-[#3a3a3a] cursor-pointer hover:border-ink">
-            <input type="radio" name={name} value={o} className="accent-ink"/>{o}
-          </label>
-        ))}
-      </div>
-    </fieldset>
-  );
-}

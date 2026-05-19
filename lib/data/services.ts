@@ -112,3 +112,36 @@ export async function getServiceCount(): Promise<number> {
   const [{ value }] = await db.select({ value: count() }).from(service);
   return Number(value ?? 0);
 }
+
+// ── Admin helpers (no caching — always fresh) ──────────────────────────────
+
+export type ServiceRow = typeof service.$inferSelect;
+
+export async function adminListServices(): Promise<ServiceRow[]> {
+  return db
+    .select()
+    .from(service)
+    .orderBy(asc(service.sort), asc(service.slug));
+}
+
+export async function adminGetServiceById(slug: string): Promise<ServiceRow | null> {
+  const [row] = await db
+    .select()
+    .from(service)
+    .where(eq(service.slug, slug))
+    .limit(1);
+  return row ?? null;
+}
+
+export async function serviceSlugExists(
+  slug: string,
+  excludeSlug?: string,
+): Promise<boolean> {
+  const [row] = await db
+    .select({ slug: service.slug })
+    .from(service)
+    .where(eq(service.slug, slug))
+    .limit(1);
+  if (!row) return false;
+  return row.slug !== excludeSlug;
+}

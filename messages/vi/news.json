@@ -1,0 +1,21 @@
+{
+  "breadcrumb": {
+    "home": "Trang chủ",
+    "news": "Tin tức"
+  },
+  "meta": {
+    "author": "QS Newsroom",
+    "share": "Chia sẻ",
+    "dateLabel": "Ngày đăng",
+    "readTime": "Đọc trong",
+    "category": "Chuyên mục"
+  },
+  "related": {
+    "label": "Bài liên quan",
+    "heading": "Đọc thêm",
+    "viewAll": "Tất cả tin tức →"
+  },
+  "detail": {
+    "toc": "Trong bài"
+  }
+}

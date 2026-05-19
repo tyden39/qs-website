@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "title": "Ứng dụng",
+    "description": "Các ứng dụng công nghiệp của thiết bị QS"
+  },
+  "page": {
+    "heading": "Ứng dụng",
+    "subheading": "Thiết bị QS phù hợp với nhiều ngành công nghiệp khác nhau",
+    "viewDetail": "Xem chi tiết",
+    "noResults": "Không có ứng dụng nào."
+  },
+  "detail": {
+    "workflow": "Quy trình ứng dụng",
+    "specs": "Thông số kỹ thuật",
+    "deployments": "Triển khai thực tế",
+    "back": "Quay lại danh sách"
+  }
+}

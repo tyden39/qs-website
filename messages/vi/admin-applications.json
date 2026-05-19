@@ -1,0 +1,60 @@
+{
+  "title": "Ứng dụng",
+  "new": "Thêm ứng dụng",
+  "edit": "Chỉnh sửa ứng dụng",
+  "list": {
+    "slug": "Slug",
+    "titleVi": "Tiêu đề (VI)",
+    "status": "Trạng thái",
+    "updatedAt": "Cập nhật",
+    "actions": "Thao tác",
+    "empty": "Chưa có ứng dụng nào."
+  },
+  "form": {
+    "slug": "Slug",
+    "slugHint": "Chỉ chữ thường, số và dấu gạch ngang",
+    "titleVi": "Tiêu đề (VI)",
+    "titleEn": "Tiêu đề (EN)",
+    "summaryVi": "Tóm tắt (VI)",
+    "summaryEn": "Tóm tắt (EN)",
+    "heroImage": "Ảnh hero",
+    "status": "Trạng thái",
+    "sort": "Thứ tự",
+    "workflow": "Quy trình ứng dụng",
+    "workflowAdd": "Thêm bước",
+    "workflowStep": "Bước #",
+    "stepN": "Số bước",
+    "stepLabelVi": "Nhãn (VI)",
+    "stepLabelEn": "Nhãn (EN)",
+    "stepTitleVi": "Tiêu đề (VI)",
+    "stepTitleEn": "Tiêu đề (EN)",
+    "stepDescVi": "Mô tả (VI)",
+    "stepDescEn": "Mô tả (EN)",
+    "specs": "Thông số kỹ thuật",
+    "specsAdd": "Thêm thông số",
+    "specLabelVi": "Tên thông số (VI)",
+    "specLabelEn": "Tên thông số (EN)",
+    "specValueVi": "Giá trị (VI)",
+    "specValueEn": "Giá trị (EN)",
+    "deployments": "Triển khai thực tế",
+    "deploymentsAdd": "Thêm triển khai",
+    "deploymentName": "Tên khách hàng",
+    "deploymentLocVi": "Địa điểm (VI)",
+    "deploymentLocEn": "Địa điểm (EN)",
+    "save": "Lưu",
+    "saving": "Đang lưu...",
+    "delete": "Xoá",
+    "deleteConfirm": "Bạn có chắc muốn xoá ứng dụng này không?",
+    "cancel": "Huỷ",
+    "remove": "Xoá mục"
+  },
+  "status": {
+    "draft": "Nháp",
+    "published": "Đã xuất bản"
+  },
+  "toast": {
+    "created": "Đã tạo ứng dụng.",
+    "updated": "Đã cập nhật ứng dụng.",
+    "deleted": "Đã xoá ứng dụng."
+  }
+}

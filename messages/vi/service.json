@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "title": "Dịch vụ",
+    "description": "Các dịch vụ kỹ thuật và hỗ trợ của QS"
+  },
+  "page": {
+    "heading": "Dịch vụ",
+    "subheading": "Giải pháp kỹ thuật toàn diện từ QS",
+    "viewDetail": "Xem chi tiết",
+    "noResults": "Không có dịch vụ nào."
+  },
+  "detail": {
+    "process": "Quy trình",
+    "included": "Dịch vụ bao gồm",
+    "faqs": "Câu hỏi thường gặp",
+    "tiers": "Bảng giá",
+    "back": "Quay lại danh sách",
+    "ctaContact": "Liên hệ ngay"
+  }
+}

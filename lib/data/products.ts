@@ -1,5 +1,5 @@
 import { cacheTag, cacheLife } from "next/cache";
-import { and, eq, asc, count } from "drizzle-orm";
+import { and, eq, asc, count, desc } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import { product, type I18nText, type ProductSpec, type ProductImage } from "@/lib/db/schema/catalog";
 import type { Locale } from "@/lib/i18n/config";
@@ -83,4 +83,23 @@ export async function getProductCount(): Promise<number> {
   cacheLife("minutes");
   const [{ value }] = await db.select({ value: count() }).from(product);
   return Number(value ?? 0);
+}
+
+// ── Admin-side helpers (no cache — mutations need fresh data) ────────────────
+
+export type ProductAdminRow = typeof product.$inferSelect;
+
+export async function getAllProductsForAdmin(): Promise<ProductAdminRow[]> {
+  return db.select().from(product).orderBy(desc(product.updatedAt));
+}
+
+export async function getProductByIdForAdmin(
+  slug: string,
+): Promise<ProductAdminRow | null> {
+  const [row] = await db
+    .select()
+    .from(product)
+    .where(eq(product.slug, slug))
+    .limit(1);
+  return row ?? null;
 }

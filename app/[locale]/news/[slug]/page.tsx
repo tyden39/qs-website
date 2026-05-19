@@ -1,8 +1,25 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import DOMPurify from "isomorphic-dompurify";
 import { getAllNews, getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
 import { routing } from "@/lib/i18n/routing";
 import type { Locale } from "@/lib/i18n/config";
+
+const ALLOWED_TAGS = [
+  "p", "br", "strong", "em", "u", "s",
+  "ul", "ol", "li",
+  "h1", "h2", "h3", "h4",
+  "a", "img",
+  "blockquote", "code", "pre", "hr",
+];
+
+function safeHtml(raw: string): string {
+  return DOMPurify.sanitize(raw, {
+    ALLOWED_TAGS,
+    ALLOWED_ATTR: ["href", "src", "alt", "title", "rel", "target"],
+    ALLOWED_URI_REGEXP: /^(?:(?:https?:|mailto:|\/)|[^a-z]|[a-z+.-]+(?:[^a-z+.-:]|$))/i,
+  });
+}
 
 export async function generateStaticParams() {
   const slugs = await getNewsSlugs();
@@ -167,7 +184,10 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
                 </div>
               </>
             ) : (
-              <div className="prose-news" dangerouslySetInnerHTML={{ __html: n.bodyHtml }} />
+              <div
+                className="prose prose-sm max-w-none"
+                dangerouslySetInnerHTML={{ __html: safeHtml(n.bodyHtml) }}
+              />
             )}
           </article>
 

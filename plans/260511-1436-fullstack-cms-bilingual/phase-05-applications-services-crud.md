@@ -1,7 +1,7 @@
 ---
 phase: 5
 title: "Applications + Services CRUD"
-status: pending
+status: completed
 priority: P1
 effort: "5d"
 dependencies: [2]

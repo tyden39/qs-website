@@ -1,7 +1,7 @@
 ---
 phase: 6
 title: "Datasheets + Leads + Public Forms"
-status: pending
+status: completed
 priority: P1
 effort: "5d"
 dependencies: [2]

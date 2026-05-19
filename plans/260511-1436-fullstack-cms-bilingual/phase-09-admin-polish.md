@@ -1,7 +1,7 @@
 ---
 phase: 9
 title: "Admin Polish (audit/users/invite)"
-status: pending
+status: completed
 priority: P2
 effort: "5d"
 dependencies: [2]

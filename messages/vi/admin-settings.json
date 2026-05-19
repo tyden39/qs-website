@@ -1,0 +1,12 @@
+{
+  "title": "Cài đặt hệ thống",
+  "subtitle": "Cấu hình chi tiết sẽ khả dụng trong phiên bản tiếp theo.",
+  "sections": {
+    "environment": "Thông tin môi trường",
+    "comingSoon": "Cài đặt thương hiệu, màu sắc, OG image mặc định sẽ khả dụng ở Phase 11+"
+  },
+  "fields": {
+    "appUrl": "App URL",
+    "resendFrom": "Email gửi đi (RESEND_FROM)"
+  }
+}

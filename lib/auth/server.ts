@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin as adminPlugin } from "better-auth/plugins";
+import { nextCookies } from "better-auth/next-js";
 import { db } from "@/lib/db/client";
 
 export const auth = betterAuth({
@@ -25,7 +26,9 @@ export const auth = betterAuth({
       },
     },
   },
-  plugins: [adminPlugin()],
+  // nextCookies MUST be last so it sees response cookies set by other plugins
+  // and forwards them through Server Action responses.
+  plugins: [adminPlugin(), nextCookies()],
   baseURL: process.env.NEXT_PUBLIC_APP_URL,
   secret: process.env.BETTER_AUTH_SECRET,
 });

@@ -99,9 +99,9 @@ Convert QS Technology static brochure Next.js site (currently hardcoded `data/*.
 | 4 | [News CRUD (Tiptap)](./phase-04-news-tiptap.md) | Completed | 2 | **Parallel stream B** |
 | 5 | [Applications + Services CRUD](./phase-05-applications-services-crud.md) | Completed | 2 | **Parallel stream C** |
 | 6 | [Datasheets + Leads + Public Forms](./phase-06-datasheets-leads-forms.md) | Completed | 2 | **Parallel stream D** |
-| 7 | [SEO Complete](./phase-07-seo-complete.md) | Pending | 2 | **Parallel stream E** |
-| 8 | [i18n EN + Locale Switcher](./phase-08-i18n-en-locale-switcher.md) | Pending | 2 | **Parallel stream F** |
-| 9 | [Admin Polish (audit/users/invite)](./phase-09-admin-polish.md) | Pending | 2 | **Parallel stream G** |
+| 7 | [SEO Complete](./phase-07-seo-complete.md) | Completed | 2 | **Parallel stream E** |
+| 8 | [i18n EN + Locale Switcher](./phase-08-i18n-en-locale-switcher.md) | Completed | 2 | **Parallel stream F** |
+| 9 | [Admin Polish (audit/users/invite)](./phase-09-admin-polish.md) | Completed | 2 | **Parallel stream G** |
 | 10 | [QA & Production Deploy](./phase-10-qa-production-deploy.md) | Pending | 3,4,5,6,7,8,9 | Sequential |
 
 ## Parallel Execution Map

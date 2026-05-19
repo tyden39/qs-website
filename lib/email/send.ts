@@ -3,12 +3,14 @@ import { render } from "@react-email/components";
 import { getResend } from "./client";
 import type { LeadNotificationProps } from "./templates/lead-notification";
 import type { NewsletterConfirmProps } from "./templates/newsletter-confirm";
+import type { AdminInviteProps } from "./templates/admin-invite";
 
 // Streams extend this map by augmenting EmailTemplateMap with their own
 // (template name -> props) entries via TypeScript declaration merging.
 export interface EmailTemplateMap {
   "lead-notification": LeadNotificationProps;
   "newsletter-confirm": NewsletterConfirmProps;
+  "admin-invite": AdminInviteProps;
 }
 
 export type EmailTemplate = keyof EmailTemplateMap;
@@ -47,6 +49,9 @@ async function resolveTemplate<T extends EmailTemplate>(
     } else if (name === "newsletter-confirm") {
       const { NewsletterConfirmEmail } = await import("./templates/newsletter-confirm");
       registry.set("newsletter-confirm", NewsletterConfirmEmail as TemplateFn<EmailTemplate>);
+    } else if (name === "admin-invite") {
+      const { AdminInviteEmail } = await import("./templates/admin-invite");
+      registry.set("admin-invite", AdminInviteEmail as TemplateFn<EmailTemplate>);
     }
   }
   const fn = registry.get(name);

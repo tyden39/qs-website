@@ -1,0 +1,40 @@
+{
+  "title": "Nhật ký hoạt động",
+  "results": "{count} bản ghi",
+  "filters": {
+    "actor": "Actor (email)",
+    "actorPlaceholder": "email@...",
+    "entity": "Entity",
+    "action": "Action",
+    "from": "Từ ngày",
+    "to": "Đến ngày",
+    "apply": "Lọc",
+    "clear": "Xóa lọc",
+    "all": "Tất cả"
+  },
+  "columns": {
+    "id": "#",
+    "createdAt": "Thời gian",
+    "actor": "Actor",
+    "action": "Action",
+    "entity": "Entity",
+    "diff": "Diff / ID"
+  },
+  "actorSystem": "system",
+  "diffLabel": "diff",
+  "empty": "Không có bản ghi audit nào.",
+  "pagination": {
+    "prev": "← Trước",
+    "next": "Sau →",
+    "page": "Trang {current} / {total}"
+  },
+  "actions": {
+    "create": "Tạo mới",
+    "update": "Cập nhật",
+    "delete": "Xóa",
+    "invite": "Mời",
+    "role_change": "Đổi role",
+    "deactivate": "Vô hiệu",
+    "accept_invite": "Kích hoạt"
+  }
+}

@@ -5,12 +5,20 @@ status: pending
 priority: P2
 branch: "main"
 tags: []
-blockedBy: []
+blockedBy: [260528-1030-static-cloudflare-pages-migration]
 blocks: []
+supersededBy: 260528-1030-static-cloudflare-pages-migration
 created: "2026-05-16T07:34:22.305Z"
 createdBy: "ck:plan"
 source: skill
 ---
+
+> **⚠️ SUPERSEDED 2026-05-28.** Direction reversed: the dynamic CMS, DB, auth,
+> upload and lead-capture surface implemented under this plan is being torn
+> down. See [Static + Cloudflare Pages Migration](../260528-1030-static-cloudflare-pages-migration/plan.md)
+> for the current direction. Implementation commits remain reachable via the
+> `cms-archive` git tag (created in Phase 1 of the migration) if any code
+> needs to be revived.
 
 # Fullstack CMS + Bilingual (VI/EN) cho QS Website — Parallel Execution
 

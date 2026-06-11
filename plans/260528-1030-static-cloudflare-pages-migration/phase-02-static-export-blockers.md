@@ -82,10 +82,11 @@ app/page.tsx (new)
   Returns a minimal HTML page with <meta http-equiv="refresh" content="0;url=/vi/">
   (Cloudflare _redirects also covers this in Phase 3 — belt + suspenders.)
 
-OG images:
-  app/opengraph-image.tsx           → drop runtime=edge, prerender at build
-  app/[locale]/<entity>/[slug]/opengraph-image.tsx → ditto, with generateImageMetadata
-                                                       producing one PNG per slug
+OG images:   <!-- Updated: Validation Session 1 - root = static PNG, entities = build-time -->
+  app/opengraph-image.tsx           → DELETE; replace with static app/opengraph-image.png (1200×630)
+  app/[locale]/<entity>/[slug]/opengraph-image.tsx → drop runtime=edge, prerender at
+                                       build via generateImageMetadata (one PNG per
+                                       slug × locale); fallback = static PNG per family
 ```
 
 ## Related Code Files
@@ -96,12 +97,10 @@ OG images:
   block (CSP moves to `_headers` in Phase 3); drop `experimental.useCache`.
 - [lib/i18n/routing.ts](../../lib/i18n/routing.ts) — `localePrefix: "always"`.
 - [lib/i18n/request.ts](../../lib/i18n/request.ts) — leave as-is; works at build.
-- [app/opengraph-image.tsx](../../app/opengraph-image.tsx) — remove
-  `export const runtime = "edge"`; ensure `ImageResponse` works at build (or
-  swap to a static `app/opengraph-image.png` if `ImageResponse` proves flaky).
-- [app/[locale]/news/[slug]/opengraph-image.tsx](../../app/[locale]/news/[slug]/opengraph-image.tsx) — same.
-- [app/[locale]/products/[slug]/opengraph-image.tsx](../../app/[locale]/products/[slug]/opengraph-image.tsx) — same.
-- [app/[locale]/applications/[slug]/opengraph-image.tsx](../../app/[locale]/applications/[slug]/opengraph-image.tsx) — same.
+- [app/[locale]/news/[slug]/opengraph-image.tsx](../../app/[locale]/news/[slug]/opengraph-image.tsx) —
+  remove `runtime = "edge"`, prerender at build via `generateImageMetadata` (see Step 3).
+- [app/[locale]/products/[slug]/opengraph-image.tsx](../../app/[locale]/products/[slug]/opengraph-image.tsx) — same as news.
+- [app/[locale]/applications/[slug]/opengraph-image.tsx](../../app/[locale]/applications/[slug]/opengraph-image.tsx) — same as news.
 - [app/[locale]/applications/[slug]/page.tsx](../../app/[locale]/applications/[slug]/page.tsx) — add
   `generateStaticParams` returning all slugs from `lib/data/applications`.
 - [app/[locale]/products/[slug]/page.tsx](../../app/[locale]/products/[slug]/page.tsx) — verify
@@ -117,9 +116,12 @@ OG images:
 ### Create
 - [app/page.tsx](../../app/page.tsx) — minimal root page with meta-refresh to
   `/vi/`. Belt-and-suspenders for `_redirects`.
+- `app/opengraph-image.png` — static 1200×630 root OG image (replaces the
+  dynamic root `opengraph-image.tsx`).
 
 ### Delete
 - [proxy.ts](../../proxy.ts) — next-intl middleware no longer runs in static.
+- [app/opengraph-image.tsx](../../app/opengraph-image.tsx) — replaced by static PNG (see Create).
 
 ## Implementation Steps
 
@@ -142,15 +144,16 @@ OG images:
      ```
    - **Applications page is the new one** — currently lacks it (brainstorm flag).
 
-3. **OG images.**
-   - For the root `app/opengraph-image.tsx`: remove `runtime = "edge"`.
+3. **OG images.** <!-- Updated: Validation Session 1 - strategy locked -->
+   - Root: delete `app/opengraph-image.tsx`; add static `app/opengraph-image.png`
+     (1200×630).
    - For entity `[slug]/opengraph-image.tsx`: remove `runtime = "edge"`, add
      `generateImageMetadata` returning one entry per slug × locale. Verify
      `ImageResponse` builds at static time (if Next still requires a Node-only
      font fetch, host the font in `public/fonts/` and read locally).
-   - Fallback option (if `ImageResponse` blocks the build): ship a static
-     `app/opengraph-image.png` (1200×630) and remove the dynamic OG files. Note
-     in PR which path was taken.
+   - Fallback option (only if `ImageResponse` blocks the build): replace the
+     dynamic entity OG files with one static PNG per route family. Note in PR
+     which path was taken.
 
 4. **Create root redirect.**
    - `app/page.tsx`:
@@ -199,7 +202,7 @@ OG images:
 - [ ] Flip `localePrefix` to `always`; fix hard-coded internal hrefs
 - [ ] Add `generateStaticParams` + `dynamicParams = false` to applications [slug]
 - [ ] Verify generateStaticParams on products/news/services [slug] returns both locales
-- [ ] Fix root + entity `opengraph-image.tsx` (remove edge runtime, prerender or static PNG fallback)
+- [ ] Root OG → static `app/opengraph-image.png`; entity OG → build-time prerender (static-PNG-per-family fallback)
 - [ ] Create `app/page.tsx` root redirect
 - [ ] Delete `proxy.ts`
 - [ ] Patch `next.config.mjs` (output export, trailingSlash, images.unoptimized)

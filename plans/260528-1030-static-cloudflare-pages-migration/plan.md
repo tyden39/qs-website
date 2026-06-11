@@ -77,9 +77,26 @@ behind the same API — same seam, same reuse.
 
 - **Phase 5 — Pages Function `/api/lead` + CRM forward.** Comes alive when the
   separate CRM/ERP project lands. Forms stay hidden until then.
-- **Phase 6 — Git-based Sveltia CMS** (`data/*.ts` → `content/*.{yaml,mdx}`,
-  `public/admin/`, GitHub OAuth Worker). Only after Phase 4 cutover is stable;
-  starts with a `data/news.ts` PoC.
+- **Phase 6 — Git-based Sveltia CMS** (`data/*.ts` → `content/`,
+  `public/admin/`, GitHub OAuth Worker). Only after Phase 4 cutover is stable.
+  Decisions confirmed in brainstorm 2026-06-11 (admin for non-tech editors):
+  - Sveltia CMS at `/admin` on the static site itself — no custom admin app,
+    no generated `.ts` files (codegen from user input is fragile).
+  - Scope: **all 5 entities** (products, news, services, applications,
+    datasheets) **+ homepage banner/hero** — hero currently hardcoded in
+    `app/[locale]/page.tsx`, must be extracted to `content/pages/home.yaml`.
+  - Content format: `content/<entity>/*.yaml` per item (bilingual vi/en
+    fields); news → `content/news/*.md` with markdown body, converted to HTML
+    at build behind the same `lib/data/*` seam (pages unchanged).
+  - Images: Sveltia uploads to `public/uploads/` in repo (move to R2 only if
+    repo weight becomes a problem).
+  - Auth: create GitHub accounts for data-entry staff, invite to repo with
+    write access; OAuth via `sveltia-cms-auth` Cloudflare Worker (free).
+  - Publish flow: Sveltia commit → Cloudflare Pages auto-rebuild (~2–5 min
+    accepted latency). Build failure keeps last good deploy live — site never
+    breaks from bad content; add CI content-schema check for early errors.
+  - Open question for implementation: does Sveltia UI ship a Vietnamese
+    locale? If not, English UI + Vietnamese field labels in `config.yml`.
 - **CRM/ERP system** — separate project / brainstorm.
 
 ## Success criteria (whole plan)
@@ -109,8 +126,98 @@ behind the same API — same seam, same reuse.
 | Old `/products` URLs lose SEO equity | Med | High | Cloudflare `_redirects` 301 map (Phase 3); verify with `curl -I` before cutover. |
 | `generateStaticParams` misses a dynamic route (e.g. applications) → 404 | Med | Med | Phase 2 audit: all `[slug]` routes have explicit `generateStaticParams`. |
 | OpenGraph images use `runtime = "edge"` → fail in static | High | Low | Phase 2 fix: convert to build-time generation or static PNG. |
-| Cloudflare Pages build env mismatch (Node version, yarn vs pnpm) | Med | Med | Lock Node 20 LTS via `.nvmrc` + `NODE_VERSION` in Pages env. |
+| Cloudflare Pages build env mismatch (Node version, yarn vs pnpm) | Med | Med | Lock Node 22 (matches local v22.21.1) via `.nvmrc` + `NODE_VERSION` in Pages env. |
 | Rollback needed mid-cutover | Low | High | Keep Vercel deployment live + DNS TTL ≤ 300 for 24h before cutover. |
+
+## Validation Log
+
+### Session 1 — 2026-06-11
+**Trigger:** `/ck:plan validate` invoked on plan before implementation.
+**Questions asked:** 4
+
+### Verification Results
+- Claims checked: 25
+- Verified: 23 | Failed: 2 | Unverified: 0
+- Tier: Standard (4 phases — Fact Checker + Contract Verifier)
+- Failures:
+  1. Node version contradiction — plan pinned Node 20, but local env is v22.21.1
+     and Phase 3 says "match the local build version" (phase-03 §Key Insights 3).
+  2. Lead-form inventory incomplete — 4 client forms POST to `/api/leads`:
+     `app/[locale]/contact/_components/contact-form.tsx`,
+     `app/[locale]/downloads/_components/datasheet-request-form.tsx`,
+     `app/[locale]/services/_components/inquiry-form.tsx`,
+     `components/newsletter-form.tsx`. Plan named only contact + vague "search components".
+- Notable verified claims: all Phase 1 delete targets exist; `lib/data/*` seam
+  exports match (`getAllProducts`/`getProductBySlug`/`getProductSlugs`/`getProductCount`
+  + `*ForAdmin`, `"use cache"` in all 5 files); applications `[slug]` lacks
+  `generateStaticParams` while products/news/services have it; `runtime = "edge"`
+  in all 4 OG image files; `localePrefix: "as-needed"` in `lib/i18n/routing.ts`;
+  all removable deps present in `package.json`; repo is `tyden39/qs-website`;
+  yarn 1.22.21 (classic, `--frozen-lockfile` syntax correct).
+
+#### Questions & Answers
+
+1. **[Risks]** The plan pins Node 20 LTS (.nvmrc + NODE_VERSION) but also says
+   "match the local build version" — and local runs Node v22.21.1. Which version
+   should be pinned everywhere (local, .nvmrc, Cloudflare Pages)?
+   - Options: Pin Node 22 (Recommended) | Pin Node 20
+   - **Answer:** Pin Node 22
+   - **Rationale:** Zero env drift between dev and Pages build; Node 22 is
+     current LTS and supported by Cloudflare Pages.
+
+2. **[Scope]** 4 client forms POST to `/api/leads`, not just contact. How should
+   each be handled when forms are hidden?
+   - Options: Disable all 4 the same way (Recommended) | Free datasheet downloads | Hide newsletter, disable rest
+   - **Answer:** Disable all 4 the same way
+   - **Rationale:** Uniform "temporarily closed, email us" treatment. Datasheet
+     files stay gated (unreachable) until CRM lands — accepted trade-off.
+
+3. **[Tradeoffs]** Which OG image strategy first for static export?
+   - Options: Build-time per-slug + static root (Recommended) | All static PNGs | All build-time ImageResponse
+   - **Answer:** Build-time per-slug + static root
+   - **Rationale:** Root gets a static `app/opengraph-image.png`; entity
+     `[slug]` cards prerender via `ImageResponse` at build, with static-PNG
+     fallback per family if the Pages build proves flaky.
+
+4. **[Assumptions]** Step 0 drift-check needs the dev Neon DB reachable. Run it?
+   - Options: Yes, DB reachable — run check (Recommended) | Skip — seed is authoritative | DB unreachable — skip gracefully
+   - **Answer:** Yes, DB reachable — run check
+   - **Rationale:** Cheap one-shot guardrail before deleting `lib/db`; verifies
+     the locked "seed is authoritative" decision instead of trusting it blindly.
+
+#### Confirmed Decisions
+- Node pin: **22** everywhere (`.nvmrc`, `NODE_VERSION`, local) — matches local v22.21.1.
+- Lead forms: **all 4** (contact, datasheet-request, service inquiry, newsletter)
+  get the same disabled treatment; datasheets stay gated until CRM.
+- OG images: static root PNG + build-time per-slug entity cards (fallback: static per family).
+- Drift check: **runs** as planned (DB confirmed reachable).
+
+#### Action Items
+- [x] Phase 1: enumerate all 4 lead forms explicitly in Modify list + Step 4
+- [x] Phase 2: root OG → static PNG (delete `app/opengraph-image.tsx`, add PNG)
+- [x] Phase 3: Node pin 20 → 22 (`.nvmrc`, `NODE_VERSION`, risk row)
+- [x] plan.md risk register: Node 20 → 22
+
+#### Impact on Phases
+- Phase 1: form-disable scope widened from "contact + search components" to 4 named files.
+- Phase 2: OG step 3 made concrete (no more hedge between prerender/static for root).
+- Phase 3: env pin updated; no other change.
+- Phase 4: no impact.
+
+### Whole-Plan Consistency Sweep
+- Swept all 5 plan files for stale terms after propagation: "Node 20" /
+  "20 LTS" / "search components" remain only inside this Validation Log as
+  historical record — no live instruction references them.
+- Fixed a propagation-introduced contradiction in phase-02 Related Code Files:
+  entity OG entries said "— same." after the root entry changed to
+  delete-and-replace; entity entries now state their own instruction
+  (remove edge runtime + `generateImageMetadata`). Root OG moved to
+  Delete (+ `app/opengraph-image.png` in Create) to avoid a duplicate
+  instruction in Modify.
+- Phase 2 Key Insight 4 ("static fallback for root + per-slug pre-render for
+  entity cards") already matched the validated decision — unchanged.
+- Phase 4 has no Node/form/OG references — no changes needed.
+- **Unresolved contradictions: 0.**
 
 ## Documentation impact
 

@@ -29,7 +29,8 @@ removed.
 2. **`_headers` replaces `next.config.mjs` headers().** Static export can't emit
    custom headers — Cloudflare Pages reads `out/_headers` at deploy time.
 3. **Build env: lock the Node version.** Pages defaults can lag — pin via
-   `NODE_VERSION` env var + a `.nvmrc` file. Match the local build version.
+   `NODE_VERSION` env var + a `.nvmrc` file. Pinned to **Node 22** matching
+   local v22.21.1 (validation session 1).
 4. **No domain cutover yet.** Stay on `*.pages.dev` for the entire phase. DNS
    work is Phase 4.
 
@@ -72,7 +73,8 @@ to `out/` during export) — that's the clean path. Verify they land at
 ## Related Code Files
 
 ### Create
-- [.nvmrc](../../.nvmrc) — single line: `20`
+- [.nvmrc](../../.nvmrc) — single line: `22` <!-- Updated: Validation Session 1 - Node 22 matches local -->
+
 - [public/_redirects](../../public/_redirects) — see content below.
 - [public/_headers](../../public/_headers) — see content below.
 - [docs/deployment.md](../../docs/deployment.md) (or update existing) —
@@ -128,8 +130,8 @@ built output — verify; tighten further if possible.)
    - Build command: `yarn install --frozen-lockfile && yarn build`
    - Build output directory: `out`
    - Environment variables (Production + Preview):
-     - `NODE_VERSION` = `20`
-     - `YARN_VERSION` = (match local — check `yarn --version`)
+     - `NODE_VERSION` = `22`
+     - `YARN_VERSION` = `1.22.21` (matches local yarn classic)
      - `NEXT_PUBLIC_APP_URL` = `https://<project>.pages.dev` (Phase 4 changes
        this to the real domain).
    - Save; trigger first build from the migration branch by pushing it.
@@ -199,7 +201,7 @@ built output — verify; tighten further if possible.)
 |---|---|
 | `public/_redirects` and `_headers` not copied to `out/` due to Next quirk | Confirm post-build: `ls out/_redirects out/_headers`; if missing, copy in a `postbuild` script |
 | CSP too tight breaks a third-party widget (Cloudflare Turnstile, analytics) | Don't add third-party widgets in this phase; if any exist, allowlist explicitly |
-| Node 20 vs 22 mismatch breaks build | Pin `NODE_VERSION` env + `.nvmrc`; match local exactly |
+| Pages default Node differs from local | Pin `NODE_VERSION=22` env + `.nvmrc` (local is v22.21.1) |
 | Pages build cache stale (deps changed dramatically) | First build: clear cache from dashboard; subsequent builds rebuild deps automatically |
 | Lighthouse score drops > 5 pts | Investigate before cutover; usually image optimization or font loading — fix in this phase, not after cutover |
 

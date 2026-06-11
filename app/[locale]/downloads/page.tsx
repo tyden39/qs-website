@@ -1,4 +1,6 @@
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/lib/i18n/config";
 
 export const metadata = { title: "Tải về — QS Technology" };
 
@@ -32,7 +34,13 @@ const featured = [
     code:"QS-FW-F-2.1.4 · 03/2026" },
 ];
 
-export default function Downloads() {
+export default async function Downloads({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* HERO */}

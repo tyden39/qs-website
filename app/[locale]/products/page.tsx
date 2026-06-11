@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { getAllProducts } from "@/lib/data/products";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
@@ -23,6 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  setRequestLocale(locale);
   const title = titles[locale] ?? titles.vi;
   const description = descs[locale] ?? descs.vi;
   return {
@@ -43,6 +45,7 @@ export async function generateMetadata({
 
 export default async function Products({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const products = await getAllProducts(locale);
   const breadcrumb = buildBreadcrumbList([
     { name: locale === "en" ? "Home" : "Trang chủ", url: `${APP_URL}${locale === "en" ? "/en" : ""}` },

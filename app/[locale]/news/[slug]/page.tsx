@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { getAllNews, getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -13,6 +14,7 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const n = await getNewsBySlug(slug, locale);
   if (!n) return {};
   return {
@@ -38,6 +40,8 @@ export async function generateMetadata({
     twitter: { card: "summary_large_image", title: n.title, description: n.excerpt },
   };
 }
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const slugs = await getNewsSlugs();
@@ -81,6 +85,7 @@ const articleBody = {
 
 export default async function NewsDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const n = await getNewsBySlug(slug, locale);
   if (!n) notFound();
   const allNews = await getAllNews(locale);

@@ -2,44 +2,15 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
-// CSP baseline. The Tiptap-aware nonce middleware will tighten script-src
-// once the rich-text editor ships.
-const csp = [
-  "default-src 'self'",
-  "img-src 'self' blob: data:",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-  "style-src 'self' 'unsafe-inline'",
-  "font-src 'self' data:",
-  "connect-src 'self'",
-  "frame-ancestors 'none'",
-].join("; ");
-
+// Static export for Cloudflare Pages. No server runtime: CSP and other security
+// headers move to a Cloudflare `_headers` file (Phase 3). Images are served
+// unoptimized because the Next image optimizer needs a server.
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+  trailingSlash: true,
   reactStrictMode: true,
-  experimental: {
-    useCache: true,
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "*.public.blob.vercel-storage.com",
-      },
-    ],
-  },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          { key: "Content-Security-Policy", value: csp },
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-        ],
-      },
-    ];
-  },
+  images: { unoptimized: true },
 };
 
 export default withNextIntl(nextConfig);

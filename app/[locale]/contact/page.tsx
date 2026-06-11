@@ -1,5 +1,7 @@
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { ContactForm } from "./_components/contact-form";
+import type { Locale } from "@/lib/i18n/config";
 
 export const metadata = { title: "Liên hệ — QS Technology" };
 
@@ -30,7 +32,13 @@ const faqs = [
     "Bảo hành 24 tháng cho phần cứng, hỗ trợ firmware miễn phí trọn đời sản phẩm. Linh kiện thay thế cam kết sẵn ít nhất 8 năm sau khi ngừng sản xuất."],
 ];
 
-export default function Contact() {
+export default async function Contact({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* HERO */}

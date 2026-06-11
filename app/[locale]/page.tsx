@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { getAllProducts } from "@/lib/data/products";
 import { getAllNews } from "@/lib/data/news";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -20,6 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  setRequestLocale(locale);
   const title = titles[locale] ?? titles.vi;
   const description = descs[locale] ?? descs.vi;
   return {
@@ -40,6 +42,7 @@ export async function generateMetadata({
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [products, news] = await Promise.all([getAllProducts(locale), getAllNews(locale)]);
   // Template uses F54, F10T, Astro 10i in product strip
   const featProducts = ["f54", "f10t", "astro-10i"]

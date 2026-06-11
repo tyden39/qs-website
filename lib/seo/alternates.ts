@@ -12,16 +12,16 @@ export type AlternatesResult = {
 
 /**
  * Build hreflang alternates for a given path.
- * Vietnamese is the default locale (no prefix). English uses /en prefix.
+ * Locale URLs are always prefixed (`/vi/*`, `/en/*`); x-default points to VI.
  */
 export function buildAlternates(path: string): AlternatesResult {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return {
-    canonical: `${APP_URL}${normalized}`,
+    canonical: `${APP_URL}/vi${normalized}`,
     languages: {
-      vi: `${APP_URL}${normalized}`,
+      vi: `${APP_URL}/vi${normalized}`,
       en: `${APP_URL}/en${normalized}`,
-      "x-default": `${APP_URL}${normalized}`,
+      "x-default": `${APP_URL}/vi${normalized}`,
     },
   };
 }

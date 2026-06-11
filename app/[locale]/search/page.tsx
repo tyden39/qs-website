@@ -1,4 +1,6 @@
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/lib/i18n/config";
 
 export const metadata = { title: "Kết quả tìm kiếm — QS Technology" };
 
@@ -85,9 +87,17 @@ const recent = [
   ["22 / 04 / 26", "F54 datasheet"],
 ];
 
-export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
-  const { q } = await searchParams;
-  const query = q?.trim() || "F86 EtherCAT";
+export default async function SearchPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  // Static export can't read `searchParams` at build. This page ships as a
+  // static results demo; live querying is deferred to a future client-side
+  // search (the GET form still points at /search for that later wiring).
+  const query = "F86 EtherCAT";
 
   return (
     <>

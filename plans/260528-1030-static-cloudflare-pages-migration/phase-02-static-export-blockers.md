@@ -1,7 +1,7 @@
 ---
 phase: 2
 title: "Static export + blockers"
-status: pending
+status: done
 priority: P1
 effort: "1d"
 dependencies: [1]
@@ -199,28 +199,58 @@ OG images:   <!-- Updated: Validation Session 1 - root = static PNG, entities = 
 
 ## Todo List
 
-- [ ] Flip `localePrefix` to `always`; fix hard-coded internal hrefs
-- [ ] Add `generateStaticParams` + `dynamicParams = false` to applications [slug]
-- [ ] Verify generateStaticParams on products/news/services [slug] returns both locales
-- [ ] Root OG → static `app/opengraph-image.png`; entity OG → build-time prerender (static-PNG-per-family fallback)
-- [ ] Create `app/page.tsx` root redirect
-- [ ] Delete `proxy.ts`
-- [ ] Patch `next.config.mjs` (output export, trailingSlash, images.unoptimized)
-- [ ] `yarn build` succeeds and emits `out/`
-- [ ] `npx serve out` smoke test all routes VI + EN
-- [ ] Inspect sitemap.xml prefixed URLs
-- [ ] Verify hreflang on a sample page
+- [x] Flip `localePrefix` to `always`; fix hard-coded internal hrefs
+- [x] Add `generateStaticParams` + `dynamicParams = false` to applications [slug]
+- [x] Verify generateStaticParams on products/news/services [slug] returns both locales
+- [x] Root OG → static `app/opengraph-image.png`; entity OG → **static fallback** (`public/og-default.png`, dynamic routes deleted)
+- [x] Create `app/page.tsx` root redirect
+- [x] Delete `proxy.ts`
+- [x] Patch `next.config.mjs` (output export, trailingSlash, images.unoptimized)
+- [x] `yarn build` succeeds and emits `out/` (68 HTML, 20 MB, ~9s)
+- [x] Serve `out/` smoke test — all routes VI + EN return 200
+- [x] Inspect sitemap.xml prefixed URLs (all `/vi/*` + `/en/*`)
+- [x] Verify hreflang on a sample page (entity pages emit vi/en/x-default)
+
+## Implementation Notes (deviations from plan)
+
+1. **Internal-link prefixing was broader than planned.** Plan assumed most links
+   used next-intl `<Link>`; in reality **18 files** imported `next/link` with raw
+   hrefs. All swapped to `@/lib/i18n/navigation` `Link` so `always`-prefix
+   produces working `/vi/*` + `/en/*` nav. `not-found.tsx` kept plain `next/link`
+   (a not-found boundary can't receive the locale param to call
+   `setRequestLocale`) with hardcoded `/vi/*` hrefs.
+2. **`setRequestLocale(locale)` added to every `[locale]` page.** Without it,
+   next-intl's server `Link` calls `getLocale()` → `headers()` → opts the route
+   into dynamic rendering, which `output: "export"` rejects. Sync pages (403,
+   about, contact, downloads, search) were converted to async + `params`.
+3. **Metadata routes need `export const dynamic = "force-static"`** —
+   `sitemap.ts`, `robots.ts`.
+4. **OG images: static fallback taken (validation Q3 pre-approved).** Build-time
+   `next/og` (Satori) rejected the shared template across all entity OG routes
+   ("div with >1 child needs display:flex"). Per the locked fallback, the 3
+   dynamic entity `opengraph-image.tsx` routes were deleted and a static
+   `public/og-default.png` (the pages' existing metadata fallback) was shipped.
+   Root OG is a static `app/opengraph-image.png` rendered from a brand SVG.
+   `lib/seo/og-image-template.tsx` is now orphaned and was removed.
+5. **`/search` degraded to a static demo.** It read `await searchParams` (forbidden
+   in static export). Server query-echo removed; results remain the hardcoded
+   sample set. Live client-side search is deferred (GET form still targets
+   `/search` for future wiring).
+6. **`out/` added to `.gitignore`** (build artifact, ~20 MB).
+7. **Pre-existing, unchanged:** `buildAlternates` canonical points at the VI
+   variant for both locales; static pages inherit the layout's root canonical
+   (`/vi/`). This mirrors the original design and is out of Phase 2 scope.
 
 ## Success Criteria
 
-- [ ] `yarn build` produces complete `out/` with zero warnings about dynamic features
-- [ ] Routes generated: every `[locale]/...` × 2 locales, every entity `[slug]` × 2 locales
-- [ ] Locally `npx serve out -p 4000` serves every page at `/vi/...` and `/en/...`
-- [ ] `out/sitemap.xml` contains prefixed URLs only
-- [ ] `out/robots.txt` present
-- [ ] OG images emitted as PNG (or static fallback in place)
-- [ ] No `proxy.ts` or admin/api routes in `out/`
-- [ ] Build wall-clock < 2 min
+- [x] `yarn build` produces complete `out/` with zero warnings about dynamic features
+- [x] Routes generated: every `[locale]/...` × 2 locales, every entity `[slug]` × 2 locales
+- [x] Locally serving `out/` returns 200 for every page at `/vi/...` and `/en/...`
+- [x] `out/sitemap.xml` contains prefixed URLs only
+- [x] `out/robots.txt` present
+- [x] OG images emitted as PNG (static fallback: `og-default.png` + root `opengraph-image.png`)
+- [x] No `proxy.ts` or admin/api routes in `out/`
+- [x] Build wall-clock < 2 min (~9s)
 
 ## Risk Assessment
 

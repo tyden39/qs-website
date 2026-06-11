@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { getAllNews } from "@/lib/data/news";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
@@ -23,6 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  setRequestLocale(locale);
   const title = titles[locale] ?? titles.vi;
   const description = descs[locale] ?? descs.vi;
   return {
@@ -52,6 +54,7 @@ const tabs = [
 
 export default async function News({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const news = await getAllNews(locale);
   const feat = news[0];
   const rest = news.slice(1);

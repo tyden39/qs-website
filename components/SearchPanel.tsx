@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 
 const featured = [
   { slug: "f54",      name: "F54",       meta: "3-axis · 5\" display",  tag: "Phay & router" },

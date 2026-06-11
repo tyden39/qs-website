@@ -69,7 +69,7 @@ behind the same API — same seam, same reuse.
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | [Strip backend & rewire data seam](./phase-01-strip-backend-rewire-data-seam.md) | Done |
-| 2 | [Static export + blockers](./phase-02-static-export-blockers.md) | Pending |
+| 2 | [Static export + blockers](./phase-02-static-export-blockers.md) | Done |
 | 3 | [Deploy Cloudflare Pages preview](./phase-03-deploy-cloudflare-pages-preview.md) | Pending |
 | 4 | [Cutover domain](./phase-04-cutover-domain.md) | Pending |
 

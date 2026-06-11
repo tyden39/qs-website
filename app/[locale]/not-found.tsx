@@ -1,3 +1,6 @@
+// Plain next/link: a not-found boundary can't receive the locale param, so it
+// can't call setRequestLocale. Hardcode the default-locale paths instead of the
+// locale-aware <Link>, which would opt the route into dynamic rendering.
 import Link from "next/link";
 
 export const metadata = { title: "404 — Không tìm thấy trang | QS Technology" };
@@ -30,8 +33,8 @@ export default function NotFound() {
           URL bạn vừa truy cập không có trong sơ đồ trang của QS Technology — có thể đã được di chuyển, đổi tên, hoặc bạn gõ sai địa chỉ.
         </p>
         <div className="flex gap-2.5 mt-8">
-          <Link className="qs-btn qs-btn-gold" href="/">← Về trang chủ</Link>
-          <Link className="qs-btn qs-btn-ghost" href="/contact">Liên hệ</Link>
+          <Link className="qs-btn qs-btn-gold" href="/vi/">← Về trang chủ</Link>
+          <Link className="qs-btn qs-btn-ghost" href="/vi/contact/">Liên hệ</Link>
         </div>
       </div>
     </section>

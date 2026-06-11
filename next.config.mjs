@@ -6,11 +6,11 @@ const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 // once the rich-text editor ships.
 const csp = [
   "default-src 'self'",
-  "img-src 'self' blob: data: https://*.public.blob.vercel-storage.com",
+  "img-src 'self' blob: data:",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "connect-src 'self' https://api.resend.com",
+  "connect-src 'self'",
   "frame-ancestors 'none'",
 ].join("; ");
 

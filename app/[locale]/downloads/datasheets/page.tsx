@@ -181,7 +181,6 @@ export default async function DownloadsDatasheetsPage({ params }: Props) {
                             <DatasheetRequestForm
                               datasheetSlug={d.slug}
                               datasheetName={d.name}
-                              fileUrl={d.fileUrl}
                               locale={locale}
                             />
                           </td>

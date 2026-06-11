@@ -1,10 +1,8 @@
-import { cacheTag, cacheLife } from "next/cache";
-import { and, eq, asc, count, or, sql } from "drizzle-orm";
-import { db } from "@/lib/db/client";
-import { datasheet, type I18nText } from "@/lib/db/schema/catalog";
 import type { Locale } from "@/lib/i18n/config";
-import { pickLocale } from "./i18n-field";
+import { datasheets, type Datasheet } from "@/data/datasheets";
 
+// View contract consumed by the downloads page. Source is now the static
+// `data/datasheets.ts` seed; `name` maps from the seed `title`.
 export type DatasheetView = {
   slug: string;
   name: string;
@@ -20,61 +18,25 @@ export type DatasheetView = {
   featured: boolean;
 };
 
-function toView(row: typeof datasheet.$inferSelect, locale: Locale): DatasheetView {
+function toView(row: Datasheet): DatasheetView {
   return {
     slug: row.slug,
-    name: pickLocale<string>(row.name as I18nText, locale) ?? row.slug,
+    name: row.title,
     fileUrl: row.fileUrl,
-    productSlug: row.productSlug,
+    productSlug: row.productSlug ?? null,
     category: row.category,
     series: row.series,
     lang: row.lang,
     ext: row.ext,
     version: row.version,
-    docDate: row.docDate,
+    docDate: row.date ? new Date(row.date) : null,
     sizeBytes: row.sizeBytes,
-    featured: Boolean(row.featured),
+    featured: row.featured ?? false,
   };
 }
 
-function langFilter(locale: Locale) {
-  return or(eq(datasheet.lang, locale), eq(datasheet.lang, "both"));
-}
-
 export async function getAllDatasheets(locale: Locale): Promise<DatasheetView[]> {
-  "use cache";
-  cacheTag("datasheets");
-  cacheLife("hours");
-  const rows = await db
-    .select()
-    .from(datasheet)
-    .where(and(eq(datasheet.status, "published"), langFilter(locale)))
-    .orderBy(asc(datasheet.sort), sql`${datasheet.docDate} DESC NULLS LAST`);
-  return rows.map((r) => toView(r, locale));
-}
-
-export async function getDatasheetsForProduct(productSlug: string, locale: Locale): Promise<DatasheetView[]> {
-  "use cache";
-  cacheTag(`datasheets:product:${productSlug}`);
-  cacheLife("hours");
-  const rows = await db
-    .select()
-    .from(datasheet)
-    .where(
-      and(
-        eq(datasheet.status, "published"),
-        eq(datasheet.productSlug, productSlug),
-        langFilter(locale),
-      ),
-    )
-    .orderBy(asc(datasheet.sort));
-  return rows.map((r) => toView(r, locale));
-}
-
-export async function getDatasheetCount(): Promise<number> {
-  "use cache";
-  cacheTag("datasheets");
-  cacheLife("minutes");
-  const [{ value }] = await db.select({ value: count() }).from(datasheet);
-  return Number(value ?? 0);
+  return datasheets
+    .filter((d) => d.lang === locale || d.lang === "both")
+    .map(toView);
 }

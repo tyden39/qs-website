@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { z } from "zod";
 
 // Flat schema without .default() to avoid Resolver<> type mismatch
@@ -27,13 +26,9 @@ interface Props {
 }
 
 export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-  const [errorMsg, setErrorMsg] = useState("");
-
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<InquiryFormValues>({
     resolver: zodResolver(inquirySchema),
@@ -45,44 +40,9 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
     },
   });
 
-  async function onSubmit(values: InquiryFormValues) {
-    setStatus("submitting");
-    setErrorMsg("");
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as { error?: string }).error ?? "Gửi thất bại");
-      }
-      setStatus("success");
-      reset();
-    } catch (err) {
-      setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Có lỗi xảy ra. Vui lòng thử lại.");
-    }
-  }
-
-  if (status === "success") {
-    return (
-      <div className="bg-paper border border-line p-8 text-center">
-        <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-2">
-          [ Gửi thành công ]
-        </div>
-        <p className="text-sm text-[#3a3a3a] m-0">
-          Cảm ơn! Đội QS sẽ liên hệ trong 4 giờ làm việc.
-        </p>
-        <button
-          onClick={() => setStatus("idle")}
-          className="mt-4 font-mono text-[11px] tracking-[.14em] uppercase text-gold-1 underline"
-        >
-          Gửi yêu cầu khác
-        </button>
-      </div>
-    );
+  // Lead capture is temporarily closed during the CRM migration.
+  function onSubmit() {
+    /* disabled — see CRM migration notice below */
   }
 
   return (
@@ -123,16 +83,17 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
           />
         </Field>
 
-        {status === "error" && (
-          <p className="text-sm text-red-600 border border-red-200 bg-red-50 px-4 py-3">{errorMsg}</p>
-        )}
+        <p className="text-sm text-[#5a5650] border border-line bg-paper px-4 py-3 leading-[1.6]">
+          Đang chuyển sang hệ thống CRM mới — vui lòng email trực tiếp{" "}
+          <a href="mailto:sales@qstechnology.vn" className="text-gold-1 underline">sales@qstechnology.vn</a>.
+        </p>
 
         <button
           type="submit"
-          disabled={status === "submitting"}
+          disabled
           className="qs-btn qs-btn-gold w-full justify-center disabled:opacity-60"
         >
-          {status === "submitting" ? "Đang gửi…" : "Gửi yêu cầu →"}
+          Gửi yêu cầu →
         </button>
       </div>
     </form>

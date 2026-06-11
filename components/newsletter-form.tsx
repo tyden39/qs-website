@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { z } from "zod";
 
 // Flat schema without .default() to avoid Resolver<> type mismatch
@@ -14,40 +13,18 @@ const newsletterSchema = z.object({
 type NewsletterInput = z.infer<typeof newsletterSchema>;
 
 export function NewsletterForm({ locale = "vi" }: { locale?: string }) {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<NewsletterInput>({
     resolver: zodResolver(newsletterSchema),
     defaultValues: { locale: locale as "vi" | "en", honeypot: "" },
   });
 
-  async function onSubmit(values: NewsletterInput) {
-    setStatus("submitting");
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, source: "newsletter" }),
-      });
-      if (!res.ok) throw new Error("failed");
-      setStatus("success");
-      reset();
-    } catch {
-      setStatus("error");
-    }
-  }
-
-  if (status === "success") {
-    return (
-      <p className="text-[13px] text-gold-2 leading-relaxed">
-        Đăng ký thành công! Bạn sẽ nhận bản tin kỹ thuật từ QS.
-      </p>
-    );
+  // Lead capture is temporarily closed during the CRM migration.
+  function onSubmit() {
+    /* disabled — see CRM migration notice below */
   }
 
   return (
@@ -65,19 +42,20 @@ export function NewsletterForm({ locale = "vi" }: { locale?: string }) {
         />
         <button
           type="submit"
-          disabled={status === "submitting"}
+          disabled
           className="border border-l-0 border-[#2a2a2a] px-4 py-2.5 font-mono text-[10px] tracking-[.14em] uppercase text-[#cfc9b8] hover:border-gold-1 hover:text-gold-2 transition-colors disabled:opacity-50 whitespace-nowrap"
         >
-          {status === "submitting" ? "…" : "Đăng ký →"}
+          Đăng ký →
         </button>
       </div>
 
       {errors.email && (
         <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>
       )}
-      {status === "error" && (
-        <p className="mt-1 text-xs text-red-400">Có lỗi xảy ra. Vui lòng thử lại.</p>
-      )}
+      <p className="mt-2 text-[11px] text-[#8a857c] leading-relaxed">
+        Đang chuyển sang hệ thống CRM mới — vui lòng email{" "}
+        <a href="mailto:sales@qstechnology.vn" className="text-gold-2 underline">sales@qstechnology.vn</a>.
+      </p>
     </form>
   );
 }

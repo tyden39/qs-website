@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { z } from "zod";
 
 // Flat schema without .default() to avoid Resolver<> type mismatch
@@ -19,13 +18,10 @@ type DatasheetRequestInput = z.infer<typeof datasheetRequestSchema>;
 interface Props {
   datasheetSlug: string;
   datasheetName: string;
-  fileUrl: string;
   locale?: string;
 }
 
-export function DatasheetRequestForm({ datasheetSlug, datasheetName, fileUrl, locale = "vi" }: Props) {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-
+export function DatasheetRequestForm({ datasheetSlug, datasheetName, locale = "vi" }: Props) {
   const {
     register,
     handleSubmit,
@@ -39,42 +35,10 @@ export function DatasheetRequestForm({ datasheetSlug, datasheetName, fileUrl, lo
     },
   });
 
-  async function onSubmit(values: DatasheetRequestInput) {
-    setStatus("submitting");
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "datasheet",
-          email: values.email,
-          name: values.name,
-          company: values.company,
-          locale: values.locale,
-          honeypot: values.honeypot,
-          payload: { datasheet_slug: datasheetSlug, datasheet_name: datasheetName },
-        }),
-      });
-      if (!res.ok) throw new Error("failed");
-      setStatus("success");
-      // Trigger download after successful lead capture
-      window.open(fileUrl, "_blank", "noopener,noreferrer");
-    } catch {
-      setStatus("error");
-    }
-  }
-
-  if (status === "success") {
-    return (
-      <div className="bg-paper border border-line p-5 text-center">
-        <p className="text-sm text-[#3a3a3a] m-0">
-          Cảm ơn! File đang tải xuống.{" "}
-          <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="text-gold-1 underline">
-            Nhấn đây nếu không tự động
-          </a>
-        </p>
-      </div>
-    );
+  // Lead capture is temporarily closed during the CRM migration; datasheet
+  // downloads stay gated until the CRM endpoint lands. Submission is a no-op.
+  function onSubmit() {
+    /* disabled — see CRM migration notice below */
   }
 
   return (
@@ -85,7 +49,7 @@ export function DatasheetRequestForm({ datasheetSlug, datasheetName, fileUrl, lo
       <input {...register("locale")} type="hidden" />
 
       <p className="text-[12px] text-muted m-0">
-        Nhập email để tải <strong className="text-ink">{datasheetName}</strong>
+        Tải <strong className="text-ink">{datasheetName}</strong>
       </p>
 
       <div className="flex gap-2 items-start">
@@ -94,7 +58,8 @@ export function DatasheetRequestForm({ datasheetSlug, datasheetName, fileUrl, lo
             {...register("email")}
             type="email"
             placeholder="email@company.vn"
-            className={`w-full border ${errors.email ? "border-red-400" : "border-line"} bg-white px-3 py-2 text-sm focus:outline-none focus:border-ink transition-colors`}
+            disabled
+            className={`w-full border ${errors.email ? "border-red-400" : "border-line"} bg-paper px-3 py-2 text-sm focus:outline-none focus:border-ink transition-colors disabled:opacity-60`}
           />
           {errors.email && (
             <p className="mt-0.5 text-xs text-red-500">{errors.email.message}</p>
@@ -102,16 +67,18 @@ export function DatasheetRequestForm({ datasheetSlug, datasheetName, fileUrl, lo
         </div>
         <button
           type="submit"
-          disabled={status === "submitting"}
+          disabled
           className="inline-flex items-center h-9 border border-ink bg-ink text-white px-4 font-mono text-[11px] tracking-[.14em] uppercase hover:bg-gold-3 hover:border-gold-3 disabled:opacity-50 whitespace-nowrap"
         >
-          {status === "submitting" ? "…" : "Tải ↓"}
+          Tải ↓
         </button>
       </div>
 
-      {status === "error" && (
-        <p className="text-xs text-red-500">Có lỗi xảy ra. Vui lòng thử lại.</p>
-      )}
+      <p className="text-[11px] text-muted leading-relaxed">
+        Đang chuyển sang hệ thống CRM mới — vui lòng email{" "}
+        <a href="mailto:sales@qstechnology.vn" className="text-gold-1 underline">sales@qstechnology.vn</a>{" "}
+        để nhận tài liệu.
+      </p>
     </form>
   );
 }

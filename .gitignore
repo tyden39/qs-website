@@ -4,7 +4,6 @@ out
 *.tsbuildinfo
 next-env.d.ts
 *:Zone.Identifier
-.DS_Store
 
 # secrets
 .env

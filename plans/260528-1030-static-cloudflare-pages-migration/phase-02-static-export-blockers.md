@@ -1,7 +1,7 @@
 ---
 phase: 2
 title: "Static export + blockers"
-status: done
+status: pending
 priority: P1
 effort: "1d"
 dependencies: [1]
@@ -82,11 +82,10 @@ app/page.tsx (new)
   Returns a minimal HTML page with <meta http-equiv="refresh" content="0;url=/vi/">
   (Cloudflare _redirects also covers this in Phase 3 — belt + suspenders.)
 
-OG images:   <!-- Updated: Validation Session 1 - root = static PNG, entities = build-time -->
-  app/opengraph-image.tsx           → DELETE; replace with static app/opengraph-image.png (1200×630)
-  app/[locale]/<entity>/[slug]/opengraph-image.tsx → drop runtime=edge, prerender at
-                                       build via generateImageMetadata (one PNG per
-                                       slug × locale); fallback = static PNG per family
+OG images:
+  app/opengraph-image.tsx           → drop runtime=edge, prerender at build
+  app/[locale]/<entity>/[slug]/opengraph-image.tsx → ditto, with generateImageMetadata
+                                                       producing one PNG per slug
 ```
 
 ## Related Code Files
@@ -97,10 +96,12 @@ OG images:   <!-- Updated: Validation Session 1 - root = static PNG, entities = 
   block (CSP moves to `_headers` in Phase 3); drop `experimental.useCache`.
 - [lib/i18n/routing.ts](../../lib/i18n/routing.ts) — `localePrefix: "always"`.
 - [lib/i18n/request.ts](../../lib/i18n/request.ts) — leave as-is; works at build.
-- [app/[locale]/news/[slug]/opengraph-image.tsx](../../app/[locale]/news/[slug]/opengraph-image.tsx) —
-  remove `runtime = "edge"`, prerender at build via `generateImageMetadata` (see Step 3).
-- [app/[locale]/products/[slug]/opengraph-image.tsx](../../app/[locale]/products/[slug]/opengraph-image.tsx) — same as news.
-- [app/[locale]/applications/[slug]/opengraph-image.tsx](../../app/[locale]/applications/[slug]/opengraph-image.tsx) — same as news.
+- [app/opengraph-image.tsx](../../app/opengraph-image.tsx) — remove
+  `export const runtime = "edge"`; ensure `ImageResponse` works at build (or
+  swap to a static `app/opengraph-image.png` if `ImageResponse` proves flaky).
+- [app/[locale]/news/[slug]/opengraph-image.tsx](../../app/[locale]/news/[slug]/opengraph-image.tsx) — same.
+- [app/[locale]/products/[slug]/opengraph-image.tsx](../../app/[locale]/products/[slug]/opengraph-image.tsx) — same.
+- [app/[locale]/applications/[slug]/opengraph-image.tsx](../../app/[locale]/applications/[slug]/opengraph-image.tsx) — same.
 - [app/[locale]/applications/[slug]/page.tsx](../../app/[locale]/applications/[slug]/page.tsx) — add
   `generateStaticParams` returning all slugs from `lib/data/applications`.
 - [app/[locale]/products/[slug]/page.tsx](../../app/[locale]/products/[slug]/page.tsx) — verify
@@ -116,12 +117,9 @@ OG images:   <!-- Updated: Validation Session 1 - root = static PNG, entities = 
 ### Create
 - [app/page.tsx](../../app/page.tsx) — minimal root page with meta-refresh to
   `/vi/`. Belt-and-suspenders for `_redirects`.
-- `app/opengraph-image.png` — static 1200×630 root OG image (replaces the
-  dynamic root `opengraph-image.tsx`).
 
 ### Delete
 - [proxy.ts](../../proxy.ts) — next-intl middleware no longer runs in static.
-- [app/opengraph-image.tsx](../../app/opengraph-image.tsx) — replaced by static PNG (see Create).
 
 ## Implementation Steps
 
@@ -144,16 +142,15 @@ OG images:   <!-- Updated: Validation Session 1 - root = static PNG, entities = 
      ```
    - **Applications page is the new one** — currently lacks it (brainstorm flag).
 
-3. **OG images.** <!-- Updated: Validation Session 1 - strategy locked -->
-   - Root: delete `app/opengraph-image.tsx`; add static `app/opengraph-image.png`
-     (1200×630).
+3. **OG images.**
+   - For the root `app/opengraph-image.tsx`: remove `runtime = "edge"`.
    - For entity `[slug]/opengraph-image.tsx`: remove `runtime = "edge"`, add
      `generateImageMetadata` returning one entry per slug × locale. Verify
      `ImageResponse` builds at static time (if Next still requires a Node-only
      font fetch, host the font in `public/fonts/` and read locally).
-   - Fallback option (only if `ImageResponse` blocks the build): replace the
-     dynamic entity OG files with one static PNG per route family. Note in PR
-     which path was taken.
+   - Fallback option (if `ImageResponse` blocks the build): ship a static
+     `app/opengraph-image.png` (1200×630) and remove the dynamic OG files. Note
+     in PR which path was taken.
 
 4. **Create root redirect.**
    - `app/page.tsx`:
@@ -199,58 +196,28 @@ OG images:   <!-- Updated: Validation Session 1 - root = static PNG, entities = 
 
 ## Todo List
 
-- [x] Flip `localePrefix` to `always`; fix hard-coded internal hrefs
-- [x] Add `generateStaticParams` + `dynamicParams = false` to applications [slug]
-- [x] Verify generateStaticParams on products/news/services [slug] returns both locales
-- [x] Root OG → static `app/opengraph-image.png`; entity OG → **static fallback** (`public/og-default.png`, dynamic routes deleted)
-- [x] Create `app/page.tsx` root redirect
-- [x] Delete `proxy.ts`
-- [x] Patch `next.config.mjs` (output export, trailingSlash, images.unoptimized)
-- [x] `yarn build` succeeds and emits `out/` (68 HTML, 20 MB, ~9s)
-- [x] Serve `out/` smoke test — all routes VI + EN return 200
-- [x] Inspect sitemap.xml prefixed URLs (all `/vi/*` + `/en/*`)
-- [x] Verify hreflang on a sample page (entity pages emit vi/en/x-default)
-
-## Implementation Notes (deviations from plan)
-
-1. **Internal-link prefixing was broader than planned.** Plan assumed most links
-   used next-intl `<Link>`; in reality **18 files** imported `next/link` with raw
-   hrefs. All swapped to `@/lib/i18n/navigation` `Link` so `always`-prefix
-   produces working `/vi/*` + `/en/*` nav. `not-found.tsx` kept plain `next/link`
-   (a not-found boundary can't receive the locale param to call
-   `setRequestLocale`) with hardcoded `/vi/*` hrefs.
-2. **`setRequestLocale(locale)` added to every `[locale]` page.** Without it,
-   next-intl's server `Link` calls `getLocale()` → `headers()` → opts the route
-   into dynamic rendering, which `output: "export"` rejects. Sync pages (403,
-   about, contact, downloads, search) were converted to async + `params`.
-3. **Metadata routes need `export const dynamic = "force-static"`** —
-   `sitemap.ts`, `robots.ts`.
-4. **OG images: static fallback taken (validation Q3 pre-approved).** Build-time
-   `next/og` (Satori) rejected the shared template across all entity OG routes
-   ("div with >1 child needs display:flex"). Per the locked fallback, the 3
-   dynamic entity `opengraph-image.tsx` routes were deleted and a static
-   `public/og-default.png` (the pages' existing metadata fallback) was shipped.
-   Root OG is a static `app/opengraph-image.png` rendered from a brand SVG.
-   `lib/seo/og-image-template.tsx` is now orphaned and was removed.
-5. **`/search` degraded to a static demo.** It read `await searchParams` (forbidden
-   in static export). Server query-echo removed; results remain the hardcoded
-   sample set. Live client-side search is deferred (GET form still targets
-   `/search` for future wiring).
-6. **`out/` added to `.gitignore`** (build artifact, ~20 MB).
-7. **Pre-existing, unchanged:** `buildAlternates` canonical points at the VI
-   variant for both locales; static pages inherit the layout's root canonical
-   (`/vi/`). This mirrors the original design and is out of Phase 2 scope.
+- [ ] Flip `localePrefix` to `always`; fix hard-coded internal hrefs
+- [ ] Add `generateStaticParams` + `dynamicParams = false` to applications [slug]
+- [ ] Verify generateStaticParams on products/news/services [slug] returns both locales
+- [ ] Fix root + entity `opengraph-image.tsx` (remove edge runtime, prerender or static PNG fallback)
+- [ ] Create `app/page.tsx` root redirect
+- [ ] Delete `proxy.ts`
+- [ ] Patch `next.config.mjs` (output export, trailingSlash, images.unoptimized)
+- [ ] `yarn build` succeeds and emits `out/`
+- [ ] `npx serve out` smoke test all routes VI + EN
+- [ ] Inspect sitemap.xml prefixed URLs
+- [ ] Verify hreflang on a sample page
 
 ## Success Criteria
 
-- [x] `yarn build` produces complete `out/` with zero warnings about dynamic features
-- [x] Routes generated: every `[locale]/...` × 2 locales, every entity `[slug]` × 2 locales
-- [x] Locally serving `out/` returns 200 for every page at `/vi/...` and `/en/...`
-- [x] `out/sitemap.xml` contains prefixed URLs only
-- [x] `out/robots.txt` present
-- [x] OG images emitted as PNG (static fallback: `og-default.png` + root `opengraph-image.png`)
-- [x] No `proxy.ts` or admin/api routes in `out/`
-- [x] Build wall-clock < 2 min (~9s)
+- [ ] `yarn build` produces complete `out/` with zero warnings about dynamic features
+- [ ] Routes generated: every `[locale]/...` × 2 locales, every entity `[slug]` × 2 locales
+- [ ] Locally `npx serve out -p 4000` serves every page at `/vi/...` and `/en/...`
+- [ ] `out/sitemap.xml` contains prefixed URLs only
+- [ ] `out/robots.txt` present
+- [ ] OG images emitted as PNG (or static fallback in place)
+- [ ] No `proxy.ts` or admin/api routes in `out/`
+- [ ] Build wall-clock < 2 min
 
 ## Risk Assessment
 

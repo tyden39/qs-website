@@ -1,16 +1,8 @@
-import { Link } from "@/lib/i18n/navigation";
-import { setRequestLocale } from "next-intl/server";
-import type { Locale } from "@/lib/i18n/config";
+import Link from "next/link";
 
 export const metadata = { title: "Không có quyền — QS Technology" };
 
-export default async function ForbiddenPage({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default function ForbiddenPage() {
   return (
     <section className="min-h-[70vh] bg-paper grid place-items-center">
       <div className="max-w-md text-center px-6">

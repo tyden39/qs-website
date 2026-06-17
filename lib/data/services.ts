@@ -1,9 +1,6 @@
-import type { Locale } from "@/lib/i18n/config";
 import { services, type Service } from "@/data/services";
+import type { Locale } from "@/lib/i18n/config";
 
-// View contract consumed by SEO/metadata helpers. The services detail page
-// renders from the `data/services.ts` seed directly; this seam maps the same
-// seed into the View shape so metadata + JSON-LD stay DB-free.
 export type ServiceView = {
   slug: string;
   title: string;
@@ -16,28 +13,25 @@ export type ServiceView = {
   tiers: { name: string; title: string; price: string; priceNote: string; features: string[]; cta: string; featured: boolean }[];
 };
 
-function toView(row: Service): ServiceView {
+// The service detail page renders primarily from the `data/services` seed
+// directly; this view only needs to supply slugs (static params) and metadata
+// fields (hero.subhead / title) it reads.
+function toView(s: Service): ServiceView {
   return {
-    slug: row.slug,
-    title: row.name,
+    slug: s.slug,
+    title: s.name,
     hero: {
-      headline: `${row.hero.line1} ${row.hero.emphasis} ${row.hero.line2}`.trim(),
-      subhead: row.lede,
+      headline: `${s.hero.line1} ${s.hero.line2} ${s.hero.emphasis}`.replace(/\s+/g, " ").trim(),
+      subhead: s.lede,
       ctaPrimary: null,
       ctaSecondary: null,
     },
-    stats: row.stats.map(([label, value]) => ({ label, value })),
-    intro: row.includesIntro,
-    process: row.process.map((p) => ({
-      num: p.num,
-      day: p.day,
-      title: p.title,
-      desc: p.desc,
-      duration: p.duration,
-    })),
-    included: row.includes.map((i) => ({ has: i.has, name: i.name, note: i.note, tag: i.tag })),
-    faqs: row.faqs,
-    tiers: row.packages.map((p) => ({
+    stats: s.stats.map(([value, label]) => ({ label, value })),
+    intro: s.includesIntro,
+    process: s.process.map((p) => ({ num: p.num, day: p.day, title: p.title, desc: p.desc, duration: p.duration })),
+    included: s.includes,
+    faqs: s.faqs,
+    tiers: s.packages.map((p) => ({
       name: p.name,
       title: p.title,
       price: p.price,
@@ -49,11 +43,11 @@ function toView(row: Service): ServiceView {
   };
 }
 
-export async function getServiceBySlug(slug: string, _locale: Locale): Promise<ServiceView | null> {
-  const row = services.find((s) => s.slug === slug);
-  return row ? toView(row) : null;
+export function getServiceBySlug(slug: string, _locale: Locale): ServiceView | null {
+  const s = services.find((x) => x.slug === slug);
+  return s ? toView(s) : null;
 }
 
-export async function getServiceSlugs(): Promise<string[]> {
+export function getServiceSlugs(): string[] {
   return services.map((s) => s.slug);
 }

@@ -1,5 +1,4 @@
-import { Link } from "@/lib/i18n/navigation";
-import { setRequestLocale } from "next-intl/server";
+import Link from "next/link";
 import { getAllDatasheets } from "@/lib/data/datasheets";
 import { DatasheetRequestForm } from "../_components/datasheet-request-form";
 import type { Locale } from "@/lib/i18n/config";
@@ -23,7 +22,6 @@ const langLabel: Record<string, string> = { vi: "Tiếng Việt", en: "English",
 
 export default async function DownloadsDatasheetsPage({ params }: Props) {
   const { locale } = await params;
-  setRequestLocale(locale);
   const datasheets = await getAllDatasheets(locale as Locale);
 
   // Collect unique categories for filter display
@@ -183,6 +181,7 @@ export default async function DownloadsDatasheetsPage({ params }: Props) {
                             <DatasheetRequestForm
                               datasheetSlug={d.slug}
                               datasheetName={d.name}
+                              fileUrl={d.fileUrl}
                               locale={locale}
                             />
                           </td>

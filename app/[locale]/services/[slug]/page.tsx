@@ -1,24 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Link } from "@/lib/i18n/navigation";
-import { setRequestLocale } from "next-intl/server";
+import Link from "next/link";
 import { services } from "@/data/services";
 import { getServiceBySlug, getServiceSlugs } from "@/lib/data/services";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildService, buildFAQPage, JsonLd } from "@/lib/seo/jsonld";
-import { routing } from "@/lib/i18n/routing";
 import type { Locale } from "@/lib/i18n/config";
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
-  // Combine static slugs from the data file with seed slugs.
-  const seedSlugs = await getServiceSlugs();
+  // Combine static slugs from data file with DB slugs
+  const dbSlugs = await getServiceSlugs();
   const staticSlugs = services.map((s) => s.slug);
-  const allSlugs = Array.from(new Set([...staticSlugs, ...seedSlugs]));
-  return routing.locales.flatMap((locale) =>
-    allSlugs.map((slug) => ({ locale, slug })),
-  );
+  const allSlugs = Array.from(new Set([...staticSlugs, ...dbSlugs]));
+  return allSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -27,7 +21,6 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   // Try DB first, fall back to static data name
   const dbService = await getServiceBySlug(slug, locale);
   const staticService = services.find((x) => x.slug === slug);
@@ -54,7 +47,6 @@ export async function generateMetadata({
 
 export default async function ServiceDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const s = services.find(x => x.slug === slug);
   if (!s) notFound();
 

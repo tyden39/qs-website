@@ -4,7 +4,6 @@ import { getNewsSlugs } from "@/lib/data/news";
 import { getApplicationSlugs } from "@/lib/data/applications";
 import { getServiceSlugs } from "@/lib/data/services";
 
-// Required for `output: "export"`: emit a static sitemap.xml at build time.
 export const dynamic = "force-static";
 
 const APP_URL =
@@ -26,8 +25,9 @@ const STATIC_PATHS = [
 // vi/en/x-default alternates triple. Per Google's hreflang+sitemap spec, every
 // locale variant must appear with the full alternate set including itself.
 function buildEntries(path: string): MetadataRoute.Sitemap {
-  const viUrl = `${APP_URL}/vi${path}`;
-  const enUrl = `${APP_URL}/en${path}`;
+  // localePrefix is "always": every public URL carries a /vi or /en prefix.
+  const viUrl = path === "/" ? `${APP_URL}/vi` : `${APP_URL}/vi${path}`;
+  const enUrl = path === "/" ? `${APP_URL}/en` : `${APP_URL}/en${path}`;
   const languages = { vi: viUrl, en: enUrl, "x-default": viUrl };
   const priority = path === "/" ? 1.0 : 0.8;
   return [

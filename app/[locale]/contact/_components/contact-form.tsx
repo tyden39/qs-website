@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { z } from "zod";
 
 // Flat schema avoids .default() issues with react-hook-form Resolver types
@@ -19,19 +20,60 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 export function ContactForm({ locale = "vi" }: { locale?: string }) {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: { source: "contact" as const, locale: locale as "vi" | "en", honeypot: "" },
   });
 
-  // Lead capture is temporarily closed during the CRM migration. Markup is
-  // kept for UX continuity; submission is a no-op until the CRM endpoint lands.
-  function onSubmit() {
-    /* disabled — see CRM migration notice below */
+  async function onSubmit(values: ContactFormValues) {
+    setStatus("submitting");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data as { error?: string }).error ?? "Gửi thất bại");
+      }
+      setStatus("success");
+      reset();
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Có lỗi xảy ra. Vui lòng thử lại.");
+    }
+  }
+
+  if (status === "success") {
+    return (
+      <div className="bg-white border border-line p-8">
+        <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3">
+          [ Gửi thành công ]
+        </div>
+        <h3 className="font-display font-semibold text-xl tracking-[-.005em] m-0 mb-3">
+          Cảm ơn bạn đã liên hệ!
+        </h3>
+        <p className="text-sm text-[#3a3a3a] leading-[1.7] m-0">
+          Đội QS sẽ phản hồi trong vòng 4 giờ làm việc (8:00–17:30, T2–T6).
+        </p>
+        <button
+          onClick={() => setStatus("idle")}
+          className="mt-5 font-mono text-[11px] tracking-[.14em] uppercase text-gold-1 underline underline-offset-2"
+        >
+          Gửi yêu cầu khác
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -95,20 +137,18 @@ export function ContactForm({ locale = "vi" }: { locale?: string }) {
           />
         </FormField>
 
-        <p className="text-sm text-[#5a5650] border border-line bg-paper px-4 py-3 leading-[1.6]">
-          Đang chuyển sang hệ thống CRM mới — vui lòng email trực tiếp{" "}
-          <a href="mailto:sales@qstechnology.vn" className="text-gold-1 underline">
-            sales@qstechnology.vn
-          </a>
-          .
-        </p>
+        {status === "error" && (
+          <p className="text-sm text-red-600 border border-red-200 bg-red-50 px-4 py-3">
+            {errorMsg}
+          </p>
+        )}
 
         <button
           type="submit"
-          disabled
+          disabled={status === "submitting"}
           className="qs-btn qs-btn-gold w-full justify-center mt-2 disabled:opacity-60"
         >
-          Gửi yêu cầu →
+          {status === "submitting" ? "Đang gửi…" : "Gửi yêu cầu →"}
         </button>
       </div>
     </form>

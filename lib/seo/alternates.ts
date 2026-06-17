@@ -11,17 +11,20 @@ export type AlternatesResult = {
 };
 
 /**
- * Build hreflang alternates for a given path.
- * Locale URLs are always prefixed (`/vi/*`, `/en/*`); x-default points to VI.
+ * Build hreflang alternates for a given path. localePrefix is "always", so both
+ * locales carry a prefix (/vi, /en); x-default and canonical point to the
+ * Vietnamese variant.
  */
 export function buildAlternates(path: string): AlternatesResult {
   const normalized = path.startsWith("/") ? path : `/${path}`;
+  const viUrl = `${APP_URL}/vi${normalized}`;
+  const enUrl = `${APP_URL}/en${normalized}`;
   return {
-    canonical: `${APP_URL}/vi${normalized}`,
+    canonical: viUrl,
     languages: {
-      vi: `${APP_URL}/vi${normalized}`,
-      en: `${APP_URL}/en${normalized}`,
-      "x-default": `${APP_URL}/vi${normalized}`,
+      vi: viUrl,
+      en: enUrl,
+      "x-default": viUrl,
     },
   };
 }

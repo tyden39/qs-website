@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
-import { Link } from "@/lib/i18n/navigation";
-import { setRequestLocale } from "next-intl/server";
+import Link from "next/link";
 import { getApplicationBySlug, getApplicationSlugs } from "@/lib/data/applications";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTechArticle, JsonLd } from "@/lib/seo/jsonld";
-import { routing } from "@/lib/i18n/routing";
 import type { Locale } from "@/lib/i18n/config";
+import { routing } from "@/lib/i18n/routing";
 
 export const dynamicParams = false;
 
-export async function generateStaticParams() {
-  const slugs = await getApplicationSlugs();
-  return routing.locales.flatMap((locale) =>
-    slugs.map((slug) => ({ locale, slug })),
-  );
+export function generateStaticParams() {
+  const slugs = getApplicationSlugs();
+  return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
 export async function generateMetadata({
@@ -22,7 +19,6 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const a = await getApplicationBySlug(slug, locale);
   const title = a?.title ?? slug.replace(/-/g, " ");
   const description = a?.summary?.slice(0, 160) ?? "";
@@ -90,7 +86,6 @@ const relatedApps = [
 
 export default async function ApplicationDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const machine = machineMap[slug] ?? slug.replace(/-/g, " ");
   const idx = Object.keys(machineMap).indexOf(slug) + 1 || 1;
   const appData = await getApplicationBySlug(slug, locale);

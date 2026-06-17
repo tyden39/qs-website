@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Link } from "@/lib/i18n/navigation";
-import { setRequestLocale } from "next-intl/server";
+import Link from "next/link";
 import { getAllProducts, getProductBySlug, getProductSlugs } from "@/lib/data/products";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -14,7 +13,6 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const p = await getProductBySlug(slug, locale);
   if (!p) return {};
   return {
@@ -40,8 +38,6 @@ export async function generateMetadata({
   };
 }
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   const slugs = await getProductSlugs();
   return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
@@ -49,7 +45,6 @@ export async function generateStaticParams() {
 
 export default async function ProductDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const p = await getProductBySlug(slug, locale);
   if (!p) notFound();
   const all = await getAllProducts(locale);

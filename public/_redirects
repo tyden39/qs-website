@@ -1,0 +1,17 @@
+# Root → default locale
+/                          /vi/                       302
+
+# Old un-prefixed VI routes → /vi/* (preserve SEO)
+/products                  /vi/products/              301
+/products/*                /vi/products/:splat        301
+/services                  /vi/services/              301
+/services/*                /vi/services/:splat        301
+/news                      /vi/news/                  301
+/news/*                    /vi/news/:splat            301
+/applications              /vi/applications/          301
+/applications/*            /vi/applications/:splat    301
+/downloads                 /vi/downloads/             301
+/downloads/*               /vi/downloads/:splat       301
+/about                     /vi/about/                 301
+/contact                   /vi/contact/               301
+/search                    /vi/search/                301

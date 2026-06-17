@@ -1,8 +1,6 @@
-import type { Locale } from "@/lib/i18n/config";
 import { news, type News } from "@/data/news";
+import type { Locale } from "@/lib/i18n/config";
 
-// View contract consumed by pages + SEO helpers. Source is now the static
-// `data/news.ts` seed (single-language VI); EN reuses the same text.
 export type NewsView = {
   slug: string;
   title: string;
@@ -17,41 +15,33 @@ export type NewsView = {
   date: string;
 };
 
-// Seed stores the display date as "DD · MM · YYYY"; derive a real Date for
-// structured-data (`datePublished`) and leave the display string untouched.
-function parsePublishedAt(display: string): Date | null {
-  const parts = display.split("·").map((p) => p.trim());
-  if (parts.length !== 3) return null;
-  const [dd, mm, yyyy] = parts.map(Number);
-  if (!dd || !mm || !yyyy) return null;
-  return new Date(Date.UTC(yyyy, mm - 1, dd));
-}
-
-function toView(row: News): NewsView {
+// Seed dates are pre-formatted display strings (e.g. "28 · 04 · 2026"); array
+// order is already newest-first, so no re-sort is needed.
+function toView(n: News): NewsView {
   return {
-    slug: row.slug,
-    title: row.title,
-    excerpt: row.excerpt,
-    bodyHtml: row.body,
+    slug: n.slug,
+    title: n.title,
+    excerpt: n.excerpt,
+    bodyHtml: n.body,
     bodyJson: null,
     coverImage: null,
-    category: row.cat,
-    cat: row.cat,
-    tags: row.tags ?? [],
-    publishedAt: parsePublishedAt(row.date),
-    date: row.date,
+    category: n.cat,
+    cat: n.cat,
+    tags: n.tags ?? [],
+    publishedAt: null,
+    date: n.date,
   };
 }
 
-export async function getAllNews(_locale: Locale): Promise<NewsView[]> {
+export function getAllNews(_locale: Locale): NewsView[] {
   return news.map(toView);
 }
 
-export async function getNewsBySlug(slug: string, _locale: Locale): Promise<NewsView | null> {
-  const row = news.find((n) => n.slug === slug);
-  return row ? toView(row) : null;
+export function getNewsBySlug(slug: string, _locale: Locale): NewsView | null {
+  const n = news.find((x) => x.slug === slug);
+  return n ? toView(n) : null;
 }
 
-export async function getNewsSlugs(): Promise<string[]> {
+export function getNewsSlugs(): string[] {
   return news.map((n) => n.slug);
 }

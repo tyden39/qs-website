@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Link } from "@/lib/i18n/navigation";
-import { setRequestLocale } from "next-intl/server";
+import Link from "next/link";
+import DOMPurify from "isomorphic-dompurify";
 import { getAllNews, getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -14,7 +14,6 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const n = await getNewsBySlug(slug, locale);
   if (!n) return {};
   return {
@@ -41,7 +40,21 @@ export async function generateMetadata({
   };
 }
 
-export const dynamicParams = false;
+const ALLOWED_TAGS = [
+  "p", "br", "strong", "em", "u", "s",
+  "ul", "ol", "li",
+  "h1", "h2", "h3", "h4",
+  "a", "img",
+  "blockquote", "code", "pre", "hr",
+];
+
+function safeHtml(raw: string): string {
+  return DOMPurify.sanitize(raw, {
+    ALLOWED_TAGS,
+    ALLOWED_ATTR: ["href", "src", "alt", "title", "rel", "target"],
+    ALLOWED_URI_REGEXP: /^(?:(?:https?:|mailto:|\/)|[^a-z]|[a-z+.-]+(?:[^a-z+.-:]|$))/i,
+  });
+}
 
 export async function generateStaticParams() {
   const slugs = await getNewsSlugs();
@@ -85,7 +98,6 @@ const articleBody = {
 
 export default async function NewsDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const n = await getNewsBySlug(slug, locale);
   if (!n) notFound();
   const allNews = await getAllNews(locale);
@@ -211,7 +223,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
             ) : (
               <div
                 className="prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: n.bodyHtml }}
+                dangerouslySetInnerHTML={{ __html: safeHtml(n.bodyHtml) }}
               />
             )}
           </article>

@@ -1,8 +1,6 @@
-import type { Locale } from "@/lib/i18n/config";
 import { datasheets, type Datasheet } from "@/data/datasheets";
+import type { Locale } from "@/lib/i18n/config";
 
-// View contract consumed by the downloads page. Source is now the static
-// `data/datasheets.ts` seed; `name` maps from the seed `title`.
 export type DatasheetView = {
   slug: string;
   name: string;
@@ -18,24 +16,26 @@ export type DatasheetView = {
   featured: boolean;
 };
 
-function toView(row: Datasheet): DatasheetView {
+function toView(d: Datasheet): DatasheetView {
   return {
-    slug: row.slug,
-    name: row.title,
-    fileUrl: row.fileUrl,
-    productSlug: row.productSlug ?? null,
-    category: row.category,
-    series: row.series,
-    lang: row.lang,
-    ext: row.ext,
-    version: row.version,
-    docDate: row.date ? new Date(row.date) : null,
-    sizeBytes: row.sizeBytes,
-    featured: row.featured ?? false,
+    slug: d.slug,
+    name: d.title,
+    fileUrl: d.fileUrl,
+    productSlug: d.productSlug ?? null,
+    category: d.category,
+    series: d.series,
+    lang: d.lang,
+    ext: d.ext,
+    version: d.version,
+    docDate: d.date ? new Date(d.date) : null,
+    sizeBytes: d.sizeBytes,
+    featured: d.featured ?? false,
   };
 }
 
-export async function getAllDatasheets(locale: Locale): Promise<DatasheetView[]> {
+// A datasheet is shown for a locale when it is tagged for that locale or marked
+// bilingual ("both") — matching the previous query-time language filter.
+export function getAllDatasheets(locale: Locale): DatasheetView[] {
   return datasheets
     .filter((d) => d.lang === locale || d.lang === "both")
     .map(toView);

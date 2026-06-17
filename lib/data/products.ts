@@ -1,8 +1,9 @@
-import type { Locale } from "@/lib/i18n/config";
 import { products, type Product } from "@/data/products";
+import type { Locale } from "@/lib/i18n/config";
 
-// View contract consumed by pages + SEO helpers. Source is now the static
-// `data/products.ts` seed (single-language VI); EN reuses the same text.
+export type ProductSpec = { l: string; v: string };
+export type ProductImage = { url: string; alt: string };
+
 export type ProductView = {
   slug: string;
   series: string;
@@ -13,40 +14,42 @@ export type ProductView = {
   name: string;
   desc: string;
   bullets: string[];
-  specs: { l: string; v: string }[];
-  images: { url: string; alt: string }[];
+  specs: ProductSpec[];
+  images: ProductImage[];
   sort: number;
   publishedAt: Date | null;
 };
 
-function toView(row: Product, index: number): ProductView {
+// `locale` is retained on the public signatures for API compatibility. The
+// file-backed seed is currently Vietnamese-only; English falls back to the same
+// content until bilingual content is reintroduced.
+function toView(p: Product, index: number): ProductView {
   return {
-    slug: row.slug,
-    series: row.series,
-    axes: row.axes,
-    display: row.display,
-    badge: row.badge ?? null,
-    tag: row.tag,
-    name: row.name,
-    desc: row.desc,
-    bullets: row.bullets,
-    specs: row.specs,
+    slug: p.slug,
+    series: p.series,
+    axes: p.axes,
+    display: p.display,
+    badge: p.badge ?? null,
+    tag: p.tag,
+    name: p.name,
+    desc: p.desc,
+    bullets: p.bullets,
+    specs: p.specs,
     images: [],
     sort: index,
     publishedAt: null,
   };
 }
 
-// `locale` kept in the signature for a stable contract; seed is single-language.
-export async function getAllProducts(_locale: Locale): Promise<ProductView[]> {
-  return products.map(toView);
+export function getAllProducts(_locale: Locale): ProductView[] {
+  return products.map((p, i) => toView(p, i));
 }
 
-export async function getProductBySlug(slug: string, _locale: Locale): Promise<ProductView | null> {
+export function getProductBySlug(slug: string, _locale: Locale): ProductView | null {
   const index = products.findIndex((p) => p.slug === slug);
   return index === -1 ? null : toView(products[index], index);
 }
 
-export async function getProductSlugs(): Promise<string[]> {
+export function getProductSlugs(): string[] {
   return products.map((p) => p.slug);
 }

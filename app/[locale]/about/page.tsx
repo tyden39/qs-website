@@ -1,6 +1,4 @@
-import { Link } from "@/lib/i18n/navigation";
-import { setRequestLocale } from "next-intl/server";
-import type { Locale } from "@/lib/i18n/config";
+import Link from "next/link";
 
 export const metadata = { title: "Giới thiệu — QS Technology" };
 
@@ -39,13 +37,7 @@ const leaders = [
     bio:"Quản lý đội triển khai 24 kỹ sư phủ 35 tỉnh thành. SLA hỗ trợ tại chỗ trong 24 giờ." },
 ];
 
-export default async function About({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default function About() {
   return (
     <>
       {/* HERO */}

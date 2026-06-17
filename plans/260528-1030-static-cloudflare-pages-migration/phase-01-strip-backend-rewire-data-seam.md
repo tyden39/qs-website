@@ -1,7 +1,7 @@
 ---
 phase: 1
 title: "Strip backend & rewire data seam"
-status: done
+status: pending
 priority: P1
 effort: "1d"
 dependencies: []
@@ -103,15 +103,10 @@ becomes meaningful as a build-time guard).
 - [lib/data/datasheets.ts](../../lib/data/datasheets.ts) — same pattern.
 - [app/[locale]/services/[slug]/page.tsx](../../app/[locale]/services/[slug]/page.tsx) —
   drop the direct `@/data/services` import; route everything through `lib/data/services`.
-<!-- Updated: Validation Session 1 - all 4 lead forms enumerated; uniform disabled treatment confirmed -->
-- All 4 lead-capture forms POSTing to `/api/leads` get the same treatment:
-  disable submit (button greyed + notice "Đang chuyển sang hệ thống CRM mới —
-  vui lòng email trực tiếp"); keep markup so layout stays. Do NOT remove pages.
-  - [app/[locale]/contact/_components/contact-form.tsx](../../app/[locale]/contact/_components/contact-form.tsx)
-  - [app/[locale]/downloads/_components/datasheet-request-form.tsx](../../app/[locale]/downloads/_components/datasheet-request-form.tsx)
-    — datasheet files stay gated (unreachable) until CRM lands; accepted trade-off.
-  - [app/[locale]/services/_components/inquiry-form.tsx](../../app/[locale]/services/_components/inquiry-form.tsx)
-  - [components/newsletter-form.tsx](../../components/newsletter-form.tsx)
+- [app/[locale]/contact/](../../app/[locale]/contact/) — disable form submit
+  (button greyed + tooltip "Đang chuyển sang hệ thống CRM mới — vui lòng email
+  trực tiếp"); keep markup so layout stays. Do NOT remove the page.
+- Search component(s) using lead/contact forms — same treatment.
 - [package.json](../../package.json) — remove deps listed below; keep `next-intl`,
   `next`, `react*`, `zod`, `tailwindcss*`, `tsx`, `typescript`, `lucide-react`,
   `@hookform/resolvers`, `react-hook-form`. Also remove `i18n:bootstrap` script
@@ -159,14 +154,9 @@ becomes meaningful as a build-time guard).
    - `git rm scripts/translate-data.ts` (if it touches db).
    - Drop `i18n:bootstrap` from `package.json` scripts.
 
-4. **Disable lead capture forms (all 4).**
-   <!-- Updated: Validation Session 1 - explicit file list -->
-   - Files: `contact-form.tsx`, `datasheet-request-form.tsx` (downloads),
-     `inquiry-form.tsx` (services), `newsletter-form.tsx` (components/).
+4. **Disable lead capture forms.**
    - Set submit handlers to no-op + show static "tạm thời đóng" notice.
    - Leave form markup in place (UX continuity; future CRM hookup is trivial).
-   - Datasheet downloads remain gated behind the disabled form until CRM lands
-     (user-accepted trade-off, validation 2026-06-11).
    - Remove any `import { Resend }` / `lib/email/*` usage from form code paths.
 
 5. **Prune `package.json` + lockfile.**
@@ -204,7 +194,7 @@ becomes meaningful as a build-time guard).
 - [ ] Rewrite `lib/data/datasheets.ts`
 - [ ] Delete `app/admin/`, `app/api/`, auth/db/leads lib dirs, drizzle config
 - [ ] Delete `(auth)` and `accept-invite` locale routes
-- [ ] Disable all 4 lead forms (contact, datasheet-request, inquiry, newsletter) with "tạm thời đóng" notice
+- [ ] Disable contact / lead forms with "tạm thời đóng" notice
 - [ ] Prune `package.json` deps; verify zero importers via grep
 - [ ] `yarn build && yarn start` smoke test all public routes VI + EN
 - [ ] Tighten CSP in `next.config.mjs`

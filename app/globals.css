@@ -282,6 +282,15 @@ body {
 }
 @keyframes qs-shimmer { to { background-position: -220% center; } }
 
+/* ─── Showreel play button — pulsing gold rings ─── */
+.qs-play { animation: qs-play-ring 2.8s ease-out infinite; }
+@keyframes qs-play-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(232,200,120,.5), 0 0 0 0 rgba(232,200,120,.28); }
+  70%  { box-shadow: 0 0 0 16px rgba(232,200,120,0), 0 0 0 34px rgba(232,200,120,0); }
+  100% { box-shadow: 0 0 0 0 rgba(232,200,120,0), 0 0 0 0 rgba(232,200,120,0); }
+}
+@media (prefers-reduced-motion: reduce) { .qs-play { animation: none; } }
+
 /* soft blinking status dot */
 .qs-live-dot {
   display: inline-block; width: 7px; height: 7px; border-radius: 9999px;

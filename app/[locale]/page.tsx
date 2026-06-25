@@ -269,15 +269,31 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             {homeProducts.map((item, i) => (
               <Reveal key={`${item.slug}-${i}`} className="h-full" delay={i * 80}>
                 <Link href={`/products/${item.slug}`}
-                      className="group h-full bg-white p-8 flex flex-col gap-4 hover:bg-paper transition-colors relative
-                                 before:content-[''] before:absolute before:top-0 before:left-8 before:w-8 before:h-0.5 before:bg-gold">
+                      className="group h-full bg-white p-8 flex flex-col gap-4 transition-colors relative
+                                 before:content-[''] before:absolute before:top-0 before:left-8 before:w-8 before:h-0.5 before:bg-gold
+                                 before:transition-all before:duration-300 group-hover:before:w-20 group-hover:before:bg-gold-2">
                   <div className="font-mono text-[11px] text-gold-1 tracking-[.16em]">{item.lbl}</div>
-                  <h3 className="font-display font-semibold text-[23px] tracking-[-.01em] m-0">{item.name}</h3>
+                  <h3 className="font-display font-semibold text-[23px] tracking-[-.01em] m-0 transition-colors group-hover:text-gold-1">{item.name}</h3>
                   <p className="text-[13px] text-muted leading-[1.55] m-0">{item.desc}</p>
-                  <div className="relative flex-1 min-h-[220px] border border-line overflow-hidden mt-1"
-                       style={{ background: "radial-gradient(circle, #fff, #f0eee8)" }}>
+                  {/* product stage — shared showroom: blueprint grid + gold pedestal,
+                      products bottom-aligned on one baseline so the lineup reads as a set */}
+                  <div className="relative flex-1 min-h-[248px] border border-line group-hover:border-gold-2/55 overflow-hidden mt-1 transition-colors duration-500"
+                       style={{ background: "linear-gradient(180deg,#ffffff 0%,#f1efe8 100%)" }}>
+                    <div className="absolute inset-0 qs-grid-bg opacity-40" aria-hidden="true"></div>
+                    {/* pedestal spotlight — shared base, intensifies on hover */}
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+                         style={{ background: "radial-gradient(ellipse 58% 64% at 50% 102%, rgba(232,200,120,.32), transparent 70%)" }}></div>
+                    {/* gold baseline the product stands on */}
+                    <div className="pointer-events-none absolute left-6 right-6 bottom-7 h-px bg-gradient-to-r from-transparent via-gold-2/70 to-transparent transition-opacity duration-500 opacity-50 group-hover:opacity-100"></div>
+                    {/* corner ticks on hover */}
+                    <div className="pointer-events-none absolute inset-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <span className="absolute top-0 left-0 w-3 h-3 border-t border-l border-gold-2"></span>
+                      <span className="absolute top-0 right-0 w-3 h-3 border-t border-r border-gold-2"></span>
+                      <span className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-gold-2"></span>
+                      <span className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-gold-2"></span>
+                    </div>
                     <Image src={item.img} alt={item.name} fill sizes="(max-width:1024px) 100vw, 30vw"
-                           className="object-contain p-6 transition-transform duration-500 group-hover:scale-[1.04]" />
+                           className="relative object-contain object-bottom px-7 pt-7 pb-8 transition-transform duration-500 origin-bottom group-hover:scale-[1.05]" />
                   </div>
                   <div className="flex justify-between items-center pt-4 border-t border-line font-mono text-[11px] tracking-[.12em] uppercase text-muted">
                     <span className="leading-[1.5]">{item.meta[0]}<br />{item.meta[1]}</span>
@@ -367,42 +383,61 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      {/* VIDEO — contained wide */}
+      {/* SHOWREEL — broadcast control room on a light stage */}
       <section className="relative py-24 bg-paper border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <div className="relative qs-wrap-wide">
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Showreel · 02:14 ]</span>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Showreel · On air ]</span>
                 <h2 className="qs-h2 mt-3">QS Controller Videos</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">Kênh YouTube <span className="arr">→</span></Link>
             </div>
           </Reveal>
           <Reveal>
-            <div className="grid lg:grid-cols-[2.3fr_1fr] gap-px bg-line border border-line">
-              <div className="group relative bg-ink-2 aspect-video overflow-hidden">
+            <div className="grid lg:grid-cols-[2.3fr_1fr] gap-8 lg:gap-12">
+              {/* feature screen — stays cinematic-dark inside the light frame */}
+              <div className="group relative aspect-video overflow-hidden rounded-[6px] bg-ink-2 border border-line shadow-[0_18px_50px_-28px_rgba(0,0,0,.55)]">
                 <Image src="/home/video-thumb.webp" alt="QS F86 — Ứng dụng trên máy uốn lò xo CNC" fill
-                       sizes="(max-width:1024px) 100vw, 60vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                <button className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full grid place-items-center border-0 cursor-pointer text-ink-2 transition-all hover:scale-105"
-                        style={{ background: "rgba(232,200,120,.95)", boxShadow: "0 0 0 6px rgba(232,200,120,.18)" }}
+                       sizes="(max-width:1024px) 100vw, 60vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.9) 2%,rgba(10,10,8,.1) 42%,transparent 72%)" }}></div>
+                {/* broadcast scan-line */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] qs-scan"></div>
+                {/* registration frame */}
+                <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/50">
+                  <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2"></span>
+                  <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t border-r border-gold-2"></span>
+                  <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b border-l border-gold-2"></span>
+                  <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b border-r border-gold-2"></span>
+                </div>
+                <button className="qs-play absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full grid place-items-center border-0 cursor-pointer text-ink transition-transform duration-200 hover:scale-105"
+                        style={{ background: "rgba(232,200,120,.96)" }}
                         aria-label="Phát video">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
                 </button>
-                <div className="absolute left-0 right-0 bottom-0 px-5 py-4 text-white flex items-center gap-3.5"
-                     style={{ background: "linear-gradient(0deg,rgba(10,10,8,.85),transparent)" }}>
-                  <span className="font-mono text-[11px] bg-gold text-ink-2 py-0.5 px-2 font-semibold">02:14</span>
-                  <span className="font-display text-sm font-medium">QS F86 — Ứng dụng trên máy uốn lò xo CNC</span>
+                <div className="absolute inset-x-0 bottom-0 px-6 py-5 flex items-center gap-3.5">
+                  <span className="font-mono text-[11px] bg-gold text-ink py-0.5 px-2 font-semibold tracking-[.04em]">02:14</span>
+                  <span className="font-display text-sm font-medium text-white">QS F86 — Ứng dụng trên máy uốn lò xo CNC</span>
                 </div>
               </div>
-              <div className="flex flex-col bg-paper">
-                {playlist.map(([t, d]) => (
-                  <a key={t} href="#" className="flex-1 px-5 py-4 flex items-center border-b border-line last:border-b-0 text-ink hover:bg-white hover:pl-6 transition-all text-[13px] leading-[1.5]">
-                    <div className="flex justify-between items-center w-full gap-3.5">
-                      <span>{t}</span>
-                      <span className="font-mono text-[10px] text-gold-1 tracking-[.1em] shrink-0">{d}</span>
+              {/* broadcast playlist — wire-feed list (mirrors Newsroom) */}
+              <div className="flex flex-col">
+                <div className="flex items-center justify-between pb-3 mb-1 border-b border-line">
+                  <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Playlist</span>
+                  <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">04 clips</span>
+                </div>
+                {playlist.map(([t, d], i) => (
+                  <a key={t} href="#"
+                     className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-start py-5 border-b border-line transition-[padding] duration-300 hover:pl-4">
+                    <span className="absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></span>
+                    <span className="font-mono text-[11px] text-gold-1 tabular-nums pt-1">0{i + 1}</span>
+                    <div>
+                      <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{i === 0 ? "▶ Đang phát" : "Clip"} · {d}</span>
+                      <h4 className="font-display font-semibold text-[15px] leading-[1.4] m-0 tracking-[-.005em] text-ink transition-colors group-hover:text-gold-1">{t.replace(/^\d+\s·\s/, "")}</h4>
                     </div>
+                    <span className="font-mono text-gold-1 text-sm pt-0.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
                   </a>
                 ))}
               </div>
@@ -434,49 +469,62 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      {/* NEWS — contained wide (closing section) */}
+      {/* NEWSROOM — editorial wire feed (closing section) */}
       <section className="relative py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <div className="relative qs-wrap-wide">
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Newsroom · Q1/2026 ]</span>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Newsroom · Q1/2026 ]</span>
                 <h2 className="qs-h2 mt-3">Tin tức &amp; sự kiện</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">Xem tất cả <span className="arr">→</span></Link>
             </div>
           </Reveal>
-          <div className="grid lg:grid-cols-[1.3fr_1fr] gap-8">
+          <div className="grid lg:grid-cols-[1.25fr_1fr] gap-8 lg:gap-12">
+            {/* lead story — immersive, headline overlaid on the image */}
             <Reveal className="h-full">
               <Link href="/news/astro-12x"
-                    className="group h-full bg-white border border-line flex flex-col hover:border-ink transition-colors">
-                <div className="relative aspect-[16/9] bg-ink-2 border-b border-line overflow-hidden">
-                  <Image src="/home/news-ethercat.webp" alt="QS ra mắt dòng controller EtherCAT, Mechatrolink MII/MIII" fill
-                         sizes="(max-width:1024px) 100vw, 55vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                    className="group relative block overflow-hidden rounded-[6px] bg-ink-2 min-h-[440px] lg:h-full">
+                <Image src="/home/news-ethercat.webp" alt="QS ra mắt dòng controller EtherCAT, Mechatrolink MII/MIII" fill
+                       sizes="(max-width:1024px) 100vw, 52vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.94) 6%,rgba(10,10,8,.36) 48%,rgba(10,10,8,.08) 100%)" }}></div>
+                <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/55">
+                  <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2"></span>
+                  <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t border-r border-gold-2"></span>
+                  <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b border-l border-gold-2"></span>
+                  <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b border-r border-gold-2"></span>
                 </div>
-                <div className="p-8">
-                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ Sản phẩm mới ]</span>
-                  <h3 className="font-display font-semibold text-2xl mt-2.5 mb-3.5 leading-[1.25] tracking-[-.01em]">
-                    QS cho ra mắt dòng sản phẩm bộ điều khiển EtherCAT, Mechatrolink MII/MIII
+                <span className="absolute top-7 left-7 font-mono text-[10px] text-gold-2 tracking-[.2em] uppercase">[ Sản phẩm mới ]</span>
+                <div className="absolute inset-x-0 bottom-0 p-8 lg:p-10">
+                  <h3 className="font-display font-semibold text-white text-[26px] lg:text-[32px] leading-[1.12] tracking-[-.01em] max-w-[24ch]">
+                    QS cho ra mắt dòng bộ điều khiển EtherCAT, Mechatrolink MII/MIII
                   </h3>
-                  <p className="text-[#4a4842] text-sm leading-[1.65] m-0">
+                  <p className="text-[#d2ccba] text-sm leading-[1.6] mt-3.5 max-w-[52ch]">
                     Phiên bản mở rộng EtherCAT, hỗ trợ tới 12 trục đồng bộ, tích hợp module thị giác máy. Dự kiến giao hàng từ Q3/2026 cho khách hàng OEM trong nước.
                   </p>
-                  <div className="mt-4 pt-3.5 border-t border-line font-mono text-[10px] text-muted tracking-[.14em]">28 · 04 · 2026 · 4 phút đọc</div>
+                  <div className="mt-5 font-mono text-[10px] text-gold-2 tracking-[.14em]">28 · 04 · 2026 · 4 phút đọc</div>
                 </div>
               </Link>
             </Reveal>
-            <div className="grid gap-px bg-line border border-line">
+            {/* wire feed — numbered list with hover rule + arrow */}
+            <div className="flex flex-col">
+              <div className="flex items-center justify-between pb-3 mb-1 border-b border-line">
+                <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Live feed</span>
+                <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">04 bản tin</span>
+              </div>
               {sideNews.map((n, i) => (
-                <Reveal key={n.title} className="h-full" delay={i * 80}>
+                <Reveal key={n.title} delay={i * 80}>
                   <Link href={n.href}
-                        className="h-full bg-white p-6 grid grid-cols-[90px_1fr] gap-4 hover:bg-paper-2 hover:pl-7 transition-all">
-                    <div className="font-mono text-[10px] text-gold-1 tracking-[.14em] pt-1.5">{n.date}</div>
+                        className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-start py-5 border-b border-line transition-[padding] duration-300 hover:pl-4">
+                    <span className="absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></span>
+                    <span className="font-mono text-[11px] text-gold-1 tabular-nums pt-1">0{i + 1}</span>
                     <div>
-                      <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{n.cat}</span>
-                      <h4 className="font-display font-semibold text-[15px] leading-[1.4] m-0 tracking-[-.005em]">{n.title}</h4>
+                      <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{n.cat} · {n.date}</span>
+                      <h4 className="font-display font-semibold text-[15px] leading-[1.4] m-0 tracking-[-.005em] text-ink transition-colors group-hover:text-gold-1">{n.title}</h4>
                     </div>
+                    <span className="font-mono text-gold-1 text-sm pt-0.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
                   </Link>
                 </Reveal>
               ))}

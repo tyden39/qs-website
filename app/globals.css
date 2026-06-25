@@ -258,17 +258,11 @@ body {
 .qs-strip:hover .qs-panel .qs-shot       { filter: grayscale(.55) brightness(.62); }
 .qs-strip:hover .qs-panel:hover .qs-shot { filter: none; transform: scale(1.05); }
 
-/* Gold scan-line that sweeps the open panel. */
-.qs-scan {
-  background: linear-gradient(90deg, transparent, rgba(232,200,120,.85), transparent);
-  animation: qs-scan 3.4s ease-in-out infinite;
-}
-@keyframes qs-scan { 0%,100% { transform: translateY(-6%); opacity:.15 } 50% { transform: translateY(106%); opacity:.7 } }
+/* (scan-line styling lives in the shared .qs-scan block above) */
 
 @media (prefers-reduced-motion: reduce) {
   .qs-panel, .qs-panel .qs-open, .qs-panel .qs-spine, .qs-panel .qs-shot { transition: none; }
   .qs-shot { filter: none !important; }
-  .qs-scan { animation: none; opacity: 0; }
 }
 
 /* ─── Perpetual gold sheen (keeps key type alive after reveal) ─── */
@@ -281,6 +275,29 @@ body {
   animation: qs-shimmer 7s linear infinite;
 }
 @keyframes qs-shimmer { to { background-position: -220% center; } }
+
+/* ─── Light-section detailing ─── */
+/* Gold scanner sweeping along a section-header rule. */
+.qs-trace {
+  background: linear-gradient(90deg, transparent 42%, rgba(232,200,120,.95) 50%, transparent 58%);
+  background-size: 220% 100%;
+  animation: qs-trace 5.5s linear infinite;
+}
+@keyframes qs-trace { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+
+/* Perpetual breathe for the product pedestal glow. */
+.qs-breathe { animation: qs-breathe 5s ease-in-out infinite; }
+@keyframes qs-breathe { 0%, 100% { opacity: .42; } 50% { opacity: .72; } }
+
+/* Simulated playback progress on the now-playing track. */
+.qs-progress { width: 0; animation: qs-progress 9s linear infinite; }
+@keyframes qs-progress { 0% { width: 0; } 92% { width: 100%; } 100% { width: 100%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .qs-trace { animation: none; background: rgba(232,200,120,.5); }
+  .qs-breathe { animation: none; opacity: .58; }
+  .qs-progress { animation: none; width: 38%; }
+}
 
 /* ─── Showreel play button — pulsing gold rings ─── */
 .qs-play { animation: qs-play-ring 2.8s ease-out infinite; }

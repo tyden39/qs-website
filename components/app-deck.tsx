@@ -1,27 +1,59 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Link } from "@/lib/i18n/navigation";
 
 type App = { slug: string; n: string; t: string; img: string; d: string };
 
 const STRIP_H = "clamp(460px, 72vh, 640px)";
+const INTERVAL = 4200; // ms each card stays open before auto-advancing
 
 /**
- * Applications filmstrip — equal vertical slabs that expand on hover.
- * The active panel widens to a cinematic still (full-colour image, gold scan-line,
- * content rising from the base) while the rest collapse to slim industrial spines
- * showing a sideways title + index. First panel is open by default.
+ * Applications filmstrip — equal vertical slabs that expand one at a time.
+ * The open panel widens to a cinematic still (full-colour image, gold scan-line,
+ * content rising from the base) while the rest collapse to slim industrial spines.
  *
- * Behaviour is pure CSS (see .qs-strip / .qs-panel in globals.css); honours
- * prefers-reduced-motion.
+ * The open panel auto-advances on a timer; hovering any panel pauses the cycle and
+ * focuses that panel. Reduced-motion users get a static first panel (no autoplay,
+ * no progress). Width/opacity transitions live in globals.css (.qs-strip / .qs-panel).
  */
 export default function AppDeck({ items }: { items: App[] }) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [animate, setAnimate] = useState(true);
+
+  // Honour prefers-reduced-motion: no autoplay, no progress bar.
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => setAnimate(!mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  // Auto-advance the open card; pause while the strip is hovered.
+  useEffect(() => {
+    if (!animate || paused) return;
+    const id = window.setInterval(() => {
+      setActive((a) => (a + 1) % items.length);
+    }, INTERVAL);
+    return () => window.clearInterval(id);
+  }, [animate, paused, items.length]);
+
   return (
-    <div className="qs-strip hidden md:flex w-full" style={{ height: STRIP_H }}>
+    <div
+      className="qs-strip hidden md:flex w-full"
+      style={{ height: STRIP_H }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       {items.map((a, i) => (
         <Link
           key={a.slug}
           href={`/applications/${a.slug}`}
-          data-open={i === 0 ? "true" : undefined}
+          data-open={i === active ? "true" : undefined}
+          onMouseEnter={() => setActive(i)}
           className="qs-panel group relative block overflow-hidden rounded-[6px] bg-ink-2"
         >
           {/* Image */}
@@ -75,6 +107,12 @@ export default function AppDeck({ items }: { items: App[] }) {
               <span className="qs-live-dot" />
               Xem chi tiết →
             </span>
+            {/* auto-advance progress — restarts each time this panel becomes active */}
+            {animate && !paused && i === active && (
+              <div key={active} className="mt-5 h-[2px] w-full max-w-[46ch] bg-white/15 overflow-hidden rounded-full">
+                <div className="h-full bg-gold-2" style={{ animation: `qs-progress ${INTERVAL}ms linear forwards` }} />
+              </div>
+            )}
           </div>
         </Link>
       ))}

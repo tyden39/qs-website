@@ -253,11 +253,13 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       {/* PRODUCTS — contained wide, 3-up datasheet cards */}
       <section className="relative py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
+        <CircuitTraces variant="light" className="hidden md:block absolute bottom-0 right-0 w-[44%] h-[72%] opacity-[.55] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_26%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_26%,transparent_72%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+              <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Products · cập nhật 13.06.2026 ]</span>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Products · cập nhật 13.06.2026 ]</span>
                 <h2 className="qs-h2 mt-3">QS Controller</h2>
               </div>
               <p className="text-sm text-muted leading-[1.6] max-w-[42ch] md:text-right">
@@ -269,7 +271,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             {homeProducts.map((item, i) => (
               <Reveal key={`${item.slug}-${i}`} className="h-full" delay={i * 80}>
                 <Link href={`/products/${item.slug}`}
-                      className="group h-full bg-white p-8 flex flex-col gap-4 transition-colors relative
+                      className="group h-full bg-white p-8 flex flex-col gap-4 relative transition-all duration-300
+                                 hover:-translate-y-2 hover:z-10 hover:shadow-[0_30px_60px_-22px_rgba(20,16,8,.45)]
+                                 hover:ring-1 hover:ring-gold-2/70
                                  before:content-[''] before:absolute before:top-0 before:left-8 before:w-8 before:h-0.5 before:bg-gold
                                  before:transition-all before:duration-300 group-hover:before:w-20 group-hover:before:bg-gold-2">
                   <div className="font-mono text-[11px] text-gold-1 tracking-[.16em]">{item.lbl}</div>
@@ -277,12 +281,17 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                   <p className="text-[13px] text-muted leading-[1.55] m-0">{item.desc}</p>
                   {/* product stage — shared showroom: blueprint grid + gold pedestal,
                       products bottom-aligned on one baseline so the lineup reads as a set */}
-                  <div className="relative flex-1 min-h-[248px] border border-line group-hover:border-gold-2/55 overflow-hidden mt-1 transition-colors duration-500"
+                  <div className="relative flex-1 min-h-[248px] border border-line group-hover:border-gold-2/60 overflow-hidden mt-1 transition-all duration-500 group-hover:shadow-[inset_0_0_42px_rgba(232,200,120,.18)]"
                        style={{ background: "linear-gradient(180deg,#ffffff 0%,#f1efe8 100%)" }}>
                     <div className="absolute inset-0 qs-grid-bg opacity-40" aria-hidden="true"></div>
-                    {/* pedestal spotlight — shared base, intensifies on hover */}
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+                    {/* perpetual scan beam reading the product (staggered per card) */}
+                    <div className="pointer-events-none absolute inset-x-6 top-0 h-[2px] qs-scan" style={{ animationDelay: `${i * 1.5}s` }} aria-hidden="true"></div>
+                    {/* pedestal spotlight — ambient breathe, always alive */}
+                    <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-3/4"
                          style={{ background: "radial-gradient(ellipse 58% 64% at 50% 102%, rgba(232,200,120,.32), transparent 70%)" }}></div>
+                    {/* extra bloom layered in on hover */}
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                         style={{ background: "radial-gradient(ellipse 56% 60% at 50% 102%, rgba(232,200,120,.3), transparent 68%)" }}></div>
                     {/* gold baseline the product stands on */}
                     <div className="pointer-events-none absolute left-6 right-6 bottom-7 h-px bg-gradient-to-r from-transparent via-gold-2/70 to-transparent transition-opacity duration-500 opacity-50 group-hover:opacity-100"></div>
                     {/* corner ticks on hover */}
@@ -292,8 +301,14 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                       <span className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-gold-2"></span>
                       <span className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-gold-2"></span>
                     </div>
-                    <Image src={item.img} alt={item.name} fill sizes="(max-width:1024px) 100vw, 30vw"
-                           className="relative object-contain object-bottom px-7 pt-7 pb-8 transition-transform duration-500 origin-bottom group-hover:scale-[1.05]" />
+                    {/* product levitates on a perpetual loop (staggered per card) */}
+                    <div className="qs-float absolute inset-0" style={{ animationDelay: `${i * 1.2}s` }}>
+                      <Image src={item.img} alt={item.name} fill sizes="(max-width:1024px) 100vw, 30vw"
+                             className="object-contain object-bottom px-7 pt-7 pb-8 origin-bottom transition-[transform,filter] duration-500 group-hover:scale-[1.06] group-hover:[filter:brightness(1.06)_contrast(1.04)_drop-shadow(0_16px_22px_rgba(232,200,120,.4))]" />
+                    </div>
+                    {/* light sheen sweeping across the render on hover */}
+                    <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[900ms] ease-out"
+                         style={{ background: "linear-gradient(115deg, transparent 38%, rgba(255,255,255,.5) 50%, transparent 62%)" }} aria-hidden="true"></div>
                   </div>
                   <div className="flex justify-between items-center pt-4 border-t border-line font-mono text-[11px] tracking-[.12em] uppercase text-muted">
                     <span className="leading-[1.5]">{item.meta[0]}<br />{item.meta[1]}</span>
@@ -386,9 +401,11 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       {/* SHOWREEL — broadcast control room on a light stage */}
       <section className="relative py-24 bg-paper border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
+        <CircuitTraces variant="light" className="hidden md:block absolute top-0 left-0 w-[40%] h-[64%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+              <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Showreel · On air ]</span>
                 <h2 className="qs-h2 mt-3">QS Controller Videos</h2>
@@ -405,6 +422,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.9) 2%,rgba(10,10,8,.1) 42%,transparent 72%)" }}></div>
                 {/* broadcast scan-line */}
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] qs-scan"></div>
+                {/* light sheen sweeping across the still on hover */}
+                <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1000ms] ease-out"
+                     style={{ background: "linear-gradient(115deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%)" }} aria-hidden="true"></div>
                 {/* registration frame */}
                 <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/50">
                   <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2"></span>
@@ -436,6 +456,11 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                     <div>
                       <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{i === 0 ? "▶ Đang phát" : "Clip"} · {d}</span>
                       <h4 className="font-display font-semibold text-[15px] leading-[1.4] m-0 tracking-[-.005em] text-ink transition-colors group-hover:text-gold-1">{t.replace(/^\d+\s·\s/, "")}</h4>
+                      {i === 0 && (
+                        <div className="mt-2.5 h-[2px] w-full bg-line overflow-hidden rounded-full">
+                          <div className="qs-progress h-full bg-gold-2"></div>
+                        </div>
+                      )}
                     </div>
                     <span className="font-mono text-gold-1 text-sm pt-0.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
                   </a>
@@ -472,9 +497,11 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       {/* NEWSROOM — editorial wire feed (closing section) */}
       <section className="relative py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
+        <CircuitTraces variant="light" className="hidden md:block absolute bottom-0 left-0 w-[42%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_bottom_left,#000_26%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_left,#000_26%,transparent_72%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+              <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Newsroom · Q1/2026 ]</span>
                 <h2 className="qs-h2 mt-3">Tin tức &amp; sự kiện</h2>
@@ -490,6 +517,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 <Image src="/home/news-ethercat.webp" alt="QS ra mắt dòng controller EtherCAT, Mechatrolink MII/MIII" fill
                        sizes="(max-width:1024px) 100vw, 52vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.94) 6%,rgba(10,10,8,.36) 48%,rgba(10,10,8,.08) 100%)" }}></div>
+                {/* light sheen sweeping across the cover on hover */}
+                <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1000ms] ease-out"
+                     style={{ background: "linear-gradient(115deg, transparent 40%, rgba(255,255,255,.14) 50%, transparent 60%)" }} aria-hidden="true"></div>
                 <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/55">
                   <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2"></span>
                   <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t border-r border-gold-2"></span>

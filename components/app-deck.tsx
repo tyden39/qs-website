@@ -1,67 +1,80 @@
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import { Link } from "@/lib/i18n/navigation";
 
 type App = { slug: string; n: string; t: string; img: string; d: string };
 
-const CARD_H = "clamp(440px, 70vh, 600px)"; // tall, near full-screen
-const WIDTH = "34%"; // all cards equal width
-const OVERLAP = "12%"; // diagonal overlap → leaves the stacking spacing
-const STEP_Y = 48; // vertical stagger → top-left to bottom-right
+const STRIP_H = "clamp(460px, 72vh, 640px)";
 
 /**
- * Applications deck — large, equal-width upright cards stacked diagonally
- * (top-left → bottom-right). Hovering a card lifts it to the front and reveals its
- * description (animated). Pure CSS hover; honors reduced-motion (see globals.css).
+ * Applications filmstrip — equal vertical slabs that expand on hover.
+ * The active panel widens to a cinematic still (full-colour image, gold scan-line,
+ * content rising from the base) while the rest collapse to slim industrial spines
+ * showing a sideways title + index. First panel is open by default.
+ *
+ * Behaviour is pure CSS (see .qs-strip / .qs-panel in globals.css); honours
+ * prefers-reduced-motion.
  */
 export default function AppDeck({ items }: { items: App[] }) {
   return (
-    <div
-      className="hidden md:flex items-start w-full"
-      style={{ minHeight: `calc(${CARD_H} + ${STEP_Y * (items.length - 1) + 46}px)` }}
-    >
+    <div className="qs-strip hidden md:flex w-full" style={{ height: STRIP_H }}>
       {items.map((a, i) => (
         <Link
           key={a.slug}
           href={`/applications/${a.slug}`}
-          className="qs-app-card group relative shrink-0 overflow-hidden rounded-[5px] bg-ink-2"
-          style={{
-            width: WIDTH,
-            height: CARD_H,
-            marginTop: i * STEP_Y,
-            marginLeft: i ? `-${OVERLAP}` : 0,
-            zIndex: i + 1,
-          } as CSSProperties}
+          data-open={i === 0 ? "true" : undefined}
+          className="qs-panel group relative block overflow-hidden rounded-[6px] bg-ink-2"
         >
+          {/* Image */}
           <Image
             src={a.img}
             alt={a.t}
             fill
-            sizes="(max-width:1280px) 45vw, 36vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes="(max-width:1280px) 60vw, 46vw"
+            className="qs-shot object-cover"
           />
+          {/* Base darkening so type always reads */}
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(0deg,rgba(10,10,8,.92) 0%,rgba(10,10,8,.18) 52%,transparent 80%)" }}
+            style={{ background: "linear-gradient(0deg,rgba(10,10,8,.94) 4%,rgba(10,10,8,.34) 46%,rgba(10,10,8,.12) 100%)" }}
           />
 
-          {/* decorative frame with gold corner ticks */}
-          <div className="pointer-events-none absolute inset-4 border border-white/15 transition-colors duration-500 group-hover:border-gold-2/60">
-            <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2"></span>
-            <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t border-r border-gold-2"></span>
-            <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b border-l border-gold-2"></span>
-            <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b border-r border-gold-2"></span>
+          {/* Gold scan-line — only meaningful once the panel is open */}
+          <div className="qs-open pointer-events-none absolute inset-x-0 top-0 h-[2px] qs-scan" />
+
+          {/* Decorative frame + corner ticks */}
+          <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/55">
+            <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2" />
+            <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t border-r border-gold-2" />
+            <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b border-l border-gold-2" />
+            <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b border-r border-gold-2" />
           </div>
 
-          <span className="absolute top-7 left-7 font-mono text-[11px] text-gold-2 tracking-[.22em] uppercase">{a.n}</span>
-          <div className="absolute inset-x-0 bottom-0 p-7 lg:p-9">
-            <h4 className="font-display font-semibold text-white text-2xl leading-tight">{a.t}</h4>
-            <div className="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 delay-75">
-              <div className="overflow-hidden">
-                <p className="text-[#d2ccba] text-sm leading-[1.65] mt-3.5">{a.d}</p>
-                <span className="mt-5 inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.14em] uppercase text-gold-2">Chi tiết →</span>
-              </div>
+          {/* COLLAPSED state — sideways spine: big index up top, vertical title */}
+          <div className="qs-spine pointer-events-none absolute inset-0 p-6">
+            <span className="font-mono text-[11px] text-gold-2 tracking-[.24em] uppercase">{a.n}</span>
+            <div className="absolute bottom-7 left-1/2 -translate-x-1/2">
+              <span
+                className="block whitespace-nowrap font-display font-semibold text-white/92 text-xl tracking-tight"
+                style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+              >
+                {a.t}
+              </span>
             </div>
+          </div>
+
+          {/* OPEN state — full content block */}
+          <div className="qs-open absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
+            <span className="font-mono text-[11px] text-gold-2 tracking-[.22em] uppercase">
+              Application · {a.n}
+            </span>
+            <h4 className="font-display font-semibold text-white text-[28px] lg:text-[34px] leading-[1.05] tracking-tight mt-3 max-w-[20ch]">
+              {a.t}
+            </h4>
+            <p className="text-[#d2ccba] text-[15px] leading-[1.65] mt-4 max-w-[46ch]">{a.d}</p>
+            <span className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-[.16em] uppercase text-gold-2">
+              <span className="qs-live-dot" />
+              Xem chi tiết →
+            </span>
           </div>
         </Link>
       ))}

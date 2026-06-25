@@ -227,18 +227,48 @@ body {
   50%      { opacity: .9;  transform: scale(1.18); }
 }
 
-/* ─── Applications deck cards (equal width, lift on hover) ─── */
-.qs-app-card {
-  transition: transform .5s cubic-bezier(.2, .7, .2, 1), box-shadow .5s ease;
-  box-shadow: 0 22px 50px -26px rgba(0, 0, 0, .72);
+/* ─── Applications expanding filmstrip ─── */
+/* Equal vertical slabs; hovered/active one widens to a cinematic panel while
+   the rest collapse to slim spines. First panel is open by default. Pure CSS —
+   only flex-grow + opacity animate (compositor-cheap). */
+.qs-strip { display: flex; gap: 14px; }
+.qs-panel {
+  flex: 1 1 0%;
+  min-width: 0;
+  transition: flex-grow .62s cubic-bezier(.22, .61, .18, 1);
 }
-.qs-app-card:hover {
-  transform: translateY(-22px) scale(1.03);
-  z-index: 60 !important;
-  box-shadow: 0 52px 92px -34px rgba(0, 0, 0, .88);
+.qs-panel[data-open="true"]            { flex-grow: 4.2; }
+.qs-strip:hover .qs-panel             { flex-grow: 1; }
+.qs-strip:hover .qs-panel:hover       { flex-grow: 4.2; }
+
+/* Cross-fade between the collapsed spine and the open content, locked to the
+   same default/hover state as the flex-grow above. */
+.qs-panel .qs-open  { opacity: 0; transition: opacity .45s ease .08s; }
+.qs-panel .qs-spine { opacity: 1; transition: opacity .35s ease; }
+.qs-panel[data-open="true"] .qs-open        { opacity: 1; }
+.qs-panel[data-open="true"] .qs-spine       { opacity: 0; }
+.qs-strip:hover .qs-panel .qs-open          { opacity: 0; }
+.qs-strip:hover .qs-panel .qs-spine         { opacity: 1; }
+.qs-strip:hover .qs-panel:hover .qs-open    { opacity: 1; }
+.qs-strip:hover .qs-panel:hover .qs-spine   { opacity: 0; }
+
+/* Image desaturates while collapsed, blooms to full colour when open. */
+.qs-panel .qs-shot { filter: grayscale(.55) brightness(.62); transition: filter .6s ease, transform .9s cubic-bezier(.22,.61,.18,1); }
+.qs-panel[data-open="true"] .qs-shot     { filter: none; }
+.qs-strip:hover .qs-panel .qs-shot       { filter: grayscale(.55) brightness(.62); }
+.qs-strip:hover .qs-panel:hover .qs-shot { filter: none; transform: scale(1.05); }
+
+/* Gold scan-line that sweeps the open panel. */
+.qs-scan {
+  background: linear-gradient(90deg, transparent, rgba(232,200,120,.85), transparent);
+  animation: qs-scan 3.4s ease-in-out infinite;
 }
+@keyframes qs-scan { 0%,100% { transform: translateY(-6%); opacity:.15 } 50% { transform: translateY(106%); opacity:.7 } }
+
 @media (prefers-reduced-motion: reduce) {
-  .qs-app-card { transition: none; }
+  .qs-panel, .qs-panel .qs-open, .qs-panel .qs-spine, .qs-panel .qs-shot { transition: none; }
+  .qs-shot { filter: none !important; }
+  .qs-scan { animation: none; opacity: 0; }
 }
 
 /* ─── Perpetual gold sheen (keeps key type alive after reveal) ─── */

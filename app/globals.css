@@ -157,11 +157,13 @@ body {
   border-radius: 9999px;
   background: radial-gradient(circle, rgba(232,200,120,.5), rgba(232,200,120,0) 70%);
   filter: blur(44px);
-  animation: qs-glow-pulse 7s ease-in-out infinite;
+  animation: qs-glow-pulse 6.5s ease-in-out infinite;
 }
 @keyframes qs-glow-pulse {
-  0%, 100% { opacity: .45; transform: scale(1); }
-  50%      { opacity: .85; transform: scale(1.12); }
+  0%   { opacity: .5;  transform: scale(1); }
+  38%  { opacity: .82; transform: scale(1.09); }
+  62%  { opacity: .6;  transform: scale(1.03); }
+  100% { opacity: .5;  transform: scale(1); }
 }
 
 /* ─── Floating product render ─── */
@@ -204,6 +206,63 @@ body {
 @keyframes qs-marquee { to { transform: translateX(-100%); } }
 .qs-marquee:hover .qs-marquee-track { animation-play-state: paused; }
 
+/* ─── PCB circuit traces (brand signature: QS builds board mạch) ─── */
+.qs-pcb-trace { fill: none; stroke-width: 1.4; }
+.qs-pcb-flow path {
+  stroke-linecap: round;
+  stroke-dasharray: 9 920;
+  filter: drop-shadow(0 0 4px rgba(232, 200, 120, .85));
+  animation: qs-pcb-flow 6s linear infinite;
+}
+@keyframes qs-pcb-flow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -929; }
+}
+.qs-pcb-pad {
+  transform-box: fill-box; transform-origin: center;
+  animation: qs-pcb-pulse 3.4s ease-in-out infinite;
+}
+@keyframes qs-pcb-pulse {
+  0%, 100% { opacity: .22; transform: scale(.7); }
+  50%      { opacity: .9;  transform: scale(1.18); }
+}
+
+/* ─── Applications deck cards (equal width, lift on hover) ─── */
+.qs-app-card {
+  transition: transform .5s cubic-bezier(.2, .7, .2, 1), box-shadow .5s ease;
+  box-shadow: 0 22px 50px -26px rgba(0, 0, 0, .72);
+}
+.qs-app-card:hover {
+  transform: translateY(-22px) scale(1.03);
+  z-index: 60 !important;
+  box-shadow: 0 52px 92px -34px rgba(0, 0, 0, .88);
+}
+@media (prefers-reduced-motion: reduce) {
+  .qs-app-card { transition: none; }
+}
+
+/* ─── Perpetual gold sheen (keeps key type alive after reveal) ─── */
+.qs-gold-shimmer {
+  background: linear-gradient(100deg,
+    #8a6f35 0%, #c9a35a 22%, #fff1cf 40%, #e8c878 52%, #8a6f35 78%);
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  animation: qs-shimmer 7s linear infinite;
+}
+@keyframes qs-shimmer { to { background-position: -220% center; } }
+
+/* soft blinking status dot */
+.qs-live-dot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 9999px;
+  background: #e8c878; box-shadow: 0 0 0 0 rgba(232, 200, 120, .6);
+  animation: qs-live-dot 2.4s ease-in-out infinite;
+}
+@keyframes qs-live-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 200, 120, .55); opacity: 1; }
+  50%      { box-shadow: 0 0 0 6px rgba(232, 200, 120, 0); opacity: .6; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .qs-reveal { opacity: 1; transform: none; transition: none; }
   .qs-grid-drift, .qs-glow, .qs-float { animation: none; }
@@ -211,6 +270,10 @@ body {
   .qs-scan { display: none; }
   .qs-rise { animation: none; opacity: 1; transform: none; }
   .qs-marquee-track { animation: none; }
+  .qs-pcb-flow path, .qs-pcb-pad { animation: none; }
+  .qs-pcb-pad { opacity: .45; }
+  .qs-gold-shimmer { animation: none; background-position: 40% center; }
+  .qs-live-dot { animation: none; }
 }
 
 /* topstrip + nav (in component layer for utility class references) */
@@ -272,7 +335,7 @@ body {
 .qs-search-panel.open { max-height: min(72vh, 640px); }
 
 /* footer */
-.qs-foot { background: #0a0a0a; color: #a8a499; font-size: 13px; }
+.qs-foot { background: #0a0a0a; color: #c2bdb0; font-size: 13px; }
 .qs-foot .qs-foot-top {
   max-width: 1680px; margin: 0 auto;
   padding: 64px clamp(20px, 4vw, 56px) 48px;
@@ -286,13 +349,18 @@ body {
 .qs-foot ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .qs-foot a:hover { color: #e8c878; }
 .qs-foot .qs-foot-bottom {
-  border-top: 1px solid #2a2a2a;
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(232, 200, 120, .55) 50%, transparent) 1;
   padding: 20px clamp(20px, 4vw, 56px);
   max-width: 1680px; margin: 0 auto;
-  display: flex; justify-content: space-between;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px 24px;
   font-family: var(--font-mono), "JetBrains Mono", monospace;
   font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-  color: #6b6960;
+  color: #8d877a;
+}
+.qs-foot .qs-foot-bottom .made {
+  display: inline-flex; align-items: center; gap: 8px; color: #a8a499;
 }
 
 @media (max-width: 900px) {

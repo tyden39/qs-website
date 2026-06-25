@@ -36,6 +36,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   // for the dynamic part if SEO crawlers need exact language tagging.
   return (
     <html lang="vi" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
+      <head>
+        <noscript>
+          {/* Keep scroll-reveal content visible when JS is disabled. */}
+          <style>{`.qs-reveal{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+      </head>
       <body>{children}</body>
     </html>
   );

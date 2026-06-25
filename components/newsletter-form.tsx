@@ -61,7 +61,7 @@ export function NewsletterForm({ locale = "vi" }: { locale?: string }) {
           {...register("email")}
           type="email"
           placeholder="email@company.vn"
-          className={`flex-1 border ${errors.email ? "border-red-400" : "border-[#2a2a2a]"} bg-transparent px-4 py-2.5 text-[13px] text-[#cfc9b8] placeholder:text-[#5a5650] focus:outline-none focus:border-gold-1 transition-colors`}
+          className={`flex-1 min-w-0 border ${errors.email ? "border-red-400" : "border-[#2a2a2a]"} bg-transparent px-4 py-2.5 text-[16px] text-[#cfc9b8] placeholder:text-[#5a5650] focus:outline-none focus:border-gold-1 transition-colors`}
         />
         <button
           type="submit"

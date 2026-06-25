@@ -423,3 +423,7 @@ body {
   .qs-foot .qs-foot-top { grid-template-columns: 1fr 1fr; gap: 32px; padding: 48px 24px; }
   :root { --pad: 24px; }
 }
+@media (max-width: 560px) {
+  .qs-foot .qs-foot-top { grid-template-columns: 1fr; gap: 28px; }
+  .qs-foot .qs-foot-bottom { justify-content: flex-start; }
+}

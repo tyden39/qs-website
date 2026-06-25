@@ -29,7 +29,7 @@ export function LocaleSwitcher() {
           className={[
             "px-2 py-0.5 rounded text-[11px] font-mono font-semibold tracking-widest transition-colors",
             locale === value
-              ? "bg-accent text-white"
+              ? "bg-ink text-white"
               : "text-muted hover:text-ink",
           ].join(" ")}
         >

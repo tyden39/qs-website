@@ -59,7 +59,9 @@ body {
 /* ─── Component primitives ─── */
 @layer components {
   /* layout */
-  .qs-wrap     { @apply max-w-wrap mx-auto px-12; }
+  .qs-wrap      { @apply max-w-wrap mx-auto px-12; }
+  /* wide frame for full-width layout: edge-to-edge feel, capped on ultra-wide */
+  .qs-wrap-wide { @apply max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-14; }
   .qs-section  { @apply py-20; }
   .qs-rule     { @apply h-px bg-line border-0; }
   .qs-mono     { @apply font-mono; }
@@ -75,6 +77,8 @@ body {
   .qs-crumb .here { @apply text-ink; }
   .qs-tag      { @apply font-mono text-[10px] tracking-[.12em] uppercase
                        py-1 px-2 border border-line rounded-[2px] text-muted; }
+  .qs-chip     { @apply font-mono text-[10px] tracking-[.14em] uppercase text-muted
+                       bg-white/70 border border-line rounded-full px-3 py-1.5 inline-flex items-center; }
 
   /* headings */
   .qs-h1 { font-family: var(--font-display), "Inter Tight", sans-serif;
@@ -139,8 +143,74 @@ body {
 }
 .qs-reveal.is-visible { opacity: 1; transform: none; }
 
+/* ─── Drifting technical grid ─── */
+.qs-grid-drift { animation: qs-grid-drift 38s linear infinite; }
+@keyframes qs-grid-drift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 64px 64px, 64px 64px; }
+}
+
+/* ─── Breathing gold glow (atmosphere) ─── */
+.qs-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(232,200,120,.5), rgba(232,200,120,0) 70%);
+  filter: blur(44px);
+  animation: qs-glow-pulse 7s ease-in-out infinite;
+}
+@keyframes qs-glow-pulse {
+  0%, 100% { opacity: .45; transform: scale(1); }
+  50%      { opacity: .85; transform: scale(1.12); }
+}
+
+/* ─── Floating product render ─── */
+.qs-float { animation: qs-float 6.5s ease-in-out infinite; }
+@keyframes qs-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* ─── Blueprint scan line sweeping the product ─── */
+.qs-scan {
+  position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(232,200,120,.9), transparent);
+  box-shadow: 0 0 14px 2px rgba(232,200,120,.45);
+  animation: qs-scan 4.8s ease-in-out infinite;
+}
+@keyframes qs-scan {
+  0%   { top: 0;    opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ─── Kinetic headline / staggered load-in ─── */
+.qs-rise { animation: qs-rise .9s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes qs-rise {
+  from { opacity: 0; transform: translateY(115%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Running marquee ticker ─── */
+.qs-marquee { display: flex; overflow: hidden; }
+.qs-marquee-track {
+  display: flex;
+  flex: 0 0 auto;
+  min-width: 100%;
+  animation: qs-marquee var(--mq-dur, 42s) linear infinite;
+  animation-direction: var(--mq-dir, normal);
+}
+@keyframes qs-marquee { to { transform: translateX(-100%); } }
+.qs-marquee:hover .qs-marquee-track { animation-play-state: paused; }
+
 @media (prefers-reduced-motion: reduce) {
   .qs-reveal { opacity: 1; transform: none; transition: none; }
+  .qs-grid-drift, .qs-glow, .qs-float { animation: none; }
+  .qs-glow { opacity: .55; }
+  .qs-scan { display: none; }
+  .qs-rise { animation: none; opacity: 1; transform: none; }
+  .qs-marquee-track { animation: none; }
 }
 
 /* topstrip + nav (in component layer for utility class references) */
@@ -204,9 +274,9 @@ body {
 /* footer */
 .qs-foot { background: #0a0a0a; color: #a8a499; font-size: 13px; }
 .qs-foot .qs-foot-top {
-  max-width: 1280px; margin: 0 auto;
-  padding: 64px 48px 48px;
-  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px;
+  max-width: 1680px; margin: 0 auto;
+  padding: 64px clamp(20px, 4vw, 56px) 48px;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 56px;
 }
 .qs-foot h5 {
   font-family: var(--font-mono), "JetBrains Mono", monospace;
@@ -217,8 +287,8 @@ body {
 .qs-foot a:hover { color: #e8c878; }
 .qs-foot .qs-foot-bottom {
   border-top: 1px solid #2a2a2a;
-  padding: 20px 48px;
-  max-width: 1280px; margin: 0 auto;
+  padding: 20px clamp(20px, 4vw, 56px);
+  max-width: 1680px; margin: 0 auto;
   display: flex; justify-content: space-between;
   font-family: var(--font-mono), "JetBrains Mono", monospace;
   font-size: 11px; letter-spacing: .1em; text-transform: uppercase;

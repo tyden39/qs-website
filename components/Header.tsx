@@ -32,14 +32,14 @@ export default function Header() {
   return (
     <>
       <div className="qs-topstrip">
-        <div className="max-w-wrap mx-auto px-12 py-1.5 flex justify-between gap-6">
+        <div className="qs-wrap-wide py-1.5 flex justify-between gap-6">
           <span><span className="qs-topstrip-dot"></span>QS Technology Co., Ltd · Vietnam Made CNC Systems · Est. 2014</span>
           <span className="hidden md:inline">Hotline +84 28 3636 1234 · sales@qstechnology.vn</span>
         </div>
       </div>
 
       <nav className="qs-nav">
-        <div className="max-w-wrap mx-auto px-12 flex items-center justify-between gap-8 h-[72px]">
+        <div className="qs-wrap-wide flex items-center justify-between gap-8 h-[72px]">
           <div className="flex items-center gap-7">
             <Link href="/" className="flex items-center gap-3">
               <span className="grid place-items-center h-[42px]">

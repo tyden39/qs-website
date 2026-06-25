@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import Reveal from "@/components/reveal";
+import CountUp from "@/components/count-up";
+import Marquee from "@/components/marquee";
 import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -37,6 +39,30 @@ export async function generateMetadata({
     twitter: { card: "summary_large_image", title, description },
   };
 }
+
+const stats = [
+  { to: 6, pad: 2, suffix: "", l: "Dòng controller" },
+  { to: 800, pad: 0, suffix: "+", l: "Dây chuyền sản xuất" },
+  { to: 35, pad: 0, suffix: "", l: "Tỉnh thành hỗ trợ" },
+  { to: 24, pad: 0, suffix: "", l: "Tháng bảo hành" },
+];
+
+const heroSpecs: [string, string][] = [
+  ["Trục điều khiển", "6 · vòng kín"],
+  ["Giao thức", "EtherCAT · MLK"],
+  ["Màn hình", "10.1″ IPS cảm ứng"],
+  ["Nội suy", "Nano · tốc độ cao"],
+  ["Xuất xứ", "Bình Dương · VN"],
+];
+
+const machineTypes = [
+  "Phay CNC", "Tiện CNC", "Router gỗ", "Uốn lò xo", "Dán keo tự động",
+  "Khắc laser", "Cắt plasma", "Kim hoàn", "Chấn tôn", "Đột dập", "Mài CNC", "Đóng gói",
+];
+const tickerTags = [
+  "Made in Vietnam", "QS Firmware", "EtherCAT", "Mechatrolink MII/MIII",
+  "Pulse Train", "Closed-loop servo", "Hỗ trợ 35 tỉnh thành", "Bảo hành 24 tháng",
+];
 
 const apps = [
   { slug: "phay-cnc", n: "01", t: "Máy phay CNC", img: "/home/app-phay-cnc.webp" },
@@ -111,167 +137,217 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden border-b border-line"
-               style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
-        <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
-        <div className="relative max-w-wrap mx-auto px-12 pt-16 pb-20">
-          <div className="grid md:grid-cols-[1.05fr_1fr] gap-16 items-center">
-            <div>
-              <Reveal><span className="qs-eyebrow">QS Technology · Made by Vietnam · 2026</span></Reveal>
-              <Reveal delay={80}>
-                <h1 className="qs-h1 mt-3.5" style={{ fontSize: "clamp(48px,6vw,84px)", lineHeight: ".98" }}>
-                  <em className="not-italic font-semibold bg-gold-grad bg-clip-text text-transparent">Astro10i</em><br />
-                  Controller
-                </h1>
-              </Reveal>
-              <Reveal delay={160}>
-                <p className="mt-6 text-lg leading-[1.65] text-[#3a3a3a] max-w-[55ch]">
-                  Thuộc dòng Premium High-End của QS Technology. Sở hữu cấu hình mạnh mẽ vượt trội và thuật toán nội suy tốc độ cao, Astro10i đem đến trải nghiệm gia công mượt mà, chuyên nghiệp — đạt độ ổn định mà các bộ điều khiển thông thường không thể đáp ứng.
-                </p>
-              </Reveal>
-              <Reveal delay={240}>
-                <div className="flex gap-3 mt-8">
-                  <Link className="qs-btn qs-btn-gold" href="/products/astro-10i">Thông tin chi tiết <span className="arr">→</span></Link>
-                </div>
-              </Reveal>
-            </div>
+      {/* HERO — kinetic two-tone split: thesis on paper, product floating over a live dark field */}
+      <section
+        className="relative overflow-hidden border-b border-line"
+        style={{ background: "linear-gradient(180deg,#fafaf7 0%,#f0eee8 100%)" }}
+      >
+        <div className="lg:hidden absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
 
-            {/* hero visual */}
-            <Reveal delay={120}>
-              <div className="relative bg-white border border-line p-5">
-                <div className="flex items-center gap-1.5 pb-4 mb-4 border-b border-line">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rust"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-line-2"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-line-2"></span>
-                  <span className="ml-auto font-mono text-[10px] tracking-[.16em] uppercase text-muted">Astro 10i</span>
-                </div>
-                <Image src="/home/hero-astro10i.webp" alt="Bộ điều khiển CNC QS Astro 10i" width={700} height={1373}
-                       priority className="w-full h-auto block" />
-                <div className="mt-4 font-mono text-[9px] tracking-[.18em] uppercase text-muted">FIG. 01 · CNC CONTROLLER · ASTRO 10i</div>
-              </div>
-            </Reveal>
+        <div className="relative qs-wrap-wide grid lg:grid-cols-[1fr_46%] items-center min-h-[clamp(580px,84vh,860px)]">
+          <div className="py-16 lg:py-24 lg:pr-16 xl:pr-24">
+            <span className="qs-eyebrow qs-rise" style={{ animationDelay: "60ms" }}>QS Technology · Made by Vietnam · 2026</span>
+            <h1 className="qs-h1 mt-4" style={{ fontSize: "clamp(50px,6.6vw,108px)", lineHeight: ".94" }}>
+              <span className="block overflow-hidden pb-[.04em]">
+                <span className="qs-rise inline-block font-semibold bg-gold-grad bg-clip-text text-transparent" style={{ animationDelay: "150ms" }}>Astro 10i</span>
+              </span>
+              <span className="block overflow-hidden pb-[.04em]">
+                <span className="qs-rise inline-block" style={{ animationDelay: "270ms" }}>Controller</span>
+              </span>
+            </h1>
+            <p className="mt-7 text-lg leading-[1.7] text-[#3a3a3a] max-w-[52ch] qs-rise" style={{ animationDelay: "400ms" }}>
+              Thuộc dòng Premium High-End của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-9 qs-rise" style={{ animationDelay: "500ms" }}>
+              <Link className="qs-btn qs-btn-gold" href="/products/astro-10i">Thông tin chi tiết <span className="arr">→</span></Link>
+              <Link className="qs-btn qs-btn-ghost" href="/products">Xem toàn bộ controller</Link>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* APPS */}
-      <section className="py-24 bg-paper">
-        <div className="max-w-wrap mx-auto px-12">
-          <Reveal>
-            <div className="qs-section-head">
-              <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Applications ]</span>
-                <h2 className="qs-h2 mt-2">Ứng dụng.</h2>
-              </div>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/applications">Xem tất cả <span className="arr">→</span></Link>
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {apps.map((a, i) => (
-              <Reveal key={a.slug} className="h-full" delay={i * 80}>
-                <Link href={`/applications/${a.slug}`}
-                      className="group h-full bg-white border border-line p-6 flex flex-col gap-3.5 hover:-translate-y-0.5 hover:border-ink transition-all">
-                  <div className="relative aspect-[5/4] border border-line overflow-hidden"
-                       style={{ background: "radial-gradient(circle, #fff, #f0eee8)" }}>
-                    <Image src={a.img} alt={a.t} fill sizes="(max-width:768px) 50vw, 25vw"
-                           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+          {/* right — dark instrument panel: aligned to this column, bleeds to the viewport edge, filled with spec readouts + product */}
+          <div className="relative self-stretch flex items-center">
+            <div className="hidden lg:block absolute inset-y-0 left-0 right-[-50vw] bg-ink" aria-hidden="true"></div>
+            <div className="hidden lg:block absolute inset-y-0 left-0 right-[-50vw] qs-grid-bg qs-grid-drift opacity-[.16]" aria-hidden="true"></div>
+            <div className="hidden lg:block qs-glow" style={{ top: "18%", left: "16%", width: "440px", height: "440px" }} aria-hidden="true"></div>
+
+            <div className="relative w-full grid lg:grid-cols-[1fr_auto] gap-8 xl:gap-12 items-center lg:pl-10 xl:pl-14 lg:py-16">
+              {/* spec readouts fill the dark space */}
+              <ul className="hidden lg:flex flex-col text-[#cfc9b8]">
+                {heroSpecs.map(([k, v], i) => (
+                  <li key={k}
+                      className="flex items-baseline justify-between gap-4 py-3 border-b border-[#2a2620] last:border-b-0 qs-rise"
+                      style={{ animationDelay: `${360 + i * 90}ms` }}>
+                    <span className="font-mono text-[10px] tracking-[.18em] uppercase text-[#8a8676]">{k}</span>
+                    <span className="font-display text-[15px] font-medium text-white">{v}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* product render */}
+              <Reveal delay={120}>
+                <div className="qs-float relative bg-white border border-line p-6 w-full max-w-[340px] mx-auto shadow-[0_36px_70px_-30px_rgba(0,0,0,.62)]">
+                  <div className="flex items-center gap-1.5 pb-4 mb-4 border-b border-line">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rust"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-line-2"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-line-2"></span>
+                    <span className="ml-auto font-mono text-[10px] tracking-[.16em] uppercase text-muted">Astro 10i</span>
                   </div>
-                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">Application {a.n}</span>
-                  <h4 className="font-display font-semibold text-[17px] m-0">{a.t}</h4>
-                </Link>
+                  <div className="relative overflow-hidden">
+                    <Image src="/home/hero-astro10i.webp" alt="Bộ điều khiển CNC QS Astro 10i" width={700} height={1373}
+                           priority className="w-full h-auto block" />
+                    <div className="qs-scan" aria-hidden="true"></div>
+                  </div>
+                  <div className="mt-4 font-mono text-[9px] tracking-[.18em] uppercase text-muted">FIG. 01 · CNC CONTROLLER · ASTRO 10i</div>
+                </div>
               </Reveal>
-            ))}
+            </div>
           </div>
-          <Reveal className="flex justify-center mt-10">
-            <Link className="qs-btn qs-btn-gold" href="/applications">Xem thêm <span className="arr">→</span></Link>
-          </Reveal>
         </div>
       </section>
 
-      {/* PRODUCTS */}
-      <section className="py-24 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
-          <Reveal>
-            <div className="qs-section-head">
-              <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Update: 13-06-2026 ]</span>
-                <h2 className="qs-h2 mt-2">QS Controller</h2>
+      {/* STATS — full-bleed dark band, edge-to-edge with hairline dividers + count-up */}
+      <section className="relative bg-ink text-[#e8e6df] overflow-hidden">
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.12]" aria-hidden="true"></div>
+        <div className="relative qs-wrap-wide grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-[#252019]">
+          {stats.map((s, i) => (
+            <Reveal key={s.l} delay={i * 70} className="py-10 lg:py-14 px-6 lg:px-10">
+              <div className="font-display font-bold leading-none tracking-[-.02em]" style={{ fontSize: "clamp(38px,4vw,60px)" }}>
+                <CountUp to={s.to} pad={s.pad} suffix={s.suffix}
+                         className="bg-gold-grad bg-clip-text text-transparent" />
               </div>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/products">Xem tất cả <span className="arr">→</span></Link>
+              <div className="mt-3 font-mono text-[10px] tracking-[.2em] uppercase text-[#8a8676]">{s.l}</div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* PRODUCTS — contained wide, 3-up datasheet cards */}
+      <section className="py-24 bg-white">
+        <div className="qs-wrap-wide">
+          <Reveal>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+              <div>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Products · cập nhật 13.06.2026 ]</span>
+                <h2 className="qs-h2 mt-3">QS Controller</h2>
+              </div>
+              <p className="text-sm text-muted leading-[1.6] max-w-[42ch] md:text-right">
+                Sáu dòng bộ điều khiển cho phay, tiện, uốn và dán keo — chọn theo số trục và giao thức điều khiển.
+              </p>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line">
             {homeProducts.map((item, i) => (
               <Reveal key={`${item.slug}-${i}`} className="h-full" delay={i * 80}>
                 <Link href={`/products/${item.slug}`}
-                      className="group h-full bg-white p-7 flex flex-col gap-3.5 hover:bg-paper transition-colors relative
-                                 before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold">
+                      className="group h-full bg-white p-8 flex flex-col gap-4 hover:bg-paper transition-colors relative
+                                 before:content-[''] before:absolute before:top-0 before:left-8 before:w-8 before:h-0.5 before:bg-gold">
                   <div className="font-mono text-[11px] text-gold-1 tracking-[.16em]">{item.lbl}</div>
-                  <h3 className="font-display font-semibold text-[22px] tracking-[-.01em] m-0">{item.name}</h3>
+                  <h3 className="font-display font-semibold text-[23px] tracking-[-.01em] m-0">{item.name}</h3>
                   <p className="text-[13px] text-muted leading-[1.55] m-0">{item.desc}</p>
-                  <div className="relative flex-1 min-h-[180px] border border-line overflow-hidden"
+                  <div className="relative flex-1 min-h-[220px] border border-line overflow-hidden mt-1"
                        style={{ background: "radial-gradient(circle, #fff, #f0eee8)" }}>
-                    <Image src={item.img} alt={item.name} fill sizes="(max-width:768px) 100vw, 33vw"
-                           className="object-contain p-5 transition-transform duration-500 group-hover:scale-[1.03]" />
+                    <Image src={item.img} alt={item.name} fill sizes="(max-width:1024px) 100vw, 30vw"
+                           className="object-contain p-6 transition-transform duration-500 group-hover:scale-[1.04]" />
                   </div>
-                  <div className="flex justify-between items-center pt-3.5 border-t border-line font-mono text-[11px] tracking-[.12em] uppercase text-muted">
+                  <div className="flex justify-between items-center pt-4 border-t border-line font-mono text-[11px] tracking-[.12em] uppercase text-muted">
                     <span className="leading-[1.5]">{item.meta[0]}<br />{item.meta[1]}</span>
-                    <span className="text-ink">→</span>
+                    <span className="text-ink transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </Link>
               </Reveal>
             ))}
           </div>
-          <Reveal className="flex justify-center mt-10">
-            <Link className="qs-btn qs-btn-gold" href="/products">Xem thêm <span className="arr">→</span></Link>
+          <Reveal className="flex justify-center mt-12">
+            <Link className="qs-btn qs-btn-gold" href="/products">Xem tất cả controller <span className="arr">→</span></Link>
           </Reveal>
         </div>
       </section>
 
-      {/* ABOUT */}
-      <section className="py-20 bg-ink text-[#cfc9b8] relative overflow-hidden">
-        <div className="absolute inset-0 qs-grid-bg opacity-[.12]"></div>
-        <div className="relative max-w-wrap mx-auto px-12">
-          <div className="grid md:grid-cols-[1.4fr_1fr] gap-16 items-center">
-            <Reveal>
-              <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ About us ]</span>
-              <h2 className="qs-h2 text-white mt-2">Đôi nét về QS Technology Co., LTD.</h2>
-              <p className="text-[#a8a499] text-base leading-[1.7] max-w-[64ch] mt-5">
-                QS Technology Co., LTD. Chúng tôi tự hào là đơn vị tiên phong phát triển, ứng dụng và thương mại sản phẩm bộ điều khiển CNC “Made By Vietnam”. Sau nhiều năm phát triển, những sản phẩm mang thương hiệu QS Technology ngày càng nhận được nhiều sự tin tưởng, quan tâm từ khách hàng trong cũng như ngoài nước.
-              </p>
-              <p className="text-[#a8a499] text-base leading-[1.7] max-w-[64ch] mt-4">
-                Bên cạnh đó, từ những thế mạnh và kinh nghiệm tích lũy sau nhiều năm hoạt động trong lĩnh vực chế tạo máy, hệ thống tự động hóa và board mạch điện tử, chúng tôi tự tin làm chủ phần công nghệ lõi, phát triển đa dạng và làm hài lòng những mong muốn của khách hàng.
-              </p>
-              <Link className="qs-btn qs-btn-gold mt-8" href="/about">Xem thêm <span className="arr">→</span></Link>
-            </Reveal>
-            <Reveal delay={120}>
-              <div className="relative border border-[#2a2620] overflow-hidden">
-                <Image src="/home/about-qs.webp" alt="Nhà máy QS Technology" width={900} height={657}
-                       sizes="(max-width:768px) 100vw, 40vw" className="w-full h-auto block" />
+      {/* TICKER — running dual-row marquee band */}
+      <div className="bg-ink text-[#cfc9b8] border-y border-[#2a2620] overflow-hidden">
+        <div className="py-3.5 border-b border-[#2a2620]">
+          <Marquee items={machineTypes} speed={52} />
+        </div>
+        <div className="py-3.5 text-[#8a8676]">
+          <Marquee items={tickerTags} speed={46} reverse />
+        </div>
+      </div>
+
+      {/* APPLICATIONS — full-bleed edge-to-edge image strip */}
+      <section className="py-24 bg-paper">
+        <div className="qs-wrap-wide">
+          <Reveal>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line">
+              <div>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Applications · 04 ngành ]</span>
+                <h2 className="qs-h2 mt-3">Ứng dụng theo ngành.</h2>
               </div>
+              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/applications">Xem tất cả <span className="arr">→</span></Link>
+            </div>
+          </Reveal>
+        </div>
+        <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-px bg-line border-y border-line">
+          {apps.map((a, i) => (
+            <Reveal key={a.slug} delay={i * 80}>
+              <Link href={`/applications/${a.slug}`}
+                    className="group relative block aspect-[3/4] overflow-hidden bg-ink-2">
+                <Image src={a.img} alt={a.t} fill sizes="(max-width:1024px) 50vw, 25vw"
+                       className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0"
+                     style={{ background: "linear-gradient(0deg,rgba(10,10,8,.85) 0%,rgba(10,10,8,.08) 45%,transparent 72%)" }}></div>
+                <div className="absolute left-0 right-0 bottom-0 p-5 lg:p-6">
+                  <span className="font-mono text-[10px] text-gold-2 tracking-[.18em] uppercase">Application {a.n}</span>
+                  <h4 className="font-display font-semibold text-white text-lg lg:text-xl mt-1.5 leading-tight">{a.t}</h4>
+                  <span className="mt-3 inline-flex items-center gap-1.5 font-mono text-[10px] tracking-[.14em] uppercase text-[#cfc9b8] opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                    Chi tiết →
+                  </span>
+                </div>
+              </Link>
             </Reveal>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* VIDEO */}
+      {/* ABOUT — full-bleed dark, factory photo bleeding to the left edge */}
+      <section className="bg-ink text-[#cfc9b8] grid lg:grid-cols-2 items-stretch overflow-hidden">
+        <Reveal className="relative min-h-[360px] lg:h-full">
+          <Image src="/home/about-qs.webp" alt="Nhà máy QS Technology" fill
+                 sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" />
+          <div className="absolute inset-0 bg-[#0a0a0a]/20"></div>
+        </Reveal>
+        <div className="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-16 xl:px-20">
+          <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
+          <Reveal className="relative max-w-[640px]">
+            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ About us · EST. Bình Dương ]</span>
+            <h2 className="qs-h2 text-white mt-3">Đôi nét về QS Technology Co., LTD.</h2>
+            <p className="text-[#a8a499] text-base leading-[1.7] mt-5">
+              QS Technology Co., LTD. Chúng tôi tự hào là đơn vị tiên phong phát triển, ứng dụng và thương mại sản phẩm bộ điều khiển CNC “Made By Vietnam”. Sau nhiều năm phát triển, những sản phẩm mang thương hiệu QS Technology ngày càng nhận được nhiều sự tin tưởng, quan tâm từ khách hàng trong cũng như ngoài nước.
+            </p>
+            <p className="text-[#a8a499] text-base leading-[1.7] mt-4">
+              Bên cạnh đó, từ những thế mạnh và kinh nghiệm tích lũy sau nhiều năm hoạt động trong lĩnh vực chế tạo máy, hệ thống tự động hóa và board mạch điện tử, chúng tôi tự tin làm chủ phần công nghệ lõi, phát triển đa dạng và làm hài lòng những mong muốn của khách hàng.
+            </p>
+            <Link className="qs-btn qs-btn-gold mt-8" href="/about">Xem thêm <span className="arr">→</span></Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* VIDEO — contained wide */}
       <section className="py-24 bg-white border-t border-line">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="qs-wrap-wide">
           <Reveal>
-            <div className="qs-section-head">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <div>
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Showreel · 02:14 ]</span>
-                <h2 className="qs-h2 mt-2">QS Controller Videos</h2>
+                <h2 className="qs-h2 mt-3">QS Controller Videos</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">Kênh YouTube <span className="arr">→</span></Link>
             </div>
           </Reveal>
           <Reveal>
-            <div className="grid md:grid-cols-[2fr_1fr] gap-px bg-line border border-line">
+            <div className="grid lg:grid-cols-[2.3fr_1fr] gap-px bg-line border border-line">
               <div className="group relative bg-ink-2 aspect-video overflow-hidden">
                 <Image src="/home/video-thumb.webp" alt="QS F86 — Ứng dụng trên máy uốn lò xo CNC" fill
-                       sizes="(max-width:768px) 100vw, 66vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                       sizes="(max-width:1024px) 100vw, 60vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
                 <button className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full grid place-items-center border-0 cursor-pointer text-ink-2 transition-all hover:scale-105"
                         style={{ background: "rgba(232,200,120,.95)", boxShadow: "0 0 0 6px rgba(232,200,120,.18)" }}
                         aria-label="Phát video">
@@ -298,27 +374,49 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      {/* NEWS */}
-      <section className="py-24 bg-paper">
-        <div className="max-w-wrap mx-auto px-12">
+      {/* CTA — full-bleed dark band */}
+      <section className="relative bg-ink text-[#cfc9b8] overflow-hidden">
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
+        <div className="qs-glow" style={{ bottom: "-150px", left: "24%", width: "440px", height: "440px" }} aria-hidden="true"></div>
+        <div className="relative qs-wrap-wide py-20 lg:py-24 grid lg:grid-cols-[1fr_360px] gap-12 items-center">
           <Reveal>
-            <div className="qs-section-head">
+            <h3 className="font-display font-bold text-white tracking-[-.015em] leading-[1.08] m-0"
+                style={{ fontSize: "clamp(30px,3.4vw,46px)" }}>Cần controller cho dòng máy đặc thù?</h3>
+            <p className="text-[#a8a499] mt-5 max-w-[60ch] text-base leading-[1.7]">
+              Thông qua việc tự chủ hoàn toàn về công nghệ — từ thiết kế, lập trình, xây dựng hệ điều hành đến sản xuất và bảo trì — chúng tôi linh hoạt và nhanh chóng trong việc phát triển sản phẩm mới, cải tiến sản phẩm và đáp ứng các yêu cầu đặc biệt của khách hàng.
+            </p>
+            <Link className="qs-btn qs-btn-gold mt-8" href="/contact">Liên hệ ngay <span className="arr">→</span></Link>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="relative border border-[#2a2620] overflow-hidden">
+              <Image src="/home/cta-controller.webp" alt="Bộ điều khiển CNC QS" width={800} height={533}
+                     sizes="(max-width:1024px) 100vw, 360px" className="w-full h-auto block" />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* NEWS — contained wide (closing section) */}
+      <section className="py-24 bg-paper">
+        <div className="qs-wrap-wide">
+          <Reveal>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <div>
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Newsroom · Q1/2026 ]</span>
-                <h2 className="qs-h2 mt-2">Tin tức &amp; sự kiện</h2>
+                <h2 className="qs-h2 mt-3">Tin tức &amp; sự kiện</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">Xem tất cả <span className="arr">→</span></Link>
             </div>
           </Reveal>
-          <div className="grid md:grid-cols-[1.2fr_1fr] gap-8">
+          <div className="grid lg:grid-cols-[1.3fr_1fr] gap-8">
             <Reveal className="h-full">
               <Link href="/news/astro-12x"
                     className="group h-full bg-white border border-line flex flex-col hover:border-ink transition-colors">
-                <div className="relative aspect-[5/3] bg-ink-2 border-b border-line overflow-hidden">
+                <div className="relative aspect-[16/9] bg-ink-2 border-b border-line overflow-hidden">
                   <Image src="/home/news-ethercat.webp" alt="QS ra mắt dòng controller EtherCAT, Mechatrolink MII/MIII" fill
-                         sizes="(max-width:768px) 100vw, 55vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                         sizes="(max-width:1024px) 100vw, 55vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
                 </div>
-                <div className="p-7">
+                <div className="p-8">
                   <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ Sản phẩm mới ]</span>
                   <h3 className="font-display font-semibold text-2xl mt-2.5 mb-3.5 leading-[1.25] tracking-[-.01em]">
                     QS cho ra mắt dòng sản phẩm bộ điều khiển EtherCAT, Mechatrolink MII/MIII
@@ -345,27 +443,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
-          <Reveal>
-            <div className="bg-ink text-[#cfc9b8] p-12 grid md:grid-cols-[1fr_340px] gap-10 items-center overflow-hidden">
-              <div>
-                <h3 className="font-display font-bold text-3xl text-white tracking-[-.01em] m-0">Cần controller cho dòng máy đặc thù?</h3>
-                <p className="text-[#a8a499] mt-3 max-w-[60ch] m-0 text-[15px] leading-[1.65]">
-                  Thông qua việc tự chủ hoàn toàn về công nghệ — từ thiết kế, lập trình, xây dựng hệ điều hành đến sản xuất và bảo trì — chúng tôi linh hoạt và nhanh chóng trong việc phát triển sản phẩm mới, cải tiến sản phẩm và đáp ứng các yêu cầu đặc biệt của khách hàng.
-                </p>
-                <Link className="qs-btn qs-btn-gold mt-7" href="/contact">Liên hệ ngay <span className="arr">→</span></Link>
-              </div>
-              <div className="relative">
-                <Image src="/home/cta-controller.webp" alt="Bộ điều khiển CNC QS" width={800} height={533}
-                       sizes="(max-width:768px) 100vw, 340px" className="w-full h-auto block" />
-              </div>
-            </div>
-          </Reveal>
         </div>
       </section>
     </>

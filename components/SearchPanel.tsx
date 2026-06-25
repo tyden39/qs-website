@@ -37,7 +37,7 @@ export default function SearchPanel() {
   return (
     <>
       <div id="qs-search-panel" className="qs-search-panel">
-        <div className="max-w-wrap mx-auto px-12 pt-7 pb-9 max-h-[min(72vh,640px)] overflow-y-auto">
+        <div className="qs-wrap-wide pt-7 pb-9 max-h-[min(72vh,640px)] overflow-y-auto">
           {/* search input */}
           <div className="flex items-center gap-3 border-0 border-b-2 border-ink px-1 pb-3.5">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-55"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>

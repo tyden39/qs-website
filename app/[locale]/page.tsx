@@ -485,6 +485,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 <Image src="/home/news-ethercat.webp" alt="QS ra mắt dòng controller EtherCAT, Mechatrolink MII/MIII" fill
                        sizes="(max-width:1024px) 100vw, 52vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.94) 6%,rgba(10,10,8,.36) 48%,rgba(10,10,8,.08) 100%)" }}></div>
+                {/* perpetual broadcast scan-line + ember breathe — keeps the lead story alive without hover */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] qs-scan" aria-hidden="true"></div>
+                <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
+                     style={{ background: "radial-gradient(ellipse 72% 82% at 28% 124%, rgba(232,200,120,.22), transparent 70%)" }} aria-hidden="true"></div>
                 {/* light sheen sweeping across the cover on hover */}
                 <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1000ms] ease-out"
                      style={{ background: "linear-gradient(115deg, transparent 40%, rgba(255,255,255,.14) 50%, transparent 60%)" }} aria-hidden="true"></div>
@@ -508,7 +512,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             </Reveal>
             {/* wire feed — numbered list with hover rule + arrow */}
             <div className="flex flex-col">
-              <div className="flex items-center justify-between pb-3 mb-1 border-b border-line">
+              <div className="relative flex items-center justify-between pb-3 mb-1 border-b border-line">
+                <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
                 <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Tin mới nhất</span>
                 <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">04 bản tin</span>
               </div>
@@ -516,7 +521,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 <Reveal key={n.title} delay={i * 80}>
                   <Link href={n.href}
                         className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-start py-5 border-b border-line transition-[padding] duration-300 hover:pl-4">
-                    <span className="absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></span>
+                    <span className={`absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top transition-transform duration-300 group-hover:scale-y-100 ${i === 0 ? "scale-y-100 qs-breathe" : "scale-y-0"}`}></span>
                     <span className="font-mono text-[11px] text-gold-1 tabular-nums pt-1">0{i + 1}</span>
                     <div>
                       <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{n.cat} · {n.date}</span>

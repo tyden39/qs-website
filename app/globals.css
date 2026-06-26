@@ -376,6 +376,15 @@ body {
 }
 @media (prefers-reduced-motion: reduce) { .qs-play { animation: none; } }
 
+/* ─── Floating contact — brand-tinted attention pulse (ring color via --fc-ring) ─── */
+.qs-fc-pulse { animation: qs-fc-pulse 2.6s ease-out infinite; }
+@keyframes qs-fc-pulse {
+  0%   { box-shadow: 0 0 0 0 var(--fc-ring, rgba(232,200,120,.5)); }
+  70%  { box-shadow: 0 0 0 13px rgba(0,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+}
+@media (prefers-reduced-motion: reduce) { .qs-fc-pulse { animation: none; } }
+
 /* soft blinking status dot */
 .qs-live-dot {
   display: inline-block; width: 7px; height: 7px; border-radius: 9999px;

@@ -5,6 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchPanel from "@/components/SearchPanel";
+import FloatingContact from "@/components/floating-contact";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildOrganization, buildWebSite, JsonLd } from "@/lib/seo/jsonld";
@@ -54,6 +55,7 @@ export default async function LocaleLayout({
       <SearchPanel />
       {children}
       <Footer />
+      <FloatingContact />
     </NextIntlClientProvider>
   );
 }

@@ -97,7 +97,7 @@ export default function AppDeck({ items }: { items: App[] }) {
           {/* OPEN state — full content block */}
           <div className="qs-open absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
             <span className="font-mono text-[11px] text-gold-2 tracking-[.22em] uppercase">
-              Application · {a.n}
+              Ứng dụng · {a.n}
             </span>
             <h4 className="font-display font-semibold text-white text-[28px] lg:text-[34px] leading-[1.05] tracking-tight mt-3 max-w-[20ch]">
               {a.t}

@@ -52,13 +52,13 @@ const stats = [
 
 const heroSlides: HeroSlide[] = [
   {
-    tag: "Premium High-End · 2026",
+    tag: "Dòng cao cấp · 2026",
     name: "Astro 10i",
-    sub: "Controller",
-    desc: "Thuộc dòng Premium High-End của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.",
+    sub: "Bộ điều khiển",
+    desc: "Thuộc dòng cao cấp của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.",
     href: "/products/astro-10i",
     img: "/home/hero-astro10i.webp",
-    fig: "FIG. 01 · CNC CONTROLLER · ASTRO 10i",
+    fig: "HÌNH 01 · BỘ ĐIỀU KHIỂN CNC · ASTRO 10i",
     specs: [
       ["Trục điều khiển", "6 · vòng kín"],
       ["Giao thức", "EtherCAT · MLK"],
@@ -68,31 +68,31 @@ const heroSlides: HeroSlide[] = [
     ],
   },
   {
-    tag: "Flagship · vòng kín",
+    tag: "Chủ lực · vòng kín",
     name: "Astro 6AH",
-    sub: "Controller",
-    desc: "Flagship 6 trục vòng kín với EtherCAT và Mechatrolink MII/MIII — dành cho gia công khuôn mẫu và linh kiện y tế đòi hỏi độ chính xác cao nhất.",
+    sub: "Bộ điều khiển",
+    desc: "Dòng chủ lực 6 trục vòng kín với EtherCAT và Mechatrolink MII/MIII — dành cho gia công khuôn mẫu và linh kiện y tế đòi hỏi độ chính xác cao nhất.",
     href: "/products/astro-6ah",
     img: "/home/product-astro-6ah.webp",
-    fig: "FIG. 02 · CNC CONTROLLER · ASTRO 6AH",
+    fig: "HÌNH 02 · BỘ ĐIỀU KHIỂN CNC · ASTRO 6AH",
     specs: [
       ["Trục điều khiển", "6 · vòng kín"],
       ["Giao thức", "EtherCAT · MII/MIII"],
       ["Ứng dụng", "Khuôn mẫu · y tế"],
-      ["Servo", "Closed-loop đồng bộ"],
+      ["Động cơ servo", "Vòng kín đồng bộ"],
       ["Xuất xứ", "Bình Dương · VN"],
     ],
   },
   {
     tag: "Đa dụng · phổ thông",
     name: "F86",
-    sub: "Controller",
-    desc: "Controller 6 trục ứng dụng trên đa dạng dòng máy — phay, cưa lọng, dán keo. Hỗ trợ điều khiển Pulse Train và EtherCAT, dễ tích hợp, chi phí tối ưu.",
+    sub: "Bộ điều khiển",
+    desc: "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy — phay, cưa lọng, dán keo. Hỗ trợ điều khiển Pulse Train và EtherCAT, dễ tích hợp, chi phí tối ưu.",
     href: "/products/f86",
     img: "/home/product-f86.webp",
-    fig: "FIG. 03 · CNC CONTROLLER · F86",
+    fig: "HÌNH 03 · BỘ ĐIỀU KHIỂN CNC · F86",
     specs: [
-      ["Trục điều khiển", "6 · open/closed"],
+      ["Trục điều khiển", "6 · hở/kín"],
       ["Giao thức", "Pulse Train · EtherCAT"],
       ["Ứng dụng", "Phay · cưa · dán keo"],
       ["Tích hợp", "Nhanh · linh hoạt"],
@@ -107,7 +107,7 @@ const machineTypes = [
 ];
 const tickerTags = [
   "Made in Vietnam", "QS Firmware", "EtherCAT", "Mechatrolink MII/MIII",
-  "Pulse Train", "Closed-loop servo", "Hỗ trợ 35 tỉnh thành", "Bảo hành 24 tháng",
+  "Pulse Train", "Servo vòng kín", "Hỗ trợ 35 tỉnh thành", "Bảo hành 24 tháng",
 ];
 
 const apps = [
@@ -120,27 +120,27 @@ const apps = [
 const homeProducts = [
   {
     slug: "f86",
-    lbl: "[ F-series ]",
-    name: "F86 Controller",
-    desc: "Controller 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
+    lbl: "[ Dòng F ]",
+    name: "Bộ điều khiển F86",
+    desc: "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
     img: "/home/product-f86.webp",
-    meta: ["6 axis · closed loop", "pulse train / ethercat"],
+    meta: ["6 trục · vòng kín", "pulse train / ethercat"],
   },
   {
     slug: "astro-6ah",
-    lbl: "[ Astro-series ]",
-    name: "Astro 6AH Controller",
-    desc: "Flagship 6 trục vòng kín, EtherCAT, cho gia công khuôn mẫu và linh kiện y tế chính xác cao.",
+    lbl: "[ Dòng Astro ]",
+    name: "Bộ điều khiển Astro 6AH",
+    desc: "Dòng chủ lực 6 trục vòng kín, EtherCAT, cho gia công khuôn mẫu và linh kiện y tế chính xác cao.",
     img: "/home/product-astro-6ah.webp",
-    meta: ["6 axis · closed loop", "pulse train / ethercat / mechatrolink mii,miii"],
+    meta: ["6 trục · vòng kín", "pulse train / ethercat / mechatrolink mii,miii"],
   },
   {
     slug: "f86",
-    lbl: "[ F-series ]",
-    name: "F86 Controller",
-    desc: "Controller 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
+    lbl: "[ Dòng F ]",
+    name: "Bộ điều khiển F86",
+    desc: "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
     img: "/home/product-f86-open.webp",
-    meta: ["6 axis · open loop", "pulse train / ethercat"],
+    meta: ["6 trục · vòng hở", "pulse train / ethercat"],
   },
 ];
 
@@ -227,8 +227,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Products · cập nhật 13.06.2026 ]</span>
-                <h2 className="qs-h2 mt-3">QS Controller</h2>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Sản phẩm · cập nhật 13.06.2026 ]</span>
+                <h2 className="qs-h2 mt-3">Bộ điều khiển QS</h2>
               </div>
               <p className="text-sm text-muted leading-[1.6] max-w-[42ch] md:text-right">
                 Sáu dòng bộ điều khiển cho phay, tiện, uốn và dán keo — chọn theo số trục và giao thức điều khiển.
@@ -309,7 +309,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line">
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Applications · 04 ngành ]</span>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Ứng dụng · 04 ngành ]</span>
                 <h2 className="qs-h2 mt-3">Ứng dụng theo ngành.</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/applications">Xem tất cả <span className="arr">→</span></Link>
@@ -331,7 +331,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                          className="object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.92) 0%,rgba(10,10,8,.2) 50%,transparent 78%)" }}></div>
                   <div className="absolute inset-x-0 bottom-0 p-5">
-                    <span className="font-mono text-[10px] text-gold-2 tracking-[.2em] uppercase">Application {a.n}</span>
+                    <span className="font-mono text-[10px] text-gold-2 tracking-[.2em] uppercase">Ứng dụng {a.n}</span>
                     <h4 className="font-display font-semibold text-white text-lg mt-1.5 leading-tight">{a.t}</h4>
                     <p className="text-[#cfc9b8] text-[13px] leading-[1.55] mt-2">{a.d}</p>
                   </div>
@@ -353,7 +353,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
           <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45]" />
           <Reveal className="relative max-w-[640px]">
-            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ About us · EST. Bình Dương ]</span>
+            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ Về chúng tôi · Thành lập tại Bình Dương ]</span>
             <h2 className="qs-h2 text-white mt-3">Đôi nét về QS Technology Co., LTD.</h2>
             <p className="text-[#a8a499] text-base leading-[1.7] mt-5">
               QS Technology Co., LTD. Chúng tôi tự hào là đơn vị tiên phong phát triển, ứng dụng và thương mại sản phẩm bộ điều khiển CNC “Made By Vietnam”. Sau nhiều năm phát triển, những sản phẩm mang thương hiệu QS Technology ngày càng nhận được nhiều sự tin tưởng, quan tâm từ khách hàng trong cũng như ngoài nước.
@@ -375,8 +375,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Showreel · On air ]</span>
-                <h2 className="qs-h2 mt-3">QS Controller Videos</h2>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Video · Đang phát sóng ]</span>
+                <h2 className="qs-h2 mt-3">Video bộ điều khiển QS</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">Kênh YouTube <span className="arr">→</span></Link>
             </div>
@@ -413,8 +413,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               {/* broadcast playlist — wire-feed list (mirrors Newsroom) */}
               <div className="flex flex-col">
                 <div className="flex items-center justify-between pb-3 mb-1 border-b border-line">
-                  <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Playlist</span>
-                  <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">04 clips</span>
+                  <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Danh sách phát</span>
+                  <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">04 video</span>
                 </div>
                 {playlist.map(([t, d], i) => (
                   <a key={t} href="#"
@@ -422,7 +422,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                     <span className="absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></span>
                     <span className="font-mono text-[11px] text-gold-1 tabular-nums pt-1">0{i + 1}</span>
                     <div>
-                      <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{i === 0 ? "▶ Đang phát" : "Clip"} · {d}</span>
+                      <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{i === 0 ? "▶ Đang phát" : "Video"} · {d}</span>
                       <h4 className="font-display font-semibold text-[15px] leading-[1.4] m-0 tracking-[-.005em] text-ink transition-colors group-hover:text-gold-1">{t.replace(/^\d+\s·\s/, "")}</h4>
                       {i === 0 && (
                         <div className="mt-2.5 h-[2px] w-full bg-line overflow-hidden rounded-full">
@@ -471,7 +471,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Newsroom · Q1/2026 ]</span>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Tin tức · Quý 1/2026 ]</span>
                 <h2 className="qs-h2 mt-3">Tin tức &amp; sự kiện</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">Xem tất cả <span className="arr">→</span></Link>
@@ -509,7 +509,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             {/* wire feed — numbered list with hover rule + arrow */}
             <div className="flex flex-col">
               <div className="flex items-center justify-between pb-3 mb-1 border-b border-line">
-                <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Live feed</span>
+                <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Tin mới nhất</span>
                 <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">04 bản tin</span>
               </div>
               {sideNews.map((n, i) => (

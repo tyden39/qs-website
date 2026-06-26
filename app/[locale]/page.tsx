@@ -9,6 +9,7 @@ import AppDeck from "@/components/app-deck";
 import HeroSlider, { type HeroSlide } from "@/components/hero-slider";
 import NewsFeed, { type NewsItem } from "@/components/news-feed";
 import VideoReel, { type VideoItem } from "@/components/video-reel";
+import { setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -66,7 +67,7 @@ const heroSlides: HeroSlide[] = [
       ["Giao thức", "EtherCAT · MLK"],
       ["Màn hình", "10.1″ IPS cảm ứng"],
       ["Nội suy", "Nano · tốc độ cao"],
-      ["Xuất xứ", "Bình Dương · VN"],
+      ["Xuất xứ", "TP. Hồ Chí Minh · VN"],
     ],
   },
   {
@@ -82,7 +83,7 @@ const heroSlides: HeroSlide[] = [
       ["Giao thức", "EtherCAT · MII/MIII"],
       ["Ứng dụng", "Khuôn mẫu · y tế"],
       ["Động cơ servo", "Vòng kín đồng bộ"],
-      ["Xuất xứ", "Bình Dương · VN"],
+      ["Xuất xứ", "TP. Hồ Chí Minh · VN"],
     ],
   },
   {
@@ -98,7 +99,7 @@ const heroSlides: HeroSlide[] = [
       ["Giao thức", "Pulse Train · EtherCAT"],
       ["Ứng dụng", "Phay · cưa · dán keo"],
       ["Tích hợp", "Nhanh · linh hoạt"],
-      ["Xuất xứ", "Bình Dương · VN"],
+      ["Xuất xứ", "TP. Hồ Chí Minh · VN"],
     ],
   },
 ];
@@ -201,13 +202,17 @@ const news: NewsItem[] = [
     cat: "Công ty",
     date: "18 · 03 · 2026",
     read: "3 phút đọc",
-    title: "QS mở rộng nhà máy Bình Dương lên 4.200m² — công suất tăng 2,5×",
+    title: "QS mở rộng nhà máy TP. Hồ Chí Minh lên 4.200m² — công suất tăng 2,5×",
     desc: "Nhà máy mới nâng năng lực sản xuất board mạch và lắp ráp bộ điều khiển, rút ngắn thời gian giao hàng cho thị trường trong nước.",
   },
 ];
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
-  await params;
+  // Opt this page's render scope into static locale resolution so next-intl's
+  // <Link> resolves the locale from the stored value instead of headers()
+  // (which would force dynamic rendering and break `output: "export"`).
+  const { locale } = await params;
+  setRequestLocale(locale);
 
   return (
     <>
@@ -390,14 +395,14 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-transparent via-transparent to-ink/95"></div>
           {/* live caption */}
           <div className="absolute left-6 bottom-6 flex items-center gap-2 font-mono text-[10px] tracking-[.18em] uppercase text-[#e8e6df]">
-            <span className="qs-live-dot" aria-hidden="true"></span>Nhà máy Bình Dương
+            <span className="qs-live-dot" aria-hidden="true"></span>Nhà máy TP. Hồ Chí Minh
           </div>
         </Reveal>
         <div className="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
           <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45]" />
           <Reveal className="relative max-w-[640px]">
-            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ Về chúng tôi · Thành lập tại Bình Dương ]</span>
+            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ Về chúng tôi · Thành lập tại TP. Hồ Chí Minh ]</span>
             <h2 className="qs-h2 text-white mt-3">Đôi nét về QS Technology Co., LTD.</h2>
             <p className="text-[#a8a499] text-base leading-[1.7] mt-5">
               QS Technology Co., LTD. Chúng tôi tự hào là đơn vị tiên phong phát triển, ứng dụng và thương mại sản phẩm bộ điều khiển CNC “Made By Vietnam”. Sau nhiều năm phát triển, những sản phẩm mang thương hiệu QS Technology ngày càng nhận được nhiều sự tin tưởng, quan tâm từ khách hàng trong cũng như ngoài nước.

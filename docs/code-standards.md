@@ -31,7 +31,29 @@ When adding a new content type, mirror this shape. Pages iterate the array and p
   - DOM event handlers attached via JSX
 - Client boundaries should be **as small as possible**. If a page needs one interactive widget, extract just that widget — don't promote the whole page to client.
 
-Currently only `Header` and `SearchPanel` are client components. New interactive widgets should follow the same isolation pattern.
+Client widgets currently include `Header`, `SearchPanel`, `hero-slider`, `news-feed`, `app-deck`, `count-up`, `locale-switcher`, and `circuit-traces`. New interactive widgets should follow the same isolation pattern.
+
+## Static export constraints (Cloudflare Pages)
+
+`next.config.ts` sets `output: "export"` — there is **no server runtime**. Every route must render fully static at build time, so any dynamic API throws `Route … couldn't be rendered statically because it used …`. Follow these rules:
+
+- **No dynamic request APIs in render** — never call `headers()`, `cookies()`, `draftMode()`, or read `searchParams` in a Server Component. Read per-request state on the client instead (e.g. `useSearchParams`).
+- **next-intl locale resolution must be static.** Calling next-intl's `<Link>` / `getTranslations` / `getLocale` in a **Server Component** resolves the active locale via `requestLocale`, which falls back to `headers()` unless `setRequestLocale(locale)` ran in that render scope. Therefore: **every statically-rendered `page.tsx` and `layout.tsx` under `app/[locale]/` that uses next-intl server APIs must call `setRequestLocale(locale)` first.** The layout doing it is not enough — layout and page render in parallel, so the page can render its `<Link>` before the layout's call lands.
+  ```tsx
+  import { setRequestLocale } from "next-intl/server";
+  export default async function Page({ params }: { params: Promise<{ locale: Locale }> }) {
+    const { locale } = await params;
+    setRequestLocale(locale); // first line of the body
+    // …
+  }
+  ```
+  - Client components (`"use client"`) using next-intl `<Link>` / `useTranslations` are **safe** — they read locale from `NextIntlClientProvider` context, not `headers()`.
+  - Server components rendered inside the layout's own subtree (e.g. `Footer`) are covered by the layout's `setRequestLocale`.
+- **No hydration-mismatch inputs.** Render output must be identical on server and first client paint:
+  - Generate stable DOM ids with React `useId()`, never a module-level counter, `Math.random()`, or `Date.now()` (a module counter increments differently across the SSR pass and the client bundle → mismatched ids). See `components/circuit-traces.tsx`.
+  - Animated counters render their final value via `useState(finalValue)` and only ramp inside `useEffect` (see `components/count-up.tsx`).
+  - Date/number formatting in render must pass an explicit locale **and** explicit options (no implicit system locale/timezone). Prefer formatting build-time-only data.
+- **Verify with `yarn build`, not just `yarn dev`.** Dynamic-API errors only surface during the export build; the build fails on the first offending route.
 
 ## TypeScript
 

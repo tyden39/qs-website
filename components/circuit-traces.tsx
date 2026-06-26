@@ -1,3 +1,6 @@
+"use client";
+
+import { useId } from "react";
 import type { CSSProperties } from "react";
 
 /**
@@ -31,9 +34,6 @@ const pads: [number, number][] = [
   [370, 330], [400, 470], [520, 250], [520, 450], [120, 490], [470, 440],
 ];
 
-// Stable unique id per instance (one render each in static export).
-let counter = 0;
-
 export default function CircuitTraces({
   variant = "dark",
   className = "",
@@ -41,7 +41,10 @@ export default function CircuitTraces({
   variant?: Variant;
   className?: string;
 }) {
-  const id = `pcb-${(counter += 1)}`;
+  // useId() is stable across server render and client hydration (derived from
+  // tree position), so the pattern id matches and there is no hydration mismatch.
+  // Strip the colons React emits so the id is safe inside the url(#…) reference.
+  const id = `pcb-${useId().replace(/:/g, "")}`;
   const stroke = variant === "dark" ? "#423d30" : "#c4b78f";
   const flow = "#e8c878";
 

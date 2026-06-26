@@ -189,10 +189,12 @@ Used on: home stats strip, application hero, About factory, "By the numbers", ne
 
 ## Motion
 
+> Full motion + effects catalog: [home-effects-and-motion.md](home-effects-and-motion.md) — scroll-reveal, ambient drift, PCB traces, scan beams, autoplay feeds, and the reusable component/utility list. **That file is canonical for motion.**
+
 - Subtle hover translations: `hover:-translate-y-0.5`, `hover:-translate-y-px`
 - Hover bg swaps: `hover:bg-paper`, `hover:bg-paper-2`
 - Search panel: `max-height` transition (`.28s ease`) — **do not** rewrite as height transition
-- **No** scroll-driven animations, **no** parallax. Aesthetic is print-still.
+- Scroll-reveal (`<Reveal>`) and perpetual ambient motion are now part of the language; all of it respects `prefers-reduced-motion`. Keep motion subtle/industrial — no SaaS bounce, no scroll-jacking parallax.
 
 ## Forms
 

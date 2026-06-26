@@ -14,8 +14,8 @@ const offices = [
   { n:"01", t:"Trụ sở chính",  name:"QS Technology HQ — TP.HCM",
     addr:["123 KCN Tân Bình, Phường 14","Quận Tân Bình, TP. Hồ Chí Minh","Việt Nam"],
     meta:"T2–T6 · 8:00 – 17:30 · +84 28 3636 1234" },
-  { n:"02", t:"Nhà máy sản xuất", name:"QS Plant — Bình Dương",
-    addr:["Lô A12, KCN Mỹ Phước 3","Thị xã Bến Cát, Bình Dương","Việt Nam"],
+  { n:"02", t:"Nhà máy sản xuất", name:"QS Plant — TP. Hồ Chí Minh",
+    addr:["117 Đường Trương Thị Như","Huyện Hóc Môn, TP. Hồ Chí Minh","Việt Nam"],
     meta:"Mở cửa thăm quan T3 & T5 · Đặt trước 7 ngày" },
 ];
 

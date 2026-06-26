@@ -62,7 +62,7 @@ export async function generateStaticParams() {
 }
 
 const articleBody = {
-  intro: "Bình Dương, 28/04/2026 — QS Technology hôm nay chính thức công bố Astro 12X, dòng controller mới nhất trong gia đình Astro-series, với khả năng điều khiển đồng thời 12 trục servo qua giao thức EtherCAT thời gian thực. Đây là sản phẩm đầu bảng của QS, hướng tới các dây chuyền tự động hoá phức tạp như máy gia công đa trục, robot công nghiệp và hệ thống cấp phôi tự động.",
+  intro: "TP. Hồ Chí Minh, 28/04/2026 — QS Technology hôm nay chính thức công bố Astro 12X, dòng controller mới nhất trong gia đình Astro-series, với khả năng điều khiển đồng thời 12 trục servo qua giao thức EtherCAT thời gian thực. Đây là sản phẩm đầu bảng của QS, hướng tới các dây chuyền tự động hoá phức tạp như máy gia công đa trục, robot công nghiệp và hệ thống cấp phôi tự động.",
   intro2: "So với Astro 10i đang là flagship hiện tại với 6 trục đồng bộ, Astro 12X tăng gấp đôi số trục, chu kỳ EtherCAT giảm từ 500 µs xuống 250 µs, đồng thời tích hợp sẵn module xử lý hình ảnh (machine vision) qua cổng GigE Vision — cho phép triển khai các ứng dụng pick-and-place, kiểm tra chất lượng inline mà không cần thiết bị bên thứ ba.",
   sections: [
     { id:"why-12-axis", h:"Vì sao là 12 trục?",
@@ -70,7 +70,7 @@ const articleBody = {
         "Trong khảo sát khách hàng OEM năm 2025 của QS, 43% trong số 120 nhà tích hợp được hỏi cho biết họ đang phải ghép 2 controller để đủ số trục cho dây chuyền của mình — đặc biệt là các máy CNC 5-trục có cụm đổi dao tự động ATC, hoặc dây chuyền cấp phôi có nhiều cánh tay robot.",
       ],
       quote: { text:"Chúng tôi muốn loại bỏ tình huống khách hàng phải dùng 2 controller riêng và đồng bộ qua bus chậm. Astro 12X là câu trả lời — một bộ điều khiển duy nhất cho cả dây chuyền.", cite:"— Lê Thanh Mai, CTO QS Technology" },
-      after:["Astro 12X được phát triển trong 18 tháng, với hơn 400 giờ thử nghiệm thực tế tại 3 nhà máy đối tác ở Bình Dương, Long An và Hải Phòng. Phiên bản đang trưng bày tại VME 2026 là bản pilot đã chạy liên tục 720 giờ trên dây chuyền tiện-phay 8 trục mà không gặp sự cố nào."],
+      after:["Astro 12X được phát triển trong 18 tháng, với hơn 400 giờ thử nghiệm thực tế tại 3 nhà máy đối tác ở TP. Hồ Chí Minh, Long An và Hải Phòng. Phiên bản đang trưng bày tại VME 2026 là bản pilot đã chạy liên tục 720 giờ trên dây chuyền tiện-phay 8 trục mà không gặp sự cố nào."],
     },
     { id:"specs", h:"Thông số nổi bật",
       list:[

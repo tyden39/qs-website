@@ -86,7 +86,7 @@ export default function AppDeck({ items }: { items: App[] }) {
             <span className="font-mono text-[11px] text-gold-2 tracking-[.24em] uppercase">{a.n}</span>
             <div className="absolute bottom-7 left-1/2 -translate-x-1/2">
               <span
-                className="block whitespace-nowrap font-display font-semibold text-white/92 text-xl tracking-tight"
+                className="block whitespace-nowrap font-display font-semibold text-white/92 text-[32px] tracking-tight"
                 style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
               >
                 {a.t}

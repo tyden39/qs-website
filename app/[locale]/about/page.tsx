@@ -7,7 +7,7 @@ const milestones = [
   ["2016", "Sản phẩm đầu", "F54 ra mắt — 1 trục, 5\""],
   ["2018", "Mở rộng",      "F86 — controller 6 trục đầu tiên"],
   ["2020", "R&D mới",      "Astro-series vòng kín ra mắt"],
-  ["2023", "Nhà máy",      "Khánh thành plant Bình Dương 4,200m²"],
+  ["2023", "Nhà máy",      "Khánh thành plant TP. Hồ Chí Minh 4,200m²"],
   ["2026", "Hôm nay",      "800+ hệ thống · 14 ứng dụng · 35 tỉnh"],
 ];
 
@@ -32,7 +32,7 @@ const leaders = [
   { i:"TM", name:"Lê Thanh Mai", role:"CTO / R&D Lead",
     bio:"Tốt nghiệp Bách khoa Hà Nội, từng phát triển PLC cho Mitsubishi VN. Chịu trách nhiệm Astro-series." },
   { i:"DT", name:"Trần Đức Tâm", role:"Plant Director",
-    bio:"Phụ trách nhà máy Bình Dương, 12 năm trong sản xuất điện tử. Chứng chỉ Lean Six Sigma Black Belt." },
+    bio:"Phụ trách nhà máy TP. Hồ Chí Minh, 12 năm trong sản xuất điện tử. Chứng chỉ Lean Six Sigma Black Belt." },
   { i:"PV", name:"Phạm Vĩ Khang", role:"Head of Field Service",
     bio:"Quản lý đội triển khai 24 kỹ sư phủ 35 tỉnh thành. SLA hỗ trợ tại chỗ trong 24 giờ." },
 ];
@@ -77,10 +77,10 @@ export default function About() {
               Năm 2014, ba kỹ sư của một xưởng cơ khí tại Tân Bình quyết định viết firmware riêng cho máy phay CNC sau khi controller nhập khẩu hỏng và phải chờ linh kiện nửa năm. Dòng F-series ra đời từ chính nhu cầu thực tế đó.
             </p>
             <p className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0 mb-4.5">
-              Sau hai năm phát triển, controller F54 đầu tiên được lắp đặt tại một xưởng làm cửa nhôm ở Bình Dương — và vận hành liên tục đến hôm nay. Từ một sản phẩm ban đầu, QS mở rộng sang Astro-series cho dây chuyền tự động hoá, rồi servo motor và board mở rộng để cung cấp giải pháp trọn gói.
+              Sau hai năm phát triển, controller F54 đầu tiên được lắp đặt tại một xưởng làm cửa nhôm ở TP. Hồ Chí Minh — và vận hành liên tục đến hôm nay. Từ một sản phẩm ban đầu, QS mở rộng sang Astro-series cho dây chuyền tự động hoá, rồi servo motor và board mở rộng để cung cấp giải pháp trọn gói.
             </p>
             <p className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0">
-              Hôm nay, QS Technology có nhà máy 4.200 m² tại Bình Dương, đội R&amp;D 18 kỹ sư và mạng lưới đối tác triển khai phủ khắp 35 tỉnh thành. Triết lý không đổi: <strong className="font-semibold text-ink">phần cứng do mình thiết kế, firmware do mình viết, hỗ trợ kỹ thuật trực tiếp tại Việt Nam.</strong>
+              Hôm nay, QS Technology có nhà máy 4.200 m² tại TP. Hồ Chí Minh, đội R&amp;D 18 kỹ sư và mạng lưới đối tác triển khai phủ khắp 35 tỉnh thành. Triết lý không đổi: <strong className="font-semibold text-ink">phần cứng do mình thiết kế, firmware do mình viết, hỗ trợ kỹ thuật trực tiếp tại Việt Nam.</strong>
             </p>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function About() {
         <div className="absolute inset-0 qs-grid-bg opacity-[.12]"></div>
         <div className="relative max-w-wrap mx-auto px-12">
           <div>
-            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ 04 · Nhà máy Bình Dương ]</span>
+            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ 04 · Nhà máy TP. Hồ Chí Minh ]</span>
             <h2 className="font-display font-bold text-4xl text-white tracking-[-.015em] mt-2 leading-[1.1]">Sản xuất trong nước,<br/>kiểm soát đến từng PCB.</h2>
           </div>
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-12 mt-12 items-start">

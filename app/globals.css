@@ -299,6 +299,64 @@ body {
   .qs-progress { animation: none; width: 38%; }
 }
 
+/* ─── Hero spec readout — each row lights up under the cursor ─── */
+.qs-spec {
+  position: relative;
+  transition: padding-left .35s cubic-bezier(.16,1,.3,1),
+              border-color .35s ease, background-color .35s ease;
+}
+/* gold accent bar that grows from the row's center on hover */
+.qs-spec::before {
+  content: ""; position: absolute; left: 0; top: 50%;
+  width: 2px; height: 62%;
+  background: var(--gold-grad);
+  transform: translateY(-50%) scaleY(0); transform-origin: center;
+  transition: transform .35s cubic-bezier(.16,1,.3,1);
+}
+/* hairline gold trace sweeping the row's baseline */
+.qs-spec::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+  background: linear-gradient(90deg, rgba(232,200,120,.9), transparent 78%);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .45s cubic-bezier(.16,1,.3,1);
+}
+.qs-spec:hover, .qs-spec:focus-within {
+  padding-left: 16px;
+  border-top-color: rgba(232,200,120,.5);
+  background: linear-gradient(90deg, rgba(232,200,120,.07), transparent 72%);
+}
+.qs-spec:hover::before, .qs-spec:focus-within::before { transform: translateY(-50%) scaleY(1); }
+.qs-spec:hover::after,  .qs-spec:focus-within::after  { transform: scaleX(1); }
+.qs-spec-k { transition: color .35s ease; }
+.qs-spec-v { transition: color .35s ease, transform .35s cubic-bezier(.16,1,.3,1); }
+.qs-spec:hover .qs-spec-k, .qs-spec:focus-within .qs-spec-k { color: #e8c878; }
+.qs-spec:hover .qs-spec-v, .qs-spec:focus-within .qs-spec-v { transform: translateX(-3px); }
+
+/* ─── Hero slider prev/next arrows ─── */
+.qs-hero-arrow {
+  width: 26px; height: 26px; line-height: 1;
+  display: grid; place-items: center;
+  font-size: 17px; color: #8a8676;
+  border: 1px solid #2a2620; background: transparent;
+  border-radius: 2px; cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.qs-hero-arrow:hover { color: #0a0a0a; background: #e8c878; border-color: #e8c878; }
+
+/* ─── Hero slider tab — active rail seam ─── */
+.qs-hero-tab::before {
+  content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 2px;
+  background: var(--gold-grad);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform .3s cubic-bezier(.16,1,.3,1);
+}
+.qs-hero-tab[data-active="true"]::before { transform: scaleY(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .qs-spec, .qs-spec::before, .qs-spec::after,
+  .qs-spec-k, .qs-spec-v, .qs-hero-tab::before { transition: none; }
+}
+
 /* ─── Showreel play button — pulsing gold rings ─── */
 .qs-play { animation: qs-play-ring 2.8s ease-out infinite; }
 @keyframes qs-play-ring {

@@ -6,6 +6,7 @@ import CountUp from "@/components/count-up";
 import Marquee from "@/components/marquee";
 import CircuitTraces from "@/components/circuit-traces";
 import AppDeck from "@/components/app-deck";
+import HeroSlider, { type HeroSlide } from "@/components/hero-slider";
 import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -49,12 +50,55 @@ const stats = [
   { to: 24, pad: 0, suffix: "", l: "Tháng bảo hành" },
 ];
 
-const heroSpecs: [string, string][] = [
-  ["Trục điều khiển", "6 · vòng kín"],
-  ["Giao thức", "EtherCAT · MLK"],
-  ["Màn hình", "10.1″ IPS cảm ứng"],
-  ["Nội suy", "Nano · tốc độ cao"],
-  ["Xuất xứ", "Bình Dương · VN"],
+const heroSlides: HeroSlide[] = [
+  {
+    tag: "Premium High-End · 2026",
+    name: "Astro 10i",
+    sub: "Controller",
+    desc: "Thuộc dòng Premium High-End của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.",
+    href: "/products/astro-10i",
+    img: "/home/hero-astro10i.webp",
+    fig: "FIG. 01 · CNC CONTROLLER · ASTRO 10i",
+    specs: [
+      ["Trục điều khiển", "6 · vòng kín"],
+      ["Giao thức", "EtherCAT · MLK"],
+      ["Màn hình", "10.1″ IPS cảm ứng"],
+      ["Nội suy", "Nano · tốc độ cao"],
+      ["Xuất xứ", "Bình Dương · VN"],
+    ],
+  },
+  {
+    tag: "Flagship · vòng kín",
+    name: "Astro 6AH",
+    sub: "Controller",
+    desc: "Flagship 6 trục vòng kín với EtherCAT và Mechatrolink MII/MIII — dành cho gia công khuôn mẫu và linh kiện y tế đòi hỏi độ chính xác cao nhất.",
+    href: "/products/astro-6ah",
+    img: "/home/product-astro-6ah.webp",
+    fig: "FIG. 02 · CNC CONTROLLER · ASTRO 6AH",
+    specs: [
+      ["Trục điều khiển", "6 · vòng kín"],
+      ["Giao thức", "EtherCAT · MII/MIII"],
+      ["Ứng dụng", "Khuôn mẫu · y tế"],
+      ["Servo", "Closed-loop đồng bộ"],
+      ["Xuất xứ", "Bình Dương · VN"],
+    ],
+  },
+  {
+    tag: "Đa dụng · phổ thông",
+    name: "F86",
+    sub: "Controller",
+    desc: "Controller 6 trục ứng dụng trên đa dạng dòng máy — phay, cưa lọng, dán keo. Hỗ trợ điều khiển Pulse Train và EtherCAT, dễ tích hợp, chi phí tối ưu.",
+    href: "/products/f86",
+    img: "/home/product-f86.webp",
+    fig: "FIG. 03 · CNC CONTROLLER · F86",
+    specs: [
+      ["Trục điều khiển", "6 · open/closed"],
+      ["Giao thức", "Pulse Train · EtherCAT"],
+      ["Ứng dụng", "Phay · cưa · dán keo"],
+      ["Tích hợp", "Nhanh · linh hoạt"],
+      ["Xuất xứ", "Bình Dương · VN"],
+    ],
+  },
 ];
 
 const machineTypes = [
@@ -139,84 +183,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
   return (
     <>
-      {/* HERO — full dark stage: thesis left, product centered over a gold glow, spec readout right */}
-      <section className="relative bg-ink text-[#cfc9b8] overflow-hidden border-b border-[#221e18]">
-        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.14]" aria-hidden="true"></div>
-        {/* PCB trace network — concentrated in the top-left & bottom-right corners, faded inward so it never sinks the text */}
-        <div className="absolute top-0 left-0 w-[34%] h-[50%] opacity-[.6] [mask-image:radial-gradient(ellipse_at_top_left,#000_38%,transparent_74%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_left,#000_38%,transparent_74%)]" aria-hidden="true">
-          <CircuitTraces variant="dark" className="w-full h-full" />
-        </div>
-        <div className="absolute bottom-0 right-0 w-[34%] h-[50%] opacity-[.6] rotate-180 [mask-image:radial-gradient(ellipse_at_top_left,#000_38%,transparent_74%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_left,#000_38%,transparent_74%)]" aria-hidden="true">
-          <CircuitTraces variant="dark" className="w-full h-full" />
-        </div>
-        {/* gold radial glow pool, centered behind the product — gently breathes like an ember */}
-        <div className="absolute inset-0 hidden lg:flex items-center justify-center" aria-hidden="true">
-          <div className="qs-glow !relative" style={{ width: "600px", height: "600px" }}></div>
-        </div>
-
-        {/* blueprint registration ticks */}
-        <div className="hidden lg:block absolute top-7 left-7 w-4 h-4 border-l border-t border-[#3a352c]" aria-hidden="true"></div>
-        <div className="hidden lg:block absolute top-7 right-7 w-4 h-4 border-r border-t border-[#3a352c]" aria-hidden="true"></div>
-        <div className="hidden lg:block absolute bottom-7 left-7 w-4 h-4 border-l border-b border-[#3a352c]" aria-hidden="true"></div>
-        <div className="hidden lg:block absolute bottom-7 right-7 w-4 h-4 border-r border-b border-[#3a352c]" aria-hidden="true"></div>
-
-        <div className="relative qs-wrap-wide grid lg:grid-cols-[1fr_minmax(300px,360px)_0.92fr] gap-10 xl:gap-16 items-center min-h-[clamp(580px,84vh,860px)] py-16 lg:py-24">
-          {/* LEFT — thesis */}
-          <div className="text-center lg:text-left">
-            <span className="qs-eyebrow qs-rise !text-gold-2 before:hidden justify-center lg:justify-start" style={{ animationDelay: "60ms" }}>
-              <span className="qs-live-dot mr-1" aria-hidden="true"></span>QS Technology · Made by Vietnam · 2026
-            </span>
-            <h1 className="qs-h1 mt-4 text-white" style={{ fontSize: "clamp(46px,6vw,96px)", lineHeight: ".94" }}>
-              <span className="block overflow-hidden pb-[.04em]">
-                <span className="qs-rise inline-block" style={{ animationDelay: "150ms" }}>
-                  <span className="qs-gold-shimmer font-semibold">Astro 10i</span>
-                </span>
-              </span>
-              <span className="block overflow-hidden pb-[.04em]">
-                <span className="qs-rise inline-block" style={{ animationDelay: "270ms" }}>Controller</span>
-              </span>
-            </h1>
-            <p className="mt-7 text-lg leading-[1.7] text-[#b4afa0] max-w-[50ch] mx-auto lg:mx-0 qs-rise" style={{ animationDelay: "400ms" }}>
-              Thuộc dòng Premium High-End của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.
-            </p>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-9 qs-rise" style={{ animationDelay: "500ms" }}>
-              <Link className="qs-btn qs-btn-gold" href="/products/astro-10i">Thông tin chi tiết <span className="arr">→</span></Link>
-              <Link className="qs-btn bg-transparent border border-[#3a352c] text-[#e8e6df] hover:bg-white hover:text-ink hover:border-white" href="/products">Xem toàn bộ controller</Link>
-            </div>
-          </div>
-
-          {/* CENTER — product render */}
-          <Reveal delay={120} className="order-first lg:order-none">
-            <div className="qs-float relative bg-white border border-line p-6 w-full max-w-[340px] mx-auto shadow-[0_40px_80px_-30px_rgba(0,0,0,.7)]">
-              <div className="flex items-center gap-1.5 pb-4 mb-4 border-b border-line">
-                <span className="w-2.5 h-2.5 rounded-full bg-rust"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-line-2"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-line-2"></span>
-                <span className="ml-auto font-mono text-[10px] tracking-[.16em] uppercase text-muted">Astro 10i</span>
-              </div>
-              <div className="relative overflow-hidden">
-                <Image src="/home/hero-astro10i.webp" alt="Bộ điều khiển CNC QS Astro 10i" width={700} height={1373}
-                       priority className="w-full h-auto block" />
-                <div className="qs-scan" aria-hidden="true"></div>
-              </div>
-              <div className="mt-4 font-mono text-[9px] tracking-[.18em] uppercase text-muted">FIG. 01 · CNC CONTROLLER · ASTRO 10i</div>
-            </div>
-          </Reveal>
-
-          {/* RIGHT — spec readout */}
-          <ul className="flex flex-col text-[#cfc9b8] w-full max-w-[420px] mx-auto lg:mx-0">
-            <li className="font-mono text-[10px] tracking-[.22em] uppercase text-[#8a8676] pb-3 qs-rise" style={{ animationDelay: "340ms" }}>Thông số kỹ thuật</li>
-            {heroSpecs.map(([k, v], i) => (
-              <li key={k}
-                  className="flex items-baseline justify-between gap-4 py-3.5 border-t border-[#2a2620] qs-rise"
-                  style={{ animationDelay: `${420 + i * 90}ms` }}>
-                <span className="font-mono text-[10px] tracking-[.18em] uppercase text-[#8a8676]">{k}</span>
-                <span className="font-display text-[15px] font-medium text-white text-right">{v}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* HERO — dark blueprint stage as a product slider (thesis · device render · spec readout) */}
+      <HeroSlider slides={heroSlides} />
 
       {/* STATS — same ink world as the hero, joined by a lit gold seam + a soft gold wash bleeding down */}
       <section className="relative bg-ink text-[#e8e6df] overflow-hidden pb-14 lg:pb-16">

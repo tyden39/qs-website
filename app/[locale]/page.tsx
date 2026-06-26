@@ -7,6 +7,8 @@ import Marquee from "@/components/marquee";
 import CircuitTraces from "@/components/circuit-traces";
 import AppDeck from "@/components/app-deck";
 import HeroSlider, { type HeroSlide } from "@/components/hero-slider";
+import NewsFeed, { type NewsItem } from "@/components/news-feed";
+import VideoReel, { type VideoItem } from "@/components/video-reel";
 import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -144,37 +146,63 @@ const homeProducts = [
   },
 ];
 
-const playlist: [string, string][] = [
-  ["01 · Astro 6AH gia công khuôn nhôm", "02:14"],
-  ["02 · Lắp đặt F86 trên máy phay 6 trục", "03:48"],
-  ["03 · Hệ thống dán keo dùng F54", "01:36"],
-  ["04 · Máy uốn lò xo điều khiển QS", "02:52"],
+// Thumbnail tự lấy từ YouTube theo youtubeId. duration tùy chọn (bỏ trống → ẩn badge).
+const videos: VideoItem[] = [
+  { youtubeId: "TCkwmd2HUOw", title: "Tính năng cơ bản bộ điều khiển CNC F54 — Phần 1" },
+  { youtubeId: "b-O5la5o5m0", title: "Tính năng cơ bản bộ điều khiển CNC F54 — Phần 2" },
+  { youtubeId: "j-RXLvCzxEI", title: "Tính năng cơ bản bộ điều khiển CNC F54 — Phần 3" },
 ];
 
-const sideNews = [
+const news: NewsItem[] = [
+  {
+    href: "/news/astro-12x",
+    img: "/home/news-ethercat.webp",
+    badge: "Sản phẩm mới",
+    cat: "Sản phẩm",
+    date: "28 · 04 · 2026",
+    read: "4 phút đọc",
+    title: "QS cho ra mắt dòng bộ điều khiển EtherCAT, Mechatrolink MII/MIII",
+    desc: "Phiên bản mở rộng EtherCAT, hỗ trợ tới 12 trục đồng bộ, tích hợp module thị giác máy. Dự kiến giao hàng từ Q3/2026 cho khách hàng OEM trong nước.",
+  },
   {
     href: "/news",
-    date: "22 · 04 · 2026",
+    img: "/home/video-thumb.webp",
+    badge: "Sự kiện",
     cat: "Sự kiện",
-    title: 'QS góp mặt tại vòng chung kết cuộc thi "The Future Brand — Made By Vietnam" 2025',
+    date: "22 · 04 · 2026",
+    read: "3 phút đọc",
+    title: 'QS góp mặt vòng chung kết "The Future Brand — Made By Vietnam" 2025',
+    desc: "Đại diện QS Technology trình bày giải pháp bộ điều khiển CNC nội địa trước hội đồng giám khảo và cộng đồng doanh nghiệp sản xuất Việt Nam.",
   },
   {
     href: "/news/precitech-long-an",
-    date: "15 · 04 · 2026",
+    img: "/home/product-f86.webp",
+    badge: "Khách hàng",
     cat: "Khách hàng",
-    title: "Bàn giao 24 controller F86 cho Tổng công ty PRECITECH Long An",
+    date: "15 · 04 · 2026",
+    read: "2 phút đọc",
+    title: "Bàn giao 24 bộ điều khiển F86 cho Tổng công ty PRECITECH Long An",
+    desc: "Lô 24 bộ điều khiển F86 được lắp đặt, nghiệm thu trên dây chuyền phay CNC kèm chương trình đào tạo vận hành tại nhà máy khách hàng.",
   },
   {
     href: "/news/firmware-v42",
-    date: "02 · 04 · 2026",
+    img: "/home/product-f86-open.webp",
+    badge: "Kỹ thuật",
     cat: "Kỹ thuật",
+    date: "02 · 04 · 2026",
+    read: "5 phút đọc",
     title: "Firmware v4.2 — bổ sung G-code tuỳ biến và post-processor Mastercam",
+    desc: "Bản firmware mới cho phép tuỳ biến lệnh G-code, đồng bộ post-processor Mastercam và cải thiện độ mượt nội suy ở tốc độ cao.",
   },
   {
     href: "/news/binh-duong-expansion",
-    date: "18 · 03 · 2026",
+    img: "/home/about-qs.webp",
+    badge: "Công ty",
     cat: "Công ty",
+    date: "18 · 03 · 2026",
+    read: "3 phút đọc",
     title: "QS mở rộng nhà máy Bình Dương lên 4.200m² — công suất tăng 2,5×",
+    desc: "Nhà máy mới nâng năng lực sản xuất board mạch và lắp ráp bộ điều khiển, rút ngắn thời gian giao hàng cho thị trường trong nước.",
   },
 ];
 
@@ -382,59 +410,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             </div>
           </Reveal>
           <Reveal>
-            <div className="grid lg:grid-cols-[2.3fr_1fr] gap-8 lg:gap-12">
-              {/* feature screen — stays cinematic-dark inside the light frame */}
-              <div className="group relative aspect-video overflow-hidden rounded-[6px] bg-ink-2 border border-line shadow-[0_18px_50px_-28px_rgba(0,0,0,.55)]">
-                <Image src="/home/video-thumb.webp" alt="QS F86 — Ứng dụng trên máy uốn lò xo CNC" fill
-                       sizes="(max-width:1024px) 100vw, 60vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.9) 2%,rgba(10,10,8,.1) 42%,transparent 72%)" }}></div>
-                {/* broadcast scan-line */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] qs-scan"></div>
-                {/* light sheen sweeping across the still on hover */}
-                <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1000ms] ease-out"
-                     style={{ background: "linear-gradient(115deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%)" }} aria-hidden="true"></div>
-                {/* registration frame */}
-                <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/50">
-                  <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2"></span>
-                  <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t border-r border-gold-2"></span>
-                  <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b border-l border-gold-2"></span>
-                  <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b border-r border-gold-2"></span>
-                </div>
-                <button className="qs-play absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full grid place-items-center border-0 cursor-pointer text-ink transition-transform duration-200 hover:scale-105"
-                        style={{ background: "rgba(232,200,120,.96)" }}
-                        aria-label="Phát video">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                </button>
-                <div className="absolute inset-x-0 bottom-0 px-6 py-5 flex items-center gap-3.5">
-                  <span className="font-mono text-[11px] bg-gold text-ink py-0.5 px-2 font-semibold tracking-[.04em]">02:14</span>
-                  <span className="font-display text-sm font-medium text-white">QS F86 — Ứng dụng trên máy uốn lò xo CNC</span>
-                </div>
-              </div>
-              {/* broadcast playlist — wire-feed list (mirrors Newsroom) */}
-              <div className="flex flex-col">
-                <div className="flex items-center justify-between pb-3 mb-1 border-b border-line">
-                  <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Danh sách phát</span>
-                  <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">04 video</span>
-                </div>
-                {playlist.map(([t, d], i) => (
-                  <a key={t} href="#"
-                     className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-start py-5 border-b border-line transition-[padding] duration-300 hover:pl-4">
-                    <span className="absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></span>
-                    <span className="font-mono text-[11px] text-gold-1 tabular-nums pt-1">0{i + 1}</span>
-                    <div>
-                      <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{i === 0 ? "▶ Đang phát" : "Video"} · {d}</span>
-                      <h4 className="font-display font-semibold text-[15px] leading-[1.4] m-0 tracking-[-.005em] text-ink transition-colors group-hover:text-gold-1">{t.replace(/^\d+\s·\s/, "")}</h4>
-                      {i === 0 && (
-                        <div className="mt-2.5 h-[2px] w-full bg-line overflow-hidden rounded-full">
-                          <div className="qs-progress h-full bg-gold-2"></div>
-                        </div>
-                      )}
-                    </div>
-                    <span className="font-mono text-gold-1 text-sm pt-0.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
-                  </a>
-                ))}
-              </div>
-            </div>
+            <VideoReel items={videos} />
           </Reveal>
         </div>
       </section>
@@ -477,70 +453,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">Xem tất cả <span className="arr">→</span></Link>
             </div>
           </Reveal>
-          <div className="grid lg:grid-cols-[1.25fr_1fr] gap-8 lg:gap-12">
-            {/* lead story — immersive, headline overlaid on the image */}
-            <Reveal className="h-full">
-              <Link href="/news/astro-12x"
-                    className="group relative block overflow-hidden rounded-[6px] bg-ink-2 min-h-[440px] lg:h-full">
-                <Image src="/home/news-ethercat.webp" alt="QS ra mắt dòng controller EtherCAT, Mechatrolink MII/MIII" fill
-                       sizes="(max-width:1024px) 100vw, 52vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.94) 6%,rgba(10,10,8,.36) 48%,rgba(10,10,8,.08) 100%)" }}></div>
-                {/* perpetual broadcast scan-line + ember breathe — keeps the lead story alive without hover */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] qs-scan" aria-hidden="true"></div>
-                <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
-                     style={{ background: "radial-gradient(ellipse 72% 82% at 28% 124%, rgba(232,200,120,.22), transparent 70%)" }} aria-hidden="true"></div>
-                {/* light sheen sweeping across the cover on hover */}
-                <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1000ms] ease-out"
-                     style={{ background: "linear-gradient(115deg, transparent 40%, rgba(255,255,255,.14) 50%, transparent 60%)" }} aria-hidden="true"></div>
-                <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/55">
-                  <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2"></span>
-                  <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t border-r border-gold-2"></span>
-                  <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b border-l border-gold-2"></span>
-                  <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b border-r border-gold-2"></span>
-                </div>
-                <span className="absolute top-7 left-7 font-mono text-[10px] text-gold-2 tracking-[.2em] uppercase">[ Sản phẩm mới ]</span>
-                <div className="absolute inset-x-0 bottom-0 p-8 lg:p-10">
-                  <h3 className="font-display font-semibold text-white text-[26px] lg:text-[32px] leading-[1.12] tracking-[-.01em] max-w-[24ch]">
-                    QS cho ra mắt dòng bộ điều khiển EtherCAT, Mechatrolink MII/MIII
-                  </h3>
-                  <p className="text-[#d2ccba] text-sm leading-[1.6] mt-3.5 max-w-[52ch]">
-                    Phiên bản mở rộng EtherCAT, hỗ trợ tới 12 trục đồng bộ, tích hợp module thị giác máy. Dự kiến giao hàng từ Q3/2026 cho khách hàng OEM trong nước.
-                  </p>
-                  <div className="mt-5 font-mono text-[10px] text-gold-2 tracking-[.14em]">28 · 04 · 2026 · 4 phút đọc</div>
-                </div>
-              </Link>
-            </Reveal>
-            {/* wire feed — numbered list with hover rule + arrow */}
-            <div className="flex flex-col">
-              <div className="relative flex items-center justify-between pb-3 mb-1 border-b border-line">
-                <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
-                <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot"></span>Tin mới nhất</span>
-                <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">04 bản tin</span>
-              </div>
-              {sideNews.map((n, i) => (
-                <Reveal key={n.title} delay={i * 80}>
-                  <Link href={n.href}
-                        className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-start py-5 border-b border-line transition-[padding] duration-300 hover:pl-4">
-                    {i === 0 ? (
-                      // newest item — a gold segment scans the left rail on a loop so it reads "live"
-                      <span className="absolute left-0 inset-y-3 w-[2px] overflow-hidden" aria-hidden="true">
-                        <span className="absolute inset-0 bg-gold-2/20"></span>
-                        <span className="qs-vscan absolute inset-x-0 h-2/5 bg-gold-2"></span>
-                      </span>
-                    ) : (
-                      <span className="absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></span>
-                    )}
-                    <span className="font-mono text-[11px] text-gold-1 tabular-nums pt-1">0{i + 1}</span>
-                    <div>
-                      <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{n.cat} · {n.date}</span>
-                      <h4 className="font-display font-semibold text-[15px] leading-[1.4] m-0 tracking-[-.005em] text-ink transition-colors group-hover:text-gold-1">{n.title}</h4>
-                    </div>
-                    <span className="font-mono text-gold-1 text-sm pt-0.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-          </div>
+          <Reveal>
+            <NewsFeed items={news} />
+          </Reveal>
         </div>
       </section>
     </>

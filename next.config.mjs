@@ -10,7 +10,12 @@ const nextConfig = {
   output: "export",
   trailingSlash: true,
   reactStrictMode: true,
-  images: { unoptimized: true },
+  // unoptimized: required for static export. remotePatterns whitelists YouTube
+  // poster thumbnails (i.ytimg.com) used by the Showreel video facade.
+  images: {
+    unoptimized: true,
+    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com" }],
+  },
 };
 
 export default withNextIntl(nextConfig);

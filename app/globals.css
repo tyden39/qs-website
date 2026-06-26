@@ -293,10 +293,15 @@ body {
 .qs-progress { width: 0; animation: qs-progress 9s linear infinite; }
 @keyframes qs-progress { 0% { width: 0; } 92% { width: 100%; } 100% { width: 100%; } }
 
+/* Gold segment sweeping down a vertical rail — marks the newest wire item as live. */
+.qs-vscan { animation: qs-vscan 2.8s linear infinite; }
+@keyframes qs-vscan { from { transform: translateY(-120%); } to { transform: translateY(280%); } }
+
 @media (prefers-reduced-motion: reduce) {
   .qs-trace { animation: none; background: rgba(232,200,120,.5); }
   .qs-breathe { animation: none; opacity: .58; }
   .qs-progress { animation: none; width: 38%; }
+  .qs-vscan { animation: none; transform: none; height: 100%; }
 }
 
 /* ─── Hero spec readout — each row lights up under the cursor ─── */

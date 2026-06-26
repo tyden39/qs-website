@@ -521,7 +521,15 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 <Reveal key={n.title} delay={i * 80}>
                   <Link href={n.href}
                         className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-start py-5 border-b border-line transition-[padding] duration-300 hover:pl-4">
-                    <span className={`absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top transition-transform duration-300 group-hover:scale-y-100 ${i === 0 ? "scale-y-100 qs-breathe" : "scale-y-0"}`}></span>
+                    {i === 0 ? (
+                      // newest item — a gold segment scans the left rail on a loop so it reads "live"
+                      <span className="absolute left-0 inset-y-3 w-[2px] overflow-hidden" aria-hidden="true">
+                        <span className="absolute inset-0 bg-gold-2/20"></span>
+                        <span className="qs-vscan absolute inset-x-0 h-2/5 bg-gold-2"></span>
+                      </span>
+                    ) : (
+                      <span className="absolute left-0 inset-y-3 w-[2px] bg-gold-2 origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></span>
+                    )}
                     <span className="font-mono text-[11px] text-gold-1 tabular-nums pt-1">0{i + 1}</span>
                     <div>
                       <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1.5">{n.cat} · {n.date}</span>

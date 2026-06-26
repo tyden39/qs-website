@@ -128,31 +128,25 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           </div>
         </div>
 
-        {/* CENTER — device render on a blueprint stage (contained so mixed aspect ratios all read as a product on a pedestal) */}
+        {/* CENTER — frameless device render floating directly on the dark blueprint stage */}
         <div key={`c-${active}`} className="order-first lg:order-none qs-rise" style={rise(120)}>
-          <div className="qs-float relative bg-white border border-line p-6 w-full max-w-[340px] mx-auto shadow-[0_40px_80px_-30px_rgba(0,0,0,.7)]">
-            <div className="flex items-center gap-1.5 pb-4 mb-4 border-b border-line">
-              <span className="w-2.5 h-2.5 rounded-full bg-rust" />
-              <span className="w-2.5 h-2.5 rounded-full bg-line-2" />
-              <span className="w-2.5 h-2.5 rounded-full bg-line-2" />
-              <span className="ml-auto font-mono text-[10px] tracking-[.16em] uppercase text-muted">{s.name}</span>
-            </div>
-            <div className="relative h-[clamp(280px,34vh,360px)] overflow-hidden" style={{ background: "linear-gradient(180deg,#ffffff 0%,#f1efe8 100%)" }}>
-              <div className="absolute inset-0 qs-grid-bg opacity-40" aria-hidden="true" />
-              {/* gold pedestal the product stands on */}
-              <div className="pointer-events-none absolute left-4 right-4 bottom-3 h-px bg-gradient-to-r from-transparent via-gold-2/70 to-transparent" />
-              <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-3/4" style={{ background: "radial-gradient(ellipse 58% 64% at 50% 102%, rgba(232,200,120,.3), transparent 70%)" }} />
+          <div className="relative w-full max-w-[380px] mx-auto">
+            <div className="qs-float relative h-[clamp(360px,52vh,560px)]">
+              {/* gold pool the product floats above */}
+              <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-3/4" style={{ background: "radial-gradient(ellipse 56% 58% at 50% 100%, rgba(232,200,120,.34), transparent 70%)" }} />
               <Image
                 src={s.img}
                 alt={`Bộ điều khiển CNC QS ${s.name}`}
                 fill
-                sizes="(max-width:1024px) 90vw, 340px"
+                sizes="(max-width:1024px) 90vw, 380px"
                 priority={active === 0}
-                className="object-contain object-bottom p-3"
+                className="object-contain object-center drop-shadow-[0_34px_46px_rgba(0,0,0,.6)]"
               />
               <div className="qs-scan" aria-hidden="true" />
             </div>
-            <div className="mt-4 font-mono text-[9px] tracking-[.18em] uppercase text-muted">{s.fig}</div>
+            {/* gold pedestal line + figure caption */}
+            <div className="pointer-events-none mx-auto h-px w-[76%] bg-gradient-to-r from-transparent via-gold-2/70 to-transparent" />
+            <div className="mt-4 text-center font-mono text-[9px] tracking-[.18em] uppercase text-[#8a8676]">{s.fig}</div>
           </div>
         </div>
 
@@ -178,44 +172,48 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
         </ul>
       </div>
 
-      {/* SLIDE SELECTOR — datasheet tabs, active one carries the autoplay progress seam */}
+      {/* SLIDE SELECTOR — a control bar lifted onto its own surface so it reads on the dark stage (not flat black-on-black) */}
       <div className="relative qs-wrap-wide pb-12 lg:pb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#221e18] border border-[#221e18]">
-          {slides.map((slide, i) => (
-            <button
-              key={slide.name + i}
-              type="button"
-              onClick={() => go(i)}
-              data-active={i === active ? "true" : undefined}
-              aria-label={`Xem ${slide.name}`}
-              aria-current={i === active ? "true" : undefined}
-              className="qs-hero-tab group relative bg-ink overflow-hidden text-left px-5 py-4 flex items-center gap-4 transition-colors duration-300 hover:bg-[#141009]"
-            >
-              <span className="font-mono text-[11px] tabular-nums text-[#6b6453] group-data-[active=true]:text-gold-2 transition-colors">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block font-display text-[15px] font-semibold tracking-[-.01em] text-[#8a8676] group-data-[active=true]:text-white transition-colors truncate">
-                  {slide.name}
+        <div className="relative overflow-hidden rounded-[3px] border border-[#37301f] bg-gradient-to-b from-[#17130c] to-[#0c0a06] shadow-[0_22px_50px_-28px_rgba(0,0,0,.85)]">
+          {/* lit gold seam along the top edge */}
+          <div className="pointer-events-none absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(232,200,120,.55),transparent)" }} aria-hidden="true"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#2c2719]">
+            {slides.map((slide, i) => (
+              <button
+                key={slide.name + i}
+                type="button"
+                onClick={() => go(i)}
+                data-active={i === active ? "true" : undefined}
+                aria-label={`Xem ${slide.name}`}
+                aria-current={i === active ? "true" : undefined}
+                className="qs-hero-tab group relative overflow-hidden text-left px-5 py-4 flex items-center gap-4 bg-transparent transition-colors duration-300 hover:bg-white/[.04] data-[active=true]:bg-gold-2/[.07]"
+              >
+                <span className="font-mono text-[11px] tabular-nums text-[#7a7565] group-data-[active=true]:text-gold-2 transition-colors">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="block font-mono text-[9px] tracking-[.16em] uppercase text-[#5a554a] group-data-[active=true]:text-gold-1 transition-colors truncate">
-                  {slide.tag}
+                <span className="min-w-0 flex-1">
+                  <span className="block font-display text-[15px] font-semibold tracking-[-.01em] text-[#aaa498] group-data-[active=true]:text-white transition-colors truncate">
+                    {slide.name}
+                  </span>
+                  <span className="block font-mono text-[9px] tracking-[.16em] uppercase text-[#6b6453] group-data-[active=true]:text-gold-1 transition-colors truncate">
+                    {slide.tag}
+                  </span>
                 </span>
-              </span>
-              <span className="font-mono text-sm text-[#3a352c] group-data-[active=true]:text-gold-2 group-hover:translate-x-0.5 transition-all">→</span>
-              {/* autoplay progress seam — restarts whenever this tab becomes active */}
-              <span className="pointer-events-none absolute left-0 bottom-0 h-[2px] w-full bg-transparent">
-                {i === active && animate && !paused && slides.length > 1 && (
-                  <span
-                    key={active}
-                    className="block h-full bg-gold-2"
-                    style={{ animation: `qs-progress ${INTERVAL}ms linear forwards` }}
-                  />
-                )}
-                {i === active && (!animate || paused) && <span className="block h-full bg-gold-2/70" />}
-              </span>
-            </button>
-          ))}
+                <span className="font-mono text-sm text-[#46402f] group-data-[active=true]:text-gold-2 group-hover:translate-x-0.5 transition-all">→</span>
+                {/* autoplay progress seam — restarts whenever this tab becomes active */}
+                <span className="pointer-events-none absolute left-0 bottom-0 h-[2px] w-full bg-transparent">
+                  {i === active && animate && !paused && slides.length > 1 && (
+                    <span
+                      key={active}
+                      className="block h-full bg-gold-2"
+                      style={{ animation: `qs-progress ${INTERVAL}ms linear forwards` }}
+                    />
+                  )}
+                  {i === active && (!animate || paused) && <span className="block h-full bg-gold-2/70" />}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -166,6 +166,16 @@ body {
   100% { opacity: .5;  transform: scale(1); }
 }
 
+/* ─── Ambient ken-burns drift for editorial photos ─── */
+.qs-kenburns { animation: qs-kenburns 24s ease-in-out infinite alternate; will-change: transform; }
+@keyframes qs-kenburns {
+  from { transform: scale(1.06) translate(0, 0); }
+  to   { transform: scale(1.15) translate(-2%, -1.5%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qs-kenburns { animation: none; transform: scale(1.06); }
+}
+
 /* ─── Floating product render ─── */
 .qs-float { animation: qs-float 6.5s ease-in-out infinite; }
 @keyframes qs-float {

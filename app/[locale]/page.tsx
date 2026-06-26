@@ -46,10 +46,10 @@ export async function generateMetadata({
 }
 
 const stats = [
-  { to: 6, pad: 2, suffix: "", l: "Dòng controller" },
-  { to: 800, pad: 0, suffix: "+", l: "Dây chuyền sản xuất" },
-  { to: 35, pad: 0, suffix: "", l: "Tỉnh thành hỗ trợ" },
-  { to: 24, pad: 0, suffix: "", l: "Tháng bảo hành" },
+  { to: 6, pad: 2, suffix: "", l: "Dòng controller", d: "F-series & Astro — từ phổ thông đến cao cấp" },
+  { to: 800, pad: 0, suffix: "+", l: "Dây chuyền sản xuất", d: "Vận hành ổn định tại nhà máy khách hàng" },
+  { to: 35, pad: 0, suffix: "", l: "Tỉnh thành hỗ trợ", d: "Kỹ thuật triển khai & bảo trì tận nơi" },
+  { to: 24, pad: 0, suffix: "", l: "Tháng bảo hành", d: "Bảo hành chính hãng + hỗ trợ dài hạn" },
 ];
 
 const heroSlides: HeroSlide[] = [
@@ -214,37 +214,15 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       {/* HERO — dark blueprint stage as a product slider (thesis · device render · spec readout) */}
       <HeroSlider slides={heroSlides} />
 
-      {/* STATS — same ink world as the hero, joined by a lit gold seam + a soft gold wash bleeding down */}
-      <section className="relative bg-ink text-[#e8e6df] overflow-hidden pb-14 lg:pb-16">
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(232,200,120,.6),transparent)" }} aria-hidden="true"></div>
-        <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-[85%] h-56 opacity-80" style={{ background: "radial-gradient(ellipse at top, rgba(232,200,120,.16), transparent 70%)" }} aria-hidden="true"></div>
-        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide">
-          {/* caption strip */}
-          <div className="flex items-center justify-between gap-4 pt-12 pb-7">
-            <span className="qs-eyebrow !text-gold-2 before:hidden">
-              <span className="qs-live-dot mr-1" aria-hidden="true"></span>QS · bằng những con số
-            </span>
-            <span className="hidden sm:inline font-mono text-[10px] text-[#6b6453] tracking-[.18em] uppercase">Số liệu cập nhật · 2026</span>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-[#241f17] border-t border-[#241f17]">
-            {stats.map((s, i) => (
-              <Reveal key={s.l} delay={i * 70} className="group relative py-9 lg:py-12 px-6 lg:px-9">
-                {/* index tick */}
-                <div className="flex items-center gap-2.5 mb-5">
-                  <span className="w-6 h-px bg-gold transition-all duration-300 group-hover:w-10"></span>
-                  <span className="font-mono text-[10px] text-[#6b6453] tracking-[.22em]">{String(i + 1).padStart(2, "0")}</span>
-                </div>
-                <div className="font-display font-bold leading-none tracking-[-.02em]" style={{ fontSize: "clamp(38px,4vw,60px)" }}>
-                  <CountUp to={s.to} pad={s.pad} suffix={s.suffix} repeatEvery={6000 + i * 900}
-                           className="qs-gold-shimmer" />
-                </div>
-                <div className="mt-3 font-mono text-[10px] tracking-[.2em] uppercase text-[#8a8676]">{s.l}</div>
-              </Reveal>
-            ))}
-          </div>
+      {/* TICKER — running dual-row marquee band, lifted up against the hero with a paper gap above */}
+      <div className="mt-12 lg:mt-16 bg-ink text-[#cfc9b8] border-y border-[#2a2620] overflow-hidden">
+        <div className="py-3.5 border-b border-[#2a2620]">
+          <Marquee items={machineTypes} speed={52} />
         </div>
-      </section>
+        <div className="py-3.5 text-[#8a8676]">
+          <Marquee items={tickerTags} speed={46} reverse />
+        </div>
+      </div>
 
       {/* PRODUCTS — contained wide, 3-up datasheet cards */}
       <section className="relative py-24 bg-paper overflow-hidden">
@@ -320,15 +298,46 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      {/* TICKER — running dual-row marquee band */}
-      <div className="bg-ink text-[#cfc9b8] border-y border-[#2a2620] overflow-hidden">
-        <div className="py-3.5 border-b border-[#2a2620]">
-          <Marquee items={machineTypes} speed={52} />
+      {/* STATS — dark metrics band between the product showrooms, lit by a gold seam + soft gold wash */}
+      <section className="relative bg-ink text-[#e8e6df] overflow-hidden pb-14 lg:pb-16">
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(232,200,120,.6),transparent)" }} aria-hidden="true"></div>
+        <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-[85%] h-56 opacity-80" style={{ background: "radial-gradient(ellipse at top, rgba(232,200,120,.16), transparent 70%)" }} aria-hidden="true"></div>
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
+        <div className="relative qs-wrap-wide">
+          {/* caption strip */}
+          <div className="pt-12 pb-8">
+            <div className="flex items-center justify-between gap-4">
+              <span className="qs-eyebrow !text-gold-2 before:hidden">
+                <span className="qs-live-dot mr-1" aria-hidden="true"></span>QS · bằng những con số
+              </span>
+              <span className="hidden sm:inline font-mono text-[10px] text-[#6b6453] tracking-[.18em] uppercase">Số liệu cập nhật · 2026</span>
+            </div>
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mt-6">
+              <h2 className="qs-h2 text-white max-w-[16ch]">Năng lực QS qua từng con số</h2>
+              <p className="text-sm text-[#a8a499] leading-[1.7] max-w-[48ch]">
+                Từ nghiên cứu phần cứng, phát triển firmware đến triển khai và bảo trì hiện trường — các con số phản ánh năng lực vận hành thực tế của QS Technology.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-[#241f17] border-t border-[#241f17]">
+            {stats.map((s, i) => (
+              <Reveal key={s.l} delay={i * 70} className="group relative py-9 lg:py-12 px-6 lg:px-9">
+                {/* index tick */}
+                <div className="flex items-center gap-2.5 mb-5">
+                  <span className="w-6 h-px bg-gold transition-all duration-300 group-hover:w-10"></span>
+                  <span className="font-mono text-[10px] text-[#6b6453] tracking-[.22em]">{String(i + 1).padStart(2, "0")}</span>
+                </div>
+                <div className="font-display font-bold leading-none tracking-[-.02em]" style={{ fontSize: "clamp(38px,4vw,60px)" }}>
+                  <CountUp to={s.to} pad={s.pad} suffix={s.suffix} repeatEvery={6000 + i * 900}
+                           className="qs-gold-shimmer" />
+                </div>
+                <div className="mt-3 font-mono text-[10px] tracking-[.2em] uppercase text-[#8a8676]">{s.l}</div>
+                <p className="mt-2.5 text-[12.5px] leading-[1.55] text-[#7e7a6e] max-w-[26ch]">{s.d}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
-        <div className="py-3.5 text-[#8a8676]">
-          <Marquee items={tickerTags} speed={46} reverse />
-        </div>
-      </div>
+      </section>
 
       {/* APPLICATIONS — contained hover-expand accordion */}
       <section className="relative py-24 bg-paper overflow-hidden">
@@ -372,10 +381,17 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       {/* ABOUT — full-bleed dark, factory photo bleeding to the left edge */}
       <section className="bg-ink text-[#cfc9b8] grid lg:grid-cols-2 items-stretch overflow-hidden">
-        <Reveal className="relative min-h-[360px] lg:h-full">
+        <Reveal className="relative min-h-[360px] lg:h-full overflow-hidden">
+          {/* ambient ken-burns drift — slow perpetual zoom/pan */}
           <Image src="/home/about-qs.webp" alt="Nhà máy QS Technology" fill
-                 sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" />
-          <div className="absolute inset-0 bg-[#0a0a0a]/20"></div>
+                 sizes="(max-width:1024px) 100vw, 50vw" className="object-cover qs-kenburns" />
+          {/* dark tint + seam blend into the text column on desktop */}
+          <div className="absolute inset-0 bg-[#0a0a0a]/25"></div>
+          <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-transparent via-transparent to-ink/95"></div>
+          {/* live caption */}
+          <div className="absolute left-6 bottom-6 flex items-center gap-2 font-mono text-[10px] tracking-[.18em] uppercase text-[#e8e6df]">
+            <span className="qs-live-dot" aria-hidden="true"></span>Nhà máy Bình Dương
+          </div>
         </Reveal>
         <div className="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
@@ -420,7 +436,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
         <CircuitTraces variant="dark" className="absolute inset-y-0 left-[-6%] w-[52%] opacity-[.45]" />
         <div className="qs-glow" style={{ bottom: "-150px", left: "24%", width: "440px", height: "440px" }} aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide py-20 lg:py-24 grid lg:grid-cols-[1fr_360px] gap-12 items-center">
+        <div className="relative qs-wrap-wide py-14 lg:py-16 grid lg:grid-cols-[1fr_minmax(480px,620px)] gap-12 items-center">
           <Reveal>
             <h3 className="font-display font-bold text-white tracking-[-.015em] leading-[1.08] m-0"
                 style={{ fontSize: "clamp(30px,3.4vw,46px)" }}>Cần controller cho dòng máy đặc thù?</h3>
@@ -430,9 +446,12 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <Link className="qs-btn qs-btn-gold mt-8" href="/contact">Liên hệ ngay <span className="arr">→</span></Link>
           </Reveal>
           <Reveal delay={120}>
-            <div className="relative border border-[#2a2620] overflow-hidden">
+            <div className="group relative border border-[#2a2620] overflow-hidden transition-colors duration-500 hover:border-gold-2/50">
               <Image src="/home/cta-controller.webp" alt="Bộ điều khiển CNC QS" width={800} height={533}
-                     sizes="(max-width:1024px) 100vw, 360px" className="w-full h-auto block" />
+                     sizes="(max-width:1024px) 100vw, 620px"
+                     className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-[1.05]" />
+              {/* gold inner glow lighting up on hover */}
+              <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_60px_rgba(232,200,120,.25)]" aria-hidden="true"></div>
             </div>
           </Reveal>
         </div>

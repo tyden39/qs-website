@@ -13,25 +13,29 @@ import type { CSSProperties } from "react";
  */
 type Variant = "dark" | "light";
 
-// Large 560×560 tile so the routing reads as organic and rarely repeats; sparse, varied traces.
+// 560×560 tile engineered to tile SEAMLESSLY (toroidal): every point where a trace
+// touches an edge has a matching point at the same coordinate on the opposite edge,
+// so horizontal/vertical neighbours connect with no visible seam. Moderate density —
+// 3 horizontal spanners (matched left↔right), 2 vertical spanners (matched top↔bottom),
+// and 2 internal stubs for organic detail.
 const TILE = 560;
 const traces = [
-  "M0 70 H150 V210 H300 V120 H440 V60 H560",
-  "M90 0 V70",
-  "M300 0 V60 H410",
-  "M0 300 H80 V430 H230 V330 H370",
-  "M230 560 V470 H400 V380 H560",
-  "M150 210 V300",
-  "M440 120 V250 H520 V450 H560",
-  "M0 490 H120 V560",
-  "M370 330 V440 H470",
-  "M520 0 V40 H560",
+  // Horizontal spanners — enter at x=0 and exit at x=560 at the SAME y.
+  "M0 90 H120 V200 H260 V120 H400 V90 H560",   // y=90
+  "M0 300 H100 V400 H250 V300 H560",            // y=300
+  "M0 470 H150 V370 H320 V470 H560",            // y=470
+  // Vertical spanners — enter at y=0 and exit at y=560 at the SAME x.
+  "M180 0 V140 H320 V300 H180 V560",            // x=180
+  "M380 560 V420 H260 V300 H380 V0",            // x=380
+  // Internal stubs — no edge contact, branch off existing junctions.
+  "M260 200 H360 V160",
+  "M250 400 H360 V470",
 ];
-const flowIdx = new Set([0, 3, 4, 6]);
+// Animate a sparse subset only (UX: 1–2 key motions per view) — two horizontals + one vertical.
+const flowIdx = new Set([0, 2, 4]);
 const pads: [number, number][] = [
-  [150, 70], [150, 210], [300, 210], [300, 120], [440, 120], [440, 60],
-  [90, 70], [410, 60], [80, 300], [80, 430], [230, 430], [230, 330],
-  [370, 330], [400, 470], [520, 250], [520, 450], [120, 490], [470, 440],
+  [120, 90], [260, 200], [400, 120], [100, 400], [250, 300], [150, 470],
+  [320, 370], [180, 140], [320, 300], [380, 420], [260, 420], [360, 160],
 ];
 
 export default function CircuitTraces({

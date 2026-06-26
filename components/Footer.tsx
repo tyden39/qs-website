@@ -10,11 +10,13 @@ const ig = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="
 export default function Footer() {
   return (
     <footer className="qs-foot mt-24 relative overflow-hidden">
-      {/* PCB traces concentrated in top-right & bottom-left — mirrored opposite to the hero's corners */}
+      {/* PCB traces concentrated in top-right & lower-left — mirrored opposite to the hero's corners.
+          The lower-left block is lifted above the copyright/separator bar (bottom-[18%]) and its mask
+          is centred on the left edge so the traces never clutter the gold separator line. */}
       <div className="absolute top-0 right-0 w-[36%] h-[58%] opacity-[.5] pointer-events-none [mask-image:radial-gradient(ellipse_at_top_right,#000_38%,transparent_74%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_38%,transparent_74%)]" aria-hidden="true">
         <CircuitTraces variant="dark" className="w-full h-full" />
       </div>
-      <div className="absolute bottom-0 left-0 w-[36%] h-[58%] opacity-[.5] pointer-events-none [mask-image:radial-gradient(ellipse_at_bottom_left,#000_38%,transparent_74%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_left,#000_38%,transparent_74%)]" aria-hidden="true">
+      <div className="absolute bottom-[18%] left-0 w-[36%] h-[52%] opacity-[.5] pointer-events-none [mask-image:radial-gradient(ellipse_at_left,#000_30%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_30%,transparent_70%)]" aria-hidden="true">
         <CircuitTraces variant="dark" className="w-full h-full" />
       </div>
       <div className="qs-foot-top relative z-10">
@@ -69,7 +71,7 @@ export default function Footer() {
 
       <div className="qs-foot-bottom relative z-10">
         <span>© 2026 QS Technology Co., Ltd · All rights reserved</span>
-        <span className="made"><span className="qs-live-dot" aria-hidden="true"></span>Thiết kế &amp; sản xuất tại Bình Dương · VN</span>
+        <span className="made"><span className="qs-live-dot" aria-hidden="true"></span>Thiết kế &amp; sản xuất tại TP. Hồ Chí Minh · VN</span>
         <span>Privacy · Terms · Cookies</span>
       </div>
     </footer>

@@ -308,6 +308,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(232,200,120,.6),transparent)" }} aria-hidden="true"></div>
         <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-[85%] h-56 opacity-80" style={{ background: "radial-gradient(ellipse at top, rgba(232,200,120,.16), transparent 70%)" }} aria-hidden="true"></div>
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
+        <CircuitTraces variant="dark" className="absolute inset-y-0 right-0 w-[44%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_64%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_64%)]" />
         <div className="relative qs-wrap-wide">
           {/* caption strip */}
           <div className="pt-12 pb-8">
@@ -400,7 +401,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </Reveal>
         <div className="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
-          <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45]" />
+          <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)]" />
           <Reveal className="relative max-w-[640px]">
             <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ Về chúng tôi · Thành lập tại TP. Hồ Chí Minh ]</span>
             <h2 className="qs-h2 text-white mt-3">Đôi nét về QS Technology Co., LTD.</h2>
@@ -439,7 +440,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       {/* CTA — full-bleed dark band */}
       <section className="relative bg-ink text-[#cfc9b8] overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
-        <CircuitTraces variant="dark" className="absolute inset-y-0 left-[-6%] w-[52%] opacity-[.45]" />
+        <CircuitTraces variant="dark" className="absolute inset-y-0 left-[-6%] w-[52%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)]" />
         <div className="qs-glow" style={{ bottom: "-150px", left: "24%", width: "440px", height: "440px" }} aria-hidden="true"></div>
         <div className="relative qs-wrap-wide py-14 lg:py-16 grid lg:grid-cols-[1fr_minmax(480px,620px)] gap-12 items-center">
           <Reveal>

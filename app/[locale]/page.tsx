@@ -453,9 +453,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </Reveal>
           <Reveal delay={120}>
             <div className="group relative border border-[#2a2620] overflow-hidden transition-colors duration-500 hover:border-gold-2/50">
+              {/* ambient ken-burns drift — same slow perpetual zoom/pan as the About photo */}
               <Image src="/home/cta-controller.webp" alt="Bộ điều khiển CNC QS" width={800} height={533}
                      sizes="(max-width:1024px) 100vw, 620px"
-                     className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-[1.05]" />
+                     className="w-full h-auto block qs-kenburns" />
               {/* gold inner glow lighting up on hover */}
               <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_60px_rgba(232,200,120,.25)]" aria-hidden="true"></div>
             </div>

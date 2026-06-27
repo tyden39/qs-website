@@ -5,9 +5,11 @@ import CircuitTraces from "./circuit-traces";
 const fb = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.6l.4-3h-3V8.1c0-.86.24-1.45 1.5-1.45h1.6V4a21 21 0 0 0-2.34-.12c-2.32 0-3.9 1.42-3.9 4.02V10H7.7v3h2.66v8h3.14z"/></svg>`;
 const yt = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7.5v9l8-4.5z"/></svg>`;
 const zalo = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.9 3 3 6.5 3 10.8c0 2.4 1.3 4.6 3.3 6-.1.9-.5 2-1.4 2.9-.2.2 0 .55.32.5 1.8-.25 3.18-.85 4.18-1.45.83.2 1.7.3 2.6.3 5.1 0 9-3.5 9-7.8S17.1 3 12 3z"/></svg>`;
-const phone = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1l-2.22 2.2z"/></svg>`;
-const mail = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>`;
-const pin = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>`;
+const pin =`<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>`;
+const person = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-3.6 0-7 1.9-7 4.3V21h14v-2.7c0-2.4-3.4-4.3-7-4.3z"/></svg>`;
+/* compact inline glyphs for the per-person phone/email lines */
+const phone_ic = `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1l-2.22 2.2z"/></svg>`;
+const mail_ic = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>`;
 
 export default function Footer() {
   return (
@@ -58,25 +60,21 @@ export default function Footer() {
           {/* Mạng xã hội */}
           <div>
             <h5>Mạng xã hội</h5>
-            <ul className="flex flex-row flex-wrap items-center gap-3">
-              <Social href="#" svg={fb} label="Facebook" />
-              <Social href="#" svg={yt} label="Youtube" />
-              <Social href="#" svg={zalo} label="Zalo" />
+            <ul className="qs-foot-social">
+              <Social href="#" svg={fb}   label="Facebook" handle="QS Technology CNC" />
+              <Social href="#" svg={yt}   label="Youtube"  handle="@qstechnology" />
+              <Social href="#" svg={zalo} label="Zalo"     handle="0909 663 350" />
             </ul>
           </div>
 
           {/* Thông tin liên hệ */}
           <div>
             <h5>Thông tin liên hệ</h5>
-            <div className="flex flex-col gap-6">
-              <ContactGroup svg={phone} label="Số điện thoại">
-                <Line href="tel:+84909663350">(+84) 909.663.350</Line>
-                <Line href="tel:+84922322338">(+84) 922.322.338</Line>
-              </ContactGroup>
-              <ContactGroup svg={mail} label="Email">
-                <Line href="mailto:hieu.nguyen-sm@qstcnc.com">hieu.nguyen-sm@qstcnc.com</Line>
-                <Line href="mailto:viktor.vu@qstcnc.com">viktor.vu@qstcnc.com</Line>
-              </ContactGroup>
+            <div className="qs-foot-contact">
+              <PersonContact name="Mr. Hiếu" phoneHref="tel:+84909663350" phone="(+84) 909.663.350"
+                             mailHref="mailto:hieu.nguyen-sm@qstcnc.com" mail="hieu.nguyen-sm@qstcnc.com" />
+              <PersonContact name="Mr. Vũ" phoneHref="tel:+84922322338" phone="(+84) 922.322.338"
+                             mailHref="mailto:viktor.vu@qstcnc.com" mail="viktor.vu@qstcnc.com" />
               <ContactGroup svg={pin} label="Địa chỉ">
                 <Line>117 Đường Trương Thị Như, Xuân Thới Sơn, Hóc Môn, Thành phố Hồ Chí Minh – Việt Nam (700000).</Line>
               </ContactGroup>
@@ -103,12 +101,18 @@ function GoldIcon({ svg }: { svg: string }) {
   );
 }
 
-function Social({ href, svg, label }: { href: string; svg: string; label: string }) {
+function Social({ href, svg, label, handle }: { href: string; svg: string; label: string; handle: string }) {
   return (
     <li>
-      <a href={href} aria-label={label} title={label}
-         className="block text-[#c2bdb0] hover:text-gold-2 transition-colors hover:-translate-y-0.5 will-change-transform">
-        <GoldIcon svg={svg} />
+      <a href={href} aria-label={label} title={label} className="qs-foot-social-row group">
+        <span className="qs-foot-social-ic">
+          <GoldIcon svg={svg} />
+        </span>
+        <span className="qs-foot-social-name group-hover:text-gold-2">{label}</span>
+        <span className="qs-foot-social-handle">{handle}</span>
+        <span className="qs-foot-social-arrow" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </a>
     </li>
   );
@@ -117,13 +121,44 @@ function Social({ href, svg, label }: { href: string; svg: string; label: string
 /* Contact readout: icon → mono micro-label → stacked values */
 function ContactGroup({ svg, label, children }: { svg: string; label: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-start gap-3">
-      <GoldIcon svg={svg} />
+    <div className="qs-foot-contact-row group">
+      <span className="qs-foot-social-ic">
+        <GoldIcon svg={svg} />
+      </span>
       <div className="min-w-0">
         <div className="font-mono text-[10px] tracking-[.16em] uppercase text-gold-2/85 mb-1.5">{label}</div>
         <div className="flex flex-col gap-1">{children}</div>
       </div>
     </div>
+  );
+}
+
+/* Per-person contact tile: name → phone + email (each on its own line) */
+function PersonContact({ name, phoneHref, phone, mailHref, mail }: {
+  name: string; phoneHref: string; phone: string; mailHref: string; mail: string;
+}) {
+  return (
+    <div className="qs-foot-contact-row group">
+      <span className="qs-foot-social-ic">
+        <GoldIcon svg={person} />
+      </span>
+      <div className="min-w-0 w-full">
+        <div className="font-mono text-[10px] tracking-[.16em] uppercase text-gold-2/85 mb-1.5">{name}</div>
+        <div className="flex flex-row flex-wrap items-center justify-between gap-x-4 gap-y-1">
+          <PersonLine href={phoneHref} svg={phone_ic}>{phone}</PersonLine>
+          <PersonLine href={mailHref} svg={mail_ic}>{mail}</PersonLine>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PersonLine({ href, svg, children }: { href: string; svg: string; children: React.ReactNode }) {
+  return (
+    <a href={href} className="inline-flex items-center gap-2 text-[12.5px] leading-snug text-[#c2bdb0] hover:text-gold-2 transition-colors">
+      <span className="shrink-0 text-gold-2/70" dangerouslySetInnerHTML={{ __html: svg }} />
+      <span className="truncate">{children}</span>
+    </a>
   );
 }
 

@@ -33,7 +33,6 @@ export default function Footer() {
             </div>
             <div>
               <b className="font-display font-bold text-[22px] bg-gold-grad bg-clip-text text-transparent tracking-[.02em] block">QS TECHNOLOGY CO., LTD</b>
-              <div className="h-px bg-[#8a6f35] w-4/5 mt-1.5"></div>
             </div>
           </div>
           <div className="qs-foot-tagline">

@@ -474,9 +474,7 @@ body {
 /* masthead band: brand lockup left, mono spec-line right, gold hairline below */
 .qs-foot-masthead {
   display: flex; align-items: flex-end; justify-content: space-between;
-  flex-wrap: wrap; gap: 18px 48px; padding-bottom: 30px;
-  border-bottom: 1px solid transparent;
-  border-image: linear-gradient(90deg, rgba(232, 200, 120, .55), rgba(232, 200, 120, .14) 55%, transparent) 1;
+  flex-wrap: wrap; gap: 18px 48px; padding-bottom: 0;
 }
 .qs-foot-tagline {
   font-family: var(--font-mono), "JetBrains Mono", monospace;

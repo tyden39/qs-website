@@ -13,3 +13,6 @@ next-env.d.ts
 .env*.local
 
 *.DS_Store
+
+# source product photos (large originals, not bundled)
+Hình mặt trước sau bộ điều khiển/

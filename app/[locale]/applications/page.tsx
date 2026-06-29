@@ -110,24 +110,6 @@ export default async function Applications({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      {/* INTRO */}
-      <section className="py-16 bg-white border-b border-line">
-        <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_2fr] gap-16">
-          <div>
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Overview ]</span>
-            <h2 className="qs-h2 mt-2">Một bộ điều khiển — tám loại máy</h2>
-          </div>
-          <div className="text-[17px] leading-[1.7] text-[#3a3a3a]">
-            <p className="m-0 mb-3.5">
-              Cùng một dòng controller QS có thể được cấu hình cho nhiều loại máy gia công khác nhau, từ phay CNC tiêu chuẩn đến các máy chuyên dụng như uốn lò xo và dán keo. Khả năng mở rộng I/O và tích hợp PLC ladder cho phép tùy biến cho từng ứng dụng cụ thể.
-            </p>
-            <p className="m-0">
-              Mỗi case study dưới đây là một bài toán kỹ thuật thực tế đã được QS triển khai cho các xưởng cơ khí, gỗ, kim hoàn và thực phẩm tại Việt Nam — từ Hà Nội đến Cần Thơ.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* GRID */}
       <section className="py-20 bg-white" id="list">
         <div className="max-w-wrap mx-auto px-12">
@@ -163,15 +145,8 @@ export default async function Applications({ params }: { params: Promise<{ local
             </div>
           </div>
 
-          {/* PDF CTA + pagination */}
-          <div className="mt-12 flex justify-between items-end gap-6">
-            <div className="bg-paper border border-line p-7 flex-1 flex justify-between items-center gap-6">
-              <div>
-                <h4 className="font-display font-semibold text-lg m-0">Tải catalogue đầy đủ</h4>
-                <p className="m-0 mt-1 text-sm text-muted">Hơn 14 ứng dụng đã triển khai cho khách hàng trong và ngoài nước.</p>
-              </div>
-              <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/downloads">Tải PDF ↓</Link>
-            </div>
+          {/* pagination */}
+          <div className="mt-12 flex justify-end items-end gap-6">
             <div className="flex gap-1.5">
               <button className="w-9 h-9 border border-line grid place-items-center text-muted hover:border-ink hover:text-ink">‹</button>
               <button className="w-9 h-9 border border-ink bg-ink text-white grid place-items-center font-mono text-[11px]">1</button>

@@ -251,6 +251,12 @@ body {
 .qs-strip:hover .qs-panel             { flex-grow: 1; }
 .qs-strip:hover .qs-panel:hover       { flex-grow: 4.2; }
 
+/* MORE spine — always a slim fixed slab; never widens like the gallery panels. */
+.qs-panel-more {
+  flex: 0 0 clamp(76px, 7vw, 104px);
+  min-width: 0;
+}
+
 /* Cross-fade between the collapsed spine and the open content, locked to the
    same default/hover state as the flex-grow above. */
 .qs-panel .qs-open  { opacity: 0; transition: opacity .45s ease .08s; }

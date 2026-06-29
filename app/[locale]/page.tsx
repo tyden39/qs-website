@@ -355,7 +355,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Ứng dụng · 04 ngành ]</span>
                 <h2 className="qs-h2 mt-3">Ứng dụng theo ngành.</h2>
               </div>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/applications">Xem tất cả <span className="arr">→</span></Link>
             </div>
           </Reveal>
 
@@ -381,6 +380,13 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 </Link>
               </Reveal>
             ))}
+            <Reveal delay={apps.length * 70}>
+              <Link href="/applications"
+                    className="group flex items-center justify-between bg-ink border border-line px-5 py-5">
+                <span className="font-display font-semibold text-white text-lg">Xem tất cả ứng dụng</span>
+                <span className="font-mono text-sm text-gold-2 transition-transform duration-500 group-hover:translate-x-1">→</span>
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>

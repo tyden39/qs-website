@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import DOMPurify from "isomorphic-dompurify";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllProducts, getProductBySlug, getProductSlugs } from "@/lib/data/products";
@@ -44,6 +45,14 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const slugs = await getProductSlugs();
   return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
+}
+
+// Overview HTML is crawled from the legacy site; sanitize before rendering.
+function safeHtml(raw: string): string {
+  return DOMPurify.sanitize(raw, {
+    ALLOWED_TAGS: ["p", "br", "strong", "em", "b", "u", "ul", "ol", "li", "h2", "h3", "h4", "a", "blockquote"],
+    ALLOWED_ATTR: ["href", "title", "rel", "target"],
+  });
 }
 
 export default async function ProductDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
@@ -120,6 +129,34 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         </div>
       </section>
 
+      {/* OVERVIEW — crawled marketing copy + per-model highlights */}
+      {(p.overview || p.highlights.length > 0) && (
+        <section className="py-16 bg-white border-b border-line">
+          <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1.4fr_1fr] gap-16 items-start">
+            <div>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("overviewEyebrow")}</span>
+              <h2 className="qs-h2 mt-2 mb-5">{t("overviewHeading")}</h2>
+              {p.overview && (
+                <div
+                  className="prose prose-sm max-w-none text-[15px] leading-[1.8] text-[#2a2520]"
+                  dangerouslySetInnerHTML={{ __html: safeHtml(p.overview) }}
+                />
+              )}
+            </div>
+            {p.highlights.length > 0 && (
+              <aside className="bg-paper border border-line p-7">
+                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-4">{t("highlightsHeading")}</div>
+                <ul className="list-none p-0 m-0 space-y-2.5">
+                  {p.highlights.map((h) => (
+                    <li key={h} className="text-[13.5px] text-ink leading-[1.5] pl-5 relative before:content-['▸'] before:absolute before:left-0 before:top-0 before:text-gold-1">{h}</li>
+                  ))}
+                </ul>
+              </aside>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* TABS */}
       <section className="bg-white border-b border-line sticky top-[72px] z-30">
         <div className="max-w-wrap mx-auto px-12 flex gap-0">
@@ -133,19 +170,53 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
       </section>
 
       {/* SPECS + QUOTE */}
-      <section className="py-20 bg-white" id="specs">
+      <section className="py-20 bg-white scroll-mt-32" id="specs">
         <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1.4fr_1fr] gap-16 items-start">
           <div>
             <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("specsEyebrow")}</span>
             <h2 className="qs-h2 mt-2 mb-6">{t("specsHeading")}</h2>
-            <ul className="list-none p-0 m-0 border border-line bg-white">
-              {p.specs.map((s, i) => (
-                <li key={s.l} className={`grid grid-cols-[200px_1fr] gap-4 px-5 py-4 ${i % 2 === 0 ? "bg-paper" : ""} ${i < p.specs.length - 1 ? "border-b border-line" : ""}`}>
-                  <span className="font-mono text-[11px] text-muted tracking-[.14em] uppercase">{s.l}</span>
-                  <span className="font-display text-[15px] font-semibold text-ink">{s.v}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="border border-line bg-white overflow-x-auto">
+              <table className="w-full border-collapse text-left">
+                <thead>
+                  <tr className="border-b border-line">
+                    <th className="px-5 py-3.5 align-bottom font-mono text-[10px] text-muted tracking-[.14em] uppercase font-medium">
+                      {t("specsColHead")}
+                    </th>
+                    {p.interfaces.map((c) => (
+                      <th key={c.name} className="px-5 py-3.5 align-bottom border-l border-line">
+                        <span className="block font-display text-[13px] font-semibold text-ink leading-tight">{c.name}</span>
+                        {c.note && (
+                          <span className="block font-mono text-[10px] text-gold-1 tracking-[.14em] uppercase mt-0.5">{c.note}</span>
+                        )}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {p.specs.map((s, i) => {
+                    const cells = Array.isArray(s.v) ? s.v : null;
+                    return (
+                      <tr key={s.l} className={`${i % 2 === 0 ? "bg-paper" : ""} ${i < p.specs.length - 1 ? "border-b border-line" : ""}`}>
+                        <th scope="row" className="px-5 py-4 align-top font-mono text-[11px] text-muted tracking-[.14em] uppercase font-medium">
+                          {s.l}
+                        </th>
+                        {cells
+                          ? cells.map((v, j) => (
+                              <td key={j} className="px-5 py-4 align-top border-l border-line font-display text-[15px] font-semibold text-ink">
+                                {v}
+                              </td>
+                            ))
+                          : (
+                              <td colSpan={p.interfaces.length} className="px-5 py-4 align-top border-l border-line font-display text-[15px] font-semibold text-ink">
+                                {s.v}
+                              </td>
+                            )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <aside id="quote" className="bg-paper border border-line p-7 sticky top-32">
@@ -156,6 +227,82 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           </aside>
         </div>
       </section>
+
+      {/* DOCUMENTS + SOFTWARE + ACCESSORIES (crawled catalogue) */}
+      {(p.documents.length > 0 || p.software.length > 0 || p.accessories.length > 0) && (
+        <section className="py-16 bg-paper border-t border-line">
+          <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-2 gap-12">
+            <div id="docs" className="scroll-mt-32">
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("docsEyebrow")}</span>
+              <h2 className="qs-h2 mt-2 mb-2">{t("docsHeading")}</h2>
+              <p className="text-[13px] text-muted leading-[1.6] m-0 mb-5">{t("docsHint")}</p>
+              <ul className="list-none p-0 m-0 border border-line bg-white">
+                {p.documents.map((d, i) => (
+                  <li key={d} className={`flex items-center gap-3 px-5 py-3.5 ${i < p.documents.length - 1 ? "border-b border-line" : ""}`}>
+                    <span className="font-mono text-[10px] text-gold-1 tracking-[.14em]">[ {String(i + 1).padStart(2, "0")} ]</span>
+                    <span className="font-display text-[15px] font-semibold text-ink">{d}</span>
+                  </li>
+                ))}
+              </ul>
+              {p.accessories.length > 0 && (
+                <div className="mt-7">
+                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase block mb-3">{t("accessoriesHeading")}</span>
+                  <div className="flex flex-wrap gap-2">
+                    {p.accessories.map((a) => (
+                      <span key={a} className="font-mono text-[11px] text-ink bg-white border border-line px-2.5 py-1.5">{a}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div id="sw" className="scroll-mt-32">
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("swEyebrow")}</span>
+              <h2 className="qs-h2 mt-2 mb-2">{t("swHeading")}</h2>
+              <p className="text-[13px] text-muted leading-[1.6] m-0 mb-5">{t("swHint")}</p>
+              <ul className="list-none p-0 m-0 border border-line bg-white">
+                {p.software.map((s, i) => (
+                  <li key={s} className={`flex items-center gap-3 px-5 py-3.5 ${i < p.software.length - 1 ? "border-b border-line" : ""}`}>
+                    <span className="font-mono text-[10px] text-gold-1 tracking-[.14em]">[ {String(i + 1).padStart(2, "0")} ]</span>
+                    <span className="font-display text-[15px] font-semibold text-ink">{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* GALLERY — real product photos */}
+      {p.gallery.length > 0 && (
+        <section id="drawing" className="py-16 bg-white border-t border-line scroll-mt-32">
+          <div className="max-w-wrap mx-auto px-12">
+            <div className="qs-section-head">
+              <div>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("galleryEyebrow")}</span>
+                <h2 className="qs-h2 mt-2">{t("galleryHeading")}</h2>
+              </div>
+              {p.sourceUrl && (
+                <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer" className="qs-btn qs-btn-ghost qs-btn-sm">{t("sourceLink")}</a>
+              )}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-line border border-line">
+              {p.gallery.map((g, i) => (
+                <div key={g.src} className="bg-white grid place-items-center p-6 min-h-[240px]">
+                  <Image
+                    src={g.src}
+                    alt={g.alt}
+                    width={g.w}
+                    height={g.h}
+                    sizes="(max-width: 768px) 45vw, 360px"
+                    loading={i < 3 ? undefined : "lazy"}
+                    className="w-auto max-h-[260px] max-w-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* PACKAGE */}
       <section className="py-20 bg-white">

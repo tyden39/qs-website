@@ -50,10 +50,8 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     slug: p.slug,
     axisNum: parseInt(p.axes, 10) || 0,
     displayNum: parseFloat(p.display) || 0,
-    // Control interface drives the toolbar chips; read it from the published spec.
-    controlInterface: (
-      p.specs.find((s) => s.l.includes("Giao tiếp"))?.v ?? ""
-    ).toLowerCase(),
+    // Control interface drives the toolbar chips; derive it from the spec columns.
+    controlInterface: p.interfaces.map((c) => c.name).join(" ").toLowerCase(),
     node: <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />,
   }));
   const breadcrumb = buildBreadcrumbList([

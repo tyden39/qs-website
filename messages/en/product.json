@@ -1,29 +1,67 @@
 {
   "page": {
-    "breadcrumb": { "home": "Home", "products": "Products", "current": "CNC Controllers" },
+    "breadcrumb": {
+      "home": "Home",
+      "products": "Products",
+      "current": "CNC Controllers"
+    },
     "eyebrow": "QS Controller Series · Controller Series",
     "heading": "CNC Controllers",
     "lede": "By mastering our own technology, QS Controller delivers flexible customisation and a rich feature set. The system scales easily to fully meet every specialised customer requirement.",
-    "features": ["Outstanding performance", "Versatile features", "Highly customisable"],
+    "features": [
+      "Outstanding performance",
+      "Versatile features",
+      "Highly customisable"
+    ],
     "catalogBtn": "QS Products Catalog",
     "seriesTag": "[ Series 2026 · F + Astro ]",
     "sidebar": {
       "heading": "CNC machine controllers",
-      "tree": ["Milling machine", "Pipe bending machine", "Spring bending machine", "Jigsaw machine", "Tenoning machine", "Gluing machine", "Welding / plasma cutting machine", "Jewellery machine"],
-      "axes": ["3-axis machine", "4-axis machine", "5-axis machine", "6-axis machine"],
-      "support": { "title": "Technical support", "cta": "Contact us now" }
+      "tree": [
+        "Milling machine",
+        "Pipe bending machine",
+        "Spring bending machine",
+        "Jigsaw machine",
+        "Tenoning machine",
+        "Gluing machine",
+        "Welding / plasma cutting machine",
+        "Jewellery machine"
+      ],
+      "axes": [
+        "3-axis machine",
+        "4-axis machine",
+        "5-axis machine",
+        "6-axis machine"
+      ],
+      "support": {
+        "title": "Technical support",
+        "cta": "Contact us now"
+      }
     },
     "toolbar": {
       "showing": "Showing",
       "ofModels": "/ 07 models",
-      "filters": ["All", "Pulse Train", "EtherCat", "Mechatrolink"],
+      "filters": [
+        "All",
+        "Pulse Train",
+        "EtherCat",
+        "Mechatrolink"
+      ],
       "sortLabel": "Sort",
-      "sortOptions": ["Latest", "Axes ↑", "Display ↑"],
+      "sortOptions": [
+        "Latest",
+        "Axes ↑",
+        "Display ↑"
+      ],
       "empty": "No models match the current filters. Try clearing some."
     }
   },
   "card": {
-    "badge": { "Recommended": "Recommended", "Touch": "Touchscreen", "Flagship": "Flagship" },
+    "badge": {
+      "Recommended": "Recommended",
+      "Touch": "Touchscreen",
+      "Flagship": "Flagship"
+    },
     "bundleFor": "Bundle for",
     "machine": "Machine",
     "model": "Model:",
@@ -34,17 +72,36 @@
     "parts": "parts"
   },
   "detailPage": {
-    "breadcrumb": { "home": "Home", "products": "Products", "category": "CNC Controllers" },
+    "breadcrumb": {
+      "home": "Home",
+      "products": "Products",
+      "category": "CNC Controllers"
+    },
     "modelLine": "Model · {name} · Series 2026",
     "features": [
-      { "t": "Outstanding performance", "d": "High-performance processor for multi-axis machining" },
-      { "t": "Versatile features", "d": "Supports Pulse Train, EtherCAT and I/O expansion" },
-      { "t": "Highly customisable", "d": "Application programming and configuration per machine type" }
+      {
+        "t": "Outstanding performance",
+        "d": "High-performance processor for multi-axis machining"
+      },
+      {
+        "t": "Versatile features",
+        "d": "Supports Pulse Train, EtherCAT and I/O expansion"
+      },
+      {
+        "t": "Highly customisable",
+        "d": "Application programming and configuration per machine type"
+      }
     ],
     "quoteBtn": "Get a quote →",
-    "tabs": ["Technical specs", "Documents", "Software", "Drawings"],
+    "tabs": [
+      "Technical specs",
+      "Documents",
+      "Software",
+      "Drawings"
+    ],
     "specsEyebrow": "[ 01 · Technical specifications ]",
     "specsHeading": "Full spec table",
+    "specsColHead": "Control interface",
     "quoteEyebrow": "[ Request a quote for {name} ]",
     "quoteHeading": "Get a fast quote",
     "quoteBody": "Response within 24 business hours · dealer pricing for orders ≥ 10 units.",
@@ -53,7 +110,21 @@
     "relatedHeading": "Related products",
     "ctaHeading": "Need help configuring the {name}?",
     "ctaBody": "QS engineers help choose the I/O configuration, wiring diagram, and driver suited to each CNC machine type.",
-    "ctaBtn": "Contact engineering →"
+    "ctaBtn": "Contact engineering →",
+    "overviewEyebrow": "[ Overview ]",
+    "overviewHeading": "Product overview",
+    "highlightsHeading": "Key features",
+    "docsEyebrow": "[ 02 · Documents ]",
+    "docsHeading": "Technical documents",
+    "docsHint": "Contact QS to receive the full version of the documents below.",
+    "swEyebrow": "[ 03 · Software ]",
+    "swHeading": "Bundled software",
+    "swHint": "Programming & data-transfer software for the controller.",
+    "galleryEyebrow": "[ 04 · Photos ]",
+    "galleryHeading": "Product photos",
+    "accessoriesEyebrow": "[ Accessories ]",
+    "accessoriesHeading": "Included accessories",
+    "sourceLink": "View on the original site →"
   },
   "list": {
     "title": "Products",

@@ -13,7 +13,13 @@ const productImageSchema = z.object({
 
 const productSpecSchema = z.object({
   l: z.string().min(1),
-  v: z.string().min(1),
+  // Single value spanning all interface columns, or one value per column.
+  v: z.union([z.string().min(1), z.array(z.string().min(1)).min(1)]),
+});
+
+const specColumnSchema = z.object({
+  name: z.string().min(1),
+  note: z.string().optional(),
 });
 
 const bulletSchema = z.object({
@@ -34,6 +40,7 @@ export const productSchema = z.object({
   name: i18nText,
   desc: i18nText,
   bullets: z.array(bulletSchema).default([]),
+  interfaces: z.array(specColumnSchema).default([]),
   specs: z.array(productSpecSchema).default([]),
   images: z.array(productImageSchema).default([]),
   status: z.enum(["draft", "published", "archived"]).default("draft"),

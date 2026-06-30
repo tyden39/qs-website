@@ -1,29 +1,67 @@
 {
   "page": {
-    "breadcrumb": { "home": "Trang chủ", "products": "Sản phẩm", "current": "Bộ điều khiển CNC" },
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "products": "Sản phẩm",
+      "current": "Bộ điều khiển CNC"
+    },
     "eyebrow": "QS Controller Series · Controller Series",
     "heading": "Bộ điều khiển CNC",
     "lede": "Thông qua việc tự chủ về công nghệ, QS Controller mang lại khả năng tùy biến linh hoạt và đa dạng chức năng. Nhờ đó, hệ thống dễ dàng phát triển mở rộng để đáp ứng trọn vẹn mọi yêu cầu chuyên biệt của khách hàng.",
-    "features": ["Hiệu năng vượt trội", "Tính năng đa dạng", "Khả năng tùy biến cao"],
+    "features": [
+      "Hiệu năng vượt trội",
+      "Tính năng đa dạng",
+      "Khả năng tùy biến cao"
+    ],
     "catalogBtn": "QS Products Catalog",
     "seriesTag": "[ Series 2026 · F + Astro ]",
     "sidebar": {
       "heading": "Bộ điều khiển máy CNC",
-      "tree": ["Máy phay", "Máy uốn ống", "Máy uốn lò xo", "Máy cưa lọng", "Máy làm mộng", "Máy dán keo", "Máy hàn / cắt plasma", "Máy kim hoàn"],
-      "axes": ["Máy 3 trục", "Máy 4 trục", "Máy 5 trục", "Máy 6 trục"],
-      "support": { "title": "Hỗ trợ kỹ thuật", "cta": "Liên hệ ngay" }
+      "tree": [
+        "Máy phay",
+        "Máy uốn ống",
+        "Máy uốn lò xo",
+        "Máy cưa lọng",
+        "Máy làm mộng",
+        "Máy dán keo",
+        "Máy hàn / cắt plasma",
+        "Máy kim hoàn"
+      ],
+      "axes": [
+        "Máy 3 trục",
+        "Máy 4 trục",
+        "Máy 5 trục",
+        "Máy 6 trục"
+      ],
+      "support": {
+        "title": "Hỗ trợ kỹ thuật",
+        "cta": "Liên hệ ngay"
+      }
     },
     "toolbar": {
       "showing": "Hiển thị",
       "ofModels": "/ 07 model",
-      "filters": ["Tất cả", "Pulse Train", "EtherCat", "Mechatrolink"],
+      "filters": [
+        "Tất cả",
+        "Pulse Train",
+        "EtherCat",
+        "Mechatrolink"
+      ],
       "sortLabel": "Sắp xếp",
-      "sortOptions": ["Mới nhất", "Số trục ↑", "Màn hình ↑"],
+      "sortOptions": [
+        "Mới nhất",
+        "Số trục ↑",
+        "Màn hình ↑"
+      ],
       "empty": "Không có model nào khớp bộ lọc. Hãy thử bỏ bớt điều kiện."
     }
   },
   "card": {
-    "badge": { "Recommended": "Khuyến nghị", "Touch": "Cảm ứng", "Flagship": "Cao cấp" },
+    "badge": {
+      "Recommended": "Khuyến nghị",
+      "Touch": "Cảm ứng",
+      "Flagship": "Cao cấp"
+    },
     "bundleFor": "Bộ sản phẩm cho",
     "machine": "Máy",
     "model": "Model:",
@@ -34,17 +72,36 @@
     "parts": "chi tiết"
   },
   "detailPage": {
-    "breadcrumb": { "home": "Trang chủ", "products": "Sản phẩm", "category": "Bộ điều khiển CNC" },
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "products": "Sản phẩm",
+      "category": "Bộ điều khiển CNC"
+    },
     "modelLine": "Model · {name} · Series 2026",
     "features": [
-      { "t": "Hiệu năng vượt trội", "d": "Vi xử lý hiệu năng cao cho gia công nhiều trục" },
-      { "t": "Tính năng đa dạng", "d": "Hỗ trợ Pulse Train, EtherCAT và mở rộng I/O" },
-      { "t": "Khả năng tùy biến cao", "d": "Lập trình ứng dụng và cấu hình theo từng dòng máy" }
+      {
+        "t": "Hiệu năng vượt trội",
+        "d": "Vi xử lý hiệu năng cao cho gia công nhiều trục"
+      },
+      {
+        "t": "Tính năng đa dạng",
+        "d": "Hỗ trợ Pulse Train, EtherCAT và mở rộng I/O"
+      },
+      {
+        "t": "Khả năng tùy biến cao",
+        "d": "Lập trình ứng dụng và cấu hình theo từng dòng máy"
+      }
     ],
     "quoteBtn": "Nhận báo giá →",
-    "tabs": ["Thông số kỹ thuật", "Tài liệu", "Phần mềm", "Bản vẽ"],
+    "tabs": [
+      "Thông số kỹ thuật",
+      "Tài liệu",
+      "Phần mềm",
+      "Bản vẽ"
+    ],
     "specsEyebrow": "[ 01 · Thông số kỹ thuật ]",
     "specsHeading": "Bảng spec đầy đủ",
+    "specsColHead": "Giao tiếp điều khiển",
     "quoteEyebrow": "[ Yêu cầu báo giá {name} ]",
     "quoteHeading": "Nhận báo giá nhanh",
     "quoteBody": "Phản hồi trong vòng 24 giờ làm việc · giá đại lý cho đơn hàng ≥ 10 cái.",
@@ -53,7 +110,21 @@
     "relatedHeading": "Các sản phẩm liên quan",
     "ctaHeading": "Cần tư vấn cấu hình {name}?",
     "ctaBody": "Kỹ sư QS hỗ trợ chọn cấu hình I/O, sơ đồ đấu nối và driver phù hợp với từng dòng máy CNC.",
-    "ctaBtn": "Liên hệ kỹ thuật →"
+    "ctaBtn": "Liên hệ kỹ thuật →",
+    "overviewEyebrow": "[ Tổng quan ]",
+    "overviewHeading": "Giới thiệu sản phẩm",
+    "highlightsHeading": "Tính năng nổi bật",
+    "docsEyebrow": "[ 02 · Tài liệu ]",
+    "docsHeading": "Tài liệu kỹ thuật",
+    "docsHint": "Liên hệ QS để nhận bản đầy đủ của các tài liệu sau.",
+    "swEyebrow": "[ 03 · Phần mềm ]",
+    "swHeading": "Phần mềm đi kèm",
+    "swHint": "Phần mềm lập trình & truyền dữ liệu cho bộ điều khiển.",
+    "galleryEyebrow": "[ 04 · Hình ảnh ]",
+    "galleryHeading": "Hình ảnh sản phẩm",
+    "accessoriesEyebrow": "[ Phụ kiện ]",
+    "accessoriesHeading": "Phụ kiện đi kèm",
+    "sourceLink": "Xem trên trang gốc →"
   },
   "list": {
     "title": "Sản phẩm",

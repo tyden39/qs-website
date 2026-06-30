@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getApplicationBySlug, getApplicationSlugs } from "@/lib/data/applications";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTechArticle, JsonLd } from "@/lib/seo/jsonld";
@@ -45,49 +46,31 @@ export async function generateMetadata({
   };
 }
 
-const machineMap: Record<string, string> = {
-  "phay-cnc":   "Máy Phay CNC",
-  "cua-long":   "Máy Cưa Lọng",
-  "dan-keo":    "Máy Dán Keo",
-  "thuc-pham":  "Máy Cắt Thực Phẩm",
-  "uon-lo-xo":  "Máy Uốn Lò Xo",
-  "mong-go":    "Máy Làm Mộng",
-  "kim-hoan":   "Máy Kim Hoàn",
-};
-
-const workflow = [
-  { n:"01", l:"Input · G-code",    t:"Nhập chương trình gia công",      d:"File NC được nạp qua USB, Ethernet hoặc DNC. Bộ điều khiển phân tích và mô phỏng đường chạy dao trên màn hình trước khi chạy thật." },
-  { n:"02", l:"Plan · Path",       t:"Tính toán quỹ đạo servo",          d:"Look-ahead 256 block, gia tốc S-curve và bù sai số dao. Quỹ đạo được làm mượt theo NURBS để đạt finish bề mặt tốt nhất." },
-  { n:"03", l:"Drive · EtherCAT",  t:"Điều khiển servo & spindle",       d:"Tín hiệu xung/encoder qua EtherCAT 1ms tới các trục X/Y/Z và biến tần spindle. Vòng kín kiểm tra vị trí từng chu kỳ." },
-  { n:"04", l:"Monitor · HMI",     t:"Giám sát & báo lỗi",                d:"HMI hiển thị tọa độ, tốc độ, dòng spindle, alarm. Dữ liệu chu trình ghi log để phục vụ truy xuất nguồn gốc và OEE." },
-];
-
-const specs = [
-  ["Số trục",         "3 trục (X / Y / Z) — mở rộng 4–6 trục"],
-  ["Hành trình",      "600 × 400 × 320 mm"],
-  ["Độ chính xác",    "±0.005 mm"],
-  ["Tốc độ chạy dao", "10 000 mm/min"],
-  ["Tốc độ spindle",  "14 000 RPM"],
-  ["Bộ điều khiển",   "QS Astro 6AH · 8\" HMI"],
-  ["Giao tiếp",       "EtherCAT · USB · Ethernet · RS-232"],
-];
-
-const deployments = [
-  { name:"Cơ khí Tân Bình",  loc:"HCM · 2024 · 12 máy phay 3 trục Astro 6AH cho dây chuyền linh kiện ô tô." },
-  { name:"Khuôn mẫu Hà Nam", loc:"Hà Nam · 2025 · Hệ thống 5 trục với F10T Touch cho khuôn nhựa kỹ thuật cao." },
-  { name:"Y khoa Đồng Nai",  loc:"Đồng Nai · 2024 · 6 máy phay y tế Astro 10i cho gia công implant Titan." },
-];
-
-const relatedApps = [
-  { slug:"cua-long", n:"02", t:"Máy Cưa Lọng" },
-  { slug:"dan-keo",  n:"03", t:"Máy Dán Keo" },
-  { slug:"uon-lo-xo",n:"05", t:"Máy Uốn Lò Xo" },
+// Slug order drives the machine-name lookup and the application index.
+const appSlugs = ["phay-cnc", "cua-long", "dan-keo", "thuc-pham", "uon-lo-xo", "mong-go", "kim-hoan"];
+const relatedAppsMeta = [
+  { slug: "cua-long", n: "02" },
+  { slug: "dan-keo", n: "03" },
+  { slug: "uon-lo-xo", n: "05" },
 ];
 
 export default async function ApplicationDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
-  const machine = machineMap[slug] ?? slug.replace(/-/g, " ");
-  const idx = Object.keys(machineMap).indexOf(slug) + 1 || 1;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "application.detailPage" });
+  const tIndex = await getTranslations({ locale, namespace: "application.index" });
+  const indexItems = tIndex.raw("items") as { t: string; machine: string }[];
+  const machineFor = (s: string) => {
+    const i = appSlugs.indexOf(s);
+    return i >= 0 ? indexItems[i].machine : s.replace(/-/g, " ");
+  };
+  const machine = machineFor(slug);
+  const idx = appSlugs.indexOf(slug) + 1 || 1;
+  const heroStats = t.raw("heroStats") as [string, string][];
+  const workflow = (t.raw("workflow") as { l: string; t: string; d: string }[]).map((w, i) => ({ ...w, n: String(i + 1).padStart(2, "0") }));
+  const specs = t.raw("specs") as [string, string][];
+  const deployments = t.raw("deployments") as { name: string; loc: string }[];
+  const relatedApps = relatedAppsMeta.map((r) => ({ ...r, t: machineFor(r.slug) }));
   const appData = await getApplicationBySlug(slug, locale);
   const techArticleJsonLd = appData ? buildTechArticle(appData, locale) : null;
 
@@ -99,22 +82,22 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         <div className="absolute inset-0 qs-grid-bg opacity-[.15]"></div>
         <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
-            <Link href="/" className="text-[#a8a499]!">Trang chủ</Link><span className="sep text-[#a8a499]!">/</span>
-            <Link href="/applications" className="text-[#a8a499]!">Ứng dụng</Link><span className="sep text-[#a8a499]!">/</span>
+            <Link href="/" className="text-[#a8a499]!">{t("breadcrumb.home")}</Link><span className="sep text-[#a8a499]!">/</span>
+            <Link href="/applications" className="text-[#a8a499]!">{t("breadcrumb.applications")}</Link><span className="sep text-[#a8a499]!">/</span>
             <span className="here text-gold-2! capitalize">{machine}</span>
           </div>
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-16 items-end">
             <div>
-              <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ Application · {String(idx).padStart(2,"0")} / 14 ]</span>
+              <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">{t("appLabel", { idx: String(idx).padStart(2, "0") })}</span>
               <h1 className="font-display font-bold tracking-[-.02em] text-white mt-3.5"
                   style={{fontSize:"72px", lineHeight:".95"}}>
-                Bộ điều khiển<br/>cho {machine.toLowerCase()}
+                {t("heroLine1")}<br/>{t("heroForPrefix")} {machine.toLowerCase()}
               </h1>
               <p className="mt-6 text-[17px] leading-[1.6] text-[#a8a499] max-w-[55ch]">
-                Máy phay CNC sử dụng các công cụ cắt xoay để loại bỏ vật liệu khỏi phôi — gia công các bộ phận tùy chỉnh phức tạp với độ chính xác cao và sản lượng lớn cho khuôn mẫu, linh kiện cơ khí và thiết bị y tế.
+                {t("heroLede")}
               </p>
               <div className="grid grid-cols-3 gap-6 mt-10 pt-8 border-t border-[#2a2620]">
-                {[["3–6","Số trục"],["±0.005","Độ chính xác (mm)"],["14k","Tốc độ (RPM)"]].map(([v,l]) => (
+                {heroStats.map(([v,l]) => (
                   <div key={l}>
                     <div className="font-display font-bold text-[32px] text-gold-2 tracking-[-.01em]">{v}</div>
                     <div className="font-mono text-[10px] text-[#7a7570] tracking-[.16em] uppercase mt-1.5">{l}</div>
@@ -145,11 +128,11 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Workflow · 4 steps ]</span>
-              <h2 className="qs-h2 mt-2">Quy trình vận hành</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("workflowEyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("workflowHeading")}</h2>
             </div>
             <p className="text-sm text-muted leading-[1.7] max-w-[44ch] m-0">
-              Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi từ nhập file CAD/CAM đến điều khiển servo và giám sát chu trình. Bốn bước dưới đây mô tả luồng dữ liệu và tín hiệu điển hình của một máy phay 3 trục.
+              {t("workflowLede")}
             </p>
           </div>
           <div className="grid md:grid-cols-4 gap-px bg-line border border-line">
@@ -169,14 +152,14 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       <section className="py-20 bg-paper border-b border-line">
         <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_1.4fr] gap-16 items-start">
           <div>
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Specification ]</span>
-            <h2 className="qs-h2 mt-2">Thông số kỹ thuật tham khảo</h2>
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("specEyebrow")}</span>
+            <h2 className="qs-h2 mt-2">{t("specHeading")}</h2>
             <p className="text-[15px] leading-[1.7] text-[#3a3a3a] mt-5">
-              Cấu hình điển hình cho một dòng máy phay 3 trục cỡ trung dùng controller QS Astro 6AH — phù hợp gia công khuôn mẫu, linh kiện cơ khí chính xác.
+              {t("specLede")}
             </p>
             <div className="flex gap-3 mt-7">
-              <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/products/astro-6ah">Xem controller phù hợp</Link>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/downloads">Tải datasheet ↓</Link>
+              <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/products/astro-6ah">{t("specBtn1")}</Link>
+              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/downloads">{t("specBtn2")}</Link>
             </div>
           </div>
           <ul className="list-none p-0 m-0 border border-line bg-white">
@@ -195,10 +178,10 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Field deployment ]</span>
-              <h2 className="qs-h2 mt-2">Đã triển khai tại</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("deployEyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("deployHeading")}</h2>
             </div>
-            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">3 of 14 dự án</span>
+            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{t("deployCount")}</span>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {deployments.map(d => (
@@ -217,16 +200,16 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Next ]</span>
-              <h2 className="qs-h2 mt-2">Ứng dụng liên quan</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("relatedEyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("relatedHeading")}</h2>
             </div>
-            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/applications">← Tất cả ứng dụng</Link>
+            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/applications">{t("backAll")}</Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {relatedApps.map(r => (
               <Link key={r.slug} href={`/applications/${r.slug}`}
                     className="bg-white border border-line p-7 hover:-translate-y-0.5 hover:border-ink transition-all">
-                <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">Application {r.n}</span>
+                <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("relatedAppLabel")} {r.n}</span>
                 <h3 className="font-display font-semibold text-lg m-0 mt-2.5">{r.t}</h3>
               </Link>
             ))}

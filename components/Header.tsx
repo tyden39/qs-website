@@ -45,7 +45,7 @@ export default function Header() {
     <>
       <div className="qs-topstrip">
         <div className="qs-wrap-wide py-1.5 flex justify-between items-center gap-6">
-          <span className="min-w-0 truncate"><span className="qs-topstrip-dot"></span>QS Technology Co., Ltd · Bộ điều khiển CNC · Servo · DNC</span>
+          <span className="min-w-0 truncate"><span className="qs-topstrip-dot"></span>QS Technology Co., Ltd · {t("tagline")}</span>
           <span className="hidden md:inline shrink-0">
             Hotline <a href="tel:+84909663350" className="qs-topstrip-link">(+84) 909.663.350</a>
             {" · "}

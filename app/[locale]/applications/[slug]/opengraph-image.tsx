@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { getTranslations } from "next-intl/server";
 import { getApplicationBySlug, getApplicationSlugs } from "@/lib/data/applications";
 import { OgImageTemplate } from "@/lib/seo/og-image-template";
 import type { Locale } from "@/lib/i18n/config";
@@ -20,13 +21,14 @@ export default async function Image({
 }) {
   const { locale, slug } = await params;
   const a = await getApplicationBySlug(slug, locale);
+  const seo = await getTranslations({ locale, namespace: "seo" });
 
   return new ImageResponse(
     (
       <OgImageTemplate
         title={a?.title ?? slug}
         subtitle={a?.summary?.slice(0, 120)}
-        tag="Ứng dụng công nghiệp"
+        tag={seo("applicationsTitle")}
         meta="qstech.vn/applications"
       />
     ),

@@ -1,0 +1,34 @@
+{
+  "panel": {
+    "placeholder": "Tìm sản phẩm, model — F54, Astro 6AH…",
+    "close": "Đóng",
+    "featured": "Sản phẩm nổi bật",
+    "viewAll": "Xem tất cả",
+    "productCount": "26 sản phẩm",
+    "fullCatalog": "Catalog đầy đủ",
+    "tags": ["Phay & router", "CNC đa trục", "Tiện CNC", "Servo & drive", "Servo cao cấp"]
+  },
+  "results": {
+    "metaTitle": "Kết quả tìm kiếm — QS Technology",
+    "breadcrumbCurrent": "Tìm kiếm",
+    "resultsFor": "Kết quả cho",
+    "statsSuffix": "kết quả · sắp xếp theo độ liên quan",
+    "searchBtn": "Tìm",
+    "showing": "Hiển thị {start}–{end} / {total} kết quả",
+    "filtersTitle": "[ Lọc theo loại ]",
+    "recentTitle": "[ Tìm kiếm gần đây ]",
+    "helpTitle": "[ Không thấy thứ cần tìm? ]",
+    "helpBody": "Đội kỹ thuật QS có thể tìm hộ bạn — gửi yêu cầu qua helpdesk hoặc Zalo.",
+    "helpCta": "Liên hệ kỹ thuật →",
+    "typeLabels": {
+      "all": "Tất cả",
+      "product": "Sản phẩm",
+      "pdf": "Tài liệu",
+      "news": "Tin tức",
+      "app": "Ứng dụng",
+      "faq": "FAQ"
+    },
+    "emptyPrompt": "Nhập từ khoá để tìm sản phẩm, tài liệu, tin tức và ứng dụng.",
+    "noResults": "Không tìm thấy kết quả cho \"{query}\". Thử từ khoá khác hoặc liên hệ đội kỹ thuật."
+  }
+}

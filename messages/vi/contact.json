@@ -12,12 +12,28 @@
     "heading": "Yêu cầu báo giá & tư vấn",
     "name": "Họ & tên *",
     "namePlaceholder": "Nguyễn Văn A",
-    "company": "Công ty",
-    "companyPlaceholder": "Công ty TNHH ABC",
-    "email": "Email *",
+    "email": "Email",
     "emailPlaceholder": "name@company.vn",
     "phone": "Điện thoại *",
     "phonePlaceholder": "+84 28 3636 1234",
+    "businessField": "Lĩnh vực hoạt động",
+    "businessFieldPlaceholder": "Chọn lĩnh vực…",
+    "businessOptions": {
+      "builder": "Nhà tích hợp / lắp ráp máy",
+      "end_user": "Người dùng cuối",
+      "commercial": "Thương mại / phân phối",
+      "manufacturing": "Sản xuất",
+      "machine_manufacturing": "Chế tạo máy",
+      "other": "Khác"
+    },
+    "businessFieldOther": "Lĩnh vực khác",
+    "businessFieldOtherPlaceholder": "Nhập lĩnh vực của bạn",
+    "services": "Dịch vụ quan tâm",
+    "serviceOptions": {
+      "control_unit": "Bộ điều khiển",
+      "machine_manufacturing": "Chế tạo máy",
+      "machine_upgrade": "Nâng cấp máy"
+    },
     "message": "Nội dung yêu cầu",
     "messagePlaceholder": "Mô tả nhu cầu, loại máy, số trục, sản phẩm quan tâm…",
     "submit": "Gửi yêu cầu →",
@@ -45,6 +61,49 @@
     "submit": "Đăng ký →",
     "submitting": "…",
     "success": "Đăng ký thành công! Bạn sẽ nhận bản tin kỹ thuật từ QS.",
-    "error": "Có lỗi xảy ra. Vui lòng thử lại."
+    "error": "Có lỗi xảy ra. Vui lòng thử lại.",
+    "invalidEmail": "Email không hợp lệ"
+  },
+  "page": {
+    "channels": [
+      { "lbl": "Hotline · 24/7", "v": "+84 28 3636 1234", "h": "Hỗ trợ kỹ thuật khẩn cấp ngoài giờ" },
+      { "lbl": "Bán hàng", "v": "sales@qstechnology.vn", "h": "Báo giá, đặt hàng lô lớn, OEM" },
+      { "lbl": "Kỹ thuật", "v": "support@qstechnology.vn", "h": "Tư vấn lắp đặt, firmware, lỗi vận hành" },
+      { "lbl": "Zalo OA", "v": "QS Technology", "h": "Chat trực tiếp với kỹ thuật viên" }
+    ],
+    "instructions": {
+      "eyebrow": "[ 01 · Gửi yêu cầu ]",
+      "heading1": "Cần báo giá",
+      "heading2": "hoặc tư vấn riêng?",
+      "p1": "Điền thông tin bên cạnh, đội kinh doanh QS sẽ liên hệ trong vòng 4 giờ làm việc (từ 8:00 đến 17:30, T2–T6).",
+      "p2pre": "Nếu cần phản hồi nhanh hơn, gọi trực tiếp hotline ",
+      "checklistTitle": "Bao gồm các thông tin sau sẽ giúp tư vấn nhanh hơn",
+      "checklist": [
+        "Loại máy bạn đang dùng / muốn thiết kế (phay, tiện, uốn, dán keo…)",
+        "Số trục cần điều khiển và yêu cầu vòng hở / vòng kín",
+        "Kích thước hành trình và độ chính xác mong muốn",
+        "Số lượng đặt mua dự kiến và thời gian cần giao",
+        "Đã từng dùng controller nào trước đây (nếu có)"
+      ]
+    },
+    "offices": {
+      "eyebrow": "[ 03 · Văn phòng & nhà máy ]",
+      "heading": "02 địa điểm tại Việt Nam",
+      "bookVisit": "Đặt lịch thăm quan →",
+      "items": [
+        { "n": "01", "t": "Trụ sở chính", "name": "QS Technology HQ — TP.HCM", "addr": ["123 KCN Tân Bình, Phường 14", "Quận Tân Bình, TP. Hồ Chí Minh", "Việt Nam"], "meta": "T2–T6 · 8:00 – 17:30 · +84 28 3636 1234" },
+        { "n": "02", "t": "Nhà máy sản xuất", "name": "QS Plant — TP. Hồ Chí Minh", "addr": ["117 Đường Trương Thị Như", "Huyện Hóc Môn, TP. Hồ Chí Minh", "Việt Nam"], "meta": "Mở cửa thăm quan T3 & T5 · Đặt trước 7 ngày" }
+      ]
+    },
+    "faq": {
+      "eyebrow": "[ 04 · Câu hỏi thường gặp ]",
+      "heading": "Trước khi gọi, có thể bạn đã có câu trả lời",
+      "items": [
+        { "q": "QS có hỗ trợ tại chỗ ngoài TP.HCM không?", "a": "Có. Đội kỹ thuật QS có mặt tại chỗ trong 24 giờ trên toàn 35 tỉnh thành. Phí dịch vụ tính theo bảng giá công khai, miễn phí cho khách hàng đang trong thời hạn bảo hành." },
+        { "q": "Thời gian giao hàng tiêu chuẩn là bao lâu?", "a": "Hàng có sẵn (F54, F86, Astro 6AH) giao trong 3–5 ngày làm việc. Hàng đặt riêng (custom config, OEM) giao trong 4–6 tuần kể từ khi xác nhận đơn." },
+        { "q": "Có hỗ trợ chế tạo controller riêng không?", "a": "Có. Dịch vụ Custom Engineering của QS thiết kế PCB, viết firmware và bàn giao trọn gói trong 8 tuần. Tối thiểu 50 chiếc cho mỗi đơn hàng OEM." },
+        { "q": "Bảo hành và phụ tùng thay thế như thế nào?", "a": "Bảo hành 24 tháng cho phần cứng, hỗ trợ firmware miễn phí trọn đời sản phẩm. Linh kiện thay thế cam kết sẵn ít nhất 8 năm sau khi ngừng sản xuất." }
+      ]
+    }
   }
 }

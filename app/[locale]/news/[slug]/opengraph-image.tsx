@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { getTranslations } from "next-intl/server";
 import { getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
 import { OgImageTemplate } from "@/lib/seo/og-image-template";
 import type { Locale } from "@/lib/i18n/config";
@@ -20,13 +21,14 @@ export default async function Image({
 }) {
   const { locale, slug } = await params;
   const n = await getNewsBySlug(slug, locale);
+  const nav = await getTranslations({ locale, namespace: "nav" });
 
   return new ImageResponse(
     (
       <OgImageTemplate
         title={n?.title ?? slug}
         subtitle={n?.excerpt?.slice(0, 120)}
-        tag={n?.cat ?? "Tin tức"}
+        tag={n?.cat ?? nav("news")}
         meta={n?.date ?? ""}
       />
     ),

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/navigation";
 
 type App = { slug: string; n: string; t: string; img: string; d: string };
@@ -19,6 +20,7 @@ const INTERVAL = 4200; // ms each card stays open before auto-advancing
  * no progress). Width/opacity transitions live in globals.css (.qs-strip / .qs-panel).
  */
 export default function AppDeck({ items }: { items: App[] }) {
+  const t = useTranslations("home.applications.deck");
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [animate, setAnimate] = useState(true);
@@ -97,7 +99,7 @@ export default function AppDeck({ items }: { items: App[] }) {
           {/* OPEN state — full content block */}
           <div className="qs-open absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
             <span className="font-mono text-[11px] text-gold-2 tracking-[.22em] uppercase">
-              Ứng dụng · {a.n}
+              {t("label")} · {a.n}
             </span>
             <h4 className="font-display font-semibold text-white text-[28px] lg:text-[34px] leading-[1.05] tracking-tight mt-3 max-w-[20ch]">
               {a.t}
@@ -105,7 +107,7 @@ export default function AppDeck({ items }: { items: App[] }) {
             <p className="text-[#d2ccba] text-[15px] leading-[1.65] mt-4 max-w-[46ch]">{a.d}</p>
             <span className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-[.16em] uppercase text-gold-2">
               <span className="qs-live-dot" />
-              Xem chi tiết →
+              {t("viewDetail")}
             </span>
             {/* auto-advance progress — restarts each time this panel becomes active */}
             {animate && !paused && i === active && (
@@ -123,7 +125,7 @@ export default function AppDeck({ items }: { items: App[] }) {
       <Link
         href="/applications"
         className="qs-panel-more group relative block overflow-hidden rounded-[6px] bg-ink"
-        aria-label="Xem tất cả ứng dụng"
+        aria-label={t("viewAllAria")}
       >
         {/* Decorative frame + corner ticks — matches the other panels */}
         <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/55">
@@ -140,7 +142,7 @@ export default function AppDeck({ items }: { items: App[] }) {
               className="block whitespace-nowrap font-display font-semibold text-white/92 text-[30px] tracking-[.04em]"
               style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
             >
-              Xem tất cả
+              {t("viewAll")}
             </span>
             <span className="font-mono text-[13px] text-gold-2 leading-none transition-transform duration-500 group-hover:translate-y-1">↓</span>
           </div>

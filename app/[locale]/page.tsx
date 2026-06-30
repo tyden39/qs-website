@@ -8,18 +8,9 @@ import AppDeck from "@/components/app-deck";
 import HeroSlider, { type HeroSlide } from "@/components/hero-slider";
 import NewsFeed, { type NewsItem } from "@/components/news-feed";
 import VideoReel, { type VideoItem } from "@/components/video-reel";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
-
-const titles: Record<string, string> = {
-  vi: "Bộ điều khiển CNC Made in Vietnam",
-  en: "CNC Controllers Made in Vietnam",
-};
-const descs: Record<string, string> = {
-  vi: "Sáu dòng controller cho phay, uốn, dán keo, kim hoàn — phần cứng QS, firmware QS, hỗ trợ kỹ thuật trong nước. Đã triển khai trên 800+ dây chuyền tại Việt Nam.",
-  en: "Six controller lines for milling, bending, gluing, and jewellery — QS hardware, QS firmware, domestic technical support. Deployed on 800+ production lines.",
-};
 
 export async function generateMetadata({
   params,
@@ -27,8 +18,9 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const title = titles[locale] ?? titles.vi;
-  const description = descs[locale] ?? descs.vi;
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const title = t("homeTitle");
+  const description = t("homeDescription");
   return {
     title,
     description,
@@ -45,154 +37,39 @@ export async function generateMetadata({
   };
 }
 
-const heroSlides: HeroSlide[] = [
-  {
-    tag: "Cao cấp · High Tech",
-    name: "Astro 10i",
-    sub: "Bộ điều khiển",
-    desc: "Thuộc dòng cao cấp của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.",
-    href: "/products/astro-10i",
-    img: "/home/hero-astro10i.webp",
-    fig: "HÌNH 01 · BỘ ĐIỀU KHIỂN CNC · ASTRO 10i",
-    specs: [
-      ["Trục điều khiển", "6 · vòng kín"],
-      ["Giao thức", "EtherCAT · MLK"],
-      ["Màn hình", "10.1″ IPS cảm ứng"],
-      ["Nội suy", "Nano · tốc độ cao"],
-      ["Xuất xứ", "TP. Hồ Chí Minh · VN"],
-    ],
-  },
-  {
-    tag: "Chủ lực · Thông dụng",
-    name: "Astro 6AH",
-    sub: "Bộ điều khiển",
-    desc: "Dòng chủ lực 6 trục vòng kín với EtherCAT và Mechatrolink MII/MIII — dành cho gia công khuôn mẫu và linh kiện y tế đòi hỏi độ chính xác cao nhất.",
-    href: "/products/astro-6ah",
-    img: "/home/product-astro-6ah.webp",
-    fig: "HÌNH 02 · BỘ ĐIỀU KHIỂN CNC · ASTRO 6AH",
-    specs: [
-      ["Trục điều khiển", "6 · vòng kín"],
-      ["Giao thức", "EtherCAT · MII/MIII"],
-      ["Ứng dụng", "Khuôn mẫu · y tế"],
-      ["Động cơ servo", "Vòng kín đồng bộ"],
-      ["Xuất xứ", "TP. Hồ Chí Minh · VN"],
-    ],
-  },
-  {
-    tag: "Đa dụng · phổ thông",
-    name: "F86",
-    sub: "Bộ điều khiển",
-    desc: "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy — phay, cưa lọng, dán keo. Hỗ trợ điều khiển Pulse Train và EtherCAT, dễ tích hợp, chi phí tối ưu.",
-    href: "/products/f86",
-    img: "/home/product-f86.webp",
-    fig: "HÌNH 03 · BỘ ĐIỀU KHIỂN CNC · F86",
-    specs: [
-      ["Trục điều khiển", "6 · hở/kín"],
-      ["Giao thức", "Pulse Train · EtherCAT"],
-      ["Ứng dụng", "Phay · cưa · dán keo"],
-      ["Tích hợp", "Nhanh · linh hoạt"],
-      ["Xuất xứ", "TP. Hồ Chí Minh · VN"],
-    ],
-  },
+// Static, non-translated fields (assets + routing). Localized text is merged in
+// from the `home` namespace inside the component below, keeping copy out of code.
+const heroAssets: Pick<HeroSlide, "href" | "img">[] = [
+  { href: "/products/astro-10i", img: "/home/hero-astro10i.webp" },
+  { href: "/products/astro-6ah", img: "/home/product-astro-6ah.webp" },
+  { href: "/products/f86", img: "/home/product-f86.webp" },
 ];
 
 // Running marquee phrases — repeated so each track spans wider than the viewport for a seamless loop.
 const tickerWords = Array.from({ length: 4 }, () => ["Motion Controller", "Made By Vietnam", "QS Technology"]).flat();
 
-const apps = [
-  { slug: "phay-cnc", n: "01", t: "Máy phay CNC", img: "/home/app-phay-cnc.webp", d: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Điều khiển 6 trục vòng kín cho gia công khuôn mẫu và chi tiết phức tạp." },
-  { slug: "cua-long", n: "02", t: "Máy cưa lọng", img: "/home/app-cua-long.webp", d: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nội suy mượt mà, đường cắt sắc nét trên vật liệu gỗ và composite." },
-  { slug: "dan-keo", n: "03", t: "Máy dán keo", img: "/home/app-dan-keo.webp", d: "Ut enim ad minim veniam, quis nostrud exercitation. Định lượng keo chính xác, đồng bộ tốc độ băng tải theo thời gian thực." },
-  { slug: "uon-lo-xo", n: "05", t: "Máy uốn lò xo", img: "/home/app-uon-lo-xo.webp", d: "Duis aute irure dolor in reprehenderit in voluptate velit. Điều khiển góc uốn và bước xoắn ổn định cho sản xuất hàng loạt." },
+const appAssets = [
+  { slug: "phay-cnc", n: "01", img: "/home/app-phay-cnc.webp" },
+  { slug: "cua-long", n: "02", img: "/home/app-cua-long.webp" },
+  { slug: "dan-keo", n: "03", img: "/home/app-dan-keo.webp" },
+  { slug: "uon-lo-xo", n: "04", img: "/home/app-uon-lo-xo.webp" },
 ];
 
-const homeProducts = [
-  {
-    slug: "f86",
-    lbl: "[ Dòng F ]",
-    name: "Bộ điều khiển F86",
-    desc: "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
-    img: "/home/product-f86.webp",
-    meta: ["6 trục · vòng kín", "pulse train / ethercat"],
-  },
-  {
-    slug: "astro-6ah",
-    lbl: "[ Dòng Astro ]",
-    name: "Bộ điều khiển Astro 6AH",
-    desc: "Dòng chủ lực 6 trục vòng kín, EtherCAT, cho gia công khuôn mẫu và linh kiện y tế chính xác cao.",
-    img: "/home/product-astro-6ah.webp",
-    meta: ["6 trục · vòng kín", "pulse train / ethercat / mechatrolink mii,miii"],
-  },
-  {
-    slug: "f86",
-    lbl: "[ Dòng F ]",
-    name: "Bộ điều khiển F86",
-    desc: "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
-    img: "/home/product-f86-open.webp",
-    meta: ["6 trục · vòng hở", "pulse train / ethercat"],
-  },
+const productAssets = [
+  { slug: "f86", img: "/home/product-f86.webp" },
+  { slug: "astro-6ah", img: "/home/product-astro-6ah.webp" },
+  { slug: "f86", img: "/home/product-f86-open.webp" },
 ];
 
-// Thumbnail tự lấy từ YouTube theo youtubeId. duration tùy chọn (bỏ trống → ẩn badge).
-const videos: VideoItem[] = [
-  { youtubeId: "3bBrcmmvkZw", title: "Máy uốn lò xo (F86 Controller)" },
-  { youtubeId: "kLcNpeHu-2A", title: "Máy gia công kim hoàn 5 trục (Astro 6AV)" },
-  { youtubeId: "cpoLcWsIfVQ", title: 'Câu chuyện về "Bộ điều khiển CNC Made By Vietnam"' },
-  { youtubeId: "W0Z8zw3TkfE", title: "Bộ điều khiển CNC QS F54 — Giải pháp tối ưu cho máy CNC" },
-  { youtubeId: "B1wENfUjn8M", title: "Quy trình sản xuất ván lạng (ván plywood) từ A đến Z" },
-];
+// Thumbnails are derived from each youtubeId by VideoReel; titles come from i18n.
+const videoIds = ["3bBrcmmvkZw", "kLcNpeHu-2A", "cpoLcWsIfVQ", "W0Z8zw3TkfE", "B1wENfUjn8M"];
 
-const news: NewsItem[] = [
-  {
-    href: "/news/astro-12x",
-    img: "/home/news-ethercat.webp",
-    badge: "Sản phẩm mới",
-    cat: "Sản phẩm",
-    date: "28 · 04 · 2026",
-    read: "4 phút đọc",
-    title: "QS cho ra mắt dòng bộ điều khiển EtherCAT, Mechatrolink MII/MIII",
-    desc: "Phiên bản mở rộng EtherCAT, hỗ trợ tới 12 trục đồng bộ, tích hợp module thị giác máy. Dự kiến giao hàng từ Q3/2026 cho khách hàng OEM trong nước.",
-  },
-  {
-    href: "/news",
-    img: "/home/video-thumb.webp",
-    badge: "Sự kiện",
-    cat: "Sự kiện",
-    date: "22 · 04 · 2026",
-    read: "3 phút đọc",
-    title: 'QS góp mặt vòng chung kết "The Future Brand — Made By Vietnam" 2025',
-    desc: "Đại diện QS Technology trình bày giải pháp bộ điều khiển CNC nội địa trước hội đồng giám khảo và cộng đồng doanh nghiệp sản xuất Việt Nam.",
-  },
-  {
-    href: "/news/precitech-long-an",
-    img: "/home/product-f86.webp",
-    badge: "Khách hàng",
-    cat: "Khách hàng",
-    date: "15 · 04 · 2026",
-    read: "2 phút đọc",
-    title: "Bàn giao 24 bộ điều khiển F86 cho Tổng công ty PRECITECH Long An",
-    desc: "Lô 24 bộ điều khiển F86 được lắp đặt, nghiệm thu trên dây chuyền phay CNC kèm chương trình đào tạo vận hành tại nhà máy khách hàng.",
-  },
-  {
-    href: "/news/firmware-v42",
-    img: "/home/product-f86-open.webp",
-    badge: "Kỹ thuật",
-    cat: "Kỹ thuật",
-    date: "02 · 04 · 2026",
-    read: "5 phút đọc",
-    title: "Firmware v4.2 — bổ sung G-code tuỳ biến và post-processor Mastercam",
-    desc: "Bản firmware mới cho phép tuỳ biến lệnh G-code, đồng bộ post-processor Mastercam và cải thiện độ mượt nội suy ở tốc độ cao.",
-  },
-  {
-    href: "/news/binh-duong-expansion",
-    img: "/home/about-qs.webp",
-    badge: "Công ty",
-    cat: "Công ty",
-    date: "18 · 03 · 2026",
-    read: "3 phút đọc",
-    title: "QS mở rộng nhà máy TP. Hồ Chí Minh lên 4.200m² — công suất tăng 2,5×",
-    desc: "Nhà máy mới nâng năng lực sản xuất board mạch và lắp ráp bộ điều khiển, rút ngắn thời gian giao hàng cho thị trường trong nước.",
-  },
+const newsAssets = [
+  { href: "/news/astro-12x", img: "/home/news-ethercat.webp", date: "28 · 04 · 2026" },
+  { href: "/news", img: "/home/video-thumb.webp", date: "22 · 04 · 2026" },
+  { href: "/news/precitech-long-an", img: "/home/product-f86.webp", date: "15 · 04 · 2026" },
+  { href: "/news/firmware-v42", img: "/home/product-f86-open.webp", date: "02 · 04 · 2026" },
+  { href: "/news/binh-duong-expansion", img: "/home/about-qs.webp", date: "18 · 03 · 2026" },
 ];
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -201,6 +78,23 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   // (which would force dynamic rendering and break `output: "export"`).
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "home" });
+
+  // Merge localized text with the static asset/routing fields by position.
+  const heroSlides: HeroSlide[] = (
+    t.raw("hero.slides") as Omit<HeroSlide, "href" | "img">[]
+  ).map((s, i) => ({ ...s, ...heroAssets[i] }));
+  const apps = (t.raw("applications.items") as { t: string; d: string }[]).map(
+    (txt, i) => ({ ...appAssets[i], ...txt }),
+  );
+  const homeProducts = (
+    t.raw("products.items") as { lbl: string; name: string; desc: string; meta: string[] }[]
+  ).map((txt, i) => ({ ...productAssets[i], ...txt }));
+  const videoTitles = t.raw("showreel.videos") as string[];
+  const videos: VideoItem[] = videoIds.map((youtubeId, i) => ({ youtubeId, title: videoTitles[i] }));
+  const news: NewsItem[] = (
+    t.raw("news.items") as Omit<NewsItem, "href" | "img" | "date">[]
+  ).map((txt, i) => ({ ...newsAssets[i], ...txt }));
 
   return (
     <>
@@ -216,12 +110,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Sản phẩm · cập nhật 13.06.2026 ]</span>
-                <h2 className="qs-h2 mt-3">Bộ điều khiển QS</h2>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("products.eyebrow")}</span>
+                <h2 className="qs-h2 mt-3">{t("products.heading")}</h2>
               </div>
-              <p className="text-sm text-muted leading-[1.6] max-w-[42ch] md:text-right">
-                Sáu dòng bộ điều khiển cho phay, tiện, uốn và dán keo — chọn theo số trục và giao thức điều khiển.
-              </p>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line">
@@ -276,7 +167,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             ))}
           </div>
           <Reveal className="flex justify-center mt-12">
-            <Link className="qs-btn qs-btn-gold" href="/products">Xem tất cả controller <span className="arr">→</span></Link>
+            <Link className="qs-btn qs-btn-gold" href="/products">{t("products.viewAll")} <span className="arr">→</span></Link>
           </Reveal>
         </div>
       </section>
@@ -298,8 +189,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line">
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Ứng dụng · 04 ngành ]</span>
-                <h2 className="qs-h2 mt-3">Ứng dụng theo ngành.</h2>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("applications.eyebrow")}</span>
+                <h2 className="qs-h2 mt-3">{t("applications.heading")}</h2>
               </div>
             </div>
           </Reveal>
@@ -319,7 +210,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                          className="object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.92) 0%,rgba(10,10,8,.2) 50%,transparent 78%)" }}></div>
                   <div className="absolute inset-x-0 bottom-0 p-5">
-                    <span className="font-mono text-[10px] text-gold-2 tracking-[.2em] uppercase">Ứng dụng {a.n}</span>
+                    <span className="font-mono text-[10px] text-gold-2 tracking-[.2em] uppercase">{t("applications.mobileLabel")} {a.n}</span>
                     <h4 className="font-display font-semibold text-white text-lg mt-1.5 leading-tight">{a.t}</h4>
                     <p className="text-[#cfc9b8] text-[13px] leading-[1.55] mt-2">{a.d}</p>
                   </div>
@@ -329,7 +220,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <Reveal delay={apps.length * 70}>
               <Link href="/applications"
                     className="group flex items-center justify-between bg-ink border border-line px-5 py-5">
-                <span className="font-display font-semibold text-white text-lg">Xem tất cả ứng dụng</span>
+                <span className="font-display font-semibold text-white text-lg">{t("applications.viewAll")}</span>
                 <span className="font-mono text-sm text-gold-2 transition-transform duration-500 group-hover:translate-x-1">→</span>
               </Link>
             </Reveal>
@@ -341,29 +232,29 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <section className="bg-ink text-[#cfc9b8] grid lg:grid-cols-2 items-stretch overflow-hidden">
         <Reveal className="relative min-h-[360px] lg:h-full overflow-hidden">
           {/* ambient ken-burns drift — slow perpetual zoom/pan */}
-          <Image src="/home/about-qs.webp" alt="Nhà máy QS Technology" fill
+          <Image src="/home/about-qs.webp" alt={t("about.imgAlt")} fill
                  sizes="(max-width:1024px) 100vw, 50vw" className="object-cover qs-kenburns" />
           {/* dark tint + seam blend into the text column on desktop */}
           <div className="absolute inset-0 bg-[#0a0a0a]/25"></div>
           <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-transparent via-transparent to-ink/95"></div>
           {/* live caption */}
           <div className="absolute left-6 bottom-6 flex items-center gap-2 font-mono text-[10px] tracking-[.18em] uppercase text-[#e8e6df]">
-            <span className="qs-live-dot" aria-hidden="true"></span>Nhà máy TP. Hồ Chí Minh
+            <span className="qs-live-dot" aria-hidden="true"></span>{t("about.caption")}
           </div>
         </Reveal>
         <div className="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
           <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)]" />
           <Reveal className="relative max-w-[640px]">
-            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">[ Về chúng tôi · Thành lập tại TP. Hồ Chí Minh ]</span>
-            <h2 className="qs-h2 text-white mt-3">Đôi nét về QS Technology Co., LTD.</h2>
+            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">{t("about.eyebrow")}</span>
+            <h2 className="qs-h2 text-white mt-3">{t("about.heading")}</h2>
             <p className="text-[#a8a499] text-base leading-[1.7] mt-5">
-              QS Technology Co., LTD. Chúng tôi tự hào là đơn vị tiên phong phát triển, ứng dụng và thương mại sản phẩm bộ điều khiển CNC “Made By Vietnam”. Sau nhiều năm phát triển, những sản phẩm mang thương hiệu QS Technology ngày càng nhận được nhiều sự tin tưởng, quan tâm từ khách hàng trong cũng như ngoài nước.
+              {t("about.p1")}
             </p>
             <p className="text-[#a8a499] text-base leading-[1.7] mt-4">
-              Bên cạnh đó, từ những thế mạnh và kinh nghiệm tích lũy sau nhiều năm hoạt động trong lĩnh vực chế tạo máy, hệ thống tự động hóa và board mạch điện tử, chúng tôi tự tin làm chủ phần công nghệ lõi, phát triển đa dạng và làm hài lòng những mong muốn của khách hàng.
+              {t("about.p2")}
             </p>
-            <Link className="qs-btn qs-btn-gold mt-8" href="/about">Xem thêm <span className="arr">→</span></Link>
+            <Link className="qs-btn qs-btn-gold mt-8" href="/about">{t("about.cta")} <span className="arr">→</span></Link>
           </Reveal>
         </div>
       </section>
@@ -377,10 +268,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Video · Đang phát sóng ]</span>
-                <h2 className="qs-h2 mt-3">Video bộ điều khiển QS</h2>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("showreel.eyebrow")}</span>
+                <h2 className="qs-h2 mt-3">{t("showreel.heading")}</h2>
               </div>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">Kênh YouTube <span className="arr">→</span></Link>
+              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">{t("showreel.youtube")} <span className="arr">→</span></Link>
             </div>
           </Reveal>
           <Reveal>
@@ -397,16 +288,16 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <div className="relative qs-wrap-wide py-14 lg:py-16 grid lg:grid-cols-[1fr_minmax(480px,620px)] gap-12 items-center">
           <Reveal>
             <h3 className="font-display font-bold text-white tracking-[-.015em] leading-[1.08] m-0"
-                style={{ fontSize: "clamp(30px,3.4vw,46px)" }}>Cần controller cho dòng máy đặc thù?</h3>
+                style={{ fontSize: "clamp(30px,3.4vw,46px)" }}>{t("cta.heading")}</h3>
             <p className="text-[#a8a499] mt-5 max-w-[60ch] text-base leading-[1.7]">
-              Thông qua việc tự chủ hoàn toàn về công nghệ — từ thiết kế, lập trình, xây dựng hệ điều hành đến sản xuất và bảo trì — chúng tôi linh hoạt và nhanh chóng trong việc phát triển sản phẩm mới, cải tiến sản phẩm và đáp ứng các yêu cầu đặc biệt của khách hàng.
+              {t("cta.body")}
             </p>
-            <Link className="qs-btn qs-btn-gold mt-8" href="/contact">Liên hệ ngay <span className="arr">→</span></Link>
+            <Link className="qs-btn qs-btn-gold mt-8" href="/contact">{t("cta.button")} <span className="arr">→</span></Link>
           </Reveal>
           <Reveal delay={120}>
             <div className="group relative border border-[#2a2620] overflow-hidden transition-colors duration-500 hover:border-gold-2/50">
               {/* ambient ken-burns drift — same slow perpetual zoom/pan as the About photo */}
-              <Image src="/home/cta-controller.webp" alt="Bộ điều khiển CNC QS" width={800} height={533}
+              <Image src="/home/cta-controller.webp" alt={t("cta.imgAlt")} width={800} height={533}
                      sizes="(max-width:1024px) 100vw, 620px"
                      className="w-full h-auto block qs-kenburns" />
               {/* gold inner glow lighting up on hover */}
@@ -425,10 +316,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>[ Tin tức · Quý 1/2026 ]</span>
-                <h2 className="qs-h2 mt-3">Tin tức &amp; sự kiện</h2>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("news.eyebrow")}</span>
+                <h2 className="qs-h2 mt-3">{t("news.heading")}</h2>
               </div>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">Xem tất cả <span className="arr">→</span></Link>
+              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">{t("news.viewAll")} <span className="arr">→</span></Link>
             </div>
           </Reveal>
           <Reveal>

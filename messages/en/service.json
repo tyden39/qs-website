@@ -16,5 +16,100 @@
     "tiers": "Pricing plans",
     "back": "Back to list",
     "ctaContact": "Contact us now"
+  },
+  "index": {
+    "breadcrumb": { "home": "Home", "current": "Services" },
+    "eyebrow": "Service · Manufacturing & Upgrades",
+    "heading1": "Manufacturing services",
+    "heading2": "& machine upgrades",
+    "lorem": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+    "machineStrip": ["Delta robot machine", "CNC milling machine", "Machining centre"],
+    "fabrication": {
+      "eyebrow": "[ Fabrication project ]",
+      "heading": "Fabrication project details",
+      "tag": "Case study",
+      "frameLabel": "Jewellery machining centre",
+      "projectTitle": "Building a jewellery machining centre",
+      "specsLabel": "Technical specifications",
+      "specs": [["Control axes", "5 axes"], ["Dimensions", "1800×700×1800 mm"], ["Controller", "Astro 10i"], ["I/O ports", "24/16"], ["Servo/Drive", "400W"]],
+      "details": ["Axis assembly detail", "Mechanical detail"]
+    },
+    "upgrade": {
+      "eyebrow": "[ Upgrade ]",
+      "heading": "Machine upgrade service",
+      "tag": "Before · After",
+      "before": "Before",
+      "after": "After",
+      "beforeFrame": "Machine before upgrade",
+      "afterFrame": "Machine after upgrade"
+    },
+    "form": {
+      "eyebrow": "[ Contact ]",
+      "heading": "Describe your requirement",
+      "name": "Full name *",
+      "phone": "Phone number *",
+      "email": "Email *",
+      "content": "Message",
+      "submit": "Submit request →"
+    }
+  },
+  "detailPage": {
+    "breadcrumb": { "home": "Home", "services": "Services" },
+    "heroLine3": "in 14 days.",
+    "surveyBtn": "Book a free survey →",
+    "pricingBtn": "View pricing",
+    "processEyebrow": "[ Process · 05 of 05 · 14 days ]",
+    "processHeading": "5 steps from survey to operation",
+    "includesEyebrow": "[ Service scope ]",
+    "includesHeading": "What's included and not included in the retrofit package",
+    "pricingEyebrow": "[ Reference pricing · 03 packages ]",
+    "pricingHeading": "Retrofit packages by machine tier",
+    "faqEyebrow": "[ FAQ · {name} ]",
+    "faqHeading": "Frequently asked questions about {name}",
+    "ctaBtn": "Book a survey →"
+  },
+  "detailData": {
+    "retrofit": {
+      "slug": "retrofit",
+      "number": "02 of 06",
+      "name": "Retrofit",
+      "hero": { "line1": "Retrofit CNC machines", "emphasis": "brand new", "line2": "from old to" },
+      "lede": "Replace legacy Fanuc/Siemens/Mitsubishi controllers with QS F-series or Astro. Keep the mechanics, motors, and electrical cabinet — only the electronics and HMI change. Save 70–80% versus buying a new machine, with a typical ROI under 18 months.",
+      "stats": [["Retrofitted", "240+ machines"], ["Lead time", "14 days"], ["Warranty", "24 months"]],
+      "process": [
+        { "num": 1, "day": "Day 0", "title": "On-site survey", "desc": "An FAE visits your workshop to measure the mechanics, check motors and the electrical cabinet, and list parts to keep or replace.", "duration": "Free · 1 session", "active": true },
+        { "num": 2, "day": "Day 1–3", "title": "Proposal & quote", "desc": "A detailed BOM-based quote, proposed wiring diagram, rollout schedule, and expected machine downtime.", "duration": "3 business days", "active": true },
+        { "num": 3, "day": "Day 4–8", "title": "Preparation & programming", "desc": "Prepare the controller, write custom firmware for your machine, and build the cabinet at the QS workshop — your machine keeps running.", "duration": "5 days in parallel", "active": true },
+        { "num": 4, "day": "Day 9–11", "title": "On-site installation", "desc": "Remove the old controller, install QS, wire it up, test the axes, and calibrate. 2 engineers stay on-site until it's done.", "duration": "3 days downtime" },
+        { "num": 5, "day": "Day 12–14", "title": "Training & acceptance", "desc": "Train the operators, run 12 real parts, and accept against the QS checklist. Handover with a 24-month warranty.", "duration": "3 days · 4 sessions" }
+      ],
+      "includesIntro": [
+        "QS has standardised its retrofit process across 240+ projects. You get a complete package — no worrying about missing parts or finding extra labour. The items below are standard; some machines may need additions.",
+        "For specialised machines (5-axis, bending, purpose-built), QS offers a dedicated package — please book a survey for an accurate quote."
+      ],
+      "includes": [
+        { "has": true, "name": "QS F-series or Astro controller", "note": "Chosen by axis count & precision needs", "tag": "Hardware" },
+        { "has": true, "name": "Servo drive + cable + connectors", "note": "Compatible with your existing motors", "tag": "Hardware" },
+        { "has": true, "name": "Reworked electrical cabinet", "note": "IEC-standard layout, Vietnamese labels", "tag": "Hardware" },
+        { "has": true, "name": "Machine-specific custom firmware", "note": "G-code macros, custom machining profiles", "tag": "Software" },
+        { "has": true, "name": "Wiring diagram & cabinet drawings", "note": "Vietnamese PDF + AutoCAD source", "tag": "Documents" },
+        { "has": true, "name": "4 training sessions for operators", "note": "QS certificate included", "tag": "Training" },
+        { "has": true, "name": "24-month hardware warranty", "note": "+ lifetime firmware updates", "tag": "Warranty" },
+        { "has": false, "name": "Motor & ball-screw replacement", "note": "Quoted separately if needed", "tag": "Optional" },
+        { "has": false, "name": "Spindle & ATC replacement", "note": "Quoted separately if needed", "tag": "Optional" }
+      ],
+      "packages": [
+        { "name": "[ Pkg · Basic ]", "title": "Old 3-axis milling", "price": "78M", "priceNote": "Per machine · F54 controller · incl. VAT", "features": ["QS F54 controller · 5\" display", "3 basic servo drives", "Standard cabinet", "Standard firmware", "2 training sessions", "12-month warranty", "Lead time 10 days"], "cta": "Get a detailed quote →" },
+        { "name": "[ Pkg · Pro · most popular ]", "title": "4–6-axis milling", "price": "185M", "priceNote": "Per machine · F86 / Astro 6AH · incl. VAT", "features": ["QS F86 or Astro 6AH controller", "6 closed-loop servo drives", "Custom cabinet + IP54", "Custom firmware", "EtherCAT bus + MES gateway", "4 training sessions + certificate", "24-month warranty", "Lead time 14 days"], "cta": "Book a survey →", "featured": true },
+        { "name": "[ Pkg · Premium ]", "title": "5-axis / moulds", "price": "320M+", "priceNote": "Per machine · Astro 10i · custom quote", "features": ["Astro 10i flagship controller", "Yaskawa Σ-7 closed-loop servo", "Full industrial cabinet", "RTCP, advanced look-ahead", "EtherCAT + MES integration", "6 training sessions at QS", "Premium 24/7 SLA", "Lead time 21 days"], "cta": "Get a detailed quote →" }
+      ],
+      "faqs": [
+        { "q": "Can a 15-year-old machine be retrofitted?", "a": "Yes, if the mechanics (rails, ball-screws) still hold acceptable tolerances. QS measures during the survey and advises — sometimes ball-screws need replacing first for the retrofit to be worthwhile." },
+        { "q": "Can I keep my old G-code programs?", "a": "Yes. QS provides post-processors for most legacy formats (Fanuc, Siemens 840D) with automatic conversion. Complex macros may need minor tweaks — engineers help free of charge for 30 days." },
+        { "q": "What is the actual downtime?", "a": "On average 3 business days. If the machine is a line bottleneck, QS can work evening and weekend shifts to cut it to 36–48h, with a 15% surcharge." },
+        { "q": "Can I still use Mastercam as before after the retrofit?", "a": "Yes. QS provides a Mastercam post-processor (2023+) free of charge. The CAM programmer's workflow barely changes — only the .pst file is swapped." }
+      ],
+      "cta": { "title": "Book an on-site survey — free, no obligation", "desc": "A QS FAE will visit your workshop within 5 business days. You'll receive a detailed quote and a concrete downtime plan within 3 days afterward." }
+    }
   }
 }

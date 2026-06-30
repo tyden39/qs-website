@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { services } from "@/data/services";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { services, type Service } from "@/data/services";
 import { getServiceBySlug, getServiceSlugs } from "@/lib/data/services";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildService, buildFAQPage, JsonLd } from "@/lib/seo/jsonld";
@@ -21,12 +22,15 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  // Try DB first, fall back to static data name
+  // Try DB first, then localized static content, then the raw static data file.
   const dbService = await getServiceBySlug(slug, locale);
+  const tData = await getTranslations({ locale, namespace: "service.detailData" });
+  const localized = tData.has(slug) ? (tData.raw(slug) as Service) : undefined;
   const staticService = services.find((x) => x.slug === slug);
-  const title = dbService?.title ?? staticService?.name ?? slug;
+  const title = dbService?.title ?? localized?.name ?? staticService?.name ?? slug;
   const description =
     dbService?.hero.subhead?.slice(0, 160) ??
+    localized?.lede?.slice(0, 160) ??
     staticService?.lede?.slice(0, 160) ??
     "";
   return {
@@ -47,7 +51,13 @@ export async function generateMetadata({
 
 export default async function ServiceDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
-  const s = services.find(x => x.slug === slug);
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "service.detailPage" });
+  const tData = await getTranslations({ locale, namespace: "service.detailData" });
+  // Prefer the locale-aware content; fall back to the raw static data file.
+  const s: Service | undefined = tData.has(slug)
+    ? (tData.raw(slug) as Service)
+    : services.find(x => x.slug === slug);
   if (!s) notFound();
 
   // Fetch DB service for structured data (may be null if not yet in DB)
@@ -70,8 +80,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-16 items-start">
             <div>
               <nav className="qs-crumb">
-                <Link href="/">Home</Link><span className="sep">/</span>
-                <Link href="/services">Dịch vụ</Link><span className="sep">/</span>
+                <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
+                <Link href="/services">{t("breadcrumb.services")}</Link><span className="sep">/</span>
                 <span className="here">{s.name}</span>
               </nav>
               <div className="qs-eyebrow mt-3">Service · {s.number}</div>
@@ -79,12 +89,12 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
                   style={{ fontSize: "clamp(48px, 6vw, 80px)" }}>
                 {s.hero.line1}<br/>
                 {s.hero.line2} <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{s.hero.emphasis}</em><br/>
-                trong 14 ngày.
+                {t("heroLine3")}
               </h1>
               <p className="text-[17px] leading-[1.7] text-[#3a3a3a] max-w-[55ch] mt-6">{s.lede}</p>
               <div className="flex gap-3 mt-7">
-                <Link className="qs-btn qs-btn-gold" href="/contact">Đặt khảo sát miễn phí →</Link>
-                <Link className="qs-btn qs-btn-ghost" href="#pricing">Xem báo giá</Link>
+                <Link className="qs-btn qs-btn-gold" href="/contact">{t("surveyBtn")}</Link>
+                <Link className="qs-btn qs-btn-ghost" href="#pricing">{t("pricingBtn")}</Link>
               </div>
               <div className="mt-9 grid grid-cols-3 gap-8 pt-6 border-t border-line">
                 {s.stats.map(([l, v]) => (
@@ -135,8 +145,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       <section className="py-24 bg-white">
         <div className="max-w-wrap mx-auto px-12">
           <div className="mb-10 pb-4 border-b border-line">
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Quy trình · 05 of 05 · 14 ngày ]</span>
-            <h2 className="qs-h2 mt-1.5 max-w-[24ch]">5 bước từ khảo sát đến vận hành</h2>
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("processEyebrow")}</span>
+            <h2 className="qs-h2 mt-1.5 max-w-[24ch]">{t("processHeading")}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-line border border-line relative">
             {s.process.map(step => (
@@ -159,9 +169,9 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       <section className="py-24 bg-paper border-t border-line">
         <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_1.2fr] gap-16 items-start">
           <div>
-            <span className="qs-eyebrow">[ Phạm vi dịch vụ ]</span>
+            <span className="qs-eyebrow">{t("includesEyebrow")}</span>
             <h2 className="font-display text-[32px] font-bold tracking-[-.015em] mt-2 mb-4 leading-[1.1]">
-              Những gì có và không có trong gói retrofit
+              {t("includesHeading")}
             </h2>
             {s.includesIntro.map((p, i) => (
               <p key={i} className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0 mb-4">{p}</p>
@@ -192,8 +202,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       <section className="py-24 bg-white" id="pricing">
         <div className="max-w-wrap mx-auto px-12">
           <div className="text-center mb-10">
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Báo giá tham khảo · 03 gói ]</span>
-            <h2 className="qs-h2 mt-1.5">Gói retrofit theo cấp máy</h2>
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("pricingEyebrow")}</span>
+            <h2 className="qs-h2 mt-1.5">{t("pricingHeading")}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-px bg-line border border-line">
             {s.packages.map(pkg => (
@@ -228,8 +238,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       <section className="py-20 bg-paper border-t border-line">
         <div className="max-w-wrap mx-auto px-12">
           <div className="mb-6 pb-4 border-b border-line">
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ FAQ · {s.name} ]</span>
-            <h2 className="font-display text-[28px] font-bold tracking-[-.01em] mt-1.5">Câu hỏi thường gặp về {s.name.toLowerCase()}</h2>
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("faqEyebrow", { name: s.name })}</span>
+            <h2 className="font-display text-[28px] font-bold tracking-[-.01em] mt-1.5">{t("faqHeading", { name: s.name.toLowerCase() })}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-px bg-line border border-line">
             {s.faqs.map((f, i) => (
@@ -251,7 +261,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
               <h3 className="font-display font-bold text-[28px] text-white tracking-[-.01em] m-0">{s.cta.title}</h3>
               <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-sm">{s.cta.desc}</p>
             </div>
-            <Link className="qs-btn qs-btn-gold" href="/contact">Đặt khảo sát →</Link>
+            <Link className="qs-btn qs-btn-gold" href="/contact">{t("ctaBtn")}</Link>
           </div>
         </div>
       </section>

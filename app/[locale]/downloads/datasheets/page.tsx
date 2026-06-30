@@ -1,11 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllDatasheets } from "@/lib/data/datasheets";
 import { DatasheetRequestForm } from "../_components/datasheet-request-form";
 import type { Locale } from "@/lib/i18n/config";
 
-export const metadata = { title: "Datasheet kỹ thuật — Downloads — QS Technology" };
-
 type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "downloads" });
+  return { title: t("meta.datasheetsTitle") };
+}
 
 function fmtBytes(b: number): string {
   if (b === 0) return "—";
@@ -18,11 +24,16 @@ function fmtDate(d: Date | null): string {
   return new Date(d).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
-const langLabel: Record<string, string> = { vi: "Tiếng Việt", en: "English", both: "VN / EN" };
-
 export default async function DownloadsDatasheetsPage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "downloads.datasheets" });
   const datasheets = await getAllDatasheets(locale as Locale);
+  const langLabel: Record<string, string> = {
+    vi: t("lang.vi"),
+    en: t("lang.en"),
+    both: t("lang.both"),
+  };
 
   // Collect unique categories for filter display
   const categories = Array.from(new Set(datasheets.map((d) => d.category))).sort();
@@ -35,27 +46,27 @@ export default async function DownloadsDatasheetsPage({ params }: Props) {
         <div className="absolute inset-0 qs-grid-bg opacity-[.12]"></div>
         <div className="relative max-w-wrap mx-auto px-12 pt-9 pb-11">
           <div className="qs-crumb mb-5">
-            <Link href={`/${locale}`} className="!text-[#a8a499]">Trang chủ</Link>
+            <Link href={`/${locale}`} className="!text-[#a8a499]">{t("breadcrumb.home")}</Link>
             <span className="sep" style={{ color: "#5a5650" }}>/</span>
-            <Link href={`/${locale}/downloads`} className="!text-[#a8a499]">Tải tài liệu</Link>
+            <Link href={`/${locale}/downloads`} className="!text-[#a8a499]">{t("breadcrumb.downloads")}</Link>
             <span className="sep" style={{ color: "#5a5650" }}>/</span>
-            <span className="here !text-gold-2">Datasheet kỹ thuật</span>
+            <span className="here !text-gold-2">{t("breadcrumb.current")}</span>
           </div>
           <div className="grid grid-cols-[1fr_auto] gap-8 items-end">
             <div>
-              <div className="qs-eyebrow !text-gold-2">Document Library · Datasheets</div>
+              <div className="qs-eyebrow !text-gold-2">{t("eyebrow")}</div>
               <h1 className="font-display font-bold text-[48px] text-white tracking-[-.02em] m-0 mt-2">
-                Datasheet kỹ thuật
+                {t("heading")}
               </h1>
               <div className="mt-2.5 text-[#a8a499] text-[15px]">
-                Thông số chi tiết, sơ đồ chân và quy chuẩn lắp đặt cho từng model controller QS.
+                {t("description")}
               </div>
             </div>
             <div className="flex gap-8 text-right">
               {[
-                { v: String(datasheets.length), l: "Tài liệu" },
-                { v: "2026", l: "Phiên bản" },
-                { v: "VN/EN", l: "Ngôn ngữ" },
+                { v: String(datasheets.length), l: t("stats.docs") },
+                { v: "2026", l: t("stats.version") },
+                { v: "VN/EN", l: t("stats.lang") },
               ].map((s) => (
                 <div key={s.l}>
                   <div className="font-display text-[24px] font-bold text-gold-2">{s.v}</div>
@@ -74,13 +85,13 @@ export default async function DownloadsDatasheetsPage({ params }: Props) {
             {/* SIDEBAR FILTERS (static display — JS filtering is Phase 9+ enhancement) */}
             <aside>
               <span className="font-mono text-[10px] text-gold-3 tracking-[.16em] uppercase mb-3.5 block">
-                Danh mục
+                {t("sidebar.filter")}
               </span>
 
               {categories.length > 0 && (
                 <div className="border border-line bg-white mb-4">
                   <div className="px-4 py-3 border-b border-line font-mono text-[11px] text-ink tracking-[.12em] uppercase font-semibold">
-                    Danh mục
+                    {t("sidebar.category")}
                   </div>
                   <ul className="list-none py-2 m-0">
                     {categories.map((cat) => (
@@ -98,7 +109,7 @@ export default async function DownloadsDatasheetsPage({ params }: Props) {
               {series.length > 0 && (
                 <div className="border border-line bg-white mb-4">
                   <div className="px-4 py-3 border-b border-line font-mono text-[11px] text-ink tracking-[.12em] uppercase font-semibold">
-                    Dòng sản phẩm
+                    {t("sidebar.series")}
                   </div>
                   <ul className="list-none py-2 m-0">
                     {series.map((s) => (
@@ -118,14 +129,14 @@ export default async function DownloadsDatasheetsPage({ params }: Props) {
             <main>
               {datasheets.length === 0 ? (
                 <div className="border border-line bg-paper p-12 text-center">
-                  <p className="text-muted text-sm m-0">Chưa có datasheet nào được công bố.</p>
+                  <p className="text-muted text-sm m-0">{t("empty")}</p>
                 </div>
               ) : (
                 <>
                   {/* toolbar */}
                   <div className="flex justify-between items-center px-5 py-3.5 bg-paper border border-line mb-5">
                     <span className="font-mono text-[11px] text-muted tracking-[.1em]">
-                      Hiển thị <b className="text-ink font-semibold">{datasheets.length}</b> tài liệu
+                      {t("toolbar.showing", { count: datasheets.length })}
                     </span>
                   </div>
 
@@ -133,7 +144,7 @@ export default async function DownloadsDatasheetsPage({ params }: Props) {
                   <table className="w-full border-collapse bg-white border border-line text-sm">
                     <thead>
                       <tr className="bg-[#0e0e0c] text-[#cfc9b8]">
-                        {["Tên tài liệu", "Dòng", "Ngôn ngữ", "Phiên bản", "Dung lượng", "Tải về"].map(
+                        {[t("table.name"), t("table.series"), t("table.lang"), t("table.version"), t("table.size"), t("table.download")].map(
                           (h, i) => (
                             <th
                               key={h}

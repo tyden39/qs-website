@@ -14,5 +14,69 @@
     "specs": "Technical specifications",
     "deployments": "Real-world deployments",
     "back": "Back to list"
+  },
+  "index": {
+    "breadcrumb": { "home": "Home", "current": "Applications" },
+    "eyebrow": "Industrial Applications",
+    "heading": "Applications",
+    "lede": "QS controllers run across eight different machining categories — from metal milling to spring bending, gluing, and food processing. Each case study is its own engineering challenge.",
+    "catalogEyebrow": "[ Catalog · 01 / 02 ]",
+    "catalogHeading": "Industrial Applications",
+    "caseStudies": "7 / 14 case studies",
+    "controllerFor": "Controller for",
+    "detail": "Details",
+    "more": "more",
+    "items": [
+      { "t": "CNC Milling", "machine": "CNC Milling Machine" },
+      { "t": "Jigsaw", "machine": "Jigsaw Machine" },
+      { "t": "Gluing", "machine": "Gluing Machine" },
+      { "t": "Food", "machine": "Food Cutting Machine" },
+      { "t": "Spring", "machine": "Spring Bending Machine" },
+      { "t": "Tenon", "machine": "Tenoning Machine" },
+      { "t": "Jewellery", "machine": "Jewellery Machine" }
+    ]
+  },
+  "detailPage": {
+    "breadcrumb": { "home": "Home", "applications": "Applications" },
+    "appLabel": "[ Application · {idx} / 14 ]",
+    "heroLine1": "Controller",
+    "heroForPrefix": "for",
+    "heroLede": "CNC milling machines use rotating cutting tools to remove material from a workpiece — machining complex custom parts with high precision and high volume for moulds, mechanical components, and medical devices.",
+    "heroStats": [["3–6", "Axes"], ["±0.005", "Precision (mm)"], ["14k", "Speed (RPM)"]],
+    "workflowEyebrow": "[ Workflow · 4 steps ]",
+    "workflowHeading": "Operation workflow",
+    "workflowLede": "The QS controller handles the entire chain from CAD/CAM file import to servo control and cycle monitoring. The four steps below describe the typical data and signal flow of a 3-axis milling machine.",
+    "workflow": [
+      { "l": "Input · G-code", "t": "Load the machining program", "d": "NC files are loaded via USB, Ethernet, or DNC. The controller parses and simulates the toolpath on screen before the real run." },
+      { "l": "Plan · Path", "t": "Compute the servo trajectory", "d": "256-block look-ahead, S-curve acceleration, and tool-error compensation. The path is NURBS-smoothed for the best surface finish." },
+      { "l": "Drive · EtherCAT", "t": "Control servo & spindle", "d": "Pulse/encoder signals over 1 ms EtherCAT to the X/Y/Z axes and spindle inverter. The closed loop checks position every cycle." },
+      { "l": "Monitor · HMI", "t": "Monitoring & alarms", "d": "The HMI shows coordinates, speed, spindle current, and alarms. Cycle data is logged for traceability and OEE." }
+    ],
+    "specEyebrow": "[ Specification ]",
+    "specHeading": "Reference specifications",
+    "specLede": "A typical configuration for a mid-size 3-axis milling machine using the QS Astro 6AH controller — suited to moulds and precision mechanical components.",
+    "specBtn1": "View the matching controller",
+    "specBtn2": "Download datasheet ↓",
+    "specs": [
+      ["Axes", "3 axes (X / Y / Z) — expandable to 4–6"],
+      ["Travel", "600 × 400 × 320 mm"],
+      ["Precision", "±0.005 mm"],
+      ["Feed rate", "10 000 mm/min"],
+      ["Spindle speed", "14 000 RPM"],
+      ["Controller", "QS Astro 6AH · 8\" HMI"],
+      ["Interfaces", "EtherCAT · USB · Ethernet · RS-232"]
+    ],
+    "deployEyebrow": "[ Field deployment ]",
+    "deployHeading": "Deployed at",
+    "deployCount": "3 of 14 projects",
+    "deployments": [
+      { "name": "Cơ khí Tân Bình", "loc": "HCMC · 2024 · 12 Astro 6AH 3-axis milling machines for an automotive-component line." },
+      { "name": "Khuôn mẫu Hà Nam", "loc": "Ha Nam · 2025 · A 5-axis system with F10T Touch for high-tech plastic moulds." },
+      { "name": "Y khoa Đồng Nai", "loc": "Dong Nai · 2024 · 6 Astro 10i medical milling machines for titanium implant machining." }
+    ],
+    "relatedEyebrow": "[ Next ]",
+    "relatedHeading": "Related applications",
+    "backAll": "← All applications",
+    "relatedAppLabel": "Application"
   }
 }

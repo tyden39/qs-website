@@ -1,0 +1,18 @@
+{
+  "forbidden": {
+    "metaTitle": "Forbidden — QS Technology",
+    "tag": "[ 403 ]",
+    "heading": "You don't have access",
+    "body": "Your current account is not authorized for this area. Contact an administrator if you think this is a mistake.",
+    "home": "Back to home",
+    "login": "Sign in again"
+  },
+  "notFound": {
+    "metaTitle": "404 — Page not found | QS Technology",
+    "tag": "Error · E.NF.404",
+    "heading": "Page not found",
+    "body": "The URL you requested isn't in the QS Technology sitemap — it may have been moved, renamed, or the address was mistyped.",
+    "home": "← Back to home",
+    "contact": "Contact"
+  }
+}

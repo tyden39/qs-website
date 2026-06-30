@@ -1,0 +1,69 @@
+{
+  "metaTitle": "Giới thiệu — QS Technology",
+  "hero": {
+    "eyebrow": "Về chúng tôi · Est. 2014",
+    "heading1": "Mười hai năm",
+    "heading2": "chế tạo controller",
+    "heading3": "tại Việt Nam.",
+    "lede": "QS Technology được thành lập năm 2014 tại TP.HCM bởi nhóm kỹ sư điện tử và cơ khí với mục tiêu tự chủ phần cứng điều khiển CNC cho ngành cơ khí chính xác trong nước. Hôm nay, sáu dòng controller QS đang vận hành trên hơn 800 dây chuyền sản xuất.",
+    "profileNote": "Hồ sơ năng lực · Cập nhật Q1/2026"
+  },
+  "story": {
+    "tag": "[ 01 ]",
+    "heading": "Câu chuyện QS",
+    "p1": "Năm 2014, ba kỹ sư của một xưởng cơ khí tại Tân Bình quyết định viết firmware riêng cho máy phay CNC sau khi controller nhập khẩu hỏng và phải chờ linh kiện nửa năm. Dòng F-series ra đời từ chính nhu cầu thực tế đó.",
+    "p2": "Sau hai năm phát triển, controller F54 đầu tiên được lắp đặt tại một xưởng làm cửa nhôm ở TP. Hồ Chí Minh — và vận hành liên tục đến hôm nay. Từ một sản phẩm ban đầu, QS mở rộng sang Astro-series cho dây chuyền tự động hoá, rồi servo motor và board mở rộng để cung cấp giải pháp trọn gói.",
+    "p3": "Hôm nay, QS Technology có nhà máy 4.200 m² tại TP. Hồ Chí Minh, đội R&D 18 kỹ sư và mạng lưới đối tác triển khai phủ khắp 35 tỉnh thành. Triết lý không đổi: ",
+    "p3strong": "phần cứng do mình thiết kế, firmware do mình viết, hỗ trợ kỹ thuật trực tiếp tại Việt Nam."
+  },
+  "timeline": {
+    "eyebrow": "[ 02 · 12 năm phát triển ]",
+    "heading": "Mốc thời gian",
+    "items": [
+      ["2014", "Khởi nghiệp", "Thành lập QS tại TP.HCM"],
+      ["2016", "Sản phẩm đầu", "F54 ra mắt — 1 trục, 5\""],
+      ["2018", "Mở rộng", "F86 — controller 6 trục đầu tiên"],
+      ["2020", "R&D mới", "Astro-series vòng kín ra mắt"],
+      ["2023", "Nhà máy", "Khánh thành plant TP. Hồ Chí Minh 4,200m²"],
+      ["2026", "Hôm nay", "800+ hệ thống · 14 ứng dụng · 35 tỉnh"]
+    ]
+  },
+  "values": {
+    "eyebrow": "[ 03 · Triết lý ]",
+    "heading": "Ba điều QS không thay đổi",
+    "items": [
+      { "t": "Tự chủ phần cứng", "d": "Mọi controller QS đều do đội kỹ sư trong nước thiết kế PCB, lựa chọn linh kiện và viết firmware. Không phụ thuộc supply chain nước ngoài cho lõi sản phẩm." },
+      { "t": "Hỗ trợ tại chỗ", "d": "Đội kỹ thuật QS có mặt trong vòng 24h tại 35 tỉnh thành. Khách hàng nói chuyện trực tiếp với người viết firmware, không qua đại lý trung gian." },
+      { "t": "Bảo hành dài", "d": "Bảo hành 24 tháng cho phần cứng, hỗ trợ firmware miễn phí trọn đời sản phẩm. Linh kiện thay thế luôn sẵn ít nhất 8 năm sau khi ngừng sản xuất." }
+    ]
+  },
+  "factory": {
+    "eyebrow": "[ 04 · Nhà máy TP. Hồ Chí Minh ]",
+    "heading1": "Sản xuất trong nước,",
+    "heading2": "kiểm soát đến từng PCB.",
+    "figCaption": "FIG · FACTORY · BINH DUONG · 4,200 m²",
+    "stats": [
+      ["Diện tích", "4,200 m²"],
+      ["Số chuyền SMT", "02 dây"],
+      ["Công suất tháng", "~ 1,800 bo"],
+      ["Burn-in", "100% sản phẩm"],
+      ["Chứng nhận", "ISO 9001:2015"],
+      ["Nhân lực", "62 người"]
+    ]
+  },
+  "leaders": {
+    "eyebrow": "[ 05 · Lãnh đạo ]",
+    "heading": "Đội ngũ điều hành",
+    "items": [
+      { "name": "Nguyễn Quang Huy", "role": "Founder / CEO", "bio": "Kỹ sư điện tử, 18 năm kinh nghiệm thiết kế hệ thống nhúng. Đồng tác giả firmware F-series và Astro-series." },
+      { "name": "Lê Thanh Mai", "role": "CTO / R&D Lead", "bio": "Tốt nghiệp Bách khoa Hà Nội, từng phát triển PLC cho Mitsubishi VN. Chịu trách nhiệm Astro-series." },
+      { "name": "Trần Đức Tâm", "role": "Plant Director", "bio": "Phụ trách nhà máy TP. Hồ Chí Minh, 12 năm trong sản xuất điện tử. Chứng chỉ Lean Six Sigma Black Belt." },
+      { "name": "Phạm Vĩ Khang", "role": "Head of Field Service", "bio": "Quản lý đội triển khai 24 kỹ sư phủ 35 tỉnh thành. SLA hỗ trợ tại chỗ trong 24 giờ." }
+    ]
+  },
+  "cta": {
+    "heading": "Muốn ghé thăm nhà máy QS?",
+    "body": "Nhà máy mở cho khách hàng và đối tác đặt lịch thăm quan vào thứ 3 và thứ 5 hàng tuần. Đăng ký trước 7 ngày.",
+    "button": "Đặt lịch thăm quan →"
+  }
+}

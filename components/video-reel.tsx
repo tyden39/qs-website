@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export type VideoItem = {
   /** YouTube video id, e.g. "dQw4w9WgXcQ" — drives the poster, embed, and watch link. */
@@ -35,6 +36,7 @@ const poster = (id: string, size: "max" | "hq" | "mq") => {
  * progress). First clip renders on the server for the initial HTML.
  */
 export default function VideoReel({ items }: { items: VideoItem[] }) {
+  const t = useTranslations("home.showreel");
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [animate, setAnimate] = useState(true);
@@ -93,7 +95,7 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
             <button
               type="button"
               onClick={() => setPlaying(false)}
-              aria-label="Đóng video"
+              aria-label={t("closeVideo")}
               className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full grid place-items-center bg-ink/70 text-white border border-white/20 hover:bg-ink transition-colors"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
@@ -134,7 +136,7 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
             <button
               type="button"
               onClick={() => setPlaying(true)}
-              aria-label={`Phát video: ${feat.title}`}
+              aria-label={`${t("playVideo")}: ${feat.title}`}
               className="qs-play absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full grid place-items-center cursor-pointer text-ink transition-transform duration-200 hover:scale-105"
               style={{ background: "rgba(232,200,120,.96)" }}
             >
@@ -152,7 +154,7 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
       <div className="flex flex-col">
         <div className="relative flex items-center justify-between pb-3 mb-1 border-b border-line">
           <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true" />
-          <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot" />Danh sách phát</span>
+          <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot" />{t("playlist")}</span>
           <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">{String(items.length).padStart(2, "0")} video</span>
         </div>
         {items.map((v, i) => (
@@ -177,7 +179,7 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
             </span>
             <div className="min-w-0">
               <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1 group-data-[active=true]:text-gold-1 transition-colors">
-                {i === active ? "▶ Đang phát" : "Video"}{v.duration ? ` · ${v.duration}` : ""}
+                {i === active ? t("nowPlaying") : t("video")}{v.duration ? ` · ${v.duration}` : ""}
               </span>
               <h4 className="font-display font-semibold text-[14px] leading-[1.35] m-0 tracking-[-.005em] text-ink line-clamp-2 transition-colors group-hover:text-gold-1 group-data-[active=true]:text-gold-1">{v.title}</h4>
             </div>

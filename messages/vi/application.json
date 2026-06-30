@@ -14,5 +14,69 @@
     "specs": "Thông số kỹ thuật",
     "deployments": "Triển khai thực tế",
     "back": "Quay lại danh sách"
+  },
+  "index": {
+    "breadcrumb": { "home": "Trang chủ", "current": "Ứng dụng" },
+    "eyebrow": "Industrial Applications",
+    "heading": "Ứng Dụng",
+    "lede": "Bộ điều khiển QS đang vận hành trong tám loại máy gia công khác nhau — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm. Mỗi case study là một bài toán kỹ thuật riêng.",
+    "catalogEyebrow": "[ Catalog · 01 / 02 ]",
+    "catalogHeading": "Ứng Dụng Công Nghiệp",
+    "caseStudies": "7 / 14 case studies",
+    "controllerFor": "Bộ điều khiển cho",
+    "detail": "Chi tiết",
+    "more": "more",
+    "items": [
+      { "t": "Phay CNC", "machine": "Máy Phay CNC" },
+      { "t": "Cưa Lọng", "machine": "Máy Cưa Lọng" },
+      { "t": "Dán Keo", "machine": "Máy Dán Keo" },
+      { "t": "Thực Phẩm", "machine": "Máy Cắt Thực Phẩm" },
+      { "t": "Lò Xo", "machine": "Máy Uốn Lò Xo" },
+      { "t": "Mộng Gỗ", "machine": "Máy Làm Mộng" },
+      { "t": "Kim Hoàn", "machine": "Máy Kim Hoàn" }
+    ]
+  },
+  "detailPage": {
+    "breadcrumb": { "home": "Trang chủ", "applications": "Ứng dụng" },
+    "appLabel": "[ Application · {idx} / 14 ]",
+    "heroLine1": "Bộ điều khiển",
+    "heroForPrefix": "cho",
+    "heroLede": "Máy phay CNC sử dụng các công cụ cắt xoay để loại bỏ vật liệu khỏi phôi — gia công các bộ phận tùy chỉnh phức tạp với độ chính xác cao và sản lượng lớn cho khuôn mẫu, linh kiện cơ khí và thiết bị y tế.",
+    "heroStats": [["3–6", "Số trục"], ["±0.005", "Độ chính xác (mm)"], ["14k", "Tốc độ (RPM)"]],
+    "workflowEyebrow": "[ Workflow · 4 steps ]",
+    "workflowHeading": "Quy trình vận hành",
+    "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi từ nhập file CAD/CAM đến điều khiển servo và giám sát chu trình. Bốn bước dưới đây mô tả luồng dữ liệu và tín hiệu điển hình của một máy phay 3 trục.",
+    "workflow": [
+      { "l": "Input · G-code", "t": "Nhập chương trình gia công", "d": "File NC được nạp qua USB, Ethernet hoặc DNC. Bộ điều khiển phân tích và mô phỏng đường chạy dao trên màn hình trước khi chạy thật." },
+      { "l": "Plan · Path", "t": "Tính toán quỹ đạo servo", "d": "Look-ahead 256 block, gia tốc S-curve và bù sai số dao. Quỹ đạo được làm mượt theo NURBS để đạt finish bề mặt tốt nhất." },
+      { "l": "Drive · EtherCAT", "t": "Điều khiển servo & spindle", "d": "Tín hiệu xung/encoder qua EtherCAT 1ms tới các trục X/Y/Z và biến tần spindle. Vòng kín kiểm tra vị trí từng chu kỳ." },
+      { "l": "Monitor · HMI", "t": "Giám sát & báo lỗi", "d": "HMI hiển thị tọa độ, tốc độ, dòng spindle, alarm. Dữ liệu chu trình ghi log để phục vụ truy xuất nguồn gốc và OEE." }
+    ],
+    "specEyebrow": "[ Specification ]",
+    "specHeading": "Thông số kỹ thuật tham khảo",
+    "specLede": "Cấu hình điển hình cho một dòng máy phay 3 trục cỡ trung dùng controller QS Astro 6AH — phù hợp gia công khuôn mẫu, linh kiện cơ khí chính xác.",
+    "specBtn1": "Xem controller phù hợp",
+    "specBtn2": "Tải datasheet ↓",
+    "specs": [
+      ["Số trục", "3 trục (X / Y / Z) — mở rộng 4–6 trục"],
+      ["Hành trình", "600 × 400 × 320 mm"],
+      ["Độ chính xác", "±0.005 mm"],
+      ["Tốc độ chạy dao", "10 000 mm/min"],
+      ["Tốc độ spindle", "14 000 RPM"],
+      ["Bộ điều khiển", "QS Astro 6AH · 8\" HMI"],
+      ["Giao tiếp", "EtherCAT · USB · Ethernet · RS-232"]
+    ],
+    "deployEyebrow": "[ Field deployment ]",
+    "deployHeading": "Đã triển khai tại",
+    "deployCount": "3 of 14 dự án",
+    "deployments": [
+      { "name": "Cơ khí Tân Bình", "loc": "HCM · 2024 · 12 máy phay 3 trục Astro 6AH cho dây chuyền linh kiện ô tô." },
+      { "name": "Khuôn mẫu Hà Nam", "loc": "Hà Nam · 2025 · Hệ thống 5 trục với F10T Touch cho khuôn nhựa kỹ thuật cao." },
+      { "name": "Y khoa Đồng Nai", "loc": "Đồng Nai · 2024 · 6 máy phay y tế Astro 10i cho gia công implant Titan." }
+    ],
+    "relatedEyebrow": "[ Next ]",
+    "relatedHeading": "Ứng dụng liên quan",
+    "backAll": "← Tất cả ứng dụng",
+    "relatedAppLabel": "Application"
   }
 }

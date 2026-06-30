@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/navigation";
 import CircuitTraces from "@/components/circuit-traces";
 
@@ -35,6 +36,7 @@ const INTERVAL = 7000; // ms each slide stays before auto-advancing
  * the server so crawlers and no-JS visitors still get a real <h1> + spec sheet.
  */
 export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
+  const t = useTranslations("home");
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [animate, setAnimate] = useState(true);
@@ -76,7 +78,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
     <section
       ref={rootRef}
       aria-roledescription="carousel"
-      aria-label="Bộ điều khiển nổi bật"
+      aria-label={t("hero.regionAria")}
       onKeyDown={onKeyDown}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -123,8 +125,8 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             {s.desc}
           </p>
           <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-9 qs-rise" style={rise(500)}>
-            <Link className="qs-btn qs-btn-gold" href={s.href}>Thông tin chi tiết <span className="arr">→</span></Link>
-            <Link className="qs-btn bg-transparent border border-[#3a352c] text-[#e8e6df] hover:bg-white hover:text-ink hover:border-white" href="/products">Xem toàn bộ controller</Link>
+            <Link className="qs-btn qs-btn-gold" href={s.href}>{t("hero.detailCta")} <span className="arr">→</span></Link>
+            <Link className="qs-btn bg-transparent border border-[#3a352c] text-[#e8e6df] hover:bg-white hover:text-ink hover:border-white" href="/products">{t("hero.allCta")}</Link>
           </div>
         </div>
 
@@ -136,7 +138,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
               <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-3/4" style={{ background: "radial-gradient(ellipse 56% 58% at 50% 100%, rgba(232,200,120,.34), transparent 70%)" }} />
               <Image
                 src={s.img}
-                alt={`Bộ điều khiển CNC QS ${s.name}`}
+                alt={`${t("hero.imgAltPrefix")} ${s.name}`}
                 fill
                 sizes="(max-width:1024px) 90vw, 456px"
                 priority={active === 0}

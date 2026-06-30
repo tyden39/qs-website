@@ -1,0 +1,18 @@
+{
+  "forbidden": {
+    "metaTitle": "Không có quyền — QS Technology",
+    "tag": "[ 403 ]",
+    "heading": "Bạn không có quyền truy cập",
+    "body": "Tài khoản hiện tại không có quyền vào khu vực này. Liên hệ quản trị viên nếu bạn nghĩ đây là lỗi.",
+    "home": "Về trang chủ",
+    "login": "Đăng nhập lại"
+  },
+  "notFound": {
+    "metaTitle": "404 — Không tìm thấy trang | QS Technology",
+    "tag": "Error · E.NF.404",
+    "heading": "Không tìm thấy trang",
+    "body": "URL bạn vừa truy cập không có trong sơ đồ trang của QS Technology — có thể đã được di chuyển, đổi tên, hoặc bạn gõ sai địa chỉ.",
+    "home": "← Về trang chủ",
+    "contact": "Liên hệ"
+  }
+}

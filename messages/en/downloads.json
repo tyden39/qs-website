@@ -4,6 +4,7 @@
     "datasheetsTitle": "Technical Datasheets — Downloads — QS Technology"
   },
   "datasheets": {
+    "breadcrumb": { "home": "Home", "downloads": "Downloads", "current": "Technical Datasheets" },
     "eyebrow": "Document Library · Datasheets",
     "heading": "Technical Datasheets",
     "description": "Detailed specifications, pin diagrams, and installation standards for each QS controller model.",
@@ -34,6 +35,54 @@
       "both": "VN / EN"
     },
     "empty": "No datasheets have been published yet."
+  },
+  "index": {
+    "breadcrumb": { "home": "Home", "current": "Documents" },
+    "hero": {
+      "eyebrow": "Document centre · 2026",
+      "heading1": "Catalogue,",
+      "headingEm": "datasheet",
+      "heading3": "& firmware",
+      "lede": "All of QS Technology's technical documentation — controller-line catalogues, per-model datasheets, operation manuals, the latest firmware, and CAD installation drawings.",
+      "searchPlaceholder": "Search datasheets, firmware, catalogues…",
+      "searchBtn": "Search ↵"
+    },
+    "categories": {
+      "eyebrow": "[ Installation · 04 documents ]",
+      "heading": "Installation documents",
+      "updated": "Updated 03/2026",
+      "items": [
+        { "lbl": "24 docs", "type": "PDF", "t": "Full catalogue", "d": "The complete catalogue of all 6 F-series and Astro-series controller lines — Vietnamese and English editions.", "cta": "View 24 documents" },
+        { "lbl": "38 docs", "type": "PDF", "t": "Technical datasheets", "d": "Detailed specs per model: I/O, voltage, dimensions, and pin diagrams for servo and inverter connections.", "cta": "View 38 documents" },
+        { "lbl": "16 docs", "type": "PDF", "t": "Operation manuals", "d": "Manuals for operators: HMI operation, parameter setup, and handling common alarms.", "cta": "View 16 documents" },
+        { "lbl": "22 files", "type": "FW · CAD", "t": "Firmware & CAD", "d": "The latest firmware for each model, plus DXF/STEP drawings for integration into machine cabinets.", "cta": "View 22 files" }
+      ]
+    },
+    "featured": {
+      "eyebrow": "[ Operation · 03 documents ]",
+      "heading": "Operation documents",
+      "viewAll": "View all →",
+      "download": "Download ↓",
+      "items": [
+        { "type": "PDF", "size": "12.8 MB", "pages": "64 pages", "title": "QS 2026 Full Catalogue", "sub": "(Vietnamese)", "desc": "All 6 controller lines, application diagrams, a spec comparison table, and included accessories.", "code": "QS-CAT-2026-VN · v3.1" },
+        { "type": "PDF", "size": "2.4 MB", "pages": "16 pages", "title": "Astro 6AH", "sub": "Technical datasheet", "desc": "Pin diagrams, servo specs, mechanical dimensions, and cabinet installation standards.", "code": "QS-DS-A6AH · v2.4" },
+        { "type": "BIN", "size": "8.6 MB", "pages": "v2.1.4", "title": "Firmware F-series", "sub": "v2.1.4 (stable)", "desc": "Stable update for F54/F86/F10T with look-ahead improvements and a fix for alarm 27.", "code": "QS-FW-F-2.1.4 · 03/2026" }
+      ]
+    },
+    "plc": {
+      "tag": "[ PLC documents ]",
+      "heading": "PLC documents",
+      "body": "Some special documents — detailed wiring diagrams, sample ladder source, advanced troubleshooting — are provided exclusively to customers with a technical-service contract.",
+      "register": "Register an account",
+      "login": "Sign in"
+    },
+    "macro": {
+      "tag": "[ Macro documents ]",
+      "heading": "Macro documents",
+      "body": "Need a specific document that isn't in the public library — EPLAN drawings, sample G-code, demo videos? The QS technical team will email it within 24 hours.",
+      "request": "Request a document",
+      "contact": "Contact engineering"
+    }
   },
   "request": {
     "emailLabel": "Enter email to download",

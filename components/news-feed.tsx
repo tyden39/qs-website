@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/navigation";
 
 export type NewsItem = {
@@ -32,6 +33,7 @@ const INTERVAL = 5500; // ms each story stays featured before auto-advancing
  * server so the lead headline + cover are in the initial HTML.
  */
 export default function NewsFeed({ items }: { items: NewsItem[] }) {
+  const t = useTranslations("news.feed");
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [animate, setAnimate] = useState(true);
@@ -106,8 +108,8 @@ export default function NewsFeed({ items }: { items: NewsItem[] }) {
       <div className="flex flex-col">
         <div className="relative flex items-center justify-between pb-3 mb-1 border-b border-line">
           <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true" />
-          <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot" />Tin mới nhất</span>
-          <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">{String(items.length).padStart(2, "0")} bản tin</span>
+          <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot" />{t("latest")}</span>
+          <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">{String(items.length).padStart(2, "0")} {t("bulletins")}</span>
         </div>
         {items.map((n, i) => (
           <Link

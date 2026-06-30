@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import CircuitTraces from "./circuit-traces";
 
 /* Monochrome glyphs — the gold circle is provided by the .qs-foot-ic badge. */
@@ -9,7 +10,8 @@ const pin =`<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
 const phone = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1l-2.22 2.2z"/></svg>`;
 const mail = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>`;
 
-export default function Footer() {
+export default async function Footer() {
+  const t = await getTranslations("footer");
   return (
     <footer className="qs-foot mt-24 relative overflow-hidden">
       {/* PCB traces concentrated in top-right & lower-left — mirrored opposite to the hero's corners.
@@ -34,29 +36,29 @@ export default function Footer() {
             </div>
           </div>
           <div className="qs-foot-tagline">
-            <b>Bộ điều khiển CNC · Servo · DNC</b><br/>
-            Cơ khí chính xác — trong nước &amp; xuất khẩu
+            <b>{t("tagline1")}</b><br/>
+            {t("tagline2")}
           </div>
         </div>
 
         {/* Three-column datasheet */}
         <div className="qs-foot-cols">
-          {/* Về công ty */}
+          {/* About the company */}
           <div>
-            <h5>Về công ty</h5>
+            <h5>{t("about.title")}</h5>
             <p className="text-[#a8a395] leading-relaxed text-[15px] mt-0">
-              Chúng tôi tự hào là đơn vị đầu tiên tại Việt Nam, phát triển, ứng dụng và thương mại sản phẩm bộ điều khiển CNC. Sau một vài năm phát triển sản phẩm đã được ứng dụng rộng rãi trong công nghiệp và chúng tôi đã nhận được sự tin tưởng, quan tâm từ khách hàng trong cũng như ngoài nước.
+              {t("about.body")}
             </p>
             <a href="http://online.gov.vn/Website/chi-tiet-135123" target="_blank" rel="noopener noreferrer"
-               className="inline-block mt-7 transition-opacity hover:opacity-90" aria-label="Đã thông báo Bộ Công Thương">
-              <Image src="/footer/da-thong-bao-bo-cong-thuong.png" alt="Đã thông báo Bộ Công Thương"
+               className="inline-block mt-7 transition-opacity hover:opacity-90" aria-label={t("moctt")}>
+              <Image src="/footer/da-thong-bao-bo-cong-thuong.png" alt={t("moctt")}
                      width={300} height={114} className="h-[58px] w-auto block"/>
             </a>
           </div>
 
-          {/* Mạng xã hội */}
+          {/* Social media */}
           <div>
-            <h5>Mạng xã hội</h5>
+            <h5>{t("social.title")}</h5>
             <ul className="qs-foot-social">
               <Social href="https://www.facebook.com/groups/434216619411709/" svg={fb}   label="Facebook" handle="QS Technology CNC" />
               <Social href="https://youtube.com/@qstechnology7516"            svg={yt}   label="Youtube"  handle="@qstechnology7516" />
@@ -64,18 +66,18 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Thông tin liên hệ */}
+          {/* Contact information */}
           <div>
-            <h5>Thông tin liên hệ</h5>
+            <h5>{t("contact.title")}</h5>
             <div className="qs-foot-contact">
-              <ContactGroup svg={phone} label="Điện thoại">
+              <ContactGroup svg={phone} label={t("contact.phone")}>
                 <Line href="tel:+84909663350">(+84) 909.663.350</Line>
                 <Line href="tel:+84922322338">(+84) 922.322.338</Line>
               </ContactGroup>
-              <ContactGroup svg={mail} label="Email">
+              <ContactGroup svg={mail} label={t("contact.email")}>
                 <Line href="mailto:support@qstcnc.com">support@qstcnc.com</Line>
               </ContactGroup>
-              <ContactGroup svg={pin} label="Địa chỉ">
+              <ContactGroup svg={pin} label={t("contact.address")}>
                 <Line href="https://maps.app.goo.gl/axYe5FydxeNHuCXT6">117 Đường Trương Thị Như, Xuân Thới Sơn, Hóc Môn, Thành phố Hồ Chí Minh – Việt Nam (700000).</Line>
               </ContactGroup>
             </div>
@@ -85,7 +87,7 @@ export default function Footer() {
 
       <div className="qs-foot-bottom relative z-10">
         <span>© 2026 QS Technology Co., Ltd · All rights reserved</span>
-        <span className="made"><span className="qs-live-dot" aria-hidden="true"></span>Thiết kế &amp; sản xuất tại TP. Hồ Chí Minh · VN</span>
+        <span className="made"><span className="qs-live-dot" aria-hidden="true"></span>{t("made")}</span>
         <span>Privacy · Terms · Cookies</span>
       </div>
     </footer>

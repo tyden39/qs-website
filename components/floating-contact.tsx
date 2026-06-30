@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 /* Floating contact rail — fixed bottom-right quick-contact buttons + back-to-top.
    Contact buttons use official brand marks/colors (Zalo, WhatsApp) + a hotline
@@ -47,12 +48,6 @@ const chevronUpGlyph = (
   </svg>
 );
 
-const contacts: ContactItem[] = [
-  { label: "Gọi điện", href: `tel:+${PRIMARY_PHONE_INTL}`, bg: "bg-[#e23744]", ring: "rgba(226,55,68,.5)", glyph: phoneGlyph },
-  { label: "Zalo", href: `https://zalo.me/${PRIMARY_PHONE_LOCAL}`, external: true, bg: "bg-[#0068ff]", ring: "rgba(0,104,255,.45)", glyph: zaloGlyph },
-  { label: "WhatsApp", href: `https://wa.me/${PRIMARY_PHONE_INTL}`, external: true, bg: "bg-[#25d366]", ring: "rgba(37,211,102,.5)", glyph: whatsappGlyph },
-];
-
 /* Shared circular badge geometry + interaction; color comes from the caller. */
 const BADGE =
   "group/fc relative grid h-12 w-12 place-items-center rounded-full shadow-[0_8px_22px_-8px_rgba(10,8,6,.7)] ring-1 ring-black/10 transition-[transform,opacity] duration-200 hover:scale-110 focus-visible:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2";
@@ -66,7 +61,15 @@ function Label({ children }: { children: React.ReactNode }) {
 }
 
 export default function FloatingContact() {
+  const t = useTranslations("common");
   const [showTop, setShowTop] = useState(false);
+
+  // Zalo / WhatsApp are brand names; only the call action is localized.
+  const contacts: ContactItem[] = [
+    { label: t("call"), href: `tel:+${PRIMARY_PHONE_INTL}`, bg: "bg-[#e23744]", ring: "rgba(226,55,68,.5)", glyph: phoneGlyph },
+    { label: "Zalo", href: `https://zalo.me/${PRIMARY_PHONE_LOCAL}`, external: true, bg: "bg-[#0068ff]", ring: "rgba(0,104,255,.45)", glyph: zaloGlyph },
+    { label: "WhatsApp", href: `https://wa.me/${PRIMARY_PHONE_INTL}`, external: true, bg: "bg-[#25d366]", ring: "rgba(37,211,102,.5)", glyph: whatsappGlyph },
+  ];
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 480);
@@ -99,10 +102,10 @@ export default function FloatingContact() {
       <button
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        aria-label="Lên đầu trang"
+        aria-label={t("backToTop")}
         className={`${BADGE} bg-gold-grad text-[#1a1206] ${showTop ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0"}`}
       >
-        <Label>Lên đầu trang</Label>
+        <Label>{t("backToTop")}</Label>
         {chevronUpGlyph}
       </button>
     </div>

@@ -17,5 +17,7 @@
   "error": "Something went wrong",
   "confirm": "Confirm",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "call": "Call",
+  "backToTop": "Back to top"
 }

@@ -1,0 +1,34 @@
+{
+  "panel": {
+    "placeholder": "Search products, models — F54, Astro 6AH…",
+    "close": "Close",
+    "featured": "Featured products",
+    "viewAll": "View all",
+    "productCount": "26 products",
+    "fullCatalog": "Full catalog",
+    "tags": ["Milling & router", "Multi-axis CNC", "CNC turning", "Servo & drive", "Premium servo"]
+  },
+  "results": {
+    "metaTitle": "Search results — QS Technology",
+    "breadcrumbCurrent": "Search",
+    "resultsFor": "Results for",
+    "statsSuffix": "results · sorted by relevance",
+    "searchBtn": "Search",
+    "showing": "Showing {start}–{end} / {total} results",
+    "filtersTitle": "[ Filter by type ]",
+    "recentTitle": "[ Recent searches ]",
+    "helpTitle": "[ Can't find what you need? ]",
+    "helpBody": "The QS technical team can find it for you — send a request via helpdesk or Zalo.",
+    "helpCta": "Contact engineering →",
+    "typeLabels": {
+      "all": "All",
+      "product": "Products",
+      "pdf": "Documents",
+      "news": "News",
+      "app": "Applications",
+      "faq": "FAQ"
+    },
+    "emptyPrompt": "Enter a keyword to search products, documents, news, and applications.",
+    "noResults": "No results found for \"{query}\". Try a different keyword or contact the technical team."
+  }
+}

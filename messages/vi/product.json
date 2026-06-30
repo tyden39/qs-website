@@ -1,4 +1,60 @@
 {
+  "page": {
+    "breadcrumb": { "home": "Trang chủ", "products": "Sản phẩm", "current": "Bộ điều khiển CNC" },
+    "eyebrow": "QS Controller Series · Controller Series",
+    "heading": "Bộ điều khiển CNC",
+    "lede": "Thông qua việc tự chủ về công nghệ, QS Controller mang lại khả năng tùy biến linh hoạt và đa dạng chức năng. Nhờ đó, hệ thống dễ dàng phát triển mở rộng để đáp ứng trọn vẹn mọi yêu cầu chuyên biệt của khách hàng.",
+    "features": ["Hiệu năng vượt trội", "Tính năng đa dạng", "Khả năng tùy biến cao"],
+    "catalogBtn": "QS Products Catalog",
+    "seriesTag": "[ Series 2026 · F + Astro ]",
+    "sidebar": {
+      "heading": "Bộ điều khiển máy CNC",
+      "tree": ["Máy phay", "Máy uốn ống", "Máy uốn lò xo", "Máy cưa lọng", "Máy làm mộng", "Máy dán keo", "Máy hàn / cắt plasma", "Máy kim hoàn"],
+      "axes": ["Máy 3 trục", "Máy 4 trục", "Máy 5 trục", "Máy 6 trục"],
+      "support": { "title": "Hỗ trợ kỹ thuật", "cta": "Liên hệ ngay" }
+    },
+    "toolbar": {
+      "showing": "Hiển thị",
+      "ofModels": "/ 06 model",
+      "filters": ["Bộ SP tiêu chuẩn", "F-series", "Astro", "Cảm ứng"],
+      "sortLabel": "Sắp xếp",
+      "sortOptions": ["Mới nhất", "Số trục ↑", "Màn hình ↑"]
+    }
+  },
+  "card": {
+    "badge": { "Recommended": "Khuyến nghị", "Touch": "Cảm ứng", "Flagship": "Cao cấp" },
+    "bundleFor": "Bộ sản phẩm cho",
+    "machine": "Máy",
+    "model": "Model:",
+    "frontView": "mặt trước",
+    "viewDetails": "Xem chi tiết",
+    "components": "Thành phần bộ sản phẩm",
+    "modelLabel": "Model",
+    "parts": "chi tiết"
+  },
+  "detailPage": {
+    "breadcrumb": { "home": "Trang chủ", "products": "Sản phẩm", "category": "Bộ điều khiển CNC" },
+    "modelLine": "Model · {name} · Series 2026",
+    "features": [
+      { "t": "Hiệu năng vượt trội", "d": "Vi xử lý hiệu năng cao, độ phân giải 480×272 px" },
+      { "t": "Tính năng đa dạng", "d": "Hồi tiếp encoder phase Z + tích hợp PLC ladder" },
+      { "t": "Khả năng tùy biến cao", "d": "Mở rộng I/O, lập trình ứng dụng theo yêu cầu" }
+    ],
+    "quoteBtn": "Nhận báo giá →",
+    "specsBtn": "Xem thông số",
+    "tabs": ["Thông số kỹ thuật", "Tài liệu", "Phần mềm", "Bản vẽ"],
+    "specsEyebrow": "[ 01 · Thông số kỹ thuật ]",
+    "specsHeading": "Bảng spec đầy đủ",
+    "quoteEyebrow": "[ Yêu cầu báo giá {name} ]",
+    "quoteHeading": "Nhận báo giá nhanh",
+    "quoteBody": "Phản hồi trong vòng 24 giờ làm việc · giá đại lý cho đơn hàng ≥ 10 cái.",
+    "packageEyebrow": "[ Hệ thống tích hợp · {name} ]",
+    "relatedEyebrow": "[ 05 / Same family ]",
+    "relatedHeading": "Các sản phẩm liên quan",
+    "ctaHeading": "Cần tư vấn cấu hình {name}?",
+    "ctaBody": "Kỹ sư QS hỗ trợ chọn cấu hình I/O, sơ đồ đấu nối và driver phù hợp với từng dòng máy CNC.",
+    "ctaBtn": "Liên hệ kỹ thuật →"
+  },
   "list": {
     "title": "Sản phẩm",
     "subtitle": "Khám phá các dòng sản phẩm máy CNC của QS Technology",

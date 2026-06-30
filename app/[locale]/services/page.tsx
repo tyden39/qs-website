@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
@@ -7,23 +8,15 @@ import type { Locale } from "@/lib/i18n/config";
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
 
-const titles: Record<string, string> = {
-  vi: "Dịch vụ chế tạo & nâng cấp máy",
-  en: "Machine Manufacturing & Upgrade Services",
-};
-const descs: Record<string, string> = {
-  vi: "Chế tạo máy gia công theo yêu cầu và nâng cấp bộ điều khiển cho máy cũ — thiết kế, lắp đặt và bàn giao trọn gói tại Việt Nam.",
-  en: "Custom machine manufacturing and controller upgrades for legacy machines — turnkey design, installation, and delivery in Vietnam.",
-};
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const title = titles[locale] ?? titles.vi;
-  const description = descs[locale] ?? descs.vi;
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const title = t("servicesTitle");
+  const description = t("servicesDescription");
   return {
     title,
     description,
@@ -40,23 +33,19 @@ export async function generateMetadata({
   };
 }
 
-// Placeholder copy — real content supplied later
-const LOREM =
-  "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.";
-
-const specs: [string, string][] = [
-  ["Số trục điều khiển", "5 trục"],
-  ["Kích thước", "1800×700×1800 mm"],
-  ["Bộ điều khiển", "Astro 10i"],
-  ["Số cổng I/O", "24/16"],
-  ["Servo/Drive", "400W"],
-];
-
 export default async function Service({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "service.index" });
+  const seo = await getTranslations({ locale, namespace: "seo" });
+  // Placeholder copy — real content supplied later.
+  const lorem = t("lorem");
+  const machineStrip = t.raw("machineStrip") as string[];
+  const specs = t.raw("fabrication.specs") as [string, string][];
+  const details = t.raw("fabrication.details") as string[];
   const breadcrumb = buildBreadcrumbList([
-    { name: locale === "en" ? "Home" : "Trang chủ", url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
-    { name: titles[locale] ?? titles.vi, url: `${APP_URL}${locale === "en" ? "/en" : ""}/services` },
+    { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
+    { name: seo("servicesTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/services` },
   ]);
   return (
     <>
@@ -68,19 +57,19 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
         <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
         <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
-            <Link href="/">Trang chủ</Link><span className="sep">/</span>
-            <span className="here">Dịch vụ</span>
+            <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
+            <span className="here">{t("breadcrumb.current")}</span>
           </div>
-          <div className="qs-eyebrow">Service · Chế tạo & Nâng cấp</div>
+          <div className="qs-eyebrow">{t("eyebrow")}</div>
           <h1 className="qs-h1 mt-3.5" style={{ fontSize: "clamp(48px,6vw,84px)" }}>
-            Dịch vụ chế tạo<br/>
-            <em className="not-italic font-semibold bg-gold-grad bg-clip-text text-transparent">&amp; nâng cấp máy</em>
+            {t("heading1")}<br/>
+            <em className="not-italic font-semibold bg-gold-grad bg-clip-text text-transparent">{t("heading2")}</em>
           </h1>
-          <p className="qs-lede mt-6 max-w-[64ch]">{LOREM}</p>
+          <p className="qs-lede mt-6 max-w-[64ch]">{lorem}</p>
 
           {/* machine image strip */}
           <div className="mt-12 grid sm:grid-cols-3 gap-6">
-            {["Máy delta robot", "Máy phay CNC", "Máy gia công"].map((label) => (
+            {machineStrip.map((label) => (
               <Frame key={label} label={label} className="aspect-[4/3]" />
             ))}
           </div>
@@ -92,22 +81,22 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Dự án chế tạo ]</span>
-              <h2 className="qs-h2 mt-2">Thông tin dự án chế tạo</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("fabrication.eyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("fabrication.heading")}</h2>
             </div>
-            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">Case study</span>
+            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{t("fabrication.tag")}</span>
           </div>
 
           <div className="grid md:grid-cols-[1fr_1.15fr] gap-12 items-start">
-            <Frame label="Máy gia công kim hoàn" className="aspect-[4/5]" />
+            <Frame label={t("fabrication.frameLabel")} className="aspect-[4/5]" />
 
             <div>
               <h3 className="font-display font-bold text-[26px] tracking-[-.01em] uppercase m-0">
-                Chế tạo máy gia công kim hoàn
+                {t("fabrication.projectTitle")}
               </h3>
 
               <div className="mt-7">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3">Thông số kỹ thuật</div>
+                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3">{t("fabrication.specsLabel")}</div>
                 <ul className="list-none p-0 m-0">
                   {specs.map(([l, v]) => (
                     <li key={l} className="grid grid-cols-[1fr_auto] gap-4 items-baseline border-b border-line py-2.5 last:border-b-0">
@@ -118,14 +107,14 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
                 </ul>
               </div>
 
-              <p className="text-[15px] leading-[1.75] text-[#3a3a3a] mt-7 mb-3.5">{LOREM}</p>
-              <p className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0">{LOREM}</p>
+              <p className="text-[15px] leading-[1.75] text-[#3a3a3a] mt-7 mb-3.5">{lorem}</p>
+              <p className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0">{lorem}</p>
             </div>
           </div>
 
           {/* detail images */}
           <div className="grid sm:grid-cols-2 gap-6 mt-10">
-            {["Chi tiết cụm trục", "Chi tiết cơ khí"].map((label) => (
+            {details.map((label) => (
               <Frame key={label} label={label} className="aspect-[16/9]" />
             ))}
           </div>
@@ -137,25 +126,25 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Nâng cấp ]</span>
-              <h2 className="qs-h2 mt-2">Dịch vụ nâng cấp máy</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("upgrade.eyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("upgrade.heading")}</h2>
             </div>
-            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">Before · After</span>
+            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{t("upgrade.tag")}</span>
           </div>
 
           <div className="grid sm:grid-cols-[1fr_auto_1fr] gap-6 items-center">
             <div>
-              <div className="font-mono text-[11px] text-muted tracking-[.18em] uppercase text-center mb-3">Trước</div>
-              <Frame label="Máy trước nâng cấp" className="aspect-[3/4]" />
+              <div className="font-mono text-[11px] text-muted tracking-[.18em] uppercase text-center mb-3">{t("upgrade.before")}</div>
+              <Frame label={t("upgrade.beforeFrame")} className="aspect-[3/4]" />
             </div>
             <div className="hidden sm:flex items-center justify-center text-gold-1 text-2xl pt-7" aria-hidden>→</div>
             <div>
-              <div className="font-mono text-[11px] text-ink tracking-[.18em] uppercase text-center mb-3">Sau</div>
-              <Frame label="Máy sau nâng cấp" className="aspect-[3/4]" />
+              <div className="font-mono text-[11px] text-ink tracking-[.18em] uppercase text-center mb-3">{t("upgrade.after")}</div>
+              <Frame label={t("upgrade.afterFrame")} className="aspect-[3/4]" />
             </div>
           </div>
 
-          <p className="text-[15px] leading-[1.75] text-[#3a3a3a] max-w-[80ch] mt-10 m-0">{LOREM}</p>
+          <p className="text-[15px] leading-[1.75] text-[#3a3a3a] max-w-[80ch] mt-10 m-0">{lorem}</p>
         </div>
       </section>
 
@@ -164,26 +153,26 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Liên hệ ]</span>
-              <h2 className="qs-h2 mt-2">Mô tả yêu cầu</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("form.eyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("form.heading")}</h2>
             </div>
           </div>
 
           <form className="bg-paper border border-line p-8 max-w-[820px]">
             <div className="grid sm:grid-cols-3 gap-4">
-              <Field label="Họ và tên *" name="name" />
-              <Field label="Số điện thoại *" name="phone" type="tel" />
-              <Field label="Email *" name="email" type="email" />
+              <Field label={t("form.name")} name="name" />
+              <Field label={t("form.phone")} name="phone" type="tel" />
+              <Field label={t("form.email")} name="email" type="email" />
             </div>
             <div className="mt-5">
               <label className="block">
-                <span className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-1.5">Nội dung</span>
+                <span className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-1.5">{t("form.content")}</span>
                 <textarea name="message" rows={6}
                           className="w-full border border-line bg-white px-4 py-3 text-sm focus:outline-none focus:border-ink transition-colors resize-y" />
               </label>
             </div>
             <div className="flex justify-end mt-5">
-              <button type="submit" className="qs-btn qs-btn-gold justify-center">Gửi yêu cầu →</button>
+              <button type="submit" className="qs-btn qs-btn-gold justify-center">{t("form.submit")}</button>
             </div>
           </form>
         </div>

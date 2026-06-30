@@ -5,6 +5,7 @@
   },
   "meta": {
     "author": "QS Newsroom",
+    "authorLabel": "Author",
     "share": "Share",
     "dateLabel": "Published",
     "readTime": "Read time",
@@ -17,5 +18,71 @@
   },
   "detail": {
     "toc": "In this article"
+  },
+  "feed": {
+    "latest": "Latest news",
+    "bulletins": "bulletins"
+  },
+  "list": {
+    "eyebrow": "Newsroom · Updated Q1/2026",
+    "heading": "News &",
+    "headingEm": "events",
+    "stats": { "articles": "articles", "events": "events in 2026", "categories": "categories" },
+    "tabs": ["All", "Products", "Events", "Customers", "Technical", "Company"],
+    "featuredLabel": "[ Featured ]",
+    "readTime": "4 min read →",
+    "gridEyebrow": "[ Articles · 02 of 148 ]",
+    "gridHeading": "Latest ↓",
+    "articlesShort": "articles",
+    "prev": "← Prev",
+    "next": "Next →",
+    "newsletter": {
+      "tag": "[ Newsletter ]",
+      "heading1": "Get new product news and",
+      "heading2": "firmware updates by email.",
+      "body": "One bulletin a month, no ads, unsubscribe anytime. Exclusively for QS customers and partners.",
+      "placeholder": "email@company.com",
+      "submit": "Subscribe →"
+    }
+  },
+  "detailPage": {
+    "flagshipBadge": "[ Featured ]",
+    "readValue": "4 min · 820 words",
+    "tags": "Tags"
+  },
+  "article": {
+    "intro": "Ho Chi Minh City, 28/04/2026 — QS Technology today officially announced the Astro 12X, the newest controller in the Astro-series family, capable of controlling 12 servo axes simultaneously over real-time EtherCAT. It is QS's flagship product, aimed at complex automation lines such as multi-axis machining centres, industrial robots, and automatic feeding systems.",
+    "intro2": "Compared with the current flagship Astro 10i with 6 synchronised axes, the Astro 12X doubles the axis count, cuts the EtherCAT cycle from 500 µs to 250 µs, and integrates a machine-vision module via GigE Vision — enabling pick-and-place and inline quality-inspection applications without third-party equipment.",
+    "sections": [
+      {
+        "id": "why-12-axis",
+        "h": "Why 12 axes?",
+        "paras": ["In QS's 2025 OEM customer survey, 43% of the 120 integrators polled said they were having to combine 2 controllers to get enough axes for their line — especially 5-axis CNC machines with an automatic tool changer (ATC), or feeding lines with multiple robot arms."],
+        "quote": { "text": "We wanted to eliminate the situation where a customer has to use 2 separate controllers synced over a slow bus. The Astro 12X is the answer — a single controller for the entire line.", "cite": "— Lê Thanh Mai, CTO QS Technology" },
+        "after": ["The Astro 12X was developed over 18 months, with more than 400 hours of real-world testing at 3 partner factories in Ho Chi Minh City, Long An, and Hai Phong. The unit on display at VME 2026 is a pilot that has run continuously for 720 hours on an 8-axis turn-mill line without a single fault."]
+      },
+      {
+        "id": "specs",
+        "h": "Key specifications",
+        "list": [
+          "12 servo axes synchronised over EtherCAT, selectable 250 µs / 500 µs cycle",
+          "12.1\" touchscreen at 1280×800, Gorilla Glass, IP65 oil-resistant front",
+          "Integrated GigE Vision machine-vision module, supporting Basler / Hikvision cameras up to 5 MP",
+          "64 GB industrial SSD program memory, storing up to 12,000 programs",
+          "2× Gigabit Ethernet, Wi-Fi 6, Modbus TCP, OPC UA, MQTT connectivity",
+          "CNC-machined aluminium housing with passive cooling, fanless — operates 0–55°C"
+        ]
+      },
+      {
+        "id": "shipping",
+        "h": "Delivery roadmap",
+        "paras": ["Ordering opens from 15/05/2026, with priority for customers already running the Astro 10i and F86. The first batch of 60 units is expected to ship in September 2026, with steady capacity of 80 units/month from Q4. The standard version is listed at 89 million VND, including a 24-month warranty and 3 days of operator training at the QS factory."]
+      },
+      {
+        "id": "demo",
+        "h": "Join a live demo",
+        "paras": ["The Astro 12X will be exhibited and demonstrated live at VME 2026, Booth A23, SECC HCMC, from 22–25/04/2026. Customers who want an in-depth configuration discussion can book a private session with the technical team via sales@qstechnology.vn or hotline +84 28 3636 1234."]
+      }
+    ]
   }
 }

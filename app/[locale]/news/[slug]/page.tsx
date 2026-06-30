@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import DOMPurify from "isomorphic-dompurify";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllNews, getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -61,43 +62,19 @@ export async function generateStaticParams() {
   return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
-const articleBody = {
-  intro: "TP. Hồ Chí Minh, 28/04/2026 — QS Technology hôm nay chính thức công bố Astro 12X, dòng controller mới nhất trong gia đình Astro-series, với khả năng điều khiển đồng thời 12 trục servo qua giao thức EtherCAT thời gian thực. Đây là sản phẩm đầu bảng của QS, hướng tới các dây chuyền tự động hoá phức tạp như máy gia công đa trục, robot công nghiệp và hệ thống cấp phôi tự động.",
-  intro2: "So với Astro 10i đang là flagship hiện tại với 6 trục đồng bộ, Astro 12X tăng gấp đôi số trục, chu kỳ EtherCAT giảm từ 500 µs xuống 250 µs, đồng thời tích hợp sẵn module xử lý hình ảnh (machine vision) qua cổng GigE Vision — cho phép triển khai các ứng dụng pick-and-place, kiểm tra chất lượng inline mà không cần thiết bị bên thứ ba.",
-  sections: [
-    { id:"why-12-axis", h:"Vì sao là 12 trục?",
-      paras:[
-        "Trong khảo sát khách hàng OEM năm 2025 của QS, 43% trong số 120 nhà tích hợp được hỏi cho biết họ đang phải ghép 2 controller để đủ số trục cho dây chuyền của mình — đặc biệt là các máy CNC 5-trục có cụm đổi dao tự động ATC, hoặc dây chuyền cấp phôi có nhiều cánh tay robot.",
-      ],
-      quote: { text:"Chúng tôi muốn loại bỏ tình huống khách hàng phải dùng 2 controller riêng và đồng bộ qua bus chậm. Astro 12X là câu trả lời — một bộ điều khiển duy nhất cho cả dây chuyền.", cite:"— Lê Thanh Mai, CTO QS Technology" },
-      after:["Astro 12X được phát triển trong 18 tháng, với hơn 400 giờ thử nghiệm thực tế tại 3 nhà máy đối tác ở TP. Hồ Chí Minh, Long An và Hải Phòng. Phiên bản đang trưng bày tại VME 2026 là bản pilot đã chạy liên tục 720 giờ trên dây chuyền tiện-phay 8 trục mà không gặp sự cố nào."],
-    },
-    { id:"specs", h:"Thông số nổi bật",
-      list:[
-        "12 trục servo đồng bộ qua EtherCAT, chu kỳ 250 µs / 500 µs có thể chọn",
-        "Giao diện cảm ứng 12.1\" độ phân giải 1280×800, gorilla glass, chống dầu IP65 mặt trước",
-        "Module thị giác máy GigE Vision tích hợp, hỗ trợ camera Basler / Hikvision lên tới 5 MP",
-        "Bộ nhớ chương trình 64 GB SSD công nghiệp, lưu trữ tới 12.000 program",
-        "Kết nối 2× Gigabit Ethernet, Wi-Fi 6, Modbus TCP, OPC UA, MQTT",
-        "Vỏ nhôm đúc CNC tản nhiệt thụ động, không cần quạt — vận hành 0–55°C",
-      ],
-    },
-    { id:"shipping", h:"Lộ trình giao hàng",
-      paras:[
-        "Đặt hàng mở từ 15/05/2026, ưu tiên cho khách hàng đang vận hành Astro 10i và F86. Lô đầu 60 chiếc dự kiến giao tháng 9/2026, công suất ổn định 80 chiếc/tháng từ Q4. Giá niêm yết phiên bản tiêu chuẩn 89 triệu VND, bao gồm bảo hành 24 tháng và đào tạo vận hành 3 ngày tại nhà máy QS.",
-      ],
-    },
-    { id:"demo", h:"Tham gia demo trực tiếp",
-      paras:[
-        "Astro 12X sẽ được trưng bày và demo trực tiếp tại VME 2026, Booth A23, SECC TP.HCM từ 22–25/04/2026. Khách hàng có nhu cầu trao đổi sâu về cấu hình có thể đặt lịch riêng với đội kỹ thuật qua email sales@qstechnology.vn hoặc hotline +84 28 3636 1234.",
-      ],
-    },
-  ],
-  tags:["astro-12x","flagship","ethercat","12-axis","machine-vision","vme-2026","san-pham-moi"],
+type ArticleSection = {
+  id: string;
+  h: string;
+  paras?: string[];
+  quote?: { text: string; cite: string };
+  after?: string[];
+  list?: string[];
 };
 
 export default async function NewsDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "news" });
   const n = await getNewsBySlug(slug, locale);
   if (!n) notFound();
   const allNews = await getAllNews(locale);
@@ -105,14 +82,27 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
   const isFlagship = slug === "astro-12x";
   const articleJsonLd = buildArticle(n, locale);
 
+  // Demo body shown only for the flagship article; localized from the `news.article` namespace.
+  const articleBody = {
+    intro: t("article.intro"),
+    intro2: t("article.intro2"),
+    sections: t.raw("article.sections") as ArticleSection[],
+  };
+  const metaRows: [string, string][] = [
+    [t("meta.dateLabel"), n.date],
+    [t("meta.authorLabel"), t("meta.author")],
+    [t("meta.readTime"), t("detailPage.readValue")],
+    [t("meta.category"), n.cat],
+  ];
+
   return (
     <article>
       <JsonLd data={articleJsonLd} />
       {/* CRUMB */}
       <div className="bg-white border-b border-line py-3.5">
         <div className="max-w-wrap mx-auto px-12 flex items-center gap-2.5 font-mono text-[11px] text-muted tracking-[.12em] uppercase">
-          <Link href="/" className="hover:text-ink">Trang chủ</Link><span className="text-gold-1">/</span>
-          <Link href="/news" className="hover:text-ink">Tin tức</Link><span className="text-gold-1">/</span>
+          <Link href="/" className="hover:text-ink">{t("breadcrumb.home")}</Link><span className="text-gold-1">/</span>
+          <Link href="/news" className="hover:text-ink">{t("breadcrumb.news")}</Link><span className="text-gold-1">/</span>
           <Link href="/news" className="hover:text-ink">{n.cat}</Link><span className="text-gold-1">/</span>
           <span className="text-ink font-semibold">{n.title.slice(0, 40)}…</span>
         </div>
@@ -124,19 +114,14 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
           <div>
             <div className="flex gap-2 items-center">
               <span className="inline-block font-mono text-[10px] bg-gold text-ink-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">[ {n.cat} ]</span>
-              {isFlagship && <span className="inline-block font-mono text-[10px] bg-ink text-gold-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">[ Tin nổi bật ]</span>}
+              {isFlagship && <span className="inline-block font-mono text-[10px] bg-ink text-gold-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">{t("detailPage.flagshipBadge")}</span>}
             </div>
             <h1 className="font-display font-bold tracking-[-.02em] leading-[1.1] text-balance mt-4.5 mb-6"
                 style={{fontSize:"clamp(40px,5vw,60px)"}}>{n.title}</h1>
             <p className="text-lg leading-[1.7] text-[#3a3a3a] max-w-[65ch] text-pretty">{n.excerpt}</p>
           </div>
           <aside className="border border-line p-6 flex flex-col gap-4 bg-paper">
-            {[
-              ["Ngày đăng",  n.date],
-              ["Tác giả",    "QS Newsroom"],
-              ["Đọc trong",  "4 phút · 820 từ"],
-              ["Chuyên mục", n.cat],
-            ].map(([l,v]) => (
+            {metaRows.map(([l,v]) => (
               <div key={l} className="flex flex-col gap-1">
                 <span className="font-mono text-[9px] text-muted tracking-[.18em] uppercase">{l}</span>
                 <span className="font-display text-sm font-semibold text-ink">{v}</span>
@@ -144,7 +129,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
             ))}
             <hr className="border-0 border-t border-line m-0"/>
             <div>
-              <span className="font-mono text-[9px] text-muted tracking-[.18em] uppercase block mb-2">Chia sẻ</span>
+              <span className="font-mono text-[9px] text-muted tracking-[.18em] uppercase block mb-2">{t("meta.share")}</span>
               <div className="flex gap-2">
                 {["FB","TW","LI"].map(s => (
                   <a key={s} href="#" className="w-8 h-8 border border-line grid place-items-center text-muted hover:text-ink hover:border-ink font-mono text-[10px]">{s}</a>
@@ -212,7 +197,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
 
                 {/* Tags */}
                 <div className="mt-12 pt-6 border-t border-line">
-                  <span className="font-mono text-[10px] text-muted tracking-[.16em] uppercase block mb-3">Tags</span>
+                  <span className="font-mono text-[10px] text-muted tracking-[.16em] uppercase block mb-3">{t("detailPage.tags")}</span>
                   <div className="flex flex-wrap gap-2">
                     {n.tags.map(t => (
                       <span key={t} className="qs-tag">{t}</span>
@@ -229,7 +214,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
           </article>
 
           <aside className="border-l border-line pl-8 sticky top-32">
-            <div className="font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase mb-4">[ Trong bài ]</div>
+            <div className="font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase mb-4">[ {t("detail.toc")} ]</div>
             <ul className="list-none p-0 m-0 space-y-2.5">
               {(isFlagship ? articleBody.sections : []).map(s => (
                 <li key={s.id}><a href={`#${s.id}`} className="text-sm text-muted hover:text-ink leading-[1.4] block">{s.h}</a></li>
@@ -244,10 +229,10 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Bài liên quan ]</span>
-              <h2 className="qs-h2 mt-2">Đọc thêm</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ {t("related.label")} ]</span>
+              <h2 className="qs-h2 mt-2">{t("related.heading")}</h2>
             </div>
-            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">Tất cả tin tức →</Link>
+            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">{t("related.viewAll")}</Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {others.map(o => (

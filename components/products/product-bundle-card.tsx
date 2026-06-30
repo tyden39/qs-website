@@ -1,20 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import type { ProductView } from "@/lib/data/products";
 import { KitComponentIcon } from "./kit-component-icon";
-
-const BADGE_LABEL: Record<string, string> = {
-  Recommended: "Khuyến nghị",
-  Touch: "Cảm ứng",
-  Flagship: "Cao cấp",
-};
 
 /**
  * Product item rendered as a machine kit: a featured controller on the left
  * (eyebrow → gold machine-type chip → render → model + key specs) and the
  * grid of bundled components on the right, mirroring the QS catalogue spread.
  */
-export function ProductBundleCard({
+export async function ProductBundleCard({
   product,
   index,
   total,
@@ -23,9 +18,14 @@ export function ProductBundleCard({
   index: number;
   total: number;
 }) {
+  const t = await getTranslations("product.card");
   const idx = String(index + 1).padStart(2, "0");
   const count = String(product.bundle.length).padStart(2, "0");
-  const badge = product.badge ? BADGE_LABEL[product.badge] ?? product.badge : null;
+  const badge = product.badge
+    ? t.has(`badge.${product.badge}`)
+      ? t(`badge.${product.badge}`)
+      : product.badge
+    : null;
 
   return (
     <article className="qs-card grid md:grid-cols-[minmax(0,300px)_1fr] group">
@@ -37,12 +37,12 @@ export function ProductBundleCard({
           className="absolute top-0 right-0 hidden md:block w-px h-10 bg-gold"
         />
         <div className="font-mono text-[10px] tracking-[.18em] uppercase text-muted">
-          Bộ sản phẩm cho
+          {t("bundleFor")}
         </div>
 
         <div className="mt-2.5 self-start bg-gold-grad border border-gold-1 rounded-[2px] px-4 py-2">
           <span className="font-display font-extrabold text-[17px] tracking-[.04em] uppercase text-ink leading-none">
-            Máy {product.axes}
+            {t("machine")} {product.axes}
           </span>
         </div>
 
@@ -54,7 +54,7 @@ export function ProductBundleCard({
           <span aria-hidden className="qs-scan opacity-0 group-hover:opacity-100" />
           <Image
             src={product.image.src}
-            alt={`${product.tag} — mặt trước`}
+            alt={`${product.tag} — ${t("frontView")}`}
             width={product.image.w}
             height={product.image.h}
             sizes="(max-width: 768px) 90vw, 240px"
@@ -63,7 +63,7 @@ export function ProductBundleCard({
         </div>
 
         <h3 className="mt-5 font-display font-bold text-[22px] tracking-[-.01em] m-0">
-          <span className="text-muted font-medium text-[15px]">Model:</span> {product.name}
+          <span className="text-muted font-medium text-[15px]">{t("model")}</span> {product.name}
         </h3>
 
         <ul className="list-none p-0 m-0 mt-3 flex flex-col gap-1.5">
@@ -88,7 +88,7 @@ export function ProductBundleCard({
           href={`/products/${product.slug}`}
           className="qs-link mt-auto pt-6 self-start"
         >
-          Xem chi tiết <span aria-hidden>→</span>
+          {t("viewDetails")} <span aria-hidden>→</span>
         </Link>
       </div>
 
@@ -96,13 +96,13 @@ export function ProductBundleCard({
       <div className="p-6 flex flex-col">
         <div className="flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
           <div>
-            <div className="qs-eyebrow">Thành phần bộ sản phẩm</div>
+            <div className="qs-eyebrow">{t("components")}</div>
             <div className="mt-1 font-mono text-[10px] tracking-[.14em] uppercase text-muted">
-              Model {idx} / {String(total).padStart(2, "0")} · {product.tag}
+              {t("modelLabel")} {idx} / {String(total).padStart(2, "0")} · {product.tag}
             </div>
           </div>
           <span className="font-mono text-[11px] tracking-widest text-muted whitespace-nowrap">
-            <b className="text-ink font-semibold">{count}</b> chi tiết
+            <b className="text-ink font-semibold">{count}</b> {t("parts")}
           </span>
         </div>
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllNews } from "@/lib/data/news";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
@@ -8,23 +9,15 @@ import type { Locale } from "@/lib/i18n/config";
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
 
-const titles: Record<string, string> = {
-  vi: "Tin tức & Sự kiện",
-  en: "News & Events",
-};
-const descs: Record<string, string> = {
-  vi: "Cập nhật mới nhất về sản phẩm, sự kiện và kỹ thuật từ QS Technology.",
-  en: "Latest updates on products, events, and technology from QS Technology.",
-};
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const title = titles[locale] ?? titles.vi;
-  const description = descs[locale] ?? descs.vi;
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const title = t("newsTitle");
+  const description = t("newsDescription");
   return {
     title,
     description,
@@ -41,23 +34,21 @@ export async function generateMetadata({
   };
 }
 
-const tabs = [
-  ["Tất cả",     "148"],
-  ["Sản phẩm",   "42"],
-  ["Sự kiện",    "28"],
-  ["Khách hàng", "31"],
-  ["Kỹ thuật",   "36"],
-  ["Công ty",    "11"],
-];
+const tabCounts = ["148", "42", "28", "31", "36", "11"];
 
 export default async function News({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "news" });
+  const seo = await getTranslations({ locale, namespace: "seo" });
+  const tabLabels = t.raw("list.tabs") as string[];
+  const tabs = tabLabels.map((label, i) => [label, tabCounts[i]] as const);
   const news = await getAllNews(locale);
   const feat = news[0];
   const rest = news.slice(1);
   const breadcrumb = buildBreadcrumbList([
-    { name: locale === "en" ? "Home" : "Trang chủ", url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
-    { name: titles[locale] ?? titles.vi, url: `${APP_URL}${locale === "en" ? "/en" : ""}/news` },
+    { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
+    { name: seo("newsTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/news` },
   ]);
 
   return (
@@ -69,15 +60,15 @@ export default async function News({ params }: { params: Promise<{ locale: Local
         <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
         <div className="relative max-w-wrap mx-auto px-12 flex justify-between items-end gap-8">
           <div>
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">Newsroom · Cập nhật Q1/2026</span>
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("list.eyebrow")}</span>
             <h1 className="font-display font-bold text-[64px] tracking-[-.02em] mt-3.5 mb-0 leading-none">
-              Tin tức &amp; <em className="not-italic bg-gold-grad bg-clip-text text-transparent">sự kiện</em>
+              {t("list.heading")} <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{t("list.headingEm")}</em>
             </h1>
           </div>
           <div className="font-mono text-[11px] text-muted tracking-[.16em] uppercase flex gap-8 items-center">
-            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">148</b>bài viết</div>
-            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">34</b>sự kiện 2026</div>
-            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">06</b>chuyên mục</div>
+            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">148</b>{t("list.stats.articles")}</div>
+            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">34</b>{t("list.stats.events")}</div>
+            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">06</b>{t("list.stats.categories")}</div>
           </div>
         </div>
       </section>
@@ -96,7 +87,7 @@ export default async function News({ params }: { params: Promise<{ locale: Local
       {/* FEATURED */}
       <section className="py-14 bg-white">
         <div className="max-w-wrap mx-auto px-12">
-          <div className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase mb-5">[ Tin nổi bật ]</div>
+          <div className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase mb-5">{t("list.featuredLabel")}</div>
           <Link href={`/news/${feat.slug}`}
                 className="grid md:grid-cols-[1.3fr_1fr] bg-white border border-line hover:border-ink transition-colors">
             <div className="aspect-[5/3] bg-ink-2 border-r border-line overflow-hidden">
@@ -114,7 +105,7 @@ export default async function News({ params }: { params: Promise<{ locale: Local
               <h2 className="font-display font-bold text-[34px] tracking-[-.015em] leading-[1.15] mt-4 mb-4">{feat.title}</h2>
               <p className="text-[#3a3a3a] text-[15px] leading-[1.7] m-0 mb-5">{feat.excerpt}</p>
               <div className="font-mono text-[11px] text-muted tracking-[.14em] pt-4 border-t border-line flex justify-between">
-                <span>{feat.date} · QS Newsroom</span><span>4 phút đọc →</span>
+                <span>{feat.date} · {t("meta.author")}</span><span>{t("list.readTime")}</span>
               </div>
             </div>
           </Link>
@@ -126,10 +117,10 @@ export default async function News({ params }: { params: Promise<{ locale: Local
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Bài viết · 02 of 148 ]</span>
-              <h2 className="qs-h2 mt-2">Mới nhất ↓</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("list.gridEyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("list.gridHeading")}</h2>
             </div>
-            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{rest.length} bài</span>
+            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{rest.length} {t("list.articlesShort")}</span>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {rest.map(n => (
@@ -150,25 +141,25 @@ export default async function News({ params }: { params: Promise<{ locale: Local
 
           {/* pagination */}
           <div className="flex justify-center gap-1.5 mt-12">
-            <button className="px-4 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">← Trước</button>
+            <button className="px-4 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">{t("list.prev")}</button>
             <button className="w-9 h-9 border border-ink bg-ink text-white grid place-items-center font-mono text-[11px]">1</button>
             <button className="w-9 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">2</button>
             <button className="w-9 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">3</button>
             <span className="w-9 h-9 grid place-items-center font-mono text-[11px] text-muted">…</span>
             <button className="w-9 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">25</button>
-            <button className="px-4 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">Sau →</button>
+            <button className="px-4 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">{t("list.next")}</button>
           </div>
 
           {/* newsletter */}
           <div className="mt-16 bg-ink text-[#cfc9b8] p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center">
             <div>
-              <div className="font-mono text-[10px] text-gold-2 tracking-[.16em] uppercase mb-2">[ Newsletter ]</div>
-              <h3 className="font-display font-bold text-2xl text-white tracking-[-.01em] m-0">Nhận tin sản phẩm mới và<br/>cập nhật firmware qua email.</h3>
-              <p className="text-[#a8a499] mt-2.5 max-w-[60ch] m-0 text-sm">Mỗi tháng một bản tin, không quảng cáo, hủy đăng ký bất kỳ lúc nào. Dành riêng cho khách hàng và đối tác QS.</p>
+              <div className="font-mono text-[10px] text-gold-2 tracking-[.16em] uppercase mb-2">{t("list.newsletter.tag")}</div>
+              <h3 className="font-display font-bold text-2xl text-white tracking-[-.01em] m-0">{t("list.newsletter.heading1")}<br/>{t("list.newsletter.heading2")}</h3>
+              <p className="text-[#a8a499] mt-2.5 max-w-[60ch] m-0 text-sm">{t("list.newsletter.body")}</p>
             </div>
             <form className="flex gap-0">
-              <input className="px-5 py-3 bg-white text-ink border-0 outline-0 text-sm w-72" placeholder="email@cong-ty.vn"/>
-              <button className="qs-btn qs-btn-gold rounded-none">Đăng ký →</button>
+              <input className="px-5 py-3 bg-white text-ink border-0 outline-0 text-sm w-72" placeholder={t("list.newsletter.placeholder")}/>
+              <button className="qs-btn qs-btn-gold rounded-none">{t("list.newsletter.submit")}</button>
             </form>
           </div>
         </div>

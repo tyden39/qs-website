@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
@@ -7,23 +8,15 @@ import type { Locale } from "@/lib/i18n/config";
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
 
-const titles: Record<string, string> = {
-  vi: "Ứng dụng công nghiệp",
-  en: "Industrial Applications",
-};
-const descs: Record<string, string> = {
-  vi: "Bộ điều khiển QS đang vận hành trong nhiều loại máy gia công — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm.",
-  en: "QS controllers operate across many machine types — from metal milling to spring bending, gluing, and food processing.",
-};
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const title = titles[locale] ?? titles.vi;
-  const description = descs[locale] ?? descs.vi;
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const title = t("applicationsTitle");
+  const description = t("applicationsDescription");
   return {
     title,
     description,
@@ -40,21 +33,26 @@ export async function generateMetadata({
   };
 }
 
-const apps = [
-  { slug:"phay-cnc",         n:"01", t:"Phay CNC",      machine:"Máy Phay CNC" },
-  { slug:"cua-long",         n:"02", t:"Cưa Lọng",      machine:"Máy Cưa Lọng" },
-  { slug:"dan-keo",          n:"03", t:"Dán Keo",       machine:"Máy Dán Keo" },
-  { slug:"thuc-pham",        n:"04", t:"Thực Phẩm",     machine:"Máy Cắt Thực Phẩm" },
-  { slug:"uon-lo-xo",        n:"05", t:"Lò Xo",         machine:"Máy Uốn Lò Xo" },
-  { slug:"mong-go",          n:"06", t:"Mộng Gỗ",       machine:"Máy Làm Mộng" },
-  { slug:"kim-hoan",         n:"07", t:"Kim Hoàn",      machine:"Máy Kim Hoàn" },
+const appAssets = [
+  { slug: "phay-cnc", n: "01" },
+  { slug: "cua-long", n: "02" },
+  { slug: "dan-keo", n: "03" },
+  { slug: "thuc-pham", n: "04" },
+  { slug: "uon-lo-xo", n: "05" },
+  { slug: "mong-go", n: "06" },
+  { slug: "kim-hoan", n: "07" },
 ];
 
 export default async function Applications({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "application.index" });
+  const seo = await getTranslations({ locale, namespace: "seo" });
+  const appText = t.raw("items") as { t: string; machine: string }[];
+  const apps = appAssets.map((a, i) => ({ ...a, ...appText[i] }));
   const breadcrumb = buildBreadcrumbList([
-    { name: locale === "en" ? "Home" : "Trang chủ", url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
-    { name: titles[locale] ?? titles.vi, url: `${APP_URL}${locale === "en" ? "/en" : ""}/applications` },
+    { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
+    { name: seo("applicationsTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/applications` },
   ]);
   return (
     <>
@@ -65,15 +63,15 @@ export default async function Applications({ params }: { params: Promise<{ local
         <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
         <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-14">
           <div className="qs-crumb mb-6">
-            <Link href="/">Trang chủ</Link><span className="sep">/</span>
-            <span className="here">Ứng dụng</span>
+            <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
+            <span className="here">{t("breadcrumb.current")}</span>
           </div>
           <div className="grid md:grid-cols-[1fr_1.4fr] gap-16 items-center">
             <div>
-              <div className="qs-eyebrow">Industrial Applications</div>
-              <h1 className="qs-h1 mt-3.5" style={{fontSize:"clamp(48px,6vw,80px)"}}>Ứng Dụng</h1>
+              <div className="qs-eyebrow">{t("eyebrow")}</div>
+              <h1 className="qs-h1 mt-3.5" style={{fontSize:"clamp(48px,6vw,80px)"}}>{t("heading")}</h1>
               <p className="qs-lede mt-5">
-                Bộ điều khiển QS đang vận hành trong tám loại máy gia công khác nhau — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm. Mỗi case study là một bài toán kỹ thuật riêng.
+                {t("lede")}
               </p>
             </div>
             {/* PCB visual */}
@@ -107,10 +105,10 @@ export default async function Applications({ params }: { params: Promise<{ local
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Catalog · 01 / 02 ]</span>
-              <h2 className="qs-h2 mt-2">Ứng Dụng Công Nghiệp</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("catalogEyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("catalogHeading")}</h2>
             </div>
-            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">7 / 14 case studies</span>
+            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{t("caseStudies")}</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line">
             {apps.map(a => (
@@ -123,17 +121,17 @@ export default async function Applications({ params }: { params: Promise<{ local
                   <span className="font-mono text-[10px] text-muted tracking-[.16em]">FIG · {a.n}</span>
                 </div>
                 <div>
-                  <div className="font-mono text-[10px] text-muted tracking-[.16em] uppercase">Bộ điều khiển cho</div>
+                  <div className="font-mono text-[10px] text-muted tracking-[.16em] uppercase">{t("controllerFor")}</div>
                   <h3 className="font-display font-semibold text-[17px] m-0 mt-1.5 leading-[1.3]">{a.machine}</h3>
                 </div>
                 <div className="flex justify-between items-center pt-3 mt-auto border-t border-line font-mono text-[10px] tracking-[.12em] uppercase">
-                  <span>Chi tiết</span><span>→</span>
+                  <span>{t("detail")}</span><span>→</span>
                 </div>
               </Link>
             ))}
             <div className="bg-ink text-[#cfc9b8] p-6 flex flex-col items-center justify-center gap-3">
               <div className="font-display font-bold text-3xl text-gold-2 tracking-[-.01em]">+ 07</div>
-              <div className="font-mono text-[10px] text-[#a8a499] tracking-[.16em] uppercase">more</div>
+              <div className="font-mono text-[10px] text-[#a8a499] tracking-[.16em] uppercase">{t("more")}</div>
             </div>
           </div>
 

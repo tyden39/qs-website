@@ -39,7 +39,7 @@ function toView(n: News): NewsView {
     excerpt: n.excerpt,
     bodyHtml: n.body,
     bodyJson: null,
-    coverImage: null,
+    coverImage: n.cover ?? null,
     category: n.cat,
     cat: n.cat,
     categoryId: CATEGORY_ID_BY_LABEL[n.cat] ?? "company",

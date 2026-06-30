@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import type { NewsCategoryId } from "@/lib/data/news";
 
@@ -12,6 +13,7 @@ export type NewsListItem = {
   cat: string;
   date: string;
   categoryId: NewsCategoryId;
+  img: string | null;
 };
 
 // Tab order mirrors the `news.list.tabs` label array; index 0 is "all".
@@ -74,15 +76,19 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
             <div className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase mb-5">{t("list.featuredLabel")}</div>
             <Link href={`/news/${feat.slug}`}
                   className="grid md:grid-cols-[1.3fr_1fr] bg-white border border-line hover:border-ink transition-colors">
-              <div className="aspect-[5/3] bg-ink-2 border-r border-line overflow-hidden">
-                <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-                  <rect width="600" height="360" fill="#1a1815"/>
-                  <g fill="#3a3530"><rect x="60" y="80" width="200" height="200"/><rect x="280" y="80" width="120" height="200"/><rect x="420" y="80" width="120" height="200"/></g>
-                  <rect x="80" y="120" width="160" height="100" fill="#0a1a2a"/>
-                  <text x="100" y="150" fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#e8c878">QS · 2026</text>
-                  <text x="100" y="180" fontFamily="JetBrains Mono,monospace" fontSize="20" fill="#fff" fontWeight="700">ASTRO 12X</text>
-                  <circle cx="500" cy="180" r="20" fill="#c8553d"/>
-                </svg>
+              <div className="aspect-[5/3] bg-ink-2 border-r border-line overflow-hidden relative">
+                {feat.img ? (
+                  <Image src={feat.img} alt={feat.title} fill sizes="(max-width: 768px) 100vw, 60vw" className="object-cover" />
+                ) : (
+                  <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
+                    <rect width="600" height="360" fill="#1a1815"/>
+                    <g fill="#3a3530"><rect x="60" y="80" width="200" height="200"/><rect x="280" y="80" width="120" height="200"/><rect x="420" y="80" width="120" height="200"/></g>
+                    <rect x="80" y="120" width="160" height="100" fill="#0a1a2a"/>
+                    <text x="100" y="150" fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#e8c878">QS · 2026</text>
+                    <text x="100" y="180" fontFamily="JetBrains Mono,monospace" fontSize="20" fill="#fff" fontWeight="700">QS TECHNOLOGY</text>
+                    <circle cx="500" cy="180" r="20" fill="#c8553d"/>
+                  </svg>
+                )}
               </div>
               <div className="p-12 flex flex-col justify-center">
                 <span className="font-mono text-[10px] bg-gold text-ink-2 py-1 px-2.5 self-start tracking-[.16em] uppercase font-semibold">[ {feat.cat} ]</span>

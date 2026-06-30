@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllNews, getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
@@ -152,21 +153,25 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
         </div>
       </section>
 
-      {/* HERO IMG */}
+      {/* HERO IMG — real cover when available, schematic fallback otherwise */}
       <section className="bg-ink-2 border-b border-line">
         <div className="aspect-[21/9] relative overflow-hidden">
-          <svg viewBox="0 0 1200 514" preserveAspectRatio="xMidYMid slice" className="w-full h-full block">
-            <rect width="1200" height="514" fill="#1a1815"/>
-            <g fill="#3a3530"><rect x="120" y="80" width="400" height="354"/><rect x="540" y="80" width="240" height="354"/><rect x="800" y="80" width="280" height="354"/></g>
-            <rect x="160" y="160" width="320" height="200" fill="#0a1a2a"/>
-            <text x="200" y="220" fontFamily="JetBrains Mono,monospace" fontSize="22" fill="#e8c878">QS · 2026</text>
-            <text x="200" y="260" fontFamily="JetBrains Mono,monospace" fontSize="40" fill="#fff" fontWeight="700">ASTRO 12X</text>
-            <circle cx="940" cy="260" r="40" fill="#c8553d"/>
-            <circle cx="940" cy="260" r="18" fill="#e8c878"/>
-          </svg>
-          <div className="absolute left-0 right-0 bottom-0 px-6 py-3.5 text-[#7a7570] font-mono text-[10px] tracking-[.18em]"
+          {n.coverImage ? (
+            <Image src={n.coverImage} alt={n.title} fill priority sizes="100vw" className="object-cover" />
+          ) : (
+            <svg viewBox="0 0 1200 514" preserveAspectRatio="xMidYMid slice" className="w-full h-full block">
+              <rect width="1200" height="514" fill="#1a1815"/>
+              <g fill="#3a3530"><rect x="120" y="80" width="400" height="354"/><rect x="540" y="80" width="240" height="354"/><rect x="800" y="80" width="280" height="354"/></g>
+              <rect x="160" y="160" width="320" height="200" fill="#0a1a2a"/>
+              <text x="200" y="220" fontFamily="JetBrains Mono,monospace" fontSize="22" fill="#e8c878">QS · 2026</text>
+              <text x="200" y="260" fontFamily="JetBrains Mono,monospace" fontSize="40" fill="#fff" fontWeight="700">QS TECHNOLOGY</text>
+              <circle cx="940" cy="260" r="40" fill="#c8553d"/>
+              <circle cx="940" cy="260" r="18" fill="#e8c878"/>
+            </svg>
+          )}
+          <div className="absolute left-0 right-0 bottom-0 px-6 py-3.5 text-[#cfc9b8] font-mono text-[10px] tracking-[.18em] uppercase"
                style={{background:"linear-gradient(0deg,rgba(10,10,8,.85),transparent)"}}>
-            FIG. 01 · QS ASTRO 12X · 12-AXIS CONTROLLER · DEMO UNIT · BINH DUONG PLANT · 04/2026
+            QS Technology · {n.cat} · {n.date}
           </div>
         </div>
       </section>

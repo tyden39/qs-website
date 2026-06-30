@@ -28,9 +28,9 @@ export async function ProductBundleCard({
     : null;
 
   return (
-    <article className="qs-card grid md:grid-cols-[minmax(0,300px)_1fr] group">
+    <article className="qs-card grid md:grid-cols-[minmax(0,300px)_1fr] group shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)]">
       {/* ── Featured controller ── */}
-      <div className="relative flex flex-col bg-paper p-7 border-b md:border-b-0 md:border-r border-line">
+      <div className="relative flex flex-col bg-white p-7 border-b md:border-b-0 md:border-r border-line">
         {/* gold seam echoing the catalogue's accent rule */}
         <span
           aria-hidden
@@ -127,7 +127,7 @@ export async function ProductBundleCard({
                       width={photo.w}
                       height={photo.h}
                       sizes="120px"
-                      className="max-h-full w-auto max-w-full object-contain transition-transform duration-200 group-hover/tile:-translate-y-0.5"
+                      className="max-h-[84px] w-auto max-w-full object-contain transition-transform duration-200 group-hover/tile:-translate-y-0.5"
                     />
                   ) : (
                     <KitComponentIcon

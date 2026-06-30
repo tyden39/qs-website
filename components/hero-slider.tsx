@@ -31,7 +31,7 @@ const INTERVAL = 7000; // ms each slide stays before auto-advancing
  * readout cross-fade per product. Re-keying each content column on slide change
  * replays the staggered `qs-rise` entrance, so every advance feels orchestrated.
  *
- * Autoplay pauses on hover/focus, advances with ←/→, and honours
+ * Autoplay pauses on spec-sheet hover or keyboard focus, advances with ←/→, and honours
  * prefers-reduced-motion (no autoplay, no progress bar). The first slide renders on
  * the server so crawlers and no-JS visitors still get a real <h1> + spec sheet.
  */
@@ -80,8 +80,6 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       aria-roledescription="carousel"
       aria-label={t("hero.regionAria")}
       onKeyDown={onKeyDown}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
       className="relative bg-ink text-[#cfc9b8] overflow-hidden border-b border-[#221e18]"
@@ -107,7 +105,13 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 
       <div className="relative qs-wrap-wide grid lg:grid-cols-[1fr_minmax(360px,432px)_0.92fr] gap-10 xl:gap-16 items-center min-h-[clamp(580px,84vh,860px)] pt-16 lg:pt-24 pb-8 lg:pb-10">
         {/* LEFT — thesis (re-keyed → re-runs the staggered rise on each slide) */}
-        <div key={`t-${active}`} className="text-center lg:text-left" aria-live="polite">
+        <div
+          key={`t-${active}`}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          className="text-center lg:text-left"
+          aria-live="polite"
+        >
           <span className="qs-eyebrow qs-rise !text-gold-2 before:hidden justify-center lg:justify-start" style={rise(60)}>
             <span className="qs-live-dot mr-1" aria-hidden="true" />QS Technology · {s.tag}
           </span>
@@ -131,7 +135,13 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
         </div>
 
         {/* CENTER — frameless device render floating directly on the dark blueprint stage */}
-        <div key={`c-${active}`} className="order-first lg:order-none qs-rise" style={rise(120)}>
+        <div
+          key={`c-${active}`}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          className="order-first lg:order-none qs-rise"
+          style={rise(120)}
+        >
           <div className="relative w-full max-w-[456px] mx-auto">
             <div className="qs-float relative h-[clamp(432px,62vh,672px)]">
               {/* gold pool the product floats above */}
@@ -152,8 +162,13 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           </div>
         </div>
 
-        {/* RIGHT — spec readout; rows light up on hover */}
-        <ul key={`s-${active}`} className="flex flex-col text-[#cfc9b8] w-full max-w-[420px] mx-auto lg:mx-0">
+        {/* RIGHT — spec readout; rows light up on hover. Hovering the spec sheet pauses autoplay. */}
+        <ul
+          key={`s-${active}`}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          className="flex flex-col text-[#cfc9b8] w-full max-w-[440px] mx-auto lg:mx-0"
+        >
           {s.specs.map(([k, v], i) => (
             <li
               key={k}

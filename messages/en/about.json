@@ -50,20 +50,5 @@
       ["Certification", "ISO 9001:2015"],
       ["Workforce", "62 people"]
     ]
-  },
-  "leaders": {
-    "eyebrow": "[ 05 · Leadership ]",
-    "heading": "Executive team",
-    "items": [
-      { "name": "Nguyễn Quang Huy", "role": "Founder / CEO", "bio": "Electronics engineer with 18 years of embedded-systems design experience. Co-author of the F-series and Astro-series firmware." },
-      { "name": "Lê Thanh Mai", "role": "CTO / R&D Lead", "bio": "Graduate of Hanoi University of Science and Technology; previously developed PLCs for Mitsubishi VN. Leads the Astro-series." },
-      { "name": "Trần Đức Tâm", "role": "Plant Director", "bio": "Runs the Ho Chi Minh City factory, with 12 years in electronics manufacturing. Lean Six Sigma Black Belt certified." },
-      { "name": "Phạm Vĩ Khang", "role": "Head of Field Service", "bio": "Manages a 24-engineer deployment team covering 35 provinces, with a 24-hour on-site support SLA." }
-    ]
-  },
-  "cta": {
-    "heading": "Want to visit the QS factory?",
-    "body": "The factory is open for customers and partners to book a visit on Tuesdays and Thursdays each week. Please register 7 days in advance.",
-    "button": "Book a visit →"
   }
 }

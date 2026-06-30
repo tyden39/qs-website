@@ -15,7 +15,7 @@
     },
     "toolbar": {
       "showing": "Hiển thị",
-      "ofModels": "/ 06 model",
+      "ofModels": "/ 07 model",
       "filters": ["Bộ SP tiêu chuẩn", "F-series", "Astro", "Cảm ứng"],
       "sortLabel": "Sắp xếp",
       "sortOptions": ["Mới nhất", "Số trục ↑", "Màn hình ↑"],
@@ -37,12 +37,11 @@
     "breadcrumb": { "home": "Trang chủ", "products": "Sản phẩm", "category": "Bộ điều khiển CNC" },
     "modelLine": "Model · {name} · Series 2026",
     "features": [
-      { "t": "Hiệu năng vượt trội", "d": "Vi xử lý hiệu năng cao, độ phân giải 480×272 px" },
-      { "t": "Tính năng đa dạng", "d": "Hồi tiếp encoder phase Z + tích hợp PLC ladder" },
-      { "t": "Khả năng tùy biến cao", "d": "Mở rộng I/O, lập trình ứng dụng theo yêu cầu" }
+      { "t": "Hiệu năng vượt trội", "d": "Vi xử lý hiệu năng cao cho gia công nhiều trục" },
+      { "t": "Tính năng đa dạng", "d": "Hỗ trợ Pulse Train, EtherCAT và mở rộng I/O" },
+      { "t": "Khả năng tùy biến cao", "d": "Lập trình ứng dụng và cấu hình theo từng dòng máy" }
     ],
     "quoteBtn": "Nhận báo giá →",
-    "specsBtn": "Xem thông số",
     "tabs": ["Thông số kỹ thuật", "Tài liệu", "Phần mềm", "Bản vẽ"],
     "specsEyebrow": "[ 01 · Thông số kỹ thuật ]",
     "specsHeading": "Bảng spec đầy đủ",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { getAllProducts } from "@/lib/data/products";
 import { ProductBundleCard } from "@/components/products/product-bundle-card";
 import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";

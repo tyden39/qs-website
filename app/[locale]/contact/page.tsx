@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ContactForm } from "./_components/contact-form";
 
@@ -11,25 +10,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: t("meta.title") };
 }
 
-// Channel glyphs are decorative; localized text comes from the `contact.page` namespace.
-const channelIcons = ["☎", "✉", "⚙", "Z"];
-
-// Maps each channel (by order) to its real target: hotline → tel:, email
-// channels → mailto:, Zalo OA → the official Zalo link from the footer.
-function channelHref(value: string, index: number): { href: string; external: boolean } {
-  if (index === 3) return { href: "https://zalo.me/0905438533", external: true };
-  if (value.includes("@")) return { href: `mailto:${value}`, external: false };
-  return { href: `tel:${value.replace(/[^\d+]/g, "")}`, external: false };
-}
-
 export default async function Contact({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "contact" });
-  const channels = (t.raw("page.channels") as { lbl: string; v: string; h: string }[]).map((c, i) => ({ ...c, ic: channelIcons[i], ...channelHref(c.v, i) }));
-  const checklist = t.raw("page.instructions.checklist") as string[];
-  const offices = t.raw("page.offices.items") as { n: string; t: string; name: string; addr: string[]; meta: string }[];
-  const faqs = t.raw("page.faq.items") as { q: string; a: string }[];
   return (
     <>
       {/* HERO */}
@@ -50,102 +34,20 @@ export default async function Contact({ params }: Props) {
         </div>
       </section>
 
-      {/* QUICK CHANNELS */}
-      <section className="py-12 sm:py-16 bg-white border-b border-line">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line">
-            {channels.map(c => (
-              <a key={c.lbl} href={c.href}
-                 {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                 className="bg-white p-5 sm:p-7 flex flex-col gap-2.5 hover:bg-paper transition-colors relative
-                            before:content-[''] before:absolute before:top-0 before:left-5 sm:before:left-7 before:w-8 before:h-0.5 before:bg-gold">
-                <div className="w-9 h-9 border border-line grid place-items-center text-gold-1 font-mono text-sm">{c.ic}</div>
-                <div className="font-mono text-[10px] text-muted tracking-[.16em] uppercase mt-1.5">{c.lbl}</div>
-                <div className="font-display text-base sm:text-lg font-semibold tracking-[-.005em] leading-[1.35] break-words">{c.v}</div>
-                <div className="text-xs text-[#5a5650] leading-normal">{c.h}</div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* FORM */}
+      <section id="contact-form" className="relative overflow-hidden py-16 sm:py-24 scroll-mt-24"
+               style={{ background: "linear-gradient(180deg, #f0eee8 0%, #fafaf7 100%)" }}>
+        {/* Blueprint grid + decorative accents so the lone form panel doesn't sit on a bare canvas. */}
+        <div className="absolute inset-0 qs-grid-bg opacity-40"></div>
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold-grad"></div>
+        <div aria-hidden className="absolute -left-10 top-24 w-40 h-40 border border-line rotate-45 opacity-40 hidden md:block"></div>
+        <div aria-hidden className="absolute -right-14 bottom-16 w-56 h-56 border border-line rounded-full opacity-30 hidden md:block"></div>
+        <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-12 font-mono text-[11px] text-gold-1 tracking-[.2em] uppercase opacity-60 hidden lg:block">[ {t("hero.eyebrow")} ]</div>
 
-      {/* INSTRUCTIONS + FORM */}
-      <section id="contact-form" className="py-16 sm:py-24 bg-white scroll-mt-24">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.1fr] gap-10 md:gap-16 items-start">
-          <div>
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("page.instructions.eyebrow")}</span>
-            <h2 className="font-display font-bold text-[28px] sm:text-[36px] tracking-[-.015em] mt-2 mb-5 leading-[1.1]">{t("page.instructions.heading1")}<br/>{t("page.instructions.heading2")}</h2>
-            <p className="text-[15px] leading-[1.7] text-[#3a3a3a] m-0 mb-3">
-              {t("page.instructions.p1")}
-            </p>
-            <p className="text-[15px] leading-[1.7] text-[#3a3a3a] m-0">
-              {t("page.instructions.p2pre")}<strong className="font-semibold text-ink">(+84) 909.663.350</strong>.
-            </p>
-
-            <div className="bg-paper border border-line p-5 sm:p-6 mt-8">
-              <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3">{t("page.instructions.checklistTitle")}</div>
-              <ul className="list-none p-0 m-0 space-y-2.5">
-                {checklist.map(item => (
-                  <li key={item} className="text-[13px] text-[#3a3a3a] pl-4 relative
-                                          before:content-['▸'] before:absolute before:left-0 before:top-0 before:text-gold-1">{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
+        <div className="relative max-w-[640px] mx-auto px-5 sm:px-8">
           <ContactForm />
-        </div>
-      </section>
-
-      {/* OFFICES */}
-      <section className="py-16 sm:py-20 bg-paper border-y border-line">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="qs-section-head">
-            <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("page.offices.eyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("page.offices.heading")}</h2>
-            </div>
-            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#contact-form">{t("page.offices.bookVisit")}</Link>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {offices.map(o => (
-              <div key={o.n} className="bg-white border border-line p-6 sm:p-8 relative
-                                         before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ {o.n} · {o.t} ]</div>
-                <h3 className="font-display font-semibold text-[22px] tracking-[-.01em] mt-2.5 mb-4 m-0">{o.name}</h3>
-                <p className="m-0 text-sm text-[#3a3a3a] leading-[1.7]">
-                  {o.addr.map((line, i) => (
-                    <span key={i}>{line}{i < o.addr.length - 1 && <br/>}</span>
-                  ))}
-                </p>
-                <div className="font-mono text-[11px] text-muted tracking-[.12em] mt-5 pt-4 border-t border-line">{o.meta}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="qs-section-head">
-            <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("page.faq.eyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("page.faq.heading")}</h2>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {faqs.map(({ q, a }, i) => (
-              <div key={q} className="bg-white border border-line p-7">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-2.5">[ {String(i+1).padStart(2,"0")} ]</div>
-                <h4 className="font-display font-semibold text-base m-0 mb-2.5 leading-[1.4]">{q}</h4>
-                <p className="text-sm text-[#4a4842] leading-[1.7] m-0">{a}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </>
   );
 }
-

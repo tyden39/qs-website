@@ -134,44 +134,6 @@ export default async function About({ params }: Props) {
           </div>
         </div>
       </section>
-
-      {/* LEADERS */}
-      <section className="py-24 bg-paper border-y border-line">
-        <div className="max-w-wrap mx-auto px-12">
-          <div className="qs-section-head">
-            <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("leaders.eyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("leaders.heading")}</h2>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {leaders.map((l, idx) => (
-              <div key={l.name} className="bg-white border border-line p-7 grid grid-cols-[64px_1fr] gap-6 relative
-                                         before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
-                <div className="w-16 h-16 bg-paper-2 border border-line grid place-items-center font-display font-bold text-xl tracking-[-.01em] text-ink-3">{leaderInitials[idx]}</div>
-                <div>
-                  <h3 className="font-display font-semibold text-lg m-0 leading-[1.2]">{l.name}</h3>
-                  <span className="font-mono text-[10px] text-gold-1 tracking-[.14em] uppercase block mt-1.5">{l.role}</span>
-                  <p className="text-sm text-[#4a4842] leading-[1.7] m-0 mt-3">{l.bio}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
-          <div className="bg-ink text-[#cfc9b8] p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center">
-            <div>
-              <h3 className="font-display font-bold text-3xl text-white tracking-[-.01em] m-0">{t("cta.heading")}</h3>
-              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-[15px]">{t("cta.body")}</p>
-            </div>
-            <Link className="qs-btn qs-btn-gold" href="/contact">{t("cta.button")}</Link>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

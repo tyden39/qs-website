@@ -15,7 +15,7 @@
     },
     "toolbar": {
       "showing": "Showing",
-      "ofModels": "/ 06 models",
+      "ofModels": "/ 07 models",
       "filters": ["Standard bundle", "F-series", "Astro", "Touchscreen"],
       "sortLabel": "Sort",
       "sortOptions": ["Latest", "Axes ↑", "Display ↑"],
@@ -37,12 +37,11 @@
     "breadcrumb": { "home": "Home", "products": "Products", "category": "CNC Controllers" },
     "modelLine": "Model · {name} · Series 2026",
     "features": [
-      { "t": "Outstanding performance", "d": "High-performance processor, 480×272 px resolution" },
-      { "t": "Versatile features", "d": "Z-phase encoder feedback + integrated PLC ladder" },
-      { "t": "Highly customisable", "d": "I/O expansion, application programming on request" }
+      { "t": "Outstanding performance", "d": "High-performance processor for multi-axis machining" },
+      { "t": "Versatile features", "d": "Supports Pulse Train, EtherCAT and I/O expansion" },
+      { "t": "Highly customisable", "d": "Application programming and configuration per machine type" }
     ],
     "quoteBtn": "Get a quote →",
-    "specsBtn": "View specs",
     "tabs": ["Technical specs", "Documents", "Software", "Drawings"],
     "specsEyebrow": "[ 01 · Technical specifications ]",
     "specsHeading": "Full spec table",

@@ -12,11 +12,12 @@
         "desc": "Thuộc dòng cao cấp của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.",
         "fig": "HÌNH 01 · BỘ ĐIỀU KHIỂN CNC · ASTRO 10i",
         "specs": [
-          ["Trục điều khiển", "6 · vòng kín"],
-          ["Giao thức", "EtherCAT · MLK"],
-          ["Màn hình", "10.1″ IPS cảm ứng"],
-          ["Nội suy", "Nano · tốc độ cao"],
-          ["Xuất xứ", "TP. Hồ Chí Minh · VN"]
+          ["Trục điều khiển", "6 – 8"],
+          ["Giao thức điều khiển", "Pulse Train · EtherCAT · Mechatrolink"],
+          ["Màn hình", "10.4 inch"],
+          ["Chế độ điều khiển", "Vòng kín (Closed loop)"],
+          ["Tích hợp PLC", "Có"],
+          ["RTCP tốc độ cao", "Có"]
         ]
       },
       {
@@ -26,11 +27,11 @@
         "desc": "Dòng chủ lực 6 trục vòng kín với EtherCAT và Mechatrolink MII/MIII — dành cho gia công khuôn mẫu và linh kiện y tế đòi hỏi độ chính xác cao nhất.",
         "fig": "HÌNH 02 · BỘ ĐIỀU KHIỂN CNC · ASTRO 6AH",
         "specs": [
-          ["Trục điều khiển", "6 · vòng kín"],
-          ["Giao thức", "EtherCAT · MII/MIII"],
-          ["Ứng dụng", "Khuôn mẫu · y tế"],
-          ["Động cơ servo", "Vòng kín đồng bộ"],
-          ["Xuất xứ", "TP. Hồ Chí Minh · VN"]
+          ["Trục điều khiển", "6 – 8"],
+          ["Giao thức điều khiển", "Pulse Train · EtherCAT · Mechatrolink"],
+          ["Màn hình", "8 inch"],
+          ["Chế độ điều khiển", "Vòng kín (Closed loop)"],
+          ["Tích hợp PLC", "Có"]
         ]
       },
       {
@@ -40,11 +41,11 @@
         "desc": "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy — phay, cưa lọng, dán keo. Hỗ trợ điều khiển Pulse Train và EtherCAT, dễ tích hợp, chi phí tối ưu.",
         "fig": "HÌNH 03 · BỘ ĐIỀU KHIỂN CNC · F86",
         "specs": [
-          ["Trục điều khiển", "6 · hở/kín"],
-          ["Giao thức", "Pulse Train · EtherCAT"],
-          ["Ứng dụng", "Phay · cưa · dán keo"],
-          ["Tích hợp", "Nhanh · linh hoạt"],
-          ["Xuất xứ", "TP. Hồ Chí Minh · VN"]
+          ["Trục điều khiển", "6 – 8"],
+          ["Giao thức điều khiển", "Pulse Train · EtherCAT"],
+          ["Màn hình", "8 inch"],
+          ["Chế độ điều khiển", "Vòng hở (Open loop)"],
+          ["Tích hợp PLC", "Có"]
         ]
       }
     ]

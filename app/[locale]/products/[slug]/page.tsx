@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import Image from "next/image";
+import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllProducts, getProductBySlug, getProductSlugs } from "@/lib/data/products";
+import { KitComponentIcon } from "@/components/products/kit-component-icon";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildProduct, JsonLd } from "@/lib/seo/jsonld";
@@ -65,14 +67,6 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   ];
   const tabs = tabMeta.map((m, i) => ({ ...m, l: tabLabels[i] }));
 
-  const accessories = [
-    { n:"01", l:"Servo Motor × 4" },
-    { n:"02", l:"Servo Drive × 4" },
-    { n:"03", l:"I/O Link Board" },
-    { n:"04", l:"24V Power Supply" },
-    { n:"05", l:"MPG Pendant" },
-  ];
-
   return (
     <>
       <JsonLd data={productJsonLd} />
@@ -102,17 +96,22 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                   </div>
                 ))}
               </div>
-              <div className="flex gap-3 mt-9">
-                <Link className="qs-btn qs-btn-gold" href="#quote">{t("quoteBtn")}</Link>
-                <Link className="qs-btn qs-btn-ghost" href="#specs">{t("specsBtn")}</Link>
-              </div>
             </div>
 
             {/* visual */}
             <div className="bg-white border border-line p-10 relative">
               <div className="absolute inset-3 border border-dashed border-gold opacity-30 pointer-events-none"></div>
-              <div className="aspect-square grid place-items-center">
-                <div className="font-display font-bold text-7xl tracking-[-.02em] text-ink-3/30">{p.name}</div>
+              <div className="grid place-items-center p-8 sm:p-10 min-h-[300px]"
+                   style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
+                <Image
+                  src={p.image.src}
+                  alt={`${p.tag} — ${t("breadcrumb.category")}`}
+                  width={p.image.w}
+                  height={p.image.h}
+                  priority
+                  sizes="(max-width: 768px) 90vw, 480px"
+                  className="w-auto max-h-[340px] max-w-full object-contain"
+                />
               </div>
               <div className="absolute bottom-3 right-4 font-mono text-[10px] tracking-[.18em] uppercase text-muted">QS · {p.name.toUpperCase()}</div>
               <div className="absolute bottom-3 left-4 font-mono text-[10px] tracking-[.18em] uppercase text-muted">0 — 100 — 200mm</div>
@@ -167,16 +166,31 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
               <h2 className="qs-h2 mt-2">CNC Controller — Full Package</h2>
             </div>
           </div>
-          <div className="grid md:grid-cols-5 gap-px bg-line border border-line">
-            {accessories.map(a => (
-              <div key={a.n} className="bg-white p-6 flex flex-col gap-3">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em]">[ {a.n} ]</div>
-                <div className="aspect-square bg-paper border border-line grid place-items-center">
-                  <span className="font-mono text-[10px] text-muted tracking-[.14em]">FIG · {a.n}</span>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-px bg-line border border-line">
+            {p.bundle.map((c, i) => {
+              // real render when available; controller reuses the front photo
+              const photo = c.photo ?? (c.icon === "controller" ? p.image : null);
+              return (
+                <div key={c.label} className="bg-white p-6 flex flex-col gap-3">
+                  <div className="font-mono text-[10px] text-gold-1 tracking-[.16em]">[ {String(i + 1).padStart(2, "0")} ]</div>
+                  <div className="bg-paper border border-line grid place-items-center p-4 h-[150px]">
+                    {photo ? (
+                      <Image
+                        src={photo.src}
+                        alt={c.label}
+                        width={photo.w}
+                        height={photo.h}
+                        sizes="160px"
+                        className="max-h-[118px] w-auto max-w-full object-contain"
+                      />
+                    ) : (
+                      <KitComponentIcon type={c.icon} className="h-3/4 w-auto" />
+                    )}
+                  </div>
+                  <div className="font-display font-semibold text-[15px] text-ink leading-[1.35]">{c.label}</div>
                 </div>
-                <div className="font-display font-semibold text-[15px] text-ink leading-[1.35]">{a.l}</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -198,13 +212,21 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             {related.map(r => (
               <Link key={r.slug} href={`/products/${r.slug}`}
                     className="bg-white border border-line p-6 flex flex-col gap-4 hover:-translate-y-0.5 hover:border-ink transition-all">
-                <div className="aspect-[5/3] border border-line grid place-items-center"
-                     style={{background:"radial-gradient(circle, #fff, #f0eee8)"}}>
-                  <span className="font-display text-2xl font-bold tracking-tight text-ink-3/40">{r.name}</span>
+                <div className="grid place-items-center border border-line rounded-[2px] p-6 min-h-[190px]"
+                     style={{background:"radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)"}}>
+                  <Image
+                    src={r.image.src}
+                    alt={r.tag}
+                    width={r.image.w}
+                    height={r.image.h}
+                    sizes="(max-width: 768px) 90vw, 280px"
+                    className="w-auto max-h-[150px] max-w-full object-contain"
+                  />
                 </div>
-                <div>
+                <div className="flex flex-col gap-1.5">
                   <h3 className="font-display font-semibold text-lg m-0">{r.name}</h3>
                   <span className="font-mono text-[11px] text-muted tracking-[.12em] uppercase">{r.axes} · {r.display}</span>
+                  <p className="text-[13px] text-[#5a5650] leading-[1.55] m-0 mt-0.5 line-clamp-2">{r.desc}</p>
                 </div>
               </Link>
             ))}

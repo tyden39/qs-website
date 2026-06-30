@@ -154,19 +154,6 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
               >{t("list.next")}</button>
             </div>
           )}
-
-          {/* newsletter */}
-          <div className="mt-16 bg-ink text-[#cfc9b8] p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center">
-            <div>
-              <div className="font-mono text-[10px] text-gold-2 tracking-[.16em] uppercase mb-2">{t("list.newsletter.tag")}</div>
-              <h3 className="font-display font-bold text-2xl text-white tracking-[-.01em] m-0">{t("list.newsletter.heading1")}<br/>{t("list.newsletter.heading2")}</h3>
-              <p className="text-[#a8a499] mt-2.5 max-w-[60ch] m-0 text-sm">{t("list.newsletter.body")}</p>
-            </div>
-            <form className="flex gap-0">
-              <input className="px-5 py-3 bg-white text-ink border-0 outline-0 text-sm w-72" placeholder={t("list.newsletter.placeholder")}/>
-              <button className="qs-btn qs-btn-gold rounded-none">{t("list.newsletter.submit")}</button>
-            </form>
-          </div>
         </div>
       </section>
     </>

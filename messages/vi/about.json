@@ -50,20 +50,5 @@
       ["Chứng nhận", "ISO 9001:2015"],
       ["Nhân lực", "62 người"]
     ]
-  },
-  "leaders": {
-    "eyebrow": "[ 05 · Lãnh đạo ]",
-    "heading": "Đội ngũ điều hành",
-    "items": [
-      { "name": "Nguyễn Quang Huy", "role": "Founder / CEO", "bio": "Kỹ sư điện tử, 18 năm kinh nghiệm thiết kế hệ thống nhúng. Đồng tác giả firmware F-series và Astro-series." },
-      { "name": "Lê Thanh Mai", "role": "CTO / R&D Lead", "bio": "Tốt nghiệp Bách khoa Hà Nội, từng phát triển PLC cho Mitsubishi VN. Chịu trách nhiệm Astro-series." },
-      { "name": "Trần Đức Tâm", "role": "Plant Director", "bio": "Phụ trách nhà máy TP. Hồ Chí Minh, 12 năm trong sản xuất điện tử. Chứng chỉ Lean Six Sigma Black Belt." },
-      { "name": "Phạm Vĩ Khang", "role": "Head of Field Service", "bio": "Quản lý đội triển khai 24 kỹ sư phủ 35 tỉnh thành. SLA hỗ trợ tại chỗ trong 24 giờ." }
-    ]
-  },
-  "cta": {
-    "heading": "Muốn ghé thăm nhà máy QS?",
-    "body": "Nhà máy mở cho khách hàng và đối tác đặt lịch thăm quan vào thứ 3 và thứ 5 hàng tuần. Đăng ký trước 7 ngày.",
-    "button": "Đặt lịch thăm quan →"
   }
 }

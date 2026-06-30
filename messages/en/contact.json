@@ -3,13 +3,14 @@
     "title": "Contact — QS Technology"
   },
   "hero": {
-    "eyebrow": "Contact · Direct support 24h across 35 provinces",
+    "eyebrow": "Contact · Direct technical support 24h",
     "heading": "Speak directly with the engineers who write the firmware.",
-    "body": "Need controller consultation for a specific production line, custom manufacturing, bulk pricing, or urgent technical support — the QS team responds within 4 business hours and is on-site within 24 hours nationwide."
+    "body": "Need controller consultation for a specific production line, custom manufacturing, bulk pricing, or urgent technical support — the QS team responds within 4 business hours."
   },
   "form": {
-    "eyebrow": "[ 02 · Contact form ]",
+    "eyebrow": "[ Get in touch ]",
     "heading": "Request a quote & consultation",
+    "note": "The QS team responds within 4 business hours (8:00–17:30, Mon–Fri). Need it urgently? Call (+84) 909.663.350.",
     "name": "Full name *",
     "namePlaceholder": "John Smith",
     "email": "Email",
@@ -63,46 +64,5 @@
     "success": "Subscribed successfully! You will receive technical updates from QS.",
     "error": "Something went wrong. Please try again.",
     "invalidEmail": "Invalid email address"
-  },
-  "page": {
-    "channels": [
-      { "lbl": "Hotline · 24/7", "v": "(+84) 909.663.350", "h": "Urgent after-hours technical support" },
-      { "lbl": "Sales", "v": "support@qstcnc.com", "h": "Quotes, bulk orders, OEM" },
-      { "lbl": "Technical", "v": "support@qstcnc.com", "h": "Installation advice, firmware, operating issues" },
-      { "lbl": "Zalo OA", "v": "0905 438 533", "h": "Chat directly with a technician" }
-    ],
-    "instructions": {
-      "eyebrow": "[ 01 · Send a request ]",
-      "heading1": "Need a quote",
-      "heading2": "or a custom consultation?",
-      "p1": "Fill in the form, and the QS sales team will get in touch within 4 business hours (8:00–17:30, Mon–Fri).",
-      "p2pre": "For a faster response, call the hotline directly at ",
-      "checklistTitle": "Including the following will help us advise you faster",
-      "checklist": [
-        "The machine type you use / want to build (milling, turning, bending, gluing…)",
-        "Number of axes to control and open-loop / closed-loop requirements",
-        "Travel dimensions and the precision you need",
-        "Expected order quantity and required delivery time",
-        "Any controller you've used before (if any)"
-      ]
-    },
-    "offices": {
-      "eyebrow": "[ 03 · Office & factory ]",
-      "heading": "Location in Vietnam",
-      "bookVisit": "Book a visit →",
-      "items": [
-        { "n": "01", "t": "Headquarters & factory", "name": "QS Technology — Ho Chi Minh City", "addr": ["117 Truong Thi Nhu Street", "Xuan Thoi Son, Hoc Mon", "Ho Chi Minh City – Vietnam (700000)"], "meta": "Mon–Fri · 8:00 – 17:30 · (+84) 909.663.350" }
-      ]
-    },
-    "faq": {
-      "eyebrow": "[ 04 · Frequently asked questions ]",
-      "heading": "Before you call, you might already have the answer",
-      "items": [
-        { "q": "Does QS provide on-site support outside HCMC?", "a": "Yes. The QS technical team is on-site within 24 hours across all 35 provinces. Service fees follow a public price list and are free for customers within the warranty period." },
-        { "q": "What is the standard delivery time?", "a": "In-stock items (F54, F86, Astro 6AH) ship in 3–5 business days. Custom orders (custom config, OEM) ship in 4–6 weeks from order confirmation." },
-        { "q": "Do you offer custom controller development?", "a": "Yes. QS's Custom Engineering service designs the PCB, writes the firmware, and delivers turnkey within 8 weeks. Minimum 50 units per OEM order." },
-        { "q": "What about warranty and replacement parts?", "a": "A 24-month hardware warranty and free firmware support for the product's lifetime. Replacement parts are guaranteed available for at least 8 years after discontinuation." }
-      ]
-    }
   }
 }

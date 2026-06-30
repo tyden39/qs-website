@@ -1,15 +1,15 @@
 "use client";
 import { useEffect } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { useRouter } from "@/lib/i18n/navigation";
+import { Link, useRouter } from "@/lib/i18n/navigation";
 
 const featured = [
-  { slug: "f54",      name: "F54",       meta: "3-axis · 5\" display" },
-  { slug: "f86",      name: "F86",       meta: "6-axis · 8\" display" },
-  { slug: "f10t",     name: "F10T",      meta: "Touch 10.4\"" },
-  { slug: "astro-6ah",name: "Astro 6AH", meta: "Closed-loop servo" },
-  { slug: "astro-10i",name: "Astro 10i", meta: "Flagship · EtherCAT" },
+  { slug: "f54",      name: "F54",       meta: "4-axis · 5\" display",  img: "/img/products/f54-front.webp" },
+  { slug: "f86",      name: "F86",       meta: "6-axis · 8\" display",  img: "/img/products/f86-front.webp" },
+  { slug: "f10t",     name: "F10T",      meta: "Touch 10.4\"",          img: "/img/products/f10t-front.webp" },
+  { slug: "astro-6ah",name: "Astro 6AH", meta: "Closed-loop servo",     img: "/img/products/astro-6ah-front.webp" },
+  { slug: "astro-10i",name: "Astro 10i", meta: "Flagship · EtherCAT",   img: "/img/products/astro-10i-front.webp" },
 ];
 
 function close() {
@@ -67,8 +67,10 @@ export default function SearchPanel() {
               {featured.map((p, i) => (
                 <Link key={p.slug} href={`/products/${p.slug}`} onClick={close}
                       className="bg-white p-4 hover:bg-paper transition-colors flex flex-col text-ink">
-                  <div className="h-20 bg-paper-2 grid place-items-center mb-3 border border-line font-mono text-[10px] text-muted">
-                    {p.name}
+                  <div className="h-24 grid place-items-center mb-3 border border-line p-2 overflow-hidden"
+                       style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
+                    <Image src={p.img} alt={p.name} width={160} height={120}
+                           sizes="160px" className="w-auto max-h-full max-w-full object-contain" />
                   </div>
                   <div className="flex flex-col gap-[3px]">
                     <b className="font-display font-bold text-base tracking-[-.01em]">{p.name}</b>

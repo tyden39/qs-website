@@ -152,6 +152,40 @@ function IoBoard({ id }: { id: string }) {
   );
 }
 
+function ToolSetter({ id }: { id: string }) {
+  return (
+    <>
+      <Defs id={id} />
+      {/* magnetic base */}
+      <ellipse cx="60" cy="72" rx="30" ry="7" fill="#0a1620" />
+      <rect x="34" y="50" width="52" height="20" rx="3" fill={`url(#${id}-steel)`} stroke="#0a1620" />
+      {/* sensor body */}
+      <rect x="46" y="20" width="28" height="32" rx="3" fill={`url(#${id}-case)`} stroke={STROKE} />
+      <circle cx="60" cy="20" r="9" fill={`url(#${id}-steel)`} stroke={STROKE} />
+      <circle cx="60" cy="20" r="3.4" fill={GOLD} />
+      {/* side connector */}
+      <rect x="30" y="34" width="16" height="7" rx="1.5" fill="#11283b" />
+      <circle cx="33" cy="37.5" r="2.4" fill="#3a5670" />
+    </>
+  );
+}
+
+function Probe({ id }: { id: string }) {
+  return (
+    <>
+      <Defs id={id} />
+      {/* shank */}
+      <rect x="52" y="8" width="16" height="16" rx="2" fill={`url(#${id}-steel)`} stroke="#0a1620" />
+      {/* body */}
+      <rect x="44" y="24" width="32" height="30" rx="4" fill={`url(#${id}-case)`} stroke={STROKE} />
+      <circle cx="60" cy="39" r="4" fill={GOLD} />
+      {/* stylus + ruby ball */}
+      <line x1="60" y1="54" x2="60" y2="70" stroke={STROKE} strokeWidth="2.4" />
+      <circle cx="60" cy="74" r="5" fill="#c8443a" stroke="#8a2a23" />
+    </>
+  );
+}
+
 const RENDERERS: Record<KitIcon, (p: { id: string }) => React.ReactElement> = {
   controller: Controller,
   drive: Drive,
@@ -159,6 +193,8 @@ const RENDERERS: Record<KitIcon, (p: { id: string }) => React.ReactElement> = {
   psu: Psu,
   mpg: Mpg,
   ioboard: IoBoard,
+  toolsetter: ToolSetter,
+  probe: Probe,
 };
 
 export function KitComponentIcon({ type, className }: Props) {

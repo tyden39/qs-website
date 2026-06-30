@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import type { ProductView } from "@/lib/data/products";
 import { KitComponentIcon } from "./kit-component-icon";
@@ -46,8 +46,10 @@ export async function ProductBundleCard({
           </span>
         </div>
 
-        {/* controller render — real front-face photo */}
-        <div
+        {/* controller render — real front-face photo, links to the detail page */}
+        <Link
+          href={`/products/${product.slug}`}
+          aria-label={product.tag}
           className="relative mt-6 grid place-items-center border border-line rounded-[2px] p-4 overflow-hidden min-h-[180px]"
           style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
         >
@@ -60,10 +62,13 @@ export async function ProductBundleCard({
             sizes="(max-width: 768px) 90vw, 240px"
             className="w-auto max-h-[200px] max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
           />
-        </div>
+        </Link>
 
         <h3 className="mt-5 font-display font-bold text-[22px] tracking-[-.01em] m-0">
-          <span className="text-muted font-medium text-[15px]">{t("model")}</span> {product.name}
+          <span className="text-muted font-medium text-[15px]">{t("model")}</span>{" "}
+          <Link href={`/products/${product.slug}`} className="hover:text-gold-1 transition-colors">
+            {product.name}
+          </Link>
         </h3>
 
         <ul className="list-none p-0 m-0 mt-3 flex flex-col gap-1.5">

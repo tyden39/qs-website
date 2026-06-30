@@ -67,11 +67,6 @@ export default async function News({ params }: { params: Promise<{ locale: Local
               {t("list.heading")} <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{t("list.headingEm")}</em>
             </h1>
           </div>
-          <div className="font-mono text-[11px] text-muted tracking-[.16em] uppercase flex gap-8 items-center">
-            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">148</b>{t("list.stats.articles")}</div>
-            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">34</b>{t("list.stats.events")}</div>
-            <div><b className="text-ink font-display text-2xl font-bold tracking-[-.01em] normal-case block">06</b>{t("list.stats.categories")}</div>
-          </div>
         </div>
       </section>
 

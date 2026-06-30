@@ -12,11 +12,12 @@
         "desc": "Part of QS Technology's premium line. Powerful specs and a high-speed interpolation algorithm deliver smooth, stable machining — far beyond conventional controllers.",
         "fig": "FIG 01 · CNC CONTROLLER · ASTRO 10i",
         "specs": [
-          ["Control axes", "6 · closed loop"],
-          ["Protocol", "EtherCAT · MLK"],
-          ["Display", "10.1″ IPS touch"],
-          ["Interpolation", "Nano · high speed"],
-          ["Origin", "Ho Chi Minh City · VN"]
+          ["Control axes", "6 – 8"],
+          ["Control protocol", "Pulse Train · EtherCAT · Mechatrolink"],
+          ["Display", "10.4 inch"],
+          ["Control mode", "Closed loop"],
+          ["PLC integration", "Yes"],
+          ["High-speed RTCP", "Yes"]
         ]
       },
       {
@@ -26,11 +27,11 @@
         "desc": "The flagship 6-axis closed-loop line with EtherCAT and Mechatrolink MII/MIII — built for mould-making and medical components that demand the highest precision.",
         "fig": "FIG 02 · CNC CONTROLLER · ASTRO 6AH",
         "specs": [
-          ["Control axes", "6 · closed loop"],
-          ["Protocol", "EtherCAT · MII/MIII"],
-          ["Application", "Mould · medical"],
-          ["Servo motor", "Synchronous closed loop"],
-          ["Origin", "Ho Chi Minh City · VN"]
+          ["Control axes", "6 – 8"],
+          ["Control protocol", "Pulse Train · EtherCAT · Mechatrolink"],
+          ["Display", "8 inch"],
+          ["Control mode", "Closed loop"],
+          ["PLC integration", "Yes"]
         ]
       },
       {
@@ -40,11 +41,11 @@
         "desc": "A 6-axis controller for a wide range of machines — milling, jigsaw cutting, gluing. Supports Pulse Train and EtherCAT control, easy to integrate, cost-optimised.",
         "fig": "FIG 03 · CNC CONTROLLER · F86",
         "specs": [
-          ["Control axes", "6 · open/closed"],
-          ["Protocol", "Pulse Train · EtherCAT"],
-          ["Application", "Mill · saw · glue"],
-          ["Integration", "Fast · flexible"],
-          ["Origin", "Ho Chi Minh City · VN"]
+          ["Control axes", "6 – 8"],
+          ["Control protocol", "Pulse Train · EtherCAT"],
+          ["Display", "8 inch"],
+          ["Control mode", "Open loop"],
+          ["PLC integration", "Yes"]
         ]
       }
     ]

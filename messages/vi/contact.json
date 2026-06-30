@@ -3,13 +3,14 @@
     "title": "Liên hệ — QS Technology"
   },
   "hero": {
-    "eyebrow": "Liên hệ · Hỗ trợ trực tiếp 24h tại 35 tỉnh",
+    "eyebrow": "Liên hệ · Hỗ trợ kỹ thuật trực tiếp 24h",
     "heading": "Nói chuyện trực tiếp với người viết firmware.",
-    "body": "Bạn cần tư vấn controller cho dây chuyền cụ thể, đặt chế tạo riêng, báo giá lô hàng hay yêu cầu hỗ trợ kỹ thuật khẩn cấp — đội QS phản hồi trong 4 giờ làm việc, có mặt tại chỗ trong 24 giờ trên toàn quốc."
+    "body": "Bạn cần tư vấn controller cho dây chuyền cụ thể, đặt chế tạo riêng, báo giá lô hàng hay yêu cầu hỗ trợ kỹ thuật khẩn cấp — đội QS phản hồi trong 4 giờ làm việc."
   },
   "form": {
-    "eyebrow": "[ 02 · Form liên hệ ]",
+    "eyebrow": "[ Liên hệ ]",
     "heading": "Yêu cầu báo giá & tư vấn",
+    "note": "Đội QS phản hồi trong 4 giờ làm việc (8:00–17:30, T2–T6). Cần gấp, gọi hotline (+84) 909.663.350.",
     "name": "Họ & tên *",
     "namePlaceholder": "Nguyễn Văn A",
     "email": "Email",
@@ -63,46 +64,5 @@
     "success": "Đăng ký thành công! Bạn sẽ nhận bản tin kỹ thuật từ QS.",
     "error": "Có lỗi xảy ra. Vui lòng thử lại.",
     "invalidEmail": "Email không hợp lệ"
-  },
-  "page": {
-    "channels": [
-      { "lbl": "Hotline · 24/7", "v": "(+84) 909.663.350", "h": "Hỗ trợ kỹ thuật khẩn cấp ngoài giờ" },
-      { "lbl": "Bán hàng", "v": "support@qstcnc.com", "h": "Báo giá, đặt hàng lô lớn, OEM" },
-      { "lbl": "Kỹ thuật", "v": "support@qstcnc.com", "h": "Tư vấn lắp đặt, firmware, lỗi vận hành" },
-      { "lbl": "Zalo OA", "v": "0905 438 533", "h": "Chat trực tiếp với kỹ thuật viên" }
-    ],
-    "instructions": {
-      "eyebrow": "[ 01 · Gửi yêu cầu ]",
-      "heading1": "Cần báo giá",
-      "heading2": "hoặc tư vấn riêng?",
-      "p1": "Điền thông tin bên cạnh, đội kinh doanh QS sẽ liên hệ trong vòng 4 giờ làm việc (từ 8:00 đến 17:30, T2–T6).",
-      "p2pre": "Nếu cần phản hồi nhanh hơn, gọi trực tiếp hotline ",
-      "checklistTitle": "Bao gồm các thông tin sau sẽ giúp tư vấn nhanh hơn",
-      "checklist": [
-        "Loại máy bạn đang dùng / muốn thiết kế (phay, tiện, uốn, dán keo…)",
-        "Số trục cần điều khiển và yêu cầu vòng hở / vòng kín",
-        "Kích thước hành trình và độ chính xác mong muốn",
-        "Số lượng đặt mua dự kiến và thời gian cần giao",
-        "Đã từng dùng controller nào trước đây (nếu có)"
-      ]
-    },
-    "offices": {
-      "eyebrow": "[ 03 · Văn phòng & nhà máy ]",
-      "heading": "Địa điểm tại Việt Nam",
-      "bookVisit": "Đặt lịch thăm quan →",
-      "items": [
-        { "n": "01", "t": "Trụ sở & nhà máy", "name": "QS Technology — TP. Hồ Chí Minh", "addr": ["117 Đường Trương Thị Như", "Xuân Thới Sơn, Hóc Môn", "Thành phố Hồ Chí Minh – Việt Nam (700000)"], "meta": "T2–T6 · 8:00 – 17:30 · (+84) 909.663.350" }
-      ]
-    },
-    "faq": {
-      "eyebrow": "[ 04 · Câu hỏi thường gặp ]",
-      "heading": "Trước khi gọi, có thể bạn đã có câu trả lời",
-      "items": [
-        { "q": "QS có hỗ trợ tại chỗ ngoài TP.HCM không?", "a": "Có. Đội kỹ thuật QS có mặt tại chỗ trong 24 giờ trên toàn 35 tỉnh thành. Phí dịch vụ tính theo bảng giá công khai, miễn phí cho khách hàng đang trong thời hạn bảo hành." },
-        { "q": "Thời gian giao hàng tiêu chuẩn là bao lâu?", "a": "Hàng có sẵn (F54, F86, Astro 6AH) giao trong 3–5 ngày làm việc. Hàng đặt riêng (custom config, OEM) giao trong 4–6 tuần kể từ khi xác nhận đơn." },
-        { "q": "Có hỗ trợ chế tạo controller riêng không?", "a": "Có. Dịch vụ Custom Engineering của QS thiết kế PCB, viết firmware và bàn giao trọn gói trong 8 tuần. Tối thiểu 50 chiếc cho mỗi đơn hàng OEM." },
-        { "q": "Bảo hành và phụ tùng thay thế như thế nào?", "a": "Bảo hành 24 tháng cho phần cứng, hỗ trợ firmware miễn phí trọn đời sản phẩm. Linh kiện thay thế cam kết sẵn ít nhất 8 năm sau khi ngừng sản xuất." }
-      ]
-    }
   }
 }

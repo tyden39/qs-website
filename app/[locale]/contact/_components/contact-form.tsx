@@ -115,9 +115,10 @@ export function ContactForm() {
       <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-5">
         {t("form.eyebrow")}
       </div>
-      <h3 className="font-display font-semibold text-xl tracking-[-.005em] m-0 mb-6">
+      <h3 className="font-display font-semibold text-xl tracking-[-.005em] m-0 mb-2.5">
         {t("form.heading")}
       </h3>
+      <p className="text-sm text-[#5a5650] leading-[1.6] m-0 mb-6">{t("form.note")}</p>
 
       <div className="space-y-5">
         <FormField label={t("form.name")} error={errors.name && t("error.validation.name")}>

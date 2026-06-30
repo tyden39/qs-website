@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 
 /**
  * Filter metadata derived on the server for each product. `node` is the

@@ -61,13 +61,6 @@ export default function Downloads() {
                        placeholder="Tìm datasheet, firmware, catalogue…"/>
                 <button className="bg-ink text-white border-0 px-6 py-4.5 font-mono text-[11px] tracking-[.16em] uppercase">Tìm ↵</button>
               </div>
-
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="font-mono text-[10px] text-muted tracking-[.16em] uppercase mr-1">PHỔ BIẾN:</span>
-                {["Catalogue 2026","F54 · Datasheet","Astro 6AH · Manual","Firmware v2.1.4"].map(q => (
-                  <Link key={q} href="#" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-line font-mono text-[11px] tracking-[.08em] uppercase text-muted hover:border-ink hover:text-ink">{q}</Link>
-                ))}
-              </div>
             </div>
 
             {/* stack visual */}

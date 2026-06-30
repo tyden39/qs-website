@@ -116,6 +116,36 @@ export default function AppDeck({ items }: { items: App[] }) {
           </div>
         </Link>
       ))}
+
+      {/* MORE — slim CTA spine pinned to the end of the strip; mirrors the collapsed
+          panel language (corner ticks, gold index) but stays narrow and links to the
+          full applications catalogue instead of expanding. */}
+      <Link
+        href="/applications"
+        className="qs-panel-more group relative block overflow-hidden rounded-[6px] bg-ink"
+        aria-label="Xem tất cả ứng dụng"
+      >
+        {/* Decorative frame + corner ticks — matches the other panels */}
+        <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/55">
+          <span className="absolute -top-px -left-px w-3.5 h-3.5 border-t border-l border-gold-2" />
+          <span className="absolute -top-px -right-px w-3.5 h-3.5 border-t border-r border-gold-2" />
+          <span className="absolute -bottom-px -left-px w-3.5 h-3.5 border-b border-l border-gold-2" />
+          <span className="absolute -bottom-px -right-px w-3.5 h-3.5 border-b border-r border-gold-2" />
+        </div>
+
+        <div className="absolute inset-0 p-6 flex flex-col items-center">
+          <span className="font-display font-bold text-gold-2 text-[26px] tracking-tight">+{items.length}</span>
+          <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+            <span
+              className="block whitespace-nowrap font-display font-semibold text-white/92 text-[30px] tracking-[.04em]"
+              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+            >
+              Xem tất cả
+            </span>
+            <span className="font-mono text-[13px] text-gold-2 leading-none transition-transform duration-500 group-hover:translate-y-1">↓</span>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 }

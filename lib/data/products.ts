@@ -1,8 +1,10 @@
-import { products, type Product } from "@/data/products";
+import { products, type Product, type KitItem, type ProductPhoto } from "@/data/products";
 import type { Locale } from "@/lib/i18n/config";
 
 export type ProductSpec = { l: string; v: string };
 export type ProductImage = { url: string; alt: string };
+export type ProductKitItem = KitItem;
+export type ProductFrontPhoto = ProductPhoto;
 
 export type ProductView = {
   slug: string;
@@ -15,6 +17,8 @@ export type ProductView = {
   desc: string;
   bullets: string[];
   specs: ProductSpec[];
+  image: ProductFrontPhoto;
+  bundle: ProductKitItem[];
   images: ProductImage[];
   sort: number;
   publishedAt: Date | null;
@@ -35,6 +39,8 @@ function toView(p: Product, index: number): ProductView {
     desc: p.desc,
     bullets: p.bullets,
     specs: p.specs,
+    image: p.image,
+    bundle: p.bundle,
     images: [],
     sort: index,
     publishedAt: null,

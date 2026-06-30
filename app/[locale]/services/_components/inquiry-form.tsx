@@ -86,7 +86,7 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-white border border-line p-8" noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} className="bg-white border border-line p-6 sm:p-8" noValidate>
       {/* Honeypot */}
       <input {...register("honeypot")} type="text" tabIndex={-1} aria-hidden="true" style={{ display: "none" }} />
       <input {...register("source")} type="hidden" />
@@ -105,7 +105,7 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
           <input {...register("company")} type="text" placeholder="Công ty TNHH ABC" className={inputCls(!!errors.company)} />
         </Field>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
           <Field label="Email *" error={errors.email?.message}>
             <input {...register("email")} type="email" placeholder="name@company.vn" className={inputCls(!!errors.email)} />
           </Field>
@@ -140,7 +140,7 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
 }
 
 function inputCls(hasError: boolean) {
-  return `w-full border ${hasError ? "border-red-400" : "border-line"} bg-white px-4 py-3 text-sm focus:outline-none focus:border-ink transition-colors`;
+  return `w-full border ${hasError ? "border-red-400" : "border-line"} bg-white px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-ink transition-colors`;
 }
 
 function Field({

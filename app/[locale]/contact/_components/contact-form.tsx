@@ -56,7 +56,7 @@ export function ContactForm({ locale = "vi" }: { locale?: string }) {
 
   if (status === "success") {
     return (
-      <div className="bg-white border border-line p-8">
+      <div className="bg-white border border-line p-6 sm:p-8">
         <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3">
           [ Gửi thành công ]
         </div>
@@ -77,7 +77,7 @@ export function ContactForm({ locale = "vi" }: { locale?: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-white border border-line p-8" noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} className="bg-white border border-line p-6 sm:p-8" noValidate>
       {/* Honeypot — hidden from humans, bots fill it */}
       <input {...register("honeypot")} type="text" tabIndex={-1} aria-hidden="true" style={{ display: "none" }} />
       <input {...register("source")} type="hidden" />
@@ -109,7 +109,7 @@ export function ContactForm({ locale = "vi" }: { locale?: string }) {
           />
         </FormField>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
           <FormField label="Email *" error={errors.email?.message}>
             <input
               {...register("email")}
@@ -156,7 +156,7 @@ export function ContactForm({ locale = "vi" }: { locale?: string }) {
 }
 
 function inputCls(hasError: boolean) {
-  return `w-full border ${hasError ? "border-red-400" : "border-line"} bg-white px-4 py-3 text-sm focus:outline-none focus:border-ink transition-colors`;
+  return `w-full border ${hasError ? "border-red-400" : "border-line"} bg-white px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-ink transition-colors`;
 }
 
 function FormField({

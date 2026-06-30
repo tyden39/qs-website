@@ -13,9 +13,15 @@ export type VideoItem = {
 
 const INTERVAL = 6000; // ms each clip stays featured before auto-advancing
 
-/** YouTube poster URL from a video id — `max` = 1280×720 (feature), `mq` = 320×180 (thumb). Both are 16:9. */
-const poster = (id: string, size: "max" | "mq") =>
-  `https://i.ytimg.com/vi/${id}/${size === "max" ? "maxresdefault" : "mqdefault"}.jpg`;
+/**
+ * YouTube poster URL from a video id. `max` = 1280×720 16:9 (feature) but only exists for
+ * HD uploads — it 404s otherwise, so the feature falls back to `hq`. `hq` = 480×360 (always
+ * present). `mq` = 320×180 16:9 (playlist thumb).
+ */
+const poster = (id: string, size: "max" | "hq" | "mq") => {
+  const file = size === "max" ? "maxresdefault" : size === "hq" ? "hqdefault" : "mqdefault";
+  return `https://i.ytimg.com/vi/${id}/${file}.jpg`;
+};
 
 /**
  * Showreel — the active clip fills the cinematic feature screen on the left while the
@@ -34,6 +40,8 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
   const [animate, setAnimate] = useState(true);
   // Which clip (if any) is actively playing its YouTube embed in the feature screen.
   const [playing, setPlaying] = useState(false);
+  // Video ids whose maxresdefault poster 404'd → fall back to hqdefault on the feature screen.
+  const [noMaxres, setNoMaxres] = useState<Record<string, boolean>>({});
 
   // Honour prefers-reduced-motion: no autoplay, no progress bar.
   useEffect(() => {
@@ -95,11 +103,19 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
           <>
             <Image
               key={active}
-              src={poster(feat.youtubeId, "max")}
+              src={poster(feat.youtubeId, noMaxres[feat.youtubeId] ? "hq" : "max")}
               alt={feat.title}
               fill
               sizes="(max-width:1024px) 100vw, 52vw"
               priority={active === 0}
+              onError={() => setNoMaxres((m) => ({ ...m, [feat.youtubeId]: true }))}
+              onLoad={(e) => {
+                // YouTube serves a 120×90 gray placeholder (HTTP 200, not 404) when a video
+                // has no maxresdefault — detect it by size and fall back to hqdefault.
+                if (e.currentTarget.naturalWidth <= 120) {
+                  setNoMaxres((m) => ({ ...m, [feat.youtubeId]: true }));
+                }
+              }}
               className="qs-rise object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.9) 2%,rgba(10,10,8,.1) 42%,transparent 72%)" }} />

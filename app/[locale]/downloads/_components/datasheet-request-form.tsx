@@ -88,13 +88,13 @@ export function DatasheetRequestForm({ datasheetSlug, datasheetName, fileUrl, lo
         Nhập email để tải <strong className="text-ink">{datasheetName}</strong>
       </p>
 
-      <div className="flex gap-2 items-start">
+      <div className="flex gap-2 items-stretch">
         <div className="flex-1">
           <input
             {...register("email")}
             type="email"
             placeholder="email@company.vn"
-            className={`w-full border ${errors.email ? "border-red-400" : "border-line"} bg-white px-3 py-2 text-sm focus:outline-none focus:border-ink transition-colors`}
+            className={`w-full border ${errors.email ? "border-red-400" : "border-line"} bg-white px-3 py-2.5 text-base sm:text-sm focus:outline-none focus:border-ink transition-colors`}
           />
           {errors.email && (
             <p className="mt-0.5 text-xs text-red-500">{errors.email.message}</p>
@@ -103,7 +103,7 @@ export function DatasheetRequestForm({ datasheetSlug, datasheetName, fileUrl, lo
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex items-center h-9 border border-ink bg-ink text-white px-4 font-mono text-[11px] tracking-[.14em] uppercase hover:bg-gold-3 hover:border-gold-3 disabled:opacity-50 whitespace-nowrap"
+          className="inline-flex items-center self-start border border-ink bg-ink text-white px-4 py-2.5 font-mono text-[11px] tracking-[.14em] uppercase hover:bg-gold-3 hover:border-gold-3 disabled:opacity-50 whitespace-nowrap"
         >
           {status === "submitting" ? "…" : "Tải ↓"}
         </button>

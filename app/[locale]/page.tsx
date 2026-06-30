@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import Reveal from "@/components/reveal";
-import CountUp from "@/components/count-up";
 import Marquee from "@/components/marquee";
 import CircuitTraces from "@/components/circuit-traces";
 import AppDeck from "@/components/app-deck";
@@ -45,13 +44,6 @@ export async function generateMetadata({
     twitter: { card: "summary_large_image", title, description },
   };
 }
-
-const stats = [
-  { to: 6, pad: 2, suffix: "", l: "Dòng controller", d: "F-series & Astro — từ phổ thông đến cao cấp" },
-  { to: 800, pad: 0, suffix: "+", l: "Dây chuyền sản xuất", d: "Vận hành ổn định tại nhà máy khách hàng" },
-  { to: 35, pad: 0, suffix: "", l: "Tỉnh thành hỗ trợ", d: "Kỹ thuật triển khai & bảo trì tận nơi" },
-  { to: 24, pad: 0, suffix: "", l: "Tháng bảo hành", d: "Bảo hành chính hãng + hỗ trợ dài hạn" },
-];
 
 const heroSlides: HeroSlide[] = [
   {
@@ -104,14 +96,8 @@ const heroSlides: HeroSlide[] = [
   },
 ];
 
-const machineTypes = [
-  "Phay CNC", "Tiện CNC", "Router gỗ", "Uốn lò xo", "Dán keo tự động",
-  "Khắc laser", "Cắt plasma", "Kim hoàn", "Chấn tôn", "Đột dập", "Mài CNC", "Đóng gói",
-];
-const tickerTags = [
-  "Made in Vietnam", "QS Firmware", "EtherCAT", "Mechatrolink MII/MIII",
-  "Pulse Train", "Servo vòng kín", "Hỗ trợ 35 tỉnh thành", "Bảo hành 24 tháng",
-];
+// Running marquee phrases — repeated so each track spans wider than the viewport for a seamless loop.
+const tickerWords = Array.from({ length: 4 }, () => ["Motion Controller", "Made By Vietnam", "QS Technology"]).flat();
 
 const apps = [
   { slug: "phay-cnc", n: "01", t: "Máy phay CNC", img: "/home/app-phay-cnc.webp", d: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Điều khiển 6 trục vòng kín cho gia công khuôn mẫu và chi tiết phức tạp." },
@@ -149,9 +135,11 @@ const homeProducts = [
 
 // Thumbnail tự lấy từ YouTube theo youtubeId. duration tùy chọn (bỏ trống → ẩn badge).
 const videos: VideoItem[] = [
-  { youtubeId: "TCkwmd2HUOw", title: "Tính năng cơ bản bộ điều khiển CNC F54 — Phần 1" },
-  { youtubeId: "b-O5la5o5m0", title: "Tính năng cơ bản bộ điều khiển CNC F54 — Phần 2" },
-  { youtubeId: "j-RXLvCzxEI", title: "Tính năng cơ bản bộ điều khiển CNC F54 — Phần 3" },
+  { youtubeId: "3bBrcmmvkZw", title: "Máy uốn lò xo (F86 Controller)" },
+  { youtubeId: "kLcNpeHu-2A", title: "Máy gia công kim hoàn 5 trục (Astro 6AV)" },
+  { youtubeId: "3bBrcmmvkZw", title: "Tính năng cơ bản bộ điều khiển CNC F54 — Phần 3" },
+  { youtubeId: "W0Z8zw3TkfE", title: "Bộ điều khiển CNC QS F54 — Giải pháp tối ưu cho máy CNC" },
+  { youtubeId: "B1wENfUjn8M", title: "Quy trình sản xuất ván lạng (ván plywood) từ A đến Z" },
 ];
 
 const news: NewsItem[] = [
@@ -218,16 +206,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     <>
       {/* HERO — dark blueprint stage as a product slider (thesis · device render · spec readout) */}
       <HeroSlider slides={heroSlides} />
-
-      {/* TICKER — running dual-row marquee band, lifted up against the hero with a paper gap above */}
-      <div className="mt-12 lg:mt-16 bg-ink text-[#cfc9b8] border-y border-[#2a2620] overflow-hidden">
-        <div className="py-3.5 border-b border-[#2a2620]">
-          <Marquee items={machineTypes} speed={52} />
-        </div>
-        <div className="py-3.5 text-[#8a8676]">
-          <Marquee items={tickerTags} speed={46} reverse />
-        </div>
-      </div>
 
       {/* PRODUCTS — contained wide, 3-up datasheet cards */}
       <section className="relative py-24 bg-paper overflow-hidden">
@@ -303,47 +281,15 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      {/* STATS — dark metrics band between the product showrooms, lit by a gold seam + soft gold wash */}
-      <section className="relative bg-ink text-[#e8e6df] overflow-hidden pb-14 lg:pb-16">
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(232,200,120,.6),transparent)" }} aria-hidden="true"></div>
-        <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-[85%] h-56 opacity-80" style={{ background: "radial-gradient(ellipse at top, rgba(232,200,120,.16), transparent 70%)" }} aria-hidden="true"></div>
-        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
-        <CircuitTraces variant="dark" className="absolute inset-y-0 right-0 w-[44%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_64%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_64%)]" />
-        <div className="relative qs-wrap-wide">
-          {/* caption strip */}
-          <div className="pt-12 pb-8">
-            <div className="flex items-center justify-between gap-4">
-              <span className="qs-eyebrow !text-gold-2 before:hidden">
-                <span className="qs-live-dot mr-1" aria-hidden="true"></span>QS · bằng những con số
-              </span>
-              <span className="hidden sm:inline font-mono text-[10px] text-[#6b6453] tracking-[.18em] uppercase">Số liệu cập nhật · 2026</span>
-            </div>
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mt-6">
-              <h2 className="qs-h2 text-white max-w-[16ch]">Năng lực QS qua từng con số</h2>
-              <p className="text-sm text-[#a8a499] leading-[1.7] max-w-[48ch]">
-                Từ nghiên cứu phần cứng, phát triển firmware đến triển khai và bảo trì hiện trường — các con số phản ánh năng lực vận hành thực tế của QS Technology.
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-[#241f17] border-t border-[#241f17]">
-            {stats.map((s, i) => (
-              <Reveal key={s.l} delay={i * 70} className="group relative py-9 lg:py-12 px-6 lg:px-9">
-                {/* index tick */}
-                <div className="flex items-center gap-2.5 mb-5">
-                  <span className="w-6 h-px bg-gold transition-all duration-300 group-hover:w-10"></span>
-                  <span className="font-mono text-[10px] text-[#6b6453] tracking-[.22em]">{String(i + 1).padStart(2, "0")}</span>
-                </div>
-                <div className="font-display font-bold leading-none tracking-[-.02em]" style={{ fontSize: "clamp(38px,4vw,60px)" }}>
-                  <CountUp to={s.to} pad={s.pad} suffix={s.suffix} repeatEvery={6000 + i * 900}
-                           className="qs-gold-shimmer" />
-                </div>
-                <div className="mt-3 font-mono text-[10px] tracking-[.2em] uppercase text-[#8a8676]">{s.l}</div>
-                <p className="mt-2.5 text-[12.5px] leading-[1.55] text-[#7e7a6e] max-w-[26ch]">{s.d}</p>
-              </Reveal>
-            ))}
-          </div>
+      {/* TICKER — running dual-row marquee band between the product showrooms */}
+      <div className="bg-ink text-[#cfc9b8] border-y border-[#2a2620] overflow-hidden">
+        <div className="py-3.5 border-b border-[#2a2620]">
+          <Marquee items={tickerWords} speed={52} />
         </div>
-      </section>
+        <div className="py-3.5 text-[#8a8676]">
+          <Marquee items={tickerWords} speed={46} reverse />
+        </div>
+      </div>
 
       {/* APPLICATIONS — contained hover-expand accordion */}
       <section className="relative py-24 bg-paper overflow-hidden">

@@ -152,13 +152,6 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 
         {/* RIGHT — spec readout; rows light up on hover */}
         <ul key={`s-${active}`} className="flex flex-col text-[#cfc9b8] w-full max-w-[420px] mx-auto lg:mx-0">
-          <li className="flex items-center justify-between pb-3 qs-rise" style={rise(340)}>
-            <span className="font-mono text-[10px] tracking-[.22em] uppercase text-[#8a8676]">Thông số kỹ thuật</span>
-            <span className="inline-flex items-center gap-1.5">
-              <button type="button" onClick={() => go(active - 1)} aria-label="Sản phẩm trước" className="qs-hero-arrow">‹</button>
-              <button type="button" onClick={() => go(active + 1)} aria-label="Sản phẩm tiếp theo" className="qs-hero-arrow">›</button>
-            </span>
-          </li>
           {s.specs.map(([k, v], i) => (
             <li
               key={k}

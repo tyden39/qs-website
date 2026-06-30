@@ -75,14 +75,6 @@ export default async function Applications({ params }: { params: Promise<{ local
               <p className="qs-lede mt-5">
                 Bộ điều khiển QS đang vận hành trong tám loại máy gia công khác nhau — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm. Mỗi case study là một bài toán kỹ thuật riêng.
               </p>
-              <div className="grid grid-cols-3 gap-6 mt-10 pt-6 border-t border-line">
-                {[["8","Loại ứng dụng"],["800+","Hệ thống đã giao"],["12","Năm vận hành"]].map(([v,l]) => (
-                  <div key={l}>
-                    <div className="font-display font-bold text-[28px] tracking-[-.01em]">{v}</div>
-                    <div className="font-mono text-[10px] text-muted tracking-[.16em] uppercase mt-1">{l}</div>
-                  </div>
-                ))}
-              </div>
             </div>
             {/* PCB visual */}
             <div className="relative aspect-video border overflow-hidden"

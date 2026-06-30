@@ -17,9 +17,6 @@ export const metadata: Metadata = {
   },
   description:
     "Thiết kế và sản xuất bộ điều khiển CNC, servo, board mở rộng tại Việt Nam. Hỗ trợ trực tiếp tại 35 tỉnh thành, bảo hành 24 tháng.",
-  icons: {
-    icon: "/favicon.ico",
-  },
   openGraph: {
     siteName: "QS Technology",
     type: "website",

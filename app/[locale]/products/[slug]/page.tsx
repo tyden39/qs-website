@@ -155,21 +155,6 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         </div>
       </section>
 
-      {/* OVERVIEW */}
-      <section className="py-20 bg-paper border-y border-line">
-        <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_2fr] gap-16">
-          <div>
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Tổng quan ]</span>
-            <h2 className="qs-h2 mt-2">Mô tả sản phẩm</h2>
-          </div>
-          <div className="text-[15px] leading-[1.85] text-[#3a3a3a]">
-            <p className="m-0 mb-4.5">{p.desc}</p>
-            <p className="m-0 mb-4.5">Với bộ vi xử lý hiệu năng cao, kích thước màn hình {p.display} giúp người dùng có thể dễ dàng theo dõi các thông số, thông tin hiển thị trên bộ điều khiển.</p>
-            <p className="m-0">Thiết kế chống nhiễu công nghiệp với cấp bảo vệ IP54 cho phép vận hành trong môi trường nhà máy khắc nghiệt. Các port I/O sử dụng kết nối tiêu chuẩn, dễ dàng tích hợp với hệ thống servo có sẵn.</p>
-          </div>
-        </div>
-      </section>
-
       {/* PACKAGE */}
       <section className="py-20 bg-white">
         <div className="max-w-wrap mx-auto px-12">

@@ -45,8 +45,12 @@ export default function Header() {
     <>
       <div className="qs-topstrip">
         <div className="qs-wrap-wide py-1.5 flex justify-between items-center gap-6">
-          <span className="min-w-0 truncate"><span className="qs-topstrip-dot"></span>QS Technology Co., Ltd · Vietnam Made CNC Systems · Est. 2014</span>
-          <span className="hidden md:inline shrink-0">Hotline +84 28 3636 1234 · sales@qstechnology.vn</span>
+          <span className="min-w-0 truncate"><span className="qs-topstrip-dot"></span>QS Technology Co., Ltd · Bộ điều khiển CNC · Servo · DNC</span>
+          <span className="hidden md:inline shrink-0">
+            Hotline <a href="tel:+84909663350" className="qs-topstrip-link">(+84) 909.663.350</a>
+            {" · "}
+            <a href="mailto:support@qstcnc.com" className="qs-topstrip-link">support@qstcnc.com</a>
+          </span>
         </div>
       </div>
 
@@ -122,8 +126,8 @@ export default function Header() {
             ))}
             <div className="mt-5 flex items-center justify-between gap-4">
               <div className="flex flex-col gap-1.5 font-mono text-[11px] tracking-[.1em] uppercase text-muted">
-                <a href="tel:+842836361234" className="hover:text-ink">Hotline · +84 28 3636 1234</a>
-                <a href="mailto:sales@qstechnology.vn" className="hover:text-ink lowercase tracking-[.06em]">sales@qstechnology.vn</a>
+                <a href="tel:+84909663350" className="hover:text-ink">Hotline · (+84) 909.663.350</a>
+                <a href="mailto:support@qstcnc.com" className="hover:text-ink lowercase tracking-[.06em]">support@qstcnc.com</a>
               </div>
               <div className="sm:hidden shrink-0"><LocaleSwitcher /></div>
             </div>

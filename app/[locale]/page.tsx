@@ -47,7 +47,7 @@ export async function generateMetadata({
 
 const heroSlides: HeroSlide[] = [
   {
-    tag: "Dòng cao cấp · 2026",
+    tag: "Cao cấp · High Tech",
     name: "Astro 10i",
     sub: "Bộ điều khiển",
     desc: "Thuộc dòng cao cấp của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.",
@@ -63,7 +63,7 @@ const heroSlides: HeroSlide[] = [
     ],
   },
   {
-    tag: "Chủ lực · vòng kín",
+    tag: "Chủ lực · Thông dụng",
     name: "Astro 6AH",
     sub: "Bộ điều khiển",
     desc: "Dòng chủ lực 6 trục vòng kín với EtherCAT và Mechatrolink MII/MIII — dành cho gia công khuôn mẫu và linh kiện y tế đòi hỏi độ chính xác cao nhất.",
@@ -137,7 +137,7 @@ const homeProducts = [
 const videos: VideoItem[] = [
   { youtubeId: "3bBrcmmvkZw", title: "Máy uốn lò xo (F86 Controller)" },
   { youtubeId: "kLcNpeHu-2A", title: "Máy gia công kim hoàn 5 trục (Astro 6AV)" },
-  { youtubeId: "3bBrcmmvkZw", title: "Tính năng cơ bản bộ điều khiển CNC F54 — Phần 3" },
+  { youtubeId: "cpoLcWsIfVQ", title: 'Câu chuyện về "Bộ điều khiển CNC Made By Vietnam"' },
   { youtubeId: "W0Z8zw3TkfE", title: "Bộ điều khiển CNC QS F54 — Giải pháp tối ưu cho máy CNC" },
   { youtubeId: "B1wENfUjn8M", title: "Quy trình sản xuất ván lạng (ván plywood) từ A đến Z" },
 ];

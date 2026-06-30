@@ -18,16 +18,16 @@ const categories = [
 ];
 
 const featured = [
-  { type:"PDF", size:"12.8 MB", pages:"64 pages",
+  { type:"PDF", size:"12.8 MB", pages:"64 trang",
     title:"Catalogue tổng QS 2026", sub:"(Tiếng Việt)",
     desc:"Tổng hợp 6 dòng controller, sơ đồ ứng dụng, bảng so sánh thông số và phụ kiện đi kèm.",
     code:"QS-CAT-2026-VN · v3.1" },
-  { type:"PDF", size:"2.4 MB", pages:"16 pages",
+  { type:"PDF", size:"2.4 MB", pages:"16 trang",
     title:"Astro 6AH", sub:"Datasheet kỹ thuật",
     desc:"Sơ đồ chân, thông số servo, kích thước cơ khí và quy chuẩn lắp đặt vào tủ điện.",
     code:"QS-DS-A6AH · v2.4" },
   { type:"BIN", size:"8.6 MB", pages:"v2.1.4",
-    title:"Firmware F-series", sub:"v2.1.4 (stable)",
+    title:"Firmware F-series", sub:"v2.1.4 (ổn định)",
     desc:"Bản cập nhật ổn định cho F54/F86/F10T với cải tiến look-ahead và sửa lỗi alarm 27.",
     code:"QS-FW-F-2.1.4 · 03/2026" },
 ];
@@ -42,11 +42,11 @@ export default function Downloads() {
         <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
             <Link href="/">Trang chủ</Link><span className="sep">/</span>
-            <span className="here">Tải tài liệu</span>
+            <span className="here">Tài liệu</span>
           </div>
           <div className="grid md:grid-cols-[1.1fr_1fr] gap-16 items-center">
             <div>
-              <div className="qs-eyebrow">Document Center · 2026</div>
+              <div className="qs-eyebrow">Trung tâm tài liệu · 2026</div>
               <h1 className="qs-h1 mt-3.5" style={{fontSize:"clamp(48px,6vw,84px)"}}>
                 Catalogue,<br/>
                 <em className="not-italic font-semibold bg-gold-grad bg-clip-text text-transparent">datasheet</em><br/>&amp; firmware
@@ -89,8 +89,8 @@ export default function Downloads() {
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Browse · 04 categories ]</span>
-              <h2 className="qs-h2 mt-2">Theo loại tài liệu</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Lắp đặt · 04 tài liệu ]</span>
+              <h2 className="qs-h2 mt-2">Tài liệu lắp đặt</h2>
             </div>
             <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">Cập nhật T03/2026</span>
           </div>
@@ -114,8 +114,8 @@ export default function Downloads() {
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Featured · this month ]</span>
-              <h2 className="qs-h2 mt-2">Tài liệu nổi bật</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ Vận hành · 03 tài liệu ]</span>
+              <h2 className="qs-h2 mt-2">Tài liệu vận hành</h2>
             </div>
             <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">Xem tất cả →</Link>
           </div>
@@ -146,8 +146,8 @@ export default function Downloads() {
         <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-2 gap-6">
           <div className="border border-line p-8 relative
                           before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
-            <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ Need an account? ]</div>
-            <h3 className="font-display font-semibold text-[22px] tracking-[-.01em] mt-2.5 mb-3">Tài liệu kỹ thuật mở rộng</h3>
+            <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ Tài liệu PLC ]</div>
+            <h3 className="font-display font-semibold text-[22px] tracking-[-.01em] mt-2.5 mb-3">Tài liệu PLC</h3>
             <p className="text-sm text-[#4a4842] leading-[1.7] m-0 mb-6">Một số tài liệu đặc biệt — sơ đồ điện chi tiết, source ladder mẫu, troubleshooting nâng cao — được cấp riêng cho khách hàng đã ký hợp đồng dịch vụ kỹ thuật.</p>
             <div className="flex gap-3">
               <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/contact">Đăng ký tài khoản</Link>
@@ -156,8 +156,8 @@ export default function Downloads() {
           </div>
           <div className="border border-line p-8 relative
                           before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
-            <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ Can't find it? ]</div>
-            <h3 className="font-display font-semibold text-[22px] tracking-[-.01em] mt-2.5 mb-3">Yêu cầu tài liệu riêng</h3>
+            <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ Tài liệu Macro ]</div>
+            <h3 className="font-display font-semibold text-[22px] tracking-[-.01em] mt-2.5 mb-3">Tài liệu Macro</h3>
             <p className="text-sm text-[#4a4842] leading-[1.7] m-0 mb-6">Cần tài liệu cụ thể không có trong thư viện công khai — bản vẽ EPLAN, sample G-code, video demo? Đội kỹ thuật QS sẽ gửi qua email trong vòng 24 giờ.</p>
             <div className="flex gap-3">
               <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/contact">Yêu cầu tài liệu</Link>

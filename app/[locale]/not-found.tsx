@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(): Promise<Metadata> {

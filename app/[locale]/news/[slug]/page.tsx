@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -56,24 +56,38 @@ const ALLOWED_TAGS = [
 function safeHtml(raw: string): string {
   return DOMPurify.sanitize(raw, {
     ALLOWED_TAGS,
-    ALLOWED_ATTR: ["href", "src", "alt", "title", "rel", "target"],
+    ALLOWED_ATTR: ["href", "src", "alt", "title", "rel", "target", "id"],
     ALLOWED_URI_REGEXP: /^(?:(?:https?:|mailto:|\/)|[^a-z]|[a-z+.-]+(?:[^a-z+.-:]|$))/i,
   });
+}
+
+const VI_MAP: Record<string, string> = { à:"a",á:"a",ả:"a",ã:"a",ạ:"a",ă:"a",ằ:"a",ắ:"a",ẳ:"a",ẵ:"a",ặ:"a",â:"a",ầ:"a",ấ:"a",ẩ:"a",ẫ:"a",ậ:"a",đ:"d",è:"e",é:"e",ẻ:"e",ẽ:"e",ẹ:"e",ê:"e",ề:"e",ế:"e",ể:"e",ễ:"e",ệ:"e",ì:"i",í:"i",ỉ:"i",ĩ:"i",ị:"i",ò:"o",ó:"o",ỏ:"o",õ:"o",ọ:"o",ô:"o",ồ:"o",ố:"o",ổ:"o",ỗ:"o",ộ:"o",ơ:"o",ờ:"o",ớ:"o",ở:"o",ỡ:"o",ợ:"o",ù:"u",ú:"u",ủ:"u",ũ:"u",ụ:"u",ư:"u",ừ:"u",ứ:"u",ử:"u",ữ:"u",ự:"u",ỳ:"y",ý:"y",ỷ:"y",ỹ:"y",ỵ:"y" };
+
+function slugifyVi(s: string): string {
+  return s.toLowerCase().replace(/[àáảãạăằắẳẵặâầấẩẫậđèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ]/g, (c) => VI_MAP[c] ?? c)
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "section";
+}
+
+/** Sanitize, then add stable ids to <h2> headings and return a TOC. */
+function buildArticleBody(raw: string): { html: string; toc: { id: string; text: string }[] } {
+  const html = safeHtml(raw);
+  const toc: { id: string; text: string }[] = [];
+  const used = new Set<string>();
+  const out = html.replace(/<h2>([\s\S]*?)<\/h2>/g, (_m, inner: string) => {
+    const text = inner.replace(/<[^>]+>/g, "").trim();
+    let id = slugifyVi(text);
+    while (used.has(id)) id += "-2";
+    used.add(id);
+    toc.push({ id, text });
+    return `<h2 id="${id}">${inner}</h2>`;
+  });
+  return { html: out, toc };
 }
 
 export async function generateStaticParams() {
   const slugs = await getNewsSlugs();
   return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
-
-type ArticleSection = {
-  id: string;
-  h: string;
-  paras?: string[];
-  quote?: { text: string; cite: string };
-  after?: string[];
-  list?: string[];
-};
 
 export default async function NewsDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
@@ -86,27 +100,16 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
   const isFlagship = slug === "astro-12x";
   const articleJsonLd = buildArticle(n, locale);
 
-  // Share intents use the canonical, locale-aware article URL.
-  const shareUrl = encodeURIComponent(`${APP_URL}${locale === "en" ? "/en" : ""}/news/${slug}`);
-  const shareTitle = encodeURIComponent(n.title);
-  const shareLinks = [
-    { label: "FB", href: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}` },
-    { label: "TW", href: `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}` },
-    { label: "LI", href: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}` },
-  ];
-
-  // Demo body shown only for the flagship article; localized from the `news.article` namespace.
-  const articleBody = {
-    intro: t("article.intro"),
-    intro2: t("article.intro2"),
-    sections: t.raw("article.sections") as ArticleSection[],
-  };
   const metaRows: [string, string][] = [
     [t("meta.dateLabel"), n.date],
     [t("meta.authorLabel"), t("meta.author")],
     [t("meta.readTime"), t("detailPage.readValue")],
     [t("meta.category"), n.cat],
   ];
+
+  // Real crawled body: sanitize, add heading ids, and derive an in-page TOC.
+  const article = buildArticleBody(n.bodyHtml);
+  const hasToc = article.toc.length >= 2;
 
   return (
     <article>
@@ -129,9 +132,8 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
               <span className="inline-block font-mono text-[10px] bg-gold text-ink-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">[ {n.cat} ]</span>
               {isFlagship && <span className="inline-block font-mono text-[10px] bg-ink text-gold-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">{t("detailPage.flagshipBadge")}</span>}
             </div>
-            <h1 className="font-display font-bold tracking-[-.02em] leading-[1.1] text-balance mt-4.5 mb-6"
+            <h1 className="font-display font-bold tracking-[-.02em] leading-[1.1] text-balance mt-4.5 mb-0"
                 style={{fontSize:"clamp(40px,5vw,60px)"}}>{n.title}</h1>
-            <p className="text-lg leading-[1.7] text-[#3a3a3a] max-w-[65ch] text-pretty">{n.excerpt}</p>
           </div>
           <aside className="border border-line p-6 flex flex-col gap-4 bg-paper">
             {metaRows.map(([l,v]) => (
@@ -140,104 +142,52 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
                 <span className="font-display text-sm font-semibold text-ink">{v}</span>
               </div>
             ))}
-            <hr className="border-0 border-t border-line m-0"/>
-            <div>
-              <span className="font-mono text-[9px] text-muted tracking-[.18em] uppercase block mb-2">{t("meta.share")}</span>
-              <div className="flex gap-2">
-                {shareLinks.map(s => (
-                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="w-8 h-8 border border-line grid place-items-center text-muted hover:text-ink hover:border-ink font-mono text-[10px]">{s.label}</a>
-                ))}
-              </div>
-            </div>
           </aside>
-        </div>
-      </section>
-
-      {/* HERO IMG — real cover when available, schematic fallback otherwise */}
-      <section className="bg-ink-2 border-b border-line">
-        <div className="aspect-[21/9] relative overflow-hidden">
-          {n.coverImage ? (
-            <Image src={n.coverImage} alt={n.title} fill priority sizes="100vw" className="object-cover" />
-          ) : (
-            <svg viewBox="0 0 1200 514" preserveAspectRatio="xMidYMid slice" className="w-full h-full block">
-              <rect width="1200" height="514" fill="#1a1815"/>
-              <g fill="#3a3530"><rect x="120" y="80" width="400" height="354"/><rect x="540" y="80" width="240" height="354"/><rect x="800" y="80" width="280" height="354"/></g>
-              <rect x="160" y="160" width="320" height="200" fill="#0a1a2a"/>
-              <text x="200" y="220" fontFamily="JetBrains Mono,monospace" fontSize="22" fill="#e8c878">QS · 2026</text>
-              <text x="200" y="260" fontFamily="JetBrains Mono,monospace" fontSize="40" fill="#fff" fontWeight="700">QS TECHNOLOGY</text>
-              <circle cx="940" cy="260" r="40" fill="#c8553d"/>
-              <circle cx="940" cy="260" r="18" fill="#e8c878"/>
-            </svg>
-          )}
-          <div className="absolute left-0 right-0 bottom-0 px-6 py-3.5 text-[#cfc9b8] font-mono text-[10px] tracking-[.18em] uppercase"
-               style={{background:"linear-gradient(0deg,rgba(10,10,8,.85),transparent)"}}>
-            QS Technology · {n.cat} · {n.date}
-          </div>
         </div>
       </section>
 
       {/* BODY */}
       <section className="py-20 bg-white">
-        <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_240px] gap-20 items-start">
-          <article className="text-base leading-[1.85] text-[#2a2520] max-w-[68ch]">
-            {isFlagship ? (
-              <>
-                <p className="m-0 mb-6 text-pretty">{articleBody.intro}</p>
-                <p className="m-0 mb-6 text-pretty">{articleBody.intro2}</p>
+        <div className={`max-w-wrap mx-auto px-12 grid gap-20 items-start ${hasToc ? "md:grid-cols-[1fr_240px]" : ""}`}>
+          <article
+            className="prose prose-sm md:prose-base max-w-[72ch]
+                       prose-headings:font-display prose-headings:font-bold prose-headings:tracking-[-.01em]
+                       prose-h2:text-[26px] prose-h2:leading-[1.2] prose-h2:mt-12 prose-h2:mb-4 prose-h2:scroll-mt-28
+                       prose-h2:before:content-[''] prose-h2:before:block prose-h2:before:w-8 prose-h2:before:h-0.5 prose-h2:before:bg-gold-grad prose-h2:before:mb-3.5
+                       prose-p:leading-[1.85] prose-p:text-[#2a2520]
+                       prose-a:text-gold-1 prose-a:no-underline hover:prose-a:underline
+                       prose-strong:text-ink prose-li:marker:text-gold-1
+                       prose-img:w-full prose-img:rounded prose-img:border prose-img:border-line prose-img:my-6
+                       prose-blockquote:border-l-[3px] prose-blockquote:border-gold-2 prose-blockquote:bg-paper prose-blockquote:not-italic prose-blockquote:py-3 prose-blockquote:px-6"
+          >
+            <div dangerouslySetInnerHTML={{ __html: article.html }} />
 
-                {articleBody.sections.map(s => (
-                  <div key={s.id}>
-                    <h2 id={s.id} className="font-display font-bold text-[28px] tracking-[-.01em] leading-[1.2] mt-12 mb-4
-                                              before:content-[''] before:block before:w-8 before:h-0.5 before:bg-gold-grad before:mb-3.5">
-                      {s.h}
-                    </h2>
-                    {s.paras?.map((p, i) => <p key={i} className="m-0 mb-6">{p}</p>)}
-                    {s.quote && (
-                      <blockquote className="my-8 py-6 px-7 bg-paper border-l-[3px] border-gold-2 font-display italic text-lg text-ink leading-[1.5] m-0">
-                        "{s.quote.text}"
-                        <cite className="block mt-3.5 font-mono text-[11px] not-italic text-muted tracking-[.12em]">{s.quote.cite}</cite>
-                      </blockquote>
-                    )}
-                    {s.after?.map((p, i) => <p key={i} className="m-0 mb-6">{p}</p>)}
-                    {s.list && (
-                      <ul className="list-none p-0 m-0 mb-6">
-                        {s.list.map(item => (
-                          <li key={item} className="py-2.5 pl-6 border-b border-line relative
-                                                    before:content-['▸'] before:absolute before:left-1 before:top-2.5 before:text-gold-1 before:text-xs">
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ))}
-
-                {/* Tags */}
-                <div className="mt-12 pt-6 border-t border-line">
-                  <span className="font-mono text-[10px] text-muted tracking-[.16em] uppercase block mb-3">{t("detailPage.tags")}</span>
-                  <div className="flex flex-wrap gap-2">
-                    {n.tags.map(t => (
-                      <span key={t} className="qs-tag">{t}</span>
-                    ))}
-                  </div>
+            {n.tags.length > 0 && (
+              <div className="mt-12 pt-6 border-t border-line not-prose">
+                <span className="font-mono text-[10px] text-muted tracking-[.16em] uppercase block mb-3">{t("detailPage.tags")}</span>
+                <div className="flex flex-wrap gap-2">
+                  {n.tags.map((tag) => (
+                    <span key={tag} className="qs-tag">{tag}</span>
+                  ))}
                 </div>
-              </>
-            ) : (
-              <div
-                className="prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: safeHtml(n.bodyHtml) }}
-              />
+              </div>
             )}
+
+            <div className="mt-10 pt-6 border-t border-line not-prose">
+              <Link href="/news" className="qs-btn qs-btn-ghost qs-btn-sm">← {t("related.viewAll")}</Link>
+            </div>
           </article>
 
-          <aside className="border-l border-line pl-8 sticky top-32">
-            <div className="font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase mb-4">[ {t("detail.toc")} ]</div>
-            <ul className="list-none p-0 m-0 space-y-2.5">
-              {(isFlagship ? articleBody.sections : []).map(s => (
-                <li key={s.id}><a href={`#${s.id}`} className="text-sm text-muted hover:text-ink leading-[1.4] block">{s.h}</a></li>
-              ))}
-            </ul>
-          </aside>
+          {hasToc && (
+            <aside className="border-l border-line pl-8 sticky top-32 hidden md:block">
+              <div className="font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase mb-4">[ {t("detail.toc")} ]</div>
+              <ul className="list-none p-0 m-0 space-y-2.5">
+                {article.toc.map((s) => (
+                  <li key={s.id}><a href={`#${s.id}`} className="text-sm text-muted hover:text-ink leading-[1.4] block">{s.text}</a></li>
+                ))}
+              </ul>
+            </aside>
+          )}
         </div>
       </section>
 
@@ -254,10 +204,17 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
           <div className="grid md:grid-cols-3 gap-6">
             {others.map(o => (
               <Link key={o.slug} href={`/news/${o.slug}`}
-                    className="bg-white border border-line p-7 hover:-translate-y-0.5 hover:border-ink transition-all">
-                <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ {o.cat} ]</span>
-                <h3 className="font-display font-semibold text-lg leading-[1.35] tracking-[-.005em] mt-3 mb-3">{o.title}</h3>
-                <div className="font-mono text-[10px] text-muted tracking-[.14em] pt-3.5 border-t border-line">{o.date}</div>
+                    className="bg-white border border-line flex flex-col hover:-translate-y-0.5 hover:border-ink transition-all">
+                {o.coverImage && (
+                  <div className="aspect-[5/3] border-b border-line overflow-hidden relative">
+                    <Image src={o.coverImage} alt={o.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+                  </div>
+                )}
+                <div className="p-7 flex flex-col flex-1">
+                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ {o.cat} ]</span>
+                  <h3 className="font-display font-semibold text-lg leading-[1.35] tracking-[-.005em] mt-3 mb-3 flex-1">{o.title}</h3>
+                  <div className="font-mono text-[10px] text-muted tracking-[.14em] pt-3.5 border-t border-line">{o.date}</div>
+                </div>
               </Link>
             ))}
           </div>

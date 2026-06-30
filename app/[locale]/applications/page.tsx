@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";

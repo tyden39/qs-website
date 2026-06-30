@@ -47,6 +47,7 @@ export default async function News({ params }: { params: Promise<{ locale: Local
     cat: n.cat,
     date: n.date,
     categoryId: n.categoryId,
+    img: n.coverImage,
   }));
   const breadcrumb = buildBreadcrumbList([
     { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },

@@ -28,6 +28,23 @@ export function getDownloadGroups(): DownloadGroup[] {
   })).filter((g) => g.files.length > 0);
 }
 
+// Files surfaced on a product detail page: everything tagged to this product
+// (manuals, firmware updates) plus the shared editor/explorer software that
+// applies to every controller. Kept in download-category order for stable UI.
+export function getProductDownloads(slug: string): DownloadFile[] {
+  const rank = (d: DownloadFile) => DOWNLOAD_CATEGORY_ORDER.indexOf(d.category);
+  return downloads
+    .filter((d) => d.productSlug === slug || (d.category === "software" && !d.productSlug))
+    .slice()
+    .sort((a, b) => rank(a) - rank(b));
+}
+
+// Human-readable file size. Shared by the Downloads page and product detail.
+export function formatBytes(b: number): string {
+  if (b < 1024 * 1024) return `${Math.round(b / 1024)} KB`;
+  return `${(b / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 // A single document and its language variants (e.g. F54 operation manual VI + EN).
 export type DownloadDoc = {
   key: string;
@@ -44,7 +61,9 @@ export function groupByDocument(files: DownloadFile[]): DownloadDoc[] {
   const order: string[] = [];
   const map = new Map<string, DownloadFile[]>();
   for (const f of files) {
-    const key = f.titleKey ?? f.model ?? f.slug;
+    // Scope identity by category so the same model's operation vs installation
+    // manual stay on separate rows when categories are mixed (product page).
+    const key = `${f.category}::${f.titleKey ?? f.model ?? f.slug}`;
     if (!map.has(key)) {
       map.set(key, []);
       order.push(key);

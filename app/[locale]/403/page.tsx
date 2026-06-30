@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type Props = { params: Promise<{ locale: string }> };

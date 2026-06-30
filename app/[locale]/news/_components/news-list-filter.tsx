@@ -119,8 +119,12 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
               {pageItems.map(n => (
                 <Link key={n.slug} href={`/news/${n.slug}`}
                       className="bg-white border border-line flex flex-col hover:-translate-y-0.5 hover:border-ink transition-all">
-                  <div className="aspect-[5/3] border-b border-line bg-paper-2 overflow-hidden grid place-items-center">
-                    <span className="font-mono text-[10px] text-muted tracking-[.16em]">FIG · {n.cat.toUpperCase()}</span>
+                  <div className="aspect-[5/3] border-b border-line bg-paper-2 overflow-hidden grid place-items-center relative">
+                    {n.img ? (
+                      <Image src={n.img} alt={n.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+                    ) : (
+                      <span className="font-mono text-[10px] text-muted tracking-[.16em]">FIG · {n.cat.toUpperCase()}</span>
+                    )}
                   </div>
                   <div className="p-6 flex flex-col flex-1">
                     <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ {n.cat} ]</span>

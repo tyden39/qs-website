@@ -5,7 +5,9 @@ import DOMPurify from "isomorphic-dompurify";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllProducts, getProductBySlug, getProductSlugs } from "@/lib/data/products";
+import { getProductDownloads, groupByDocument, formatBytes, type DownloadFile } from "@/lib/data/downloads";
 import { KitComponentIcon } from "@/components/products/kit-component-icon";
+import { ProductDetailTabs, type ProductDetailTab } from "../_components/product-detail-tabs";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildProduct, JsonLd } from "@/lib/seo/jsonld";
@@ -67,14 +69,251 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
   const featureText = t.raw("features") as { t: string; d: string }[];
   const features = featureText.map((f, i) => ({ ...f, n: String(i + 1).padStart(2, "0") }));
+  // tabLabels order: [overview, specs, resources]
   const tabLabels = t.raw("tabs") as string[];
-  const tabMeta = [
-    { n: "01", h: "#specs" },
-    { n: "02", h: "#docs" },
-    { n: "03", h: "#sw" },
-    { n: "04", h: "#drawing" },
+  const tDl = await getTranslations({ locale, namespace: "downloads.index" });
+
+  // Featured image always present: first gallery photo, else the front render.
+  const featured = p.gallery[0] ?? { src: p.image.src, w: p.image.w, h: p.image.h, alt: p.tag };
+  const morePhotos = p.gallery[0] ? p.gallery.slice(1) : [];
+  // Fall back to the short description when no crawled overview copy exists.
+  const overviewHtml = p.overview ?? `<p>${p.desc}</p>`;
+  // Quick facts from base product data — always available, so the intro stays
+  // informative even for models without crawled highlights.
+  const facts = [
+    { l: t("factAxes"), v: p.axes },
+    { l: t("factDisplay"), v: p.display },
+    { l: t("factSeries"), v: p.series },
+    { l: t("factInterface"), v: p.interfaces.map((i) => i.name).join(" · ") },
   ];
-  const tabs = tabMeta.map((m, i) => ({ ...m, l: tabLabels[i] }));
+
+  // Real downloadable files for this product (manuals/firmware) + shared software.
+  const downloadDocs = groupByDocument(getProductDownloads(slug));
+  const downloadTitle = (d: DownloadFile): string => {
+    if (d.titleKey) return tDl(`titles.${d.titleKey}`);
+    if (d.category === "operation" || d.category === "installation") {
+      return `${d.model} — ${tDl(`docType.${d.category}`)}`;
+    }
+    return d.model ?? "";
+  };
+
+  // OVERVIEW — editorial intro pairing marketing copy with product imagery
+  const overviewPanel = (
+    <section className="py-16 bg-white">
+      <div className="max-w-wrap mx-auto px-12">
+        <div className={featured ? "grid lg:grid-cols-[1.15fr_1fr] gap-14 items-start" : ""}>
+          {/* copy + highlights + accessories */}
+          <div>
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("overviewEyebrow")}</span>
+            <h2 className="qs-h2 mt-2 mb-5">{t("overviewHeading")}</h2>
+            <div
+              className="prose prose-sm max-w-none text-[15px] leading-[1.8] text-[#2a2520]"
+              dangerouslySetInnerHTML={{ __html: safeHtml(overviewHtml) }}
+            />
+
+            {/* quick facts — always shown */}
+            <dl className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line">
+              {facts.map((f) => (
+                <div key={f.l} className="bg-white px-4 py-3">
+                  <dt className="font-mono text-[10px] text-muted tracking-[.14em] uppercase">{f.l}</dt>
+                  <dd className="font-display text-[15px] font-semibold text-ink mt-1 m-0">{f.v}</dd>
+                </div>
+              ))}
+            </dl>
+
+            {p.highlights.length > 0 && (
+              <div className="mt-8">
+                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3.5">{t("highlightsHeading")}</div>
+                <ul className="list-none p-0 m-0 grid sm:grid-cols-2 gap-x-7 gap-y-2.5">
+                  {p.highlights.map((h) => (
+                    <li key={h} className="text-[13.5px] text-ink leading-[1.5] pl-5 relative before:content-['▸'] before:absolute before:left-0 before:top-0 before:text-gold-1">{h}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {p.accessories.length > 0 && (
+              <div className="mt-8">
+                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3">{t("accessoriesHeading")}</div>
+                <div className="flex flex-wrap gap-2">
+                  {p.accessories.map((a) => (
+                    <span key={a} className="font-mono text-[11px] text-ink bg-paper border border-line px-2.5 py-1.5">{a}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* featured product photo — framed to echo the hero visual */}
+          {featured && (
+            <figure className="m-0 lg:sticky lg:top-32 bg-white border border-line p-8 relative">
+              <div className="absolute inset-3 border border-dashed border-gold opacity-30 pointer-events-none"></div>
+              <div className="grid place-items-center p-6 min-h-[300px]"
+                   style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
+                <Image
+                  src={featured.src}
+                  alt={featured.alt}
+                  width={featured.w}
+                  height={featured.h}
+                  sizes="(max-width: 1024px) 90vw, 460px"
+                  className="w-auto max-h-[330px] max-w-full object-contain"
+                />
+              </div>
+              <figcaption className="absolute bottom-3 left-4 right-4 flex items-center justify-between gap-3 font-mono text-[10px] tracking-[.18em] uppercase text-muted">
+                <span>QS · {p.name.toUpperCase()}</span>
+                {p.sourceUrl && (
+                  <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-gold-1 hover:underline normal-case tracking-normal">{t("sourceLink")}</a>
+                )}
+              </figcaption>
+            </figure>
+          )}
+        </div>
+
+        {morePhotos.length > 0 && (
+          <div className="mt-12">
+            <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-5">{t("galleryHeading")}</div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-line border border-line">
+              {morePhotos.map((g) => (
+                <div key={g.src} className="bg-white grid place-items-center p-6 min-h-[220px]">
+                  <Image
+                    src={g.src}
+                    alt={g.alt}
+                    width={g.w}
+                    height={g.h}
+                    sizes="(max-width: 768px) 45vw, 320px"
+                    loading="lazy"
+                    className="w-auto max-h-[240px] max-w-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+
+  // SPECS + QUOTE
+  const specsPanel = (
+    <section className="py-20 bg-white">
+      <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1.4fr_1fr] gap-16 items-start">
+        <div>
+          <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("specsEyebrow")}</span>
+          <h2 className="qs-h2 mt-2 mb-6">{t("specsHeading")}</h2>
+          <div className="border border-line bg-white overflow-x-auto">
+            <table className="w-full border-collapse text-left">
+              <thead>
+                <tr className="border-b border-line">
+                  <th className="px-5 py-3.5 align-bottom font-mono text-[10px] text-muted tracking-[.14em] uppercase font-medium">
+                    {t("specsColHead")}
+                  </th>
+                  {p.interfaces.map((c) => (
+                    <th key={c.name} className="px-5 py-3.5 align-bottom border-l border-line">
+                      <span className="block font-display text-[13px] font-semibold text-ink leading-tight">{c.name}</span>
+                      {c.note && (
+                        <span className="block font-mono text-[10px] text-gold-1 tracking-[.14em] uppercase mt-0.5">{c.note}</span>
+                      )}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {p.specs.map((s, i) => {
+                  const cells = Array.isArray(s.v) ? s.v : null;
+                  return (
+                    <tr key={s.l} className={`${i % 2 === 0 ? "bg-paper" : ""} ${i < p.specs.length - 1 ? "border-b border-line" : ""}`}>
+                      <th scope="row" className="px-5 py-4 align-top font-mono text-[11px] text-muted tracking-[.14em] uppercase font-medium">
+                        {s.l}
+                      </th>
+                      {cells
+                        ? cells.map((v, j) => (
+                            <td key={j} className="px-5 py-4 align-top border-l border-line font-display text-[15px] font-semibold text-ink">
+                              {v}
+                            </td>
+                          ))
+                        : (
+                            <td colSpan={p.interfaces.length} className="px-5 py-4 align-top border-l border-line font-display text-[15px] font-semibold text-ink">
+                              {s.v}
+                            </td>
+                          )}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside id="quote" className="bg-paper border border-line p-7 sticky top-32">
+          <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("quoteEyebrow", { name: p.name })}</div>
+          <h3 className="font-display font-semibold text-xl tracking-[-.005em] mt-2 mb-2">{t("quoteHeading")}</h3>
+          <p className="text-[13px] text-muted leading-[1.6] m-0 mb-5">{t("quoteBody")}</p>
+          <Link className="qs-btn qs-btn-gold w-full justify-center" href="/contact">{t("quoteBtn")}</Link>
+        </aside>
+      </div>
+    </section>
+  );
+
+  // RESOURCES — real downloadable documents & software, linked to /downloads
+  const resourcesPanel = (
+    <section className="py-16 bg-paper">
+      <div className="max-w-wrap mx-auto px-12">
+        <div className="qs-section-head">
+          <div className="max-w-[62ch]">
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("resourcesEyebrow")}</span>
+            <h2 className="qs-h2 mt-2">{t("resourcesHeading")}</h2>
+            <p className="text-[14px] text-muted leading-[1.7] mt-3 mb-0">{t("resourcesHint")}</p>
+          </div>
+          <Link href="/downloads" className="qs-btn qs-btn-ghost qs-btn-sm">{t("resourcesAllLink")}</Link>
+        </div>
+
+        <div className="border border-line bg-white">
+          <div className="hidden md:grid grid-cols-[1fr_120px_minmax(200px,auto)] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-[10px] tracking-[.16em] uppercase">
+            <span>{tDl("table.name")}</span>
+            <span>{tDl("table.version")}</span>
+            <span className="text-right">{tDl("table.download")}</span>
+          </div>
+          {downloadDocs.map((doc) => {
+            const head = doc.variants[0];
+            return (
+              <div
+                key={doc.key}
+                className="grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line hover:bg-paper transition-colors"
+              >
+                <div className="flex items-center gap-4">
+                  <span className="w-10 h-[52px] flex-shrink-0 border border-line grid place-items-center font-display font-extrabold text-[10px] tracking-[-.02em] bg-white text-ink">
+                    {head.ext}
+                  </span>
+                  <span className="font-semibold text-ink text-[14px] tracking-[-.005em] min-w-0">{downloadTitle(head)}</span>
+                </div>
+                <span className="font-mono text-[11px] text-muted md:text-[#3a3a3a]">
+                  {head.version ?? (head.date ? head.date.slice(0, 7).replace("-", "/") : "—")}
+                </span>
+                <div className="flex gap-2 md:justify-end">
+                  {doc.variants.map((v) => (
+                    <a
+                      key={v.slug}
+                      href={v.fileUrl}
+                      download
+                      className="flex-1 md:flex-initial inline-flex flex-col items-center gap-0.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors"
+                    >
+                      <span className="font-mono text-[11px] tracking-[.14em] uppercase">{v.lang.toUpperCase()} ↓</span>
+                      <span className="font-mono text-[9px] tracking-[.06em] opacity-60">{formatBytes(v.sizeBytes)}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+
+  const tabs: ProductDetailTab[] = [
+    { id: "overview", label: tabLabels[0], content: overviewPanel },
+    { id: "specs", label: tabLabels[1], content: specsPanel },
+    ...(downloadDocs.length > 0 ? [{ id: "resources", label: tabLabels[2], content: resourcesPanel }] : []),
+  ];
 
   return (
     <>
@@ -129,180 +368,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         </div>
       </section>
 
-      {/* OVERVIEW — crawled marketing copy + per-model highlights */}
-      {(p.overview || p.highlights.length > 0) && (
-        <section className="py-16 bg-white border-b border-line">
-          <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1.4fr_1fr] gap-16 items-start">
-            <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("overviewEyebrow")}</span>
-              <h2 className="qs-h2 mt-2 mb-5">{t("overviewHeading")}</h2>
-              {p.overview && (
-                <div
-                  className="prose prose-sm max-w-none text-[15px] leading-[1.8] text-[#2a2520]"
-                  dangerouslySetInnerHTML={{ __html: safeHtml(p.overview) }}
-                />
-              )}
-            </div>
-            {p.highlights.length > 0 && (
-              <aside className="bg-paper border border-line p-7">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-4">{t("highlightsHeading")}</div>
-                <ul className="list-none p-0 m-0 space-y-2.5">
-                  {p.highlights.map((h) => (
-                    <li key={h} className="text-[13.5px] text-ink leading-[1.5] pl-5 relative before:content-['▸'] before:absolute before:left-0 before:top-0 before:text-gold-1">{h}</li>
-                  ))}
-                </ul>
-              </aside>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* TABS */}
-      <section className="bg-white border-b border-line sticky top-[72px] z-30">
-        <div className="max-w-wrap mx-auto px-12 flex gap-0">
-          {tabs.map((tab, i) => (
-            <a key={tab.n} href={tab.h} className={`py-4 px-6 text-sm font-medium border-b-2 transition-colors flex items-baseline gap-3 ${i===0 ? "text-ink border-gold-2" : "text-[#5a5650] border-transparent hover:text-ink"}`}>
-              <span className="font-mono text-[10px] text-gold-1 tracking-[.16em]">{tab.n}</span>
-              {tab.l}
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* SPECS + QUOTE */}
-      <section className="py-20 bg-white scroll-mt-32" id="specs">
-        <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1.4fr_1fr] gap-16 items-start">
-          <div>
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("specsEyebrow")}</span>
-            <h2 className="qs-h2 mt-2 mb-6">{t("specsHeading")}</h2>
-            <div className="border border-line bg-white overflow-x-auto">
-              <table className="w-full border-collapse text-left">
-                <thead>
-                  <tr className="border-b border-line">
-                    <th className="px-5 py-3.5 align-bottom font-mono text-[10px] text-muted tracking-[.14em] uppercase font-medium">
-                      {t("specsColHead")}
-                    </th>
-                    {p.interfaces.map((c) => (
-                      <th key={c.name} className="px-5 py-3.5 align-bottom border-l border-line">
-                        <span className="block font-display text-[13px] font-semibold text-ink leading-tight">{c.name}</span>
-                        {c.note && (
-                          <span className="block font-mono text-[10px] text-gold-1 tracking-[.14em] uppercase mt-0.5">{c.note}</span>
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {p.specs.map((s, i) => {
-                    const cells = Array.isArray(s.v) ? s.v : null;
-                    return (
-                      <tr key={s.l} className={`${i % 2 === 0 ? "bg-paper" : ""} ${i < p.specs.length - 1 ? "border-b border-line" : ""}`}>
-                        <th scope="row" className="px-5 py-4 align-top font-mono text-[11px] text-muted tracking-[.14em] uppercase font-medium">
-                          {s.l}
-                        </th>
-                        {cells
-                          ? cells.map((v, j) => (
-                              <td key={j} className="px-5 py-4 align-top border-l border-line font-display text-[15px] font-semibold text-ink">
-                                {v}
-                              </td>
-                            ))
-                          : (
-                              <td colSpan={p.interfaces.length} className="px-5 py-4 align-top border-l border-line font-display text-[15px] font-semibold text-ink">
-                                {s.v}
-                              </td>
-                            )}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <aside id="quote" className="bg-paper border border-line p-7 sticky top-32">
-            <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("quoteEyebrow", { name: p.name })}</div>
-            <h3 className="font-display font-semibold text-xl tracking-[-.005em] mt-2 mb-2">{t("quoteHeading")}</h3>
-            <p className="text-[13px] text-muted leading-[1.6] m-0 mb-5">{t("quoteBody")}</p>
-            <Link className="qs-btn qs-btn-gold w-full justify-center" href="/contact">{t("quoteBtn")}</Link>
-          </aside>
-        </div>
-      </section>
-
-      {/* DOCUMENTS + SOFTWARE + ACCESSORIES (crawled catalogue) */}
-      {(p.documents.length > 0 || p.software.length > 0 || p.accessories.length > 0) && (
-        <section className="py-16 bg-paper border-t border-line">
-          <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-2 gap-12">
-            <div id="docs" className="scroll-mt-32">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("docsEyebrow")}</span>
-              <h2 className="qs-h2 mt-2 mb-2">{t("docsHeading")}</h2>
-              <p className="text-[13px] text-muted leading-[1.6] m-0 mb-5">{t("docsHint")}</p>
-              <ul className="list-none p-0 m-0 border border-line bg-white">
-                {p.documents.map((d, i) => (
-                  <li key={d} className={`flex items-center gap-3 px-5 py-3.5 ${i < p.documents.length - 1 ? "border-b border-line" : ""}`}>
-                    <span className="font-mono text-[10px] text-gold-1 tracking-[.14em]">[ {String(i + 1).padStart(2, "0")} ]</span>
-                    <span className="font-display text-[15px] font-semibold text-ink">{d}</span>
-                  </li>
-                ))}
-              </ul>
-              {p.accessories.length > 0 && (
-                <div className="mt-7">
-                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase block mb-3">{t("accessoriesHeading")}</span>
-                  <div className="flex flex-wrap gap-2">
-                    {p.accessories.map((a) => (
-                      <span key={a} className="font-mono text-[11px] text-ink bg-white border border-line px-2.5 py-1.5">{a}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-            <div id="sw" className="scroll-mt-32">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("swEyebrow")}</span>
-              <h2 className="qs-h2 mt-2 mb-2">{t("swHeading")}</h2>
-              <p className="text-[13px] text-muted leading-[1.6] m-0 mb-5">{t("swHint")}</p>
-              <ul className="list-none p-0 m-0 border border-line bg-white">
-                {p.software.map((s, i) => (
-                  <li key={s} className={`flex items-center gap-3 px-5 py-3.5 ${i < p.software.length - 1 ? "border-b border-line" : ""}`}>
-                    <span className="font-mono text-[10px] text-gold-1 tracking-[.14em]">[ {String(i + 1).padStart(2, "0")} ]</span>
-                    <span className="font-display text-[15px] font-semibold text-ink">{s}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* GALLERY — real product photos */}
-      {p.gallery.length > 0 && (
-        <section id="drawing" className="py-16 bg-white border-t border-line scroll-mt-32">
-          <div className="max-w-wrap mx-auto px-12">
-            <div className="qs-section-head">
-              <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("galleryEyebrow")}</span>
-                <h2 className="qs-h2 mt-2">{t("galleryHeading")}</h2>
-              </div>
-              {p.sourceUrl && (
-                <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer" className="qs-btn qs-btn-ghost qs-btn-sm">{t("sourceLink")}</a>
-              )}
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-line border border-line">
-              {p.gallery.map((g, i) => (
-                <div key={g.src} className="bg-white grid place-items-center p-6 min-h-[240px]">
-                  <Image
-                    src={g.src}
-                    alt={g.alt}
-                    width={g.w}
-                    height={g.h}
-                    sizes="(max-width: 768px) 45vw, 360px"
-                    loading={i < 3 ? undefined : "lazy"}
-                    className="w-auto max-h-[260px] max-w-full object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* TABS — overview / specs / documents / software (switchable) */}
+      <ProductDetailTabs tabs={tabs} />
 
       {/* PACKAGE */}
       <section className="py-20 bg-white">

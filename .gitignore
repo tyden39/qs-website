@@ -20,3 +20,6 @@ public/search-index.*.json
 # source product photos (large originals, not bundled)
 Hình mặt trước sau bộ điều khiển/
 Gói sản phẩm/
+
+# crawl scratch data (not bundled)
+download/

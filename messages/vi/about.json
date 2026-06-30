@@ -1,54 +1,49 @@
 {
   "metaTitle": "Giới thiệu — QS Technology",
   "hero": {
-    "eyebrow": "Về chúng tôi · Est. 2014",
-    "heading1": "Mười hai năm",
-    "heading2": "chế tạo controller",
+    "eyebrow": "Về chúng tôi · Từ tháng 11, 2018",
+    "heading1": "Đơn vị đầu tiên",
+    "heading2": "chế tạo bộ điều khiển CNC",
     "heading3": "tại Việt Nam.",
-    "lede": "QS Technology được thành lập năm 2014 tại TP.HCM bởi nhóm kỹ sư điện tử và cơ khí với mục tiêu tự chủ phần cứng điều khiển CNC cho ngành cơ khí chính xác trong nước. Hôm nay, sáu dòng controller QS đang vận hành trên hơn 800 dây chuyền sản xuất.",
-    "profileNote": "Hồ sơ năng lực · Cập nhật Q1/2026"
+    "lede": "QS Technology Co., Ltd. tự hào là đơn vị đầu tiên phát triển, ứng dụng và thương mại hoá sản phẩm bộ điều khiển CNC tại Việt Nam. Sau nhiều năm phát triển, các sản phẩm mang thương hiệu QS ngày càng nhận được sự tin tưởng từ khách hàng trong và ngoài nước.",
+    "profileNote": "Hồ sơ năng lực · Thành lập tháng 11, 2018"
   },
   "story": {
     "tag": "[ 01 ]",
-    "heading": "Câu chuyện QS",
-    "p1": "Năm 2014, ba kỹ sư của một xưởng cơ khí tại Tân Bình quyết định viết firmware riêng cho máy phay CNC sau khi controller nhập khẩu hỏng và phải chờ linh kiện nửa năm. Dòng F-series ra đời từ chính nhu cầu thực tế đó.",
-    "p2": "Sau hai năm phát triển, controller F54 đầu tiên được lắp đặt tại một xưởng làm cửa nhôm ở TP. Hồ Chí Minh — và vận hành liên tục đến hôm nay. Từ một sản phẩm ban đầu, QS mở rộng sang Astro-series cho dây chuyền tự động hoá, rồi servo motor và board mở rộng để cung cấp giải pháp trọn gói.",
-    "p3": "Hôm nay, QS Technology có nhà máy 4.200 m² tại TP. Hồ Chí Minh, đội R&D 18 kỹ sư và mạng lưới đối tác triển khai phủ khắp 35 tỉnh thành. Triết lý không đổi: ",
-    "p3strong": "phần cứng do mình thiết kế, firmware do mình viết, hỗ trợ kỹ thuật trực tiếp tại Việt Nam."
+    "heading": "Về công ty",
+    "p1": "QS Technology Co., Ltd. — chúng tôi tự hào là đơn vị đầu tiên phát triển, ứng dụng và thương mại hoá sản phẩm bộ điều khiển CNC tại Việt Nam.",
+    "p2": "Sau một vài năm phát triển, những sản phẩm mang thương hiệu QS Technology ngày càng nhận được nhiều sự tin tưởng và quan tâm từ khách hàng trong cũng như ngoài nước.",
+    "p3": "Bên cạnh đó, từ những thế mạnh và kinh nghiệm tích luỹ sau nhiều năm hoạt động trong lĩnh vực chế tạo máy, hệ thống tự động hoá và board mạch điện tử, ",
+    "p3strong": "chúng tôi tự tin làm chủ công nghệ và đáp ứng trọn vẹn những mong muốn của khách hàng."
   },
-  "timeline": {
-    "eyebrow": "[ 02 · 12 năm phát triển ]",
-    "heading": "Mốc thời gian",
-    "items": [
-      ["2014", "Khởi nghiệp", "Thành lập QS tại TP.HCM"],
-      ["2016", "Sản phẩm đầu", "F54 ra mắt — 1 trục, 5\""],
-      ["2018", "Mở rộng", "F86 — controller 6 trục đầu tiên"],
-      ["2020", "R&D mới", "Astro-series vòng kín ra mắt"],
-      ["2023", "Nhà máy", "Khánh thành plant TP. Hồ Chí Minh 4,200m²"],
-      ["2026", "Hôm nay", "800+ hệ thống · 14 ứng dụng · 35 tỉnh"]
-    ]
+  "missionVision": {
+    "eyebrow": "[ 02 · Định hướng ]",
+    "mission": {
+      "label": "Sứ mệnh",
+      "body": "Trở thành đơn vị số 1 về lĩnh vực CNC tại Việt Nam. Đem đến những sản phẩm chất lượng cao phục vụ thị trường trong nước. Đưa những sản phẩm được tạo ra từ trí tuệ, chất xám của người Việt Nam vươn tầm quốc tế."
+    },
+    "vision": {
+      "label": "Tầm nhìn",
+      "body": "Trở thành đơn vị mũi nhọn, tạo động lực thúc đẩy sự phát triển của ngành công nghiệp CNC tại Việt Nam trong tương lai."
+    }
   },
   "values": {
-    "eyebrow": "[ 03 · Triết lý ]",
-    "heading": "Ba điều QS không thay đổi",
+    "eyebrow": "[ 03 · Giá trị cốt lõi ]",
+    "heading": "Năm giá trị cốt lõi",
     "items": [
-      { "t": "Tự chủ phần cứng", "d": "Mọi controller QS đều do đội kỹ sư trong nước thiết kế PCB, lựa chọn linh kiện và viết firmware. Không phụ thuộc supply chain nước ngoài cho lõi sản phẩm." },
-      { "t": "Hỗ trợ tại chỗ", "d": "Đội kỹ thuật QS có mặt trong vòng 24h tại 35 tỉnh thành. Khách hàng nói chuyện trực tiếp với người viết firmware, không qua đại lý trung gian." },
-      { "t": "Bảo hành dài", "d": "Bảo hành 24 tháng cho phần cứng, hỗ trợ firmware miễn phí trọn đời sản phẩm. Linh kiện thay thế luôn sẵn ít nhất 8 năm sau khi ngừng sản xuất." }
+      { "t": "Thử thách", "d": "Đối mặt và chinh phục những bài toán kỹ thuật khó, biến thách thức của ngành CNC thành động lực phát triển." },
+      { "t": "Đổi mới", "d": "Liên tục cập nhật công nghệ mới, cải tiến phần cứng và firmware để sản phẩm luôn dẫn đầu." },
+      { "t": "Sáng tạo", "d": "Tư duy thiết kế độc lập từ board mạch đến firmware, tạo ra giải pháp điều khiển của riêng người Việt." },
+      { "t": "Thái độ", "d": "Tận tâm, cầu thị và trách nhiệm trong từng sản phẩm cũng như mỗi lần hỗ trợ khách hàng." },
+      { "t": "Uy tín", "d": "Giữ trọn cam kết về chất lượng và dịch vụ, xây dựng niềm tin bền vững với khách hàng trong và ngoài nước." }
     ]
   },
-  "factory": {
-    "eyebrow": "[ 04 · Nhà máy TP. Hồ Chí Minh ]",
-    "heading1": "Sản xuất trong nước,",
-    "heading2": "kiểm soát đến từng PCB.",
-    "figCaption": "FIG · FACTORY · BINH DUONG · 4,200 m²",
-    "stats": [
-      ["Diện tích", "4,200 m²"],
-      ["Số chuyền SMT", "02 dây"],
-      ["Công suất tháng", "~ 1,800 bo"],
-      ["Burn-in", "100% sản phẩm"],
-      ["Chứng nhận", "ISO 9001:2015"],
-      ["Nhân lực", "62 người"]
-    ]
+  "quote": {
+    "body": "Không có bí mật nào dẫn đến thành công. Đó chỉ là kết quả của sự chuẩn bị, làm việc chăm chỉ và rút kinh nghiệm từ những thất bại.",
+    "attribution": "QS Technology"
+  },
+  "images": {
+    "pcb": "Board mạch điều khiển CNC do QS Technology thiết kế và sản xuất",
+    "walkingMan": "Hành trình chinh phục của QS Technology"
   }
 }

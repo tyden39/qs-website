@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { getAllDownloads, getDownloadGroups, groupByDocument } from "@/lib/data/downloads";
+import { getAllDownloads, getDownloadGroups, groupByDocument, formatBytes } from "@/lib/data/downloads";
 import type { DownloadFile } from "@/lib/data/downloads";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -11,11 +11,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "downloads" });
   return { title: t("meta.title") };
-}
-
-function fmtBytes(b: number): string {
-  if (b < 1024 * 1024) return `${Math.round(b / 1024)} KB`;
-  return `${(b / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 export default async function Downloads({ params }: Props) {
@@ -52,7 +47,7 @@ export default async function Downloads({ params }: Props) {
         <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
         <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
-            <Link href={`/${locale}`}>{t("breadcrumb.home")}</Link>
+            <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
           </div>
@@ -138,7 +133,7 @@ export default async function Downloads({ params }: Props) {
                         </span>
                         {head.productSlug && (
                           <Link
-                            href={`/${locale}/products/${head.productSlug}`}
+                            href={`/products/${head.productSlug}`}
                             className="font-mono text-[11px] text-gold-1 tracking-[.06em] hover:underline w-fit"
                           >
                             {head.model} →
@@ -163,7 +158,7 @@ export default async function Downloads({ params }: Props) {
                             {v.lang.toUpperCase()} ↓
                           </span>
                           <span className="font-mono text-[9px] tracking-[.06em] opacity-60">
-                            {fmtBytes(v.sizeBytes)}
+                            {formatBytes(v.sizeBytes)}
                           </span>
                         </a>
                       ))}
@@ -184,7 +179,7 @@ export default async function Downloads({ params }: Props) {
             <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("plc.tag")}</div>
             <h3 className="font-display font-semibold text-[22px] tracking-[-.01em] mt-2.5 mb-3">{t("plc.heading")}</h3>
             <p className="text-sm text-[#4a4842] leading-[1.7] m-0 mb-6">{t("plc.body")}</p>
-            <Link className="qs-btn qs-btn-gold qs-btn-sm" href={`/${locale}/contact`}>{t("plc.register")}</Link>
+            <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/contact">{t("plc.register")}</Link>
           </div>
           <div className="border border-line p-8 relative
                           before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
@@ -192,8 +187,8 @@ export default async function Downloads({ params }: Props) {
             <h3 className="font-display font-semibold text-[22px] tracking-[-.01em] mt-2.5 mb-3">{t("macro.heading")}</h3>
             <p className="text-sm text-[#4a4842] leading-[1.7] m-0 mb-6">{t("macro.body")}</p>
             <div className="flex gap-3">
-              <Link className="qs-btn qs-btn-gold qs-btn-sm" href={`/${locale}/contact`}>{t("macro.request")}</Link>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href={`/${locale}/contact`}>{t("macro.contact")}</Link>
+              <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/contact">{t("macro.request")}</Link>
+              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/contact">{t("macro.contact")}</Link>
             </div>
           </div>
         </div>

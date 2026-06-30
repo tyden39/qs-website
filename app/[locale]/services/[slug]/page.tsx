@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { services, type Service } from "@/data/services";
 import { getServiceBySlug, getServiceSlugs } from "@/lib/data/services";
@@ -94,7 +94,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
               <p className="text-[17px] leading-[1.7] text-[#3a3a3a] max-w-[55ch] mt-6">{s.lede}</p>
               <div className="flex gap-3 mt-7">
                 <Link className="qs-btn qs-btn-gold" href="/contact">{t("surveyBtn")}</Link>
-                <Link className="qs-btn qs-btn-ghost" href="#pricing">{t("pricingBtn")}</Link>
+                <a className="qs-btn qs-btn-ghost" href="#pricing">{t("pricingBtn")}</a>
               </div>
               <div className="mt-9 grid grid-cols-3 gap-8 pt-6 border-t border-line">
                 {s.stats.map(([l, v]) => (

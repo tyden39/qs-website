@@ -1,54 +1,49 @@
 {
   "metaTitle": "About — QS Technology",
   "hero": {
-    "eyebrow": "About us · Est. 2014",
-    "heading1": "Twelve years",
-    "heading2": "building controllers",
+    "eyebrow": "About us · Since Nov 2018",
+    "heading1": "The first company",
+    "heading2": "building CNC controllers",
     "heading3": "in Vietnam.",
-    "lede": "QS Technology was founded in 2014 in Ho Chi Minh City by a team of electronics and mechanical engineers, with the goal of mastering CNC control hardware for the domestic precision-engineering industry. Today, six QS controller lines run on more than 800 production lines.",
-    "profileNote": "Capability profile · Updated Q1/2026"
+    "lede": "QS Technology Co., Ltd. is proud to be the first company in Vietnam to develop, apply and commercialize CNC controller products. After years of development, products under the QS brand have earned growing trust from customers both at home and abroad.",
+    "profileNote": "Capability profile · Established Nov 2018"
   },
   "story": {
     "tag": "[ 01 ]",
-    "heading": "The QS story",
-    "p1": "In 2014, three engineers at a machine shop in Tan Binh decided to write their own firmware for a CNC milling machine after an imported controller failed and they had to wait half a year for parts. The F-series was born from that real-world need.",
-    "p2": "After two years of development, the first F54 controller was installed at an aluminium-door workshop in Ho Chi Minh City — and has run continuously ever since. From that first product, QS expanded into the Astro-series for automation lines, then servo motors and expansion boards to deliver turnkey solutions.",
-    "p3": "Today, QS Technology runs a 4,200 m² factory in Ho Chi Minh City, an 18-engineer R&D team, and a partner network covering all 35 provinces. The philosophy is unchanged: ",
-    "p3strong": "hardware we design ourselves, firmware we write ourselves, technical support delivered directly in Vietnam."
+    "heading": "About the company",
+    "p1": "QS Technology Co., Ltd. — we are proud to be the first company in Vietnam to develop, apply and commercialize CNC controller products.",
+    "p2": "After a few years of development, products under the QS Technology brand have steadily earned greater trust and interest from customers both at home and abroad.",
+    "p3": "Drawing on the strengths and experience accumulated over years of work in machine manufacturing, automation systems and electronic circuit board design, ",
+    "p3strong": "we are confident in mastering the technology and fully meeting our customers' expectations."
   },
-  "timeline": {
-    "eyebrow": "[ 02 · 12 years of growth ]",
-    "heading": "Timeline",
-    "items": [
-      ["2014", "Founded", "QS established in HCMC"],
-      ["2016", "First product", "F54 launched — 1-axis, 5\""],
-      ["2018", "Expansion", "F86 — first 6-axis controller"],
-      ["2020", "New R&D", "Closed-loop Astro-series launched"],
-      ["2023", "Factory", "Opened 4,200 m² HCMC plant"],
-      ["2026", "Today", "800+ systems · 14 applications · 35 provinces"]
-    ]
+  "missionVision": {
+    "eyebrow": "[ 02 · Direction ]",
+    "mission": {
+      "label": "Mission",
+      "body": "To become the No. 1 company in the CNC field in Vietnam. To deliver high-quality products serving the domestic market. To bring products created from the intellect and ingenuity of the Vietnamese people to international standards."
+    },
+    "vision": {
+      "label": "Vision",
+      "body": "To become a spearhead that drives the development of Vietnam's CNC industry in the future."
+    }
   },
   "values": {
-    "eyebrow": "[ 03 · Philosophy ]",
-    "heading": "Three things QS never changes",
+    "eyebrow": "[ 03 · Core values ]",
+    "heading": "Five core values",
     "items": [
-      { "t": "Hardware self-reliance", "d": "Every QS controller has its PCB designed, components selected, and firmware written by our in-house engineers. No dependence on foreign supply chains for the product core." },
-      { "t": "On-site support", "d": "The QS technical team is on-site within 24 hours across 35 provinces. Customers talk directly to the people who write the firmware, with no intermediary dealers." },
-      { "t": "Long warranty", "d": "A 24-month hardware warranty and free firmware support for the product's lifetime. Replacement parts stay available for at least 8 years after a product is discontinued." }
+      { "t": "Challenge", "d": "Confront and conquer hard engineering problems, turning the challenges of the CNC industry into momentum for growth." },
+      { "t": "Innovation", "d": "Continuously adopt new technology and refine hardware and firmware so our products stay ahead." },
+      { "t": "Creativity", "d": "Independent design thinking from circuit board to firmware, creating control solutions of our own making." },
+      { "t": "Attitude", "d": "Dedicated, open-minded and accountable in every product and every customer interaction." },
+      { "t": "Reputation", "d": "Honoring our commitments on quality and service, building lasting trust with customers at home and abroad." }
     ]
   },
-  "factory": {
-    "eyebrow": "[ 04 · Ho Chi Minh City factory ]",
-    "heading1": "Made domestically,",
-    "heading2": "controlled down to every PCB.",
-    "figCaption": "FIG · FACTORY · BINH DUONG · 4,200 m²",
-    "stats": [
-      ["Floor area", "4,200 m²"],
-      ["SMT lines", "02 lines"],
-      ["Monthly capacity", "~ 1,800 boards"],
-      ["Burn-in", "100% of products"],
-      ["Certification", "ISO 9001:2015"],
-      ["Workforce", "62 people"]
-    ]
+  "quote": {
+    "body": "There is no secret to success. It is simply the result of preparation, hard work, and learning from failure.",
+    "attribution": "QS Technology"
+  },
+  "images": {
+    "pcb": "CNC controller board designed and manufactured by QS Technology",
+    "walkingMan": "QS Technology's journey forward"
   }
 }

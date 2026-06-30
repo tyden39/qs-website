@@ -47,7 +47,7 @@ export const products: Product[] = [
       {l:"Encoder",v:"Hồi tiếp phase Z"},
       {l:"Điện áp",v:"24 VDC ± 10%"},
     ],
-    image:{src:"/products/f54-front.webp", w:900, h:581},
+    image:{src:"/img/products/f54-front.webp", w:900, h:581},
     bundle:[
       {label:"Bộ điều khiển F54", icon:"controller"},
       {label:"Servo Drive Wecon 400W", icon:"drive"},
@@ -73,7 +73,7 @@ export const products: Product[] = [
       {l:"Nguồn",v:"24 VDC"},
       {l:"Bảo hành",v:"24 tháng"},
     ],
-    image:{src:"/products/f86-front.webp", w:900, h:667},
+    image:{src:"/img/products/f86-front.webp", w:900, h:667},
     bundle:[
       {label:"Bộ điều khiển F86", icon:"controller"},
       {label:"Servo Drive Wecon 750W", icon:"drive"},
@@ -99,7 +99,7 @@ export const products: Product[] = [
       {l:"Nguồn",v:"24 VDC"},
       {l:"Bảo hành",v:"24 tháng"},
     ],
-    image:{src:"/products/f10t-front.webp", w:900, h:667},
+    image:{src:"/img/products/f10t-front.webp", w:900, h:667},
     bundle:[
       {label:"Bộ điều khiển F10T", icon:"controller"},
       {label:"Servo Drive Wecon 750W", icon:"drive"},
@@ -125,7 +125,7 @@ export const products: Product[] = [
       {l:"Nguồn",v:"24 VDC"},
       {l:"Bảo hành",v:"24 tháng"},
     ],
-    image:{src:"/products/astro-6ah-front.webp", w:900, h:817},
+    image:{src:"/img/products/astro-6ah-front.webp", w:900, h:817},
     bundle:[
       {label:"Bộ điều khiển Astro 6AH", icon:"controller"},
       {label:"Servo Drive EtherCAT 1kW", icon:"drive"},
@@ -151,7 +151,7 @@ export const products: Product[] = [
       {l:"Nguồn",v:"24 VDC"},
       {l:"Bảo hành",v:"24 tháng"},
     ],
-    image:{src:"/products/astro-6av-front.webp", w:402, h:900},
+    image:{src:"/img/products/astro-6av-front.webp", w:402, h:900},
     bundle:[
       {label:"Bộ điều khiển Astro 6AV", icon:"controller"},
       {label:"Servo Drive EtherCAT 1kW", icon:"drive"},
@@ -177,7 +177,7 @@ export const products: Product[] = [
       {l:"Nguồn",v:"24 VDC"},
       {l:"Bảo hành",v:"24 tháng"},
     ],
-    image:{src:"/products/astro-10i-front.webp", w:459, h:900},
+    image:{src:"/img/products/astro-10i-front.webp", w:459, h:900},
     bundle:[
       {label:"Bộ điều khiển Astro 10i", icon:"controller"},
       {label:"Servo Drive EtherCAT 1.5kW", icon:"drive"},

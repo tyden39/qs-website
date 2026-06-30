@@ -16,7 +16,7 @@
     "toolbar": {
       "showing": "Showing",
       "ofModels": "/ 07 models",
-      "filters": ["Standard bundle", "F-series", "Astro", "Touchscreen"],
+      "filters": ["All", "Pulse Train", "EtherCat", "Mechatrolink"],
       "sortLabel": "Sort",
       "sortOptions": ["Latest", "Axes ↑", "Display ↑"],
       "empty": "No models match the current filters. Try clearing some."

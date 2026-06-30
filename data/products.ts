@@ -80,7 +80,7 @@ export const products: Product[] = [
     specs:[
       {l:"Số trục điều khiển",v:"4 trục"},
       {l:"Kiểu điều khiển",v:"Vòng hở (Open-loop)"},
-      {l:"Giao tiếp điều khiển",v:"Pulse Train"},
+      {l:"Giao thức điều khiển",v:"Pulse Train"},
       {l:"Màn hình",v:"5 inches · 480 × 272 px"},
       {l:"Kích thước",v:"220 × 140 × 30 mm"},
       {l:"Số cổng I/O",v:"16 / 6"},
@@ -103,7 +103,7 @@ export const products: Product[] = [
     specs:[
       {l:"Số trục điều khiển",v:"6 trục"},
       {l:"Kiểu điều khiển",v:"Vòng hở (Open-loop)"},
-      {l:"Giao tiếp điều khiển",v:"Pulse Train · EtherCAT"},
+      {l:"Giao thức điều khiển",v:"Pulse Train · EtherCAT"},
       {l:"Màn hình",v:"8 inches"},
       {l:"Kích thước",v:"220 × 140 × 30 mm"},
       {l:"Số cổng I/O",v:"16 / 6"},
@@ -126,7 +126,7 @@ export const products: Product[] = [
     specs:[
       {l:"Số trục điều khiển",v:"6 trục"},
       {l:"Kiểu điều khiển",v:"Vòng hở (Open-loop)"},
-      {l:"Giao tiếp điều khiển",v:"Pulse Train · EtherCAT"},
+      {l:"Giao thức điều khiển",v:"Pulse Train · EtherCAT"},
       {l:"Màn hình",v:"10.4 inches · cảm ứng"},
       {l:"Kích thước",v:"220 × 140 × 30 mm"},
       {l:"Số cổng I/O",v:"16 / 6"},
@@ -149,7 +149,7 @@ export const products: Product[] = [
     specs:[
       {l:"Số trục điều khiển",v:"6 trục"},
       {l:"Kiểu điều khiển",v:"Vòng kín (Closed-loop)"},
-      {l:"Giao tiếp điều khiển",v:"Pulse Train · EtherCAT · Mechatrolink MII/MIII"},
+      {l:"Giao thức điều khiển",v:"Pulse Train · EtherCAT · Mechatrolink MII/MIII"},
       {l:"Màn hình",v:"8 inches"},
       {l:"Kích thước",v:"220 × 140 × 30 mm"},
       {l:"Số cổng I/O",v:"16 / 6"},
@@ -172,7 +172,7 @@ export const products: Product[] = [
     specs:[
       {l:"Số trục điều khiển",v:"6 trục"},
       {l:"Kiểu điều khiển",v:"Vòng kín (Closed-loop)"},
-      {l:"Giao tiếp điều khiển",v:"Pulse Train · EtherCAT · Mechatrolink MII/MIII"},
+      {l:"Giao thức điều khiển",v:"Pulse Train · EtherCAT · Mechatrolink MII/MIII"},
       {l:"Màn hình",v:"8 inches"},
       {l:"Kích thước",v:"220 × 140 × 30 mm"},
       {l:"Số cổng I/O",v:"16 / 6"},
@@ -195,7 +195,7 @@ export const products: Product[] = [
     specs:[
       {l:"Số trục điều khiển",v:"16 trục"},
       {l:"Kiểu điều khiển",v:"Vòng hở (Open-loop)"},
-      {l:"Giao tiếp điều khiển",v:"Pulse Train · EtherCAT"},
+      {l:"Giao thức điều khiển",v:"Pulse Train · EtherCAT"},
       {l:"Màn hình",v:"10.4 inches"},
       {l:"Kích thước",v:"220 × 140 × 30 mm"},
       {l:"Số cổng I/O",v:"16 / 6"},
@@ -218,7 +218,7 @@ export const products: Product[] = [
     specs:[
       {l:"Số trục điều khiển",v:"6 trục"},
       {l:"Kiểu điều khiển",v:"Vòng kín (Closed-loop)"},
-      {l:"Giao tiếp điều khiển",v:"Pulse Train · EtherCAT · Mechatrolink MII/MIII"},
+      {l:"Giao thức điều khiển",v:"Pulse Train · EtherCAT · Mechatrolink MII/MIII"},
       {l:"Màn hình",v:"10.4 inches"},
       {l:"Kích thước",v:"220 × 140 × 30 mm"},
       {l:"Số cổng I/O",v:"16 / 6"},

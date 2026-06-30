@@ -11,10 +11,10 @@ import { Link } from "@/lib/i18n/navigation";
  */
 export type ProductFilterItem = {
   slug: string;
-  series: "F" | "Astro";
   axisNum: number;
   displayNum: number;
-  isTouch: boolean;
+  /** Lowercased control interface string (e.g. "pulse train · ethercat"). */
+  controlInterface: string;
   node: React.ReactNode;
 };
 
@@ -32,15 +32,16 @@ type Labels = {
   emptyState: string;
 };
 
-// Chip index → predicate (0 = "standard set" = no filter).
+// Chip index → predicate (0 = "all" = no filter). Chips 1..3 match the control
+// interface declared by each product (Pulse Train / EtherCat / Mechatrolink).
 function matchesChip(item: ProductFilterItem, chip: number): boolean {
   switch (chip) {
     case 1:
-      return item.series === "F";
+      return item.controlInterface.includes("pulse train");
     case 2:
-      return item.series === "Astro";
+      return item.controlInterface.includes("ethercat");
     case 3:
-      return item.isTouch;
+      return item.controlInterface.includes("mechatrolink");
     default:
       return true;
   }

@@ -48,10 +48,12 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   // on the server and handed to the client filter as an opaque node.
   const items: ProductFilterItem[] = products.map((p, i) => ({
     slug: p.slug,
-    series: p.series as "F" | "Astro",
     axisNum: parseInt(p.axes, 10) || 0,
     displayNum: parseFloat(p.display) || 0,
-    isTouch: p.display.includes("cảm ứng") || p.badge === "Touch",
+    // Control interface drives the toolbar chips; read it from the published spec.
+    controlInterface: (
+      p.specs.find((s) => s.l.includes("Giao tiếp"))?.v ?? ""
+    ).toLowerCase(),
     node: <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />,
   }));
   const breadcrumb = buildBreadcrumbList([

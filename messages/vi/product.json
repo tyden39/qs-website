@@ -16,7 +16,7 @@
     "toolbar": {
       "showing": "Hiển thị",
       "ofModels": "/ 07 model",
-      "filters": ["Bộ SP tiêu chuẩn", "F-series", "Astro", "Cảm ứng"],
+      "filters": ["Tất cả", "Pulse Train", "EtherCat", "Mechatrolink"],
       "sortLabel": "Sắp xếp",
       "sortOptions": ["Mới nhất", "Số trục ↑", "Màn hình ↑"],
       "empty": "Không có model nào khớp bộ lọc. Hãy thử bỏ bớt điều kiện."

@@ -44,7 +44,7 @@ export default function Footer() {
           {/* Về công ty */}
           <div>
             <h5>Về công ty</h5>
-            <p className="text-[#a8a395] leading-relaxed text-[13px] mt-0">
+            <p className="text-[#a8a395] leading-relaxed text-[15px] mt-0">
               Chúng tôi tự hào là đơn vị đầu tiên tại Việt Nam, phát triển, ứng dụng và thương mại sản phẩm bộ điều khiển CNC. Sau một vài năm phát triển sản phẩm đã được ứng dụng rộng rãi trong công nghiệp và chúng tôi đã nhận được sự tin tưởng, quan tâm từ khách hàng trong cũng như ngoài nước.
             </p>
             <a href="http://online.gov.vn/Website/chi-tiet-135123" target="_blank" rel="noopener noreferrer"
@@ -134,7 +134,7 @@ function ContactGroup({ svg, label, children }: { svg: string; label: string; ch
 }
 
 function Line({ href, children }: { href?: string; children: React.ReactNode }) {
-  const cls = "text-[13px] leading-relaxed text-[#c2bdb0]";
+  const cls = "text-[15px] leading-relaxed text-[#c2bdb0]";
   if (!href) return <span className={cls}>{children}</span>;
   const external = href.startsWith("http");
   return (

@@ -103,7 +103,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       <div className="hidden lg:block absolute bottom-7 left-7 w-4 h-4 border-l border-b border-[#3a352c]" aria-hidden="true" />
       <div className="hidden lg:block absolute bottom-7 right-7 w-4 h-4 border-r border-b border-[#3a352c]" aria-hidden="true" />
 
-      <div className="relative qs-wrap-wide grid lg:grid-cols-[1fr_minmax(300px,360px)_0.92fr] gap-10 xl:gap-16 items-center min-h-[clamp(580px,84vh,860px)] pt-16 lg:pt-24 pb-8 lg:pb-10">
+      <div className="relative qs-wrap-wide grid lg:grid-cols-[1fr_minmax(360px,432px)_0.92fr] gap-10 xl:gap-16 items-center min-h-[clamp(580px,84vh,860px)] pt-16 lg:pt-24 pb-8 lg:pb-10">
         {/* LEFT — thesis (re-keyed → re-runs the staggered rise on each slide) */}
         <div key={`t-${active}`} className="text-center lg:text-left" aria-live="polite">
           <span className="qs-eyebrow qs-rise !text-gold-2 before:hidden justify-center lg:justify-start" style={rise(60)}>
@@ -130,15 +130,15 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 
         {/* CENTER — frameless device render floating directly on the dark blueprint stage */}
         <div key={`c-${active}`} className="order-first lg:order-none qs-rise" style={rise(120)}>
-          <div className="relative w-full max-w-[380px] mx-auto">
-            <div className="qs-float relative h-[clamp(360px,52vh,560px)]">
+          <div className="relative w-full max-w-[456px] mx-auto">
+            <div className="qs-float relative h-[clamp(432px,62vh,672px)]">
               {/* gold pool the product floats above */}
               <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-3/4" style={{ background: "radial-gradient(ellipse 56% 58% at 50% 100%, rgba(232,200,120,.34), transparent 70%)" }} />
               <Image
                 src={s.img}
                 alt={`Bộ điều khiển CNC QS ${s.name}`}
                 fill
-                sizes="(max-width:1024px) 90vw, 380px"
+                sizes="(max-width:1024px) 90vw, 456px"
                 priority={active === 0}
                 className="object-contain object-center drop-shadow-[0_34px_46px_rgba(0,0,0,.6)]"
               />

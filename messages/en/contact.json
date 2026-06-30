@@ -15,7 +15,7 @@
     "email": "Email",
     "emailPlaceholder": "name@company.com",
     "phone": "Phone *",
-    "phonePlaceholder": "+84 28 3636 1234",
+    "phonePlaceholder": "0901 234 567",
     "businessField": "Business field",
     "businessFieldPlaceholder": "Select a field…",
     "businessOptions": {
@@ -66,10 +66,10 @@
   },
   "page": {
     "channels": [
-      { "lbl": "Hotline · 24/7", "v": "+84 28 3636 1234", "h": "Urgent after-hours technical support" },
-      { "lbl": "Sales", "v": "sales@qstechnology.vn", "h": "Quotes, bulk orders, OEM" },
-      { "lbl": "Technical", "v": "support@qstechnology.vn", "h": "Installation advice, firmware, operating issues" },
-      { "lbl": "Zalo OA", "v": "QS Technology", "h": "Chat directly with a technician" }
+      { "lbl": "Hotline · 24/7", "v": "(+84) 909.663.350", "h": "Urgent after-hours technical support" },
+      { "lbl": "Sales", "v": "support@qstcnc.com", "h": "Quotes, bulk orders, OEM" },
+      { "lbl": "Technical", "v": "support@qstcnc.com", "h": "Installation advice, firmware, operating issues" },
+      { "lbl": "Zalo OA", "v": "0905 438 533", "h": "Chat directly with a technician" }
     ],
     "instructions": {
       "eyebrow": "[ 01 · Send a request ]",
@@ -88,11 +88,10 @@
     },
     "offices": {
       "eyebrow": "[ 03 · Office & factory ]",
-      "heading": "02 locations in Vietnam",
+      "heading": "Location in Vietnam",
       "bookVisit": "Book a visit →",
       "items": [
-        { "n": "01", "t": "Headquarters", "name": "QS Technology HQ — HCMC", "addr": ["123 Tan Binh Industrial Park, Ward 14", "Tan Binh District, Ho Chi Minh City", "Vietnam"], "meta": "Mon–Fri · 8:00 – 17:30 · +84 28 3636 1234" },
-        { "n": "02", "t": "Manufacturing plant", "name": "QS Plant — Ho Chi Minh City", "addr": ["117 Truong Thi Nhu Street", "Hoc Mon District, Ho Chi Minh City", "Vietnam"], "meta": "Open for visits Tue & Thu · Book 7 days ahead" }
+        { "n": "01", "t": "Headquarters & factory", "name": "QS Technology — Ho Chi Minh City", "addr": ["117 Truong Thi Nhu Street", "Xuan Thoi Son, Hoc Mon", "Ho Chi Minh City – Vietnam (700000)"], "meta": "Mon–Fri · 8:00 – 17:30 · (+84) 909.663.350" }
       ]
     },
     "faq": {

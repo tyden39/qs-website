@@ -9,6 +9,9 @@ import { buildAlternates } from "@/lib/seo/alternates";
 import { buildArticle, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+
 export async function generateMetadata({
   params,
 }: {
@@ -82,6 +85,15 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
   const isFlagship = slug === "astro-12x";
   const articleJsonLd = buildArticle(n, locale);
 
+  // Share intents use the canonical, locale-aware article URL.
+  const shareUrl = encodeURIComponent(`${APP_URL}${locale === "en" ? "/en" : ""}/news/${slug}`);
+  const shareTitle = encodeURIComponent(n.title);
+  const shareLinks = [
+    { label: "FB", href: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}` },
+    { label: "TW", href: `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}` },
+    { label: "LI", href: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}` },
+  ];
+
   // Demo body shown only for the flagship article; localized from the `news.article` namespace.
   const articleBody = {
     intro: t("article.intro"),
@@ -131,8 +143,8 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
             <div>
               <span className="font-mono text-[9px] text-muted tracking-[.18em] uppercase block mb-2">{t("meta.share")}</span>
               <div className="flex gap-2">
-                {["FB","TW","LI"].map(s => (
-                  <a key={s} href="#" className="w-8 h-8 border border-line grid place-items-center text-muted hover:text-ink hover:border-ink font-mono text-[10px]">{s}</a>
+                {shareLinks.map(s => (
+                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="w-8 h-8 border border-line grid place-items-center text-muted hover:text-ink hover:border-ink font-mono text-[10px]">{s.label}</a>
                 ))}
               </div>
             </div>

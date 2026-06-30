@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllNews } from "@/lib/data/news";
+import { NewsListFilter, type NewsListItem } from "./_components/news-list-filter";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
@@ -34,18 +34,20 @@ export async function generateMetadata({
   };
 }
 
-const tabCounts = ["148", "42", "28", "31", "36", "11"];
-
 export default async function News({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "news" });
   const seo = await getTranslations({ locale, namespace: "seo" });
-  const tabLabels = t.raw("list.tabs") as string[];
-  const tabs = tabLabels.map((label, i) => [label, tabCounts[i]] as const);
   const news = await getAllNews(locale);
-  const feat = news[0];
-  const rest = news.slice(1);
+  const articles: NewsListItem[] = news.map((n) => ({
+    slug: n.slug,
+    title: n.title,
+    excerpt: n.excerpt,
+    cat: n.cat,
+    date: n.date,
+    categoryId: n.categoryId,
+  }));
   const breadcrumb = buildBreadcrumbList([
     { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
     { name: seo("newsTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/news` },
@@ -73,97 +75,7 @@ export default async function News({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      {/* TABS */}
-      <div className="bg-white border-b border-line sticky top-18 z-30">
-        <div className="max-w-wrap mx-auto px-12 flex">
-          {tabs.map(([t, c], i) => (
-            <a key={t} href="#" className={`py-4 px-5 text-sm font-medium border-b-2 transition-colors ${i===0 ? "text-ink border-gold-2" : "text-[#5a5650] border-transparent hover:text-ink"}`}>
-              {t}<span className="font-mono text-[10px] text-muted ml-1.5 tracking-widest">{c}</span>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* FEATURED */}
-      <section className="py-14 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
-          <div className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase mb-5">{t("list.featuredLabel")}</div>
-          <Link href={`/news/${feat.slug}`}
-                className="grid md:grid-cols-[1.3fr_1fr] bg-white border border-line hover:border-ink transition-colors">
-            <div className="aspect-[5/3] bg-ink-2 border-r border-line overflow-hidden">
-              <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-                <rect width="600" height="360" fill="#1a1815"/>
-                <g fill="#3a3530"><rect x="60" y="80" width="200" height="200"/><rect x="280" y="80" width="120" height="200"/><rect x="420" y="80" width="120" height="200"/></g>
-                <rect x="80" y="120" width="160" height="100" fill="#0a1a2a"/>
-                <text x="100" y="150" fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#e8c878">QS · 2026</text>
-                <text x="100" y="180" fontFamily="JetBrains Mono,monospace" fontSize="20" fill="#fff" fontWeight="700">ASTRO 12X</text>
-                <circle cx="500" cy="180" r="20" fill="#c8553d"/>
-              </svg>
-            </div>
-            <div className="p-12 flex flex-col justify-center">
-              <span className="font-mono text-[10px] bg-gold text-ink-2 py-1 px-2.5 self-start tracking-[.16em] uppercase font-semibold">[ {feat.cat} ]</span>
-              <h2 className="font-display font-bold text-[34px] tracking-[-.015em] leading-[1.15] mt-4 mb-4">{feat.title}</h2>
-              <p className="text-[#3a3a3a] text-[15px] leading-[1.7] m-0 mb-5">{feat.excerpt}</p>
-              <div className="font-mono text-[11px] text-muted tracking-[.14em] pt-4 border-t border-line flex justify-between">
-                <span>{feat.date} · {t("meta.author")}</span><span>{t("list.readTime")}</span>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* GRID */}
-      <section className="py-14 pb-16 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
-          <div className="qs-section-head">
-            <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("list.gridEyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("list.gridHeading")}</h2>
-            </div>
-            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{rest.length} {t("list.articlesShort")}</span>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {rest.map(n => (
-              <Link key={n.slug} href={`/news/${n.slug}`}
-                    className="bg-white border border-line flex flex-col hover:-translate-y-0.5 hover:border-ink transition-all">
-                <div className="aspect-[5/3] border-b border-line bg-paper-2 overflow-hidden grid place-items-center">
-                  <span className="font-mono text-[10px] text-muted tracking-[.16em]">FIG · {n.cat.toUpperCase()}</span>
-                </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ {n.cat} ]</span>
-                  <h3 className="font-display font-semibold text-lg leading-[1.35] tracking-[-.005em] mt-2.5 mb-3">{n.title}</h3>
-                  <p className="text-[13px] text-[#5a5650] leading-[1.6] flex-1 m-0 mb-4">{n.excerpt}</p>
-                  <div className="font-mono text-[10px] text-muted tracking-[.14em] pt-3.5 border-t border-line">{n.date}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* pagination */}
-          <div className="flex justify-center gap-1.5 mt-12">
-            <button className="px-4 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">{t("list.prev")}</button>
-            <button className="w-9 h-9 border border-ink bg-ink text-white grid place-items-center font-mono text-[11px]">1</button>
-            <button className="w-9 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">2</button>
-            <button className="w-9 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">3</button>
-            <span className="w-9 h-9 grid place-items-center font-mono text-[11px] text-muted">…</span>
-            <button className="w-9 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">25</button>
-            <button className="px-4 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">{t("list.next")}</button>
-          </div>
-
-          {/* newsletter */}
-          <div className="mt-16 bg-ink text-[#cfc9b8] p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center">
-            <div>
-              <div className="font-mono text-[10px] text-gold-2 tracking-[.16em] uppercase mb-2">{t("list.newsletter.tag")}</div>
-              <h3 className="font-display font-bold text-2xl text-white tracking-[-.01em] m-0">{t("list.newsletter.heading1")}<br/>{t("list.newsletter.heading2")}</h3>
-              <p className="text-[#a8a499] mt-2.5 max-w-[60ch] m-0 text-sm">{t("list.newsletter.body")}</p>
-            </div>
-            <form className="flex gap-0">
-              <input className="px-5 py-3 bg-white text-ink border-0 outline-0 text-sm w-72" placeholder={t("list.newsletter.placeholder")}/>
-              <button className="qs-btn qs-btn-gold rounded-none">{t("list.newsletter.submit")}</button>
-            </form>
-          </div>
-        </div>
-      </section>
+      <NewsListFilter articles={articles} />
     </>
   );
 }

@@ -36,6 +36,7 @@
     "articlesShort": "bài",
     "prev": "← Trước",
     "next": "Sau →",
+    "empty": "Chưa có bài viết nào trong chuyên mục này.",
     "newsletter": {
       "tag": "[ Newsletter ]",
       "heading1": "Nhận tin sản phẩm mới và",
@@ -81,7 +82,7 @@
       {
         "id": "demo",
         "h": "Tham gia demo trực tiếp",
-        "paras": ["Astro 12X sẽ được trưng bày và demo trực tiếp tại VME 2026, Booth A23, SECC TP.HCM từ 22–25/04/2026. Khách hàng có nhu cầu trao đổi sâu về cấu hình có thể đặt lịch riêng với đội kỹ thuật qua email sales@qstechnology.vn hoặc hotline +84 28 3636 1234."]
+        "paras": ["Astro 12X sẽ được trưng bày và demo trực tiếp tại VME 2026, Booth A23, SECC TP.HCM từ 22–25/04/2026. Khách hàng có nhu cầu trao đổi sâu về cấu hình có thể đặt lịch riêng với đội kỹ thuật qua email support@qstcnc.com hoặc hotline (+84) 909.663.350."]
       }
     ]
   }

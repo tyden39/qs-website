@@ -4,18 +4,21 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { z } from "zod";
+import { createPublicLead } from "@/lib/crm/leads-client";
+import { type CrmLeadPayload, type CrmServiceCode } from "@/lib/validation/crm-lead-schema";
 
-// Flat schema without .default() to avoid Resolver<> type mismatch
+// Maps a service-detail slug to its CRM service code. Slugs without a known
+// mapping send no `services` (never send unknown codes — CRM rejects them).
+const SERVICE_SLUG_TO_CRM_CODE: Record<string, CrmServiceCode> = {
+  retrofit: "machine_upgrade",
+};
+
 const inquirySchema = z.object({
-  source: z.literal("inquiry"),
-  name: z.string().min(1, "Vui lòng nhập họ tên"),
-  email: z.email("Email không hợp lệ"),
-  phone: z.string().min(1, "Vui lòng nhập số điện thoại").max(40),
-  company: z.string().max(120).optional(),
+  name: z.string().trim().min(1, "Vui lòng nhập họ tên"),
+  phone: z.string().trim().min(1, "Vui lòng nhập số điện thoại"),
+  email: z.union([z.literal(""), z.email("Email không hợp lệ")]).optional(),
   message: z.string().max(2000).optional(),
-  locale: z.enum(["vi", "en"]),
   honeypot: z.string().optional(),
-  payload: z.record(z.string(), z.unknown()).optional(),
 });
 
 type InquiryFormValues = z.infer<typeof inquirySchema>;
@@ -23,10 +26,9 @@ type InquiryFormValues = z.infer<typeof inquirySchema>;
 interface Props {
   serviceSlug?: string;
   serviceName?: string;
-  locale?: string;
 }
 
-export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) {
+export function InquiryForm({ serviceSlug, serviceName }: Props) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -37,33 +39,39 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
     formState: { errors },
   } = useForm<InquiryFormValues>({
     resolver: zodResolver(inquirySchema),
-    defaultValues: {
-      source: "inquiry" as const,
-      locale: locale as "vi" | "en",
-      honeypot: "",
-      payload: serviceSlug ? { service_slug: serviceSlug, service_name: serviceName } : undefined,
-    },
+    defaultValues: { honeypot: "" },
   });
 
   async function onSubmit(values: InquiryFormValues) {
+    if (values.honeypot) {
+      reset();
+      setStatus("success");
+      return;
+    }
+
     setStatus("submitting");
     setErrorMsg("");
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as { error?: string }).error ?? "Gửi thất bại");
-      }
-      setStatus("success");
+
+    const code = serviceSlug ? SERVICE_SLUG_TO_CRM_CODE[serviceSlug] : undefined;
+    const payload: CrmLeadPayload = {
+      name: values.name.trim(),
+      phone: values.phone.trim(),
+      ...(values.email?.trim() ? { email: values.email.trim() } : {}),
+      ...(values.message?.trim() ? { notes: values.message.trim() } : {}),
+      ...(code ? { services: [code] } : {}),
+    };
+
+    const result = await createPublicLead(payload);
+    if (result.ok) {
       reset();
-    } catch (err) {
-      setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Có lỗi xảy ra. Vui lòng thử lại.");
+      setStatus("success");
+      return;
     }
+
+    setStatus("error");
+    if (result.kind === "rate_limit") setErrorMsg("Quá nhiều yêu cầu. Vui lòng chờ và thử lại.");
+    else if (result.kind === "validation") setErrorMsg(result.error);
+    else setErrorMsg("Có lỗi xảy ra. Vui lòng thử lại.");
   }
 
   if (status === "success") {
@@ -72,9 +80,7 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
         <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-2">
           [ Gửi thành công ]
         </div>
-        <p className="text-sm text-[#3a3a3a] m-0">
-          Cảm ơn! Đội QS sẽ liên hệ trong 4 giờ làm việc.
-        </p>
+        <p className="text-sm text-[#3a3a3a] m-0">Cảm ơn! Đội QS sẽ liên hệ trong 4 giờ làm việc.</p>
         <button
           onClick={() => setStatus("idle")}
           className="mt-4 font-mono text-[11px] tracking-[.14em] uppercase text-gold-1 underline"
@@ -89,8 +95,6 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
     <form onSubmit={handleSubmit(onSubmit)} className="bg-white border border-line p-6 sm:p-8" noValidate>
       {/* Honeypot */}
       <input {...register("honeypot")} type="text" tabIndex={-1} aria-hidden="true" style={{ display: "none" }} />
-      <input {...register("source")} type="hidden" />
-      <input {...register("locale")} type="hidden" />
 
       <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-4">
         [ Yêu cầu tư vấn dịch vụ{serviceName ? ` · ${serviceName}` : ""} ]
@@ -101,16 +105,12 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
           <input {...register("name")} type="text" placeholder="Nguyễn Văn A" className={inputCls(!!errors.name)} />
         </Field>
 
-        <Field label="Công ty" error={errors.company?.message}>
-          <input {...register("company")} type="text" placeholder="Công ty TNHH ABC" className={inputCls(!!errors.company)} />
-        </Field>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
-          <Field label="Email *" error={errors.email?.message}>
-            <input {...register("email")} type="email" placeholder="name@company.vn" className={inputCls(!!errors.email)} />
-          </Field>
           <Field label="Điện thoại *" error={errors.phone?.message}>
-            <input {...register("phone")} type="tel" placeholder="+84 28 3636 1234" className={inputCls(!!errors.phone)} />
+            <input {...register("phone")} type="tel" placeholder="0901 234 567" className={inputCls(!!errors.phone)} />
+          </Field>
+          <Field label="Email" error={errors.email?.message}>
+            <input {...register("email")} type="email" placeholder="name@company.vn" className={inputCls(!!errors.email)} />
           </Field>
         </div>
 
@@ -119,7 +119,7 @@ export function InquiryForm({ serviceSlug, serviceName, locale = "vi" }: Props) 
             {...register("message")}
             rows={4}
             placeholder="Mô tả yêu cầu, quy mô, thời gian mong muốn…"
-            className={`${inputCls(!!errors.message)} resize-none`}
+            className={`${inputCls(false)} resize-none`}
           />
         </Field>
 

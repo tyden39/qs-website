@@ -15,7 +15,7 @@
     "email": "Email",
     "emailPlaceholder": "name@company.vn",
     "phone": "Điện thoại *",
-    "phonePlaceholder": "+84 28 3636 1234",
+    "phonePlaceholder": "0901 234 567",
     "businessField": "Lĩnh vực hoạt động",
     "businessFieldPlaceholder": "Chọn lĩnh vực…",
     "businessOptions": {
@@ -66,10 +66,10 @@
   },
   "page": {
     "channels": [
-      { "lbl": "Hotline · 24/7", "v": "+84 28 3636 1234", "h": "Hỗ trợ kỹ thuật khẩn cấp ngoài giờ" },
-      { "lbl": "Bán hàng", "v": "sales@qstechnology.vn", "h": "Báo giá, đặt hàng lô lớn, OEM" },
-      { "lbl": "Kỹ thuật", "v": "support@qstechnology.vn", "h": "Tư vấn lắp đặt, firmware, lỗi vận hành" },
-      { "lbl": "Zalo OA", "v": "QS Technology", "h": "Chat trực tiếp với kỹ thuật viên" }
+      { "lbl": "Hotline · 24/7", "v": "(+84) 909.663.350", "h": "Hỗ trợ kỹ thuật khẩn cấp ngoài giờ" },
+      { "lbl": "Bán hàng", "v": "support@qstcnc.com", "h": "Báo giá, đặt hàng lô lớn, OEM" },
+      { "lbl": "Kỹ thuật", "v": "support@qstcnc.com", "h": "Tư vấn lắp đặt, firmware, lỗi vận hành" },
+      { "lbl": "Zalo OA", "v": "0905 438 533", "h": "Chat trực tiếp với kỹ thuật viên" }
     ],
     "instructions": {
       "eyebrow": "[ 01 · Gửi yêu cầu ]",
@@ -88,11 +88,10 @@
     },
     "offices": {
       "eyebrow": "[ 03 · Văn phòng & nhà máy ]",
-      "heading": "02 địa điểm tại Việt Nam",
+      "heading": "Địa điểm tại Việt Nam",
       "bookVisit": "Đặt lịch thăm quan →",
       "items": [
-        { "n": "01", "t": "Trụ sở chính", "name": "QS Technology HQ — TP.HCM", "addr": ["123 KCN Tân Bình, Phường 14", "Quận Tân Bình, TP. Hồ Chí Minh", "Việt Nam"], "meta": "T2–T6 · 8:00 – 17:30 · +84 28 3636 1234" },
-        { "n": "02", "t": "Nhà máy sản xuất", "name": "QS Plant — TP. Hồ Chí Minh", "addr": ["117 Đường Trương Thị Như", "Huyện Hóc Môn, TP. Hồ Chí Minh", "Việt Nam"], "meta": "Mở cửa thăm quan T3 & T5 · Đặt trước 7 ngày" }
+        { "n": "01", "t": "Trụ sở & nhà máy", "name": "QS Technology — TP. Hồ Chí Minh", "addr": ["117 Đường Trương Thị Như", "Xuân Thới Sơn, Hóc Môn", "Thành phố Hồ Chí Minh – Việt Nam (700000)"], "meta": "T2–T6 · 8:00 – 17:30 · (+84) 909.663.350" }
       ]
     },
     "faq": {

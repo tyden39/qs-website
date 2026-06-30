@@ -116,11 +116,26 @@ export async function ProductBundleCard({
               <span className="absolute top-2 right-2.5 font-mono text-[9px] text-line-2 tracking-widest">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <div className="grid place-items-center h-[68px] w-full">
-                <KitComponentIcon
-                  type={c.icon}
-                  className="h-full w-auto transition-transform duration-200 group-hover/tile:-translate-y-0.5"
-                />
+              <div className="grid place-items-center h-[84px] w-full">
+                {(() => {
+                  // real render when available; controller reuses the front photo
+                  const photo = c.photo ?? (c.icon === "controller" ? product.image : null);
+                  return photo ? (
+                    <Image
+                      src={photo.src}
+                      alt={c.label}
+                      width={photo.w}
+                      height={photo.h}
+                      sizes="120px"
+                      className="max-h-full w-auto max-w-full object-contain transition-transform duration-200 group-hover/tile:-translate-y-0.5"
+                    />
+                  ) : (
+                    <KitComponentIcon
+                      type={c.icon}
+                      className="h-full w-auto transition-transform duration-200 group-hover/tile:-translate-y-0.5"
+                    />
+                  );
+                })()}
               </div>
               <div className="mt-3 font-mono text-[10px] leading-[1.5] tracking-[.06em] uppercase text-muted">
                 {c.label}

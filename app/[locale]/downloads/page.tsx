@@ -105,7 +105,7 @@ export default async function Downloads({ params }: Props) {
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("featured.eyebrow")}</span>
               <h2 className="qs-h2 mt-2">{t("featured.heading")}</h2>
             </div>
-            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">{t("featured.viewAll")}</Link>
+            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/downloads/datasheets">{t("featured.viewAll")}</Link>
           </div>
           <div className="grid md:grid-cols-3 gap-px bg-line border border-line">
             {featured.map(f => (
@@ -139,7 +139,6 @@ export default async function Downloads({ params }: Props) {
             <p className="text-sm text-[#4a4842] leading-[1.7] m-0 mb-6">{t("plc.body")}</p>
             <div className="flex gap-3">
               <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/contact">{t("plc.register")}</Link>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">{t("plc.login")}</Link>
             </div>
           </div>
           <div className="border border-line p-8 relative

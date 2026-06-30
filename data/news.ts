@@ -27,7 +27,7 @@ const astro12xBody = `
 <h2 id="shipping">Lộ trình giao hàng</h2>
 <p>Đặt hàng mở từ 15/05/2026, ưu tiên cho khách hàng đang vận hành Astro 10i và F86. Lô đầu 60 chiếc dự kiến giao tháng 9/2026, công suất ổn định 80 chiếc/tháng từ Q4. Giá niêm yết phiên bản tiêu chuẩn 89 triệu VND, bao gồm bảo hành 24 tháng và đào tạo vận hành 3 ngày tại nhà máy QS.</p>
 <h2 id="demo">Tham gia demo trực tiếp</h2>
-<p>Astro 12X sẽ được trưng bày và demo trực tiếp tại VME 2026, Booth A23, SECC TP.HCM từ 22–25/04/2026. Khách hàng có nhu cầu trao đổi sâu về cấu hình có thể đặt lịch riêng với đội kỹ thuật qua email sales@qstechnology.vn hoặc hotline +84 28 3636 1234.</p>
+<p>Astro 12X sẽ được trưng bày và demo trực tiếp tại VME 2026, Booth A23, SECC TP.HCM từ 22–25/04/2026. Khách hàng có nhu cầu trao đổi sâu về cấu hình có thể đặt lịch riêng với đội kỹ thuật qua email support@qstcnc.com hoặc hotline (+84) 909.663.350.</p>
 `.trim();
 
 const placeholderBody = (excerpt: string) => `

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAllProducts } from "@/lib/data/products";
 import { ProductBundleCard } from "@/components/products/product-bundle-card";
+import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
@@ -43,10 +44,16 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const seo = await getTranslations({ locale, namespace: "seo" });
   const products = await getAllProducts(locale);
   const features = t.raw("features") as string[];
-  const tree = t.raw("sidebar.tree") as string[];
-  const axes = t.raw("sidebar.axes") as string[];
-  const filters = t.raw("toolbar.filters") as string[];
-  const sortOptions = t.raw("toolbar.sortOptions") as string[];
+  // Filter metadata derived from product data; the async card is pre-rendered
+  // on the server and handed to the client filter as an opaque node.
+  const items: ProductFilterItem[] = products.map((p, i) => ({
+    slug: p.slug,
+    series: p.series as "F" | "Astro",
+    axisNum: parseInt(p.axes, 10) || 0,
+    displayNum: parseFloat(p.display) || 0,
+    isTouch: p.display.includes("cảm ứng") || p.badge === "Touch",
+    node: <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />,
+  }));
   const breadcrumb = buildBreadcrumbList([
     { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
     { name: seo("productsTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/products` },
@@ -61,7 +68,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
         <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-14">
           <div className="qs-crumb mb-8">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
-            <Link href="#">{t("breadcrumb.products")}</Link><span className="sep">/</span>
+            <Link href="/products">{t("breadcrumb.products")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
           </div>
           <div className="grid md:grid-cols-[1fr_1.4fr] gap-12 items-center">
@@ -99,64 +106,22 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       {/* BODY */}
       <section className="py-16" id="list">
         <div className="max-w-wrap mx-auto px-12">
-          <div className="grid md:grid-cols-[240px_1fr] gap-16">
-            {/* sidebar */}
-            <aside>
-              <h4 className="font-mono text-[11px] tracking-[.16em] uppercase text-ink m-0 mb-4 pb-3.5 border-b border-ink">{t("sidebar.heading")}</h4>
-              <ul className="list-none p-0 m-0">
-                {tree.map((n, idx) => {
-                  const open = idx === 0;
-                  return (
-                    <li key={n} className="border-b border-line">
-                      <a href="#" className="flex justify-between items-center py-3 text-sm font-medium">
-                        {n}<span className="text-gold-1">{open ? "▾" : "›"}</span>
-                      </a>
-                      {open ? (
-                        <ul className="pb-3 list-none m-0 p-0">
-                          {axes.map((s, i) => (
-                            <li key={s} className="border-0">
-                              <a href="#" className={`block py-1.5 px-3 text-[13px] border-l ${i === 0 ? "text-ink border-gold font-medium" : "text-muted border-line"}`}>{s}</a>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : null}
-                    </li>
-                  );
-                })}
-              </ul>
-              <div className="mt-8 bg-white border border-line p-5">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-2">{t("sidebar.support.title")}</div>
-                <p className="m-0 text-[13px] text-muted leading-[1.6]">+84 28 3636 1234<br />tech@qstechnology.vn</p>
-                <Link className="qs-btn qs-btn-sm mt-3.5" href="/contact">{t("sidebar.support.cta")}</Link>
-              </div>
-            </aside>
-
-            {/* list */}
-            <main>
-              <div className="flex justify-between items-center bg-white border border-line px-6 py-4 mb-6">
-                <div className="flex gap-6 items-center">
-                  <span className="font-mono text-xs tracking-widest text-muted">{t("toolbar.showing")} <b className="text-ink font-semibold">06</b> {t("toolbar.ofModels")}</span>
-                  <div className="flex gap-1.5">
-                    {filters.map((c, i) => (
-                      <button key={c} className={`px-3 py-1.5 font-mono text-[11px] tracking-widest uppercase border ${i === 0 ? "bg-ink text-white border-ink" : "border-line text-muted"}`}>{c}</button>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex gap-3 items-center">
-                  <span className="font-mono text-[11px] text-muted tracking-widest uppercase">{t("toolbar.sortLabel")}</span>
-                  <select className="font-mono text-[11px] tracking-[.08em] uppercase border border-line py-1.5 px-3 bg-white">
-                    {sortOptions.map((o) => (<option key={o}>{o}</option>))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-6">
-                {products.map((p, i) => (
-                  <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />
-                ))}
-              </div>
-            </main>
-          </div>
+          <ProductListFilter
+            items={items}
+            labels={{
+              filters: t.raw("toolbar.filters") as string[],
+              sortOptions: t.raw("toolbar.sortOptions") as string[],
+              tree: t.raw("sidebar.tree") as string[],
+              axes: t.raw("sidebar.axes") as string[],
+              sidebarHeading: t("sidebar.heading"),
+              supportTitle: t("sidebar.support.title"),
+              supportCta: t("sidebar.support.cta"),
+              showing: t("toolbar.showing"),
+              ofModels: t("toolbar.ofModels"),
+              sortLabel: t("toolbar.sortLabel"),
+              emptyState: t("toolbar.empty"),
+            }}
+          />
         </div>
       </section>
     </>

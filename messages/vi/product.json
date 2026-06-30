@@ -18,7 +18,8 @@
       "ofModels": "/ 06 model",
       "filters": ["Bộ SP tiêu chuẩn", "F-series", "Astro", "Cảm ứng"],
       "sortLabel": "Sắp xếp",
-      "sortOptions": ["Mới nhất", "Số trục ↑", "Màn hình ↑"]
+      "sortOptions": ["Mới nhất", "Số trục ↑", "Màn hình ↑"],
+      "empty": "Không có model nào khớp bộ lọc. Hãy thử bỏ bớt điều kiện."
     }
   },
   "card": {

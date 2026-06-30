@@ -1,227 +1,335 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, useRouter } from "@/lib/i18n/navigation";
 
-type Result = {
-  href: string;
-  cat: string;
-  url: string;
+type SearchType = "product" | "pdf" | "news" | "app" | "faq";
+
+interface SearchRecord {
+  id: string;
+  type: SearchType;
   title: string;
   excerpt: string;
+  href: string;
   meta: string[];
-  thumb: "product" | "pdf" | "case" | "news" | "faq" | "app";
-};
+  keywords: string;
+}
 
-const sampleResults: Result[] = [
-  {
-    href: "/products/f86",
-    cat: "[ Sản phẩm · F-series ]",
-    url: "qstechnology.vn / products / f86",
-    title: "F86 — controller 6 trục, 8\" touch, EtherCAT",
-    excerpt: "Bộ điều khiển CNC 6 trục với màn hình cảm ứng 8 inch, hỗ trợ EtherCAT chuẩn cho servo Yaskawa, Delta, Mitsubishi. Sản phẩm chủ lực của QS cho dây chuyền cơ khí chính xác.",
-    meta: ["Sản phẩm", "Cập nhật 04/2026", "Score · 9.8"],
-    thumb: "product",
-  },
-  {
-    href: "/downloads",
-    cat: "[ Manual · F-series ]",
-    url: "downloads / f86-manual-vn-v4.2.pdf",
-    title: "Hướng dẫn lập trình F86 — chương 4: cấu hình EtherCAT",
-    excerpt: "Hướng dẫn chi tiết cấu hình bus EtherCAT trên controller F86: ánh xạ slave, cài tham số PDO, đồng bộ DC, đặt chu kỳ giao tiếp. Bao gồm bảng tương thích với 12 dòng servo phổ biến.",
-    meta: ["PDF · 8.4 MB", "Tiếng Việt · v4.2", "Score · 9.5"],
-    thumb: "pdf",
-  },
-  {
-    href: "/applications",
-    cat: "[ Case study · Q1/2026 ]",
-    url: "case-studies / precitech-long-an",
-    title: "Precitech Long An — 24 dòng phay đồng bộ EtherCAT với F86",
-    excerpt: "Tổng công ty PRECITECH triển khai 24 controller F86 trên dây chuyền gia công linh kiện ô tô, đồng bộ qua EtherCAT. Sản lượng tăng 38%, phế phẩm giảm về 0,4%.",
-    meta: ["Case study", "04/2026", "Score · 9.2"],
-    thumb: "case",
-  },
-  {
-    href: "/news",
-    cat: "[ Tin tức · Kỹ thuật ]",
-    url: "news / firmware-v4-2-mastercam",
-    title: "Firmware v4.2 cho F86 & Astro — bổ sung post-processor Mastercam",
-    excerpt: "Phiên bản 4.2 cải thiện look-ahead 18% trên đường cong, hỗ trợ G-code macro tuỳ biến G65/G66, và đồng bộ EtherCAT ổn định hơn ở tốc độ cao.",
-    meta: ["Tin tức", "02/04/2026", "Score · 8.9"],
-    thumb: "news",
-  },
-  {
-    href: "/applications",
-    cat: "[ Ứng dụng · Phay CNC ]",
-    url: "applications / cnc-milling",
-    title: "Máy phay CNC 6 trục với F86 — cấu hình tiêu chuẩn QS",
-    excerpt: "Sơ đồ wiring, cấu hình servo, danh sách phụ kiện đề xuất khi ghép F86 với máy phay BT30/BT40 phổ thông trên thị trường Việt Nam.",
-    meta: ["Ứng dụng", "14 ảnh kỹ thuật", "Score · 8.1"],
-    thumb: "app",
-  },
-];
+const PAGE_SIZE = 10;
+const RECENT_KEY = "qs-recent-searches";
+const TYPE_ORDER: SearchType[] = ["product", "pdf", "news", "app", "faq"];
 
-const filters = [
-  { l: "Tất cả",        ct: "24", on: true },
-  { l: "Sản phẩm",      ct: "06" },
-  { l: "Tài liệu PDF",  ct: "08" },
-  { l: "Case studies",  ct: "03" },
-  { l: "Tin tức",       ct: "04" },
-  { l: "FAQ",           ct: "03" },
-];
+function tokenize(q: string): string[] {
+  return q
+    .toLowerCase()
+    .split(/\s+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 1);
+}
 
-const tabs = [
-  { l: "Tất cả",        ct: "24", active: true },
-  { l: "Sản phẩm",      ct: "06" },
-  { l: "Tài liệu",      ct: "08" },
-  { l: "Tin tức",       ct: "04" },
-  { l: "Case studies",  ct: "03" },
-  { l: "FAQ",           ct: "03" },
-];
-
-const recent = [
-  ["02 / 05 / 26", "F86 alarm 2104"],
-  ["28 / 04 / 26", "Astro 10i price"],
-  ["25 / 04 / 26", "post-processor Mastercam"],
-  ["22 / 04 / 26", "F54 datasheet"],
-];
+// Token match weighted by field: title^3 + keywords^2 + excerpt^1.
+function scoreRecord(rec: SearchRecord, tokens: string[]): number {
+  const title = rec.title.toLowerCase();
+  const kw = rec.keywords.toLowerCase();
+  const ex = rec.excerpt.toLowerCase();
+  let score = 0;
+  for (const tk of tokens) {
+    if (title.includes(tk)) score += 3;
+    if (kw.includes(tk)) score += 2;
+    if (ex.includes(tk)) score += 1;
+  }
+  return score;
+}
 
 // Static export has no server runtime, so the query is read on the client from
-// the URL. The page shell prerenders; the query resolves after hydration.
+// the URL and matched against a prebuilt index fetched per locale.
 export function SearchResults() {
-  const q = useSearchParams().get("q");
-  const query = q?.trim() || "F86 EtherCAT";
+  const t = useTranslations("search.results");
+  const locale = useLocale();
+  const router = useRouter();
+  const params = useSearchParams();
+
+  const query = (params.get("q") ?? "").trim();
+  const rawType = params.get("type");
+  const activeType: SearchType | "all" = TYPE_ORDER.includes(rawType as SearchType)
+    ? (rawType as SearchType)
+    : "all";
+  const page = Math.max(1, Number(params.get("page") ?? "1") || 1);
+
+  const [index, setIndex] = useState<SearchRecord[] | null>(null);
+  const [recent, setRecent] = useState<string[]>([]);
+
+  useEffect(() => {
+    let alive = true;
+    fetch(`/search-index.${locale}.json`)
+      .then((r) => r.json())
+      .then((d: SearchRecord[]) => alive && setIndex(d))
+      .catch(() => alive && setIndex([]));
+    return () => {
+      alive = false;
+    };
+  }, [locale]);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(RECENT_KEY);
+      if (raw) setRecent(JSON.parse(raw) as string[]);
+    } catch {
+      /* storage unavailable — skip recents */
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!query) return;
+    setRecent((prev) => {
+      const next = [query, ...prev.filter((x) => x.toLowerCase() !== query.toLowerCase())].slice(0, 6);
+      try {
+        localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  }, [query]);
+
+  const tokens = useMemo(() => tokenize(query), [query]);
+
+  const scored = useMemo(() => {
+    if (!index || tokens.length === 0) return [];
+    return index
+      .map((r) => ({ r, s: scoreRecord(r, tokens) }))
+      .filter((x) => x.s > 0)
+      .sort((a, b) => b.s - a.s)
+      .map((x) => x.r);
+  }, [index, tokens]);
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { all: scored.length };
+    for (const ty of TYPE_ORDER) c[ty] = 0;
+    for (const r of scored) c[r.type] += 1;
+    return c;
+  }, [scored]);
+
+  const filtered = activeType === "all" ? scored : scored.filter((r) => r.type === activeType);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const pageItems = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
+
+  function navigate(next: { q?: string; type?: string; page?: number }) {
+    const q = next.q ?? query;
+    const type = next.type ?? activeType;
+    const p = next.page ?? 1;
+    const sp = new URLSearchParams();
+    if (q) sp.set("q", q);
+    if (type && type !== "all") sp.set("type", type);
+    if (p > 1) sp.set("page", String(p));
+    const qs = sp.toString();
+    router.push(qs ? `/search?${qs}` : "/search");
+  }
+
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const q = String(new FormData(e.currentTarget).get("q") ?? "").trim();
+    navigate({ q, type: "all", page: 1 });
+  }
+
+  // Tabs: "All" plus every type that has at least one match.
+  const tabTypes: (SearchType | "all")[] = ["all", ...TYPE_ORDER.filter((ty) => counts[ty] > 0)];
 
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden border-b border-line"
-               style={{ background: "linear-gradient(180deg, #fafaf7, #f0eee8)", padding: "48px 0 32px" }}>
+      <section
+        className="relative overflow-hidden border-b border-line"
+        style={{ background: "linear-gradient(180deg, #fafaf7, #f0eee8)", padding: "48px 0 32px" }}
+      >
         <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
         <div className="relative max-w-wrap mx-auto px-12">
           <div className="qs-crumb">
-            <Link href="/">Home</Link><span className="sep">/</span>
-            <span className="here">Tìm kiếm</span>
+            <Link href="/">Home</Link>
+            <span className="sep">/</span>
+            <span className="here">{t("breadcrumbCurrent")}</span>
           </div>
-          <h1 className="font-display font-bold mt-3.5 leading-[1.05] tracking-[-.015em]"
-              style={{ fontSize: "clamp(34px, 3.6vw, 44px)" }}>
-            Kết quả cho "<em className="not-italic bg-gold-grad bg-clip-text text-transparent">{query}</em>"
+          <h1
+            className="font-display font-bold mt-3.5 leading-[1.05] tracking-[-.015em]"
+            style={{ fontSize: "clamp(34px, 3.6vw, 44px)" }}
+          >
+            {t("resultsFor")} &quot;
+            <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{query || "…"}</em>&quot;
           </h1>
-          <div className="mt-3.5 font-mono text-[11px] text-muted tracking-[.14em] uppercase">
-            <b className="text-ink font-medium">{sampleResults.length * 4}</b> kết quả · 0,18 giây · sắp xếp theo độ liên quan
-          </div>
+          {query && index && (
+            <div className="mt-3.5 font-mono text-[11px] text-muted tracking-[.14em] uppercase">
+              <b className="text-ink font-medium">{scored.length}</b> {t("statsSuffix")}
+            </div>
+          )}
         </div>
       </section>
 
       {/* INPUT */}
       <section className="bg-white border-b border-line sticky top-[72px] z-30 py-6">
         <div className="max-w-wrap mx-auto px-12">
-          <form action="search" method="get" className="flex gap-3.5 items-center border border-ink bg-white px-[18px] py-3.5">
+          <form onSubmit={onSubmit} className="flex gap-3.5 items-center border border-ink bg-white px-[18px] py-3.5">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="shrink-0 opacity-50">
-              <circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/>
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3-3" />
             </svg>
-            <input name="q" defaultValue={query} autoComplete="off"
-                   className="flex-1 border-0 outline-0 text-lg font-display font-medium text-ink"/>
-            <button type="submit" className="px-4 py-2.5 bg-ink text-white font-mono text-[11px] tracking-[.14em] uppercase cursor-pointer">Tìm</button>
+            <input
+              name="q"
+              defaultValue={query}
+              key={query}
+              autoComplete="off"
+              className="flex-1 border-0 outline-0 text-lg font-display font-medium text-ink"
+            />
+            <button type="submit" className="px-4 py-2.5 bg-ink text-white font-mono text-[11px] tracking-[.14em] uppercase cursor-pointer">
+              {t("searchBtn")}
+            </button>
           </form>
         </div>
       </section>
 
       {/* TABS */}
-      <section className="bg-white border-b border-line">
-        <div className="max-w-wrap mx-auto px-12">
-          <div className="flex flex-wrap">
-            {tabs.map(t => (
-              <button key={t.l}
-                      className={`py-3.5 px-[18px] font-mono text-[11px] tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 border-b-2
-                                  ${t.active ? "border-ink text-ink" : "border-transparent text-muted hover:text-ink"}`}>
-                <b className="font-display text-[13px] tracking-normal normal-case font-semibold text-ink">{t.l}</b>
-                <span className="font-mono text-[11px] text-gold-1 ml-2">{t.ct}</span>
-              </button>
-            ))}
+      {scored.length > 0 && (
+        <section className="bg-white border-b border-line">
+          <div className="max-w-wrap mx-auto px-12">
+            <div className="flex flex-wrap">
+              {tabTypes.map((ty) => (
+                <button
+                  key={ty}
+                  onClick={() => navigate({ type: ty, page: 1 })}
+                  className={`py-3.5 px-[18px] font-mono text-[11px] tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 border-b-2
+                              ${activeType === ty ? "border-ink text-ink" : "border-transparent text-muted hover:text-ink"}`}
+                >
+                  <b className="font-display text-[13px] tracking-normal normal-case font-semibold text-ink">
+                    {t(`typeLabels.${ty}`)}
+                  </b>
+                  <span className="font-mono text-[11px] text-gold-1 ml-2">{counts[ty]}</span>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* BODY */}
       <section className="bg-white py-12 pb-24">
         <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_280px] gap-12 items-start">
           <div>
-            <div className="flex flex-col gap-px bg-line border border-line">
-              {sampleResults.map(r => (
-                <Link key={r.url} href={r.href}
-                      className="bg-white px-7 py-6 grid grid-cols-[120px_1fr] gap-6 text-ink relative
-                                 hover:bg-paper hover:pl-[34px] transition-all
-                                 before:content-[''] before:absolute before:top-0 before:left-0 before:h-full before:bg-gold before:w-0
-                                 hover:before:w-[3px] before:transition-all">
-                  <Thumb kind={r.thumb}/>
-                  <div>
-                    <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase flex gap-3.5">
-                      <span>{r.cat}</span>
-                      <span className="text-muted">{r.url}</span>
-                    </div>
-                    <h3 className="mt-1.5 mb-1.5 font-display text-[19px] font-semibold leading-[1.3] tracking-[-.005em]"
-                        dangerouslySetInnerHTML={{ __html: highlight(r.title, query) }}/>
-                    <p className="m-0 text-[#3a3a3a] text-[13.5px] leading-[1.6] max-w-[65ch]"
-                       dangerouslySetInnerHTML={{ __html: highlight(r.excerpt, query) }}/>
-                    <div className="mt-2.5 font-mono text-[10px] text-muted tracking-[.12em] uppercase flex gap-[18px]">
-                      {r.meta.map(m => <span key={m}>{m}</span>)}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            {!query && <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0">{t("emptyPrompt")}</p>}
 
-            <div className="flex justify-between items-center mt-8 pt-6 border-t border-line">
-              <div className="font-mono text-[11px] text-muted tracking-[.12em]">
-                Hiển thị 1–{sampleResults.length} / {sampleResults.length * 4} kết quả
-              </div>
-              <div className="flex gap-1">
-                {["1","2","3","4","→"].map((p, i) => (
-                  <a key={p} href="#"
-                     className={`w-9 h-9 border border-line grid place-items-center font-mono text-xs
-                                 ${i === 0 ? "bg-ink text-white border-ink" : "bg-white text-ink"}`}>{p}</a>
+            {query && index && scored.length === 0 && (
+              <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0">{t("noResults", { query })}</p>
+            )}
+
+            {pageItems.length > 0 && (
+              <div className="flex flex-col gap-px bg-line border border-line">
+                {pageItems.map((r) => (
+                  <Link
+                    key={r.id}
+                    href={r.href}
+                    className="bg-white px-7 py-6 grid grid-cols-[120px_1fr] gap-6 text-ink relative
+                               hover:bg-paper hover:pl-[34px] transition-all
+                               before:content-[''] before:absolute before:top-0 before:left-0 before:h-full before:bg-gold before:w-0
+                               hover:before:w-[3px] before:transition-all"
+                  >
+                    <Thumb kind={r.type} />
+                    <div>
+                      <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase flex gap-3.5">
+                        <span>[ {t(`typeLabels.${r.type}`)} ]</span>
+                      </div>
+                      <h3
+                        className="mt-1.5 mb-1.5 font-display text-[19px] font-semibold leading-[1.3] tracking-[-.005em]"
+                        dangerouslySetInnerHTML={{ __html: highlight(r.title, query) }}
+                      />
+                      <p
+                        className="m-0 text-[#3a3a3a] text-[13.5px] leading-[1.6] max-w-[65ch]"
+                        dangerouslySetInnerHTML={{ __html: highlight(r.excerpt, query) }}
+                      />
+                      {r.meta.length > 0 && (
+                        <div className="mt-2.5 font-mono text-[10px] text-muted tracking-[.12em] uppercase flex gap-[18px]">
+                          {r.meta.map((m) => (
+                            <span key={m}>{m}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </Link>
                 ))}
               </div>
-            </div>
+            )}
+
+            {filtered.length > PAGE_SIZE && (
+              <div className="flex justify-between items-center mt-8 pt-6 border-t border-line">
+                <div className="font-mono text-[11px] text-muted tracking-[.12em]">
+                  {t("showing", {
+                    start: (safePage - 1) * PAGE_SIZE + 1,
+                    end: (safePage - 1) * PAGE_SIZE + pageItems.length,
+                    total: filtered.length,
+                  })}
+                </div>
+                <div className="flex gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => navigate({ page: p })}
+                      className={`w-9 h-9 border border-line grid place-items-center font-mono text-xs
+                                  ${p === safePage ? "bg-ink text-white border-ink" : "bg-white text-ink"}`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* SIDEBAR */}
           <aside className="sticky top-40 flex flex-col gap-6">
-            <div className="border border-line bg-paper p-[22px]">
-              <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3.5">[ Lọc theo loại ]</div>
-              <ul className="list-none p-0 m-0 flex flex-col">
-                {filters.map(f => (
-                  <li key={f.l}
-                      className={`flex justify-between py-2 border-b border-line last:border-b-0 text-[13px] cursor-pointer ${f.on ? "font-semibold" : ""}`}>
-                    <span>{f.l}</span>
-                    <span className="font-mono text-[10px] text-gold-1">{f.ct}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {scored.length > 0 && (
+              <div className="border border-line bg-paper p-[22px]">
+                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3.5">{t("filtersTitle")}</div>
+                <ul className="list-none p-0 m-0 flex flex-col">
+                  {(["all", ...TYPE_ORDER] as const).map((ty) => (
+                    <li key={ty}>
+                      <button
+                        onClick={() => navigate({ type: ty, page: 1 })}
+                        className={`w-full flex justify-between py-2 border-b border-line last:border-b-0 text-[13px] cursor-pointer text-left
+                                    ${activeType === ty ? "font-semibold" : ""}`}
+                      >
+                        <span>{t(`typeLabels.${ty}`)}</span>
+                        <span className="font-mono text-[10px] text-gold-1">{counts[ty] ?? 0}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-            <div className="border border-line bg-paper p-[22px]">
-              <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3.5">[ Tìm kiếm gần đây ]</div>
-              <ul className="list-none p-0 m-0 flex flex-col">
-                {recent.map(([d, t]) => (
-                  <li key={t}>
-                    <Link href={`/search?q=${encodeURIComponent(t)}`}
-                          className="block py-2.5 border-b border-dashed border-line last:border-b-0 text-[13px] text-[#3a3a3a] leading-[1.5] hover:text-ink">
-                      <span className="block font-mono text-[10px] text-gold-1 tracking-[.1em] mb-0.5">{d}</span>
-                      {t}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {recent.length > 0 && (
+              <div className="border border-line bg-paper p-[22px]">
+                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3.5">{t("recentTitle")}</div>
+                <ul className="list-none p-0 m-0 flex flex-col">
+                  {recent.map((term) => (
+                    <li key={term}>
+                      <Link
+                        href={`/search?q=${encodeURIComponent(term)}`}
+                        className="block py-2.5 border-b border-dashed border-line last:border-b-0 text-[13px] text-[#3a3a3a] leading-[1.5] hover:text-ink"
+                      >
+                        {term}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="border border-ink bg-ink text-[#cfc9b8] p-[22px]">
-              <div className="font-mono text-[10px] text-gold-2 tracking-[.16em] uppercase mb-3.5">[ Không thấy thứ cần tìm? ]</div>
-              <p className="m-0 mb-3.5 text-[13px] leading-[1.6] text-[#a8a499]">
-                Đội kỹ thuật QS có thể tìm hộ bạn — gửi yêu cầu qua helpdesk hoặc Zalo.
-              </p>
-              <Link className="qs-btn qs-btn-gold qs-btn-sm inline-flex" href="/contact">Liên hệ kỹ thuật →</Link>
+              <div className="font-mono text-[10px] text-gold-2 tracking-[.16em] uppercase mb-3.5">{t("helpTitle")}</div>
+              <p className="m-0 mb-3.5 text-[13px] leading-[1.6] text-[#a8a499]">{t("helpBody")}</p>
+              <Link className="qs-btn qs-btn-gold qs-btn-sm inline-flex" href="/contact">
+                {t("helpCta")}
+              </Link>
             </div>
           </aside>
         </div>
@@ -231,7 +339,7 @@ export function SearchResults() {
 }
 
 function escapeHtml(s: string) {
-  return s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 }
 
 function escapeReg(s: string) {
@@ -240,13 +348,16 @@ function escapeReg(s: string) {
 
 function highlight(text: string, query: string) {
   const safe = escapeHtml(text);
-  const tokens = query.split(/\s+/).filter(t => t.length > 1).map(escapeReg);
+  const tokens = query
+    .split(/\s+/)
+    .filter((t) => t.length > 1)
+    .map(escapeReg);
   if (!tokens.length) return safe;
   const re = new RegExp(`(${tokens.join("|")})`, "gi");
   return safe.replace(re, '<mark class="bg-[#fff5d8] text-ink px-0.5 border-b border-gold">$1</mark>');
 }
 
-function Thumb({ kind }: { kind: Result["thumb"] }) {
+function Thumb({ kind }: { kind: SearchType }) {
   const wrap = "aspect-[5/4] bg-paper-2 border border-line overflow-hidden grid place-items-center";
   if (kind === "faq") {
     return <div className={`${wrap} bg-ink text-gold-2 font-display text-3xl font-bold`}>?</div>;
@@ -254,32 +365,41 @@ function Thumb({ kind }: { kind: Result["thumb"] }) {
   return (
     <div className={wrap}>
       <svg viewBox="0 0 100 80" className="w-full h-full">
-        {kind === "product" && (<>
-          <rect x="6" y="10" width="88" height="60" fill="#1a1a1a" stroke="#3a3a3a"/>
-          <rect x="14" y="18" width="60" height="36" fill="#0a3a3a"/>
-          <g fill="#3a3a3a"><rect x="78" y="18" width="12" height="10"/><rect x="78" y="32" width="12" height="10"/><rect x="78" y="46" width="12" height="10"/></g>
-          <rect x="14" y="58" width="60" height="6" fill="#e8c878"/>
-        </>)}
-        {kind === "pdf" && (<>
-          <rect x="14" y="6" width="60" height="68" fill="#fff" stroke="#d8d6cf"/>
-          <rect x="14" y="6" width="20" height="20" fill="#f5f3ee"/>
-          <rect x="20" y="48" width="48" height="12" fill="#c8553d"/>
-          <text x="44" y="58" fontFamily="JetBrains Mono,monospace" fontSize="6" fontWeight="700" fill="#fff" textAnchor="middle">PDF</text>
-        </>)}
-        {kind === "case" && (<>
-          <rect width="100" height="80" fill="#1a1815"/>
-          <rect x="20" y="20" width="60" height="40" fill="#cfc9b8"/>
-          <rect x="26" y="26" width="30" height="20" fill="#0a1a2a"/>
-        </>)}
-        {kind === "news" && (<>
-          <rect width="100" height="80" fill="#2a2520"/>
-          <rect x="14" y="20" width="72" height="40" fill="#cfc9b8"/>
-          <circle cx="50" cy="40" r="10" fill="#e8c878"/>
-        </>)}
-        {kind === "app" && (<>
-          <rect x="20" y="14" width="60" height="22" fill="#cfc9b8" stroke="#8a8680"/>
-          <rect x="26" y="38" width="48" height="32" fill="#a8a499" stroke="#5a5650"/>
-        </>)}
+        {kind === "product" && (
+          <>
+            <rect x="6" y="10" width="88" height="60" fill="#1a1a1a" stroke="#3a3a3a" />
+            <rect x="14" y="18" width="60" height="36" fill="#0a3a3a" />
+            <g fill="#3a3a3a">
+              <rect x="78" y="18" width="12" height="10" />
+              <rect x="78" y="32" width="12" height="10" />
+              <rect x="78" y="46" width="12" height="10" />
+            </g>
+            <rect x="14" y="58" width="60" height="6" fill="#e8c878" />
+          </>
+        )}
+        {kind === "pdf" && (
+          <>
+            <rect x="14" y="6" width="60" height="68" fill="#fff" stroke="#d8d6cf" />
+            <rect x="14" y="6" width="20" height="20" fill="#f5f3ee" />
+            <rect x="20" y="48" width="48" height="12" fill="#c8553d" />
+            <text x="44" y="58" fontFamily="JetBrains Mono,monospace" fontSize="6" fontWeight="700" fill="#fff" textAnchor="middle">
+              PDF
+            </text>
+          </>
+        )}
+        {kind === "news" && (
+          <>
+            <rect width="100" height="80" fill="#2a2520" />
+            <rect x="14" y="20" width="72" height="40" fill="#cfc9b8" />
+            <circle cx="50" cy="40" r="10" fill="#e8c878" />
+          </>
+        )}
+        {kind === "app" && (
+          <>
+            <rect x="20" y="14" width="60" height="22" fill="#cfc9b8" stroke="#8a8680" />
+            <rect x="26" y="38" width="48" height="32" fill="#a8a499" stroke="#5a5650" />
+          </>
+        )}
       </svg>
     </div>
   );

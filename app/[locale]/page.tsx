@@ -271,7 +271,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("showreel.eyebrow")}</span>
                 <h2 className="qs-h2 mt-3">{t("showreel.heading")}</h2>
               </div>
-              <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">{t("showreel.youtube")} <span className="arr">→</span></Link>
+              <a className="qs-btn qs-btn-ghost qs-btn-sm" href="https://youtube.com/@qstechnology7516" target="_blank" rel="noopener noreferrer">{t("showreel.youtube")} <span className="arr">→</span></a>
             </div>
           </Reveal>
           <Reveal>

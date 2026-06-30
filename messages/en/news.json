@@ -36,6 +36,7 @@
     "articlesShort": "articles",
     "prev": "← Prev",
     "next": "Next →",
+    "empty": "No articles in this category yet.",
     "newsletter": {
       "tag": "[ Newsletter ]",
       "heading1": "Get new product news and",
@@ -81,7 +82,7 @@
       {
         "id": "demo",
         "h": "Join a live demo",
-        "paras": ["The Astro 12X will be exhibited and demonstrated live at VME 2026, Booth A23, SECC HCMC, from 22–25/04/2026. Customers who want an in-depth configuration discussion can book a private session with the technical team via sales@qstechnology.vn or hotline +84 28 3636 1234."]
+        "paras": ["The Astro 12X will be exhibited and demonstrated live at VME 2026, Booth A23, SECC HCMC, from 22–25/04/2026. Customers who want an in-depth configuration discussion can book a private session with the technical team via support@qstcnc.com or hotline (+84) 909.663.350."]
       }
     ]
   }

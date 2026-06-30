@@ -14,11 +14,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // Channel glyphs are decorative; localized text comes from the `contact.page` namespace.
 const channelIcons = ["☎", "✉", "⚙", "Z"];
 
+// Maps each channel (by order) to its real target: hotline → tel:, email
+// channels → mailto:, Zalo OA → the official Zalo link from the footer.
+function channelHref(value: string, index: number): { href: string; external: boolean } {
+  if (index === 3) return { href: "https://zalo.me/0905438533", external: true };
+  if (value.includes("@")) return { href: `mailto:${value}`, external: false };
+  return { href: `tel:${value.replace(/[^\d+]/g, "")}`, external: false };
+}
+
 export default async function Contact({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "contact" });
-  const channels = (t.raw("page.channels") as { lbl: string; v: string; h: string }[]).map((c, i) => ({ ...c, ic: channelIcons[i] }));
+  const channels = (t.raw("page.channels") as { lbl: string; v: string; h: string }[]).map((c, i) => ({ ...c, ic: channelIcons[i], ...channelHref(c.v, i) }));
   const checklist = t.raw("page.instructions.checklist") as string[];
   const offices = t.raw("page.offices.items") as { n: string; t: string; name: string; addr: string[]; meta: string }[];
   const faqs = t.raw("page.faq.items") as { q: string; a: string }[];
@@ -47,20 +55,22 @@ export default async function Contact({ params }: Props) {
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line">
             {channels.map(c => (
-              <Link key={c.lbl} href="#" className="bg-white p-5 sm:p-7 flex flex-col gap-2.5 hover:bg-paper transition-colors relative
-                                                     before:content-[''] before:absolute before:top-0 before:left-5 sm:before:left-7 before:w-8 before:h-0.5 before:bg-gold">
+              <a key={c.lbl} href={c.href}
+                 {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                 className="bg-white p-5 sm:p-7 flex flex-col gap-2.5 hover:bg-paper transition-colors relative
+                            before:content-[''] before:absolute before:top-0 before:left-5 sm:before:left-7 before:w-8 before:h-0.5 before:bg-gold">
                 <div className="w-9 h-9 border border-line grid place-items-center text-gold-1 font-mono text-sm">{c.ic}</div>
                 <div className="font-mono text-[10px] text-muted tracking-[.16em] uppercase mt-1.5">{c.lbl}</div>
                 <div className="font-display text-base sm:text-lg font-semibold tracking-[-.005em] leading-[1.35] break-words">{c.v}</div>
                 <div className="text-xs text-[#5a5650] leading-normal">{c.h}</div>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
       {/* INSTRUCTIONS + FORM */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section id="contact-form" className="py-16 sm:py-24 bg-white scroll-mt-24">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.1fr] gap-10 md:gap-16 items-start">
           <div>
             <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("page.instructions.eyebrow")}</span>
@@ -69,7 +79,7 @@ export default async function Contact({ params }: Props) {
               {t("page.instructions.p1")}
             </p>
             <p className="text-[15px] leading-[1.7] text-[#3a3a3a] m-0">
-              {t("page.instructions.p2pre")}<strong className="font-semibold text-ink">+84 28 3636 1234</strong>.
+              {t("page.instructions.p2pre")}<strong className="font-semibold text-ink">(+84) 909.663.350</strong>.
             </p>
 
             <div className="bg-paper border border-line p-5 sm:p-6 mt-8">
@@ -95,7 +105,7 @@ export default async function Contact({ params }: Props) {
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("page.offices.eyebrow")}</span>
               <h2 className="qs-h2 mt-2">{t("page.offices.heading")}</h2>
             </div>
-            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#">{t("page.offices.bookVisit")}</Link>
+            <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="#contact-form">{t("page.offices.bookVisit")}</Link>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {offices.map(o => (

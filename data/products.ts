@@ -6,10 +6,25 @@ export type KitIcon =
   | "mpg"
   | "ioboard";
 
-export type KitItem = { label: string; icon: KitIcon };
-
 /** Transparent front-face render with intrinsic pixel dimensions. */
 export type ProductPhoto = { src: string; w: number; h: number };
+
+/**
+ * A component shipped in the kit. `icon` is the schematic SVG fallback;
+ * `photo` is the real product render shown when available.
+ */
+export type KitItem = { label: string; icon: KitIcon; photo?: ProductPhoto };
+
+/** Shared component renders reused across kits (drive, motor, PSU, MPG, I/O). */
+const COMPONENT_PHOTO = {
+  servoDrive: { src: "/img/products/components/servo-drive.webp", w: 508, h: 461 },
+  servoMotor: { src: "/img/products/components/servo-motor.webp", w: 600, h: 434 },
+  psu: { src: "/img/products/components/psu-meanwell.webp", w: 600, h: 471 },
+  mpg: { src: "/img/products/components/mpg-pendant.webp", w: 450, h: 504 },
+  ioboardF54: { src: "/img/products/components/ioboard-f54.webp", w: 600, h: 611 },
+  ioboardF: { src: "/img/products/components/ioboard-f86-f10t.webp", w: 600, h: 508 },
+  ioboardAstro: { src: "/img/products/components/ioboard-astro.webp", w: 600, h: 377 },
+} as const;
 
 export type Product = {
   slug: string;
@@ -50,11 +65,11 @@ export const products: Product[] = [
     image:{src:"/img/products/f54-front.webp", w:900, h:581},
     bundle:[
       {label:"Bộ điều khiển F54", icon:"controller"},
-      {label:"Servo Drive Wecon 400W", icon:"drive"},
-      {label:"Servo Motor Wecon 400W", icon:"motor"},
-      {label:"Nguồn 24V-2.2A MeanWell", icon:"psu"},
-      {label:"Tay quay MPG 4 trục", icon:"mpg"},
-      {label:"Board I/O Link_07", icon:"ioboard"},
+      {label:"Servo Drive Wecon 400W", icon:"drive", photo:COMPONENT_PHOTO.servoDrive},
+      {label:"Servo Motor Wecon 400W", icon:"motor", photo:COMPONENT_PHOTO.servoMotor},
+      {label:"Nguồn 24V-2.2A MeanWell", icon:"psu", photo:COMPONENT_PHOTO.psu},
+      {label:"Tay quay MPG 4 trục", icon:"mpg", photo:COMPONENT_PHOTO.mpg},
+      {label:"Board I/O Link_07", icon:"ioboard", photo:COMPONENT_PHOTO.ioboardF54},
     ] },
 
   { slug:"f86", name:"F86", axes:"6 trục", display:"8\"", series:"F",
@@ -76,11 +91,11 @@ export const products: Product[] = [
     image:{src:"/img/products/f86-front.webp", w:900, h:667},
     bundle:[
       {label:"Bộ điều khiển F86", icon:"controller"},
-      {label:"Servo Drive Wecon 750W", icon:"drive"},
-      {label:"Servo Motor Wecon 750W", icon:"motor"},
-      {label:"Nguồn 24V-4.5A MeanWell", icon:"psu"},
-      {label:"Tay quay MPG 6 trục", icon:"mpg"},
-      {label:"Board I/O Link_07", icon:"ioboard"},
+      {label:"Servo Drive Wecon 750W", icon:"drive", photo:COMPONENT_PHOTO.servoDrive},
+      {label:"Servo Motor Wecon 750W", icon:"motor", photo:COMPONENT_PHOTO.servoMotor},
+      {label:"Nguồn 24V-4.5A MeanWell", icon:"psu", photo:COMPONENT_PHOTO.psu},
+      {label:"Tay quay MPG 6 trục", icon:"mpg", photo:COMPONENT_PHOTO.mpg},
+      {label:"Board I/O Link_07", icon:"ioboard", photo:COMPONENT_PHOTO.ioboardF},
     ] },
 
   { slug:"f10t", name:"F10T", axes:"6 trục", display:"10.4\" cảm ứng", series:"F", badge:"Touch",
@@ -102,11 +117,11 @@ export const products: Product[] = [
     image:{src:"/img/products/f10t-front.webp", w:900, h:667},
     bundle:[
       {label:"Bộ điều khiển F10T", icon:"controller"},
-      {label:"Servo Drive Wecon 750W", icon:"drive"},
-      {label:"Servo Motor Wecon 750W", icon:"motor"},
-      {label:"Nguồn 24V-4.5A MeanWell", icon:"psu"},
-      {label:"Tay quay MPG 6 trục", icon:"mpg"},
-      {label:"Board I/O Link_07", icon:"ioboard"},
+      {label:"Servo Drive Wecon 750W", icon:"drive", photo:COMPONENT_PHOTO.servoDrive},
+      {label:"Servo Motor Wecon 750W", icon:"motor", photo:COMPONENT_PHOTO.servoMotor},
+      {label:"Nguồn 24V-4.5A MeanWell", icon:"psu", photo:COMPONENT_PHOTO.psu},
+      {label:"Tay quay MPG 6 trục", icon:"mpg", photo:COMPONENT_PHOTO.mpg},
+      {label:"Board I/O Link_07", icon:"ioboard", photo:COMPONENT_PHOTO.ioboardF},
     ] },
 
   { slug:"astro-6ah", name:"Astro 6AH", axes:"6 trục", display:"8\"", series:"Astro",
@@ -128,11 +143,11 @@ export const products: Product[] = [
     image:{src:"/img/products/astro-6ah-front.webp", w:900, h:817},
     bundle:[
       {label:"Bộ điều khiển Astro 6AH", icon:"controller"},
-      {label:"Servo Drive EtherCAT 1kW", icon:"drive"},
-      {label:"Servo Motor encoder tuyệt đối", icon:"motor"},
-      {label:"Nguồn 24V-6.5A MeanWell", icon:"psu"},
-      {label:"Tay quay MPG 6 trục", icon:"mpg"},
-      {label:"Board EtherCAT I/O Slice", icon:"ioboard"},
+      {label:"Servo Drive EtherCAT 1kW", icon:"drive", photo:COMPONENT_PHOTO.servoDrive},
+      {label:"Servo Motor encoder tuyệt đối", icon:"motor", photo:COMPONENT_PHOTO.servoMotor},
+      {label:"Nguồn 24V-6.5A MeanWell", icon:"psu", photo:COMPONENT_PHOTO.psu},
+      {label:"Tay quay MPG 6 trục", icon:"mpg", photo:COMPONENT_PHOTO.mpg},
+      {label:"Board EtherCAT I/O Slice", icon:"ioboard", photo:COMPONENT_PHOTO.ioboardAstro},
     ] },
 
   { slug:"astro-6av", name:"Astro 6AV", axes:"6 trục", display:"8\"", series:"Astro",
@@ -154,11 +169,11 @@ export const products: Product[] = [
     image:{src:"/img/products/astro-6av-front.webp", w:402, h:900},
     bundle:[
       {label:"Bộ điều khiển Astro 6AV", icon:"controller"},
-      {label:"Servo Drive EtherCAT 1kW", icon:"drive"},
-      {label:"Servo Motor encoder tuyệt đối", icon:"motor"},
+      {label:"Servo Drive EtherCAT 1kW", icon:"drive", photo:COMPONENT_PHOTO.servoDrive},
+      {label:"Servo Motor encoder tuyệt đối", icon:"motor", photo:COMPONENT_PHOTO.servoMotor},
       {label:"Module Vision option", icon:"ioboard"},
-      {label:"Nguồn 24V-6.5A MeanWell", icon:"psu"},
-      {label:"Tay quay MPG 6 trục", icon:"mpg"},
+      {label:"Nguồn 24V-6.5A MeanWell", icon:"psu", photo:COMPONENT_PHOTO.psu},
+      {label:"Tay quay MPG 6 trục", icon:"mpg", photo:COMPONENT_PHOTO.mpg},
     ] },
 
   { slug:"astro-10i", name:"Astro 10i", axes:"6 trục", display:"10.4\"", series:"Astro", badge:"Flagship",
@@ -180,10 +195,10 @@ export const products: Product[] = [
     image:{src:"/img/products/astro-10i-front.webp", w:459, h:900},
     bundle:[
       {label:"Bộ điều khiển Astro 10i", icon:"controller"},
-      {label:"Servo Drive EtherCAT 1.5kW", icon:"drive"},
-      {label:"Servo Motor encoder tuyệt đối", icon:"motor"},
-      {label:"Nguồn 24V-10A MeanWell", icon:"psu"},
-      {label:"Tay quay MPG 6 trục", icon:"mpg"},
+      {label:"Servo Drive EtherCAT 1.5kW", icon:"drive", photo:COMPONENT_PHOTO.servoDrive},
+      {label:"Servo Motor encoder tuyệt đối", icon:"motor", photo:COMPONENT_PHOTO.servoMotor},
+      {label:"Nguồn 24V-10A MeanWell", icon:"psu", photo:COMPONENT_PHOTO.psu},
+      {label:"Tay quay MPG 6 trục", icon:"mpg", photo:COMPONENT_PHOTO.mpg},
       {label:"Gateway OPC UA / EtherCAT", icon:"ioboard"},
     ] },
 ];

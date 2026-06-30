@@ -7,10 +7,11 @@ import { useTranslations } from "next-intl";
    Contact buttons use official brand marks/colors (Zalo, WhatsApp) + a hotline
    call button; back-to-top keeps the QS gold gradient.
    Static-export safe: client component, real anchors, no dynamic server APIs.
-   Primary number 0909663350 powers Zalo / phone / WhatsApp. */
+   Primary number 0909663350 powers phone / WhatsApp; Zalo uses the official
+   Zalo number (matches the footer). */
 
-const PRIMARY_PHONE_LOCAL = "0909663350";
-const PRIMARY_PHONE_INTL = "84909663350"; // E.164 without '+', for wa.me / zalo
+const PRIMARY_PHONE_INTL = "84909663350"; // E.164 without '+', for tel / wa.me
+const ZALO_NUMBER = "0905438533"; // official Zalo number (matches footer)
 
 type ContactItem = {
   label: string;
@@ -67,7 +68,7 @@ export default function FloatingContact() {
   // Zalo / WhatsApp are brand names; only the call action is localized.
   const contacts: ContactItem[] = [
     { label: t("call"), href: `tel:+${PRIMARY_PHONE_INTL}`, bg: "bg-[#e23744]", ring: "rgba(226,55,68,.5)", glyph: phoneGlyph },
-    { label: "Zalo", href: `https://zalo.me/${PRIMARY_PHONE_LOCAL}`, external: true, bg: "bg-[#0068ff]", ring: "rgba(0,104,255,.45)", glyph: zaloGlyph },
+    { label: "Zalo", href: `https://zalo.me/${ZALO_NUMBER}`, external: true, bg: "bg-[#0068ff]", ring: "rgba(0,104,255,.45)", glyph: zaloGlyph },
     { label: "WhatsApp", href: `https://wa.me/${PRIMARY_PHONE_INTL}`, external: true, bg: "bg-[#25d366]", ring: "rgba(37,211,102,.5)", glyph: whatsappGlyph },
   ];
 

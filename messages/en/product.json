@@ -18,7 +18,8 @@
       "ofModels": "/ 06 models",
       "filters": ["Standard bundle", "F-series", "Astro", "Touchscreen"],
       "sortLabel": "Sort",
-      "sortOptions": ["Latest", "Axes ↑", "Display ↑"]
+      "sortOptions": ["Latest", "Axes ↑", "Display ↑"],
+      "empty": "No models match the current filters. Try clearing some."
     }
   },
   "card": {

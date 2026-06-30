@@ -1,105 +1,71 @@
 {
   "meta": {
-    "title": "Downloads — QS Technology",
-    "datasheetsTitle": "Technical Datasheets — Downloads — QS Technology"
+    "title": "Downloads — QS Technology"
   },
-  "datasheets": {
-    "breadcrumb": { "home": "Home", "downloads": "Downloads", "current": "Technical Datasheets" },
-    "eyebrow": "Document Library · Datasheets",
-    "heading": "Technical Datasheets",
-    "description": "Detailed specifications, pin diagrams, and installation standards for each QS controller model.",
+  "index": {
+    "breadcrumb": { "home": "Home", "current": "Downloads" },
+    "hero": {
+      "eyebrow": "Document centre · 2026",
+      "heading1": "Catalogue, manuals",
+      "headingEm": "& software",
+      "lede": "All of QS Technology's technical documentation — product catalogues, operation and installation manuals for each controller model, plus software & data updates. Click to download directly.",
+      "imageAlt": "QS Technology catalogue and manuals"
+    },
     "stats": {
       "docs": "Documents",
-      "version": "Version",
-      "lang": "Language"
+      "models": "Models",
+      "lang": "Languages"
     },
-    "sidebar": {
-      "filter": "Category",
-      "category": "Category",
-      "series": "Product series"
+    "docType": {
+      "operation": "Operation manual",
+      "installation": "Installation manual"
     },
-    "toolbar": {
-      "showing": "Showing {count} documents"
+    "titles": {
+      "productCatalogue": "Product Catalogue 2024",
+      "companyProfile": "Company Profile"
+    },
+    "lang": {
+      "vi": "Vietnamese",
+      "en": "English"
+    },
+    "sections": {
+      "catalogue": {
+        "heading": "Catalogue & profile",
+        "desc": "The full catalogue covering every F-series and Astro-series controller line, plus the company profile. Vietnamese and English editions."
+      },
+      "operation": {
+        "heading": "Operation manuals",
+        "desc": "Manuals for operators: HMI operation, machining parameter setup, programming, and handling common alarms on each model."
+      },
+      "installation": {
+        "heading": "Installation manuals",
+        "desc": "Wiring and cabinet-installation standards: pin diagrams, servo/inverter connections, I/O configuration, and initial commissioning steps."
+      },
+      "software": {
+        "heading": "Software & data",
+        "desc": "The QSL Editor and QS Explorer tools for editing, backing up and loading controller data, plus the data-update package for the F54 model."
+      }
     },
     "table": {
       "name": "Document name",
-      "series": "Series",
       "lang": "Language",
       "version": "Version",
       "size": "File size",
       "download": "Download"
     },
-    "lang": {
-      "vi": "Vietnamese",
-      "en": "English",
-      "both": "VN / EN"
-    },
-    "empty": "No datasheets have been published yet."
-  },
-  "index": {
-    "breadcrumb": { "home": "Home", "current": "Documents" },
-    "hero": {
-      "eyebrow": "Document centre · 2026",
-      "heading1": "Catalogue,",
-      "headingEm": "datasheet",
-      "heading3": "& firmware",
-      "lede": "All of QS Technology's technical documentation — controller-line catalogues, per-model datasheets, operation manuals, the latest firmware, and CAD installation drawings.",
-      "searchPlaceholder": "Search datasheets, firmware, catalogues…",
-      "searchBtn": "Search ↵"
-    },
-    "categories": {
-      "eyebrow": "[ Installation · 04 documents ]",
-      "heading": "Installation documents",
-      "updated": "Updated 03/2026",
-      "items": [
-        { "lbl": "24 docs", "type": "PDF", "t": "Full catalogue", "d": "The complete catalogue of all 6 F-series and Astro-series controller lines — Vietnamese and English editions.", "cta": "View 24 documents" },
-        { "lbl": "38 docs", "type": "PDF", "t": "Technical datasheets", "d": "Detailed specs per model: I/O, voltage, dimensions, and pin diagrams for servo and inverter connections.", "cta": "View 38 documents" },
-        { "lbl": "16 docs", "type": "PDF", "t": "Operation manuals", "d": "Manuals for operators: HMI operation, parameter setup, and handling common alarms.", "cta": "View 16 documents" },
-        { "lbl": "22 files", "type": "FW · CAD", "t": "Firmware & CAD", "d": "The latest firmware for each model, plus DXF/STEP drawings for integration into machine cabinets.", "cta": "View 22 files" }
-      ]
-    },
-    "featured": {
-      "eyebrow": "[ Operation · 03 documents ]",
-      "heading": "Operation documents",
-      "viewAll": "View all →",
-      "download": "Download ↓",
-      "items": [
-        { "type": "PDF", "size": "12.8 MB", "pages": "64 pages", "title": "QS 2026 Full Catalogue", "sub": "(Vietnamese)", "desc": "All 6 controller lines, application diagrams, a spec comparison table, and included accessories.", "code": "QS-CAT-2026-VN · v3.1" },
-        { "type": "PDF", "size": "2.4 MB", "pages": "16 pages", "title": "Astro 6AH", "sub": "Technical datasheet", "desc": "Pin diagrams, servo specs, mechanical dimensions, and cabinet installation standards.", "code": "QS-DS-A6AH · v2.4" },
-        { "type": "BIN", "size": "8.6 MB", "pages": "v2.1.4", "title": "Firmware F-series", "sub": "v2.1.4 (stable)", "desc": "Stable update for F54/F86/F10T with look-ahead improvements and a fix for alarm 27.", "code": "QS-FW-F-2.1.4 · 03/2026" }
-      ]
-    },
+    "count": "{count} files",
     "plc": {
       "tag": "[ PLC documents ]",
-      "heading": "PLC documents",
+      "heading": "Advanced PLC documents",
       "body": "Some special documents — detailed wiring diagrams, sample ladder source, advanced troubleshooting — are provided exclusively to customers with a technical-service contract.",
-      "register": "Register an account",
-      "login": "Sign in"
+      "register": "Contact engineering"
     },
     "macro": {
-      "tag": "[ Macro documents ]",
-      "heading": "Macro documents",
-      "body": "Need a specific document that isn't in the public library — EPLAN drawings, sample G-code, demo videos? The QS technical team will email it within 24 hours.",
+      "tag": "[ Document request ]",
+      "heading": "Need another document?",
+      "body": "Need a specific document that isn't in the public library — EPLAN drawings, sample G-code, training videos? The QS technical team will email it within 24 hours.",
       "request": "Request a document",
       "contact": "Contact engineering"
     }
-  },
-  "request": {
-    "emailLabel": "Enter email to download",
-    "emailPlaceholder": "email@company.com",
-    "submit": "Download ↓",
-    "submitting": "…",
-    "success": "Thank you! Your file is downloading.",
-    "successFallback": "Click here if download does not start",
-    "error": "Something went wrong. Please try again.",
-    "invalidEmail": "Invalid email address"
-  },
-  "inquiry": {
-    "eyebrow": "[ Service consultation request ]",
-    "submit": "Submit request →",
-    "submitting": "Submitting…",
-    "success": "Thank you! The QS team will contact you within 4 business hours.",
-    "sendAnother": "Send another request",
-    "error": "Something went wrong. Please try again."
   }
 }

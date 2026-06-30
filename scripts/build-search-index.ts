@@ -2,7 +2,7 @@
 /**
  * Build-time search index generator.
  *
- * Flattens the file-backed content (products, datasheets, news, applications,
+ * Flattens the file-backed content (products, downloads, news, applications,
  * service FAQs) into a compact per-locale JSON the static client search reads at
  * runtime. No server runtime is involved — the JSON ships in `public/` and is
  * fetched same-origin by `search-results.tsx`.
@@ -14,7 +14,8 @@ import path from "node:path";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getAllProducts } from "@/lib/data/products";
 import { getAllNews } from "@/lib/data/news";
-import { getAllDatasheets } from "@/lib/data/datasheets";
+import { getAllDownloads } from "@/lib/data/downloads";
+import type { DownloadFile } from "@/lib/data/downloads";
 import { getApplicationSlugs, getApplicationBySlug } from "@/lib/data/applications";
 import { getServiceSlugs, getServiceBySlug } from "@/lib/data/services";
 
@@ -70,15 +71,28 @@ function buildForLocale(locale: Locale): SearchRecord[] {
     });
   }
 
-  for (const d of getAllDatasheets(locale)) {
+  // Localized labels for download titles, read straight from the messages file
+  // (the build script has no next-intl runtime). Mirrors the page's title logic.
+  const dl = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), `messages/${locale}/downloads.json`), "utf8"),
+  ).index;
+  const titleOf = (d: DownloadFile): string => {
+    if (d.titleKey) return dl.titles[d.titleKey];
+    if (d.category === "operation" || d.category === "installation") {
+      return `${d.model} — ${dl.docType[d.category]}`;
+    }
+    return d.model ?? "";
+  };
+  for (const d of getAllDownloads()) {
+    const title = titleOf(d);
     records.push({
       id: `pdf-${d.slug}`,
       type: "pdf",
-      title: d.name,
-      excerpt: clean([d.category, d.series]).join(" · "),
-      href: "/downloads/datasheets",
-      meta: clean([d.series, d.ext?.toUpperCase(), d.version]),
-      keywords: clean([d.name, d.category, d.series, d.productSlug]).join(" "),
+      title,
+      excerpt: clean([dl.sections[d.category].heading, dl.lang[d.lang]]).join(" · "),
+      href: "/downloads",
+      meta: clean([d.model, d.ext, d.version]),
+      keywords: clean([title, d.model, d.category, d.productSlug, dl.lang[d.lang]]).join(" "),
     });
   }
 

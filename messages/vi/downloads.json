@@ -1,105 +1,71 @@
 {
   "meta": {
-    "title": "Tải về — QS Technology",
-    "datasheetsTitle": "Datasheet kỹ thuật — Downloads — QS Technology"
+    "title": "Tải về — QS Technology"
   },
-  "datasheets": {
-    "breadcrumb": { "home": "Trang chủ", "downloads": "Tải tài liệu", "current": "Datasheet kỹ thuật" },
-    "eyebrow": "Document Library · Datasheets",
-    "heading": "Datasheet kỹ thuật",
-    "description": "Thông số chi tiết, sơ đồ chân và quy chuẩn lắp đặt cho từng model controller QS.",
+  "index": {
+    "breadcrumb": { "home": "Trang chủ", "current": "Tải về" },
+    "hero": {
+      "eyebrow": "Trung tâm tài liệu · 2026",
+      "heading1": "Catalogue, tài liệu",
+      "headingEm": "& phần mềm",
+      "lede": "Tất cả tài liệu kỹ thuật của QS Technology — catalogue sản phẩm, hướng dẫn vận hành và lắp đặt cho từng model controller, cùng phần mềm & dữ liệu cập nhật. Bấm để tải trực tiếp.",
+      "imageAlt": "Catalogue và sách hướng dẫn QS Technology"
+    },
     "stats": {
       "docs": "Tài liệu",
-      "version": "Phiên bản",
+      "models": "Model",
       "lang": "Ngôn ngữ"
     },
-    "sidebar": {
-      "filter": "Danh mục",
-      "category": "Danh mục",
-      "series": "Dòng sản phẩm"
+    "docType": {
+      "operation": "Hướng dẫn vận hành",
+      "installation": "Hướng dẫn lắp đặt"
     },
-    "toolbar": {
-      "showing": "Hiển thị {count} tài liệu"
+    "titles": {
+      "productCatalogue": "Catalogue sản phẩm 2024",
+      "companyProfile": "Hồ sơ năng lực công ty"
+    },
+    "lang": {
+      "vi": "Tiếng Việt",
+      "en": "English"
+    },
+    "sections": {
+      "catalogue": {
+        "heading": "Catalogue & hồ sơ",
+        "desc": "Catalogue tổng hợp toàn bộ dòng controller F-series và Astro-series, kèm hồ sơ năng lực công ty. Bản tiếng Việt và tiếng Anh."
+      },
+      "operation": {
+        "heading": "Hướng dẫn vận hành",
+        "desc": "Sách hướng dẫn dành cho người vận hành: thao tác màn hình HMI, cài đặt thông số gia công, lập trình và xử lý cảnh báo thường gặp trên từng model."
+      },
+      "installation": {
+        "heading": "Hướng dẫn lắp đặt",
+        "desc": "Quy chuẩn đấu nối và lắp đặt vào tủ điện: sơ đồ chân, kết nối servo/biến tần, cấu hình I/O và các bước căn chỉnh ban đầu."
+      },
+      "software": {
+        "heading": "Phần mềm & dữ liệu",
+        "desc": "Công cụ QSL Editor và QS Explorer dùng để biên tập, sao lưu và nạp dữ liệu controller, kèm gói dữ liệu cập nhật cho model F54."
+      }
     },
     "table": {
       "name": "Tên tài liệu",
-      "series": "Dòng",
       "lang": "Ngôn ngữ",
       "version": "Phiên bản",
       "size": "Dung lượng",
       "download": "Tải về"
     },
-    "lang": {
-      "vi": "Tiếng Việt",
-      "en": "English",
-      "both": "VN / EN"
-    },
-    "empty": "Chưa có datasheet nào được công bố."
-  },
-  "index": {
-    "breadcrumb": { "home": "Trang chủ", "current": "Tài liệu" },
-    "hero": {
-      "eyebrow": "Trung tâm tài liệu · 2026",
-      "heading1": "Catalogue,",
-      "headingEm": "datasheet",
-      "heading3": "& firmware",
-      "lede": "Tất cả tài liệu kỹ thuật của QS Technology — catalogue dòng controller, datasheet từng model, sách hướng dẫn vận hành, firmware mới nhất và bản vẽ CAD lắp đặt.",
-      "searchPlaceholder": "Tìm datasheet, firmware, catalogue…",
-      "searchBtn": "Tìm ↵"
-    },
-    "categories": {
-      "eyebrow": "[ Lắp đặt · 04 tài liệu ]",
-      "heading": "Tài liệu lắp đặt",
-      "updated": "Cập nhật T03/2026",
-      "items": [
-        { "lbl": "24 docs", "type": "PDF", "t": "Catalogue tổng", "d": "Bộ catalogue đầy đủ 6 dòng controller F-series và Astro-series — bản tiếng Việt và tiếng Anh.", "cta": "Xem 24 tài liệu" },
-        { "lbl": "38 docs", "type": "PDF", "t": "Datasheet kỹ thuật", "d": "Thông số chi tiết từng model: I/O, điện áp, kích thước, sơ đồ chân kết nối servo và biến tần.", "cta": "Xem 38 tài liệu" },
-        { "lbl": "16 docs", "type": "PDF", "t": "Hướng dẫn vận hành", "d": "Sách hướng dẫn cho thợ vận hành: thao tác HMI, cài đặt thông số, xử lý alarm thường gặp.", "cta": "Xem 16 tài liệu" },
-        { "lbl": "22 files", "type": "FW · CAD", "t": "Firmware & CAD", "d": "Bản firmware mới nhất cho từng model, bản vẽ DXF/STEP để tích hợp vào tủ điện máy.", "cta": "Xem 22 tệp" }
-      ]
-    },
-    "featured": {
-      "eyebrow": "[ Vận hành · 03 tài liệu ]",
-      "heading": "Tài liệu vận hành",
-      "viewAll": "Xem tất cả →",
-      "download": "Tải ↓",
-      "items": [
-        { "type": "PDF", "size": "12.8 MB", "pages": "64 trang", "title": "Catalogue tổng QS 2026", "sub": "(Tiếng Việt)", "desc": "Tổng hợp 6 dòng controller, sơ đồ ứng dụng, bảng so sánh thông số và phụ kiện đi kèm.", "code": "QS-CAT-2026-VN · v3.1" },
-        { "type": "PDF", "size": "2.4 MB", "pages": "16 trang", "title": "Astro 6AH", "sub": "Datasheet kỹ thuật", "desc": "Sơ đồ chân, thông số servo, kích thước cơ khí và quy chuẩn lắp đặt vào tủ điện.", "code": "QS-DS-A6AH · v2.4" },
-        { "type": "BIN", "size": "8.6 MB", "pages": "v2.1.4", "title": "Firmware F-series", "sub": "v2.1.4 (ổn định)", "desc": "Bản cập nhật ổn định cho F54/F86/F10T với cải tiến look-ahead và sửa lỗi alarm 27.", "code": "QS-FW-F-2.1.4 · 03/2026" }
-      ]
-    },
+    "count": "{count} tệp",
     "plc": {
       "tag": "[ Tài liệu PLC ]",
-      "heading": "Tài liệu PLC",
+      "heading": "Tài liệu PLC chuyên sâu",
       "body": "Một số tài liệu đặc biệt — sơ đồ điện chi tiết, source ladder mẫu, troubleshooting nâng cao — được cấp riêng cho khách hàng đã ký hợp đồng dịch vụ kỹ thuật.",
-      "register": "Đăng ký tài khoản",
-      "login": "Đăng nhập"
+      "register": "Liên hệ kỹ thuật"
     },
     "macro": {
-      "tag": "[ Tài liệu Macro ]",
-      "heading": "Tài liệu Macro",
-      "body": "Cần tài liệu cụ thể không có trong thư viện công khai — bản vẽ EPLAN, sample G-code, video demo? Đội kỹ thuật QS sẽ gửi qua email trong vòng 24 giờ.",
+      "tag": "[ Yêu cầu tài liệu ]",
+      "heading": "Cần tài liệu khác?",
+      "body": "Cần tài liệu cụ thể không có trong thư viện công khai — bản vẽ EPLAN, sample G-code, video đào tạo? Đội kỹ thuật QS sẽ gửi qua email trong vòng 24 giờ.",
       "request": "Yêu cầu tài liệu",
       "contact": "Liên hệ kỹ thuật"
     }
-  },
-  "request": {
-    "emailLabel": "Nhập email để tải",
-    "emailPlaceholder": "email@company.vn",
-    "submit": "Tải ↓",
-    "submitting": "…",
-    "success": "Cảm ơn! File đang tải xuống.",
-    "successFallback": "Nhấn đây nếu không tự động",
-    "error": "Có lỗi xảy ra. Vui lòng thử lại.",
-    "invalidEmail": "Email không hợp lệ"
-  },
-  "inquiry": {
-    "eyebrow": "[ Yêu cầu tư vấn dịch vụ ]",
-    "submit": "Gửi yêu cầu →",
-    "submitting": "Đang gửi…",
-    "success": "Cảm ơn! Đội QS sẽ liên hệ trong 4 giờ làm việc.",
-    "sendAnother": "Gửi yêu cầu khác",
-    "error": "Có lỗi xảy ra. Vui lòng thử lại."
   }
 }

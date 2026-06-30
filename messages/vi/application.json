@@ -17,7 +17,7 @@
   },
   "index": {
     "breadcrumb": { "home": "Trang chủ", "current": "Ứng dụng" },
-    "eyebrow": "Industrial Applications",
+    "eyebrow": "Ứng dụng công nghiệp",
     "heading": "Ứng Dụng",
     "lede": "Bộ điều khiển QS đang vận hành trong tám loại máy gia công khác nhau — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm. Mỗi case study là một bài toán kỹ thuật riêng.",
     "catalogEyebrow": "[ Catalog · 01 / 02 ]",
@@ -25,7 +25,7 @@
     "caseStudies": "7 / 14 case studies",
     "controllerFor": "Bộ điều khiển cho",
     "detail": "Chi tiết",
-    "more": "more",
+    "more": "Thêm",
     "items": [
       { "t": "Phay CNC", "machine": "Máy Phay CNC" },
       { "t": "Cưa Lọng", "machine": "Máy Cưa Lọng" },

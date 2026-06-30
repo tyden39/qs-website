@@ -29,7 +29,7 @@
     "bodyVi": "Nội dung (VI)",
     "bodyEn": "Nội dung (EN)",
     "coverImage": "Ảnh bìa",
-    "tags": "Tags",
+    "tags": "Thẻ",
     "status": "Trạng thái",
     "publishedAt": "Ngày đăng",
     "statusDraft": "Nháp",
@@ -41,7 +41,7 @@
     "uploading": "Đang upload…",
     "recoverDraft": "Tìm thấy bản nháp chưa lưu. Khôi phục?",
     "tabVi": "Tiếng Việt",
-    "tabEn": "English"
+    "tabEn": "Tiếng Anh"
   },
   "actions": {
     "edit": "Sửa",

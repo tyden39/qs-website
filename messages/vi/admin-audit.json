@@ -2,10 +2,10 @@
   "title": "Nhật ký hoạt động",
   "results": "{count} bản ghi",
   "filters": {
-    "actor": "Actor (email)",
+    "actor": "Người thực hiện (email)",
     "actorPlaceholder": "email@...",
-    "entity": "Entity",
-    "action": "Action",
+    "entity": "Đối tượng",
+    "action": "Hành động",
     "from": "Từ ngày",
     "to": "Đến ngày",
     "apply": "Lọc",
@@ -15,13 +15,13 @@
   "columns": {
     "id": "#",
     "createdAt": "Thời gian",
-    "actor": "Actor",
-    "action": "Action",
-    "entity": "Entity",
-    "diff": "Diff / ID"
+    "actor": "Người thực hiện",
+    "action": "Hành động",
+    "entity": "Đối tượng",
+    "diff": "Thay đổi / ID"
   },
-  "actorSystem": "system",
-  "diffLabel": "diff",
+  "actorSystem": "hệ thống",
+  "diffLabel": "thay đổi",
   "empty": "Không có bản ghi audit nào.",
   "pagination": {
     "prev": "← Trước",

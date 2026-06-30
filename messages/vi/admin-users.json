@@ -3,14 +3,14 @@
   "invite": "Mời người dùng",
   "inviteButton": "+ Mời người dùng",
   "results": "{count} người dùng",
-  "filterRole": "Role",
+  "filterRole": "Vai trò",
   "filterStatus": "Trạng thái",
   "filterAll": "Tất cả",
   "filterActive": "Hoạt động",
   "filterBanned": "Vô hiệu",
   "columns": {
     "nameEmail": "Tên / Email",
-    "role": "Role",
+    "role": "Vai trò",
     "status": "Trạng thái",
     "createdAt": "Ngày tạo",
     "actions": "Thao tác"

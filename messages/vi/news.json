@@ -27,8 +27,19 @@
     "eyebrow": "Newsroom · Cập nhật Q1/2026",
     "heading": "Tin tức &",
     "headingEm": "sự kiện",
-    "stats": { "articles": "bài viết", "events": "sự kiện 2026", "categories": "chuyên mục" },
-    "tabs": ["Tất cả", "Sản phẩm", "Sự kiện", "Khách hàng", "Kỹ thuật", "Công ty"],
+    "stats": {
+      "articles": "bài viết",
+      "events": "sự kiện 2026",
+      "categories": "chuyên mục"
+    },
+    "tabs": [
+      "Tất cả",
+      "Sản phẩm",
+      "Sự kiện",
+      "Khách hàng",
+      "Kỹ thuật",
+      "Công ty"
+    ],
     "featuredLabel": "[ Tin nổi bật ]",
     "readTime": "4 phút đọc →",
     "gridEyebrow": "[ Bài viết · 02 of 148 ]",
@@ -50,40 +61,5 @@
     "flagshipBadge": "[ Tin nổi bật ]",
     "readValue": "4 phút · 820 từ",
     "tags": "Tags"
-  },
-  "article": {
-    "intro": "TP. Hồ Chí Minh, 28/04/2026 — QS Technology hôm nay chính thức công bố Astro 12X, dòng controller mới nhất trong gia đình Astro-series, với khả năng điều khiển đồng thời 12 trục servo qua giao thức EtherCAT thời gian thực. Đây là sản phẩm đầu bảng của QS, hướng tới các dây chuyền tự động hoá phức tạp như máy gia công đa trục, robot công nghiệp và hệ thống cấp phôi tự động.",
-    "intro2": "So với Astro 10i đang là flagship hiện tại với 6 trục đồng bộ, Astro 12X tăng gấp đôi số trục, chu kỳ EtherCAT giảm từ 500 µs xuống 250 µs, đồng thời tích hợp sẵn module xử lý hình ảnh (machine vision) qua cổng GigE Vision — cho phép triển khai các ứng dụng pick-and-place, kiểm tra chất lượng inline mà không cần thiết bị bên thứ ba.",
-    "sections": [
-      {
-        "id": "why-12-axis",
-        "h": "Vì sao là 12 trục?",
-        "paras": ["Trong khảo sát khách hàng OEM năm 2025 của QS, 43% trong số 120 nhà tích hợp được hỏi cho biết họ đang phải ghép 2 controller để đủ số trục cho dây chuyền của mình — đặc biệt là các máy CNC 5-trục có cụm đổi dao tự động ATC, hoặc dây chuyền cấp phôi có nhiều cánh tay robot."],
-        "quote": { "text": "Chúng tôi muốn loại bỏ tình huống khách hàng phải dùng 2 controller riêng và đồng bộ qua bus chậm. Astro 12X là câu trả lời — một bộ điều khiển duy nhất cho cả dây chuyền.", "cite": "— Lê Thanh Mai, CTO QS Technology" },
-        "after": ["Astro 12X được phát triển trong 18 tháng, với hơn 400 giờ thử nghiệm thực tế tại 3 nhà máy đối tác ở TP. Hồ Chí Minh, Long An và Hải Phòng. Phiên bản đang trưng bày tại VME 2026 là bản pilot đã chạy liên tục 720 giờ trên dây chuyền tiện-phay 8 trục mà không gặp sự cố nào."]
-      },
-      {
-        "id": "specs",
-        "h": "Thông số nổi bật",
-        "list": [
-          "12 trục servo đồng bộ qua EtherCAT, chu kỳ 250 µs / 500 µs có thể chọn",
-          "Giao diện cảm ứng 12.1\" độ phân giải 1280×800, gorilla glass, chống dầu IP65 mặt trước",
-          "Module thị giác máy GigE Vision tích hợp, hỗ trợ camera Basler / Hikvision lên tới 5 MP",
-          "Bộ nhớ chương trình 64 GB SSD công nghiệp, lưu trữ tới 12.000 program",
-          "Kết nối 2× Gigabit Ethernet, Wi-Fi 6, Modbus TCP, OPC UA, MQTT",
-          "Vỏ nhôm đúc CNC tản nhiệt thụ động, không cần quạt — vận hành 0–55°C"
-        ]
-      },
-      {
-        "id": "shipping",
-        "h": "Lộ trình giao hàng",
-        "paras": ["Đặt hàng mở từ 15/05/2026, ưu tiên cho khách hàng đang vận hành Astro 10i và F86. Lô đầu 60 chiếc dự kiến giao tháng 9/2026, công suất ổn định 80 chiếc/tháng từ Q4. Giá niêm yết phiên bản tiêu chuẩn 89 triệu VND, bao gồm bảo hành 24 tháng và đào tạo vận hành 3 ngày tại nhà máy QS."]
-      },
-      {
-        "id": "demo",
-        "h": "Tham gia demo trực tiếp",
-        "paras": ["Astro 12X sẽ được trưng bày và demo trực tiếp tại VME 2026, Booth A23, SECC TP.HCM từ 22–25/04/2026. Khách hàng có nhu cầu trao đổi sâu về cấu hình có thể đặt lịch riêng với đội kỹ thuật qua email support@qstcnc.com hoặc hotline (+84) 909.663.350."]
-      }
-    ]
   }
 }

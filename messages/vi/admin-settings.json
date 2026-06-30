@@ -6,7 +6,7 @@
     "comingSoon": "Cài đặt thương hiệu, màu sắc, OG image mặc định sẽ khả dụng ở Phase 11+"
   },
   "fields": {
-    "appUrl": "App URL",
+    "appUrl": "URL ứng dụng",
     "resendFrom": "Email gửi đi (RESEND_FROM)"
   }
 }

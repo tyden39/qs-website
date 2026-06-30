@@ -22,12 +22,12 @@
   },
   "source": {
     "contact": "Liên hệ",
-    "newsletter": "Newsletter",
+    "newsletter": "Bản tin",
     "datasheet": "Datasheet",
     "inquiry": "Dịch vụ"
   },
   "detail": {
-    "breadcrumb": "Leads",
+    "breadcrumb": "Lead",
     "source": "Nguồn",
     "email": "Email",
     "phone": "Điện thoại",
@@ -36,7 +36,7 @@
     "createdAt": "Thời gian",
     "ip": "IP",
     "message": "Nội dung",
-    "payload": "Payload",
+    "payload": "Dữ liệu",
     "history": "Lịch sử thao tác",
     "historyEmpty": "Chưa có thay đổi nào.",
     "manageStatus": "Quản lý trạng thái",

@@ -16,6 +16,7 @@ export type ProductPhoto = { src: string; w: number; h: number };
  * `photo` is the real product render shown when available.
  */
 export type KitItem = { label: string; icon: KitIcon; photo?: ProductPhoto };
+export type ProductGalleryPhoto = { src: string; w: number; h: number; alt: string };
 
 /**
  * Shared component renders reused across kits. I/O Link boards are named by
@@ -42,6 +43,7 @@ export type SpecColumn = { name: string; note?: string };
  * one value per interface column (array length must equal `interfaces.length`).
  */
 export type ProductSpec = { l: string; v: string | string[] };
+export type ProductSpecGroup = { title: string; rows: ProductSpec[] };
 
 export type Product = {
   slug: string;
@@ -64,6 +66,16 @@ export type Product = {
   image: ProductPhoto;
   /** Components shipped in the machine kit built around this controller. */
   bundle: KitItem[];
+  /** Legacy QS product-page enrichment, merged here without replacing curated catalogue fields. */
+  overview?: string;
+  highlights?: string[];
+  gallery?: ProductGalleryPhoto[];
+  documents?: string[];
+  software?: string[];
+  accessories?: string[];
+  sourceUrl?: string;
+  detailedSpecs?: ProductSpecGroup[];
+  gCodes?: string[];
 };
 
 // Shared bundle parts (identical render + label across kits that include them).
@@ -80,6 +92,45 @@ const PART = {
 };
 
 const controller = (name: string): KitItem => ({ label: `Bộ điều khiển ${name}`, icon: "controller" });
+
+const STANDARD_G_CODES = [
+  "G00", "G01", "G02", "G03", "G04", "G17", "G18", "G19", "G20", "G21",
+  "G28", "G30", "G31", "G43", "G44", "G49", "G53", "G54", "G55", "G56",
+  "G57", "G58", "G59", "G61", "G64", "G65", "G73", "G76", "G80", "G81",
+  "G82", "G83", "G84", "G85", "G86", "G87", "G88", "G89", "G90", "G91",
+  "G92", "G93", "G94", "G98", "G99",
+];
+
+const SHARED_DOCUMENTS = ["Catalog", "Operation Manual"];
+const SHARED_SOFTWARE = ["QS Editor", "QS Explorer"];
+const SHARED_ACCESSORIES = [
+  "Board - I/O Link-32-V1-10722",
+  "Board I/O Link RLTR_07_V10723",
+  "Board PID-V1-10722",
+  "Board-DAC-12FCV1-1222",
+];
+
+const fSeriesFunctionRows: ProductSpec[] = [
+  { l: "Bù rơ cơ khí (Backlash)", v: "Có" },
+  { l: "Bù sai số hành trình (Pitch Error)", v: "Không" },
+  { l: "MPG Simulation", v: "Có" },
+  { l: "Dry Run", v: "Có" },
+  { l: "Optional Stop", v: "Có" },
+  { l: "Single Block", v: "Có" },
+  { l: "External Offsets", v: "Có" },
+  { l: "MPG Offsets", v: "Có" },
+];
+
+const astroFunctionRows: ProductSpec[] = [
+  { l: "Bù rơ cơ khí (Backlash)", v: "Có" },
+  { l: "Bù sai số hành trình (Pitch Error)", v: "Có" },
+  { l: "Real-time PLC debug", v: "Có" },
+  { l: "Macro programming", v: "Có" },
+  { l: "MPG Simulation", v: "Có" },
+  { l: "Dry Run", v: "Có" },
+  { l: "Optional Stop", v: "Có" },
+  { l: "Single Block", v: "Có" },
+];
 
 // Specs and bundles follow the QS "CNC Solution Controller" catalogue: only the
 // axis count, control loop, and control interface are published per model.
@@ -111,7 +162,64 @@ export const products: Product[] = [
       {l:"Control mode",v:"Open loop"},
     ],
     image:{src:"/img/products/f54-front.webp", w:900, h:581},
-    bundle:[ controller("F54"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.ioRLTR ] },
+    bundle:[ controller("F54"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.ioRLTR ],
+    overview:`<p>Bộ điều khiển CNC 4 trục F54 được thiết kế nhỏ gọn nhưng hiệu năng mạnh mẽ, có hồi tiếp encoder phase Z và tích hợp PLC ladder để theo dõi trạng thái máy, lập trình mở rộng ứng dụng. Màn hình 5 inch độ phân giải 480 × 272 px giúp người vận hành dễ theo dõi thông số.</p><p>Giao diện người dùng được thiết kế hiện đại, thân thiện và trực quan. Sản phẩm đã được lắp đặt đồng loạt trên nhiều máy phay CNC, bao gồm hệ máy GS-40 tại nhà máy của khách hàng Hàn Quốc.</p>`,
+    highlights:[
+      "LCD 5 Inch",
+      "4 trục điều khiển đồng thời",
+      "Số trục chính điều khiển tối đa: 1",
+      "Look-Ahead 250 dòng",
+      "Số cổng Input/Output: 16/6",
+      "Số cổng I/O mở rộng tối đa: 256/256",
+      "Tính năng bù rơ cơ khí (backlash)",
+      "Hồi tiếp encoder: Phase Z",
+    ],
+    gallery: [
+      { src: "/img/products/crawled/f54/gallery-1.webp", w: 1339, h: 1015, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-2.webp", w: 1400, h: 1015, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-3.webp", w: 1400, h: 916, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-4.webp", w: 1400, h: 792, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-5.webp", w: 1400, h: 1128, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-6.webp", w: 1400, h: 904, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-7.webp", w: 1400, h: 893, alt: "Mặt sau Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-8.webp", w: 480, h: 272, alt: "Giao diện vận hành trên Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-9.webp", w: 480, h: 272, alt: "Giao diện vận hành trên Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-10.webp", w: 480, h: 272, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-11.webp", w: 1400, h: 2473, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-12.webp", w: 960, h: 720, alt: "Ứng dụng thực tế Bộ điều khiển CNC 4 trục F54 trên máy CNC" },
+      { src: "/img/products/crawled/f54/gallery-13.webp", w: 1400, h: 1867, alt: "Ứng dụng thực tế Bộ điều khiển CNC 4 trục F54 trên máy CNC" },
+      { src: "/img/products/crawled/f54/gallery-14.webp", w: 1400, h: 1867, alt: "Ứng dụng thực tế Bộ điều khiển CNC 4 trục F54 trên máy CNC" },
+    ],
+    documents: SHARED_DOCUMENTS,
+    software: SHARED_SOFTWARE,
+    accessories: ["4 Axis MPG Handwheel", ...SHARED_ACCESSORIES],
+    sourceUrl: "https://qstcnc.com/san-pham/f54-controller",
+    detailedSpecs:[
+      { title:"Đặc tính kỹ thuật", rows:[
+        {l:"Kích thước",v:"220 × 140 × 30 mm"},
+        {l:"Vật liệu vỏ",v:"Aluminum"},
+        {l:"Max. PLC Axis",v:"0"},
+        {l:"Standard Axis",v:"4"},
+        {l:"Max. Axis Optional",v:"4"},
+        {l:"Max. Spindle",v:"1"},
+        {l:"Max Spindle Simultaneous Axis Control",v:"4"},
+        {l:"Min. Control Unit",v:"0.0001"},
+        {l:"Max. Number Of Program Coordinate",v:"18"},
+        {l:"Max. Number of Table Tools",v:"40"},
+        {l:"Look-Ahead",v:"250"},
+        {l:"Block Processing Time",v:"250"},
+      ]},
+      { title:"Phần cứng", rows:[
+        {l:"Standard I/O",v:"16/6"},
+        {l:"Optional I/O",v:"256/256"},
+        {l:"DA",v:"1"},
+        {l:"Monitor",v:"5 Inch"},
+        {l:"RS485",v:"1"},
+        {l:"USB",v:"1"},
+      ]},
+      { title:"Chức năng", rows:fSeriesFunctionRows },
+    ],
+    gCodes: STANDARD_G_CODES },
 
   { slug:"f86", name:"F86", axes:"6 trục", display:"8\"", series:"F",
     tag:"Bộ điều khiển CNC F86",
@@ -140,7 +248,62 @@ export const products: Product[] = [
       {l:"Control mode",v:"Open loop"},
     ],
     image:{src:"/img/products/f86-front.webp", w:900, h:667},
-    bundle:[ controller("F86"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.toolSetter, PART.io1616 ] },
+    bundle:[ controller("F86"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.toolSetter, PART.io1616 ],
+    overview:`<p>Bộ điều khiển CNC F86 thuộc dòng sản phẩm mới của QS Technology với thiết kế kích thước lớn hơn và màn hình 8 inch độ phân giải 800 × 600 px, giúp vận hành và theo dõi thông tin máy trực quan hơn.</p><p>F86 cho phép điều khiển từ 4 đến 6 trục đồng thời, có hồi tiếp Encoder phase Z để về home chính xác hơn. Bộ điều khiển tích hợp module xử lý PLC ladder, hỗ trợ theo dõi trạng thái hoạt động, lập trình mở rộng chức năng máy và lập trình Macro.</p>`,
+    highlights:[
+      "LCD 8 Inches",
+      "6 trục điều khiển đồng thời",
+      "Số trục chính điều khiển tối đa: 2",
+      "Look-Ahead 250 lines",
+      "Số cổng Input/Output: 24/16",
+      "Số cổng I/O mở rộng tối đa: 256/256",
+      "Tính năng bù rơ cơ khí (backlash)",
+      "Hồi tiếp encoder: Phase Z",
+      "Tích hợp module xử lý PLC ladder",
+      "Cho phép lập trình Macro",
+    ],
+    gallery: [
+      { src: "/img/products/crawled/f86/gallery-1.webp", w: 1280, h: 970, alt: "Bộ điều khiển CNC 6 trục F86" },
+      { src: "/img/products/crawled/f86/gallery-2.webp", w: 1400, h: 1297, alt: "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F86" },
+      { src: "/img/products/crawled/f86/gallery-3.webp", w: 1400, h: 929, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục F86" },
+      { src: "/img/products/crawled/f86/gallery-4.webp", w: 1400, h: 788, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC" },
+      { src: "/img/products/crawled/f86/gallery-5.webp", w: 1400, h: 1037, alt: "Bộ điều khiển CNC 6 trục F86" },
+      { src: "/img/products/crawled/f86/gallery-6.webp", w: 1400, h: 1007, alt: "Mặt sau Bộ điều khiển CNC 6 trục F86" },
+      { src: "/img/products/crawled/f86/gallery-7.webp", w: 1400, h: 1050, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC" },
+      { src: "/img/products/crawled/f86/gallery-8.webp", w: 1400, h: 1050, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC" },
+      { src: "/img/products/crawled/f86/gallery-9.webp", w: 960, h: 720, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC" },
+      { src: "/img/products/crawled/f86/gallery-10.webp", w: 1400, h: 1050, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC" },
+    ],
+    documents: SHARED_DOCUMENTS,
+    software: SHARED_SOFTWARE,
+    accessories: SHARED_ACCESSORIES,
+    sourceUrl: "https://qstcnc.com/san-pham/bo-dieu-khien-cnc-6-truc-f86",
+    detailedSpecs:[
+      { title:"Đặc tính kỹ thuật", rows:[
+        {l:"Kích thước",v:"320 × 185 × 30 mm"},
+        {l:"Vật liệu vỏ",v:"Aluminum Anodizing"},
+        {l:"Max. PLC Axis",v:"6"},
+        {l:"Standard Axis",v:"6"},
+        {l:"Max. Axis Optional",v:"6"},
+        {l:"Max. Spindle",v:"2"},
+        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+        {l:"Min. Control Unit",v:"0.0001"},
+        {l:"Max. Number Of Program Coordinate",v:"18"},
+        {l:"Max. Number of Table Tools",v:"40"},
+        {l:"Look-Ahead",v:"250"},
+        {l:"Block Processing Time",v:"250"},
+      ]},
+      { title:"Phần cứng", rows:[
+        {l:"Standard I/O",v:"24/16"},
+        {l:"Optional I/O",v:"256/256"},
+        {l:"DA",v:"1"},
+        {l:"Monitor",v:"8 Inches"},
+        {l:"RS485",v:"1"},
+        {l:"USB",v:"1"},
+      ]},
+      { title:"Chức năng", rows:fSeriesFunctionRows },
+    ],
+    gCodes: STANDARD_G_CODES },
 
   { slug:"f10t", name:"F10T", axes:"6 trục", display:"10.4\"", series:"F", badge:"Touch",
     tag:"Bộ điều khiển CNC F10T",
@@ -169,7 +332,55 @@ export const products: Product[] = [
       {l:"Control mode",v:"Open loop"},
     ],
     image:{src:"/img/products/f10t-front.webp", w:900, h:667},
-    bundle:[ controller("F10T"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.toolSetter, PART.io1616 ] },
+    bundle:[ controller("F10T"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.toolSetter, PART.io1616 ],
+    overview:`<p>Bộ điều khiển F10T là dòng bộ điều khiển CNC sử dụng màn hình cảm ứng điện dung, cho phép điều khiển từ 4 đến 6 trục. Màn hình 10.4 inch độ phân giải 800 × 600, độ chống nhiễu tín hiệu cao.</p><p>F10T tích hợp PLC ladder để người dùng theo dõi trạng thái hoạt động của máy và mở rộng thêm ứng dụng khi cần thiết.</p>`,
+    highlights:[
+      "LCD 10.4 Inch",
+      "6 trục điều khiển đồng thời",
+      "Số trục chính điều khiển đồng thời: 1",
+      "Số cổng Input/Output: 24/16",
+      "Số cổng I/O mở rộng tối đa: 256/256",
+      "Real-time PLC debug",
+      "Look-Ahead 250 dòng",
+      "Tính năng bù rơ cơ khí",
+      "Hồi tiếp encoder: Phase Z",
+    ],
+    gallery: [
+      { src: "/img/products/crawled/f10t/gallery-1.webp", w: 1339, h: 1015, alt: "Bộ điều khiển CNC 6 trục F10T (Touch)" },
+      { src: "/img/products/crawled/f10t/gallery-2.webp", w: 1400, h: 1151, alt: "Mặt bên Bộ điều khiển CNC 6 trục F10T (Touch)" },
+      { src: "/img/products/crawled/f10t/gallery-3.webp", w: 1400, h: 916, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục F10T (Touch)" },
+      { src: "/img/products/crawled/f10t/gallery-4.webp", w: 1400, h: 824, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục F10T (Touch)" },
+    ],
+    documents: SHARED_DOCUMENTS,
+    software: SHARED_SOFTWARE,
+    accessories: SHARED_ACCESSORIES,
+    sourceUrl: "https://qstcnc.com/san-pham/astro-series-10t",
+    detailedSpecs:[
+      { title:"Đặc tính kỹ thuật", rows:[
+        {l:"Kích thước",v:"254 × 210 × 40 mm"},
+        {l:"Vật liệu vỏ",v:"Aluminum"},
+        {l:"Max. PLC Axis",v:"6"},
+        {l:"Standard Axis",v:"6"},
+        {l:"Max. Axis Optional",v:"6"},
+        {l:"Max. Spindle",v:"2"},
+        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+        {l:"Min. Control Unit",v:"0.0001"},
+        {l:"Max. Number Of Program Coordinate",v:"18"},
+        {l:"Max. Number of Table Tools",v:"40"},
+        {l:"Look-Ahead",v:"250"},
+        {l:"Block Processing Time",v:"250"},
+      ]},
+      { title:"Phần cứng", rows:[
+        {l:"Standard I/O",v:"24/16"},
+        {l:"Optional I/O",v:"256/256"},
+        {l:"DA",v:"1"},
+        {l:"Monitor",v:"10.4 Inch (Touch)"},
+        {l:"RS485",v:"1"},
+        {l:"USB",v:"1"},
+      ]},
+      { title:"Chức năng", rows:fSeriesFunctionRows },
+    ],
+    gCodes: STANDARD_G_CODES },
 
   { slug:"astro-6ah", name:"Astro 6AH", axes:"6 trục", display:"8\"", series:"Astro",
     tag:"Bộ điều khiển Astro 6AH",
@@ -198,7 +409,59 @@ export const products: Product[] = [
       {l:"Control mode",v:"Closed loop"},
     ],
     image:{src:"/img/products/astro-6ah-front.webp", w:900, h:817},
-    bundle:[ controller("Astro 6AH"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.io32, PART.toolSetter, PART.probe ] },
+    bundle:[ controller("Astro 6AH"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.io32, PART.toolSetter, PART.probe ],
+    overview:`<p>Bộ điều khiển CNC thuộc series Astro là dòng sản phẩm cao cấp của QS Technology, có hồi tiếp encoder tất cả các trục, tích hợp PLC và hỗ trợ lập trình Macro. Bảng điều khiển nhiều chức năng, chia thành hai phần và có nút dừng khẩn cấp.</p><p>Kiểu dáng Astro 6AH phù hợp với hầu hết dạng máy CNC. Khả năng thu thập tín hiệu hồi tiếp từ encoder giúp vận hành an toàn, chính xác; tốc độ nội suy đồng thời vượt trội hơn các dòng F54, F86.</p>`,
+    highlights:[
+      "LCD 8 Inch",
+      "6 trục điều khiển đồng thời",
+      "Số trục chính điều khiển đồng thời: 2",
+      "Số cổng Input/Output: 24/16",
+      "Số cổng I/O mở rộng tối đa: 256/256",
+      "Real-time PLC debug",
+      "Look-Ahead 500 dòng",
+      "Tính năng bù rơ cơ khí (backlash)",
+      "Tính năng bù sai số hành trình (pitch error)",
+      "Hồi tiếp encoder: tất cả các trục",
+    ],
+    gallery: [
+      { src: "/img/products/crawled/astro-6ah/gallery-1.webp", w: 1338, h: 1015, alt: "Bộ điều khiển CNC 6 trục Astro-6A (H)" },
+      { src: "/img/products/crawled/astro-6ah/gallery-2.webp", w: 1400, h: 1650, alt: "Bộ điều khiển CNC 6 trục Astro-6A (H)" },
+      { src: "/img/products/crawled/astro-6ah/gallery-3.webp", w: 1400, h: 2473, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục Astro-6A (H) trên máy CNC" },
+      { src: "/img/products/crawled/astro-6ah/gallery-4.webp", w: 1400, h: 929, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro-6A (H)" },
+      { src: "/img/products/crawled/astro-6ah/gallery-5.webp", w: 1400, h: 792, alt: "Bộ điều khiển CNC 6 trục Astro-6A (H)" },
+      { src: "/img/products/crawled/astro-6ah/gallery-6.webp", w: 1400, h: 792, alt: "Bộ điều khiển CNC 6 trục Astro-6A (H)" },
+      { src: "/img/products/crawled/astro-6ah/gallery-7.webp", w: 1400, h: 826, alt: "Bộ điều khiển CNC 6 trục Astro-6A (H)" },
+    ],
+    documents: SHARED_DOCUMENTS,
+    software: SHARED_SOFTWARE,
+    accessories: SHARED_ACCESSORIES,
+    sourceUrl: "https://qstcnc.com/san-pham/astro-series-6ah",
+    detailedSpecs:[
+      { title:"Đặc tính kỹ thuật", rows:[
+        {l:"Kích thước",v:"325 × 295 × 42 mm"},
+        {l:"Vật liệu vỏ",v:"Aluminum"},
+        {l:"Max. PLC Axis",v:"6"},
+        {l:"Standard Axis",v:"6"},
+        {l:"Max. Axis Optional",v:"6"},
+        {l:"Max. Spindle",v:"2"},
+        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+        {l:"Min. Control Unit",v:"0.0001"},
+        {l:"Max. Number Of Program Coordinate",v:"18"},
+        {l:"Max. Number of Table Tools",v:"40"},
+        {l:"Look-Ahead",v:"500"},
+        {l:"Block Processing Time",v:"500"},
+      ]},
+      { title:"Phần cứng", rows:[
+        {l:"Standard I/O",v:"24/16"},
+        {l:"Optional I/O",v:"256/256"},
+        {l:"DA",v:"2"},
+        {l:"Monitor",v:"8 Inch"},
+        {l:"RS485",v:"1"},
+        {l:"USB",v:"1"},
+      ]},
+      { title:"Chức năng", rows:astroFunctionRows },
+    ],
+    gCodes: STANDARD_G_CODES },
 
   { slug:"astro-6av", name:"Astro 6AV", axes:"6 trục", display:"8\"", series:"Astro",
     tag:"Bộ điều khiển Astro 6AV",
@@ -227,7 +490,58 @@ export const products: Product[] = [
       {l:"Control mode",v:"Closed loop"},
     ],
     image:{src:"/img/products/astro-6av-front.webp", w:402, h:900},
-    bundle:[ controller("Astro 6AV"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.io32, PART.toolSetter, PART.probe ] },
+    bundle:[ controller("Astro 6AV"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.io32, PART.toolSetter, PART.probe ],
+    overview:`<p>Bộ điều khiển CNC series Astro là dòng cao cấp của QS Technology với đầy đủ tính năng, hiệu năng mạnh mẽ, điều khiển vòng kín và tích hợp FPGA. Astro-6AV là phiên bản dọc của Astro-6AH, có bàn phím chức năng mở rộng và tích hợp tay quay MPG.</p><p>Màn hình 8 inch độ phân giải 800 × 600 giúp người vận hành theo dõi thông số rõ ràng, chi tiết.</p>`,
+    highlights:[
+      "LCD 8 Inch",
+      "6 trục điều khiển đồng thời",
+      "Số trục chính điều khiển đồng thời: 2",
+      "Số cổng Input/Output: 24/16",
+      "Số cổng I/O mở rộng tối đa: 256/256",
+      "Real-time PLC debug",
+      "Look-Ahead 500 dòng",
+      "Tính năng bù rơ cơ khí (backlash)",
+      "Tính năng bù sai số hành trình (pitch error)",
+      "Hồi tiếp Encoder: Tất cả các trục",
+    ],
+    gallery: [
+      { src: "/img/products/crawled/astro-6av/gallery-1.webp", w: 1339, h: 2227, alt: "Bộ điều khiển CNC 6 trục Astro-6A (V)" },
+      { src: "/img/products/crawled/astro-6av/gallery-2.webp", w: 1400, h: 2473, alt: "Bộ điều khiển CNC 6 trục Astro-6A (V)" },
+      { src: "/img/products/crawled/astro-6av/gallery-3.webp", w: 1400, h: 1394, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro-6A (V)" },
+      { src: "/img/products/crawled/astro-6av/gallery-4.webp", w: 1400, h: 2473, alt: "Bộ điều khiển CNC 6 trục Astro-6A (V)" },
+      { src: "/img/products/crawled/astro-6av/gallery-5.webp", w: 1400, h: 788, alt: "Bộ điều khiển CNC 6 trục Astro-6A (V)" },
+      { src: "/img/products/crawled/astro-6av/gallery-6.webp", w: 1400, h: 1419, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro-6A (V)" },
+    ],
+    documents: SHARED_DOCUMENTS,
+    software: SHARED_SOFTWARE,
+    accessories: SHARED_ACCESSORIES,
+    sourceUrl: "https://qstcnc.com/san-pham/astro-series-6av",
+    detailedSpecs:[
+      { title:"Đặc tính kỹ thuật", rows:[
+        {l:"Kích thước",v:"460 × 220 × 70 mm"},
+        {l:"Vật liệu vỏ",v:"Aluminum"},
+        {l:"Max. PLC Axis",v:"6"},
+        {l:"Standard Axis",v:"6"},
+        {l:"Max. Axis Optional",v:"6"},
+        {l:"Max. Spindle",v:"2"},
+        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+        {l:"Min. Control Unit",v:"0.0001"},
+        {l:"Max. Number Of Program Coordinate",v:"18"},
+        {l:"Max. Number of Table Tools",v:"40"},
+        {l:"Look-Ahead",v:"500"},
+        {l:"Block Processing Time",v:"500"},
+      ]},
+      { title:"Phần cứng", rows:[
+        {l:"Standard I/O",v:"24/16"},
+        {l:"Optional I/O",v:"256/256"},
+        {l:"DA",v:"2"},
+        {l:"Monitor",v:"8 Inch"},
+        {l:"RS485",v:"1"},
+        {l:"USB",v:"1"},
+      ]},
+      { title:"Chức năng", rows:astroFunctionRows },
+    ],
+    gCodes: STANDARD_G_CODES },
 
   { slug:"astro-10s", name:"Astro 10S", axes:"16 trục", display:"10.4\"", series:"Astro",
     tag:"Bộ điều khiển Astro 10S",
@@ -285,5 +599,54 @@ export const products: Product[] = [
       {l:"Control mode",v:"Closed loop"},
     ],
     image:{src:"/img/products/astro-10i-front.webp", w:459, h:900},
-    bundle:[ controller("Astro 10i"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.io32, PART.toolSetter, PART.probe ] },
+    bundle:[ controller("Astro 10i"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.io32, PART.toolSetter, PART.probe ],
+    overview:`<p>Bộ điều khiển CNC Astro 10i là dòng sản phẩm cao cấp nhất của QS Technology, với đầy đủ tính năng, hiệu năng mạnh mẽ, điều khiển vòng kín và tích hợp FPGA để mang lại trải nghiệm vận hành tốt nhất.</p><p>Astro 10i là phiên bản nâng cấp từ Astro 6AV và Astro-6AH, có bàn phím chức năng mở rộng, tích hợp thêm công tắc và nút dừng khẩn cấp. Màn hình 10.4 inch độ phân giải 800 × 600 giúp theo dõi thông số rõ ràng, chi tiết.</p>`,
+    highlights:[
+      "LCD 10.4 Inch",
+      "6 trục điều khiển đồng thời",
+      "Số trục chính điều khiển đồng thời: 2",
+      "Số cổng Input/Output: 24/16",
+      "Số cổng I/O mở rộng tối đa: 256/256",
+      "Real-time PLC debug",
+      "Look-Ahead 1000 dòng",
+      "Tính năng bù rơ cơ khí (backlash)",
+      "Tính năng bù sai số hành trình (pitch error)",
+      "Hồi tiếp Encoder: Tất cả các trục",
+    ],
+    gallery: [
+      { src: "/img/products/crawled/astro-10i/gallery-1.webp", w: 1339, h: 2227, alt: "Bộ điều khiển CNC 6 trục Astro 10i" },
+      { src: "/img/products/crawled/astro-10i/gallery-2.webp", w: 1400, h: 2488, alt: "Bộ điều khiển CNC 6 trục Astro 10i" },
+      { src: "/img/products/crawled/astro-10i/gallery-3.webp", w: 1400, h: 2609, alt: "Bộ điều khiển CNC 6 trục Astro 10i" },
+      { src: "/img/products/crawled/astro-10i/gallery-4.webp", w: 1400, h: 1387, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro 10i" },
+    ],
+    documents: SHARED_DOCUMENTS,
+    software: SHARED_SOFTWARE,
+    accessories: SHARED_ACCESSORIES,
+    sourceUrl: "https://qstcnc.com/san-pham/bo-dieu-khien-cnc-6-truc-astro-10i",
+    detailedSpecs:[
+      { title:"Đặc tính kỹ thuật", rows:[
+        {l:"Kích thước",v:"254 × 515 × 42 mm"},
+        {l:"Vật liệu vỏ",v:"Aluminum"},
+        {l:"Max. PLC Axis",v:"6"},
+        {l:"Standard Axis",v:"6"},
+        {l:"Max. Axis Optional",v:"6"},
+        {l:"Max. Spindle",v:"2"},
+        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+        {l:"Min. Control Unit",v:"0.0001"},
+        {l:"Max. Number Of Program Coordinate",v:"18"},
+        {l:"Max. Number of Table Tools",v:"40"},
+        {l:"Look-Ahead",v:"1000"},
+        {l:"Block Processing Time",v:"1000"},
+      ]},
+      { title:"Phần cứng", rows:[
+        {l:"Standard I/O",v:"24/16"},
+        {l:"Optional I/O",v:"256/256"},
+        {l:"DA",v:"2"},
+        {l:"Monitor",v:"10.4 Inch"},
+        {l:"RS485",v:"1"},
+        {l:"USB",v:"1"},
+      ]},
+      { title:"Chức năng", rows:astroFunctionRows },
+    ],
+    gCodes: STANDARD_G_CODES },
 ];

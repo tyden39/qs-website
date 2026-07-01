@@ -20,9 +20,9 @@ export function ProductDetailTabs({ tabs }: { tabs: ProductDetailTab[] }) {
 
   return (
     <>
-      <section className="bg-white border-b border-line sticky top-[72px] z-30">
-        <div className="max-w-wrap mx-auto px-12 py-3 overflow-x-auto">
-          <div role="tablist" className="inline-flex bg-paper border border-line">
+      <section className="bg-[#f7f5ef]/95 border-b border-line sticky top-[72px] z-30 backdrop-blur-md">
+        <div className="max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-14 py-3 overflow-x-auto">
+          <div role="tablist" className="inline-flex bg-white border border-line shadow-[0_12px_34px_-28px_rgba(20,17,10,.45)]">
             {tabs.map((tab, i) => {
               const isActive = active === tab.id;
               return (
@@ -34,12 +34,12 @@ export function ProductDetailTabs({ tabs }: { tabs: ProductDetailTab[] }) {
                   aria-selected={isActive}
                   aria-controls={`panel-${tab.id}`}
                   onClick={() => setActive(tab.id)}
-                  className={`relative px-6 py-3 text-[13.5px] font-semibold tracking-[-.005em] whitespace-nowrap border-t-2 transition-colors ${
+                  className={`relative min-h-11 px-5 sm:px-6 py-3 text-[13.5px] font-semibold tracking-[-.005em] whitespace-nowrap border-t-2 transition-colors cursor-pointer ${
                     i > 0 ? "border-l border-l-line" : ""
                   } ${
                     isActive
-                      ? "bg-white text-ink border-t-gold-2"
-                      : "border-t-transparent text-[#5a5650] hover:text-ink hover:bg-white/60"
+                      ? "bg-[#11120f] text-white border-t-gold-2"
+                      : "border-t-transparent text-[#5a5650] hover:text-ink hover:bg-paper"
                   }`}
                 >
                   {tab.label}

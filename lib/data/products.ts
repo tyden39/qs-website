@@ -1,5 +1,12 @@
-import { products, type Product, type KitItem, type ProductPhoto, type SpecColumn } from "@/data/products";
-import { productExtras, type ProductGalleryPhoto } from "@/data/products-extra";
+import {
+  products,
+  type Product,
+  type KitItem,
+  type ProductPhoto,
+  type SpecColumn,
+  type ProductGalleryPhoto,
+  type ProductSpecGroup,
+} from "@/data/products";
 import type { Locale } from "@/lib/i18n/config";
 
 export type ProductSpec = { l: string; v: string | string[] };
@@ -32,6 +39,8 @@ export type ProductView = {
   software: string[];
   accessories: string[];
   sourceUrl: string | null;
+  detailedSpecs: ProductSpecGroup[];
+  gCodes: string[];
   sort: number;
   publishedAt: Date | null;
 };
@@ -39,8 +48,7 @@ export type ProductView = {
 // Vietnamese is the primary copy; `tag`/`desc`/`bullets` switch to their English
 // variants on the `en` locale. Spec values and crawled extras stay shared.
 function toView(p: Product, index: number, locale: Locale): ProductView {
-  const extra = productExtras[p.slug] ?? {};
-  const gallery = extra.gallery ?? [];
+  const gallery = p.gallery ?? [];
   const en = locale === "en";
   return {
     slug: p.slug,
@@ -58,13 +66,15 @@ function toView(p: Product, index: number, locale: Locale): ProductView {
     bundle: p.bundle,
     // Reuse the existing image slot for the crawled photo gallery.
     images: gallery.map((g) => ({ url: g.src, alt: g.alt })),
-    overview: extra.overview ?? null,
-    highlights: extra.highlights ?? [],
+    overview: p.overview ?? null,
+    highlights: p.highlights ?? [],
     gallery,
-    documents: extra.documents ?? [],
-    software: extra.software ?? [],
-    accessories: extra.accessories ?? [],
-    sourceUrl: extra.sourceUrl ?? null,
+    documents: p.documents ?? [],
+    software: p.software ?? [],
+    accessories: p.accessories ?? [],
+    sourceUrl: p.sourceUrl ?? null,
+    detailedSpecs: p.detailedSpecs ?? [],
+    gCodes: p.gCodes ?? [],
     sort: index,
     publishedAt: null,
   };

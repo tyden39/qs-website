@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllNews } from "@/lib/data/news";
 import { NewsListFilter, type NewsListItem } from "./_components/news-list-filter";
+import CircuitTraces from "@/components/circuit-traces";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
@@ -60,12 +61,21 @@ export default async function News({ params }: { params: Promise<{ locale: Local
       {/* HEAD */}
       <section className="relative overflow-hidden border-b border-line py-16 pb-14"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
-        <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
+        <div className="qs-glow hidden sm:block right-[4%] top-[-40%] w-[38%] h-[150%]" aria-hidden="true"></div>
+        <CircuitTraces
+          variant="light"
+          className="hidden md:block absolute inset-y-0 right-0 w-[40%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_72%)]"
+        />
         <div className="relative max-w-wrap mx-auto px-12 flex justify-between items-end gap-8">
           <div>
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("list.eyebrow")}</span>
+            <span className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("list.eyebrow")}</span>
             <h1 className="font-display font-bold text-[64px] tracking-[-.02em] mt-3.5 mb-0 leading-none">
-              {t("list.heading")} <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{t("list.headingEm")}</em>
+              <span className="block overflow-hidden pb-[.06em]">
+                <span className="block qs-rise" style={{ animationDelay: "110ms" }}>
+                  {t("list.heading")} <em className="not-italic qs-gold-shimmer">{t("list.headingEm")}</em>
+                </span>
+              </span>
             </h1>
           </div>
         </div>

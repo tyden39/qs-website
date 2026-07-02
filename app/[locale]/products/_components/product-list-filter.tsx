@@ -22,7 +22,6 @@ type Labels = {
   filters: string[];
   sortOptions: string[];
   tree: string[];
-  axes: string[];
   sidebarHeading: string;
   supportTitle: string;
   supportCta: string;
@@ -47,24 +46,20 @@ function matchesChip(item: ProductFilterItem, chip: number): boolean {
   }
 }
 
-// Sidebar axis labels are ordered "3 trục".."6 trục" → axis count 3..6.
-const AXIS_VALUES = [3, 4, 5, 6];
-
 export function ProductListFilter({ items, labels }: { items: ProductFilterItem[]; labels: Labels }) {
   const [chip, setChip] = useState(0);
-  const [axis, setAxis] = useState<number | null>(null);
   const [sort, setSort] = useState(0);
-  const [openTree, setOpenTree] = useState<number | null>(0);
+  // Machine-type filter rules aren't defined yet — category tracks selection
+  // for the active UI state only, it doesn't narrow `visible` yet.
+  const [category, setCategory] = useState<number | null>(null);
 
   const visible = useMemo(() => {
-    const filtered = items.filter(
-      (it) => matchesChip(it, chip) && (axis === null || it.axisNum === axis),
-    );
+    const filtered = items.filter((it) => matchesChip(it, chip));
     const sorted = [...filtered];
     if (sort === 1) sorted.sort((a, b) => a.axisNum - b.axisNum);
     else if (sort === 2) sorted.sort((a, b) => a.displayNum - b.displayNum);
     return sorted;
-  }, [items, chip, axis, sort]);
+  }, [items, chip, sort]);
 
   const count = String(visible.length).padStart(2, "0");
 
@@ -75,43 +70,28 @@ export function ProductListFilter({ items, labels }: { items: ProductFilterItem[
         <h4 className="font-mono text-[11px] tracking-[.16em] uppercase text-ink m-0 mb-4 pb-3.5 border-b border-ink">{labels.sidebarHeading}</h4>
         <ul className="list-none p-0 m-0">
           {labels.tree.map((n, idx) => {
-            const open = openTree === idx;
+            const active = category === idx;
             return (
               <li key={n} className="border-b border-line">
                 <button
                   type="button"
-                  aria-expanded={open}
-                  onClick={() => setOpenTree(open ? null : idx)}
-                  className="w-full flex justify-between items-center py-3 text-sm font-medium text-left cursor-pointer bg-transparent border-0"
+                  aria-pressed={active}
+                  onClick={() => setCategory(active ? null : idx)}
+                  className={`w-full flex justify-between items-center py-3 text-sm font-medium text-left cursor-pointer bg-transparent border-0 ${active ? "text-gold-1" : "text-ink"}`}
                 >
-                  {n}<span className="text-gold-1">{open ? "▾" : "›"}</span>
+                  {n}
                 </button>
-                {open ? (
-                  <ul className="pb-3 list-none m-0 p-0">
-                    {labels.axes.map((s, i) => {
-                      const value = AXIS_VALUES[i];
-                      const active = axis === value;
-                      return (
-                        <li key={s} className="border-0">
-                          <button
-                            type="button"
-                            onClick={() => setAxis(active ? null : value)}
-                            className={`w-full text-left block py-1.5 px-3 text-[13px] border-l cursor-pointer bg-transparent ${active ? "text-ink border-gold font-medium" : "text-muted border-line hover:text-ink"}`}
-                          >
-                            {s}
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                ) : null}
               </li>
             );
           })}
         </ul>
         <div className="mt-8 bg-white border border-line p-5">
           <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-2">{labels.supportTitle}</div>
-          <p className="m-0 text-[13px] text-muted leading-[1.6]">(+84) 909.663.350<br />support@qstcnc.com</p>
+          <p className="m-0 text-[13px] text-muted leading-[1.6]">
+            <a href="tel:+84909663350" className="hover:text-ink">(+84) 909.663.350</a>
+            <br />
+            <a href="mailto:support@qstcnc.com" className="hover:text-ink">support@qstcnc.com</a>
+          </p>
           <Link className="qs-btn qs-btn-sm mt-3.5" href="/contact">{labels.supportCta}</Link>
         </div>
       </aside>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Link } from "@/lib/i18n/navigation";
+import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
@@ -54,21 +55,33 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
-        <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
-        <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-16">
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
+        {/* breathing gold atmosphere + brand PCB signature bleeding off the right */}
+        <div className="qs-glow hidden sm:block right-[4%] top-[-40%] w-[36%] h-[150%]" aria-hidden="true"></div>
+        <CircuitTraces
+          variant="light"
+          className="hidden lg:block absolute top-0 right-0 w-[44%] h-full opacity-[.45] [mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_72%)]"
+        />
+        <div className="relative z-10 max-w-wrap mx-auto px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
           </div>
-          <div className="qs-eyebrow">{t("eyebrow")}</div>
+          <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("eyebrow")}</div>
           <h1 className="qs-h1 mt-3.5" style={{ fontSize: "clamp(48px,6vw,84px)" }}>
-            {t("heading1")}<br/>
-            <em className="not-italic font-semibold bg-gold-grad bg-clip-text text-transparent">{t("heading2")}</em>
+            <span className="block overflow-hidden pb-[.06em]">
+              <span className="block qs-rise" style={{ animationDelay: "90ms" }}>{t("heading1")}</span>
+            </span>
+            <span className="block overflow-hidden pb-[.06em]">
+              <span className="block qs-rise" style={{ animationDelay: "190ms" }}>
+                <em className="not-italic font-semibold qs-gold-shimmer">{t("heading2")}</em>
+              </span>
+            </span>
           </h1>
-          <p className="qs-lede mt-6 max-w-[64ch]">{lorem}</p>
+          <p className="qs-lede mt-6 max-w-[64ch] qs-rise" style={{ animationDelay: "300ms" }}>{lorem}</p>
 
           {/* machine image strip */}
-          <div className="mt-12 grid sm:grid-cols-3 gap-6">
+          <div className="mt-12 grid sm:grid-cols-3 gap-6 qs-rise" style={{ animationDelay: "400ms" }}>
             {machineStrip.map((label) => (
               <Frame key={label} label={label} className="aspect-[4/3]" />
             ))}

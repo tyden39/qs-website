@@ -4,9 +4,11 @@
     "close": "Đóng",
     "featured": "Sản phẩm nổi bật",
     "viewAll": "Xem tất cả",
-    "productCount": "26 sản phẩm",
+    "productCount": "{count} sản phẩm",
     "fullCatalog": "Catalog đầy đủ",
-    "tags": ["Phay & router", "CNC đa trục", "Tiện CNC", "Servo & drive", "Servo cao cấp"]
+    "suggestions": "Gợi ý",
+    "searchFor": "Tìm \"{query}\"",
+    "noSuggestions": "Không có kết quả cho \"{query}\" — nhấn Enter để xem toàn bộ"
   },
   "results": {
     "metaTitle": "Kết quả tìm kiếm — QS Technology",

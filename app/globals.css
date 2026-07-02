@@ -56,6 +56,12 @@ body {
   background-size: 32px 32px;
 }
 
+/* ─── Gold blueprint dot field (softer counterpart to the line grid) ─── */
+.qs-dot-bg {
+  background-image: radial-gradient(circle at center, rgba(138,111,53,.14) 1px, transparent 1.6px);
+  background-size: 26px 26px;
+}
+
 /* ─── Component primitives ─── */
 @layer components {
   /* layout */
@@ -139,8 +145,11 @@ body {
   transform: translateY(12px);
   transition: opacity .6s ease, transform .6s ease;
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
 }
+/* Promote to a compositing layer only while the reveal is animating in, then
+   release it. Keeping `will-change`/a permanent layer on settled grid cells makes
+   their 1px borders round away on fractional column widths (missing dividers). */
+.qs-reveal:not(.is-visible) { will-change: opacity, transform; }
 .qs-reveal.is-visible { opacity: 1; transform: none; }
 
 /* ─── Drifting technical grid ─── */
@@ -148,6 +157,13 @@ body {
 @keyframes qs-grid-drift {
   from { background-position: 0 0, 0 0; }
   to   { background-position: 64px 64px, 64px 64px; }
+}
+
+/* slower diagonal drift for the dot field so it reads as a distinct layer */
+.qs-dot-drift { animation: qs-dot-drift 52s linear infinite; }
+@keyframes qs-dot-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 52px 52px; }
 }
 
 /* ─── Breathing gold glow (atmosphere) ─── */
@@ -215,6 +231,17 @@ body {
 }
 @keyframes qs-marquee { to { transform: translateX(-100%); } }
 .qs-marquee:hover .qs-marquee-track { animation-play-state: paused; }
+
+/* ─── Gallery autoplay progress (countdown to next shot) ─── */
+.qs-gallery-progress {
+  transform-origin: left center;
+  animation: qs-gallery-progress var(--qs-autoplay, 4000ms) linear forwards;
+}
+.qs-gallery-progress[data-paused="true"] { animation-play-state: paused; }
+@keyframes qs-gallery-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
 
 /* ─── PCB circuit traces (brand signature: QS builds board mạch) ─── */
 .qs-pcb-trace { fill: none; stroke-width: 1.4; }
@@ -404,7 +431,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .qs-reveal { opacity: 1; transform: none; transition: none; }
-  .qs-grid-drift, .qs-glow, .qs-float { animation: none; }
+  .qs-grid-drift, .qs-dot-drift, .qs-glow, .qs-float { animation: none; }
   .qs-glow { opacity: .55; }
   .qs-scan { display: none; }
   .qs-rise { animation: none; opacity: 1; transform: none; }

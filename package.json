@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@orama/orama": "^3.1.18",
     "isomorphic-dompurify": "^3.13.0",
     "lucide-react": "^0.555.0",
     "next": "^16.2.6",

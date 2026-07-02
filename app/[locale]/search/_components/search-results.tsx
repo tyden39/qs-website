@@ -4,44 +4,14 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/lib/i18n/navigation";
-
-type SearchType = "product" | "pdf" | "news" | "app" | "faq";
-
-interface SearchRecord {
-  id: string;
-  type: SearchType;
-  title: string;
-  excerpt: string;
-  href: string;
-  meta: string[];
-  keywords: string;
-}
+import { createSearchDb, searchDb, type SearchDb, type SearchRecord, type SearchType } from "@/lib/search/engine";
 
 const PAGE_SIZE = 10;
 const RECENT_KEY = "qs-recent-searches";
 const TYPE_ORDER: SearchType[] = ["product", "pdf", "news", "app", "faq"];
-
-function tokenize(q: string): string[] {
-  return q
-    .toLowerCase()
-    .split(/\s+/)
-    .map((s) => s.trim())
-    .filter((s) => s.length > 1);
-}
-
-// Token match weighted by field: title^3 + keywords^2 + excerpt^1.
-function scoreRecord(rec: SearchRecord, tokens: string[]): number {
-  const title = rec.title.toLowerCase();
-  const kw = rec.keywords.toLowerCase();
-  const ex = rec.excerpt.toLowerCase();
-  let score = 0;
-  for (const tk of tokens) {
-    if (title.includes(tk)) score += 3;
-    if (kw.includes(tk)) score += 2;
-    if (ex.includes(tk)) score += 1;
-  }
-  return score;
-}
+// Upper bound on hits pulled from Orama for one query; the index is small, so
+// this fetches every match and pagination happens client-side below.
+const MAX_RESULTS = 500;
 
 // Static export has no server runtime, so the query is read on the client from
 // the URL and matched against a prebuilt index fetched per locale.
@@ -58,15 +28,20 @@ export function SearchResults() {
     : "all";
   const page = Math.max(1, Number(params.get("page") ?? "1") || 1);
 
-  const [index, setIndex] = useState<SearchRecord[] | null>(null);
+  const [db, setDb] = useState<SearchDb | null>(null);
+  const [scored, setScored] = useState<SearchRecord[]>([]);
   const [recent, setRecent] = useState<string[]>([]);
 
   useEffect(() => {
     let alive = true;
+    setDb(null);
     fetch(`/search-index.${locale}.json`)
       .then((r) => r.json())
-      .then((d: SearchRecord[]) => alive && setIndex(d))
-      .catch(() => alive && setIndex([]));
+      .then((recs: SearchRecord[]) => createSearchDb(recs))
+      .then((built) => alive && setDb(built))
+      .catch(() => {
+        /* index unavailable — results stay empty */
+      });
     return () => {
       alive = false;
     };
@@ -94,16 +69,17 @@ export function SearchResults() {
     });
   }, [query]);
 
-  const tokens = useMemo(() => tokenize(query), [query]);
-
-  const scored = useMemo(() => {
-    if (!index || tokens.length === 0) return [];
-    return index
-      .map((r) => ({ r, s: scoreRecord(r, tokens) }))
-      .filter((x) => x.s > 0)
-      .sort((a, b) => b.s - a.s)
-      .map((x) => x.r);
-  }, [index, tokens]);
+  useEffect(() => {
+    if (!db || !query) {
+      setScored([]);
+      return;
+    }
+    let alive = true;
+    searchDb(db, query, MAX_RESULTS).then((hits) => alive && setScored(hits));
+    return () => {
+      alive = false;
+    };
+  }, [db, query]);
 
   const counts = useMemo(() => {
     const c: Record<string, number> = { all: scored.length };
@@ -159,7 +135,7 @@ export function SearchResults() {
             {t("resultsFor")} &quot;
             <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{query || "…"}</em>&quot;
           </h1>
-          {query && index && (
+          {query && db && (
             <div className="mt-3.5 font-mono text-[11px] text-muted tracking-[.14em] uppercase">
               <b className="text-ink font-medium">{scored.length}</b> {t("statsSuffix")}
             </div>
@@ -218,7 +194,7 @@ export function SearchResults() {
           <div>
             {!query && <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0">{t("emptyPrompt")}</p>}
 
-            {query && index && scored.length === 0 && (
+            {query && db && scored.length === 0 && (
               <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0">{t("noResults", { query })}</p>
             )}
 

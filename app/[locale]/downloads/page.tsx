@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
+import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllDownloads, getDownloadGroups, groupByDocument, formatBytes } from "@/lib/data/downloads";
 import type { DownloadFile } from "@/lib/data/downloads";
@@ -44,8 +45,14 @@ export default async function Downloads({ params }: Props) {
         className="relative overflow-hidden border-b border-line"
         style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}
       >
-        <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
-        <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-16">
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
+        {/* breathing gold atmosphere + brand PCB signature bleeding off the right */}
+        <div className="qs-glow hidden sm:block right-[6%] top-[-30%] w-[34%] h-[150%]" aria-hidden="true"></div>
+        <CircuitTraces
+          variant="light"
+          className="hidden lg:block absolute bottom-0 right-0 w-[40%] h-[86%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)]"
+        />
+        <div className="relative z-10 max-w-wrap mx-auto px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
             <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
@@ -53,17 +60,23 @@ export default async function Downloads({ params }: Props) {
           </div>
           <div className="grid md:grid-cols-[1.05fr_1fr] gap-12 items-center">
             <div>
-              <div className="qs-eyebrow">{t("hero.eyebrow")}</div>
+              <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("hero.eyebrow")}</div>
               <h1 className="qs-h1 mt-3.5" style={{ fontSize: "clamp(44px,5.5vw,76px)" }}>
-                {t("hero.heading1")}<br />
-                <em className="not-italic font-semibold bg-gold-grad bg-clip-text text-transparent">
-                  {t("hero.headingEm")}
-                </em>
+                <span className="block overflow-hidden pb-[.06em]">
+                  <span className="block qs-rise" style={{ animationDelay: "90ms" }}>{t("hero.heading1")}</span>
+                </span>
+                <span className="block overflow-hidden pb-[.06em]">
+                  <span className="block qs-rise" style={{ animationDelay: "190ms" }}>
+                    <em className="not-italic font-semibold qs-gold-shimmer">
+                      {t("hero.headingEm")}
+                    </em>
+                  </span>
+                </span>
               </h1>
-              <p className="qs-lede mt-5 max-w-[52ch]">{t("hero.lede")}</p>
+              <p className="qs-lede mt-5 max-w-[52ch] qs-rise" style={{ animationDelay: "300ms" }}>{t("hero.lede")}</p>
 
               {/* stats */}
-              <div className="mt-9 flex gap-10">
+              <div className="mt-9 flex gap-10 qs-rise" style={{ animationDelay: "400ms" }}>
                 {stats.map((s) => (
                   <div key={s.l}>
                     <div className="font-display text-[30px] font-bold text-ink leading-none">{s.v}</div>
@@ -74,15 +87,17 @@ export default async function Downloads({ params }: Props) {
             </div>
 
             {/* hero image */}
-            <div className="relative aspect-4/3">
+            <div className="qs-rise relative aspect-4/3 overflow-hidden" style={{ animationDelay: "260ms" }}>
               <Image
-                src="/downloads/hero.png"
+                src="/downloads/hero.webp"
                 alt={t("hero.imageAlt")}
                 fill
                 priority
                 sizes="(max-width:768px) 100vw, 45vw"
                 className="object-contain"
               />
+              {/* gold blueprint scan sweeping the documents */}
+              <div className="qs-scan" aria-hidden="true"></div>
             </div>
           </div>
         </div>

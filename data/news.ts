@@ -21,15 +21,15 @@ export const news: News[] = [
 <p>Ngày 08/08/2025, QS Technology vinh dự góp mặt tại <strong>The Future Brand 2025</strong>, một trong những sự kiện uy tín quy tụ các thương hiệu sáng tạo và đột phá nhất trong năm.</p>
 <p>Với chủ đề <b>“Kiến tạo thương hiệu Việt – Made By Vietnam”</b>, cuộc thi là sân chơi nơi các doanh nghiệp thể hiện tầm nhìn, sức sáng tạo và khả năng định hình tương lai của thương hiệu.</p>
 <p>Tham dự The Future Brand 2025 không chỉ là cơ hội để QS Technology giới thiệu những giải pháp công nghệ tiên tiến, mà còn là dịp để chúng tôi học hỏi, giao lưu và kết nối với cộng đồng sáng tạo trên toàn cầu.</p>
-<img src="https://qstcnc.com/wp-content/uploads/MADE_BY_VIETNAM01-768x513.jpg" alt="">
-<img src="https://qstcnc.com/wp-content/uploads/525927989_122214338624056443_4732577786486642596_n-768x576.jpg" alt="">
+<img src="/img/news/qs-technology-the-future-brand-2025/body-1.webp" alt="">
+<img src="/img/news/qs-technology-the-future-brand-2025/body-2.webp" alt="">
 <p>QS Technology tham dự buổi tập huấn cùng các chuyên gia truyền thông và các đội thi</p>
-<img src="https://qstcnc.com/wp-content/uploads/MBVN-152-768x513.jpg" alt="">
+<img src="/img/news/qs-technology-the-future-brand-2025/body-3.webp" alt="">
 <p>Gian hàng trưng bày sản phẩm của QS Technology tại Đài Truyền Hình HTV.</p>
-<img src="https://qstcnc.com/wp-content/uploads/MBVN-108-768x512.jpg" alt="">
-<img src="https://qstcnc.com/wp-content/uploads/z6890356308558_0a79437187cb9284ee670f206f986bf1-768x512.jpg" alt="">
+<img src="/img/news/qs-technology-the-future-brand-2025/body-4.webp" alt="">
+<img src="/img/news/qs-technology-the-future-brand-2025/body-5.webp" alt="">
 <p>Phần thi của QS Technology tại chương trình “The Future Brand 2025 – Made By Vietnam Day”</p>
-<img src="https://qstcnc.com/wp-content/uploads/bbbbbbbbbbbbb-768x465.png" alt="">
+<img src="/img/news/qs-technology-the-future-brand-2025/body-6.webp" alt="">
 <p>Đội ngũ QS Technology check in tại backdrop chương trình.</p>
 <p>“Tự Hào Công Nghệ – Trí Tuệ Việt Nam “</p>`,
     cover: "/img/news/qs-technology-the-future-brand-2025/cover.webp",
@@ -41,13 +41,13 @@ export const news: News[] = [
     cat: "Công ty",
     excerpt: "CHÍNH THỨC TỪ THÁNG 3 NĂM 2025, CÔNG TY QS ĐÃ ĐƯỢC BỘ KHOA HỌC VÀ CÔNG NGHỆ, CẤP GIẤY CHỨNG NHẬN “DOANH NGHIỆP KHOA HỌC VÀ CÔNG NGHỆ” Với sự nỗ lực không ngừng trong việc nghiên cứu, phát triển và ứng dụng công nghệ, công ty TNHH Kỹ thuật Công nghệ QS đã",
     body: `<h2>CHÍNH THỨC TỪ THÁNG 3 NĂM 2025, CÔNG TY QS ĐÃ ĐƯỢC BỘ KHOA HỌC VÀ CÔNG NGHỆ, CẤP GIẤY CHỨNG NHẬN &quot;DOANH NGHIỆP KHOA HỌC VÀ CÔNG NGHỆ&quot;</h2>
-<img src="https://qstcnc.com/wp-content/uploads/WS-01.png" alt="WS-01">
-<img src="https://qstcnc.com/wp-content/uploads/snapedit_1742801681570-copy-1024x705.jpg" alt="">
+<img src="/img/news/cong-ty-tnhh-ky-thuat-cong-nghe-qs-nhan-giay-chung-nhan-doanh-nghiep-khoa-hoc-ky-thuat/body-1.webp" alt="WS-01">
+<img src="/img/news/cong-ty-tnhh-ky-thuat-cong-nghe-qs-nhan-giay-chung-nhan-doanh-nghiep-khoa-hoc-ky-thuat/body-2.webp" alt="">
 <ul><li>Với sự nỗ lực không ngừng trong việc nghiên cứu, phát triển và ứng dụng công nghệ, công ty TNHH Kỹ thuật Công nghệ QS đã vinh dự nhận được <strong>Giấy chứng nhận Doanh nghiệp Khoa học và Công nghệ</strong> từ Cục Phát triển Thị trường và Doanh nghiệp, Bộ Khoa học và Công nghệ</li><li>Đây là bước ngoặt khẳng định hướng đi nghiêm túc của QS: làm chủ công nghệ – phát triển sản phẩm chất lượng cao “Made by Việt Nam”</li></ul>
 <ul><li>Từ bộ điều khiển QS F54 đến các dòng mới như F86, F10T… tất cả đều được nghiên cứu và hoàn thiện bởi chính đội ngũ kỹ thuật QS.</li></ul>
 <h2>CHÚNG TÔI CAM KẾT TIẾP TỤC ĐẦU TƯ R&amp;D, ĐỒNG HÀNH CÙNG CÁC NHÀ MÁY - XƯỞNG CƠ KHÍ <br>TRÊN HÀNH TRÌNH TỰ ĐỘNG HÓA</h2>
-<img src="https://qstcnc.com/wp-content/uploads/Screenshot-2025-03-24-143332-1024x562.png" alt="">
-<img src="https://qstcnc.com/wp-content/uploads/Screenshot-2025-03-24-143231-1024x578.png" alt="">
+<img src="/img/news/cong-ty-tnhh-ky-thuat-cong-nghe-qs-nhan-giay-chung-nhan-doanh-nghiep-khoa-hoc-ky-thuat/body-3.webp" alt="">
+<img src="/img/news/cong-ty-tnhh-ky-thuat-cong-nghe-qs-nhan-giay-chung-nhan-doanh-nghiep-khoa-hoc-ky-thuat/body-4.webp" alt="">
 <h2>Chúng tôi xin gửi lời cảm ơn đến các cơ quan ban ngành, quý khách hàng và các đối tác đã đồng hành và hỗ trợ trong suốt quá trình phát triển. Chứng nhận này chính là bước tiến quan trọng, đánh dấu sự trưởng thành và phát triển bền vững của công ty.</h2>`,
     cover: "/img/news/cong-ty-tnhh-ky-thuat-cong-nghe-qs-nhan-giay-chung-nhan-doanh-nghiep-khoa-hoc-ky-thuat/cover.webp",
   },
@@ -57,31 +57,31 @@ export const news: News[] = [
     date: "20 · 11 · 2024",
     cat: "Sự kiện",
     excerpt: "Trong sự kiện triển lãm, QS Technology sẽ góp mặt và mang đến những sản phẩm là bộ điều khiển CNC do chính công ty kỹ thuật công nghệ QS sản xuất. 4 bộ điều khiển CNC sẽ được mang đến triển lãm bao gồm: F54, F86, Astro 6AH, Astro 10i. Với năng lượng luôn mang trong mình, QS Technology mong rằng sẽ nhận được sự quan tâm của quý khách hàng tham quan và quý đối tác.",
-    body: `<img src="https://qstcnc.com/wp-content/uploads/Untitled-2-10.png" alt="">
+    body: `<img src="/img/news/qs-technology-tham-gia-trien-lam-vinamac2024/body-1.webp" alt="">
 <h2>THÔNG TIN TRIỂN LÃM</h2>
 <p><strong>VINAMAC EXPO 2024: Đột phá Công nghệ hướng tới cơ hội hợp tác phát triển ngành Công nghiệp.</strong></p>
 <p>Triển lãm Quốc tế về Máy móc, Thiết bị, Công nghệ và Sản phẩm Công nghiệp tại Thành phố Hồ Chí Minh – VINAMAC EXPO 2024, diễn ra từ ngày 21 – 23/11/ 2024 tại Trung tâm Hội chợ và Triển lãm Sài Gòn (SECC), 799 Nguyễn Văn Linh, Quận 7, TP. Hồ Chí Minh.</p>
 <p>Đây là sự kiện quy mô lớn, thu hút sự tham gia của đông đảo các doanh nghiệp hàng đầu trong ngành công nghiệp, cơ khí, ngũ kim và dụng cụ cầm tay, tự động hóa, công nghệ hàn cắt, thép và gia công kim loại… cùng các sản phẩm công nghiệp khác. VINAMAC EXPO trở thành địa điểm gặp gỡ, trao đổi kinh nghiệm, giới thiệu sản phẩm, mở rộng quan hệ hợp tác kinh doanh, tiếp cận và ứng dụng với những thành tựu kỹ thuật cao trên thế giới.</p>
-<img src="https://qstcnc.com/wp-content/uploads/elementor/thumbs/Anh_KM-qxbcfvvx1pdmuwcidmathen56cqsh1xxsjm53t8j6w.jpg" alt="Anh_KM">
+<img src="/img/news/qs-technology-tham-gia-trien-lam-vinamac2024/body-2.webp" alt="Anh_KM">
 <h2>QS TECHNOLOGY SẼ CÓ MẶT TẠI VINAMAC EXPO 2024</h2>
-<img src="https://qstcnc.com/wp-content/uploads/DSC_7237-1.png" alt="">
+<img src="/img/news/qs-technology-tham-gia-trien-lam-vinamac2024/body-3.webp" alt="">
 <p>Trong sự kiện triển lãm, <b>QS Technology</b> sẽ góp mặt và mang đến những sản phẩm là bộ điều khiển CNC do chính công ty kỹ thuật công nghệ QS sản xuất.</p>
 <p>4 bộ điều khiển CNC sẽ được mang đến triển lãm bao gồm:</p>
 <ul><li><b>F54, F86, Astro 6AH, Astro 10i.</b></li></ul>
 <p>Với năng lượng luôn mang trong mình, QS Technology mong rằng sẽ nhận được sự quan tâm của quý khách hàng tham quan và quý đối tác.</p>
+<h2>CƠ HỘI NHẬN NGAY BỘ ĐIỀU KHIỂN CNC F54 KHI CHECK-IN TẠI GIAN HÀNG QS TECHNOLOGY ( A352 )</h2>
+<ul><li>Cơ hội nhận những phần quà vừa giá trị và không kém phần hấp dẫn khi check-in tại gian hàng của QS Technology với Gameshow</li></ul>
+<p>” vòng quay may mắn” :</p>
+<ul><li><b>Giải nhất: 3 bộ điều khiển CNC model F54 (mỗi ngày 1 bộ) trị giá 6 triệu đồng</b></li><li><b>Giải nhì: 3 bộ truyền dữ liệu DNC (mỗi ngày 1 bộ)</b></li><li><b>Giải 3: vô vàn phiếu giảm giá từ 5% đến 10% (có thể cộng dồn lên đến 15% áp dụng ngay vào đơn hàng)</b></li><li><b>Và nhiều phần quà lưu niệm</b></li></ul>
+<img src="/img/news/qs-technology-tham-gia-trien-lam-vinamac2024/body-4.webp" alt="">
 <p><br></p>
 <p><b>Hãy lưu lại thông tin triển lãm để không bỏ lỡ bạn nhé:</b></p>
 <p>Triễn làm diễn ra từ 21/11 – 23/11/2024</p>
 <p>Thời gian: 9h-17h (kết thúc sớm vào lúc 16h ngày 23/11)</p>
 <p>Vị trí gian hàng: Hall A1 – Booth A352</p>
 <p>Địa điểm: SECC – 799 Nguyễn Văn Linh, Tân Phú, Quận 7, TPHCM</p>
-<h2>CƠ HỘI NHẬN NGAY BỘ ĐIỀU KHIỂN CNC F54 KHI CHECK-IN TẠI GIAN HÀNG QS TECHNOLOGY ( A352 )</h2>
-<ul><li>Cơ hội nhận những phần quà vừa giá trị và không kém phần hấp dẫn khi check-in tại gian hàng của QS Technology với Gameshow</li></ul>
-<p>” vòng quay may mắn” :</p>
-<ul><li><b>Giải nhất: 3 bộ điều khiển CNC model F54 (mỗi ngày 1 bộ) trị giá 6 triệu đồng</b></li><li><b>Giải nhì: 3 bộ truyền dữ liệu DNC (mỗi ngày 1 bộ)</b></li><li><b>Giải 3: vô vàn phiếu giảm giá từ 5% đến 10% (có thể cộng dồn lên đến 15% áp dụng ngay vào đơn hàng)</b></li><li><b>Và nhiều phần quà lưu niệm</b></li></ul>
-<img src="https://qstcnc.com/wp-content/uploads/THUMOIVINAMAC-09.png" alt="">
 <h2>HẸN GẶP CÁC BẠN TẠI TRIỂN LÃM VINAMAC EXPO 2024</h2>
-<h2>CÁC TIN TỨC KHÁC:</h2>`,
+`,
     cover: "/img/news/qs-technology-tham-gia-trien-lam-vinamac2024/cover.webp",
   },
   {
@@ -90,44 +90,19 @@ export const news: News[] = [
     date: "07 · 11 · 2024",
     cat: "Sự kiện",
     excerpt: "Metalex VietNam 2024 là Triễn Lãm Quốc Tế về Máy công cụ và Giải pháp gia công kim loại. Diễn ra tại Trung tâm Hội chợ và Triển lãm Sài Gòn (SECC). Số 799 Nguyễn Văn Linh, Quận 7, Tp.HCM.",
-    body: `<img src="https://qstcnc.com/wp-content/uploads/Untitled-1-01-scaled.webp" alt="">
+    body: `<img src="/img/news/qstechnology-tai-trien-lam-metalex-2024/body-1.webp" alt="">
 <h2>METALEX VIETNAM 2024 - BỘ ĐIỀU KHIỂN CNC THƯƠNG HIỆU QS TECHNOLOGY MANG ĐẾN GIẢI PHÁP TỰ ĐỘNG HÓA CHO NGÀNH CNC VIỆT NAM</h2>
 <p><strong>METALEX VIETNAM 2024</strong>là nơi các ngành công nghiệp sản xuất và hỗ trợ quy tụ hằng năm để khám phá các giải pháp gia công kim loại hiệu quả,</p>
 <p>ra mắt sản phẩm, trí tuệ kinh doanh cốt lõi và quan hệ hợp tác nhằm phát triển kinh doanh tại thị trường mới nổi của Việt Nam.</p>
 <p>Với quy mô hơn 15.000 người tham quan đa dạng và gần 300 thương hiệu từ 25 quốc gia, cùng nhiều đơn vị truyền thông, đây là nền tảng mà bao gồm tất cả các khía cạnh của ngành gia công kim loại sẽ tạo ra cơn bão ngành công nghiệp sản xuất.</p>
 <h2>GIAO LƯU TRẢI NGHIỆM TẠI GIAN HÀNG VÀ NHẬN QUÀ LƯU NIỆM:</h2>
-<img src="https://qstcnc.com/wp-content/uploads/Untitled-1-01-3.png" alt="">
-<img src="https://qstcnc.com/wp-content/uploads/z5890402331578_2eefea4dd5fc0a267ee1cfcf0e9fef2a-1024x683.jpg" alt="">
+<img src="/img/news/qstechnology-tai-trien-lam-metalex-2024/body-2.webp" alt="">
+<img src="/img/news/qstechnology-tai-trien-lam-metalex-2024/body-3.webp" alt="">
 <p>Ngoài những Showcase tại triển lãm, QS Technology cũng góp phần bởi những minigame trúng thưởng kèm quà lưu niệm rất hấp dẫn cho những khách hàng trong ngành sản xuất, gia công kim loại.</p>
 <p>Chỉ cần bạn Check-in tại gian hàng của QS Technology, bạn sẽ được quay vòng quay may mắn với các giải thưởng:</p>
 <ul><li><strong>Giải nhất là 3 bộ điều khiển CNC model F54 trị giá 6tr (mỗi ngày 1 bộ)</strong></li><li><strong>Giải nhì là 3 bộ truyền dữ liệu DNC (mỗi ngày 1 bộ)</strong></li><li><strong>Giải ba là các voucher giảm giá 5%, 10%</strong></li><li><strong>Và nhiều sổ tay, ly sứ tặng lưu niệm đến cho tất cả khách hàng.</strong></li></ul>
 <h2>3 BỘ ĐIỀU KHIỂN CNC MODEL F54 TẠI TRIỂN LÃM METALEX 2024 VỀ TAY KHÁCH HÀNG:</h2>
-<img src="https://qstcnc.com/wp-content/uploads/Untitled-1-01-4.png" alt="">
-<h2>BÀI VIẾT KHÁC:</h2>
-<h3><a href="https://qstcnc.com/chua-duoc-phan-loai/qs-technology-the-future-brand-2025">QS Technology – The Future Brand 2025. #qstechnology, #thefuturebrand 2025, #madebyvietnam</a></h3>
-<p>11/08/2025</p>
-<p>No Comments</p>
-<p>Read More »</p>
-<h3><a href="https://qstcnc.com/documents/f54-web-manual/ebook-page31">Page 31 – Hướng dẫn truyền và nhận dữ liệu, load file chạy máy trên bộ điều khiển CNC F54</a></h3>
-<p>31/03/2025</p>
-<p>No Comments</p>
-<p>Read More »</p>
-<h3><a href="https://qstcnc.com/documents/f54-web-manual/ebook-page30">Page 30 – Hướng dẫn cài đặt thông số kết nối mạng trên bộ điều khiển CNC F54</a></h3>
-<p>31/03/2025</p>
-<p>No Comments</p>
-<p>Read More »</p>
-<h3><a href="https://qstcnc.com/documents/f54-web-manual/ebook-page29">Page 29 – Hướng dẫn cài đặt phần mềm QS EXPLORER trên máy tính</a></h3>
-<p>31/03/2025</p>
-<p>No Comments</p>
-<p>Read More »</p>
-<h3><a href="https://qstcnc.com/documents/f54-web-manual/ebook-page28">Page 28 – Cách xem lỗi và cảnh báo trên bộ điều khiển CNC F54</a></h3>
-<p>31/03/2025</p>
-<p>No Comments</p>
-<p>Read More »</p>
-<h3><a href="https://qstcnc.com/documents/f54-web-manual/ebook-page27">Page 27 – Cách xem lại lịch sử gia công trên bộ điều khiển CNC F54</a></h3>
-<p>29/03/2025</p>
-<p>No Comments</p>
-<p>Read More »</p>`,
+<img src="/img/news/qstechnology-tai-trien-lam-metalex-2024/body-4.webp" alt="">`,
     cover: "/img/news/qstechnology-tai-trien-lam-metalex-2024/cover.webp",
   },
   {
@@ -137,19 +112,18 @@ export const news: News[] = [
     cat: "Sự kiện",
     excerpt: "Với quy mô dự kiến sẽ có hơn 500 doanh nghiệp tham gia trưng bày, hơn 650 gian hàng và hơn 25000 khách tham quan chất lượng hứa hẹn sẽ là triển lãm có rất nhiều cơ hội tuyệt vời cho các nhà sản xuất, nhà cung cấp thương mại trong nước và quốc tế mở rộng mối quan hệ và tìm kiếm đối tác.",
     body: `<h2>QS TECHNOLOGY THAM GIA TRIỂN LÃM CÔNG NGHIỆP VÀ SẢN XUẤT VIỆT NAM (VIMF) 2024 TẠI THÀNH PHỐ BẮC NINH</h2>
-<img src="https://qstcnc.com/wp-content/uploads/THONG-BAO-02-02-1.png" alt="">
+<img src="/img/news/qstechnology-tham-gia-trien-lam-vimf-tai-bac-ninh/body-1.webp" alt="">
 <p><b>VIMF</b>viết tắt của cụm từ <b>VIETNAM INDUSTRIAL &amp; MANUFACTURING FAIR</b> là triển lãm thương mại hàng đầu tại VN và trong khu vực Đông Nam Á về Máy Móc Thiết Bị, Dung Cụ Vật Liệu, Công Nghệ Kỹ Thuật Ứng Dụng Cho Nghành Công Nghiệp Sản Xuất, Cơ Khí Chế Tạo và Công Nghiệp Phụ Trợ.</p>
-<img src="https://qstcnc.com/wp-content/uploads/snapedit_1728268322903-Recovered.png" alt="">
+<img src="/img/news/qstechnology-tham-gia-trien-lam-vimf-tai-bac-ninh/body-2.webp" alt="">
 <p><em>Hình ảnh minh họa</em></p>
 <p>Với quy mô dự kiến sẽ có hơn <b>500</b>doanh nghiệp tham gia trưng bày, hơn <b>650</b>gian hàng và hơn <b>25.000</b> khách tham quan chất lượng hứa hẹn sẽ là triển lãm có rất nhiều cơ hội tuyệt vời cho các nhà sản xuất, nhà cung cấp thương mại trong nước và quốc tế mở rộng mối quan hệ và tìm kiếm đối tác.</p>
-<img src="https://qstcnc.com/wp-content/uploads/BANNER-1-01-1.png" alt="">
+<img src="/img/news/qstechnology-tham-gia-trien-lam-vimf-tai-bac-ninh/body-3.webp" alt="">
 <h2>THÔNG TIN TRIỂN LÃM:</h2>
 <p><b>Thời gian: 6/11 – 8/11/2024</b></p>
 <p><b>Địa điểm: Trung tâm văn hóa Kinh Bắc, Thành Phố Bắc Ninh</b></p>
 <p><b>Gian hàng: 588</b></p>
 <p>Trong sự kiện lần này , QS TECHNOLOGY sẽ tham gia và mang đến những sản phẩm, giải pháp trong lĩnh vực CNC , cũng như mang đến lời mời chào hợp tác cùng phát triển với những nhà cung cấp, nhà sản xuất trong sự kiện triển lãm.</p>
-<p>Đừng bỏ lỡ! hãy cùng ghé thăm gian hàng tại vị trí 588 để giao lưu, trải nghiệm cùng QS nhé!</p>
-<h2>BÀI VIẾT KHÁC:</h2>`,
+<p>Đừng bỏ lỡ! hãy cùng ghé thăm gian hàng tại vị trí 588 để giao lưu, trải nghiệm cùng QS nhé!</p>`,
     cover: "/img/news/qstechnology-tham-gia-trien-lam-vimf-tai-bac-ninh/cover.webp",
   },
   {
@@ -159,7 +133,7 @@ export const news: News[] = [
     cat: "Sự kiện",
     excerpt: "Vào ngày 15 tháng 10 năm 2024, Công ty TNHH Kỹ Thuật Công Nghệ QS đã ghi dấu ấn mạnh mẽ khi tham gia triển lãm FABTECH, sự kiện hàng đầu thế giới về gia công cơ khí và tự động hóa. Chúng tôi tự hào giới thiệu bộ điều khiển CNC “Made by Vietnam” – sản phẩm công nghệ do đội ngũ kỹ sư Việt Nam nghiên cứu, phát triển và sản xuất hoàn toàn trong nước.",
     body: `<h2>CÔNG TY TNHH KỸ THUẬT CÔNG NGHỆ QS TECHNOLOGY TỰ HÀO ĐƯA BỘ ĐIỀU KHIỂN CNC &quot;MADE BY VIETNAM&quot; ĐẾN TRIỂN LÃM FABTECH 2024</h2>
-<img src="https://qstcnc.com/wp-content/uploads/1-01.png" alt="">
+<img src="/img/news/qstechnology-tai-trien-lam-fabtech-2024-orlando/body-1.webp" alt="">
 <p>Vào ngày 15 tháng 10 năm 2024,</p>
 <p>Công ty TNHH Kỹ Thuật Công Nghệ QS</p>
 <p>đã ghi dấu ấn mạnh mẽ khi tham gia triển lãm</p>
@@ -169,9 +143,9 @@ export const news: News[] = [
 <p>–</p>
 <p>sản phẩm công nghệ do đội ngũ kỹ sư Việt Nam nghiên cứu, phát triển và sản xuất hoàn toàn trong nước.</p>
 <p>Với tính năng vượt trội, đặc biệt là khả năng tích hợp encoder phản hồi, bộ điều khiển CNC của QS không chỉ thu hút sự quan tâm của đông đảo khách tham quan mà còn nhận được sự công nhận và đánh giá cao từ nhiều chuyên gia và doanh nghiệp quốc tế. Đối tác đến từ các nước như Mỹ, Đức, Nhật Bản, và Hàn Quốc đã bày tỏ ấn tượng với chất lượng, độ chính xác và tính linh hoạt của sản phẩm.</p>
-<img src="https://qstcnc.com/wp-content/uploads/giamdungluong.png" alt="">
+<img src="/img/news/qstechnology-tai-trien-lam-fabtech-2024-orlando/body-2.webp" alt="">
 <p>Sự đón nhận này là minh chứng rõ ràng cho sự nỗ lực không ngừng của Công ty QS trong việc đổi mới và nâng cao chất lượng sản phẩm, khẳng định vị thế của công nghệ Việt Nam trên thị trường quốc tế. Tại <b>FABTECH</b>, sản phẩm của chúng tôi không chỉ cạnh tranh với các sản phẩm từ các nước có nền công nghiệp phát triển mà còn nổi bật với giá thành hợp lý và hiệu năng cao, tạo lợi thế cạnh tranh đáng kể.</p>
-<img src="https://qstcnc.com/wp-content/uploads/OK-1-1.png" alt="">
+<img src="/img/news/qstechnology-tai-trien-lam-fabtech-2024-orlando/body-3.webp" alt="">
 <p>Sự thành công tại triển lãm <b>FABTECH 2024</b>một lần nữa khẳng định rằng các sản phẩm “Made By VietNam” không chỉ đạt chuẩn quốc tế mà còn có thể chỉnh phục thị trường toàn cầu. Điều này cũng mở ra cơ hội hợp tác mới giữa QS và các doanh nghiệp lớn trên thế giới, đưa ngành CNC và tự động hóa Việt Nam lên một tầm cao mới.</p>
 <p>Ngày 17/10 vừa qua, <b>FABTECH 2024</b>chính thức khép lại, <b>QS Technology</b> xin chân thành gửi lời cảm ơn đến tất cả quý khách hàng, người tham quan đã ghé thăm gian hàng và trải nghiệm sản phẩm của chúng tôi.</p>`,
     cover: "/img/news/qstechnology-tai-trien-lam-fabtech-2024-orlando/cover.webp",
@@ -182,18 +156,18 @@ export const news: News[] = [
     date: "17 · 08 · 2024",
     cat: "Sự kiện",
     excerpt: "Sự Kiện Kết Nối Doanh Nghiệp Và Giáo Dục: Tài trợ bộ điều khiển CNC F86 cho trường Đại Học Công Nghệ TP. Hồ Chí",
-    body: `<img src="https://qstcnc.com/wp-content/uploads/DSC01054-768x512.jpg" alt="">
+    body: `<img src="/img/news/su-kien-ket-noi-doanh-nghiep-va-giao-duc-tai-tro-bo-dieu-khien-cnc-f86-cho-truong-dai-hoc-cong-nghe-tp-ho-chi-minh-hutech-tai-hutech-techshow-2024/body-1.webp" alt="">
 <p>Tài sự kiện thường niên HUTECH TECHSHOW được diễn ra tại trường Đại Học Công Nghệ TP. Hồ Chí Minh (HUTECH). Tại sự kiện này quy tụ hơn 65 doanh nghiệp và mang đến nhiều cơ hội để các bạn sinh viên có thể tiếp cận trực tiếp với doanh nghiệp với hơn 3500 vị trí tuyển dụng.</p>
-<img src="https://qstcnc.com/wp-content/uploads/DSC01603-768x512.jpg" alt="">
-<img src="https://qstcnc.com/wp-content/uploads/73A00350-768x512.jpg" alt="">
+<img src="/img/news/su-kien-ket-noi-doanh-nghiep-va-giao-duc-tai-tro-bo-dieu-khien-cnc-f86-cho-truong-dai-hoc-cong-nghe-tp-ho-chi-minh-hutech-tai-hutech-techshow-2024/body-2.webp" alt="">
+<img src="/img/news/su-kien-ket-noi-doanh-nghiep-va-giao-duc-tai-tro-bo-dieu-khien-cnc-f86-cho-truong-dai-hoc-cong-nghe-tp-ho-chi-minh-hutech-tai-hutech-techshow-2024/body-3.webp" alt="">
 <p>Ngoài ra tại sự kiện HUTECH TECHSHOW 2024 còn là nơi để các bạn sinh viên có thể trưng bày đồ án cũng như là chứng tỏ năng lực bản thân</p>
 <p>trước các doanh nghiệp. Nhận thấy sự chuyển mình và phát triển ngày càng nhanh chóng về công nghệ và tâm huyết của thế hệ trẻ.</p>
 <p>Công Ty TNHH Kỹ Thuật Công Nghệ QS đã quyết định góp một chút sức mình vào công cuộc phát triển chung này và đặc biệt riêng về lĩnh vực CNC. Thông qua việc tài trợ bộ điều khiển CNC 6 trục F86 cho trường Đại Học Công Nghệ TP. Hồ Chí Minh (HUTECH). Chúng tôi mong muốn các bạn sinh viên có cơ hội tiếp cận và ứng dụng bộ điều khiển CNC “Made By Vietnam” để phát triển năng lực bản thân góp phần nâng tầm ngành công nghiệp CNC tại Việt Nam.</p>
-<img src="https://qstcnc.com/wp-content/uploads/IMGL7671-768x512.jpg" alt="">
+<img src="/img/news/su-kien-ket-noi-doanh-nghiep-va-giao-duc-tai-tro-bo-dieu-khien-cnc-f86-cho-truong-dai-hoc-cong-nghe-tp-ho-chi-minh-hutech-tai-hutech-techshow-2024/body-4.webp" alt="">
 <p>Công Ty TNHH Kỹ Thuật Công Nghệ QS là một trong những tài trợ chính của sự kiện</p>
-<img src="https://qstcnc.com/wp-content/uploads/IMGL7697-768x512.jpg" alt="">
+<img src="/img/news/su-kien-ket-noi-doanh-nghiep-va-giao-duc-tai-tro-bo-dieu-khien-cnc-f86-cho-truong-dai-hoc-cong-nghe-tp-ho-chi-minh-hutech-tai-hutech-techshow-2024/body-5.webp" alt="">
 <p>Gói tài trợ 10 bộ điều khiển CNC 6 trục F86 dành cho trường Đại Học Công Nghệ TP. Hồ Chí Minh (HUTECH)</p>
-<img src="https://qstcnc.com/wp-content/uploads/1-trans-screen-768x569.png" alt="">
+<img src="/img/news/su-kien-ket-noi-doanh-nghiep-va-giao-duc-tai-tro-bo-dieu-khien-cnc-f86-cho-truong-dai-hoc-cong-nghe-tp-ho-chi-minh-hutech-tai-hutech-techshow-2024/body-6.webp" alt="">
 <p>Bộ điều khiển CNC 6 trục F86</p>`,
     cover: "/img/news/su-kien-ket-noi-doanh-nghiep-va-giao-duc-tai-tro-bo-dieu-khien-cnc-f86-cho-truong-dai-hoc-cong-nghe-tp-ho-chi-minh-hutech-tai-hutech-techshow-2024/cover.webp",
   },
@@ -205,14 +179,14 @@ export const news: News[] = [
     excerpt: "Thiết bị truyền DNC Micro DNC 2D – Phụ kiện không thể thiếu cho máy CNC Thiết bị truyền dữ liệu Micro DNC đã không",
     body: `<h2>Thiết bị truyền DNC Micro DNC 2D - Phụ kiện không thể thiếu cho máy CNC</h2>
 <p>Thiết bị truyền dữ liệu Micro DNC đã không còn quá xa lạ đối với những đơn vị chuyên gia công trong lĩnh vực CNC bởi sự nhỏ gọn, tiện lợi mà sản phẩm mang lại cho người vận hành. Vào cuối năm 2023, QS Technology cho ra mắt bộ truyền dữ liệu Micro DNC 2D với nhiều nâng cấp phần cứng cũng như ngoại hình.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/6-1-768x472.jpg" alt="">
+<img src="/img/news/thiet-bi-khong-the-thieu-cho-may-cnc-micro-dnc-2d/body-1.webp" alt="">
 <p><i>Bộ truyền dữ liệu Micro DNC 2D</i></p>
 <h2>Thiết bị DNC là gì ?</h2>
 <p>Thiết bị DNC là thiết bị hỗ trợ cho người vận hành máy có thể truyền chương trình gia công (chương trình G-Code) một cách nhanh chóng vào máy CNC thông qua cổng giao tiếp RS232.</p>
 <p>Với thiết kế nhỏ gọn, không chiếm nhiều diện tích, và những tính năng giúp tiết kiệm thời gian như: truyền dữ liệu, chương trình từ khoảng cách xa thông qua mạng wifi, kiểm tra biên dạng của chương trình thông qua chức năng mô phỏng đường chạy dao, và chỉnh sửa chương trình gia công trực tiếp trên thiết bị. Thiết bị Micro DNC 2D được ứng dụng rộng rãi trong các lĩnh vực như: Gia công chi tiết (phay/tiện), gia công khuôn mẫu, cắt dây CNC, đột CNC, dập CNC,…</p>
 <p>Bên cạnh đó, người vận hành máy có thể giám sát, theo dõi quá trình hoạt động của thiết bị thông qua kết nối Wifi và phần mềm “QS Explorer”.<br><br></p>
 <p>Ngoài ra việc đảm bảo sự ổn định khi truyền dữ liệu, và tính bền bỉ của sản phẩm là một trong những tiêu chí khiến cho khách hàng tin tưởng và sử dụng rộng rãi thiết bị.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/SO-DO-768x507.png" alt="">
+<img src="/img/news/thiet-bi-khong-the-thieu-cho-may-cnc-micro-dnc-2d/body-2.webp" alt="">
 <p><i>Tổng quan cách thức hoạt động của thiết bị DNC</i></p>
 <h2>Tại sao nên lựa chọn thiết bị Micro DNC ?</h2>
 <p>– Thay thế cho phương pháp truyền sữ liệu thiếu hiệu quả bằng máy tính.</p>
@@ -226,16 +200,16 @@ export const news: News[] = [
 <p>– Cài đặt thông số tốc độ truyền (Baudrate).</p>
 <p>– Lựa chọn chương trình muốn gia công.</p>
 <p>– Chạy gia công.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/14-1-768x559.png" alt="">
+<img src="/img/news/thiet-bi-khong-the-thieu-cho-may-cnc-micro-dnc-2d/body-3.webp" alt="">
 <h2>2. Mô phỏng đường chạy dao</h2>
 <p>Thiết bị Micro DNC hỗ trợ người vận hành có thể kiểm tra được biên dạng, toạ độ của chương trình gia công, thông qua tính năng mô phỏng đường chạy của dao. Nhằm đảm bảo độ chính xác.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/MO-PHONG-PNG-768x538.png" alt="">
+<img src="/img/news/thiet-bi-khong-the-thieu-cho-may-cnc-micro-dnc-2d/body-4.webp" alt="">
 <h2>3. Chỉnh sửa chương trình</h2>
 <p>Tính năng này giúp người vận hành có thể chỉnh sửa trực tiếp chương trình G-code trên thiết bị DNC mà không cần dùng đến máy tính.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/chuong-trinh-768x538.png" alt="">
+<img src="/img/news/thiet-bi-khong-the-thieu-cho-may-cnc-micro-dnc-2d/body-5.webp" alt="">
 <h2>4. Quản lý dữ liệu online</h2>
 <p>Rút ngắn thời gian di chuyển nạp chương trình cho các máy CNC. Giám sát, theo dõi tiến độ công việc một cách trực quan.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/ahihi-768x432.png" alt="">
+<img src="/img/news/thiet-bi-khong-the-thieu-cho-may-cnc-micro-dnc-2d/body-6.webp" alt="">
 <h2>Thông số kỹ thuật</h2>
 <p>– Kích thước: 110 x 75 x 30 mm</p>
 <p>– Loại LCD: TFT 3.2 inch</p>
@@ -255,7 +229,7 @@ export const news: News[] = [
     excerpt: "QS Technology ra mắt bộ điều khiển CNC 4 trục với tên gọi F54 Tự hào thương hiệu Việt. QS Technology đã chính thức giới",
     body: `<h2>QS Technology ra mắt bộ điều khiển CNC 4 trục với tên gọi F54<br>Tự hào thương hiệu Việt.</h2>
 <p><strong>QS Technology</strong> đã chính thức giới thiệu và cho ra mắt bộ điều khiển CNC 4 trục với tên gọi <strong>F54</strong> vào tháng <strong>11 năm 2023</strong>. Sản phẩm được cho ra mắt trong giai đoạn mà các doanh nghiệp đã quá quen trong việc sử dụng các bộ điều khiển CNC đến từ các quốc gia khác như: Trung Quốc, Nhật Bản, Đức, … Sản phẩm được tạo ra nhằm đánh dấu một bước tiến trong lĩnh vực CNC tại Việt Nam.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/1-3-768x557.png" alt="">
+<img src="/img/news/qstechnology-ra-mat-san-pham-bo-dieu-khien-cnc-model-f54/body-1.webp" alt="">
 <p><em>Bộ điều khiển CNC 4 trục F54</em></p>
 <p><b>1. Tính năng nổi bật</b></p>
 <p>– Hỗ trợ bù rơ cơ khí.</p>
@@ -276,15 +250,15 @@ export const news: News[] = [
 <p>– Số cổng I/O mở rộng tối đa: 256/256.</p>
 <p>– Loại Servo/Driver có thể điều khiển: Dạng chạy xung ( Pulse and Direction ).</p>
 <p><b>3. Một số hình ảnh khác</b></p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/2-768x526.png" alt="">
+<img src="/img/news/qstechnology-ra-mat-san-pham-bo-dieu-khien-cnc-model-f54/body-2.webp" alt="">
 <p><i>Màn hình giao diện chức năng mô phỏng đường chạy dao</i></p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/10-2048x969.png" alt="">
+<img src="/img/news/qstechnology-ra-mat-san-pham-bo-dieu-khien-cnc-model-f54/body-3.webp" alt="">
 <p>Mặt sau của bộ điều khiển F54</p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/8-1024x580.png" alt="">
+<img src="/img/news/qstechnology-ra-mat-san-pham-bo-dieu-khien-cnc-model-f54/body-4.webp" alt="">
 <p><i>Bộ điều khiển F54 ứng dụng trên máy điêu khắc 4 trục</i></p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/5.jpg" alt="">
+<img src="/img/news/qstechnology-ra-mat-san-pham-bo-dieu-khien-cnc-model-f54/body-5.webp" alt="">
 <p><i>Giao diện màn hình PLC Ladder</i></p>
-<img src="https://qstcnc.com/wp-content/uploads/2024/02/4.png" alt="">
+<img src="/img/news/qstechnology-ra-mat-san-pham-bo-dieu-khien-cnc-model-f54/body-6.webp" alt="">
 <p><i>Giao diện màn hình chức năng hỗ trợ lấy tâm nhanh</i></p>`,
     cover: "/img/news/qstechnology-ra-mat-san-pham-bo-dieu-khien-cnc-model-f54/cover.webp",
   },
@@ -295,13 +269,13 @@ export const news: News[] = [
     cat: "Sự kiện",
     excerpt: "Ngày 11/6/2022, Ban lãnh đạo Khoa Cơ khí (Trường Đại học Bách Khoa – Đại học Đà Nẵng) cùng Công ty QS Technology đã đến",
     body: `<p>Ngày 11/6/2022, Ban lãnh đạo Khoa Cơ khí (Trường Đại học Bách Khoa – Đại học Đà Nẵng) cùng Công ty QS Technology đã đến tham quan KCN THACO Chu Lai và làm việc với THACO INDUSTRIES. Tiếp đón đoàn có ông Đỗ Minh Tâm – Tổng Giám đốc cùng Ban lãnh đạo Tập đoàn.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/1-1.jpg" alt="">
+<img src="/img/news/thaco-industries-don-tiep-khoa-co-khi-truong-dai-hoc-bach-khoa-da-nang-den-tham-quan/body-1.webp" alt="">
 <h3>Khoa Cơ khí (Trường Đại học Bách Khoa – Đại học Đà Nẵng) và Công ty QS Technology trong chuyến thăm và làm việc với THACO INDUSTRIES.</h3>
 <p>Tại buổi làm việc, Trưởng khoa, Phó trưởng khoa Cơ khí, Trưởng bộ môn Chế tạo máy, Kỹ thuật vật liệu và Giám đốc Kỹ thuật Công ty QS Technology đã được nghe giới thiệu về quy mô, quá trình phát triển và các hoạt động sản xuất kinh doanh của THACO INDUSTRIES. Hai bên đã trao đổi về định hướng hợp tác trong lĩnh vực đúc, nhiệt luyện; đồng thời xây dựng kế hoạch đào tạo nâng cao năng lực đội ngũ kỹ sư nhằm làm chủ thiết kế, tối ưu quy trình sản xuất, rút ngắn thời gian sản xuất và giảm giá thành sản phẩm, đáp ứng tối đa nhu cầu của thị trường trong và ngoài nước.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/3-1.jpg" alt="">
+<img src="/img/news/thaco-industries-don-tiep-khoa-co-khi-truong-dai-hoc-bach-khoa-da-nang-den-tham-quan/body-2.webp" alt="">
 <h3>Ông Trần Hoàng Giang – Đại diện Công ty QS Technology trình bày các kiến thức về bộ điều khiển CNC và các sản phẩm do phía công ty sản xuất.</h3>
 <p>Sau đó, đoàn đã đi tham quan thực tế các nhà máy sản xuất cơ khí và công nghiệp hỗ trợ trực thuộc Tập đoàn THACO INDUSTRIES tại KCN THACO Chu Lai, tiêu biểu là các nhà máy: Nhà máy Gia công Khuôn mẫu, Nhà máy Sản xuất Phôi thép, Tổ hợp Cơ khí, Nhà máy Sản xuất Linh kiện Nhựa, Nhà máy Sản xuất Nhíp ô tô, Nhà máy Sản xuất Phụ tùng ô tô…</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/2-1.jpg" alt="">
+<img src="/img/news/thaco-industries-don-tiep-khoa-co-khi-truong-dai-hoc-bach-khoa-da-nang-den-tham-quan/body-3.webp" alt="">
 <h3>Khoa Cơ khí (Trường Đại học Bách Khoa – Đại học Đà Nẵng) và Công ty QS Technology chụp hình lưu niệm trong chuyến thăm, làm việc với THACO INDUSTRIES.</h3>`,
     cover: "/img/news/thaco-industries-don-tiep-khoa-co-khi-truong-dai-hoc-bach-khoa-da-nang-den-tham-quan/cover.webp",
   },
@@ -312,16 +286,16 @@ export const news: News[] = [
     cat: "Sự kiện",
     excerpt: "Ngày 28/5/2022, Khoa Điện – Điện tử và Khoa Cơ khí – Trường Công nghệ thuộc Đại học Duy Tân đã phối hợp doanh nghiệp",
     body: `<p>Ngày 28/5/2022, Khoa Điện – Điện tử và Khoa Cơ khí – Trường Công nghệ thuộc Đại học Duy Tân đã phối hợp doanh nghiệp tổ chức Hội thảo “Ứng dụng bộ điều khiển CNC trong sản xuất Công nghiệp và Công tác đào tạo”. Hội thảo có sự tham dự của đại diện Công ty TNHH Kỹ thuật Công nghệ QS, Công ty TNHH MECCOM, lãnh đạo phòng thực hành STEM&amp;FAP và đông đảo giảng viên, sinh viên các Khoa Điện – Điện tử và Khoa Cơ khí của Trường Công nghệ thuộc Đại học Duy Tân.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/1-1-300x200.png" alt="">
+<img src="/img/news/hoi-thao-ung-dung-bo-dieu-khien-cnc-trong-san-xuat-cong-nghiep-va-cong-tac-dao-tao-thuoc-dai-hoc-duy-tan/body-1.webp" alt="">
 <p><em>Hội thảo đông đảo giảng viên, sinh viên tham gia</em></p>
 <p>Tại buổi Hội thảo, đại diện các doanh nghiệp đã cung cấp cho sinh viên các kiến thức về bộ điều khiển CNC, ứng dụng thực tiễn trong sản xuất công nghiệp, cũng như thông tin về các sản phẩm đang sử dụng bộ điều khiển CNC do các đơn vị sản xuất và phân phối. Ông Trần Hoàng Giang – Đại diện Công ty QS Technology, là công ty chuyên thiết kế các bộ điều khiển cho các dòng máy CNC từ 3 trục đến 8 trục, có các sản phẩm phân phối trên 20 quốc gia trên thế giới đã đề xuất các ý tưởng nhằm mục đích nâng cao chất lượng giảng dạy về công nghệ CNC tại các Khoa Điện – Điện tử và Cơ khí của Trường Công nghệ.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/2-235x300.png" alt="">
+<img src="/img/news/hoi-thao-ung-dung-bo-dieu-khien-cnc-trong-san-xuat-cong-nghiep-va-cong-tac-dao-tao-thuoc-dai-hoc-duy-tan/body-2.webp" alt="">
 <p>Ông Trần Hoàng Giang – Đại diện Công ty QS Technology trình bày các kiến thức về bộ điều khiển CNC và các sản phẩm do phía công ty sản xuất.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/3-300x193.png" alt="">
+<img src="/img/news/hoi-thao-ung-dung-bo-dieu-khien-cnc-trong-san-xuat-cong-nghiep-va-cong-tac-dao-tao-thuoc-dai-hoc-duy-tan/body-3.webp" alt="">
 <p>Các bộ điều khiển CNC ứng dụng vào sản xuất công nghiệp và giảng dạy do các doanh nghiệp mang tới giới thiệu cho sinh viên.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/4-253x300.png" alt="">
+<img src="/img/news/hoi-thao-ung-dung-bo-dieu-khien-cnc-trong-san-xuat-cong-nghiep-va-cong-tac-dao-tao-thuoc-dai-hoc-duy-tan/body-4.webp" alt="">
 <p>Diễn giả đã trả lời các câu hỏi và thắc mắc của sinh viên về bộ điều khiển CNC…</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/5-300x187.png" alt="">
+<img src="/img/news/hoi-thao-ung-dung-bo-dieu-khien-cnc-trong-san-xuat-cong-nghiep-va-cong-tac-dao-tao-thuoc-dai-hoc-duy-tan/body-5.webp" alt="">
 <p>…Mọi người cùng nhau chụp hình lưu niệm</p>
 <p>Cũng trong buổi hội thảo, các diễn giả và đại diện các công ty đã tặng sản phẩm mẫu các bộ điều khiển CNC cũng như cam kết hướng dẫn, bảo hành và hỗ trợ lắp đặt các thiết bị này để phục vụ công tác giảng dạy các ngành liên quan tại Đại học Duy Tân.</p>`,
     cover: "/img/news/hoi-thao-ung-dung-bo-dieu-khien-cnc-trong-san-xuat-cong-nghiep-va-cong-tac-dao-tao-thuoc-dai-hoc-duy-tan/cover.webp",
@@ -335,12 +309,12 @@ export const news: News[] = [
     body: `<p>Nằm trong chuỗi hoạt động khoa học công nghệ nhằm chào mừng 60 năm xây dựng và phát triển Trường Đại học Sư phạm Kỹ thuật – Đại học Đà Nẵng; ngày 27/05/2022, Khoa Cơ khí – Trường Đại học Sư phạm Kỹ thuật (ĐHSPKT) – Đại học Đà Nẵng đã tổ chức Hội thảo với chủ đề “Điều khiển, Lập trình, và mô phỏng CNC”. Tham dự buổi hội thảo, về phía Trường ĐHSPKT có: PGS. TS. Phan Cao Thọ – Hiệu trưởng; PGS. TS. Võ Trung Hùng – Phó Hiệu trưởng; PGS.TS. Phan Quí Trà – Trưởng phòng Phòng Quản lý Khoa học và Hợp tác Quốc tế; ThS. Ngô Tấn Thống – Trưởng phòng Phòng Cơ sở Vật chất; TS. Hồ Trần Anh Ngọc – Trưởng khoa Khoa Cơ khí cùng các giảng viên và sinh viên trong khoa.</p>
 <p>Về phía các doanh nghiệp tham dự hội thảo có ông Đinh Duy Niệm, Giám đốc Công ty TNHH MECCOM; ông Nguyễn Văn Chương – Giám đốc Công ty TNHH Cơ khí Xây dựng Công nghiệp và Dân dụng Nguyên Thịnh; ông Phạm Trường Giang – Giám đốc Công ty TNHH Chế tạo máy Công nghiệp miền Trung; ông Phan Ngọc Anh – đại diện ban lãnh đạo Công ty TNHH Igus Việt Nam; ông Tô Tấn Trung Dũng – Giám đốc Công ty TNHH Châu Đà; ông Trần Hoàng Giang – đại diện Công ty QS Technology, là công ty chuyên xây dựng các bộ điều khiển cho các dòng máy CNC từ 3 trục đến 8 trục, đã có các sản phẩm phân phối trên 20 quốc gia trên thế giới. Với kinh nghiệm như trên ông Trần Hoàng Giang đã đề xuất các ý tưởng thông qua báo cáo tại Hội thảo chủ đề “Ứng dụng bộ điều khiển CNC vào sản xuất và đưa vào công tác giảng dạy” nhằm mục đích nâng cao chất lượng giảng dạy về công nghệ CNC tại Khoa Cơ khí.</p>
 <p>Kết thúc buổi hội thảo, ông Trần Hoàng Giang – Đại diện Công ty QS Technology đã trao tặng cho Khoa Cơ khí 2 bộ điều khiển mô phỏng cho máy CNC 3 trục, Driver, phần mềm lập trình do công ty tự xây dựng để phục vụ công tác giảng dạy các chuyên ngành liên quan tại Khoa. Trị giá toàn bộ thiết bị tặng là 100 triệu đồng.</p>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/1.jpg" alt="">
+<img src="/img/news/khoa-co-khi-truong-dh-su-pham-ky-thuat-da-nang-to-chuc-hoi-thao-dieu-khien-lap-trinh-va-mo-phong-cnc-va-nhan-thiet-bi-bo-dieu-khien-cnc-do-cong-ty-qs-technology-trao-tang/body-1.webp" alt="">
 <h3>Khoa Cơ khí (Trường Đại học Bách Khoa – Đại học Đà Nẵng) và Công ty QS Technology trong chuyến thăm và làm việc với THACO INDUSTRIES.</h3>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/2.jpg" alt="">
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/3.jpg" alt="">
+<img src="/img/news/khoa-co-khi-truong-dh-su-pham-ky-thuat-da-nang-to-chuc-hoi-thao-dieu-khien-lap-trinh-va-mo-phong-cnc-va-nhan-thiet-bi-bo-dieu-khien-cnc-do-cong-ty-qs-technology-trao-tang/body-2.webp" alt="">
+<img src="/img/news/khoa-co-khi-truong-dh-su-pham-ky-thuat-da-nang-to-chuc-hoi-thao-dieu-khien-lap-trinh-va-mo-phong-cnc-va-nhan-thiet-bi-bo-dieu-khien-cnc-do-cong-ty-qs-technology-trao-tang/body-3.webp" alt="">
 <h3>Lãnh đạo trường và Khoa Cơ khí tặng hoa, quà lưu niệm cho đại diện của Công ty QS Technology</h3>
-<img src="https://qstcnc.com/wp-content/uploads/2023/11/4.jpg" alt="">
+<img src="/img/news/khoa-co-khi-truong-dh-su-pham-ky-thuat-da-nang-to-chuc-hoi-thao-dieu-khien-lap-trinh-va-mo-phong-cnc-va-nhan-thiet-bi-bo-dieu-khien-cnc-do-cong-ty-qs-technology-trao-tang/body-4.webp" alt="">
 <h3>Các thành viên dự hội thảo chụp hình lưu niệm</h3>`,
     cover: "/img/news/khoa-co-khi-truong-dh-su-pham-ky-thuat-da-nang-to-chuc-hoi-thao-dieu-khien-lap-trinh-va-mo-phong-cnc-va-nhan-thiet-bi-bo-dieu-khien-cnc-do-cong-ty-qs-technology-trao-tang/cover.webp",
   },
@@ -352,10 +326,10 @@ export const news: News[] = [
     excerpt: "QS Technology Ra Mắt Bộ Điều Khiển CNC F86: Bước Tiến Mới Trong Ngành CNC Tại Việt Nam. Tiếp nối sự ủng hộ, quan tâm",
     body: `<h2>QS Technology Ra Mắt Bộ Điều Khiển CNC F86: Bước Tiến Mới Trong Ngành CNC Tại Việt Nam.</h2>
 <p>Tiếp nối sự ủng hộ, quan tâm nhiệt tình của khách hàng dành cho dòng sản phẩm bộ điều khiển CNC 4 trục F54 trước đó. Ngày 20/09/2022, QS Technology CO.,LTD đã chính thức ra mắt bộ điều khiển CNC 6 trục F86, đánh dấu một bước tiến mới trong ngành CNC tại Việt Nam.</p>
-<img src="https://qstcnc.com/wp-content/uploads/1-trans-screen-768x569.png" alt="">
+<img src="/img/news/qs-technology-ra-mat-bo-dieu-khien-cnc-6-truc-f86/body-1.webp" alt="">
 <p>Bộ điều khiển CNC 6 trục F86</p>
 <p>Điểm nâng cấp đầu tiên ở sản phẩm mới này, bảng điều khiển chức năng của bộ điều khiển đã được mở rộng hơn, giúp cho việc vận hành trở nên dễ dàng hơn. Ở phiên bảng này màn hình hiển thị cũng đã được nâng cấp khi trang bị LCD kích thước lên đến 8 Inches, độ phân giải 800×600 px.</p>
-<img src="https://qstcnc.com/wp-content/uploads/DSC05519-screen-new-768x712.png" alt="">
+<img src="/img/news/qs-technology-ra-mat-bo-dieu-khien-cnc-6-truc-f86/body-2.webp" alt="">
 <p>Ngoài việc nâng cấp phần cứng bên ngoài, thì giao diện vận hành của bộ điều khiển CNC F86 là một điểm cộng khi đã được thiết kế lại theo phong cách hiện đại và trực quan các thông tin vận hành máy.</p>
 <h2>1. Tính năng nổi bật</h2>
 <p>– Hỗ trợ bù rơ cơ khí</p>
@@ -376,9 +350,9 @@ export const news: News[] = [
 <p>– Số cổng I/O mở rộng tối đa: 256/256</p>
 <p>– Loại servo/driver có thể điều khiển: Dạng chạy xung (Pulse &amp; Direction)</p>
 <h2>3. Một số hình ảnh khác</h2>
-<img src="https://qstcnc.com/wp-content/uploads/Mat-sau-F86-NEW-6-768x552.png" alt="">
+<img src="/img/news/qs-technology-ra-mat-bo-dieu-khien-cnc-6-truc-f86/body-3.webp" alt="">
 <p>Mặt sau của bộ điều khiển F86</p>
-<img src="https://qstcnc.com/wp-content/uploads/11-1024x576.png" alt="">
+<img src="/img/news/qs-technology-ra-mat-bo-dieu-khien-cnc-6-truc-f86/body-4.webp" alt="">
 <p>Hộp đựng bên ngoài của bộ điều khiển F86</p>`,
     cover: "/img/news/qs-technology-ra-mat-bo-dieu-khien-cnc-6-truc-f86/cover.webp",
   },

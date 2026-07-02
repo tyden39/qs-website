@@ -17,20 +17,9 @@ import { getAllNews } from "@/lib/data/news";
 import { getAllDownloads } from "@/lib/data/downloads";
 import type { DownloadFile } from "@/lib/data/downloads";
 import { getApplicationSlugs, getApplicationBySlug } from "@/lib/data/applications";
-import { getServiceSlugs, getServiceBySlug } from "@/lib/data/services";
 
-export type SearchType = "product" | "pdf" | "news" | "app" | "faq";
-
-export interface SearchRecord {
-  id: string;
-  type: SearchType;
-  title: string;
-  excerpt: string;
-  href: string;
-  meta: string[];
-  // Space-joined searchable text (lower-weighted than title in the scorer).
-  keywords: string;
-}
+import type { SearchRecord, SearchType } from "@/lib/search/types";
+export type { SearchRecord, SearchType };
 
 function clean(parts: (string | null | undefined)[]): string[] {
   return parts.map((p) => (p ?? "").trim()).filter(Boolean);
@@ -111,22 +100,6 @@ function buildForLocale(locale: Locale): SearchRecord[] {
         a.summary,
         ...a.specs.map((s) => `${s.label} ${s.value}`),
       ]).join(" "),
-    });
-  }
-
-  for (const slug of getServiceSlugs()) {
-    const s = getServiceBySlug(slug, locale);
-    if (!s) continue;
-    s.faqs.forEach((f, i) => {
-      records.push({
-        id: `faq-${s.slug}-${i}`,
-        type: "faq",
-        title: f.q,
-        excerpt: f.a,
-        href: `/services/${s.slug}`,
-        meta: clean([s.title]),
-        keywords: clean([f.q, f.a, s.title]).join(" "),
-      });
     });
   }
 

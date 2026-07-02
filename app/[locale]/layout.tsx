@@ -4,8 +4,9 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import SearchPanel from "@/components/SearchPanel";
+import SearchPanel, { type FeaturedProduct } from "@/components/SearchPanel";
 import FloatingContact from "@/components/floating-contact";
+import { getAllProducts } from "@/lib/data/products";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildOrganization, buildWebSite, JsonLd } from "@/lib/seo/jsonld";
@@ -47,12 +48,21 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
+  const products = getAllProducts(locale);
+  const featured: FeaturedProduct[] = products.slice(0, 6).map((p) => ({
+    slug: p.slug,
+    name: p.name,
+    meta: `${p.axes} · ${p.display}`,
+    tag: p.tag,
+    img: p.image.src,
+  }));
+
   return (
     <NextIntlClientProvider>
       <JsonLd data={buildOrganization()} />
       <JsonLd data={buildWebSite()} />
       <Header />
-      <SearchPanel />
+      <SearchPanel featured={featured} productCount={products.length} />
       {children}
       <Footer />
       <FloatingContact />

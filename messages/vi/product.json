@@ -105,6 +105,9 @@
     "quoteHeading": "Nhận báo giá nhanh",
     "quoteBody": "Phản hồi trong vòng 24 giờ làm việc · giá đại lý cho đơn hàng ≥ 10 cái.",
     "packageEyebrow": "[ Hệ thống tích hợp · {name} ]",
+    "packageHeading": "Bộ điều khiển CNC — Trọn bộ",
+    "gCodesEyebrow": "Bảng mã G-code",
+    "gCodesHeading": "Các mã G-code hỗ trợ",
     "relatedEyebrow": "[ 05 / Same family ]",
     "relatedHeading": "Các sản phẩm liên quan",
     "ctaHeading": "Cần tư vấn cấu hình {name}?",
@@ -124,7 +127,38 @@
     "galleryHeading": "Hình ảnh sản phẩm",
     "accessoriesEyebrow": "[ Phụ kiện ]",
     "accessoriesHeading": "Phụ kiện đi kèm",
-    "sourceLink": "Xem trên trang gốc →"
+    "calibrationLabel": "calibration view",
+    "lightbox": { "prev": "Ảnh trước", "next": "Ảnh sau", "close": "Đóng", "zoom": "Xem ảnh lớn" },
+    "tourEyebrow": "[ Tìm hiểu qua hình ảnh ]",
+    "tourHeading": "Chi tiết sản phẩm qua hình ảnh",
+    "documentsHeading": "Tài liệu",
+    "softwareHeading": "Phần mềm",
+    "galleryNotes": {
+      "product": {
+        "tag": "Tổng quan sản phẩm",
+        "desc": "Thiết kế tổng thể và mặt trước bộ điều khiển."
+      },
+      "ui": {
+        "tag": "Giao diện vận hành",
+        "desc": "Màn hình hiển thị đầy đủ thông số gia công, thao tác trực quan."
+      },
+      "wiring": {
+        "tag": "Sơ đồ kết nối",
+        "desc": "Hướng dẫn đấu nối servo, I/O và thiết bị ngoại vi."
+      },
+      "application": {
+        "tag": "Ứng dụng thực tế",
+        "desc": "Lắp đặt và vận hành thực tế trên máy CNC."
+      },
+      "rear": {
+        "tag": "Mặt sau",
+        "desc": "Bố trí cổng kết nối và giao tiếp ở mặt sau bộ điều khiển."
+      },
+      "side": {
+        "tag": "Mặt bên",
+        "desc": "Thiết kế mặt bên và kích thước lắp đặt."
+      }
+    }
   },
   "list": {
     "title": "Sản phẩm",

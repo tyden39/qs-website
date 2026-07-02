@@ -60,39 +60,50 @@ export default async function Applications({ params }: { params: Promise<{ local
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
-        <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
-        <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-14">
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
+        {/* breathing gold atmosphere behind the board panel */}
+        <div className="qs-glow hidden sm:block right-[8%] top-[-30%] w-[36%] h-[150%]" aria-hidden="true"></div>
+        <div className="relative z-10 max-w-wrap mx-auto px-12 pt-12 pb-14">
           <div className="qs-crumb mb-6">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
           </div>
           <div className="grid md:grid-cols-[1fr_1.4fr] gap-16 items-center">
             <div>
-              <div className="qs-eyebrow">{t("eyebrow")}</div>
-              <h1 className="qs-h1 mt-3.5" style={{fontSize:"clamp(48px,6vw,80px)"}}>{t("heading")}</h1>
-              <p className="qs-lede mt-5">
+              <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("eyebrow")}</div>
+              <h1 className="qs-h1 mt-3.5 qs-rise" style={{fontSize:"clamp(48px,6vw,80px)", animationDelay: "90ms"}}>
+                <em className="not-italic qs-gold-shimmer">{t("heading")}</em>
+              </h1>
+              <p className="qs-lede mt-5 qs-rise" style={{ animationDelay: "190ms" }}>
                 {t("lede")}
               </p>
             </div>
-            {/* PCB visual */}
-            <div className="relative aspect-video border overflow-hidden"
-                 style={{ background:"linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)", borderColor:"#2a2a2a" }}>
+            {/* PCB visual — live gold current flows the traces; solder pads breathe */}
+            <div className="qs-rise relative aspect-video border overflow-hidden"
+                 style={{ background:"linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)", borderColor:"#2a2a2a", animationDelay: "260ms" }}>
               <svg viewBox="0 0 600 340" className="w-full h-full">
-                <g stroke="#c9a35a" strokeWidth=".5" fill="none" opacity=".4">
+                <g stroke="#5a4a24" strokeWidth="1" fill="none" opacity=".55">
                   <path d="M0 60 L300 60 L340 100 L600 100"/>
                   <path d="M0 140 L240 140 L280 100 L600 110"/>
                   <path d="M0 220 L260 220 L300 180 L600 180"/>
                   <path d="M0 280 L320 280 L360 240 L600 250"/>
                 </g>
+                {/* animated gold current tracing the same paths */}
+                <g className="qs-pcb-flow" stroke="#e8c878" strokeWidth="1.4" fill="none">
+                  <path d="M0 60 L300 60 L340 100 L600 100"/>
+                  <path d="M0 220 L260 220 L300 180 L600 180"/>
+                </g>
                 <rect x="240" y="80" width="120" height="180" fill="#1a1815" stroke="#c9a35a"/>
                 <text x="300" y="180" fontFamily="Inter Tight,sans-serif" fontSize="32" fontWeight="800" fill="#c9a35a" textAnchor="middle">QS</text>
-                <g fill="#3a8d4d" opacity=".7">
-                  <rect x="60" y="60" width="80" height="60"/>
-                  <rect x="60" y="140" width="80" height="60"/>
-                  <rect x="440" y="60" width="80" height="60"/>
-                  <rect x="440" y="140" width="80" height="60"/>
+                <g fill="#3a8d4d">
+                  <rect className="qs-pcb-pad" x="60" y="60" width="80" height="60"/>
+                  <rect className="qs-pcb-pad" x="60" y="140" width="80" height="60"/>
+                  <rect className="qs-pcb-pad" x="440" y="60" width="80" height="60"/>
+                  <rect className="qs-pcb-pad" x="440" y="140" width="80" height="60"/>
                 </g>
               </svg>
+              {/* gold blueprint scan sweeping the board */}
+              <div className="qs-scan" aria-hidden="true"></div>
               <div className="absolute top-3.5 right-3.5 w-16 h-px bg-gold"></div>
               <div className="absolute bottom-3.5 left-3.5 font-mono text-[10px] text-gold-2 tracking-[.18em] uppercase">PCB · QS TECHNOLOGY · v2026</div>
             </div>

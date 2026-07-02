@@ -105,6 +105,9 @@
     "quoteHeading": "Get a fast quote",
     "quoteBody": "Response within 24 business hours · dealer pricing for orders ≥ 10 units.",
     "packageEyebrow": "[ Integrated system · {name} ]",
+    "packageHeading": "CNC Controller — Full Package",
+    "gCodesEyebrow": "G-code matrix",
+    "gCodesHeading": "Supported G-codes",
     "relatedEyebrow": "[ 05 / Same family ]",
     "relatedHeading": "Related products",
     "ctaHeading": "Need help configuring the {name}?",
@@ -124,7 +127,38 @@
     "galleryHeading": "Product photos",
     "accessoriesEyebrow": "[ Accessories ]",
     "accessoriesHeading": "Included accessories",
-    "sourceLink": "View on the original site →"
+    "calibrationLabel": "calibration view",
+    "lightbox": { "prev": "Previous image", "next": "Next image", "close": "Close", "zoom": "View larger" },
+    "tourEyebrow": "[ A closer look ]",
+    "tourHeading": "The product in detail",
+    "documentsHeading": "Documents",
+    "softwareHeading": "Software",
+    "galleryNotes": {
+      "product": {
+        "tag": "Product overview",
+        "desc": "Overall design and front face of the controller."
+      },
+      "ui": {
+        "tag": "Operating interface",
+        "desc": "Full machining parameters on screen with intuitive controls."
+      },
+      "wiring": {
+        "tag": "Wiring diagram",
+        "desc": "Guidance for wiring servo drives, I/O and peripherals."
+      },
+      "application": {
+        "tag": "In the field",
+        "desc": "Installed and running on a real CNC machine."
+      },
+      "rear": {
+        "tag": "Rear view",
+        "desc": "Connector and interface layout on the controller's rear."
+      },
+      "side": {
+        "tag": "Side view",
+        "desc": "Side profile and installation dimensions."
+      }
+    }
   },
   "list": {
     "title": "Products",

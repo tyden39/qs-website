@@ -4,9 +4,11 @@
     "close": "Close",
     "featured": "Featured products",
     "viewAll": "View all",
-    "productCount": "26 products",
+    "productCount": "{count} products",
     "fullCatalog": "Full catalog",
-    "tags": ["Milling & router", "Multi-axis CNC", "CNC turning", "Servo & drive", "Premium servo"]
+    "suggestions": "Suggestions",
+    "searchFor": "Search for \"{query}\"",
+    "noSuggestions": "No matches for \"{query}\" — press Enter for full results"
   },
   "results": {
     "metaTitle": "Search results — QS Technology",

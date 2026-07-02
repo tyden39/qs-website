@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { services, type Service } from "@/data/services";
 import { getServiceBySlug, getServiceSlugs } from "@/lib/data/services";
 import { buildAlternates } from "@/lib/seo/alternates";
-import { buildService, buildFAQPage, JsonLd } from "@/lib/seo/jsonld";
+import { buildService, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
 export async function generateStaticParams() {
@@ -63,15 +63,10 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
   // Fetch DB service for structured data (may be null if not yet in DB)
   const dbService = await getServiceBySlug(slug, locale);
   const serviceJsonLd = dbService ? buildService(dbService, locale) : null;
-  const faqJsonLd =
-    dbService && dbService.faqs.length > 0
-      ? buildFAQPage(dbService.faqs)
-      : null;
 
   return (
     <>
       {serviceJsonLd && <JsonLd data={serviceJsonLd} />}
-      {faqJsonLd && <JsonLd data={faqJsonLd} />}
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7, #f0eee8)", padding: "48px 0 64px" }}>
@@ -228,25 +223,6 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
                   ))}
                 </ul>
                 <Link className={`qs-btn ${pkg.featured ? "qs-btn-gold" : "qs-btn-ghost"} mt-3 justify-center`} href="/contact">{pkg.cta}</Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-20 bg-paper border-t border-line">
-        <div className="max-w-wrap mx-auto px-12">
-          <div className="mb-6 pb-4 border-b border-line">
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("faqEyebrow", { name: s.name })}</span>
-            <h2 className="font-display text-[28px] font-bold tracking-[-.01em] mt-1.5">{t("faqHeading", { name: s.name.toLowerCase() })}</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-px bg-line border border-line">
-            {s.faqs.map((f, i) => (
-              <div key={i} className="bg-white px-[26px] py-6 flex flex-col gap-2">
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.14em]">[ Q.{String(i + 1).padStart(2, "0")} ]</span>
-                <h4 className="font-display text-base font-semibold tracking-[-.005em] leading-[1.35] m-0 mt-1.5">{f.q}</h4>
-                <p className="m-0 text-[#3a3a3a] text-[13.5px] leading-[1.65]">{f.a}</p>
               </div>
             ))}
           </div>

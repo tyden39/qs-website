@@ -16,7 +16,15 @@ export type ProductPhoto = { src: string; w: number; h: number };
  * `photo` is the real product render shown when available.
  */
 export type KitItem = { label: string; icon: KitIcon; photo?: ProductPhoto };
-export type ProductGalleryPhoto = { src: string; w: number; h: number; alt: string };
+/**
+ * `place` pins where a photo shows:
+ *   - "hero" — the single lead image at the top (first hero wins if several)
+ *   - "tour" — the "product in detail" grid below
+ *   - "hide" — kept in data but not rendered
+ * Omit it to let the page decide from the alt text (see classifyShot).
+ */
+export type GalleryPlace = "hero" | "tour" | "hide";
+export type ProductGalleryPhoto = { src: string; w: number; h: number; alt: string; place?: GalleryPlace };
 
 /**
  * Shared component renders reused across kits. I/O Link boards are named by
@@ -68,7 +76,11 @@ export type Product = {
   bundle: KitItem[];
   /** Legacy QS product-page enrichment, merged here without replacing curated catalogue fields. */
   overview?: string;
+  /** English overview, served on the `en` locale (Vietnamese `overview` stays primary). */
+  overviewEn?: string;
   highlights?: string[];
+  /** English highlights, served on the `en` locale (Vietnamese `highlights` stays primary). */
+  highlightsEn?: string[];
   gallery?: ProductGalleryPhoto[];
   documents?: string[];
   software?: string[];
@@ -174,6 +186,17 @@ export const products: Product[] = [
       "Tính năng bù rơ cơ khí (backlash)",
       "Hồi tiếp encoder: Phase Z",
     ],
+    overviewEn:`<p>The F54 4-axis CNC controller pairs a compact footprint with strong performance, featuring Z-phase encoder feedback and an integrated PLC ladder for monitoring machine status and extending application logic. The 5-inch, 480 × 272 px display keeps operating parameters easy to read.</p><p>The user interface is modern, friendly and intuitive. The product has been deployed across many CNC milling machines, including the GS-40 line at a Korean customer's factory.</p>`,
+    highlightsEn:[
+      "5-inch LCD",
+      "4 simultaneously controlled axes",
+      "Max. spindle axes: 1",
+      "Look-Ahead 250 lines",
+      "Input/Output ports: 16/6",
+      "Max. expanded I/O ports: 256/256",
+      "Mechanical backlash compensation",
+      "Encoder feedback: Phase Z",
+    ],
     gallery: [
       { src: "/img/products/crawled/f54/gallery-1.webp", w: 1339, h: 1015, alt: "Bộ điều khiển CNC 4 trục F54" },
       { src: "/img/products/crawled/f54/gallery-2.webp", w: 1400, h: 1015, alt: "Bộ điều khiển CNC 4 trục F54" },
@@ -262,12 +285,24 @@ export const products: Product[] = [
       "Tích hợp module xử lý PLC ladder",
       "Cho phép lập trình Macro",
     ],
+    overviewEn:`<p>The F86 CNC controller is part of QS Technology's newer line, with a larger body and an 8-inch, 800 × 600 px display for clearer operation and machine monitoring.</p><p>The F86 controls 4 to 6 axes simultaneously and adds Z-phase encoder feedback for more accurate homing. It integrates a PLC ladder processing module, supporting status monitoring, extended machine functions and Macro programming.</p>`,
+    highlightsEn:[
+      "8-inch LCD",
+      "6 simultaneously controlled axes",
+      "Max. spindle axes: 2",
+      "Look-Ahead 250 lines",
+      "Input/Output ports: 24/16",
+      "Max. expanded I/O ports: 256/256",
+      "Mechanical backlash compensation",
+      "Encoder feedback: Phase Z",
+      "Integrated PLC ladder processing module",
+      "Macro programming support",
+    ],
     gallery: [
       { src: "/img/products/crawled/f86/gallery-1.webp", w: 1280, h: 970, alt: "Bộ điều khiển CNC 6 trục F86" },
       { src: "/img/products/crawled/f86/gallery-2.webp", w: 1400, h: 1297, alt: "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F86" },
       { src: "/img/products/crawled/f86/gallery-3.webp", w: 1400, h: 929, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục F86" },
       { src: "/img/products/crawled/f86/gallery-4.webp", w: 1400, h: 788, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC" },
-      { src: "/img/products/crawled/f86/gallery-5.webp", w: 1400, h: 1037, alt: "Bộ điều khiển CNC 6 trục F86" },
       { src: "/img/products/crawled/f86/gallery-6.webp", w: 1400, h: 1007, alt: "Mặt sau Bộ điều khiển CNC 6 trục F86" },
       { src: "/img/products/crawled/f86/gallery-7.webp", w: 1400, h: 1050, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC" },
       { src: "/img/products/crawled/f86/gallery-8.webp", w: 1400, h: 1050, alt: "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC" },
@@ -344,6 +379,18 @@ export const products: Product[] = [
       "Look-Ahead 250 dòng",
       "Tính năng bù rơ cơ khí",
       "Hồi tiếp encoder: Phase Z",
+    ],
+    overviewEn:`<p>The F10T is a CNC controller with a capacitive touchscreen, controlling 4 to 6 axes. Its 10.4-inch, 800 × 600 display offers high signal-noise immunity.</p><p>The F10T integrates a PLC ladder so users can monitor machine status and add further applications as needed.</p>`,
+    highlightsEn:[
+      "10.4-inch LCD",
+      "6 simultaneously controlled axes",
+      "Simultaneous spindle axes: 1",
+      "Input/Output ports: 24/16",
+      "Max. expanded I/O ports: 256/256",
+      "Real-time PLC debug",
+      "Look-Ahead 250 lines",
+      "Mechanical backlash compensation",
+      "Encoder feedback: Phase Z",
     ],
     gallery: [
       { src: "/img/products/crawled/f10t/gallery-1.webp", w: 1339, h: 1015, alt: "Bộ điều khiển CNC 6 trục F10T (Touch)" },
@@ -422,6 +469,19 @@ export const products: Product[] = [
       "Tính năng bù rơ cơ khí (backlash)",
       "Tính năng bù sai số hành trình (pitch error)",
       "Hồi tiếp encoder: tất cả các trục",
+    ],
+    overviewEn:`<p>The Astro series is QS Technology's premium line, with encoder feedback on every axis, an integrated PLC and Macro programming support. The multi-function control panel is split into two sections and includes an emergency stop.</p><p>The Astro 6AH form factor suits most CNC machine types. Encoder feedback enables safe, precise operation, with simultaneous interpolation speed well above the F54 and F86 lines.</p>`,
+    highlightsEn:[
+      "8-inch LCD",
+      "6 simultaneously controlled axes",
+      "Simultaneous spindle axes: 2",
+      "Input/Output ports: 24/16",
+      "Max. expanded I/O ports: 256/256",
+      "Real-time PLC debug",
+      "Look-Ahead 500 lines",
+      "Mechanical backlash compensation",
+      "Pitch error compensation",
+      "Encoder feedback: all axes",
     ],
     gallery: [
       { src: "/img/products/crawled/astro-6ah/gallery-1.webp", w: 1338, h: 1015, alt: "Bộ điều khiển CNC 6 trục Astro-6A (H)" },
@@ -504,13 +564,25 @@ export const products: Product[] = [
       "Tính năng bù sai số hành trình (pitch error)",
       "Hồi tiếp Encoder: Tất cả các trục",
     ],
+    overviewEn:`<p>The Astro series is QS Technology's premium line — fully featured, high-performance, closed-loop control with an integrated FPGA. The Astro-6AV is the vertical version of the Astro-6AH, with an extended function keypad and a built-in MPG handwheel.</p><p>The 8-inch, 800 × 600 display lets operators track parameters clearly and in detail.</p>`,
+    highlightsEn:[
+      "8-inch LCD",
+      "6 simultaneously controlled axes",
+      "Simultaneous spindle axes: 2",
+      "Input/Output ports: 24/16",
+      "Max. expanded I/O ports: 256/256",
+      "Real-time PLC debug",
+      "Look-Ahead 500 lines",
+      "Mechanical backlash compensation",
+      "Pitch error compensation",
+      "Encoder feedback: all axes",
+    ],
     gallery: [
       { src: "/img/products/crawled/astro-6av/gallery-1.webp", w: 1339, h: 2227, alt: "Bộ điều khiển CNC 6 trục Astro-6A (V)" },
       { src: "/img/products/crawled/astro-6av/gallery-2.webp", w: 1400, h: 2473, alt: "Bộ điều khiển CNC 6 trục Astro-6A (V)" },
       { src: "/img/products/crawled/astro-6av/gallery-3.webp", w: 1400, h: 1394, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro-6A (V)" },
       { src: "/img/products/crawled/astro-6av/gallery-4.webp", w: 1400, h: 2473, alt: "Bộ điều khiển CNC 6 trục Astro-6A (V)" },
       { src: "/img/products/crawled/astro-6av/gallery-5.webp", w: 1400, h: 788, alt: "Bộ điều khiển CNC 6 trục Astro-6A (V)" },
-      { src: "/img/products/crawled/astro-6av/gallery-6.webp", w: 1400, h: 1419, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro-6A (V)" },
     ],
     documents: SHARED_DOCUMENTS,
     software: SHARED_SOFTWARE,
@@ -613,9 +685,21 @@ export const products: Product[] = [
       "Tính năng bù sai số hành trình (pitch error)",
       "Hồi tiếp Encoder: Tất cả các trục",
     ],
+    overviewEn:`<p>The Astro 10i is QS Technology's top-of-the-range controller — fully featured, high-performance, closed-loop control with an integrated FPGA for the best operating experience.</p><p>The Astro 10i is an upgrade of the Astro 6AV and Astro-6AH, with an extended function keypad and added switches and emergency stop. The 10.4-inch, 800 × 600 display keeps parameters clear and detailed.</p>`,
+    highlightsEn:[
+      "10.4-inch LCD",
+      "6 simultaneously controlled axes",
+      "Simultaneous spindle axes: 2",
+      "Input/Output ports: 24/16",
+      "Max. expanded I/O ports: 256/256",
+      "Real-time PLC debug",
+      "Look-Ahead 1000 lines",
+      "Mechanical backlash compensation",
+      "Pitch error compensation",
+      "Encoder feedback: all axes",
+    ],
     gallery: [
       { src: "/img/products/crawled/astro-10i/gallery-1.webp", w: 1339, h: 2227, alt: "Bộ điều khiển CNC 6 trục Astro 10i" },
-      { src: "/img/products/crawled/astro-10i/gallery-2.webp", w: 1400, h: 2488, alt: "Bộ điều khiển CNC 6 trục Astro 10i" },
       { src: "/img/products/crawled/astro-10i/gallery-3.webp", w: 1400, h: 2609, alt: "Bộ điều khiển CNC 6 trục Astro 10i" },
       { src: "/img/products/crawled/astro-10i/gallery-4.webp", w: 1400, h: 1387, alt: "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro 10i" },
     ],

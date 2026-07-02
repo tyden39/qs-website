@@ -73,29 +73,35 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
       {showFeatured && feat && (
         <section className="py-14 bg-white">
           <div className="max-w-wrap mx-auto px-12">
-            <div className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase mb-5">{t("list.featuredLabel")}</div>
-            <Link href={`/news/${feat.slug}`}
-                  className="grid md:grid-cols-[1.3fr_1fr] bg-white border border-line hover:border-ink transition-colors">
-              <div className="aspect-[5/3] bg-ink-2 border-r border-line overflow-hidden relative">
+            <Link
+              href={`/news/${feat.slug}`}
+              className="group relative grid md:grid-cols-[1.35fr_1fr] bg-white border border-line rounded-[3px] overflow-hidden transition-all duration-200 hover:border-ink-3 hover:shadow-[0_1px_0_rgba(0,0,0,.04),0_18px_44px_-20px_rgba(0,0,0,.28)]"
+            >
+              {/* gold accent rail */}
+              <span className="absolute left-0 top-0 z-20 h-full w-[3px] bg-gold-grad scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
+              <div className="aspect-[16/10] md:aspect-auto md:min-h-[420px] bg-ink-2 md:border-r border-line overflow-hidden relative">
                 {feat.img ? (
-                  <Image src={feat.img} alt={feat.title} fill sizes="(max-width: 768px) 100vw, 60vw" className="object-cover" />
+                  <>
+                    <Image src={feat.img} alt={feat.title} fill sizes="(max-width: 768px) 100vw, 60vw" className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                  </>
                 ) : (
-                  <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
-                    <rect width="600" height="360" fill="#1a1815"/>
-                    <g fill="#3a3530"><rect x="60" y="80" width="200" height="200"/><rect x="280" y="80" width="120" height="200"/><rect x="420" y="80" width="120" height="200"/></g>
-                    <rect x="80" y="120" width="160" height="100" fill="#0a1a2a"/>
-                    <text x="100" y="150" fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#e8c878">QS · 2026</text>
-                    <text x="100" y="180" fontFamily="JetBrains Mono,monospace" fontSize="20" fill="#fff" fontWeight="700">QS TECHNOLOGY</text>
-                    <circle cx="500" cy="180" r="20" fill="#c8553d"/>
-                  </svg>
+                  <FeaturePlaceholder />
                 )}
+                {/* category marker */}
+                <span className="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-[.16em] uppercase font-semibold bg-gold text-ink-2 py-1 px-2.5 rounded-[2px] shadow-sm">
+                  {feat.cat}
+                </span>
               </div>
-              <div className="p-12 flex flex-col justify-center">
-                <span className="font-mono text-[10px] bg-gold text-ink-2 py-1 px-2.5 self-start tracking-[.16em] uppercase font-semibold">[ {feat.cat} ]</span>
-                <h2 className="font-display font-bold text-[34px] tracking-[-.015em] leading-[1.15] mt-4 mb-4">{feat.title}</h2>
-                <p className="text-[#3a3a3a] text-[15px] leading-[1.7] m-0 mb-5">{feat.excerpt}</p>
-                <div className="font-mono text-[11px] text-muted tracking-[.14em] pt-4 border-t border-line flex justify-between">
-                  <span>{feat.date} · {t("meta.author")}</span><span>{t("list.readTime")}</span>
+              <div className="p-8 lg:p-12 flex flex-col justify-between">
+                <div>
+                  <span className="qs-eyebrow">{t("list.featuredLabel")}</span>
+                  <h2 className="font-display font-bold text-[28px] lg:text-[34px] tracking-[-.015em] leading-[1.14] mt-4 mb-4 text-balance line-clamp-3 group-hover:text-ink transition-colors">{feat.title}</h2>
+                  <p className="text-[#3a3a3a] text-[15px] leading-[1.7] m-0 line-clamp-4">{feat.excerpt}</p>
+                </div>
+                <div className="mt-8 pt-4 border-t border-line flex items-center justify-between font-mono text-[11px] text-muted tracking-[.14em]">
+                  <span>{feat.date} · {t("meta.author")}</span>
+                  <span className="inline-flex items-center gap-1.5 text-ink group-hover:translate-x-0.5 transition-transform">{t("list.readTime")}</span>
                 </div>
               </div>
             </Link>
@@ -118,19 +124,25 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
             <div className="grid md:grid-cols-3 gap-6">
               {pageItems.map(n => (
                 <Link key={n.slug} href={`/news/${n.slug}`}
-                      className="bg-white border border-line flex flex-col hover:-translate-y-0.5 hover:border-ink transition-all">
-                  <div className="aspect-[5/3] border-b border-line bg-paper-2 overflow-hidden grid place-items-center relative">
+                      className="group relative bg-white border border-line rounded-[3px] flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:border-ink-3 hover:shadow-[0_1px_0_rgba(0,0,0,.04),0_16px_36px_-18px_rgba(0,0,0,.22)]">
+                  <div className="aspect-[5/3] border-b border-line bg-paper-2 overflow-hidden relative">
                     {n.img ? (
-                      <Image src={n.img} alt={n.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+                      <>
+                        <Image src={n.img} alt={n.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.06]" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </>
                     ) : (
-                      <span className="font-mono text-[10px] text-muted tracking-[.16em]">FIG · {n.cat.toUpperCase()}</span>
+                      <ThumbPlaceholder label={n.cat} />
                     )}
+                    <span className="absolute top-3 left-3 z-10 font-mono text-[9px] tracking-[.16em] uppercase font-semibold bg-white/90 backdrop-blur-sm text-ink py-1 px-2 rounded-[2px] border border-line shadow-sm">{n.cat}</span>
                   </div>
                   <div className="p-6 flex flex-col flex-1">
-                    <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ {n.cat} ]</span>
-                    <h3 className="font-display font-semibold text-lg leading-[1.35] tracking-[-.005em] mt-2.5 mb-3">{n.title}</h3>
-                    <p className="text-[13px] text-[#5a5650] leading-[1.6] flex-1 m-0 mb-4">{n.excerpt}</p>
-                    <div className="font-mono text-[10px] text-muted tracking-[.14em] pt-3.5 border-t border-line">{n.date}</div>
+                    <h3 className="font-display font-semibold text-lg leading-[1.35] tracking-[-.005em] mb-3 line-clamp-2 group-hover:text-ink transition-colors">{n.title}</h3>
+                    <p className="text-[13px] text-[#5a5650] leading-[1.6] flex-1 m-0 mb-4 line-clamp-3">{n.excerpt}</p>
+                    <div className="flex items-center justify-between pt-3.5 border-t border-line font-mono text-[10px] text-muted tracking-[.14em]">
+                      <span>{n.date}</span>
+                      <span className="text-ink opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">→</span>
+                    </div>
                   </div>
                 </Link>
               ))}
@@ -167,5 +179,42 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
         </div>
       </section>
     </>
+  );
+}
+
+/** Technical placeholder for the featured card when no image is provided. */
+function FeaturePlaceholder() {
+  return (
+    <div className="absolute inset-0">
+      <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" className="w-full h-full">
+        <rect width="600" height="400" fill="#1a1a1a" />
+        <g stroke="#2a2a2a" strokeWidth="1">
+          {Array.from({ length: 19 }, (_, i) => <line key={`v${i}`} x1={i * 32} y1="0" x2={i * 32} y2="400" />)}
+          {Array.from({ length: 13 }, (_, i) => <line key={`h${i}`} x1="0" y1={i * 32} x2="600" y2={i * 32} />)}
+        </g>
+        <circle cx="300" cy="200" r="118" fill="none" stroke="#3a3530" strokeWidth="1.5" />
+        <circle cx="300" cy="200" r="72" fill="none" stroke="#8a6f35" strokeWidth="1.5" />
+        <line x1="150" y1="200" x2="450" y2="200" stroke="#3a3530" strokeWidth="1" />
+        <line x1="300" y1="50" x2="300" y2="350" stroke="#3a3530" strokeWidth="1" />
+        <circle cx="300" cy="200" r="4" fill="#e8c878" />
+        <text x="36" y="374" fontFamily="JetBrains Mono, monospace" fontSize="12" fill="#8a6f35" letterSpacing="2">QS · TECHNOLOGY</text>
+      </svg>
+    </div>
+  );
+}
+
+/** Technical placeholder for grid thumbnails when no image is provided. */
+function ThumbPlaceholder({ label }: { label: string }) {
+  return (
+    <div className="qs-img-ph absolute inset-0 !border-0">
+      <div className="flex flex-col items-center gap-2 text-muted">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" className="opacity-50">
+          <rect x="3" y="4" width="18" height="16" rx="1" />
+          <circle cx="8.5" cy="9.5" r="1.75" />
+          <path d="M21 16l-5-5L5 20" />
+        </svg>
+        <span className="font-mono text-[10px] tracking-[.18em] uppercase">FIG · {label}</span>
+      </div>
+    </div>
   );
 }

@@ -12,12 +12,30 @@
         "desc": "Part of QS Technology's premium line. Powerful specs and a high-speed interpolation algorithm deliver smooth, stable machining — far beyond conventional controllers.",
         "fig": "FIG 01 · CNC CONTROLLER · ASTRO 10i",
         "specs": [
-          ["Control axes", "6 – 8"],
-          ["Control protocol", "Pulse Train · EtherCAT · Mechatrolink"],
-          ["Display", "10.4 inch"],
-          ["Control mode", "Closed loop"],
-          ["PLC integration", "Yes"],
-          ["High-speed RTCP", "Yes"]
+          [
+            "Control axes",
+            "6 – 8"
+          ],
+          [
+            "Control protocol",
+            "Pulse Train · EtherCAT · Mechatrolink"
+          ],
+          [
+            "Display",
+            "10.4 inch"
+          ],
+          [
+            "Control mode",
+            "Closed loop"
+          ],
+          [
+            "PLC integration",
+            "Yes"
+          ],
+          [
+            "High-speed RTCP",
+            "Yes"
+          ]
         ]
       },
       {
@@ -27,11 +45,26 @@
         "desc": "The flagship 6-axis closed-loop line with EtherCAT and Mechatrolink MII/MIII — built for mould-making and medical components that demand the highest precision.",
         "fig": "FIG 02 · CNC CONTROLLER · ASTRO 6AH",
         "specs": [
-          ["Control axes", "6 – 8"],
-          ["Control protocol", "Pulse Train · EtherCAT · Mechatrolink"],
-          ["Display", "8 inch"],
-          ["Control mode", "Closed loop"],
-          ["PLC integration", "Yes"]
+          [
+            "Control axes",
+            "6 – 8"
+          ],
+          [
+            "Control protocol",
+            "Pulse Train · EtherCAT · Mechatrolink"
+          ],
+          [
+            "Display",
+            "8 inch"
+          ],
+          [
+            "Control mode",
+            "Closed loop"
+          ],
+          [
+            "PLC integration",
+            "Yes"
+          ]
         ]
       },
       {
@@ -41,11 +74,26 @@
         "desc": "A 6-axis controller for a wide range of machines — milling, jigsaw cutting, gluing. Supports Pulse Train and EtherCAT control, easy to integrate, cost-optimised.",
         "fig": "FIG 03 · CNC CONTROLLER · F86",
         "specs": [
-          ["Control axes", "6 – 8"],
-          ["Control protocol", "Pulse Train · EtherCAT"],
-          ["Display", "8 inch"],
-          ["Control mode", "Open loop"],
-          ["PLC integration", "Yes"]
+          [
+            "Control axes",
+            "6 – 8"
+          ],
+          [
+            "Control protocol",
+            "Pulse Train · EtherCAT"
+          ],
+          [
+            "Display",
+            "8 inch"
+          ],
+          [
+            "Control mode",
+            "Open loop"
+          ],
+          [
+            "PLC integration",
+            "Yes"
+          ]
         ]
       }
     ]
@@ -60,19 +108,28 @@
         "lbl": "[ F Series ]",
         "name": "F86 Controller",
         "desc": "A 6-axis controller for a wide range of machines. Supports Pulse Train — EtherCAT control.",
-        "meta": ["6 axes · closed loop", "pulse train / ethercat"]
+        "meta": [
+          "6 axes · closed loop",
+          "pulse train / ethercat"
+        ]
       },
       {
         "lbl": "[ Astro Series ]",
         "name": "Astro 6AH Controller",
         "desc": "The flagship 6-axis closed-loop line, EtherCAT, for high-precision mould-making and medical components.",
-        "meta": ["6 axes · closed loop", "pulse train / ethercat / mechatrolink mii,miii"]
+        "meta": [
+          "6 axes · closed loop",
+          "pulse train / ethercat / mechatrolink mii,miii"
+        ]
       },
       {
         "lbl": "[ F Series ]",
         "name": "F86 Controller",
         "desc": "A 6-axis controller for a wide range of machines. Supports Pulse Train — EtherCAT control.",
-        "meta": ["6 axes · open loop", "pulse train / ethercat"]
+        "meta": [
+          "6 axes · open loop",
+          "pulse train / ethercat"
+        ]
       }
     ]
   },
@@ -80,10 +137,22 @@
     "eyebrow": "[ Applications · 04 sectors ]",
     "heading": "Applications by industry.",
     "items": [
-      { "t": "CNC milling machine", "d": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 6-axis closed-loop control for mould-making and complex parts." },
-      { "t": "Jigsaw machine", "d": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Smooth interpolation, sharp cut lines on wood and composite materials." },
-      { "t": "Gluing machine", "d": "Ut enim ad minim veniam, quis nostrud exercitation. Precise glue metering, real-time conveyor speed synchronisation." },
-      { "t": "Spring bending machine", "d": "Duis aute irure dolor in reprehenderit in voluptate velit. Stable bend-angle and pitch control for mass production." }
+      {
+        "t": "CNC milling machine",
+        "d": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 6-axis closed-loop control for mould-making and complex parts."
+      },
+      {
+        "t": "Jigsaw machine",
+        "d": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Smooth interpolation, sharp cut lines on wood and composite materials."
+      },
+      {
+        "t": "Gluing machine",
+        "d": "Ut enim ad minim veniam, quis nostrud exercitation. Precise glue metering, real-time conveyor speed synchronisation."
+      },
+      {
+        "t": "Spring bending machine",
+        "d": "Duis aute irure dolor in reprehenderit in voluptate velit. Stable bend-angle and pitch control for mass production."
+      }
     ],
     "mobileLabel": "Application",
     "viewAll": "View all applications",
@@ -129,43 +198,6 @@
   "news": {
     "eyebrow": "[ News · Q1 2026 ]",
     "heading": "News & events",
-    "viewAll": "View all",
-    "items": [
-      {
-        "badge": "New product",
-        "cat": "Product",
-        "read": "4 min read",
-        "title": "QS launches its EtherCAT, Mechatrolink MII/MIII controller line",
-        "desc": "The extended EtherCAT version supports up to 12 synchronised axes and integrates a machine-vision module. Deliveries to domestic OEM customers are expected from Q3/2026."
-      },
-      {
-        "badge": "Event",
-        "cat": "Event",
-        "read": "3 min read",
-        "title": "QS reaches the \"The Future Brand — Made By Vietnam\" 2025 final",
-        "desc": "QS Technology's representative presented its domestic CNC controller solution to the judging panel and Vietnam's manufacturing business community."
-      },
-      {
-        "badge": "Customer",
-        "cat": "Customer",
-        "read": "2 min read",
-        "title": "Delivery of 24 F86 controllers to PRECITECH Long An Corporation",
-        "desc": "The batch of 24 F86 controllers was installed and commissioned on a CNC milling line, with operator training delivered at the customer's plant."
-      },
-      {
-        "badge": "Technical",
-        "cat": "Technical",
-        "read": "5 min read",
-        "title": "Firmware v4.2 — adds custom G-code and a Mastercam post-processor",
-        "desc": "The new firmware enables custom G-code commands, Mastercam post-processor synchronisation, and smoother interpolation at high speed."
-      },
-      {
-        "badge": "Company",
-        "cat": "Company",
-        "read": "3 min read",
-        "title": "QS expands its Ho Chi Minh City factory to 4,200m² — capacity up 2.5×",
-        "desc": "The expanded factory boosts circuit-board production and controller assembly capacity, shortening delivery times for the domestic market."
-      }
-    ]
+    "viewAll": "View all"
   }
 }

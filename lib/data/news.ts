@@ -15,6 +15,8 @@ export type NewsView = {
   tags: string[];
   publishedAt: Date | null;
   date: string;
+  /** Estimated reading time in minutes, derived from the article body. */
+  readMinutes: number;
 };
 
 export type NewsCategoryId = "products" | "events" | "customers" | "technical" | "company";
@@ -47,6 +49,15 @@ function cleanExcerpt(raw: string, title: string): string {
   return s;
 }
 
+// Estimate reading time from the article body: strip HTML tags, count words,
+// divide by an average reading pace and round up (never below one minute).
+function readingMinutes(bodyHtml: string): number {
+  const text = (bodyHtml ?? "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  if (!text) return 1;
+  const words = text.split(" ").length;
+  return Math.max(1, Math.round(words / 200));
+}
+
 // Seed dates are pre-formatted display strings (e.g. "28 · 04 · 2026"); array
 // order is already newest-first, so no re-sort is needed.
 function toView(n: News): NewsView {
@@ -63,6 +74,7 @@ function toView(n: News): NewsView {
     tags: n.tags ?? [],
     publishedAt: null,
     date: n.date,
+    readMinutes: readingMinutes(n.body),
   };
 }
 

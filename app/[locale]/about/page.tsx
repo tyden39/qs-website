@@ -80,19 +80,19 @@ export default async function About({ params }: Props) {
         <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-2 gap-16 items-center">
           <Reveal className="relative border border-line bg-ink overflow-hidden order-1 group">
             <Image
-              src="/img/about/pcb.webp"
-              alt={t("images.pcb")}
-              width={1606}
-              height={1027}
+              src="/home/about-qs.webp"
+              alt={t("images.factory")}
+              width={900}
+              height={657}
               sizes="(max-width: 768px) 90vw, 560px"
               className="w-full h-auto object-cover qs-kenburns"
             />
-            {/* gold blueprint scan sweeping the board on view */}
+            {/* gold blueprint scan sweeping the photo on view */}
             <div className="qs-scan" aria-hidden="true"></div>
             <div className="absolute inset-3 border border-dashed border-gold/40 pointer-events-none"></div>
             <div className="absolute bottom-0 inset-x-0 flex justify-between items-center px-4 py-3
                             bg-gradient-to-t from-black/75 to-transparent">
-              <span className="font-mono text-[9px] text-gold-2 tracking-[.18em] uppercase">QS-MADE PCB</span>
+              <span className="font-mono text-[9px] text-gold-2 tracking-[.18em] uppercase">QS · HCMC FACTORY</span>
               <span className="font-mono text-[9px] text-white/55 tracking-[.18em] uppercase">qstcnc.com</span>
             </div>
           </Reveal>

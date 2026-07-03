@@ -10,6 +10,7 @@ import NewsFeed, { type NewsItem } from "@/components/news-feed";
 import VideoReel, { type VideoItem } from "@/components/video-reel";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
+import { getAllNews } from "@/lib/data/news";
 import type { Locale } from "@/lib/i18n/config";
 
 export async function generateMetadata({
@@ -64,13 +65,10 @@ const productAssets = [
 // Thumbnails are derived from each youtubeId by VideoReel; titles come from i18n.
 const videoIds = ["3bBrcmmvkZw", "kLcNpeHu-2A", "cpoLcWsIfVQ", "W0Z8zw3TkfE", "B1wENfUjn8M"];
 
-const newsAssets = [
-  { href: "/news/astro-12x", img: "/home/news-ethercat.webp", date: "28 · 04 · 2026" },
-  { href: "/news", img: "/home/video-thumb.webp", date: "22 · 04 · 2026" },
-  { href: "/news/precitech-long-an", img: "/home/product-f86.webp", date: "15 · 04 · 2026" },
-  { href: "/news/firmware-v42", img: "/home/product-f86-open.webp", date: "02 · 04 · 2026" },
-  { href: "/news/binh-duong-expansion", img: "/home/about-qs.webp", date: "18 · 03 · 2026" },
-];
+// How many latest articles the home newsroom feed surfaces.
+const HOME_NEWS_COUNT = 5;
+// Fallback cover for the rare seed article that has no image of its own.
+const NEWS_FALLBACK_IMG = "/home/news-ethercat.webp";
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   // Opt this page's render scope into static locale resolution so next-intl's
@@ -92,9 +90,21 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   ).map((txt, i) => ({ ...productAssets[i], ...txt }));
   const videoTitles = t.raw("showreel.videos") as string[];
   const videos: VideoItem[] = videoIds.map((youtubeId, i) => ({ youtubeId, title: videoTitles[i] }));
-  const news: NewsItem[] = (
-    t.raw("news.items") as Omit<NewsItem, "href" | "img" | "date">[]
-  ).map((txt, i) => ({ ...newsAssets[i], ...txt }));
+
+  // Newsroom feed pulls the latest real articles instead of hardcoded placeholders.
+  const tNews = await getTranslations({ locale, namespace: "news" });
+  const news: NewsItem[] = getAllNews(locale)
+    .slice(0, HOME_NEWS_COUNT)
+    .map((n) => ({
+      href: `/news/${n.slug}`,
+      img: n.coverImage ?? NEWS_FALLBACK_IMG,
+      cat: n.cat,
+      date: n.date,
+      title: n.title,
+      desc: n.excerpt,
+      read: tNews("feed.readMinutes", { count: n.readMinutes }),
+      badge: n.cat,
+    }));
 
   return (
     <>

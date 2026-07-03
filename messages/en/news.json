@@ -21,7 +21,8 @@
   },
   "feed": {
     "latest": "Latest news",
-    "bulletins": "bulletins"
+    "bulletins": "bulletins",
+    "readMinutes": "{count} min read"
   },
   "list": {
     "eyebrow": "Newsroom · Updated Q1/2026",

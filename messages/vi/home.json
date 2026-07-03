@@ -12,12 +12,30 @@
         "desc": "Thuộc dòng cao cấp của QS Technology. Cấu hình mạnh mẽ và thuật toán nội suy tốc độ cao đem đến trải nghiệm gia công mượt mà, ổn định — vượt xa các bộ điều khiển thông thường.",
         "fig": "HÌNH 01 · BỘ ĐIỀU KHIỂN CNC · ASTRO 10i",
         "specs": [
-          ["Trục điều khiển", "6 – 8"],
-          ["Giao thức điều khiển", "Pulse Train · EtherCAT · Mechatrolink"],
-          ["Màn hình", "10.4 inch"],
-          ["Chế độ điều khiển", "Vòng kín (Closed loop)"],
-          ["Tích hợp PLC", "Có"],
-          ["RTCP tốc độ cao", "Có"]
+          [
+            "Trục điều khiển",
+            "6 – 8"
+          ],
+          [
+            "Giao thức điều khiển",
+            "Pulse Train · EtherCAT · Mechatrolink"
+          ],
+          [
+            "Màn hình",
+            "10.4 inch"
+          ],
+          [
+            "Chế độ điều khiển",
+            "Vòng kín (Closed loop)"
+          ],
+          [
+            "Tích hợp PLC",
+            "Có"
+          ],
+          [
+            "RTCP tốc độ cao",
+            "Có"
+          ]
         ]
       },
       {
@@ -27,11 +45,26 @@
         "desc": "Dòng chủ lực 6 trục vòng kín với EtherCAT và Mechatrolink MII/MIII — dành cho gia công khuôn mẫu và linh kiện y tế đòi hỏi độ chính xác cao nhất.",
         "fig": "HÌNH 02 · BỘ ĐIỀU KHIỂN CNC · ASTRO 6AH",
         "specs": [
-          ["Trục điều khiển", "6 – 8"],
-          ["Giao thức điều khiển", "Pulse Train · EtherCAT · Mechatrolink"],
-          ["Màn hình", "8 inch"],
-          ["Chế độ điều khiển", "Vòng kín (Closed loop)"],
-          ["Tích hợp PLC", "Có"]
+          [
+            "Trục điều khiển",
+            "6 – 8"
+          ],
+          [
+            "Giao thức điều khiển",
+            "Pulse Train · EtherCAT · Mechatrolink"
+          ],
+          [
+            "Màn hình",
+            "8 inch"
+          ],
+          [
+            "Chế độ điều khiển",
+            "Vòng kín (Closed loop)"
+          ],
+          [
+            "Tích hợp PLC",
+            "Có"
+          ]
         ]
       },
       {
@@ -41,11 +74,26 @@
         "desc": "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy — phay, cưa lọng, dán keo. Hỗ trợ điều khiển Pulse Train và EtherCAT, dễ tích hợp, chi phí tối ưu.",
         "fig": "HÌNH 03 · BỘ ĐIỀU KHIỂN CNC · F86",
         "specs": [
-          ["Trục điều khiển", "6 – 8"],
-          ["Giao thức điều khiển", "Pulse Train · EtherCAT"],
-          ["Màn hình", "8 inch"],
-          ["Chế độ điều khiển", "Vòng hở (Open loop)"],
-          ["Tích hợp PLC", "Có"]
+          [
+            "Trục điều khiển",
+            "6 – 8"
+          ],
+          [
+            "Giao thức điều khiển",
+            "Pulse Train · EtherCAT"
+          ],
+          [
+            "Màn hình",
+            "8 inch"
+          ],
+          [
+            "Chế độ điều khiển",
+            "Vòng hở (Open loop)"
+          ],
+          [
+            "Tích hợp PLC",
+            "Có"
+          ]
         ]
       }
     ]
@@ -60,19 +108,28 @@
         "lbl": "[ Dòng F ]",
         "name": "Bộ điều khiển F86",
         "desc": "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
-        "meta": ["6 trục · vòng kín", "pulse train / ethercat"]
+        "meta": [
+          "6 trục · vòng kín",
+          "pulse train / ethercat"
+        ]
       },
       {
         "lbl": "[ Dòng Astro ]",
         "name": "Bộ điều khiển Astro 6AH",
         "desc": "Dòng chủ lực 6 trục vòng kín, EtherCAT, cho gia công khuôn mẫu và linh kiện y tế chính xác cao.",
-        "meta": ["6 trục · vòng kín", "pulse train / ethercat / mechatrolink mii,miii"]
+        "meta": [
+          "6 trục · vòng kín",
+          "pulse train / ethercat / mechatrolink mii,miii"
+        ]
       },
       {
         "lbl": "[ Dòng F ]",
         "name": "Bộ điều khiển F86",
         "desc": "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
-        "meta": ["6 trục · vòng hở", "pulse train / ethercat"]
+        "meta": [
+          "6 trục · vòng hở",
+          "pulse train / ethercat"
+        ]
       }
     ]
   },
@@ -80,10 +137,22 @@
     "eyebrow": "[ Ứng dụng · 04 ngành ]",
     "heading": "Ứng dụng theo ngành.",
     "items": [
-      { "t": "Máy phay CNC", "d": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Điều khiển 6 trục vòng kín cho gia công khuôn mẫu và chi tiết phức tạp." },
-      { "t": "Máy cưa lọng", "d": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nội suy mượt mà, đường cắt sắc nét trên vật liệu gỗ và composite." },
-      { "t": "Máy dán keo", "d": "Ut enim ad minim veniam, quis nostrud exercitation. Định lượng keo chính xác, đồng bộ tốc độ băng tải theo thời gian thực." },
-      { "t": "Máy uốn lò xo", "d": "Duis aute irure dolor in reprehenderit in voluptate velit. Điều khiển góc uốn và bước xoắn ổn định cho sản xuất hàng loạt." }
+      {
+        "t": "Máy phay CNC",
+        "d": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Điều khiển 6 trục vòng kín cho gia công khuôn mẫu và chi tiết phức tạp."
+      },
+      {
+        "t": "Máy cưa lọng",
+        "d": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nội suy mượt mà, đường cắt sắc nét trên vật liệu gỗ và composite."
+      },
+      {
+        "t": "Máy dán keo",
+        "d": "Ut enim ad minim veniam, quis nostrud exercitation. Định lượng keo chính xác, đồng bộ tốc độ băng tải theo thời gian thực."
+      },
+      {
+        "t": "Máy uốn lò xo",
+        "d": "Duis aute irure dolor in reprehenderit in voluptate velit. Điều khiển góc uốn và bước xoắn ổn định cho sản xuất hàng loạt."
+      }
     ],
     "mobileLabel": "Ứng dụng",
     "viewAll": "Xem tất cả ứng dụng",
@@ -129,43 +198,6 @@
   "news": {
     "eyebrow": "[ Tin tức · Quý 1/2026 ]",
     "heading": "Tin tức & sự kiện",
-    "viewAll": "Xem tất cả",
-    "items": [
-      {
-        "badge": "Sản phẩm mới",
-        "cat": "Sản phẩm",
-        "read": "4 phút đọc",
-        "title": "QS cho ra mắt dòng bộ điều khiển EtherCAT, Mechatrolink MII/MIII",
-        "desc": "Phiên bản mở rộng EtherCAT, hỗ trợ tới 12 trục đồng bộ, tích hợp module thị giác máy. Dự kiến giao hàng từ Q3/2026 cho khách hàng OEM trong nước."
-      },
-      {
-        "badge": "Sự kiện",
-        "cat": "Sự kiện",
-        "read": "3 phút đọc",
-        "title": "QS góp mặt vòng chung kết \"The Future Brand — Made By Vietnam\" 2025",
-        "desc": "Đại diện QS Technology trình bày giải pháp bộ điều khiển CNC nội địa trước hội đồng giám khảo và cộng đồng doanh nghiệp sản xuất Việt Nam."
-      },
-      {
-        "badge": "Khách hàng",
-        "cat": "Khách hàng",
-        "read": "2 phút đọc",
-        "title": "Bàn giao 24 bộ điều khiển F86 cho Tổng công ty PRECITECH Long An",
-        "desc": "Lô 24 bộ điều khiển F86 được lắp đặt, nghiệm thu trên dây chuyền phay CNC kèm chương trình đào tạo vận hành tại nhà máy khách hàng."
-      },
-      {
-        "badge": "Kỹ thuật",
-        "cat": "Kỹ thuật",
-        "read": "5 phút đọc",
-        "title": "Firmware v4.2 — bổ sung G-code tuỳ biến và post-processor Mastercam",
-        "desc": "Bản firmware mới cho phép tuỳ biến lệnh G-code, đồng bộ post-processor Mastercam và cải thiện độ mượt nội suy ở tốc độ cao."
-      },
-      {
-        "badge": "Công ty",
-        "cat": "Công ty",
-        "read": "3 phút đọc",
-        "title": "QS mở rộng nhà máy TP. Hồ Chí Minh lên 4.200m² — công suất tăng 2,5×",
-        "desc": "Nhà máy mới nâng năng lực sản xuất board mạch và lắp ráp bộ điều khiển, rút ngắn thời gian giao hàng cho thị trường trong nước."
-      }
-    ]
+    "viewAll": "Xem tất cả"
   }
 }

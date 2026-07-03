@@ -31,11 +31,26 @@
     "eyebrow": "[ 03 · Core values ]",
     "heading": "Five core values",
     "items": [
-      { "t": "Challenge", "d": "Confront and conquer hard engineering problems, turning the challenges of the CNC industry into momentum for growth." },
-      { "t": "Innovation", "d": "Continuously adopt new technology and refine hardware and firmware so our products stay ahead." },
-      { "t": "Creativity", "d": "Independent design thinking from circuit board to firmware, creating control solutions of our own making." },
-      { "t": "Attitude", "d": "Dedicated, open-minded and accountable in every product and every customer interaction." },
-      { "t": "Reputation", "d": "Honoring our commitments on quality and service, building lasting trust with customers at home and abroad." }
+      {
+        "t": "Challenge",
+        "d": "Confront and conquer hard engineering problems, turning the challenges of the CNC industry into momentum for growth."
+      },
+      {
+        "t": "Innovation",
+        "d": "Continuously adopt new technology and refine hardware and firmware so our products stay ahead."
+      },
+      {
+        "t": "Creativity",
+        "d": "Independent design thinking from circuit board to firmware, creating control solutions of our own making."
+      },
+      {
+        "t": "Attitude",
+        "d": "Dedicated, open-minded and accountable in every product and every customer interaction."
+      },
+      {
+        "t": "Reputation",
+        "d": "Honoring our commitments on quality and service, building lasting trust with customers at home and abroad."
+      }
     ]
   },
   "quote": {
@@ -43,6 +58,6 @@
     "attribution": "QS Technology"
   },
   "images": {
-    "pcb": "CNC controller board designed and manufactured by QS Technology"
+    "factory": "QS Technology factory in Ho Chi Minh City"
   }
 }

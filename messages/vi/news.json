@@ -21,7 +21,8 @@
   },
   "feed": {
     "latest": "Tin mới nhất",
-    "bulletins": "bản tin"
+    "bulletins": "bản tin",
+    "readMinutes": "{count} phút đọc"
   },
   "list": {
     "eyebrow": "Newsroom · Cập nhật Q1/2026",

@@ -31,11 +31,26 @@
     "eyebrow": "[ 03 · Giá trị cốt lõi ]",
     "heading": "Năm giá trị cốt lõi",
     "items": [
-      { "t": "Thử thách", "d": "Đối mặt và chinh phục những bài toán kỹ thuật khó, biến thách thức của ngành CNC thành động lực phát triển." },
-      { "t": "Đổi mới", "d": "Liên tục cập nhật công nghệ mới, cải tiến phần cứng và firmware để sản phẩm luôn dẫn đầu." },
-      { "t": "Sáng tạo", "d": "Tư duy thiết kế độc lập từ board mạch đến firmware, tạo ra giải pháp điều khiển của riêng người Việt." },
-      { "t": "Thái độ", "d": "Tận tâm, cầu thị và trách nhiệm trong từng sản phẩm cũng như mỗi lần hỗ trợ khách hàng." },
-      { "t": "Uy tín", "d": "Giữ trọn cam kết về chất lượng và dịch vụ, xây dựng niềm tin bền vững với khách hàng trong và ngoài nước." }
+      {
+        "t": "Thử thách",
+        "d": "Đối mặt và chinh phục những bài toán kỹ thuật khó, biến thách thức của ngành CNC thành động lực phát triển."
+      },
+      {
+        "t": "Đổi mới",
+        "d": "Liên tục cập nhật công nghệ mới, cải tiến phần cứng và firmware để sản phẩm luôn dẫn đầu."
+      },
+      {
+        "t": "Sáng tạo",
+        "d": "Tư duy thiết kế độc lập từ board mạch đến firmware, tạo ra giải pháp điều khiển của riêng người Việt."
+      },
+      {
+        "t": "Thái độ",
+        "d": "Tận tâm, cầu thị và trách nhiệm trong từng sản phẩm cũng như mỗi lần hỗ trợ khách hàng."
+      },
+      {
+        "t": "Uy tín",
+        "d": "Giữ trọn cam kết về chất lượng và dịch vụ, xây dựng niềm tin bền vững với khách hàng trong và ngoài nước."
+      }
     ]
   },
   "quote": {
@@ -43,6 +58,6 @@
     "attribution": "QS Technology"
   },
   "images": {
-    "pcb": "Board mạch điều khiển CNC do QS Technology thiết kế và sản xuất"
+    "factory": "Nhà máy QS Technology tại TP. Hồ Chí Minh"
   }
 }

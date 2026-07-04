@@ -77,19 +77,33 @@ const BUNDLE_LABEL_EN: Record<string, string> = {
 };
 
 const SPEC_TITLE_EN: Record<string, string> = {
+  "Thông số chính": "Key specifications",
   "Đặc tính kỹ thuật": "Specifications",
   "Phần cứng": "Hardware",
   "Chức năng": "Functions",
 };
 
 const SPEC_LABEL_EN: Record<string, string> = {
+  "Số trục điều khiển": "Control axes",
   "Kích thước": "Dimensions",
+  "Màn hình": "Display",
+  "Số cổng I/O": "I/O ports",
+  "Điện áp đầu vào": "Input voltage",
+  "Giao thức điều khiển": "Control protocol",
+  "Chế độ điều khiển": "Control mode",
   "Vật liệu vỏ": "Housing material",
   "Bù rơ cơ khí (Backlash)": "Backlash compensation",
   "Bù sai số hành trình (Pitch Error)": "Pitch error compensation",
 };
 
-const SPEC_VALUE_EN: Record<string, string> = { Có: "Yes", Không: "No" };
+const SPEC_VALUE_EN: Record<string, string> = {
+  Có: "Yes",
+  Không: "No",
+  "Ladder tích hợp": "Integrated Ladder",
+  "Tất cả các trục": "All axes",
+  "Vòng hở (Open loop)": "Open loop",
+  "Vòng kín (Closed loop)": "Closed loop",
+};
 
 function localizeAxes(axes: string): string {
   // "4 trục" -> "4 axes"

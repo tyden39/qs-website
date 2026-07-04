@@ -112,7 +112,13 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
   const productJsonLd = buildProduct(p, locale);
   const tabLabels = t.raw("tabs") as string[];
-  const featureText = t.raw("features") as { t: string; d: string }[];
+  // Hero value-prop cards: fixed titles, descriptions filled from this model's
+  // real catalogue data (axis count, actual control interfaces, display size).
+  const featureText = [
+    { t: t("features.perf.t"), d: t("features.perf.d", { axes: p.axes }) },
+    { t: t("features.io.t"), d: t("features.io.d", { interfaces: p.interfaces.map((i) => i.name).join(", ") }) },
+    { t: t("features.custom.t"), d: t("features.custom.d", { display: p.display }) },
+  ];
   // Pinned `place: "hero"` photos take over the gallery when present; otherwise
   // the first 4 visible shots (skipping any pinned to "tour") lead. Everything
   // left over drops into the tour. `hide` drops a photo entirely.

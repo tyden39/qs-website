@@ -50,15 +50,15 @@ export function ProductHeroGallery({
 
   return (
     <figure
-      className="m-0 relative bg-[#171812] border border-white/10 p-6 sm:p-8 shadow-[0_34px_90px_-58px_rgba(0,0,0,.95)]"
+      className="m-0 relative bg-[#171812] border border-white/10 p-3 shadow-[0_34px_90px_-58px_rgba(0,0,0,.95)]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="absolute inset-4 border border-dashed border-gold-2/25 pointer-events-none" />
+      {/* <div className="absolute inset-4 sm:inset-6 border border-dashed border-gold-2/25 pointer-events-none" />
       <div className="absolute top-4 left-5 font-mono text-[10px] tracking-[.18em] uppercase text-[#8f8878]">
         {calibrationLabel}
-      </div>
-      <div className="absolute bottom-4 right-5 z-10 font-mono text-[10px] tracking-[.18em] uppercase text-[#8f8878]">
+      </div> */}
+      <div className="absolute bottom-2 right-2 z-10 font-mono text-[10px] tracking-[.18em] uppercase text-[#8f8878]">
         QS · {name.toUpperCase()}
       </div>
 

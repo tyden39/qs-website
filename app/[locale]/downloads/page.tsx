@@ -94,7 +94,7 @@ export default async function Downloads({ params }: Props) {
                 fill
                 priority
                 sizes="(max-width:768px) 100vw, 45vw"
-                className="object-contain"
+                className="qs-kenburns w-full h-full object-contain"
               />
               {/* gold blueprint scan sweeping the documents */}
               <div className="qs-scan" aria-hidden="true"></div>

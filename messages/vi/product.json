@@ -78,20 +78,20 @@
       "category": "Bộ điều khiển CNC"
     },
     "modelLine": "Model · {name} · Series 2026",
-    "features": [
-      {
+    "features": {
+      "perf": {
         "t": "Hiệu năng vượt trội",
-        "d": "Vi xử lý hiệu năng cao cho gia công nhiều trục"
+        "d": "Điều khiển đồng thời tối đa {axes}"
       },
-      {
+      "io": {
         "t": "Tính năng đa dạng",
-        "d": "Hỗ trợ Pulse Train, EtherCAT và mở rộng I/O"
+        "d": "Hỗ trợ {interfaces}"
       },
-      {
+      "custom": {
         "t": "Khả năng tùy biến cao",
-        "d": "Lập trình ứng dụng và cấu hình theo từng dòng máy"
+        "d": "Màn hình {display} · cấu hình theo từng dòng máy"
       }
-    ],
+    },
     "quoteBtn": "Nhận báo giá →",
     "tabs": [
       "Giới thiệu",

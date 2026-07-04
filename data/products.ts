@@ -144,6 +144,29 @@ const astroFunctionRows: ProductSpec[] = [
   { l: "Single Block", v: "Có" },
 ];
 
+// Standardized headline spec block shown first in every product's spec table.
+// Values are locale-neutral where possible; the Vietnamese wordings (PLC loop,
+// encoder scope) are translated for `en` via the maps in lib/data/products.ts.
+const keySpecRows = (o: {
+  axes: string;
+  dims: string;
+  display: string;
+  io: string;
+  encoder: string;
+  protocol: string;
+  loop: string;
+}): ProductSpec[] => [
+  { l: "Số trục điều khiển", v: o.axes },
+  { l: "Kích thước", v: o.dims },
+  { l: "Màn hình", v: o.display },
+  { l: "Số cổng I/O", v: o.io },
+  { l: "PLC", v: "Ladder tích hợp" },
+  { l: "Encoder", v: o.encoder },
+  { l: "Điện áp đầu vào", v: "24VDC, 1.5A" },
+  { l: "Giao thức điều khiển", v: o.protocol },
+  { l: "Chế độ điều khiển", v: o.loop },
+];
+
 // Specs and bundles follow the QS "CNC Solution Controller" catalogue: only the
 // axis count, control loop, and control interface are published per model.
 export const products: Product[] = [
@@ -218,8 +241,8 @@ export const products: Product[] = [
     accessories: ["4 Axis MPG Handwheel", ...SHARED_ACCESSORIES],
     sourceUrl: "https://qstcnc.com/san-pham/f54-controller",
     detailedSpecs:[
+      { title:"Thông số chính", rows:keySpecRows({ axes:"4", dims:"220 × 140 × 30 mm", display:"5\"", io:"16/6", encoder:"Phase Z", protocol:"Pulse Train", loop:"Vòng hở (Open loop)" }) },
       { title:"Đặc tính kỹ thuật", rows:[
-        {l:"Kích thước",v:"220 × 140 × 30 mm"},
         {l:"Vật liệu vỏ",v:"Aluminum"},
         {l:"Max. PLC Axis",v:"0"},
         {l:"Standard Axis",v:"4"},
@@ -233,10 +256,8 @@ export const products: Product[] = [
         {l:"Block Processing Time",v:"250"},
       ]},
       { title:"Phần cứng", rows:[
-        {l:"Standard I/O",v:"16/6"},
         {l:"Optional I/O",v:"256/256"},
         {l:"DA",v:"1"},
-        {l:"Monitor",v:"5 Inch"},
         {l:"RS485",v:"1"},
         {l:"USB",v:"1"},
       ]},

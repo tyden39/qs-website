@@ -78,20 +78,20 @@
       "category": "CNC Controllers"
     },
     "modelLine": "Model · {name} · Series 2026",
-    "features": [
-      {
+    "features": {
+      "perf": {
         "t": "Outstanding performance",
-        "d": "High-performance processor for multi-axis machining"
+        "d": "Simultaneous control up to {axes}"
       },
-      {
+      "io": {
         "t": "Versatile features",
-        "d": "Supports Pulse Train, EtherCAT and I/O expansion"
+        "d": "Supports {interfaces}"
       },
-      {
+      "custom": {
         "t": "Highly customisable",
-        "d": "Application programming and configuration per machine type"
+        "d": "{display} display · configured per machine type"
       }
-    ],
+    },
     "quoteBtn": "Get a quote →",
     "tabs": [
       "Overview",

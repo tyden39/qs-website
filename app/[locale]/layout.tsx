@@ -49,7 +49,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const products = getAllProducts(locale);
-  const featured: FeaturedProduct[] = products.slice(0, 6).map((p) => ({
+  const featured: FeaturedProduct[] = products.slice(0, 5).map((p) => ({
     slug: p.slug,
     name: p.name,
     meta: `${p.axes} · ${p.display}`,

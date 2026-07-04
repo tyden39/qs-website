@@ -10,8 +10,9 @@
 /news/*                    /vi/news/:splat            301
 /applications              /vi/applications/          301
 /applications/*            /vi/applications/:splat    301
+# No `/downloads/*` splat: static assets (hero + PDFs) live under public/downloads/
+# and a splat here would 301 them to a non-existent /vi/downloads/* and 404.
 /downloads                 /vi/downloads/             301
-/downloads/*               /vi/downloads/:splat       301
 /about                     /vi/about/                 301
 /contact                   /vi/contact/               301
 /search                    /vi/search/                301

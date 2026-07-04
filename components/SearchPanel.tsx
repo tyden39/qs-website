@@ -186,8 +186,8 @@ export default function SearchPanel({
             /* featured products */
             <div className="mt-6">
               <div className="font-mono text-[10px] tracking-[.18em] uppercase text-muted mb-3.5">{t("featured")}</div>
-              <div className="grid gap-px bg-line border border-line"
-                   style={{gridTemplateColumns:"repeat(auto-fill, minmax(200px, 1fr))"}}>
+              <div className="grid grid-cols-3 lg:grid-cols-6 gap-px bg-line border border-line">
+
                 {featured.map((p) => (
                   <Link key={p.slug} href={`/products/${p.slug}`} onClick={close}
                         className="bg-white p-4 hover:bg-paper transition-colors flex flex-col text-ink">

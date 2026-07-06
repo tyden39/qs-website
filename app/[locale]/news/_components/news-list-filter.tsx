@@ -55,13 +55,13 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
     <>
       {/* TABS */}
       <div className="bg-white border-b border-line sticky top-18 z-30">
-        <div className="max-w-wrap mx-auto px-12 flex">
+        <div className="max-w-wrap mx-auto px-4 sm:px-12 flex overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {TAB_IDS.map((id, i) => (
             <button
               key={id}
               type="button"
               onClick={() => selectTab(id)}
-              className={`py-4 px-5 text-sm font-medium border-b-2 transition-colors cursor-pointer bg-transparent ${activeTab === id ? "text-ink border-gold-2" : "text-[#5a5650] border-transparent hover:text-ink"}`}
+              className={`shrink-0 whitespace-nowrap py-4 px-4 sm:px-5 text-sm font-medium border-b-2 transition-colors cursor-pointer bg-transparent ${activeTab === id ? "text-ink border-gold-2" : "text-[#5a5650] border-transparent hover:text-ink"}`}
             >
               {tabLabels[i]}<span className="font-mono text-[10px] text-muted ml-1.5 tracking-widest">{counts[id] ?? 0}</span>
             </button>

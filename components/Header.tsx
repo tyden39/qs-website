@@ -59,7 +59,7 @@ export default function Header() {
           <div className="flex items-center gap-7 min-w-0">
             <Link href="/" className="flex items-center gap-3 shrink-0">
               <span className="grid place-items-center h-[38px] lg:h-[42px]">
-                <Image src="/logo-st.png" alt="ST" width={82} height={42} priority className="h-[38px] lg:h-[42px] w-auto block" />
+                <Image src="/logo-st.png" alt="ST" width={1707} height={877} priority className="h-[38px] lg:h-[42px] w-auto block" />
               </span>
               <div className="flex flex-col leading-[1.1]">
                 <b className="font-display font-bold text-sm tracking-[.04em] whitespace-nowrap">QS TECHNOLOGY</b>

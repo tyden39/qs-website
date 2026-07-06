@@ -29,7 +29,7 @@ export default async function Footer() {
         <div className="qs-foot-masthead">
           <div className="flex items-center gap-3.5">
             <div className="grid place-items-center h-12">
-              <Image src="/logo-st.png" alt="ST" width={93} height={48} className="h-12 w-auto block brightness-105"/>
+              <Image src="/logo-st.png" alt="ST" width={1707} height={877} className="h-12 w-auto block brightness-105"/>
             </div>
             <div>
               <b className="font-display font-bold text-[22px] bg-gold-grad bg-clip-text text-transparent tracking-[.02em] block">QS TECHNOLOGY CO., LTD</b>

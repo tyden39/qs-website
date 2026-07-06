@@ -78,16 +78,16 @@ export default async function Products({ params }: { params: Promise<{ locale: L
           variant="light"
           className="hidden lg:block absolute top-0 right-0 w-[42%] h-full opacity-[.4] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
         />
-        <div className="relative z-10 max-w-wrap mx-auto px-12 pt-12 pb-14">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-10 pb-12 lg:pt-12 lg:pb-14">
           <div className="qs-crumb mb-8">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <Link href="/products">{t("breadcrumb.products")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
           </div>
-          <div className="grid md:grid-cols-[1fr_1.4fr] gap-12 items-center">
+          <div className="grid md:grid-cols-[1fr_1.4fr] gap-8 md:gap-12 items-center">
             <div>
               <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("eyebrow")}</div>
-              <h1 className="qs-h1 mt-3.5 qs-rise" style={{ fontSize: "54px", animationDelay: "90ms" }}>
+              <h1 className="qs-h1 mt-3.5 qs-rise text-[clamp(34px,9vw,54px)]" style={{ animationDelay: "90ms" }}>
                 {headingLead && <>{headingLead} </>}
                 <em className="not-italic qs-gold-shimmer">{headingGold}</em>
               </h1>
@@ -122,8 +122,8 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       </section>
 
       {/* BODY */}
-      <section className="py-16" id="list">
-        <div className="max-w-wrap mx-auto px-12">
+      <section className="py-12 lg:py-16" id="list">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <ProductListFilter
             items={items}
             labels={{

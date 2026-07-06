@@ -91,11 +91,11 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
                 <Link className="qs-btn qs-btn-gold" href="/contact">{t("surveyBtn")}</Link>
                 <a className="qs-btn qs-btn-ghost" href="#pricing">{t("pricingBtn")}</a>
               </div>
-              <div className="mt-9 grid grid-cols-3 gap-8 pt-6 border-t border-line">
+              <div className="mt-9 grid grid-cols-3 gap-4 sm:gap-8 pt-6 border-t border-line">
                 {s.stats.map(([l, v]) => (
                   <div key={l} className="font-mono text-[10px] text-muted tracking-[.16em] uppercase">
                     {l}
-                    <b className="block font-display text-[22px] font-bold tracking-[-.01em] normal-case text-ink mt-1">{v}</b>
+                    <b className="block font-display text-[19px] sm:text-[22px] font-bold tracking-[-.01em] normal-case text-ink mt-1">{v}</b>
                   </div>
                 ))}
               </div>

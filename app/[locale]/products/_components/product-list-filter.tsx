@@ -98,23 +98,25 @@ export function ProductListFilter({ items, labels }: { items: ProductFilterItem[
 
       {/* list */}
       <main>
-        <div className="flex justify-between items-center bg-white border border-line px-6 py-4 mb-6">
-          <div className="flex gap-6 items-center">
-            <span className="font-mono text-xs tracking-widest text-muted">{labels.showing} <b className="text-ink font-semibold">{count}</b> {labels.ofModels}</span>
-            <div className="flex gap-1.5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center bg-white border border-line px-4 sm:px-6 py-4 mb-6">
+          <div className="flex flex-col gap-3 min-w-0 sm:flex-row sm:gap-6 sm:items-center">
+            <span className="font-mono text-xs tracking-widest text-muted shrink-0">{labels.showing} <b className="text-ink font-semibold">{count}</b> {labels.ofModels}</span>
+            {/* chips: scroll horizontally on mobile so a long interface list never
+                clips or pushes the sort control off-screen; wrap inline on desktop */}
+            <div className="flex gap-1.5 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {labels.filters.map((c, i) => (
                 <button
                   key={c}
                   type="button"
                   onClick={() => setChip(i)}
-                  className={`px-3 py-1.5 font-mono text-[11px] tracking-widest uppercase border cursor-pointer ${i === chip ? "bg-ink text-white border-ink" : "border-line text-muted hover:border-ink"}`}
+                  className={`shrink-0 px-3 py-1.5 font-mono text-[11px] tracking-widest uppercase border cursor-pointer ${i === chip ? "bg-ink text-white border-ink" : "border-line text-muted hover:border-ink"}`}
                 >
                   {c}
                 </button>
               ))}
             </div>
           </div>
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center shrink-0">
             <span className="font-mono text-[11px] text-muted tracking-widest uppercase">{labels.sortLabel}</span>
             <select
               value={sort}

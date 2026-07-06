@@ -181,7 +181,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
               <label className="block">
                 <span className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-1.5">{t("form.content")}</span>
                 <textarea name="message" rows={6}
-                          className="w-full border border-line bg-white px-4 py-3 text-sm focus:outline-none focus:border-ink transition-colors resize-y" />
+                          className="w-full border border-line bg-white px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-ink transition-colors resize-y" />
               </label>
             </div>
             <div className="flex justify-end mt-5">
@@ -206,7 +206,7 @@ function Field({ label, name, type = "text" }: { label: string; name: string; ty
   return (
     <label className="block">
       <span className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-1.5">{label}</span>
-      <input name={name} type={type} className="w-full border border-line bg-white px-4 py-3 text-sm focus:outline-none focus:border-ink transition-colors" />
+      <input name={name} type={type} className="w-full border border-line bg-white px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-ink transition-colors" />
     </label>
   );
 }

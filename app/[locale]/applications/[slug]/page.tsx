@@ -96,10 +96,10 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
               <p className="mt-6 text-[17px] leading-[1.6] text-[#a8a499] max-w-[55ch]">
                 {t("heroLede")}
               </p>
-              <div className="grid grid-cols-3 gap-6 mt-10 pt-8 border-t border-[#2a2620]">
+              <div className="grid grid-cols-3 gap-4 sm:gap-6 mt-10 pt-8 border-t border-[#2a2620]">
                 {heroStats.map(([v,l]) => (
                   <div key={l}>
-                    <div className="font-display font-bold text-[32px] text-gold-2 tracking-[-.01em]">{v}</div>
+                    <div className="font-display font-bold text-[26px] sm:text-[32px] text-gold-2 tracking-[-.01em]">{v}</div>
                     <div className="font-mono text-[10px] text-[#7a7570] tracking-[.16em] uppercase mt-1.5">{l}</div>
                   </div>
                 ))}

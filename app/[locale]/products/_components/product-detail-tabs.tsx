@@ -61,7 +61,7 @@ export function ProductDetailTabs({ tabs }: { tabs: ProductDetailTab[] }) {
 
   return (
     <>
-      <section className="bg-[#f7f5ef]/95 border-b border-line sticky top-[72px] z-30 backdrop-blur-md">
+      <section className="bg-[#f7f5ef]/95 border-b border-line sticky top-16 lg:top-[72px] z-30 backdrop-blur-md">
         <div ref={stripRef} className="max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-14 py-3 overflow-x-auto">
           <div role="tablist" className="inline-flex bg-white border border-line shadow-[0_12px_34px_-28px_rgba(20,17,10,.45)]">
             {tabs.map((tab, i) => {

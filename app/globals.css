@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* ─── Design tokens (mirrors template/styles/qs.css) ─── */
+/* ─── Design tokens ─── */
 @theme {
   --color-paper: #f5f3ee;
   --color-paper-2: #ecebe5;

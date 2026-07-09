@@ -96,7 +96,7 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
               <div className="p-8 lg:p-12 flex flex-col justify-between">
                 <div>
                   <span className="qs-eyebrow">{t("list.featuredLabel")}</span>
-                  <h2 className="font-display font-bold text-[28px] lg:text-[34px] tracking-[-.015em] leading-[1.14] mt-4 mb-4 text-balance line-clamp-3 group-hover:text-ink transition-colors">{feat.title}</h2>
+                  <h2 className="font-display font-bold text-[28px] lg:text-[34px] tracking-[-.015em] leading-[1.3] mt-4 mb-4 text-balance line-clamp-3 group-hover:text-ink transition-colors">{feat.title}</h2>
                   <p className="text-[#3a3a3a] text-[15px] leading-[1.7] m-0 line-clamp-4">{feat.excerpt}</p>
                 </div>
                 <div className="mt-8 pt-4 border-t border-line flex items-center justify-between font-mono text-[11px] text-muted tracking-[.14em]">

@@ -77,6 +77,74 @@
     "relatedEyebrow": "[ Next ]",
     "relatedHeading": "Ứng dụng liên quan",
     "backAll": "← Tất cả ứng dụng",
-    "relatedAppLabel": "Application"
+    "relatedAppLabel": "Application",
+    "machines": {
+      "cua-long": {
+        "heroLede": "Máy cưa lọng công nghiệp được sử dụng để cắt các biên dạng cong phức tạp trên gỗ, nhựa hoặc vật liệu mỏng với tốc độ cao và đường cắt mượt mà. Hệ thống điều khiển QS giúp duy trì độ ổn định liên tục cho xưởng sản xuất.",
+        "heroStats": [["2–3", "Số trục"], ["±0.1", "Độ chính xác (mm)"], ["30 m/p", "Tốc độ cắt"]],
+        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy cưa lọng.",
+        "workflow": [
+          { "l": "Input · G-code/DXF", "t": "Nhập bản vẽ biên dạng", "d": "Hệ thống tiếp nhận trực tiếp các định dạng file thiết kế (CAD/DXF). Bộ điều khiển sẽ tự động nhận diện và thiết lập đường biên cắt ban đầu." },
+          { "l": "Plan · Path", "t": "Tính toán & nội suy quỹ đạo", "d": "Thuật toán xử lý nội suy đường cong tốc độ cao, đảm bảo góc bo mượt mà, không bị sượng hay vấp khi chuyển hướng lưỡi cưa." },
+          { "l": "Drive · EtherCAT", "t": "Điều khiển kéo phôi", "d": "Truyền động servo qua EtherCAT với độ trễ cực thấp, đồng bộ hóa chuyển động của mâm xoay và tốc độ lưỡi cưa lọng." },
+          { "l": "Monitor · HMI", "t": "Giám sát & cảnh báo", "d": "Giao diện HMI theo dõi tốc độ chạy thực tế, tích hợp các cảnh báo an toàn như phát hiện đứt lưỡi cưa hay quá tải động cơ." }
+        ]
+      },
+      "dan-keo": {
+        "heroLede": "Giải pháp rải keo tự động bám sát đường viền biên dạng, ứng dụng mạnh mẽ trong sản xuất giày da, bao bì và linh kiện điện tử. Đảm bảo lượng keo đồng đều, tiết kiệm nguyên liệu và nâng cao năng suất.",
+        "heroStats": [["3–4", "Số trục"], ["Tùy chỉnh", "Lưu lượng"], ["500 mm/s", "Tốc độ chạy"]],
+        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy dán keo.",
+        "workflow": [
+          { "l": "Input · Teaching", "t": "Lập trình quỹ đạo dán", "d": "Hỗ trợ lập trình bằng G-Code hoặc chế độ Dạy điểm (Teaching) trực quan ngay trên màn hình cầm tay (pendant) hoặc HMI." },
+          { "l": "Plan · Path", "t": "Tối ưu hóa góc cua", "d": "Thuật toán Look-ahead xử lý tính toán trước quỹ đạo 3D, kết hợp giảm tốc tự động tại các góc cua gắt để tránh hiện tượng dồn cục keo." },
+          { "l": "Drive · Dispenser", "t": "Đồng bộ van bơm & servo", "d": "Điều khiển vòng kín giữa tốc độ di chuyển của trục XYZ và độ mở của van bơm keo, đảm bảo đường keo ra đều đặn, không đứt quãng." },
+          { "l": "Monitor · HMI", "t": "Kiểm soát chu trình", "d": "Quản lý số lượng mẻ, thời gian chu kỳ dán. Màn hình cảnh báo ngay lập tức nếu phát hiện áp suất keo yếu hoặc tắc đầu phun." }
+        ]
+      },
+      "thuc-pham": {
+        "heroLede": "Hệ thống điều khiển tốc độ cao, đảm bảo nhịp cắt chính xác và đồng đều cho các dây chuyền chế biến thịt, bánh, và rau củ quả. Giao diện tối ưu giúp thao tác nhanh chóng và đáp ứng khắt khe các tiêu chuẩn vệ sinh công nghiệp.",
+        "heroStats": [["2–4", "Số trục"], ["0.1–50 mm", "Độ dày cắt"], ["200", "Nhịp cắt (lần/phút)"]],
+        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy cắt thực phẩm.",
+        "workflow": [
+          { "l": "Input · Recipe", "t": "Thiết lập công thức cắt", "d": "Người vận hành chỉ cần chọn \"Recipe\" (công thức) đã lưu sẵn trên HMI, bao gồm độ dày lát cắt và số lượng yêu cầu cho từng mẻ nguyên liệu." },
+          { "l": "Plan · Speed", "t": "Đồng bộ tốc độ", "d": "Tính toán tốc độ băng tải nạp liệu ăn khớp tuyệt đối với nhịp dập/xoay của dao cắt, đảm bảo không làm nát phôi thực phẩm." },
+          { "l": "Drive · Sync", "t": "Truyền động cắt tốc độ cao", "d": "Phát xung tốc độ cao điều khiển động cơ servo trục dao, mang lại những nhát cắt chém dứt khoát, mượt mà và chính xác về độ dày." },
+          { "l": "Monitor · HMI", "t": "Quản lý sản lượng", "d": "Đếm số lượng lát cắt, số mẻ hoàn thành. Giao diện đơn giản, chống nước (nếu dùng dòng HMI công nghiệp) phù hợp môi trường xưởng thực phẩm." }
+        ]
+      },
+      "uon-lo-xo": {
+        "heroLede": "Bộ điều khiển chuyên dụng tự động hóa toàn bộ quá trình cấp dây, cuốn, uốn và cắt. Tạo ra các loại lò xo nén, kéo, và lò xo xoắn đa biên độ với độ đồng đều tuyệt đối và sai số thấp nhất.",
+        "heroStats": [["4–8", "Số trục"], ["±0.01", "Độ chính xác (mm)"], ["120 m/p", "Tốc độ cấp dây"]],
+        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy uốn lò xo.",
+        "workflow": [
+          { "l": "Input · Parameters", "t": "Nhập thông số hình học", "d": "Nhập trực tiếp các thông số kỹ thuật của lò xo như: đường kính dây, bước xoắn, góc uốn và số vòng trên màn hình điều khiển." },
+          { "l": "Plan · Cam", "t": "Đồng bộ Cam điện tử", "d": "Bộ điều khiển thiết lập mối quan hệ Cam điện tử (E-Cam) tinh vi giữa trục cấp dây (Master) và các trục uốn/cắt (Slave)." },
+          { "l": "Drive · Multi-axis", "t": "Điều khiển đa trục", "d": "Xử lý nội suy đa trục đồng thời. Các động cơ servo hoạt động độc lập nhưng liên kết chặt chẽ với độ trễ gần như bằng 0 qua bus tốc độ cao." },
+          { "l": "Monitor · HMI", "t": "Kiểm soát chiều dài dây", "d": "Tự động đo chiều dài dây đã cấp, đếm sản lượng lò xo và đưa ra báo động nếu kẹt dây hoặc hết phôi." }
+        ]
+      },
+      "mong-go": {
+        "heroLede": "Giải pháp gia công mộng âm dương chính xác cao cho ngành sản xuất nội thất. Rút ngắn thời gian thiết lập phôi, đa dạng hóa các kiểu mộng và đẩy nhanh tốc độ sản xuất hàng loạt cho xưởng mộc công nghiệp.",
+        "heroStats": [["3–5", "Số trục"], ["±0.05", "Sai số mộng (mm)"], ["18k", "Tốc độ spindle (RPM)"]],
+        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy làm mộng gỗ.",
+        "workflow": [
+          { "l": "Input · Macro", "t": "Gọi chương trình mộng", "d": "Hỗ trợ thư viện Macro các kiểu mộng gỗ thông dụng. Kỹ thuật viên chỉ cần điền kích thước (dài, rộng, sâu) thay vì phải lập trình G-Code phức tạp." },
+          { "l": "Plan · Path", "t": "Tính toán bù trừ dao", "d": "Thuật toán thông minh tự động tính toán bù trừ bán kính dao phay, đảm bảo mộng âm và dương lắp ráp vừa vặn, không bị lỏng hay quá chật." },
+          { "l": "Drive · EtherCAT", "t": "Điều khiển kẹp & cắt", "d": "Phối hợp nhịp nhàng giữa tín hiệu I/O điều khiển kẹp phôi bằng khí nén và quỹ đạo cắt tốc độ cao của servo trục chính." },
+          { "l": "Monitor · HMI", "t": "Giám sát & Quản lý dao", "d": "Hiển thị trực quan mô phỏng kiểu mộng đang chạy. Theo dõi thời gian mài mòn của dao phay để cảnh báo thay dao kịp thời." }
+        ]
+      },
+      "kim-hoan": {
+        "heroLede": "Sức mạnh điều khiển nội suy mượt mà kết hợp với độ phân giải vi bước siêu nhỏ. Mang lại những đường chạm khắc, phay cắt cực kỳ tinh xảo trên vàng, bạc và trang sức, đáp ứng tiêu chuẩn khắt khe nhất của ngành kim hoàn.",
+        "heroStats": [["4–5", "Số trục"], ["1µm", "Độ phân giải"], ["60k", "Tốc độ spindle (RPM)"]],
+        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy kim hoàn.",
+        "workflow": [
+          { "l": "Input · Jewelry CAD", "t": "Tiếp nhận thiết kế 3D", "d": "Xử lý các file G-Code dung lượng cực lớn xuất ra từ các phần mềm thiết kế trang sức chuyên dụng (như Matrix, Rhino)." },
+          { "l": "Plan · Micro-step", "t": "Tính toán vi bước", "d": "Thuật toán chia nhỏ quỹ đạo tới mức vi bước (Micro-stepping), làm mượt hoàn hảo các bề mặt cong và những chi tiết hoa văn siêu nhỏ." },
+          { "l": "Drive · Precision", "t": "Điều khiển độ nét cao", "d": "Giao tiếp mượt mà với các spindle tốc độ siêu cao (40.000 - 60.000 vòng/phút) và động cơ servo có độ phân giải encoder lớn, loại bỏ hoàn toàn vết hằn trên bề mặt cắt." },
+          { "l": "Monitor · HMI", "t": "Bảo vệ & Giám sát", "d": "Theo dõi thời gian thực quỹ đạo chạm khắc chi tiết. Tích hợp các tính năng bảo vệ chống quá tải trục chính khi gia công các hợp kim quý có độ cứng cao." }
+        ]
+      }
+    }
   }
 }

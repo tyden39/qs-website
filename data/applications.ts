@@ -69,12 +69,39 @@ const sharedDeployments: ApplicationDeployment[] = [
 const summaryDefault =
   "Máy phay CNC sử dụng các công cụ cắt xoay để loại bỏ vật liệu khỏi phôi — gia công các bộ phận tùy chỉnh phức tạp với độ chính xác cao và sản lượng lớn cho khuôn mẫu, linh kiện cơ khí và thiết bị y tế.";
 
-export const applications: Application[] = [
-  { slug: "phay-cnc", machine: "Máy Phay CNC", summary: summaryDefault, workflow: sharedWorkflow, specs: sharedSpecs, deployments: sharedDeployments },
-  { slug: "cua-long", machine: "Máy Cưa Lọng", summary: summaryDefault, workflow: sharedWorkflow, specs: sharedSpecs, deployments: sharedDeployments },
-  { slug: "dan-keo", machine: "Máy Dán Keo", summary: summaryDefault, workflow: sharedWorkflow, specs: sharedSpecs, deployments: sharedDeployments },
-  { slug: "thuc-pham", machine: "Máy Cắt Thực Phẩm", summary: summaryDefault, workflow: sharedWorkflow, specs: sharedSpecs, deployments: sharedDeployments },
-  { slug: "uon-lo-xo", machine: "Máy Uốn Lò Xo", summary: summaryDefault, workflow: sharedWorkflow, specs: sharedSpecs, deployments: sharedDeployments },
-  { slug: "mong-go", machine: "Máy Làm Mộng", summary: summaryDefault, workflow: sharedWorkflow, specs: sharedSpecs, deployments: sharedDeployments },
-  { slug: "kim-hoan", machine: "Máy Kim Hoàn", summary: summaryDefault, workflow: sharedWorkflow, specs: sharedSpecs, deployments: sharedDeployments },
+// Per-machine summaries drive the SEO description and JSON-LD; the shared workflow/specs
+// remain a reference config until per-machine data is added.
+const summaries: Record<string, string> = {
+  "phay-cnc": summaryDefault,
+  "cua-long":
+    "Máy cưa lọng công nghiệp được sử dụng để cắt các biên dạng cong phức tạp trên gỗ, nhựa hoặc vật liệu mỏng với tốc độ cao và đường cắt mượt mà. Hệ thống điều khiển QS giúp duy trì độ ổn định liên tục cho xưởng sản xuất.",
+  "dan-keo":
+    "Giải pháp rải keo tự động bám sát đường viền biên dạng, ứng dụng mạnh mẽ trong sản xuất giày da, bao bì và linh kiện điện tử. Đảm bảo lượng keo đồng đều, tiết kiệm nguyên liệu và nâng cao năng suất.",
+  "thuc-pham":
+    "Hệ thống điều khiển tốc độ cao, đảm bảo nhịp cắt chính xác và đồng đều cho các dây chuyền chế biến thịt, bánh, và rau củ quả. Giao diện tối ưu giúp thao tác nhanh chóng và đáp ứng khắt khe các tiêu chuẩn vệ sinh công nghiệp.",
+  "uon-lo-xo":
+    "Bộ điều khiển chuyên dụng tự động hóa toàn bộ quá trình cấp dây, cuốn, uốn và cắt. Tạo ra các loại lò xo nén, kéo, và lò xo xoắn đa biên độ với độ đồng đều tuyệt đối và sai số thấp nhất.",
+  "mong-go":
+    "Giải pháp gia công mộng âm dương chính xác cao cho ngành sản xuất nội thất. Rút ngắn thời gian thiết lập phôi, đa dạng hóa các kiểu mộng và đẩy nhanh tốc độ sản xuất hàng loạt cho xưởng mộc công nghiệp.",
+  "kim-hoan":
+    "Sức mạnh điều khiển nội suy mượt mà kết hợp với độ phân giải vi bước siêu nhỏ. Mang lại những đường chạm khắc, phay cắt cực kỳ tinh xảo trên vàng, bạc và trang sức, đáp ứng tiêu chuẩn khắt khe nhất của ngành kim hoàn.",
+};
+
+const machineNames: Array<{ slug: string; machine: string }> = [
+  { slug: "phay-cnc", machine: "Máy Phay CNC" },
+  { slug: "cua-long", machine: "Máy Cưa Lọng" },
+  { slug: "dan-keo", machine: "Máy Dán Keo" },
+  { slug: "thuc-pham", machine: "Máy Cắt Thực Phẩm" },
+  { slug: "uon-lo-xo", machine: "Máy Uốn Lò Xo" },
+  { slug: "mong-go", machine: "Máy Làm Mộng" },
+  { slug: "kim-hoan", machine: "Máy Kim Hoàn" },
 ];
+
+export const applications: Application[] = machineNames.map(({ slug, machine }) => ({
+  slug,
+  machine,
+  summary: summaries[slug] ?? summaryDefault,
+  workflow: sharedWorkflow,
+  specs: sharedSpecs,
+  deployments: sharedDeployments,
+}));

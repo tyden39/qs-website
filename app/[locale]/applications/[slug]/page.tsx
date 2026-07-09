@@ -66,8 +66,16 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
   };
   const machine = machineFor(slug);
   const idx = appSlugs.indexOf(slug) + 1 || 1;
-  const heroStats = t.raw("heroStats") as [string, string][];
-  const workflow = (t.raw("workflow") as { l: string; t: string; d: string }[]).map((w, i) => ({ ...w, n: String(i + 1).padStart(2, "0") }));
+  // Per-machine content overrides the shared defaults; unknown slugs fall back to the defaults.
+  const machines = t.raw("machines") as Record<
+    string,
+    { heroLede: string; heroStats: [string, string][]; workflowLede: string; workflow: { l: string; t: string; d: string }[] }
+  >;
+  const machine_ = machines?.[slug];
+  const heroLede = machine_?.heroLede ?? t("heroLede");
+  const workflowLede = machine_?.workflowLede ?? t("workflowLede");
+  const heroStats = machine_?.heroStats ?? (t.raw("heroStats") as [string, string][]);
+  const workflow = (machine_?.workflow ?? (t.raw("workflow") as { l: string; t: string; d: string }[])).map((w, i) => ({ ...w, n: String(i + 1).padStart(2, "0") }));
   const specs = t.raw("specs") as [string, string][];
   const deployments = t.raw("deployments") as { name: string; loc: string }[];
   const relatedApps = relatedAppsMeta.map((r) => ({ ...r, t: machineFor(r.slug) }));
@@ -94,7 +102,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                 {t("heroLine1")}<br/>{t("heroForPrefix")} {machine.toLowerCase()}
               </h1>
               <p className="mt-6 text-[17px] leading-[1.6] text-[#a8a499] max-w-[55ch]">
-                {t("heroLede")}
+                {heroLede}
               </p>
               <div className="grid grid-cols-3 gap-4 sm:gap-6 mt-10 pt-8 border-t border-[#2a2620]">
                 {heroStats.map(([v,l]) => (
@@ -132,7 +140,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
               <h2 className="qs-h2 mt-2">{t("workflowHeading")}</h2>
             </div>
             <p className="text-sm text-muted leading-[1.7] max-w-[44ch] m-0">
-              {t("workflowLede")}
+              {workflowLede}
             </p>
           </div>
           <div className="grid md:grid-cols-4 gap-px bg-line border border-line">

@@ -77,6 +77,74 @@
     "relatedEyebrow": "[ Next ]",
     "relatedHeading": "Related applications",
     "backAll": "← All applications",
-    "relatedAppLabel": "Application"
+    "relatedAppLabel": "Application",
+    "machines": {
+      "cua-long": {
+        "heroLede": "Industrial jigsaw machines cut complex curved profiles in wood, plastic, or thin materials at high speed with a smooth cut line. The QS control system keeps the shop floor running with continuous stability.",
+        "heroStats": [["2–3", "Axes"], ["±0.1", "Precision (mm)"], ["30 m/min", "Cutting speed"]],
+        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a jigsaw machine.",
+        "workflow": [
+          { "l": "Input · G-code/DXF", "t": "Import the profile drawing", "d": "The system reads design file formats (CAD/DXF) directly. The controller automatically detects them and sets up the initial cutting boundary." },
+          { "l": "Plan · Path", "t": "Compute & interpolate the path", "d": "A high-speed curve-interpolation algorithm ensures smooth fillets with no stutter or catch when the blade changes direction." },
+          { "l": "Drive · EtherCAT", "t": "Control the workpiece feed", "d": "Servo drive over EtherCAT with ultra-low latency, synchronising the rotary table motion with the jigsaw blade speed." },
+          { "l": "Monitor · HMI", "t": "Monitoring & alarms", "d": "The HMI tracks the actual running speed and integrates safety alarms such as blade-break detection and motor overload." }
+        ]
+      },
+      "dan-keo": {
+        "heroLede": "An automatic glue-dispensing solution that tracks the profile contour precisely, with strong applications in footwear, packaging, and electronic components. It ensures an even glue volume, saves material, and boosts productivity.",
+        "heroStats": [["3–4", "Axes"], ["Configurable", "Flow rate"], ["500 mm/s", "Run speed"]],
+        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a gluing machine.",
+        "workflow": [
+          { "l": "Input · Teaching", "t": "Program the glue path", "d": "Supports programming via G-code or an intuitive point-teaching mode right on the handheld pendant or the HMI." },
+          { "l": "Plan · Path", "t": "Optimise cornering", "d": "A look-ahead algorithm precomputes the 3D path and applies automatic deceleration at sharp corners to avoid glue pooling." },
+          { "l": "Drive · Dispenser", "t": "Sync pump valve & servo", "d": "Closed-loop control between the XYZ travel speed and the glue-pump valve opening keeps the glue bead even and unbroken." },
+          { "l": "Monitor · HMI", "t": "Cycle control", "d": "Manages batch counts and dispensing cycle time. The screen alarms immediately if it detects low glue pressure or a clogged nozzle." }
+        ]
+      },
+      "thuc-pham": {
+        "heroLede": "A high-speed control system that ensures precise, uniform cutting cadence for meat, bakery, and produce processing lines. The streamlined interface enables fast operation and meets strict industrial hygiene standards.",
+        "heroStats": [["2–4", "Axes"], ["0.1–50 mm", "Cut thickness"], ["200", "Cuts per minute"]],
+        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a food cutting machine.",
+        "workflow": [
+          { "l": "Input · Recipe", "t": "Set the cutting recipe", "d": "The operator simply selects a saved \"recipe\" on the HMI, including the slice thickness and the required quantity for each batch of material." },
+          { "l": "Plan · Speed", "t": "Speed synchronisation", "d": "Computes a feed-conveyor speed that meshes exactly with the blade's stamping/rotating cadence, ensuring the food is not crushed." },
+          { "l": "Drive · Sync", "t": "High-speed cutting drive", "d": "High-speed pulses drive the blade-axis servo motor for decisive, smooth cuts that are accurate to thickness." },
+          { "l": "Monitor · HMI", "t": "Output management", "d": "Counts slices and completed batches. A simple, waterproof interface (with an industrial HMI) suits the food-shop environment." }
+        ]
+      },
+      "uon-lo-xo": {
+        "heroLede": "A dedicated controller that automates the whole process of wire feeding, coiling, bending, and cutting. It produces compression, extension, and multi-amplitude torsion springs with perfect uniformity and the lowest tolerance.",
+        "heroStats": [["4–8", "Axes"], ["±0.01", "Precision (mm)"], ["120 m/min", "Wire feed speed"]],
+        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a spring bending machine.",
+        "workflow": [
+          { "l": "Input · Parameters", "t": "Enter geometric parameters", "d": "Enter the spring specifications directly — wire diameter, pitch, bend angle, and number of coils — on the control screen." },
+          { "l": "Plan · Cam", "t": "Electronic cam sync", "d": "The controller sets up a fine electronic-cam (E-Cam) relationship between the wire-feed master axis and the bend/cut slave axes." },
+          { "l": "Drive · Multi-axis", "t": "Multi-axis control", "d": "Handles simultaneous multi-axis interpolation. The servo motors run independently yet tightly coupled with near-zero latency over a high-speed bus." },
+          { "l": "Monitor · HMI", "t": "Wire-length control", "d": "Automatically measures the fed wire length, counts spring output, and raises an alarm on wire jam or material runout." }
+        ]
+      },
+      "mong-go": {
+        "heroLede": "A high-precision mortise-and-tenon machining solution for the furniture industry. It shortens workpiece setup time, diversifies joint styles, and speeds up mass production for industrial woodworking shops.",
+        "heroStats": [["3–5", "Axes"], ["±0.05", "Joint tolerance (mm)"], ["18k", "Spindle speed (RPM)"]],
+        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a tenoning machine.",
+        "workflow": [
+          { "l": "Input · Macro", "t": "Call the joint program", "d": "Supports a macro library of common wood-joint styles. The technician only enters dimensions (length, width, depth) instead of writing complex G-code." },
+          { "l": "Plan · Path", "t": "Compute tool offset", "d": "A smart algorithm automatically computes the milling-cutter radius offset, ensuring the mortise and tenon fit snugly — neither loose nor too tight." },
+          { "l": "Drive · EtherCAT", "t": "Control clamping & cutting", "d": "Smoothly coordinates the I/O signals for pneumatic workpiece clamping with the high-speed cutting path of the main-axis servo." },
+          { "l": "Monitor · HMI", "t": "Monitoring & tool management", "d": "Visually simulates the joint style being run. Tracks the milling cutter's wear time to warn of timely tool changes." }
+        ]
+      },
+      "kim-hoan": {
+        "heroLede": "Smooth interpolation control power combined with ultra-fine micro-step resolution. It delivers extremely refined engraving and milling on gold, silver, and jewellery, meeting the strictest standards of the jewellery industry.",
+        "heroStats": [["4–5", "Axes"], ["1µm", "Resolution"], ["60k", "Spindle speed (RPM)"]],
+        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a jewellery machine.",
+        "workflow": [
+          { "l": "Input · Jewelry CAD", "t": "Receive the 3D design", "d": "Handles extremely large G-code files exported from dedicated jewellery design software (such as Matrix, Rhino)." },
+          { "l": "Plan · Micro-step", "t": "Micro-step computation", "d": "The algorithm subdivides the path down to the micro-step level, perfectly smoothing curved surfaces and ultra-fine ornamental details." },
+          { "l": "Drive · Precision", "t": "High-definition control", "d": "Communicates smoothly with ultra-high-speed spindles (40,000–60,000 RPM) and high-resolution encoder servo motors, fully eliminating marks on the cut surface." },
+          { "l": "Monitor · HMI", "t": "Protection & monitoring", "d": "Tracks the detailed engraving path in real time. Integrates overload protection for the main axis when machining hard precious alloys." }
+        ]
+      }
+    }
   }
 }

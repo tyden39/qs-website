@@ -12,6 +12,31 @@ export type News = {
 // Crawled from qstcnc.com (WordPress REST API, category "News"). Newest first.
 export const news: News[] = [
   {
+    slug: "qs-technology-tham-gia-trien-lam-mta-vietnam-2026",
+    title: "QS TECHNOLOGY THAM GIA TRIỂN LÃM MTA VIETNAM 2026 TẠI THÀNH PHỐ HỒ CHÍ MINH",
+    date: "04 · 07 · 2026",
+    cat: "Sự kiện",
+    excerpt: "Từ ngày 01/07 đến 04/07/2026, QS Technology đã tham gia MTA Vietnam 2026 tại Trung tâm Hội chợ và Triển lãm Sài Gòn (SECC), TP. Hồ Chí Minh. Đây là một trong những triển lãm quốc tế uy tín trong lĩnh vực cơ khí chính xác, gia công kim loại và công nghệ sản xuất, quy tụ đông đảo doanh nghiệp, chuyên gia và khách hàng trong nước cũng như quốc tế.",
+    body: `<img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-1.webp" alt="Poster triển lãm MTA Vietnam 2026">
+<img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-2.webp" alt="Trung tâm Hội chợ và Triển lãm Sài Gòn (SECC)">
+<p>Từ ngày 01/07 đến 04/07/2026, <strong>QS Technology</strong> đã tham gia <strong>MTA Vietnam 2026</strong> tại Trung tâm Hội chợ và Triển lãm Sài Gòn (SECC), TP. Hồ Chí Minh. Đây là một trong những triển lãm quốc tế uy tín trong lĩnh vực cơ khí chính xác, gia công kim loại và công nghệ sản xuất, quy tụ đông đảo doanh nghiệp, chuyên gia và khách hàng trong nước cũng như quốc tế.</p>
+<img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-3.webp" alt="Cổng chào triển lãm MTA Vietnam 2026">
+<p>Tại <b>Booth VN15 | Hall B1 – JETRO Zone</b>, QS Technology đã giới thiệu các giải pháp CNC do chính đội ngũ kỹ sư Việt Nam nghiên cứu và phát triển, nổi bật là dòng máy <strong>CNC Mini QSM-125</strong> cùng bộ điều khiển CNC QS. Gian hàng đã thu hút sự quan tâm của nhiều doanh nghiệp sản xuất, đơn vị gia công cơ khí, trường học và đối tác đang tìm kiếm những giải pháp gia công chính xác, ổn định và tối ưu chi phí.</p>
+<img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-4.webp" alt="Máy CNC Mini QSM-125 tại gian hàng QS Technology">
+<h2>Không gian trưng bày thu hút đông đảo khách tham quan</h2>
+<p>Trong suốt 4 ngày triển lãm, gian hàng QS Technology liên tục đón tiếp khách tham quan đến tìm hiểu sản phẩm, trao đổi kỹ thuật và trải nghiệm trực tiếp khả năng vận hành của các thiết bị CNC. Những màn trình diễn gia công thực tế đã giúp khách hàng có cái nhìn trực quan về độ chính xác, tốc độ và tính ổn định của máy.</p>
+<h2>Kết nối – Chia sẻ – Hợp tác</h2>
+<img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-5.webp" alt="Khách hàng trao đổi tại gian hàng QS Technology">
+<p>MTA Vietnam 2026 không chỉ là cơ hội để QS Technology giới thiệu công nghệ mà còn là dịp gặp gỡ các đối tác, khách hàng và chuyên gia trong ngành. Nhiều cuộc trao đổi chuyên sâu về ứng dụng CNC, tự động hóa và giải pháp sản xuất đã diễn ra ngay tại gian hàng, mở ra nhiều cơ hội hợp tác trong thời gian tới.</p>
+<img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-6.webp" alt="Đối tác và khách hàng chụp ảnh lưu niệm tại gian hàng QS Technology">
+<h2>Xin chân thành cảm ơn Quý khách hàng và Đối tác</h2>
+<p>QS Technology xin gửi lời cảm ơn chân thành đến Quý khách hàng, Quý đối tác và tất cả khách tham quan đã dành thời gian ghé thăm gian hàng trong suốt thời gian diễn ra triển lãm. Sự quan tâm và những ý kiến đóng góp của Quý vị là động lực để chúng tôi không ngừng nghiên cứu, cải tiến và mang đến những giải pháp CNC chất lượng hơn.</p>
+<p>Hành trình tại MTA Vietnam 2026 đã khép lại, nhưng QS Technology sẽ tiếp tục đồng hành cùng doanh nghiệp trên con đường nâng cao hiệu quả sản xuất bằng những công nghệ CNC tiên tiến, được nghiên cứu và phát triển tại Việt Nam.</p>
+<p>Một lần nữa, xin chân thành cảm ơn và hẹn gặp lại Quý khách tại những triển lãm tiếp theo!</p>`,
+    cover: "/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/cover.webp",
+    tags: ["MTA Vietnam 2026", "Triển lãm", "CNC", "QSM-125"],
+  },
+  {
     slug: "qs-technology-the-future-brand-2025",
     title: "QS Technology – The Future Brand 2025. #qstechnology, #thefuturebrand 2025, #madebyvietnam",
     date: "11 · 08 · 2025",

@@ -16,6 +16,7 @@ const STATIC_PATHS = [
   "/downloads",
   "/search",
   "/products",
+  "/cnc",
   "/news",
   "/applications",
   "/services",

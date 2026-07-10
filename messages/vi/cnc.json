@@ -1,0 +1,136 @@
+{
+  "seo": {
+    "title": "Máy phay CNC VMC-850 — Trung tâm gia công 3 trục",
+    "description": "Trung tâm phay CNC 3 trục lắp ráp tại Việt Nam, chạy bộ điều khiển Astro 10i của QS. Hành trình 850×500×540 mm, trục chính BT40 12.000 v/ph, định vị ±0.005 mm."
+  },
+  "hero": {
+    "eyebrow": "Máy CNC · Lắp ráp tại Việt Nam",
+    "model": "QS VMC-850",
+    "heading": "Trung tâm phay CNC cho xưởng cơ khí Việt",
+    "lede": "Khung máy đúc gang, vít me bi C3, trục chính BT40 — điều khiển bởi Astro 10i do QS thiết kế và viết firmware. Một đầu mối duy nhất cho cả máy, điện và phần mềm.",
+    "ctaQuote": "Nhận báo giá",
+    "ctaSpecs": "Xem thông số",
+    "droLabel": "Hành trình trục",
+    "droUnit": "mm",
+    "imgAlt": "Máy phay CNC QS VMC-850 đang phay chi tiết thép với vòi tưới nguội",
+    "diagramCaption": "Gia công thực tế tại xưởng QS",
+    "legendLabel": "Chức năng chính",
+    "callouts": [
+      { "t": "Trục chính BT40", "d": "12.000 v/ph · 11 kW — phay thép, nhôm, đồng." },
+      { "t": "Tưới nguội áp lực", "d": "Vòi định hướng, bơm 8 bar — giữ dao mát khi cắt sâu." },
+      { "t": "Vít me bi C3", "d": "Truyền động cả 3 trục, định vị ±0.005 mm." },
+      { "t": "Vùng gá phôi", "d": "Ê tô và bích kẹp rãnh T, thay gá nhanh theo loạt." },
+      { "t": "Bàn máy 1.000 × 500", "d": "5 rãnh T 18 mm, chịu tải 500 kg." }
+    ]
+  },
+  "ticker": ["Phay CNC 3 trục", "BT40 · 12.000 v/ph", "Định vị ±0.005 mm", "Astro 10i bên trong", "Lắp ráp tại Việt Nam", "Bảo hành 24 tháng"],
+  "stats": {
+    "eyebrow": "Năng lực gia công",
+    "heading": "Số liệu nói thay máy",
+    "items": [
+      { "suffix": ".000 v/ph", "label": "Tốc độ trục chính" },
+      { "suffix": " dao", "label": "Ổ chứa dao" },
+      { "suffix": " m/ph", "label": "Chạy nhanh X/Y" },
+      { "suffix": " µm", "label": "Độ chính xác định vị" }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Datasheet",
+    "heading": "Bảng thông số kỹ thuật",
+    "note": "Thông số cấu hình chuẩn — trục chính, ổ dao và hành trình có thể thay đổi theo yêu cầu.",
+    "download": "Tải datasheet",
+    "controllerLink": "Xem bộ điều khiển Astro 10i",
+    "groups": [
+      {
+        "title": "Hành trình & bàn máy",
+        "rows": [
+          ["Hành trình X / Y / Z", "850 / 500 / 540 mm"],
+          ["Kích thước bàn máy", "1.000 × 500 mm"],
+          ["Tải trọng bàn", "500 kg"],
+          ["Rãnh T", "18 mm × 5 rãnh"]
+        ]
+      },
+      {
+        "title": "Trục chính",
+        "rows": [
+          ["Tốc độ tối đa", "12.000 v/ph"],
+          ["Côn dao", "BT40"],
+          ["Công suất", "11 kW"],
+          ["Ổ chứa dao", "24 dao — tay quay"]
+        ]
+      },
+      {
+        "title": "Độ chính xác & tốc độ",
+        "rows": [
+          ["Độ chính xác định vị", "±0.005 mm"],
+          ["Độ lặp lại", "±0.003 mm"],
+          ["Chạy nhanh X / Y", "36 m/ph"],
+          ["Chạy nhanh Z", "24 m/ph"],
+          ["Tiến dao cắt", "1 – 10.000 mm/ph"]
+        ]
+      },
+      {
+        "title": "Điều khiển & điện",
+        "rows": [
+          ["Bộ điều khiển", "QS Astro 10i"],
+          ["Động cơ", "Servo AC 3 trục"],
+          ["Nguồn điện", "380 V · 3 pha"],
+          ["Khí nén", "0,6 MPa"],
+          ["Khối lượng máy", "4.200 kg"]
+        ]
+      }
+    ]
+  },
+  "compare": {
+    "eyebrow": "Trước & sau",
+    "heading": "Từ phôi thô đến chi tiết hoàn thiện",
+    "body": "Kéo thanh trượt để so sánh phôi trước và sau khi gia công trên VMC-850. Ảnh minh hoạ — sẽ thay bằng chi tiết thực tế của bạn.",
+    "before": "Phôi thô",
+    "after": "Sau gia công",
+    "hint": "Kéo để so sánh"
+  },
+  "configurator": {
+    "eyebrow": "Cấu hình máy",
+    "heading": "Dựng cấu hình theo nhu cầu xưởng",
+    "body": "Chọn gói hành trình, trục chính và ổ dao — bảng thông số cập nhật ngay. Gửi cấu hình để kỹ sư QS báo giá.",
+    "groups": { "travel": "Gói hành trình", "spindle": "Trục chính", "magazine": "Ổ chứa dao" },
+    "summary": {
+      "label": "Cấu hình đã chọn",
+      "model": "Mã máy",
+      "travel": "Hành trình X / Y / Z",
+      "table": "Bàn máy",
+      "spindle": "Trục chính",
+      "magazine": "Ổ chứa dao",
+      "accuracy": "Định vị"
+    },
+    "quoteCta": "Gửi cấu hình & nhận báo giá",
+    "resetCta": "Đặt lại",
+    "note": "Cấu hình minh hoạ để tham khảo — thông số cuối theo xác nhận kỹ thuật.",
+    "quoteIntro": "Đề nghị báo giá máy phay CNC với cấu hình:"
+  },
+  "monitor": {
+    "label": "Xưởng đang chạy",
+    "demo": "Dữ liệu mô phỏng · sẽ nối DNC",
+    "status": "ĐANG CHẠY",
+    "runtime": "Giờ máy tích luỹ",
+    "spindle": "Tải trục chính",
+    "feed": "Tiến dao",
+    "program": "Chương trình",
+    "parts": "Chi tiết hôm nay"
+  },
+  "video": {
+    "eyebrow": "Máy chạy thực tế",
+    "heading": "Xem máy vận hành",
+    "body": "Chu trình gia công do bộ điều khiển QS vận hành — quay trực tiếp tại xưởng, không dàn dựng.",
+    "title": "Máy gia công 5 trục chạy bộ điều khiển QS Astro 6AV",
+    "play": "Phát video",
+    "close": "Đóng video",
+    "youtube": "Kênh YouTube"
+  },
+  "cta": {
+    "heading": "Cần cấu hình máy theo sản phẩm của bạn?",
+    "body": "Gửi bản vẽ hoặc mẫu phôi — kỹ sư QS tư vấn cấu hình trục chính, đồ gá và chu trình gia công trong 48 giờ.",
+    "button": "Nhận tư vấn kỹ thuật",
+    "hotline": "Hoặc gọi trực tiếp"
+  }
+}

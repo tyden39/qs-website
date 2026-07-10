@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { z } from "zod";
 import { createPublicLead } from "@/lib/crm/leads-client";
@@ -40,11 +40,20 @@ export function ContactForm() {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: { businessGroup: "", services: [], honeypot: "" },
   });
+
+  // Pre-fill the message when arriving from a deep link (e.g. the CNC configurator
+  // sends ?message=<build sheet>). Read from the URL directly to avoid the Suspense
+  // boundary that useSearchParams requires under static export.
+  useEffect(() => {
+    const msg = new URLSearchParams(window.location.search).get("message");
+    if (msg) setValue("message", msg);
+  }, [setValue]);
 
   const isOther = watch("businessGroup") === "other";
 

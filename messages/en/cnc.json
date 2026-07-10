@@ -1,0 +1,136 @@
+{
+  "seo": {
+    "title": "VMC-850 CNC Milling Machine — 3-Axis Machining Center",
+    "description": "3-axis CNC machining center assembled in Vietnam, running QS's Astro 10i controller. 850×500×540 mm travel, BT40 spindle at 12,000 rpm, ±0.005 mm positioning."
+  },
+  "hero": {
+    "eyebrow": "CNC Machines · Assembled in Vietnam",
+    "model": "QS VMC-850",
+    "heading": "A CNC machining center built for Vietnamese workshops",
+    "lede": "Cast-iron frame, C3 ball screws, BT40 spindle — driven by the Astro 10i that QS designs and writes firmware for. One point of contact for the machine, electrics and software.",
+    "ctaQuote": "Request a quote",
+    "ctaSpecs": "View specifications",
+    "droLabel": "Axis travel",
+    "droUnit": "mm",
+    "imgAlt": "QS VMC-850 CNC milling machine cutting a steel part under coolant",
+    "diagramCaption": "Live machining at the QS workshop",
+    "legendLabel": "Key functions",
+    "callouts": [
+      { "t": "BT40 spindle", "d": "12,000 rpm · 11 kW — mills steel, aluminium, copper." },
+      { "t": "High-pressure coolant", "d": "Directional nozzle, 8-bar pump — keeps the tool cool on deep cuts." },
+      { "t": "C3 ball screws", "d": "All three axes, ±0.005 mm positioning." },
+      { "t": "Workholding zone", "d": "Vise and T-slot clamps, quick changeover between batches." },
+      { "t": "1,000 × 500 table", "d": "Five 18 mm T-slots, 500 kg load capacity." }
+    ]
+  },
+  "ticker": ["3-Axis CNC Milling", "BT40 · 12,000 rpm", "±0.005 mm positioning", "Astro 10i inside", "Assembled in Vietnam", "24-month warranty"],
+  "stats": {
+    "eyebrow": "Machining capability",
+    "heading": "Let the numbers speak",
+    "items": [
+      { "suffix": ",000 rpm", "label": "Spindle speed" },
+      { "suffix": " tools", "label": "Tool magazine" },
+      { "suffix": " m/min", "label": "Rapid traverse X/Y" },
+      { "suffix": " µm", "label": "Positioning accuracy" }
+    ]
+  },
+  "specs": {
+    "eyebrow": "Datasheet",
+    "heading": "Technical specifications",
+    "note": "Standard configuration — spindle, tool magazine and travel can be tailored on request.",
+    "download": "Download datasheet",
+    "controllerLink": "See the Astro 10i controller",
+    "groups": [
+      {
+        "title": "Travel & table",
+        "rows": [
+          ["X / Y / Z travel", "850 / 500 / 540 mm"],
+          ["Table size", "1,000 × 500 mm"],
+          ["Table load", "500 kg"],
+          ["T-slots", "18 mm × 5 slots"]
+        ]
+      },
+      {
+        "title": "Spindle",
+        "rows": [
+          ["Maximum speed", "12,000 rpm"],
+          ["Tool taper", "BT40"],
+          ["Power", "11 kW"],
+          ["Tool magazine", "24 tools — carousel"]
+        ]
+      },
+      {
+        "title": "Accuracy & feed",
+        "rows": [
+          ["Positioning accuracy", "±0.005 mm"],
+          ["Repeatability", "±0.003 mm"],
+          ["Rapid traverse X / Y", "36 m/min"],
+          ["Rapid traverse Z", "24 m/min"],
+          ["Cutting feed", "1 – 10,000 mm/min"]
+        ]
+      },
+      {
+        "title": "Control & electrical",
+        "rows": [
+          ["Controller", "QS Astro 10i"],
+          ["Motors", "3-axis AC servo"],
+          ["Power supply", "380 V · 3-phase"],
+          ["Compressed air", "0.6 MPa"],
+          ["Machine weight", "4,200 kg"]
+        ]
+      }
+    ]
+  },
+  "compare": {
+    "eyebrow": "Before & after",
+    "heading": "From raw stock to finished part",
+    "body": "Drag the handle to compare a blank before and after machining on the VMC-850. Illustrative preview — swap in your own parts.",
+    "before": "Raw stock",
+    "after": "Machined",
+    "hint": "Drag to compare"
+  },
+  "configurator": {
+    "eyebrow": "Configure",
+    "heading": "Build the machine around your shop",
+    "body": "Pick a travel package, spindle and tool magazine — the spec panel updates live. Send the build for a QS engineer to quote.",
+    "groups": { "travel": "Travel package", "spindle": "Spindle", "magazine": "Tool magazine" },
+    "summary": {
+      "label": "Selected configuration",
+      "model": "Model",
+      "travel": "X / Y / Z travel",
+      "table": "Table",
+      "spindle": "Spindle",
+      "magazine": "Tool magazine",
+      "accuracy": "Positioning"
+    },
+    "quoteCta": "Send build & request quote",
+    "resetCta": "Reset",
+    "note": "Illustrative configuration for reference — final specs subject to engineering confirmation.",
+    "quoteIntro": "Quote request for a CNC milling machine configured as:"
+  },
+  "monitor": {
+    "label": "Shop floor · live",
+    "demo": "Demo data · DNC feed coming",
+    "status": "RUNNING",
+    "runtime": "Cumulative machine hours",
+    "spindle": "Spindle load",
+    "feed": "Feed rate",
+    "program": "Program",
+    "parts": "Parts today"
+  },
+  "video": {
+    "eyebrow": "Machine in action",
+    "heading": "Watch it run",
+    "body": "A machining cycle driven by a QS controller — filmed live at the workshop, no staging.",
+    "title": "5-axis machining center running the QS Astro 6AV controller",
+    "play": "Play video",
+    "close": "Close video",
+    "youtube": "YouTube channel"
+  },
+  "cta": {
+    "heading": "Need the machine configured for your parts?",
+    "body": "Send us a drawing or a sample workpiece — QS engineers propose the spindle, workholding and machining cycle within 48 hours.",
+    "button": "Talk to an engineer",
+    "hotline": "Or call us directly"
+  }
+}

@@ -30,6 +30,7 @@ export default function Header() {
 
   const left = [
     ["/products", t("products")],
+    ["/cnc", t("cnc")],
     ["/applications", t("applications")],
     ["/services", t("services")],
     ["/downloads", t("downloads")],

@@ -3,10 +3,14 @@ import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
+import { ProductVideo } from "../products/_components/product-video";
 import type { Locale } from "@/lib/i18n/config";
 
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+
+// Shop-floor feature clip shown below the catalog list.
+const APP_VIDEO_ID = "kLcNpeHu-2A";
 
 export async function generateMetadata({
   params,
@@ -154,6 +158,19 @@ export default async function Applications({ params }: { params: Promise<{ local
               <button className="w-9 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink">2</button>
               <button className="w-9 h-9 border border-line grid place-items-center text-muted hover:border-ink hover:text-ink">›</button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VIDEO — centered feature clip below the catalog */}
+      <section className="py-20 bg-paper border-t border-line">
+        <div className="max-w-wrap mx-auto px-12">
+          <div className="max-w-[900px] mx-auto text-center">
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>
+            <h2 className="qs-h2 mt-2">{t("videoHeading")}</h2>
+          </div>
+          <div className="max-w-[900px] mx-auto mt-8">
+            <ProductVideo youtubeId={APP_VIDEO_ID} title={t("videoHeading")} playLabel={t("videoPlay")} />
           </div>
         </div>
       </section>

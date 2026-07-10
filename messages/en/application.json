@@ -26,6 +26,9 @@
     "controllerFor": "Controller for",
     "detail": "Details",
     "more": "more",
+    "videoEyebrow": "[ Video ]",
+    "videoHeading": "Applications on the shop floor",
+    "videoPlay": "Play video",
     "items": [
       { "t": "CNC Milling", "machine": "CNC Milling Machine" },
       { "t": "Jigsaw", "machine": "Jigsaw Machine" },

@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Reveal from "@/components/reveal";
-import Marquee from "@/components/marquee";
 import CountUp from "@/components/count-up";
 import CircuitTraces from "@/components/circuit-traces";
 import MachineAnnotation, { type CalloutText } from "./_components/machine-annotation";
 import CncFeatureVideo from "./_components/cnc-feature-video";
-import RuntimeMonitor from "./_components/runtime-monitor";
 import WorkpieceCompare from "./_components/workpiece-compare";
 import MachineConfigurator from "./_components/machine-configurator";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -43,13 +41,6 @@ export async function generateMetadata({
 const MACHINE_IMG = "/home/app-phay-cnc.webp";
 const VIDEO_ID = "kLcNpeHu-2A";
 
-// Digital readout in the hero — axis travels shown like a machine DRO.
-const droAxes = [
-  { axis: "X", to: 850 },
-  { axis: "Y", to: 500 },
-  { axis: "Z", to: 540 },
-] as const;
-
 // Stat band values; suffix/label come from i18n (vi "12.000 v/ph" vs en "12,000 rpm"
 // differ in thousands separator, so the ".000"/",000" part lives in the suffix).
 const statValues = [
@@ -65,8 +56,6 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
   const t = await getTranslations({ locale, namespace: "cnc" });
 
   const callouts = t.raw("hero.callouts") as CalloutText[];
-  const ticker = t.raw("ticker") as string[];
-  const tickerWords = Array.from({ length: 3 }, () => ticker).flat();
   const stats = (t.raw("stats.items") as { suffix: string; label: string }[]).map(
     (txt, i) => ({ ...statValues[i], ...txt }),
   );
@@ -90,26 +79,6 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
             <div className="mt-5 inline-block font-mono text-[11px] tracking-[.2em] uppercase text-ink bg-gold px-2.5 py-1">{t("hero.model")}</div>
             <h1 className="qs-h1 text-white mt-4">{t("hero.heading")}</h1>
             <p className="text-[#a8a499] text-base leading-[1.7] mt-6 max-w-[54ch]">{t("hero.lede")}</p>
-            <div className="flex flex-wrap gap-3 mt-8">
-              <Link className="qs-btn qs-btn-gold" href="/contact">{t("hero.ctaQuote")} <span className="arr">→</span></Link>
-              <a className="qs-btn bg-transparent text-white border border-[#4a453a] hover:bg-white/10" href="#specs">{t("hero.ctaSpecs")} <span className="arr">↓</span></a>
-            </div>
-            {/* DRO — axis travels rendered like the machine's digital readout */}
-            <div className="mt-10 border border-[#2a2620]">
-              <div className="px-4 py-2 border-b border-[#2a2620] font-mono text-[10px] tracking-[.18em] uppercase text-muted flex justify-between">
-                <span>{t("hero.droLabel")}</span><span>{t("hero.droUnit")}</span>
-              </div>
-              <div className="grid grid-cols-3 divide-x divide-[#2a2620]">
-                {droAxes.map((a, i) => (
-                  <div key={a.axis} className="px-4 py-3.5">
-                    <span className="block font-mono text-[10px] tracking-[.2em] text-gold-1">{a.axis}</span>
-                    <span className="block font-mono text-[22px] lg:text-[24px] text-gold-2 tracking-[.02em] mt-1 tabular-nums">
-                      <CountUp to={a.to} suffix=".00" duration={1400 + i * 300} />
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </Reveal>
           <Reveal delay={120}>
             <MachineAnnotation
@@ -122,19 +91,6 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
           </Reveal>
         </div>
       </section>
-
-      {/* TICKER — running spec band separating the hero from the light body */}
-      <div className="bg-ink text-[#cfc9b8] border-y border-[#2a2620] overflow-hidden">
-        <div className="py-3.5 border-b border-[#2a2620]">
-          <Marquee items={tickerWords} speed={50} />
-        </div>
-        <div className="py-3.5 text-[#8a8676]">
-          <Marquee items={tickerWords} speed={44} reverse />
-        </div>
-      </div>
-
-      {/* RUNTIME MONITOR — DNC-style live shop-floor readout (simulated demo data) */}
-      <RuntimeMonitor locale={locale} />
 
       {/* STATS — headline figures counting up on scroll */}
       <section className="relative py-20 bg-paper overflow-hidden">

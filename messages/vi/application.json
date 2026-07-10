@@ -26,6 +26,9 @@
     "controllerFor": "Bộ điều khiển cho",
     "detail": "Chi tiết",
     "more": "Thêm",
+    "videoEyebrow": "[ Video ]",
+    "videoHeading": "Ứng dụng thực tế tại xưởng",
+    "videoPlay": "Phát video",
     "items": [
       { "t": "Phay CNC", "machine": "Máy Phay CNC" },
       { "t": "Cưa Lọng", "machine": "Máy Cưa Lọng" },

@@ -37,6 +37,8 @@ export type ProductView = {
   /** Crawled enrichment (legacy site). Optional — not every model has it. */
   overview: string | null;
   highlights: string[];
+  overviewImage: ProductFrontPhoto | null;
+  video: { youtubeId: string; title?: string } | null;
   gallery: ProductGalleryImage[];
   documents: string[];
   software: string[];
@@ -177,6 +179,8 @@ function toView(p: Product, index: number, locale: Locale): ProductView {
     images: gallery.map((g) => ({ url: g.src, alt: g.alt })),
     overview: (en ? p.overviewEn ?? p.overview : p.overview) ?? null,
     highlights: (en ? p.highlightsEn ?? p.highlights : p.highlights) ?? [],
+    overviewImage: p.overviewImage ?? null,
+    video: p.video ?? null,
     gallery,
     documents: p.documents ?? [],
     software: p.software ?? [],

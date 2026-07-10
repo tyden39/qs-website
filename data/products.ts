@@ -81,6 +81,10 @@ export type Product = {
   highlights?: string[];
   /** English highlights, served on the `en` locale (Vietnamese `highlights` stays primary). */
   highlightsEn?: string[];
+  /** Lead photo shown in the overview's right column. Optional — falls back to a placeholder. */
+  overviewImage?: ProductPhoto;
+  /** Product video (YouTube) rendered below the photo tour in the overview tab. */
+  video?: { youtubeId: string; title?: string };
   gallery?: ProductGalleryPhoto[];
   documents?: string[];
   software?: string[];

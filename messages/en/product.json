@@ -130,7 +130,17 @@
     "calibrationLabel": "calibration view",
     "lightbox": { "prev": "Previous image", "next": "Next image", "close": "Close", "zoom": "View larger" },
     "tourEyebrow": "[ A closer look ]",
-    "tourHeading": "The product in detail",
+    "tourHeading": "The product in detail — real photos",
+    "tourGroups": {
+      "real": { "tag": "Actual photos", "desc": "Real photographs of the controller." },
+      "ui": { "tag": "Operating interface", "desc": "Key operating screens and functions." },
+      "machine": { "tag": "Installed on a machine", "desc": "Controller installed and running on a real CNC machine." }
+    },
+    "overviewPhotoComingSoon": "Image coming soon",
+    "videoEyebrow": "[ Video ]",
+    "videoHeading": "Product video",
+    "videoComingSoon": "Video coming soon",
+    "videoPlay": "Play video",
     "documentsHeading": "Documents",
     "softwareHeading": "Software",
     "galleryNotes": {

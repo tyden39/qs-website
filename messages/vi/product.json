@@ -130,7 +130,17 @@
     "calibrationLabel": "calibration view",
     "lightbox": { "prev": "Ảnh trước", "next": "Ảnh sau", "close": "Đóng", "zoom": "Xem ảnh lớn" },
     "tourEyebrow": "[ Tìm hiểu qua hình ảnh ]",
-    "tourHeading": "Chi tiết sản phẩm qua hình ảnh",
+    "tourHeading": "Chi tiết sản phẩm qua hình ảnh thực tế",
+    "tourGroups": {
+      "real": { "tag": "Ảnh thực tế", "desc": "Hình chụp thực tế của bộ điều khiển." },
+      "ui": { "tag": "Giao diện vận hành", "desc": "Các màn hình và chức năng vận hành chính." },
+      "machine": { "tag": "Thực tế lắp trên máy cơ khí", "desc": "Bộ điều khiển lắp đặt và vận hành thực tế trên máy cơ khí." }
+    },
+    "overviewPhotoComingSoon": "Hình ảnh đang được cập nhật",
+    "videoEyebrow": "[ Video ]",
+    "videoHeading": "Video sản phẩm",
+    "videoComingSoon": "Video đang được cập nhật",
+    "videoPlay": "Phát video",
     "documentsHeading": "Tài liệu",
     "softwareHeading": "Phần mềm",
     "galleryNotes": {

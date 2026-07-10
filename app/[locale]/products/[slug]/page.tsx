@@ -10,6 +10,7 @@ import { KitComponentIcon } from "@/components/products/kit-component-icon";
 import CircuitTraces from "@/components/circuit-traces";
 import { ProductDetailTabs, type ProductDetailTab } from "../_components/product-detail-tabs";
 import { ProductHeroGallery, type HeroShot } from "../_components/product-hero-gallery";
+import { ProductVideo } from "../_components/product-video";
 import { LightboxProvider, LightboxTrigger, type LightboxShot } from "@/components/products/product-image-lightbox";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -133,6 +134,15 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
     .filter((g) => !heroSrcs.has(g.src))
     .map((g) => ({ img: g, kind: g.kind }));
   const tourShots: LightboxShot[] = annotated.map((x) => x.img);
+  // Photo tour split into fixed groups by position, so every model follows the
+  // same order: first 3 = real product photos, next 3 = operating-interface
+  // screens, the rest = the controller installed on a real machine. `start` is
+  // the absolute index into `tourShots` so the lightbox keeps one flat sequence.
+  const tourGroups = [
+    { id: "real", start: 0, shots: annotated.slice(0, 3) },
+    { id: "ui", start: 3, shots: annotated.slice(3, 6) },
+    { id: "machine", start: 6, shots: annotated.slice(6) },
+  ].filter((g) => g.shots.length > 0);
   const bundlePhotos = p.bundle.map((c) => c.photo ?? (c.icon === "controller" ? p.image : null));
   let bundleSeen = 0;
   const bundleShotIndex = bundlePhotos.map((ph) => (ph ? bundleSeen++ : -1));
@@ -179,58 +189,89 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             />
           </article>
 
-          {p.highlights.length > 0 && (
-            <aside className="min-w-0 lg:sticky lg:top-32">
-              <div className="flex items-center gap-4 mb-5">
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("highlightsHeading")}</span>
-                <span className="h-px flex-1 bg-line" />
+          <aside className="min-w-0 lg:sticky lg:top-32">
+            {p.overviewImage ? (
+              <div className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden border border-line bg-white">
+                <div className="absolute inset-0 qs-grid-bg opacity-30" />
+                <Image
+                  src={p.overviewImage.src}
+                  alt={p.name}
+                  width={p.overviewImage.w}
+                  height={p.overviewImage.h}
+                  sizes="(max-width: 1024px) 92vw, 380px"
+                  className="relative w-auto max-h-[260px] max-w-full object-contain"
+                />
               </div>
-              <ul className="list-none m-0 p-0 border border-line divide-y divide-line bg-white">
-                {p.highlights.map((h, i) => (
-                  <li key={h} className="grid grid-cols-[46px_1fr] items-start gap-4 px-5 py-4">
-                    <span className="font-mono text-[13px] font-semibold text-gold-1 tracking-[.1em]">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="text-[14.5px] leading-[1.6] text-ink">{h}</span>
-                  </li>
-                ))}
-              </ul>
-            </aside>
-          )}
+            ) : (
+              <div className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden border border-dashed border-line bg-white">
+                <div className="absolute inset-0 qs-grid-bg opacity-30" />
+                <span className="relative font-mono text-[11px] tracking-[.16em] uppercase text-muted">{t("overviewPhotoComingSoon")}</span>
+              </div>
+            )}
+          </aside>
         </div>
 
         {annotated.length > 0 && (
           <div className="mt-14">
-            <div className="flex items-end justify-between gap-4 border-b border-line pb-3 mb-6">
+            <div className="flex items-end justify-between gap-4 border-b border-line pb-3 mb-8">
               <div>
                 <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("tourEyebrow")}</span>
                 <h3 className="font-display text-xl sm:text-2xl font-semibold tracking-[-.015em] text-ink mt-1.5 mb-0">{t("tourHeading")}</h3>
               </div>
               <span className="font-mono text-[10px] text-muted tracking-[.14em] shrink-0">{String(annotated.length).padStart(2, "0")} / {String(p.gallery.length).padStart(2, "0")}</span>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
-              {annotated.map(({ img, kind }, i) => (
-                <figure key={img.src} className="m-0 bg-white flex flex-col">
-                  <LightboxTrigger group={tourShots} index={i} ariaLabel={t("lightbox.zoom")} className="relative min-h-[220px] grid place-items-center p-6 overflow-hidden w-full">
-                    <div className="absolute inset-0 qs-grid-bg opacity-30" />
-                    <span className="absolute top-3 left-4 font-mono text-[10px] text-gold-1 tracking-[.16em]">{String(i + 1).padStart(2, "0")}</span>
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      width={img.w}
-                      height={img.h}
-                      loading="lazy"
-                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 380px"
-                      className="relative w-auto max-h-[240px] max-w-full object-contain"
-                    />
-                  </LightboxTrigger>
-                  <figcaption className="border-t border-line p-4 mt-auto">
-                    <div className="font-mono text-[10px] tracking-[.14em] uppercase text-gold-1">{t(`galleryNotes.${kind}.tag`)}</div>
-                    <p className="text-[13.5px] leading-[1.6] text-[#2f2c26] mt-1.5 mb-0">{t(`galleryNotes.${kind}.desc`)}</p>
-                  </figcaption>
-                </figure>
+            <div className="flex flex-col gap-10">
+              {tourGroups.map((group) => (
+                <div key={group.id}>
+                  <div className="flex items-baseline gap-4 mb-5">
+                    <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t(`tourGroups.${group.id}.tag`)}</span>
+                    <span className="text-[13px] leading-[1.5] text-muted hidden sm:block">{t(`tourGroups.${group.id}.desc`)}</span>
+                    <span className="h-px flex-1 bg-line self-center" />
+                    <span className="font-mono text-[10px] text-muted tracking-[.14em] shrink-0">{String(group.shots.length).padStart(2, "0")}</span>
+                  </div>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
+                    {group.shots.map(({ img }, i) => (
+                      <figure key={img.src} className="m-0 bg-white flex flex-col">
+                        <LightboxTrigger group={tourShots} index={group.start + i} ariaLabel={t("lightbox.zoom")} className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden w-full">
+                          <div className="absolute inset-0 qs-grid-bg opacity-30" />
+                          <span className="absolute top-3 left-4 font-mono text-[10px] text-gold-1 tracking-[.16em]">{String(group.start + i + 1).padStart(2, "0")}</span>
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            width={img.w}
+                            height={img.h}
+                            loading="lazy"
+                            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 380px"
+                            className="relative w-auto max-h-[260px] max-w-full object-contain"
+                          />
+                        </LightboxTrigger>
+                      </figure>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         )}
+
+        <div className="mt-14">
+          <div className="flex items-end justify-between gap-4 border-b border-line pb-3 mb-6">
+            <div>
+              <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>
+              <h3 className="font-display text-xl sm:text-2xl font-semibold tracking-[-.015em] text-ink mt-1.5 mb-0">{t("videoHeading")}</h3>
+            </div>
+          </div>
+          <div className="max-w-[960px] mx-auto">
+            {p.video ? (
+              <ProductVideo youtubeId={p.video.youtubeId} title={p.video.title ?? p.name} playLabel={t("videoPlay")} />
+            ) : (
+              <div className="relative aspect-video border border-dashed border-line bg-white grid place-items-center overflow-hidden">
+                <div className="absolute inset-0 qs-grid-bg opacity-30" />
+                <span className="relative font-mono text-[11px] tracking-[.16em] uppercase text-muted">{t("videoComingSoon")}</span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );

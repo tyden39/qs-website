@@ -19,29 +19,42 @@
   },
   "index": {
     "breadcrumb": { "home": "Home", "current": "Services" },
-    "eyebrow": "Service · Manufacturing & Upgrades",
-    "heading1": "Manufacturing services",
-    "heading2": "& machine upgrades",
-    "lorem": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-    "machineStrip": ["Delta robot machine", "CNC milling machine", "Machining centre"],
-    "fabrication": {
-      "eyebrow": "[ Fabrication project ]",
-      "heading": "Fabrication project details",
-      "tag": "Case study",
-      "frameLabel": "Jewellery machining centre",
-      "projectTitle": "Building a jewellery machining centre",
-      "specsLabel": "Technical specifications",
-      "specs": [["Control axes", "5 axes"], ["Dimensions", "1800×700×1800 mm"], ["Controller", "Astro 10i"], ["I/O ports", "24/16"], ["Servo/Drive", "400W"]],
-      "details": ["Axis assembly detail", "Mechanical detail"]
+    "eyebrow": "Service · CNC Machine Upgrades",
+    "heading1": "CNC machine",
+    "heading2": "upgrade service",
+    "intro": "In modern manufacturing, CNC technology is the foundation that determines the machining productivity of the entire factory. Yet long-term operation inevitably leads to equipment wear: faults arise, performance degrades, and mechanical precision is lost — directly affecting product quality and production schedules.",
+    "cta": "Request a consultation →",
+    "solution": {
+      "eyebrow": "[ Solution ]",
+      "heading": "End-to-end optimisation",
+      "lead": "To solve this problem at the root, QS Technology delivers a comprehensive CNC machine reconditioning and upgrade solution. With a team of engineers who understand the technology and carry hands-on experience across a wide range of machines, QS Technology confidently diagnoses the exact cause, fully resolves the fault, and restores your machine to peak operating performance.",
+      "pillars": [
+        ["01", "Electrical system", "Diagnose and fully resolve electrical-system issues."],
+        ["02", "Controller", "Upgrade the controller to the modern QS Astro platform."],
+        ["03", "Precision mechanics", "Restore and fine-tune the precision of the mechanical assembly."]
+      ]
     },
     "upgrade": {
-      "eyebrow": "[ Upgrade ]",
-      "heading": "Machine upgrade service",
+      "eyebrow": "[ Case study ]",
+      "heading": "Real upgrade results",
       "tag": "Before · After",
+      "machine": "Brother TC-217",
+      "machineNote": "Vertical mill · 3 axes",
       "before": "Before",
       "after": "After",
-      "beforeFrame": "Machine before upgrade",
-      "afterFrame": "Machine after upgrade"
+      "beforeFrame": "Brother TC-217 before upgrade",
+      "afterFrame": "Brother TC-217 after upgrade",
+      "hint": "Drag to compare",
+      "specsLabel": "Technical specifications",
+      "componentCol": "Component",
+      "specs": [
+        ["Controller", "Brother", "QS Astro 6AV"],
+        ["Servo", "Sanyo Denki", "QS Servo"],
+        ["Automatic tool changer (ATC)", "Damaged", "Brand new"],
+        ["Ball screw", "Damaged", "Brand new"],
+        ["Linear guide", "Damaged", "Brand new"],
+        ["Control axes", "3 (X, Y, Z)", "3 (X, Y, Z)"]
+      ]
     },
     "form": {
       "eyebrow": "[ Contact ]",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "@/lib/i18n/navigation";
 import CircuitTraces from "@/components/circuit-traces";
+import WorkpieceCompare from "@/app/[locale]/cnc/_components/workpiece-compare";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
@@ -39,11 +40,9 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "service.index" });
   const seo = await getTranslations({ locale, namespace: "seo" });
-  // Placeholder copy — real content supplied later.
-  const lorem = t("lorem");
-  const machineStrip = t.raw("machineStrip") as string[];
-  const specs = t.raw("fabrication.specs") as [string, string][];
-  const details = t.raw("fabrication.details") as string[];
+  const intro = t("intro");
+  const pillars = t.raw("solution.pillars") as [string, string, string][];
+  const upgradeSpecs = t.raw("upgrade.specs") as [string, string, string][];
   const breadcrumb = buildBreadcrumbList([
     { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
     { name: seo("servicesTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/services` },
@@ -78,63 +77,40 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
               </span>
             </span>
           </h1>
-          <p className="qs-lede mt-6 max-w-[64ch] qs-rise" style={{ animationDelay: "300ms" }}>{lorem}</p>
+          <p className="qs-lede mt-6 max-w-[64ch] qs-rise" style={{ animationDelay: "300ms" }}>{intro}</p>
 
-          {/* machine image strip */}
-          <div className="mt-12 grid sm:grid-cols-3 gap-6 qs-rise" style={{ animationDelay: "400ms" }}>
-            {machineStrip.map((label) => (
-              <Frame key={label} label={label} className="aspect-[4/3]" />
-            ))}
+          <div className="mt-9 qs-rise" style={{ animationDelay: "400ms" }}>
+            <Link href="#quote" className="qs-btn qs-btn-gold">{t("cta")}</Link>
           </div>
         </div>
       </section>
 
-      {/* THÔNG TIN DỰ ÁN CHẾ TẠO */}
+      {/* GIẢI PHÁP TOÀN DIỆN */}
       <section className="py-24 bg-white">
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("fabrication.eyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("fabrication.heading")}</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("solution.eyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("solution.heading")}</h2>
             </div>
-            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{t("fabrication.tag")}</span>
           </div>
 
-          <div className="grid md:grid-cols-[1fr_1.15fr] gap-12 items-start">
-            <Frame label={t("fabrication.frameLabel")} className="aspect-[4/5]" />
+          <p className="text-[17px] leading-[1.75] text-[#3a3a3a] max-w-[74ch] m-0">{t("solution.lead")}</p>
 
-            <div>
-              <h3 className="font-display font-bold text-[26px] tracking-[-.01em] uppercase m-0">
-                {t("fabrication.projectTitle")}
-              </h3>
-
-              <div className="mt-7">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3">{t("fabrication.specsLabel")}</div>
-                <ul className="list-none p-0 m-0">
-                  {specs.map(([l, v]) => (
-                    <li key={l} className="grid grid-cols-[1fr_auto] gap-4 items-baseline border-b border-line py-2.5 last:border-b-0">
-                      <span className="text-sm text-[#4a4842]">{l}</span>
-                      <span className="font-display text-[15px] font-semibold text-ink">{v}</span>
-                    </li>
-                  ))}
-                </ul>
+          <div className="grid md:grid-cols-3 gap-6 mt-12">
+            {pillars.map(([num, title, desc]) => (
+              <div key={num} className="border border-line bg-paper p-7 relative overflow-hidden">
+                <span className="font-mono text-[42px] leading-none font-bold text-gold-1/20 absolute top-4 right-5 select-none" aria-hidden>{num}</span>
+                <div className="font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase mb-4">{num}</div>
+                <h3 className="font-display font-bold text-[19px] tracking-[-.01em] uppercase m-0">{title}</h3>
+                <p className="text-[14px] leading-[1.7] text-[#4a4842] mt-3 m-0">{desc}</p>
               </div>
-
-              <p className="text-[15px] leading-[1.75] text-[#3a3a3a] mt-7 mb-3.5">{lorem}</p>
-              <p className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0">{lorem}</p>
-            </div>
-          </div>
-
-          {/* detail images */}
-          <div className="grid sm:grid-cols-2 gap-6 mt-10">
-            {details.map((label) => (
-              <Frame key={label} label={label} className="aspect-[16/9]" />
             ))}
           </div>
         </div>
       </section>
 
-      {/* DỊCH VỤ NÂNG CẤP MÁY */}
+      {/* CASE STUDY — BEFORE / AFTER */}
       <section className="py-24 bg-paper border-y border-line">
         <div className="max-w-wrap mx-auto px-12">
           <div className="qs-section-head">
@@ -145,19 +121,47 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
             <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{t("upgrade.tag")}</span>
           </div>
 
-          <div className="grid sm:grid-cols-[1fr_auto_1fr] gap-6 items-center">
-            <div>
-              <div className="font-mono text-[11px] text-muted tracking-[.18em] uppercase text-center mb-3">{t("upgrade.before")}</div>
-              <Frame label={t("upgrade.beforeFrame")} className="aspect-[3/4]" />
+          <div className="border border-line bg-white">
+            {/* card header */}
+            <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
+              <span className="font-display text-[17px] font-bold tracking-[-.01em] text-ink">{t("upgrade.machine")}</span>
+              <span className="font-mono text-[10px] text-muted tracking-[.14em] uppercase">{t("upgrade.machineNote")}</span>
             </div>
-            <div className="hidden sm:flex items-center justify-center text-gold-1 text-2xl pt-7" aria-hidden>→</div>
-            <div>
-              <div className="font-mono text-[11px] text-ink tracking-[.18em] uppercase text-center mb-3">{t("upgrade.after")}</div>
-              <Frame label={t("upgrade.afterFrame")} className="aspect-[3/4]" />
+
+            <div className="grid lg:grid-cols-[minmax(0,1.05fr)_1fr]">
+              {/* before / after drag-to-reveal slider */}
+              <div className="p-5 border-b lg:border-b-0 lg:border-r border-line">
+                <WorkpieceCompare
+                  img="/img/services/upgrade-tc217-after.webp"
+                  beforeImg="/img/services/upgrade-tc217-before.webp"
+                  alt={t("upgrade.afterFrame")}
+                  beforeLabel={t("upgrade.before")}
+                  afterLabel={t("upgrade.after")}
+                  hint={t("upgrade.hint")}
+                  aspectClass="aspect-[5/6]"
+                />
+              </div>
+
+              {/* before / after spec comparison */}
+              <div className="p-6">
+                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-1">{t("upgrade.specsLabel")}</div>
+                <div className="grid grid-cols-[1.3fr_1fr_1fr] gap-x-4 border-b border-line py-2.5 font-mono text-[10px] tracking-[.14em] uppercase">
+                  <span className="text-muted">{t("upgrade.componentCol")}</span>
+                  <span className="text-[#8a5a2b] text-right">{t("upgrade.before")}</span>
+                  <span className="text-ink text-right">{t("upgrade.after")}</span>
+                </div>
+                <ul className="list-none p-0 m-0">
+                  {upgradeSpecs.map(([label, before, after]) => (
+                    <li key={label} className="grid grid-cols-[1.3fr_1fr_1fr] gap-x-4 items-baseline border-b border-line py-3 last:border-b-0">
+                      <span className="text-sm text-[#4a4842]">{label}</span>
+                      <span className="text-[13px] text-[#8a5a2b] text-right">{before}</span>
+                      <span className="font-display text-[14px] font-semibold text-ink text-right">{after}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-
-          <p className="text-[15px] leading-[1.75] text-[#3a3a3a] max-w-[80ch] mt-10 m-0">{lorem}</p>
         </div>
       </section>
 
@@ -191,14 +195,6 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
         </div>
       </section>
     </>
-  );
-}
-
-function Frame({ label, className = "" }: { label: string; className?: string }) {
-  return (
-    <div className={`qs-img-ph ${className}`} role="img" aria-label={label}>
-      <span className="px-4 text-center">{label}</span>
-    </div>
   );
 }
 

@@ -5,27 +5,34 @@ import { useCallback, useRef, useState } from "react";
 
 /**
  * Before/after drag-to-reveal comparison. The "after" photo sits underneath; the
- * "before" layer is clipped from the right by a draggable divider. As a mockup the
- * two layers share one source image — the "before" side is CSS-treated to read like
- * unfinished raw stock (desaturated, cooler, matte) and the divider wipes to the
- * finished colour photo. Swap `beforeImg`/`afterImg` to real workpiece photos later:
- * the interaction is identical.
+ * "before" layer is clipped from the right by a draggable divider.
+ *
+ * Two modes, driven by whether a distinct `beforeImg` is supplied:
+ *  - Mockup mode (no `beforeImg`): both layers share `img`; the before side is
+ *    CSS-treated to read like unfinished raw stock (desaturated, cooler, matte).
+ *  - Real mode (`beforeImg` provided): the before side shows an actual photo,
+ *    untreated — e.g. a worn machine wiped to its refurbished state.
  *
  * Pointer-driven with a keyboard-accessible slider role (arrow keys nudge the wipe).
  */
 export default function WorkpieceCompare({
   img,
+  beforeImg,
   alt,
   beforeLabel,
   afterLabel,
   hint,
+  aspectClass = "aspect-[3/2]",
 }: {
   img: string;
+  beforeImg?: string;
   alt: string;
   beforeLabel: string;
   afterLabel: string;
   hint: string;
+  aspectClass?: string;
 }) {
+  const isMockup = !beforeImg;
   const [pos, setPos] = useState(50); // reveal position, 0–100 (% from left)
   const [dragging, setDragging] = useState(false);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -48,7 +55,7 @@ export default function WorkpieceCompare({
   return (
     <div
       ref={frameRef}
-      className="group relative aspect-[3/2] overflow-hidden border border-[#2a2620] bg-ink-2 select-none touch-none cursor-ew-resize"
+      className={`group relative ${aspectClass} overflow-hidden border border-[#2a2620] bg-ink-2 select-none touch-none cursor-ew-resize`}
       onPointerDown={(e) => {
         (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
         setDragging(true);
@@ -77,15 +84,17 @@ export default function WorkpieceCompare({
         aria-hidden="true"
       >
         <Image
-          src={img}
+          src={beforeImg ?? img}
           alt=""
           fill
           sizes="(max-width:1024px) 100vw, 60vw"
           className="object-cover"
-          style={{ filter: "grayscale(1) contrast(1.06) brightness(.82)" }}
+          style={isMockup ? { filter: "grayscale(1) contrast(1.06) brightness(.82)" } : undefined}
         />
-        {/* cool matte cast so the raw side reads as unmachined billet */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(30,40,55,.34),rgba(12,16,22,.5))", mixBlendMode: "multiply" }}></div>
+        {/* cool matte cast so the raw side reads as unmachined billet (mockup only) */}
+        {isMockup && (
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(30,40,55,.34),rgba(12,16,22,.5))", mixBlendMode: "multiply" }}></div>
+        )}
       </div>
       <span
         className="pointer-events-none absolute top-3 left-3 z-10 font-mono text-[10px] tracking-[.16em] uppercase text-[#e8e6df] bg-ink/80 border border-white/15 px-2 py-1"

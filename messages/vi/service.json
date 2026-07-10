@@ -19,29 +19,42 @@
   },
   "index": {
     "breadcrumb": { "home": "Trang chủ", "current": "Dịch vụ" },
-    "eyebrow": "Service · Chế tạo & Nâng cấp",
-    "heading1": "Dịch vụ chế tạo",
-    "heading2": "& nâng cấp máy",
-    "lorem": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-    "machineStrip": ["Máy delta robot", "Máy phay CNC", "Máy gia công"],
-    "fabrication": {
-      "eyebrow": "[ Dự án chế tạo ]",
-      "heading": "Thông tin dự án chế tạo",
-      "tag": "Case study",
-      "frameLabel": "Máy gia công kim hoàn",
-      "projectTitle": "Chế tạo máy gia công kim hoàn",
-      "specsLabel": "Thông số kỹ thuật",
-      "specs": [["Số trục điều khiển", "5 trục"], ["Kích thước", "1800×700×1800 mm"], ["Bộ điều khiển", "Astro 10i"], ["Số cổng I/O", "24/16"], ["Servo/Drive", "400W"]],
-      "details": ["Chi tiết cụm trục", "Chi tiết cơ khí"]
+    "eyebrow": "Service · Nâng cấp máy CNC",
+    "heading1": "Dịch vụ nâng cấp",
+    "heading2": "máy CNC",
+    "intro": "Trong ngành sản xuất hiện đại, công nghệ CNC đóng vai trò nền tảng quyết định năng suất gia công của toàn bộ nhà máy. Tuy nhiên, quá trình khai thác dài hạn tất yếu dẫn đến tình trạng hao mòn thiết bị: phát sinh sự cố, suy giảm hiệu năng và mất đi độ chính xác cơ học, gây ảnh hưởng trực tiếp đến chất lượng thành phẩm cũng như tiến độ sản xuất.",
+    "cta": "Yêu cầu tư vấn →",
+    "solution": {
+      "eyebrow": "[ Giải pháp ]",
+      "heading": "Giải pháp tối ưu hóa toàn diện",
+      "lead": "Nhằm giải quyết triệt để bài toán này, QS Technology mang đến giải pháp cải tạo và nâng cấp máy CNC toàn diện. Với đội ngũ kỹ sư am hiểu kỹ thuật và dày dặn kinh nghiệm thực chiến trên đa dạng các dòng máy, QS Technology tự tin chẩn đoán chính xác nguyên nhân, khắc phục hoàn toàn sự cố và khôi phục máy của bạn về trạng thái vận hành với hiệu năng tối ưu nhất.",
+      "pillars": [
+        ["01", "Hệ thống điện", "Chẩn đoán và xử lý triệt để các vấn đề của hệ thống điện."],
+        ["02", "Bộ điều khiển", "Nâng cấp bộ điều khiển lên nền tảng QS Astro hiện đại."],
+        ["03", "Cơ khí chính xác", "Phục hồi và tinh chỉnh độ chính xác của cơ cấu cơ khí."]
+      ]
     },
     "upgrade": {
-      "eyebrow": "[ Nâng cấp ]",
-      "heading": "Dịch vụ nâng cấp máy",
+      "eyebrow": "[ Case study ]",
+      "heading": "Kết quả nâng cấp thực tế",
       "tag": "Before · After",
+      "machine": "Brother TC-217",
+      "machineNote": "Máy phay đứng · 3 trục",
       "before": "Trước",
       "after": "Sau",
-      "beforeFrame": "Máy trước nâng cấp",
-      "afterFrame": "Máy sau nâng cấp"
+      "beforeFrame": "Brother TC-217 trước khi nâng cấp",
+      "afterFrame": "Brother TC-217 sau khi nâng cấp",
+      "hint": "Kéo để so sánh",
+      "specsLabel": "Thông số kỹ thuật",
+      "componentCol": "Hạng mục",
+      "specs": [
+        ["Bộ điều khiển", "Brother", "QS Astro 6AV"],
+        ["Servo", "Sanyo Denki", "QS Servo"],
+        ["Bộ thay dao tự động (ATC)", "Hư hỏng", "Mới hoàn toàn"],
+        ["Trục vít me bi", "Hư hỏng", "Mới hoàn toàn"],
+        ["Ray dẫn hướng tuyến tính", "Hư hỏng", "Mới hoàn toàn"],
+        ["Số trục điều khiển", "3 (X, Y, Z)", "3 (X, Y, Z)"]
+      ]
     },
     "form": {
       "eyebrow": "[ Liên hệ ]",

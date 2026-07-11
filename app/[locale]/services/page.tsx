@@ -80,7 +80,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
           <p className="qs-lede mt-6 max-w-[64ch] qs-rise" style={{ animationDelay: "300ms" }}>{intro}</p>
 
           <div className="mt-9 qs-rise" style={{ animationDelay: "400ms" }}>
-            <Link href="#quote" className="qs-btn qs-btn-gold">{t("cta")}</Link>
+            <Link href="#contact" className="qs-btn qs-btn-gold">{t("cta")}</Link>
           </div>
         </div>
       </section>
@@ -165,44 +165,46 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
         </div>
       </section>
 
-      {/* MÔ TẢ YÊU CẦU */}
-      <section className="py-24 bg-white" id="quote">
-        <div className="max-w-wrap mx-auto px-12">
-          <div className="qs-section-head">
+      {/* LIÊN HỆ */}
+      <section className="relative overflow-hidden border-t border-line py-24" id="contact"
+               style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
+        <div className="absolute inset-0 qs-grid-bg opacity-40" aria-hidden="true"></div>
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold-grad" aria-hidden="true"></div>
+        <div className="qs-glow hidden sm:block right-[6%] top-[-30%] w-[30%] h-[140%]" aria-hidden="true"></div>
+
+        <div className="relative z-10 max-w-wrap mx-auto px-12">
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 lg:items-center">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("form.eyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("form.heading")}</h2>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("contact.eyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("contact.heading")}</h2>
+              <p className="text-[17px] leading-[1.75] text-[#3a3a3a] max-w-[56ch] mt-5">{t("contact.body")}</p>
+
+              <div className="mt-8">
+                <Link href="/contact" className="qs-btn qs-btn-gold">{t("contact.cta")}</Link>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <a href="tel:+84909663350"
+                 className="group flex items-center justify-between gap-4 border border-line bg-white px-6 py-5 transition-colors hover:border-ink">
+                <span>
+                  <span className="block font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase">{t("contact.hotlineLabel")}</span>
+                  <span className="block font-display text-[19px] font-bold tracking-[-.01em] text-ink mt-1">(+84) 909.663.350</span>
+                </span>
+                <span aria-hidden className="font-mono text-gold-1 transition-transform group-hover:translate-x-1">→</span>
+              </a>
+              <a href="mailto:support@qstcnc.com"
+                 className="group flex items-center justify-between gap-4 border border-line bg-white px-6 py-5 transition-colors hover:border-ink">
+                <span>
+                  <span className="block font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase">{t("contact.emailLabel")}</span>
+                  <span className="block font-display text-[19px] font-bold tracking-[-.01em] text-ink mt-1">support@qstcnc.com</span>
+                </span>
+                <span aria-hidden className="font-mono text-gold-1 transition-transform group-hover:translate-x-1">→</span>
+              </a>
             </div>
           </div>
-
-          <form className="bg-paper border border-line p-8 max-w-[820px]">
-            <div className="grid sm:grid-cols-3 gap-4">
-              <Field label={t("form.name")} name="name" />
-              <Field label={t("form.phone")} name="phone" type="tel" />
-              <Field label={t("form.email")} name="email" type="email" />
-            </div>
-            <div className="mt-5">
-              <label className="block">
-                <span className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-1.5">{t("form.content")}</span>
-                <textarea name="message" rows={6}
-                          className="w-full border border-line bg-white px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-ink transition-colors resize-y" />
-              </label>
-            </div>
-            <div className="flex justify-end mt-5">
-              <button type="submit" className="qs-btn qs-btn-gold justify-center">{t("form.submit")}</button>
-            </div>
-          </form>
         </div>
       </section>
     </>
-  );
-}
-
-function Field({ label, name, type = "text" }: { label: string; name: string; type?: string }) {
-  return (
-    <label className="block">
-      <span className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-1.5">{label}</span>
-      <input name={name} type={type} className="w-full border border-line bg-white px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-ink transition-colors" />
-    </label>
   );
 }

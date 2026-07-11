@@ -56,14 +56,13 @@
         ["Số trục điều khiển", "3 (X, Y, Z)", "3 (X, Y, Z)"]
       ]
     },
-    "form": {
+    "contact": {
       "eyebrow": "[ Liên hệ ]",
-      "heading": "Mô tả yêu cầu",
-      "name": "Họ và tên *",
-      "phone": "Số điện thoại *",
-      "email": "Email *",
-      "content": "Nội dung",
-      "submit": "Gửi yêu cầu →"
+      "heading": "Sẵn sàng nâng cấp máy CNC của bạn?",
+      "body": "Gửi cho chúng tôi dòng máy và tình trạng hiện tại — đội kỹ sư QS Technology sẽ chẩn đoán, tư vấn phương án nâng cấp và báo giá chi tiết trong vòng 4 giờ làm việc.",
+      "cta": "Liên hệ tư vấn →",
+      "hotlineLabel": "Hotline",
+      "emailLabel": "Email"
     }
   },
   "detailPage": {

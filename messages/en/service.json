@@ -56,14 +56,13 @@
         ["Control axes", "3 (X, Y, Z)", "3 (X, Y, Z)"]
       ]
     },
-    "form": {
+    "contact": {
       "eyebrow": "[ Contact ]",
-      "heading": "Describe your requirement",
-      "name": "Full name *",
-      "phone": "Phone number *",
-      "email": "Email *",
-      "content": "Message",
-      "submit": "Submit request →"
+      "heading": "Ready to upgrade your CNC machine?",
+      "body": "Send us your machine model and current condition — QS Technology engineers will diagnose it, recommend an upgrade plan and send a detailed quote within 4 working hours.",
+      "cta": "Get in touch →",
+      "hotlineLabel": "Hotline",
+      "emailLabel": "Email"
     }
   },
   "detailPage": {

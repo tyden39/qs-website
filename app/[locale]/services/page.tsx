@@ -173,34 +173,13 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
         <div className="qs-glow hidden sm:block right-[6%] top-[-30%] w-[30%] h-[140%]" aria-hidden="true"></div>
 
         <div className="relative z-10 max-w-wrap mx-auto px-12">
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 lg:items-center">
-            <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("contact.eyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("contact.heading")}</h2>
-              <p className="text-[17px] leading-[1.75] text-[#3a3a3a] max-w-[56ch] mt-5">{t("contact.body")}</p>
+          <div className="mx-auto max-w-[64ch] text-center flex flex-col items-center">
+            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("contact.eyebrow")}</span>
+            <h2 className="qs-h2 mt-2">{t("contact.heading")}</h2>
+            <p className="text-[17px] leading-[1.75] text-[#3a3a3a] mt-5">{t("contact.body")}</p>
 
-              <div className="mt-8">
-                <Link href="/contact" className="qs-btn qs-btn-gold">{t("contact.cta")}</Link>
-              </div>
-            </div>
-
-            <div className="grid gap-4">
-              <a href="tel:+84909663350"
-                 className="group flex items-center justify-between gap-4 border border-line bg-white px-6 py-5 transition-colors hover:border-ink">
-                <span>
-                  <span className="block font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase">{t("contact.hotlineLabel")}</span>
-                  <span className="block font-display text-[19px] font-bold tracking-[-.01em] text-ink mt-1">(+84) 909.663.350</span>
-                </span>
-                <span aria-hidden className="font-mono text-gold-1 transition-transform group-hover:translate-x-1">→</span>
-              </a>
-              <a href="mailto:support@qstcnc.com"
-                 className="group flex items-center justify-between gap-4 border border-line bg-white px-6 py-5 transition-colors hover:border-ink">
-                <span>
-                  <span className="block font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase">{t("contact.emailLabel")}</span>
-                  <span className="block font-display text-[19px] font-bold tracking-[-.01em] text-ink mt-1">support@qstcnc.com</span>
-                </span>
-                <span aria-hidden className="font-mono text-gold-1 transition-transform group-hover:translate-x-1">→</span>
-              </a>
+            <div className="mt-9">
+              <Link href="/contact" className="qs-btn qs-btn-gold">{t("contact.cta")}</Link>
             </div>
           </div>
         </div>

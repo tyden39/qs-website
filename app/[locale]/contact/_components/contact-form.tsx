@@ -47,8 +47,8 @@ export function ContactForm() {
     defaultValues: { businessGroup: "", services: [], honeypot: "" },
   });
 
-  // Pre-fill the message when arriving from a deep link (e.g. the CNC configurator
-  // sends ?message=<build sheet>). Read from the URL directly to avoid the Suspense
+  // Pre-fill the message when arriving from a deep link that passes
+  // ?message=<text>. Read from the URL directly to avoid the Suspense
   // boundary that useSearchParams requires under static export.
   useEffect(() => {
     const msg = new URLSearchParams(window.location.search).get("message");

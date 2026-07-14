@@ -28,6 +28,9 @@
     "videoEyebrow": "[ Video ]",
     "videoHeading": "Ứng dụng thực tế tại xưởng",
     "videoPlay": "Phát video",
+    "ctaHeading": "Loại máy của bạn chưa có trong danh sách?",
+    "ctaBody": "Kỹ sư QS hỗ trợ chọn bộ điều khiển phù hợp với máy của bạn — từ cấu hình I/O, sơ đồ đấu nối đến lựa chọn driver.",
+    "ctaBtn": "Liên hệ kỹ thuật →",
     "items": [
       { "t": "Phay CNC", "machine": "Máy Phay CNC" },
       { "t": "Cưa Lọng", "machine": "Máy Cưa Lọng" },
@@ -85,6 +88,9 @@
     "relatedHeading": "Ứng dụng liên quan",
     "backAll": "← Tất cả ứng dụng",
     "relatedAppLabel": "Application",
+    "ctaHeading": "Bạn đang tự động hóa máy {machine}?",
+    "ctaBody": "Kỹ sư QS hỗ trợ chọn cấu hình I/O, sơ đồ đấu nối và driver phù hợp với dòng máy này.",
+    "ctaBtn": "Liên hệ kỹ thuật →",
     "machines": {
       "cua-long": {
         "heroLede": "Máy cưa lọng công nghiệp được sử dụng để cắt các biên dạng cong phức tạp trên gỗ, nhựa hoặc vật liệu mỏng với tốc độ cao và đường cắt mượt mà. Hệ thống điều khiển QS giúp duy trì độ ổn định liên tục cho xưởng sản xuất.",

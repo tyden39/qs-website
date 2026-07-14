@@ -89,24 +89,51 @@
     "after": "Sau gia công",
     "hint": "Kéo để so sánh"
   },
-  "configurator": {
-    "eyebrow": "Cấu hình máy",
-    "heading": "Dựng cấu hình theo nhu cầu xưởng",
-    "body": "Chọn gói hành trình, trục chính và ổ dao — bảng thông số cập nhật ngay. Gửi cấu hình để kỹ sư QS báo giá.",
-    "groups": { "travel": "Gói hành trình", "spindle": "Trục chính", "magazine": "Ổ chứa dao" },
-    "summary": {
-      "label": "Cấu hình đã chọn",
-      "model": "Mã máy",
-      "travel": "Hành trình X / Y / Z",
-      "table": "Bàn máy",
-      "spindle": "Trục chính",
-      "magazine": "Ổ chứa dao",
-      "accuracy": "Định vị"
+  "machines": {
+    "eyebrow": "Danh mục máy",
+    "heading": "Máy CNC do QS chế tạo",
+    "body": "Từ phay 3 trục đến router 5 trục và kim hoàn 7 trục — mỗi máy chạy bộ điều khiển QS Astro, đồng bộ cơ khí, điện và phần mềm. Di chuột vào một máy để xem thông số, bấm để xem chi tiết.",
+    "listLabel": "Dòng máy",
+    "viewDetail": "Xem chi tiết",
+    "axesUnit": "trục",
+    "categories": { "milling": "Phay CNC", "router": "Router", "jewelry": "Kim hoàn" },
+    "labels": {
+      "axes": "Số trục điều khiển",
+      "controller": "Bộ điều khiển",
+      "spindleSpeed": "Tốc độ trục chính",
+      "spindlePower": "Công suất trục chính",
+      "machineTravel": "Hành trình X / Y / Z",
+      "toolMagazine": "Ổ chứa dao",
+      "toolHead": "Đầu dao",
+      "collet": "Đầu kẹp dao (collet)",
+      "toolCapacity": "Đường kính dao tối đa",
+      "rapidSpeed": "Tốc độ chạy nhanh",
+      "feedSpeed": "Tốc độ cắt",
+      "positioning": "Độ chính xác định vị",
+      "repeatability": "Độ chính xác lặp lại",
+      "resolution": "Độ phân giải điện tử",
+      "tableSize": "Kích thước bàn máy",
+      "tableLoad": "Tải trọng bàn",
+      "machineSize": "Kích thước máy",
+      "weight": "Trọng lượng máy",
+      "powerSupply": "Nguồn điện",
+      "airPressure": "Áp suất khí nguồn",
+      "rotaryAxis": "Trục xoay",
+      "transmission": "Hệ thống truyền động"
     },
-    "quoteCta": "Gửi cấu hình & nhận báo giá",
-    "resetCta": "Đặt lại",
-    "note": "Cấu hình minh hoạ để tham khảo — thông số cuối theo xác nhận kỹ thuật.",
-    "quoteIntro": "Đề nghị báo giá máy phay CNC với cấu hình:"
+    "detail": {
+      "backToList": "Tất cả máy CNC",
+      "crumb": "Máy CNC",
+      "specsHeading": "Bảng thông số kỹ thuật",
+      "specsNote": "Thông số cấu hình chuẩn — trục chính, ổ dao và hành trình có thể thay đổi theo yêu cầu.",
+      "featuresHeading": "Điểm nổi bật",
+      "controllerHeading": "Bộ điều khiển bên trong",
+      "controllerBody": "Máy vận hành bằng bộ điều khiển {controller} do QS thiết kế và viết firmware — một đầu mối duy nhất cho cả máy, điện và phần mềm.",
+      "controllerLink": "Xem bộ điều khiển",
+      "ctaHeading": "Cần cấu hình máy theo sản phẩm của bạn?",
+      "ctaBody": "Gửi bản vẽ hoặc mẫu phôi — kỹ sư QS tư vấn cấu hình trục chính, đồ gá và chu trình gia công trong 48 giờ.",
+      "ctaButton": "Nhận tư vấn kỹ thuật"
+    }
   },
   "monitor": {
     "label": "Xưởng đang chạy",

@@ -109,9 +109,6 @@ export default async function Products({ params }: { params: Promise<{ locale: L
                                           before:content-[''] before:block before:w-6 before:h-px before:bg-gold">{f}</div>
                 ))}
               </div>
-              <div className="flex gap-3 mt-7 qs-rise" style={{ animationDelay: "390ms" }}>
-                <Link className="qs-btn qs-btn-gold" href="/downloads">{t("catalogBtn")} <span className="arr">→</span></Link>
-              </div>
             </div>
             <div className="relative aspect-16/10 bg-white border border-line p-6 overflow-hidden">
               <div className="absolute inset-3 border border-dashed border-gold opacity-30 pointer-events-none"></div>

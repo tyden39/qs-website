@@ -89,24 +89,51 @@
     "after": "Machined",
     "hint": "Drag to compare"
   },
-  "configurator": {
-    "eyebrow": "Configure",
-    "heading": "Build the machine around your shop",
-    "body": "Pick a travel package, spindle and tool magazine — the spec panel updates live. Send the build for a QS engineer to quote.",
-    "groups": { "travel": "Travel package", "spindle": "Spindle", "magazine": "Tool magazine" },
-    "summary": {
-      "label": "Selected configuration",
-      "model": "Model",
-      "travel": "X / Y / Z travel",
-      "table": "Table",
-      "spindle": "Spindle",
-      "magazine": "Tool magazine",
-      "accuracy": "Positioning"
+  "machines": {
+    "eyebrow": "Machine line-up",
+    "heading": "CNC machines built by QS",
+    "body": "From 3-axis milling to 5-axis routers and 7-axis jewelry centers — every machine runs a QS Astro controller, with the mechanics, electrics and software in sync. Hover a machine to see its specs, click for the detail page.",
+    "listLabel": "Machine",
+    "viewDetail": "View details",
+    "axesUnit": "axes",
+    "categories": { "milling": "CNC milling", "router": "Router", "jewelry": "Jewelry" },
+    "labels": {
+      "axes": "Control axes",
+      "controller": "Controller",
+      "spindleSpeed": "Spindle speed",
+      "spindlePower": "Spindle power",
+      "machineTravel": "X / Y / Z travel",
+      "toolMagazine": "Tool magazine",
+      "toolHead": "Tool head",
+      "collet": "Collet",
+      "toolCapacity": "Max. tool diameter",
+      "rapidSpeed": "Rapid speed",
+      "feedSpeed": "Cutting feed",
+      "positioning": "Positioning accuracy",
+      "repeatability": "Repeatability",
+      "resolution": "Electronic resolution",
+      "tableSize": "Table size",
+      "tableLoad": "Table load",
+      "machineSize": "Machine dimensions",
+      "weight": "Machine weight",
+      "powerSupply": "Power supply",
+      "airPressure": "Air pressure",
+      "rotaryAxis": "Rotary axis",
+      "transmission": "Transmission system"
     },
-    "quoteCta": "Send build & request quote",
-    "resetCta": "Reset",
-    "note": "Illustrative configuration for reference — final specs subject to engineering confirmation.",
-    "quoteIntro": "Quote request for a CNC milling machine configured as:"
+    "detail": {
+      "backToList": "All CNC machines",
+      "crumb": "CNC machines",
+      "specsHeading": "Technical specifications",
+      "specsNote": "Standard configuration — spindle, tool magazine and travel can be tailored on request.",
+      "featuresHeading": "Highlights",
+      "controllerHeading": "The controller inside",
+      "controllerBody": "The machine is driven by the {controller} controller that QS designs and writes firmware for — one point of contact for the machine, electrics and software.",
+      "controllerLink": "See the controller",
+      "ctaHeading": "Need the machine configured for your parts?",
+      "ctaBody": "Send us a drawing or a sample workpiece — QS engineers propose the spindle, workholding and machining cycle within 48 hours.",
+      "ctaButton": "Talk to an engineer"
+    }
   },
   "monitor": {
     "label": "Shop floor · live",

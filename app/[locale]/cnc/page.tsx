@@ -5,7 +5,8 @@ import Reveal from "@/components/reveal";
 import CircuitTraces from "@/components/circuit-traces";
 import MachineAnnotation, { type CalloutText } from "./_components/machine-annotation";
 import CncFeatureVideo from "./_components/cnc-feature-video";
-import MachineConfigurator from "./_components/machine-configurator";
+import MachineList from "./_components/machine-list";
+import { getMachines } from "@/lib/data/machines";
 import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -45,6 +46,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
   const t = await getTranslations({ locale, namespace: "cnc" });
 
   const callouts = t.raw("hero.callouts") as CalloutText[];
+  const machines = getMachines(locale);
 
   return (
     <>
@@ -74,20 +76,20 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         </div>
       </section>
 
-      {/* CONFIGURATOR — interactive spec builder + quote deep-link */}
+      {/* MACHINE LINE-UP — browse the CNC machines QS manufactures */}
       <section className="relative py-24 bg-paper border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 right-0 w-[38%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
             <div className="pb-7 border-b border-line mb-12 max-w-[70ch]">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("configurator.eyebrow")}</span>
-              <h2 className="qs-h2 mt-3">{t("configurator.heading")}</h2>
-              <p className="text-[15px] leading-[1.7] text-muted mt-4 m-0">{t("configurator.body")}</p>
+              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("machines.eyebrow")}</span>
+              <h2 className="qs-h2 mt-3">{t("machines.heading")}</h2>
+              <p className="text-[15px] leading-[1.7] text-muted mt-4 m-0">{t("machines.body")}</p>
             </div>
           </Reveal>
           <Reveal>
-            <MachineConfigurator locale={locale} />
+            <MachineList machines={machines} />
           </Reveal>
         </div>
       </section>

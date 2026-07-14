@@ -172,6 +172,19 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
           </div>
         </section>
       )}
+
+      {/* CONTACT CTA */}
+      <section className="py-18 lg:py-20 bg-white border-t border-line">
+        <div className="max-w-wrap mx-auto px-12">
+          <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
+            <div>
+              <h3 className="font-display font-bold text-3xl text-white tracking-[-.01em] m-0">{t("ctaHeading", { machine })}</h3>
+              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-[15px] leading-relaxed">{t("ctaBody")}</p>
+            </div>
+            <Link className="qs-btn qs-btn-gold" href="/contact">{t("ctaBtn")}</Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

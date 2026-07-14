@@ -3,6 +3,7 @@ import { getProductSlugs } from "@/lib/data/products";
 import { getNewsSlugs } from "@/lib/data/news";
 import { getApplicationSlugs } from "@/lib/data/applications";
 import { getServiceSlugs } from "@/lib/data/services";
+import { getMachineSlugs } from "@/lib/data/machines";
 
 export const dynamic = "force-static";
 
@@ -48,6 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...STATIC_PATHS.flatMap(buildEntries),
+    ...getMachineSlugs().flatMap((slug) => buildEntries(`/cnc/${slug}`)),
     ...productSlugs.flatMap((slug) => buildEntries(`/products/${slug}`)),
     ...newsSlugs.flatMap((slug) => buildEntries(`/news/${slug}`)),
     ...applicationSlugs.flatMap((slug) => buildEntries(`/applications/${slug}`)),

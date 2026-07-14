@@ -28,6 +28,9 @@
     "videoEyebrow": "[ Video ]",
     "videoHeading": "Applications on the shop floor",
     "videoPlay": "Play video",
+    "ctaHeading": "Have a machine type not listed here?",
+    "ctaBody": "QS engineers help match the right controller to your machine — from I/O configuration to wiring diagram and driver selection.",
+    "ctaBtn": "Contact engineering →",
     "items": [
       { "t": "CNC Milling", "machine": "CNC Milling Machine" },
       { "t": "Jigsaw", "machine": "Jigsaw Machine" },
@@ -85,6 +88,9 @@
     "relatedHeading": "Related applications",
     "backAll": "← All applications",
     "relatedAppLabel": "Application",
+    "ctaHeading": "Automating {machine} machines?",
+    "ctaBody": "QS engineers help choose the I/O configuration, wiring diagram, and driver suited to this machine type.",
+    "ctaBtn": "Contact engineering →",
     "machines": {
       "cua-long": {
         "heroLede": "Industrial jigsaw machines cut complex curved profiles in wood, plastic, or thin materials at high speed with a smooth cut line. The QS control system keeps the shop floor running with continuous stability.",

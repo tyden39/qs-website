@@ -7,15 +7,14 @@ import { useTranslations } from "next-intl";
 /**
  * Single feature video with a YouTube facade: the poster still renders immediately
  * and the iframe only loads on play (same pattern as the home VideoReel feature
- * screen, without the playlist). Falls back from maxresdefault to hqdefault when
- * the HD poster is missing.
+ * screen, without the playlist). Uses the always-present hqdefault poster — this
+ * feature video has no maxresdefault, so probing it only 404s.
  */
 export default function CncFeatureVideo({ youtubeId }: { youtubeId: string }) {
   const t = useTranslations("cnc.video");
   const [playing, setPlaying] = useState(false);
-  const [noMaxres, setNoMaxres] = useState(false);
 
-  const poster = `https://i.ytimg.com/vi/${youtubeId}/${noMaxres ? "hqdefault" : "maxresdefault"}.jpg`;
+  const poster = `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
 
   return (
     <div className="group relative aspect-video overflow-hidden rounded-[6px] bg-ink-2 border border-[#2a2620] shadow-[0_28px_70px_-30px_rgba(0,0,0,.7)]">
@@ -44,12 +43,6 @@ export default function CncFeatureVideo({ youtubeId }: { youtubeId: string }) {
             alt={t("title")}
             fill
             sizes="(max-width:1024px) 100vw, 960px"
-            onError={() => setNoMaxres(true)}
-            onLoad={(e) => {
-              // YouTube returns a 120×90 gray placeholder (HTTP 200) when a video
-              // has no maxresdefault — detect it by size and fall back to hqdefault.
-              if (e.currentTarget.naturalWidth <= 120) setNoMaxres(true);
-            }}
             className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
           <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.9) 2%,rgba(10,10,8,.1) 42%,transparent 72%)" }} />

@@ -78,10 +78,6 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
             </span>
           </h1>
           <p className="qs-lede mt-6 max-w-[64ch] qs-rise" style={{ animationDelay: "300ms" }}>{intro}</p>
-
-          <div className="mt-9 qs-rise" style={{ animationDelay: "400ms" }}>
-            <Link href="#contact" className="qs-btn qs-btn-gold">{t("cta")}</Link>
-          </div>
         </div>
       </section>
 

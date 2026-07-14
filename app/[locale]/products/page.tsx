@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getAllProducts } from "@/lib/data/products";
+import { getApplicationSlugs, getApplicationSlugsForProduct } from "@/lib/data/applications";
 import { ProductBundleCard } from "@/components/products/product-bundle-card";
 import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";
 import CircuitTraces from "@/components/circuit-traces";
@@ -58,7 +59,17 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     displayNum: parseFloat(p.display) || 0,
     // Control interface drives the toolbar chips; derive it from the spec columns.
     controlInterface: p.interfaces.map((c) => c.name).join(" ").toLowerCase(),
+    // Machine-type application slugs this controller is suited to (sidebar filter).
+    applications: getApplicationSlugsForProduct(p.slug),
     node: <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />,
+  }));
+  // Sidebar category tree = machine types, sourced from the application catalogue
+  // so labels and the product mapping stay in sync.
+  const appT = await getTranslations({ locale, namespace: "application.index" });
+  const appItems = appT.raw("items") as { t: string; machine: string }[];
+  const categoryTree = getApplicationSlugs().map((slug, i) => ({
+    slug,
+    label: appItems[i]?.machine ?? slug,
   }));
   const breadcrumb = buildBreadcrumbList([
     { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
@@ -129,7 +140,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
             labels={{
               filters: t.raw("toolbar.filters") as string[],
               sortOptions: t.raw("toolbar.sortOptions") as string[],
-              tree: t.raw("sidebar.tree") as string[],
+              tree: categoryTree,
               sidebarHeading: t("sidebar.heading"),
               supportTitle: t("sidebar.support.title"),
               supportCta: t("sidebar.support.cta"),

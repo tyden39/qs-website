@@ -17,6 +17,8 @@ export type Application = {
   workflow: ApplicationWorkflowStep[];
   specs: Array<{ label: string; value: string }>;
   deployments: ApplicationDeployment[];
+  /** Controller model slugs (see data/products.ts) suited to this machine type. */
+  products: string[];
 };
 
 const sharedWorkflow: ApplicationWorkflowStep[] = [
@@ -97,6 +99,20 @@ const machineNames: Array<{ slug: string; machine: string }> = [
   { slug: "kim-hoan", machine: "Máy Kim Hoàn" },
 ];
 
+// Controller models suited to each machine type. Slugs match data/products.ts and
+// are ordered to follow the catalogue order. Drives both the "Sản phẩm tương ứng"
+// section on the application detail page and the product-list category filter.
+const ALL_CONTROLLERS = ["f54", "f86", "f10t", "astro-6ah", "astro-6av", "astro-10s", "astro-10i"];
+const productsByMachine: Record<string, string[]> = {
+  "phay-cnc": ALL_CONTROLLERS,
+  "cua-long": ["f86"],
+  "dan-keo": ALL_CONTROLLERS,
+  "thuc-pham": ["f10t"],
+  "uon-lo-xo": ["f86", "astro-10s"],
+  "mong-go": ["f54", "f86", "f10t", "astro-6ah", "astro-6av", "astro-10i"],
+  "kim-hoan": ALL_CONTROLLERS,
+};
+
 export const applications: Application[] = machineNames.map(({ slug, machine }) => ({
   slug,
   machine,
@@ -104,4 +120,5 @@ export const applications: Application[] = machineNames.map(({ slug, machine }) 
   workflow: sharedWorkflow,
   specs: sharedSpecs,
   deployments: sharedDeployments,
+  products: productsByMachine[slug] ?? [],
 }));

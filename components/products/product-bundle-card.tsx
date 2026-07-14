@@ -36,21 +36,11 @@ export async function ProductBundleCard({
           aria-hidden
           className="absolute top-0 right-0 hidden md:block w-px h-10 bg-gold"
         />
-        <div className="font-mono text-[10px] tracking-[.18em] uppercase text-muted">
-          {t("bundleFor")}
-        </div>
-
-        <div className="mt-2.5 self-start bg-gold-grad border border-gold-1 rounded-[2px] px-4 py-2">
-          <span className="font-display font-extrabold text-[17px] tracking-[.04em] uppercase text-ink leading-none">
-            {t("machine")} {product.axes}
-          </span>
-        </div>
-
         {/* controller render — real front-face photo, links to the detail page */}
         <Link
           href={`/products/${product.slug}`}
           aria-label={product.tag}
-          className="relative mt-6 grid place-items-center border border-line rounded-[2px] p-4 overflow-hidden min-h-[180px]"
+          className="relative grid place-items-center border border-line rounded-[2px] p-4 overflow-hidden min-h-[180px]"
           style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
         >
           <span aria-hidden className="qs-scan opacity-0 group-hover:opacity-100" />

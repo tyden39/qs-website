@@ -129,7 +129,9 @@ export function buildTechArticle(a: ApplicationView, locale: Locale): WithContex
     headline: a.title,
     description: a.summary?.slice(0, 160),
     url,
-    image: a.heroImage ?? `${APP_URL}/og-default.png`,
+    image: a.heroImage
+      ? (a.heroImage.startsWith("http") ? a.heroImage : `${APP_URL}${a.heroImage}`)
+      : `${APP_URL}/og-default.png`,
     author: {
       "@type": "Organization",
       name: "QS Technology",

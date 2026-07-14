@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
+import Reveal from "@/components/reveal";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { getApplicationBySlug, getApplicationSlugs } from "@/lib/data/applications";
+import { getApplicationBySlug, getApplicationProducts, getApplicationSlugs } from "@/lib/data/applications";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTechArticle, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
@@ -73,13 +75,12 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
   >;
   const machine_ = machines?.[slug];
   const heroLede = machine_?.heroLede ?? t("heroLede");
-  const workflowLede = machine_?.workflowLede ?? t("workflowLede");
   const heroStats = machine_?.heroStats ?? (t.raw("heroStats") as [string, string][]);
-  const workflow = (machine_?.workflow ?? (t.raw("workflow") as { l: string; t: string; d: string }[])).map((w, i) => ({ ...w, n: String(i + 1).padStart(2, "0") }));
   const specs = t.raw("specs") as [string, string][];
   const deployments = t.raw("deployments") as { name: string; loc: string }[];
   const relatedApps = relatedAppsMeta.map((r) => ({ ...r, t: machineFor(r.slug) }));
   const appData = await getApplicationBySlug(slug, locale);
+  const relatedProducts = getApplicationProducts(slug, locale);
   const techArticleJsonLd = appData ? buildTechArticle(appData, locale) : null;
 
   return (
@@ -87,7 +88,9 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       {techArticleJsonLd && <JsonLd data={techArticleJsonLd} />}
       {/* DARK HERO */}
       <section className="relative overflow-hidden bg-ink text-[#cfc9b8] border-b border-[#2a2620]">
-        <div className="absolute inset-0 qs-grid-bg opacity-[.15]"></div>
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.15]" aria-hidden="true"></div>
+        {/* breathing gold atmosphere behind the detail plate */}
+        <div className="qs-glow hidden sm:block right-[4%] top-[-25%] w-[34%] h-[150%]" aria-hidden="true"></div>
         <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
             <Link href="/" className="text-[#a8a499]!">{t("breadcrumb.home")}</Link><span className="sep text-[#a8a499]!">/</span>
@@ -96,15 +99,15 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
           </div>
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-16 items-end">
             <div>
-              <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">{t("appLabel", { idx: String(idx).padStart(2, "0") })}</span>
-              <h1 className="font-display font-bold tracking-[-.02em] text-white mt-3.5"
-                  style={{fontSize:"72px", lineHeight:".95"}}>
+              <span className="inline-block qs-rise font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase" style={{ animationDelay: "0ms" }}>{t("appLabel", { idx: String(idx).padStart(2, "0") })}</span>
+              <h1 className="qs-rise font-display font-bold tracking-[-.02em] text-white mt-3.5"
+                  style={{fontSize:"72px", lineHeight:".95", animationDelay: "80ms"}}>
                 {t("heroLine1")}<br/>{t("heroForPrefix")} {machine.toLowerCase()}
               </h1>
-              <p className="mt-6 text-[17px] leading-[1.6] text-[#a8a499] max-w-[55ch]">
+              <p className="qs-rise mt-6 text-[17px] leading-[1.6] text-[#a8a499] max-w-[55ch]" style={{ animationDelay: "180ms" }}>
                 {heroLede}
               </p>
-              <div className="grid grid-cols-3 gap-4 sm:gap-6 mt-10 pt-8 border-t border-[#2a2620]">
+              <div className="qs-rise grid grid-cols-3 gap-4 sm:gap-6 mt-10 pt-8 border-t border-[#2a2620]" style={{ animationDelay: "280ms" }}>
                 {heroStats.map(([v,l]) => (
                   <div key={l}>
                     <div className="font-display font-bold text-[26px] sm:text-[32px] text-gold-2 tracking-[-.01em]">{v}</div>
@@ -113,17 +116,16 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                 ))}
               </div>
             </div>
-            <div className="relative aspect-4/5 border overflow-hidden"
-                 style={{ background:"linear-gradient(135deg, #1a1815, #0a0a08)", borderColor:"#2a2620" }}>
-              <div className="absolute inset-4.5 border border-dashed border-gold opacity-25"></div>
-              <div className="grid place-items-center h-full">
-                <svg viewBox="0 0 200 250" className="w-3/4 h-3/4">
-                  <rect x="40" y="60" width="120" height="40" fill="#cfc9b8" stroke="#8a8680"/>
-                  <rect x="50" y="100" width="100" height="80" fill="#a8a499" stroke="#5a5650"/>
-                  <rect x="90" y="20" width="20" height="40" fill="#3a3530"/>
-                  <circle cx="100" cy="180" r="14" fill="#c8553d"/>
-                </svg>
-              </div>
+            <div className="qs-rise relative aspect-4/5 border overflow-hidden"
+                 style={{ background:"linear-gradient(135deg, #1a1815, #0a0a08)", borderColor:"#2a2620", animationDelay: "160ms" }}>
+              {appData?.heroImage && (
+                <Image src={appData.heroImage} alt={machine} fill sizes="(max-width:768px) 100vw, 40vw"
+                       className="qs-kenburns object-cover" priority />
+              )}
+              <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.55) 0%,rgba(10,10,8,.12) 55%,transparent 100%)" }}></div>
+              {/* gold blueprint scan sweeping the plate */}
+              <div className="qs-scan" aria-hidden="true"></div>
+              <div className="absolute inset-4.5 border border-dashed border-gold opacity-25 pointer-events-none"></div>
               <div className="absolute top-4 right-4 font-mono text-[10px] tracking-[.18em] uppercase text-gold-2/60">+ DETAIL · 02</div>
               <div className="absolute bottom-4 left-4 font-mono text-[10px] tracking-[.18em] uppercase text-gold-2/60">SCALE 1 : 4</div>
             </div>
@@ -131,30 +133,45 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      {/* WORKFLOW */}
-      <section className="py-20 bg-white border-b border-line">
-        <div className="max-w-wrap mx-auto px-12">
-          <div className="qs-section-head">
-            <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("workflowEyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("workflowHeading")}</h2>
-            </div>
-            <p className="text-sm text-muted leading-[1.7] max-w-[44ch] m-0">
-              {workflowLede}
-            </p>
-          </div>
-          <div className="grid md:grid-cols-4 gap-px bg-line border border-line">
-            {workflow.map(s => (
-              <div key={s.n} className="bg-white p-7 relative
-                                         before:content-[''] before:absolute before:top-0 before:left-7 before:w-8 before:h-0.5 before:bg-gold">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{s.n} {s.l}</div>
-                <h3 className="font-display font-semibold text-lg mt-3 m-0 leading-[1.3]">{s.t}</h3>
-                <p className="text-sm text-muted leading-[1.6] mt-2.5 m-0">{s.d}</p>
+      {/* MATCHING PRODUCTS */}
+      {relatedProducts.length > 0 && (
+        <section className="py-20 bg-white border-b border-line">
+          <div className="max-w-wrap mx-auto px-12">
+            <Reveal className="qs-section-head">
+              <div>
+                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("productsEyebrow")}</span>
+                <h2 className="qs-h2 mt-2">{t("productsHeading")}</h2>
               </div>
-            ))}
+              <p className="text-sm text-muted leading-[1.7] max-w-[44ch] m-0">
+                {t("productsLede")}
+              </p>
+            </Reveal>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-line border border-line">
+              {relatedProducts.map((p, i) => (
+                <Reveal key={p.slug} className="flex" delay={i * 70}>
+                <Link
+                  href={`/products/${p.slug}`}
+                  className="group w-full bg-white p-6 flex flex-col hover:bg-paper transition-colors relative
+                             before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold"
+                >
+                  <div className="font-mono text-[10px] text-muted tracking-[.16em] uppercase">{t("productsModel")}</div>
+                  <div className="relative aspect-4/3 mt-3 border border-line overflow-hidden"
+                       style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
+                    <Image src={p.image.src} alt={p.tag} fill sizes="(max-width:768px) 50vw, 25vw"
+                           className="object-contain p-3 transition-transform duration-300 group-hover:scale-[1.03]" />
+                  </div>
+                  <h3 className="font-display font-bold text-[20px] tracking-[-.01em] mt-4 m-0 leading-[1.2]">{p.name}</h3>
+                  <p className="text-[13px] text-muted leading-[1.55] mt-2 m-0 line-clamp-2">{p.desc}</p>
+                  <div className="flex justify-between items-center pt-4 mt-auto font-mono text-[10px] tracking-[.12em] uppercase text-gold-1">
+                    <span>{t("productsViewDetail")}</span><span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </div>
+                </Link>
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

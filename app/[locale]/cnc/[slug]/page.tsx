@@ -21,6 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { getMachineBySlug, getMachineSlugs } from "@/lib/data/machines";
+import LineMachineDetail from "../_components/line-machine-detail";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
@@ -47,6 +48,13 @@ const SPEC_ICON: Record<string, LucideIcon> = {
   positioning: Crosshair,
   repeatability: Crosshair,
   resolution: Crosshair,
+  // Automation / inspection lines
+  throughput: Gauge,
+  conveyorSpeed: Gauge,
+  productTypes: Layers,
+  power: Zap,
+  capacity: Weight,
+  tolerance: Crosshair,
 };
 const specIcon = (k: string): LucideIcon => SPEC_ICON[k] ?? Settings;
 
@@ -91,12 +99,34 @@ export default async function MachineDetailPage({
   setRequestLocale(locale);
   const machine = getMachineBySlug(slug, locale);
   if (!machine) notFound();
+
+  // Line-integrated machines (bottle rotator, checkweigher…) ship process-flow
+  // data and render the light "line station" template instead of the dark CNC
+  // datasheet layout below.
+  if (machine.line.length > 0) {
+    return <LineMachineDetail machine={machine} locale={locale} />;
+  }
+
   const t = await getTranslations({ locale, namespace: "cnc" });
 
   const label = (k: string) => t(`machines.labels.${k}`);
-  const heroSpecs = HERO_SPEC_KEYS.map((k) => machine.specs.find((s) => s.k === k)).filter(
+  // Promote the CNC hero specs when present; automation/inspection machines that
+  // carry none of those keys fall back to their own leading spec rows.
+  const cncHeroSpecs = HERO_SPEC_KEYS.map((k) => machine.specs.find((s) => s.k === k)).filter(
     (s): s is NonNullable<typeof s> => Boolean(s),
   );
+  const heroSpecs = cncHeroSpecs.length > 0 ? cncHeroSpecs : machine.specs.slice(0, 4);
+
+  // Feature grid columns follow the item count (max 4) so the row fills
+  // without leaving empty cells. Static classes keep Tailwind's JIT happy.
+  const featureCols =
+    [
+      "",
+      "sm:grid-cols-1 lg:grid-cols-1",
+      "sm:grid-cols-2 lg:grid-cols-2",
+      "sm:grid-cols-2 lg:grid-cols-3",
+      "sm:grid-cols-2 lg:grid-cols-4",
+    ][Math.min(machine.features.length, 4)] ?? "sm:grid-cols-2 lg:grid-cols-4";
 
   return (
     <>
@@ -139,7 +169,7 @@ export default async function MachineDetailPage({
 
             <Reveal delay={120}>
               <div className="relative border border-[#2a2620] bg-white/[.02] overflow-hidden">
-                <div className="relative aspect-[5/4] w-full overflow-hidden">
+                <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden">
                   {/* blueprint grid + ambient gold bloom behind the machine */}
                   <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.12]" aria-hidden="true"></div>
                   <div className="qs-breathe pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 58% at 50% 54%, rgba(232,200,120,.22), transparent 70%)" }} aria-hidden="true"></div>
@@ -166,7 +196,11 @@ export default async function MachineDetailPage({
                 </div>
                 <div className="px-5 py-3 border-t border-[#2a2620] flex items-center justify-between">
                   <span className="font-mono text-[11px] tracking-[.16em] uppercase text-[#7d7a70]">{machine.model}</span>
-                  <span className="font-mono text-[11px] tracking-[.16em] uppercase text-gold-2">{machine.axes} {t("machines.axesUnit")}</span>
+                  <span className="font-mono text-[11px] tracking-[.16em] uppercase text-gold-2">
+                    {machine.axes > 0
+                      ? `${machine.axes} ${t("machines.axesUnit")}`
+                      : t(`machines.categories.${machine.category}`)}
+                  </span>
                 </div>
               </div>
             </Reveal>
@@ -183,16 +217,43 @@ export default async function MachineDetailPage({
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("machines.detail.featuresHeading")}</span>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
-            {machine.features.map((f, i) => (
-              <Reveal key={f.title} delay={i * 80}>
-                <div className="bg-white p-6 h-full min-h-[200px] flex flex-col">
-                  <span className="font-mono text-[11px] text-gold-1 tracking-[.14em]">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 className="font-display font-bold text-ink text-[18px] tracking-[-.01em] mt-4">{f.title}</h3>
-                  <p className="text-[14px] leading-[1.65] text-muted mt-2.5 m-0">{f.desc}</p>
-                </div>
-              </Reveal>
-            ))}
+          <div className={`grid grid-cols-1 ${featureCols} gap-px bg-line border border-line`}>
+            {machine.features.map((f, i) => {
+              const idx = String(i + 1).padStart(2, "0");
+              return (
+                <Reveal key={f.title} delay={i * 80}>
+                  <div className="group bg-white h-full flex flex-col">
+                    {/* datasheet detail crop — or a blueprint plate when the feature ships no photo */}
+                    <div className="relative aspect-[4/3] overflow-hidden bg-paper-2/60">
+                      <div className="absolute inset-0 qs-grid-bg opacity-50" aria-hidden="true"></div>
+                      {f.img ? (
+                        <Image
+                          src={f.img}
+                          alt={`${machine.model} — ${f.title}`}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          className="relative object-cover [filter:saturate(.96)_contrast(1.03)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                        />
+                      ) : (
+                        <span className="absolute inset-0 flex items-center justify-center font-mono font-semibold text-[68px] leading-none text-ink/[.06] select-none" aria-hidden="true">{idx}</span>
+                      )}
+                      <span className="absolute top-3 left-3 z-10 font-mono text-[11px] tracking-[.14em] text-ink bg-gold px-2 py-0.5">{idx}</span>
+                      {/* corner registration ticks — reads the crop like the hero's scan */}
+                      <div className="pointer-events-none absolute inset-2.5 z-10" aria-hidden="true">
+                        <span className="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/60"></span>
+                        <span className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/60"></span>
+                        <span className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/60"></span>
+                        <span className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-white/60"></span>
+                      </div>
+                    </div>
+                    <div className="p-6 flex flex-col flex-1 border-t border-line">
+                      <h3 className="font-display font-bold text-ink text-[18px] tracking-[-.01em]">{f.title}</h3>
+                      <p className="text-[14px] leading-[1.65] text-muted mt-2.5 m-0">{f.desc}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -201,7 +262,7 @@ export default async function MachineDetailPage({
       <section className="relative bg-ink text-[#cfc9b8] py-24 overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
         <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-8%] w-[48%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_66%)]" />
-        <div className="relative qs-wrap-wide grid lg:grid-cols-[1.2fr_.8fr] gap-12 lg:gap-16 items-start">
+        <div className={`relative qs-wrap-wide grid gap-12 lg:gap-16 items-start ${machine.controller ? "lg:grid-cols-[1.2fr_.8fr]" : ""}`}>
           <Reveal>
             <div className="pb-7 border-b border-[#2a2620] mb-8">
               <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("machines.detail.specsHeading")}</span>
@@ -218,20 +279,22 @@ export default async function MachineDetailPage({
             <p className="text-[12px] leading-[1.6] text-[#7d7a70] mt-5 m-0">{t("machines.detail.specsNote")}</p>
           </Reveal>
 
-          <Reveal delay={120}>
-            <div className="border border-[#2a2620] bg-white/[.02] p-7 lg:sticky lg:top-24">
-              <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">{t("machines.detail.controllerHeading")}</span>
-              <p className="font-display font-bold text-white text-[22px] tracking-[-.02em] mt-4">{machine.controller}</p>
-              <p className="text-[14px] leading-[1.7] text-[#a8a499] mt-4 m-0">
-                {t("machines.detail.controllerBody", { controller: machine.controller })}
-              </p>
-              {machine.controllerSlug && (
-                <Link className="qs-btn bg-transparent text-white border border-[#4a453a] hover:bg-white/10 qs-btn-sm mt-6" href={`/products/${machine.controllerSlug}`}>
-                  {t("machines.detail.controllerLink")} <span className="arr">→</span>
-                </Link>
-              )}
-            </div>
-          </Reveal>
+          {machine.controller && (
+            <Reveal delay={120}>
+              <div className="border border-[#2a2620] bg-white/[.02] p-7 lg:sticky lg:top-24">
+                <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">{t("machines.detail.controllerHeading")}</span>
+                <p className="font-display font-bold text-white text-[22px] tracking-[-.02em] mt-4">{machine.controller}</p>
+                <p className="text-[14px] leading-[1.7] text-[#a8a499] mt-4 m-0">
+                  {t("machines.detail.controllerBody", { controller: machine.controller })}
+                </p>
+                {machine.controllerSlug && (
+                  <Link className="qs-btn bg-transparent text-white border border-[#4a453a] hover:bg-white/10 qs-btn-sm mt-6" href={`/products/${machine.controllerSlug}`}>
+                    {t("machines.detail.controllerLink")} <span className="arr">→</span>
+                  </Link>
+                )}
+              </div>
+            </Reveal>
+          )}
         </div>
       </section>
 

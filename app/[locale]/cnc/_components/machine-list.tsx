@@ -39,22 +39,16 @@ export default function MachineList({ machines }: { machines: MachineView[] }) {
                   isActive ? "border-ink" : "border-line hover:border-ink/40"
                 }`}
               >
-                <span className="relative block aspect-[4/3] bg-paper-2/50 overflow-hidden">
+                <span className="relative block aspect-[5/4] bg-paper-2/50 overflow-hidden">
                   <span className="absolute inset-0 qs-grid-bg opacity-50" aria-hidden="true"></span>
                   <Image
                     src={m.image.src}
                     alt={m.model}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                    className="object-contain p-3 relative"
+                    className="object-contain p-1.5 relative"
                     priority={i === 0}
                   />
-                  <span
-                    className={`absolute left-0 top-0 h-full w-0.5 bg-gold transition-opacity ${
-                      isActive ? "opacity-100" : "opacity-0"
-                    }`}
-                    aria-hidden="true"
-                  ></span>
                 </span>
                 <span className="block px-3 py-2.5 border-t border-line">
                   <span className="block font-display font-bold text-ink tracking-[-.01em] text-[14px] leading-none">

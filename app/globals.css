@@ -18,6 +18,11 @@
   --color-gold-3: #8a6f35;
   --color-rust: #c8553d;
   --color-steel: #1a1f2e;
+  /* Steel-blue process accent — used by the automation/inspection "line station"
+     detail template (conveyor belt + control chrome), reserved off the gold. */
+  --color-steelblue: #34566f;
+  --color-steelblue-2: #6f93ad;
+  --color-signal: #3f9a5a;
 
   --font-display: var(--font-display), "Inter Tight", "Inter", sans-serif;
   --font-sans: var(--font-sans), Inter, ui-sans-serif, system-ui, sans-serif;
@@ -658,4 +663,24 @@ body {
 @media (max-width: 560px) {
   .qs-foot-cols { grid-template-columns: 1fr; gap: 30px; }
   .qs-foot-bottom { justify-content: flex-start; }
+}
+
+/* ─── Line-station process flow (automation/inspection detail template) ─── */
+/* Conveyor motif: dashes travel along the connector to signal flow direction. */
+.qs-conveyor {
+  background-image: repeating-linear-gradient(90deg,
+    var(--color-steelblue) 0 10px, transparent 10px 22px);
+  background-size: 22px 100%;
+  animation: qs-conveyor 1s linear infinite;
+}
+@keyframes qs-conveyor { to { background-position: 22px 0; } }
+/* Andon status lamp — soft breathing pulse on the "ready" light. */
+.qs-andon { animation: qs-andon 2.4s ease-in-out infinite; }
+@keyframes qs-andon {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(63,154,90,.5); }
+  50%      { box-shadow: 0 0 0 5px rgba(63,154,90,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qs-conveyor { animation: none; }
+  .qs-andon { animation: none; }
 }

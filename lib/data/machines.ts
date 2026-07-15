@@ -10,14 +10,17 @@ import type { Locale } from "@/lib/i18n/config";
 
 export type { MachineCategory, MachineSpec, MachinePhoto };
 
-export type MachineFeatureView = { title: string; desc: string };
+export type MachineFeatureView = { title: string; desc: string; img?: string };
+export type MachineLineStepView = { title: string; desc: string };
+export type MachineControlView = { system: string; points: string[] };
+export type MachineShotView = { src: string; caption: string };
 
 export type MachineView = {
   slug: string;
   model: string;
   category: MachineCategory;
   axes: number;
-  controller: string;
+  controller: string | null;
   controllerSlug: string | null;
   tagline: string;
   image: MachinePhoto;
@@ -25,6 +28,11 @@ export type MachineView = {
   /** Leading spec rows for the list panel / card preview. */
   highlights: MachineSpec[];
   features: MachineFeatureView[];
+  /** Line-station template extras (automation/inspection). Empty when unused. */
+  line: MachineLineStepView[];
+  control: MachineControlView | null;
+  gallery: MachineShotView[];
+  applications: string[];
 };
 
 /** Localize thousands separators: integer runs of 4+ digits are grouped per locale. */
@@ -44,7 +52,7 @@ function toView(m: Machine, locale: Locale): MachineView {
     model: m.model,
     category: m.category,
     axes: m.axes,
-    controller: m.controller,
+    controller: m.controller ?? null,
     controllerSlug: m.controllerSlug ?? null,
     tagline: en ? m.taglineEn ?? m.tagline : m.tagline,
     image: m.image,
@@ -53,7 +61,23 @@ function toView(m: Machine, locale: Locale): MachineView {
     features: m.features.map((f) => ({
       title: en ? f.titleEn ?? f.title : f.title,
       desc: en ? f.descEn ?? f.desc : f.desc,
+      img: f.img,
     })),
+    line: (m.line ?? []).map((s) => ({
+      title: en ? s.titleEn ?? s.title : s.title,
+      desc: en ? s.descEn ?? s.desc : s.desc,
+    })),
+    control: m.control
+      ? {
+          system: m.control.system,
+          points: m.control.points.map((p) => (en ? p.labelEn ?? p.label : p.label)),
+        }
+      : null,
+    gallery: (m.gallery ?? []).map((g) => ({
+      src: g.src,
+      caption: en ? g.captionEn ?? g.caption : g.caption,
+    })),
+    applications: (m.applications ?? []).map((a) => (en ? a.labelEn ?? a.label : a.label)),
   };
 }
 

@@ -92,11 +92,11 @@
   "machines": {
     "eyebrow": "Danh mục máy",
     "heading": "Máy CNC do QS chế tạo",
-    "body": "Từ phay 3 trục đến router 5 trục và kim hoàn 7 trục — mỗi máy chạy bộ điều khiển QS Astro, đồng bộ cơ khí, điện và phần mềm. Di chuột vào một máy để xem thông số, bấm để xem chi tiết.",
+    "body": "Từ phay 3 trục, router 5 trục, trung tâm kim hoàn đến thiết bị tự động hóa dây chuyền — QS thiết kế, chế tạo và tích hợp trọn gói từng máy. Di chuột vào một máy để xem thông số, bấm để xem chi tiết.",
     "listLabel": "Dòng máy",
     "viewDetail": "Xem chi tiết",
     "axesUnit": "trục",
-    "categories": { "milling": "Phay CNC", "router": "Router", "jewelry": "Kim hoàn" },
+    "categories": { "milling": "Phay CNC", "router": "Router", "jewelry": "Kim hoàn", "automation": "Tự động hóa", "inspection": "Cân kiểm tra" },
     "labels": {
       "axes": "Số trục điều khiển",
       "controller": "Bộ điều khiển",
@@ -119,7 +119,16 @@
       "powerSupply": "Nguồn điện",
       "airPressure": "Áp suất khí nguồn",
       "rotaryAxis": "Trục xoay",
-      "transmission": "Hệ thống truyền động"
+      "transmission": "Hệ thống truyền động",
+      "throughput": "Năng suất",
+      "conveyorSpeed": "Tốc độ băng tải",
+      "productTypes": "Số loại sản phẩm",
+      "power": "Công suất",
+      "capacity": "Tải trọng tối đa",
+      "tolerance": "Sai số cho phép",
+      "controlSystem": "Hệ thống điều khiển",
+      "beltType": "Băng tải",
+      "loadCell": "Cảm biến lực"
     },
     "detail": {
       "backToList": "Tất cả máy CNC",
@@ -132,7 +141,18 @@
       "controllerLink": "Xem bộ điều khiển",
       "ctaHeading": "Cần cấu hình máy theo sản phẩm của bạn?",
       "ctaBody": "Gửi bản vẽ hoặc mẫu phôi — kỹ sư QS tư vấn cấu hình trục chính, đồ gá và chu trình gia công trong 48 giờ.",
-      "ctaButton": "Nhận tư vấn kỹ thuật"
+      "ctaButton": "Nhận tư vấn kỹ thuật",
+      "statusReady": "Sẵn sàng vận hành",
+      "lineHeading": "Vị trí trong dây chuyền",
+      "lineBody": "{model} lắp thẳng vào dây chuyền hiện có — từ đầu vào đến đầu ra.",
+      "inLabel": "Đầu vào",
+      "outLabel": "Đầu ra",
+      "galleryHeading": "Hình ảnh thực tế",
+      "controlSystemHeading": "Hệ thống điều khiển",
+      "controlSystemBody": "Vận hành qua {system} với đèn tháp báo trạng thái và nút dừng khẩn cấp — trực quan cho công nhân đứng máy.",
+      "applicationsHeading": "Ngành ứng dụng",
+      "applicationsBody": "Đã triển khai trên nhiều dây chuyền sản xuất và đóng gói.",
+      "specsNoteAuto": "Thông số cấu hình chuẩn — năng suất, băng tải và bộ điều khiển có thể tuỳ biến theo dây chuyền."
     }
   },
   "monitor": {

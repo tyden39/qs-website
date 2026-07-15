@@ -92,11 +92,11 @@
   "machines": {
     "eyebrow": "Machine line-up",
     "heading": "CNC machines built by QS",
-    "body": "From 3-axis milling to 5-axis routers and 7-axis jewelry centers — every machine runs a QS Astro controller, with the mechanics, electrics and software in sync. Hover a machine to see its specs, click for the detail page.",
+    "body": "From 3-axis milling and 5-axis routers to jewelry centers and packaging-line automation — QS designs, builds and integrates each machine end to end. Hover a machine to see its specs, click for the detail page.",
     "listLabel": "Machine",
     "viewDetail": "View details",
     "axesUnit": "axes",
-    "categories": { "milling": "CNC milling", "router": "Router", "jewelry": "Jewelry" },
+    "categories": { "milling": "CNC milling", "router": "Router", "jewelry": "Jewelry", "automation": "Automation", "inspection": "Checkweighing" },
     "labels": {
       "axes": "Control axes",
       "controller": "Controller",
@@ -119,7 +119,16 @@
       "powerSupply": "Power supply",
       "airPressure": "Air pressure",
       "rotaryAxis": "Rotary axis",
-      "transmission": "Transmission system"
+      "transmission": "Transmission system",
+      "throughput": "Throughput",
+      "conveyorSpeed": "Conveyor speed",
+      "productTypes": "Product types",
+      "power": "Power",
+      "capacity": "Max. capacity",
+      "tolerance": "Tolerance",
+      "controlSystem": "Control system",
+      "beltType": "Conveyor belt",
+      "loadCell": "Load cell"
     },
     "detail": {
       "backToList": "All CNC machines",
@@ -132,7 +141,18 @@
       "controllerLink": "See the controller",
       "ctaHeading": "Need the machine configured for your parts?",
       "ctaBody": "Send us a drawing or a sample workpiece — QS engineers propose the spindle, workholding and machining cycle within 48 hours.",
-      "ctaButton": "Talk to an engineer"
+      "ctaButton": "Talk to an engineer",
+      "statusReady": "Ready to run",
+      "lineHeading": "Where it sits in the line",
+      "lineBody": "{model} drops straight into your existing line — from infeed to discharge.",
+      "inLabel": "Infeed",
+      "outLabel": "Discharge",
+      "galleryHeading": "On the floor",
+      "controlSystemHeading": "Control system",
+      "controlSystemBody": "Operated from the {system} with an andon status tower and emergency stop — clear at a glance for line operators.",
+      "applicationsHeading": "Applications",
+      "applicationsBody": "Deployed across a range of production and packaging lines.",
+      "specsNoteAuto": "Standard configuration — throughput, conveyor and controls can be tailored to your line."
     }
   },
   "monitor": {

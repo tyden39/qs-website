@@ -84,6 +84,7 @@ export default function Header() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
               </button>
               <div className="hidden sm:block"><LocaleSwitcher /></div>
+              <a href="https://crm.qstcnc.com/login" className="hidden lg:inline-flex items-center rounded bg-ink px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-widest text-white transition-colors hover:bg-black">{t("login")}</a>
               {/* hamburger — only below the desktop nav breakpoint. Wrapped in a
                   plain div so `lg:hidden` wins: `.qs-icon-btn` is an unlayered
                   rule and would otherwise beat the layered utility on the button. */}
@@ -125,6 +126,13 @@ export default function Header() {
                 <span className={`font-mono text-sm ${is(h) ? "text-gold-1" : "text-muted"}`}>→</span>
               </Link>
             ))}
+            <a
+              href="https://crm.qstcnc.com/login"
+              onClick={() => setOpen(false)}
+              className="mt-5 qs-btn qs-btn-gold justify-center"
+            >
+              {t("login")}
+            </a>
             <div className="mt-5 flex items-center justify-between gap-4">
               <div className="flex flex-col gap-1.5 font-mono text-[11px] tracking-[.1em] uppercase text-muted">
                 <a href="tel:+84909663350" className="hover:text-ink">Hotline · (+84) 909.663.350</a>

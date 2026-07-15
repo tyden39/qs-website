@@ -16,6 +16,12 @@ export function LocaleSwitcher() {
 
   function switchLocale(next: Locale) {
     if (next === locale) return;
+    // Persist the choice so the `/` redirect (app/page.tsx) honors it next time.
+    try {
+      localStorage.setItem("locale", next);
+    } catch {
+      // Ignore storage errors (private mode / disabled storage).
+    }
     router.replace(pathname, { locale: next });
   }
 

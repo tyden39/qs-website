@@ -1,5 +1,7 @@
-# Root → default locale
-/                          /vi/                       302
+# `/` is intentionally NOT redirected at the edge: the prerendered index.html
+# (app/page.tsx) detects the visitor's locale client-side (saved choice in
+# localStorage, else browser language) and redirects to /vi/ or /en/. A <meta
+# refresh> to /vi/ is the no-JS fallback.
 
 # Old un-prefixed VI routes → /vi/* (preserve SEO)
 /products                  /vi/products/              301

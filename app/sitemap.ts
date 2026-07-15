@@ -8,7 +8,7 @@ import { getMachineSlugs } from "@/lib/data/machines";
 export const dynamic = "force-static";
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 const STATIC_PATHS = [
   "/",
@@ -28,8 +28,10 @@ const STATIC_PATHS = [
 // locale variant must appear with the full alternate set including itself.
 function buildEntries(path: string): MetadataRoute.Sitemap {
   // localePrefix is "always": every public URL carries a /vi or /en prefix.
-  const viUrl = path === "/" ? `${APP_URL}/vi` : `${APP_URL}/vi${path}`;
-  const enUrl = path === "/" ? `${APP_URL}/en` : `${APP_URL}/en${path}`;
+  // Trailing slash matches `trailingSlash: true` so sitemap URLs equal the
+  // page canonicals exactly (no 308 redirect on crawl).
+  const viUrl = path === "/" ? `${APP_URL}/vi/` : `${APP_URL}/vi${path}/`;
+  const enUrl = path === "/" ? `${APP_URL}/en/` : `${APP_URL}/en${path}/`;
   const languages = { vi: viUrl, en: enUrl, "x-default": viUrl };
   const priority = path === "/" ? 1.0 : 0.8;
   return [

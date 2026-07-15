@@ -28,7 +28,7 @@ export async function generateMetadata({
   return {
     title: p.name,
     description: p.desc?.slice(0, 160),
-    alternates: buildAlternates(`/products/${slug}`),
+    alternates: buildAlternates(`/products/${slug}`, locale),
     openGraph: {
       title: p.name,
       description: p.desc,

@@ -18,7 +18,7 @@ import type { ServiceView } from "@/lib/data/services";
 import type { Locale } from "@/lib/i18n/config";
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 export function buildOrganization(): WithContext<Organization> {
   return {
@@ -26,7 +26,7 @@ export function buildOrganization(): WithContext<Organization> {
     "@type": "Organization",
     name: "QS Technology",
     url: APP_URL,
-    logo: `${APP_URL}/logo.png`,
+    logo: `${APP_URL}/logo-st-full.png`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+84-24-3997-6688",
@@ -48,7 +48,7 @@ export function buildWebSite(): WithContext<WebSite> {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: `${APP_URL}/search?q={search_term_string}`,
+      urlTemplate: `${APP_URL}/vi/search/?q={search_term_string}`,
     },
     // schema-dts uses string literals for action inputs
     "query-input": "required name=search_term_string",
@@ -77,7 +77,7 @@ export function buildProduct(p: ProductView, locale: Locale): WithContext<Produc
       name: "QS Technology",
     },
     image: images.length > 0 ? images : [`${APP_URL}/og-default.png`],
-    url: locale === "en" ? `${APP_URL}/en/products/${p.slug}` : `${APP_URL}/products/${p.slug}`,
+    url: `${APP_URL}/${locale}/products/${p.slug}/`,
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/InStock",
@@ -91,9 +91,7 @@ export function buildProduct(p: ProductView, locale: Locale): WithContext<Produc
 }
 
 export function buildArticle(n: NewsView, locale: Locale): WithContext<Article> {
-  const url = locale === "en"
-    ? `${APP_URL}/en/news/${n.slug}`
-    : `${APP_URL}/news/${n.slug}`;
+  const url = `${APP_URL}/${locale}/news/${n.slug}/`;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -112,7 +110,7 @@ export function buildArticle(n: NewsView, locale: Locale): WithContext<Article> 
       name: "QS Technology",
       logo: {
         "@type": "ImageObject",
-        url: `${APP_URL}/logo.png`,
+        url: `${APP_URL}/logo-st-full.png`,
       },
     },
     inLanguage: locale,
@@ -120,9 +118,7 @@ export function buildArticle(n: NewsView, locale: Locale): WithContext<Article> 
 }
 
 export function buildTechArticle(a: ApplicationView, locale: Locale): WithContext<TechArticle> {
-  const url = locale === "en"
-    ? `${APP_URL}/en/applications/${a.slug}`
-    : `${APP_URL}/applications/${a.slug}`;
+  const url = `${APP_URL}/${locale}/applications/${a.slug}/`;
   return {
     "@context": "https://schema.org",
     "@type": "TechArticle",
@@ -141,7 +137,7 @@ export function buildTechArticle(a: ApplicationView, locale: Locale): WithContex
       name: "QS Technology",
       logo: {
         "@type": "ImageObject",
-        url: `${APP_URL}/logo.png`,
+        url: `${APP_URL}/logo-st-full.png`,
       },
     },
     inLanguage: locale,
@@ -149,9 +145,7 @@ export function buildTechArticle(a: ApplicationView, locale: Locale): WithContex
 }
 
 export function buildService(s: ServiceView, locale: Locale): WithContext<Service> {
-  const url = locale === "en"
-    ? `${APP_URL}/en/services/${s.slug}`
-    : `${APP_URL}/services/${s.slug}`;
+  const url = `${APP_URL}/${locale}/services/${s.slug}/`;
   // schema-dts ServiceLeaf lacks inLanguage; cast via unknown to satisfy strict types
   return {
     "@context": "https://schema.org",

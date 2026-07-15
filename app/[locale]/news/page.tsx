@@ -8,7 +8,7 @@ import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 export async function generateMetadata({
   params,
@@ -22,7 +22,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates("/news"),
+    alternates: buildAlternates("/news", locale),
     openGraph: {
       title,
       description,

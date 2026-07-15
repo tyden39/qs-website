@@ -8,7 +8,7 @@ import { ProductVideo } from "../products/_components/product-video";
 import type { Locale } from "@/lib/i18n/config";
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 // Shop-floor feature clip shown below the catalog list.
 const APP_VIDEO_ID = "kLcNpeHu-2A";
@@ -25,7 +25,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates("/applications"),
+    alternates: buildAlternates("/applications", locale),
     openGraph: {
       title,
       description,

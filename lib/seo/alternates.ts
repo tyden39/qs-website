@@ -1,5 +1,7 @@
+import type { Locale } from "@/lib/i18n/config";
+
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 export type AlternatesResult = {
   canonical: string;
@@ -12,15 +14,22 @@ export type AlternatesResult = {
 
 /**
  * Build hreflang alternates for a given path. localePrefix is "always", so both
- * locales carry a prefix (/vi, /en); x-default and canonical point to the
- * Vietnamese variant.
+ * locales carry a prefix (/vi, /en). The canonical is self-referencing per
+ * locale (an EN page canonicalizes to its own EN URL, not the VI variant) so
+ * search engines index both language versions instead of treating EN as a
+ * duplicate of VI. x-default still points to the Vietnamese variant.
+ *
+ * URLs carry a trailing slash to match `trailingSlash: true` in next.config,
+ * so canonical/hreflang/sitemap URLs all resolve without an extra 308 redirect.
  */
-export function buildAlternates(path: string): AlternatesResult {
+export function buildAlternates(path: string, locale: Locale): AlternatesResult {
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  const viUrl = `${APP_URL}/vi${normalized}`;
-  const enUrl = `${APP_URL}/en${normalized}`;
+  // Root ("/") becomes "/vi/"; "/products" becomes "/vi/products/".
+  const segment = normalized === "/" ? "" : normalized;
+  const viUrl = `${APP_URL}/vi${segment}/`;
+  const enUrl = `${APP_URL}/en${segment}/`;
   return {
-    canonical: viUrl,
+    canonical: locale === "en" ? enUrl : viUrl,
     languages: {
       vi: viUrl,
       en: enUrl,

@@ -1,45 +1,8 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
-
-const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-sans" });
-const display = Inter_Tight({ subsets: ["latin", "vietnamese"], variable: "--font-display" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
-
-const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
-
-export const metadata: Metadata = {
-  metadataBase: new URL(APP_URL),
-  title: {
-    default: "QS Technology — Bộ điều khiển CNC Made in Vietnam",
-    template: "%s | QS Technology",
-  },
-  description:
-    "Thiết kế và sản xuất bộ điều khiển CNC, servo, board mở rộng tại Việt Nam. Hỗ trợ trực tiếp tại 35 tỉnh thành, bảo hành 24 tháng.",
-  openGraph: {
-    siteName: "QS Technology",
-    type: "website",
-    locale: "vi_VN",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@qstechnology",
-  },
-};
-
+// Pass-through root layout. The real <html>/<body> (with `lang={locale}`) live
+// in app/[locale]/layout.tsx so the language tag reflects the active locale.
+// This root exists only so the `/` route (app/page.tsx) can render a redirect
+// to /vi/ for local dev and direct origin hits; on Cloudflare the `_redirects`
+// file handles `/` → `/vi/` at the edge.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // lang stays "vi" at the root; locale-aware layouts can override it
-  // for the dynamic part if SEO crawlers need exact language tagging.
-  return (
-    <html lang="vi" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
-      <head>
-        <noscript>
-          {/* Keep scroll-reveal content visible when JS is disabled. */}
-          <style>{`.qs-reveal{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
-      </head>
-      <body>{children}</body>
-    </html>
-  );
+  return children;
 }

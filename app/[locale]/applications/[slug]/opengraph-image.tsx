@@ -29,7 +29,7 @@ export default async function Image({
         title={a?.title ?? slug}
         subtitle={a?.summary?.slice(0, 120)}
         tag={seo("applicationsTitle")}
-        meta="qstech.vn/applications"
+        meta="qstcnc.com/applications"
       />
     ),
     { width: 1200, height: 630 },

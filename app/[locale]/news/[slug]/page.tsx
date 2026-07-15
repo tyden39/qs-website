@@ -11,7 +11,7 @@ import { buildArticle, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstech.vn";
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 export async function generateMetadata({
   params,
@@ -24,7 +24,7 @@ export async function generateMetadata({
   return {
     title: n.title,
     description: n.excerpt?.slice(0, 160),
-    alternates: buildAlternates(`/news/${slug}`),
+    alternates: buildAlternates(`/news/${slug}`, locale),
     openGraph: {
       title: n.title,
       description: n.excerpt,

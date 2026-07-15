@@ -22,7 +22,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates("/cnc"),
+    alternates: buildAlternates("/cnc", locale),
     openGraph: {
       title,
       description,

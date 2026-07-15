@@ -189,7 +189,7 @@ export function OgImageTemplate({ title, subtitle, tag, meta }: OgImageProps) {
               color: "#8a8680",
             }}
           >
-            qstech.vn
+            qstcnc.com
           </div>
         </div>
       </div>

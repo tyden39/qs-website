@@ -27,7 +27,7 @@ export default async function Image({
         title={p?.name ?? slug}
         subtitle={p?.desc?.slice(0, 120)}
         tag={p ? `Controller · ${p.axes} · ${p.display}` : "CNC Controller"}
-        meta="qstech.vn/products"
+        meta="qstcnc.com/products"
       />
     ),
     { width: 1200, height: 630 },

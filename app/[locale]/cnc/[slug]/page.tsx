@@ -71,7 +71,7 @@ export async function generateMetadata({
   return {
     title,
     description: m.tagline,
-    alternates: buildAlternates(`/cnc/${slug}`),
+    alternates: buildAlternates(`/cnc/${slug}`, locale),
     openGraph: {
       title,
       description: m.tagline,
@@ -130,80 +130,85 @@ export default async function MachineDetailPage({
 
   return (
     <>
-      {/* HERO — dark machine hall: model, controller, key specs + machine figure */}
-      <section className="relative bg-ink text-[#cfc9b8] overflow-hidden">
-        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
-        <CircuitTraces variant="dark" className="absolute inset-y-0 left-[-8%] w-[46%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)]" />
-        <div className="qs-glow" style={{ top: "-140px", right: "18%", width: "420px", height: "420px" }} aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide py-14 lg:py-20">
-          <Reveal>
-            <nav className="qs-crumb text-[#7d7a70]">
-              <Link href="/cnc" className="hover:text-white">{t("machines.detail.crumb")}</Link>
-              <span className="mx-2" aria-hidden="true">/</span>
-              <span className="text-[#a8a499]">{machine.model}</span>
-            </nav>
-          </Reveal>
-          <div className="mt-8 grid lg:grid-cols-[minmax(360px,1fr)_1.15fr] gap-12 lg:gap-16 items-center">
-            <Reveal>
-              <span className="inline-block font-mono text-[11px] tracking-[.2em] uppercase text-ink bg-gold px-2.5 py-1">
+      {/* HERO — light editorial: model, category, key specs + machine figure */}
+      <section
+        className="relative overflow-hidden border-b border-line"
+        style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}
+      >
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
+        {/* breathing gold atmosphere + brand PCB signature bleeding off the right */}
+        <div className="qs-glow hidden sm:block right-[6%] top-[-30%] w-[34%] h-[150%]" aria-hidden="true"></div>
+        <CircuitTraces
+          variant="light"
+          className="hidden lg:block absolute bottom-0 right-0 w-[40%] h-[86%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)]"
+        />
+        <div className="relative z-10 qs-wrap-wide py-14 lg:py-20">
+          <nav className="qs-crumb mb-8">
+            <Link href="/cnc">{t("machines.detail.crumb")}</Link>
+            <span className="sep">/</span>
+            <span className="here">{machine.model}</span>
+          </nav>
+          <div className="grid lg:grid-cols-[minmax(360px,1fr)_1.15fr] gap-12 lg:gap-16 items-center">
+            <div>
+              <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>
                 {t(`machines.categories.${machine.category}`)}
-              </span>
-              <h1 className="qs-h1 text-white mt-4">{machine.model}</h1>
-              <p className="text-[#a8a499] text-base leading-[1.7] mt-5 max-w-[52ch]">{machine.tagline}</p>
+              </div>
+              <h1 className="qs-h1 mt-3.5 qs-rise" style={{ animationDelay: "90ms" }}>
+                <em className="not-italic font-semibold qs-gold-shimmer">{machine.model}</em>
+              </h1>
+              <p className="qs-lede mt-5 max-w-[52ch] qs-rise" style={{ animationDelay: "260ms" }}>{machine.tagline}</p>
 
-              <dl className="mt-9 grid grid-cols-2 gap-px bg-[#2a2620] border border-[#2a2620]">
+              <dl className="mt-9 grid grid-cols-2 gap-px bg-line border border-line qs-rise" style={{ animationDelay: "380ms" }}>
                 {heroSpecs.map((s) => {
                   const Icon = specIcon(s.k);
                   return (
-                    <div key={s.k} className="bg-ink px-4 py-3.5">
-                      <dt className="flex items-center gap-1.5 font-mono text-[10px] tracking-[.14em] uppercase text-gold-2 m-0">
+                    <div key={s.k} className="bg-white px-4 py-3.5">
+                      <dt className="flex items-center gap-1.5 font-mono text-[10px] tracking-[.14em] uppercase text-gold-1 m-0">
                         <Icon className="w-3.5 h-3.5 shrink-0" strokeWidth={1.6} aria-hidden="true" />
                         {label(s.k)}
                       </dt>
-                      <dd className="font-display font-semibold text-white text-[17px] mt-1.5 m-0 tracking-[-.01em]">{s.v}</dd>
+                      <dd className="font-display font-semibold text-ink text-[17px] mt-1.5 m-0 tracking-[-.01em]">{s.v}</dd>
                     </div>
                   );
                 })}
               </dl>
-            </Reveal>
+            </div>
 
-            <Reveal delay={120}>
-              <div className="relative border border-[#2a2620] bg-white/[.02] overflow-hidden">
-                <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden">
-                  {/* blueprint grid + ambient gold bloom behind the machine */}
-                  <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.12]" aria-hidden="true"></div>
-                  <div className="qs-breathe pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 58% at 50% 54%, rgba(232,200,120,.22), transparent 70%)" }} aria-hidden="true"></div>
-                  {/* perpetual scan beam reading the machine */}
-                  <div className="pointer-events-none absolute inset-x-8 top-0 h-[2px] qs-scan" aria-hidden="true"></div>
-                  {/* machine levitates on a slow loop */}
-                  <div className="qs-float absolute inset-0">
-                    <Image
-                      src={machine.image.src}
-                      alt={machine.model}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 55vw"
-                      className="object-contain p-6 lg:p-10 [filter:drop-shadow(0_18px_26px_rgba(0,0,0,.5))]"
-                      priority
-                    />
-                  </div>
-                  {/* corner registration ticks */}
-                  <div className="pointer-events-none absolute inset-3" aria-hidden="true">
-                    <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-gold-2/50"></span>
-                    <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-gold-2/50"></span>
-                    <span className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l border-gold-2/50"></span>
-                    <span className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r border-gold-2/50"></span>
-                  </div>
+            <div className="qs-rise relative border border-line bg-white overflow-hidden" style={{ animationDelay: "220ms" }}>
+              <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden">
+                {/* blueprint grid + ambient gold bloom behind the machine */}
+                <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
+                <div className="qs-breathe pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 58% at 50% 54%, rgba(190,145,55,.14), transparent 70%)" }} aria-hidden="true"></div>
+                {/* perpetual scan beam reading the machine */}
+                <div className="pointer-events-none absolute inset-x-8 top-0 h-[2px] qs-scan" aria-hidden="true"></div>
+                {/* machine levitates on a slow loop */}
+                <div className="qs-float absolute inset-0">
+                  <Image
+                    src={machine.image.src}
+                    alt={machine.model}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    className="object-contain p-6 lg:p-10 [filter:drop-shadow(0_18px_26px_rgba(0,0,0,.14))]"
+                    priority
+                  />
                 </div>
-                <div className="px-5 py-3 border-t border-[#2a2620] flex items-center justify-between">
-                  <span className="font-mono text-[11px] tracking-[.16em] uppercase text-[#7d7a70]">{machine.model}</span>
-                  <span className="font-mono text-[11px] tracking-[.16em] uppercase text-gold-2">
-                    {machine.axes > 0
-                      ? `${machine.axes} ${t("machines.axesUnit")}`
-                      : t(`machines.categories.${machine.category}`)}
-                  </span>
+                {/* corner registration ticks */}
+                <div className="pointer-events-none absolute inset-3" aria-hidden="true">
+                  <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-gold-1/50"></span>
+                  <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-gold-1/50"></span>
+                  <span className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l border-gold-1/50"></span>
+                  <span className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r border-gold-1/50"></span>
                 </div>
               </div>
-            </Reveal>
+              <div className="px-5 py-3 border-t border-line flex items-center justify-between">
+                <span className="font-mono text-[11px] tracking-[.16em] uppercase text-muted">{machine.model}</span>
+                <span className="font-mono text-[11px] tracking-[.16em] uppercase text-gold-1">
+                  {machine.axes > 0
+                    ? `${machine.axes} ${t("machines.axesUnit")}`
+                    : t(`machines.categories.${machine.category}`)}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -211,6 +216,11 @@ export default async function MachineDetailPage({
       {/* FEATURES — datasheet callout boxes */}
       <section className="relative py-24 bg-paper border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
+        {/* brand PCB signature threading up the left margin, balancing the specs traces on the right */}
+        <CircuitTraces
+          variant="light"
+          className="hidden lg:block absolute top-0 left-0 w-[34%] h-full opacity-[.35] [mask-image:radial-gradient(ellipse_at_left,#000_18%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_18%,transparent_68%)]"
+        />
         <div className="relative qs-wrap-wide">
           <Reveal>
             <div className="pb-7 border-b border-line mb-12 max-w-[70ch]">

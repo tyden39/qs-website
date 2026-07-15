@@ -144,7 +144,7 @@ export function SearchResults() {
       </section>
 
       {/* INPUT */}
-      <section className="bg-white border-b border-line sticky top-[72px] z-30 py-6">
+      <section className="bg-white border-b border-line sticky top-16 lg:top-[72px] z-30 py-6">
         <div className="max-w-wrap mx-auto px-12">
           <form onSubmit={onSubmit} className="flex gap-3.5 items-center border border-ink bg-white px-[18px] py-3.5">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="shrink-0 opacity-50">
@@ -156,7 +156,7 @@ export function SearchResults() {
               defaultValue={query}
               key={query}
               autoComplete="off"
-              className="flex-1 border-0 outline-0 text-lg font-display font-medium text-ink"
+              className="min-w-0 flex-1 border-0 outline-0 text-lg font-display font-medium text-ink"
             />
             <button type="submit" className="px-4 py-2.5 bg-ink text-white font-mono text-[11px] tracking-[.14em] uppercase cursor-pointer">
               {t("searchBtn")}
@@ -191,7 +191,7 @@ export function SearchResults() {
       {/* BODY */}
       <section className="bg-white py-12 pb-24">
         <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_280px] gap-12 items-start">
-          <div>
+          <div className="min-w-0">
             {!query && <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0">{t("emptyPrompt")}</p>}
 
             {query && db && scored.length === 0 && (
@@ -204,13 +204,13 @@ export function SearchResults() {
                   <Link
                     key={r.id}
                     href={r.href}
-                    className="bg-white px-7 py-6 grid grid-cols-[120px_1fr] gap-6 text-ink relative
-                               hover:bg-paper hover:pl-[34px] transition-all
+                    className="bg-white px-5 sm:px-7 py-6 grid grid-cols-[84px_1fr] gap-4 sm:grid-cols-[120px_1fr] sm:gap-6 text-ink relative
+                               hover:bg-paper hover:pl-[26px] sm:hover:pl-[34px] transition-all
                                before:content-[''] before:absolute before:top-0 before:left-0 before:h-full before:bg-gold before:w-0
                                hover:before:w-[3px] before:transition-all"
                   >
                     <Thumb kind={r.type} />
-                    <div>
+                    <div className="min-w-0">
                       <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase flex gap-3.5">
                         <span>[ {t(`typeLabels.${r.type}`)} ]</span>
                       </div>

@@ -125,7 +125,8 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
               <span className="qs-rise inline-block" style={rise(270)}>{s.sub}</span>
             </span>
           </h1>
-          <p className="mt-7 text-lg leading-[1.7] text-[#b4afa0] max-w-[50ch] mx-auto lg:mx-0 qs-rise" style={rise(400)}>
+          {/* min-h reserves worst-case copy height so switching slides never reflows the stack below (prevents mobile scroll jump) */}
+          <p className="mt-7 min-h-[9.5rem] sm:min-h-[6rem] lg:min-h-[7rem] text-lg leading-[1.7] text-[#b4afa0] max-w-[50ch] mx-auto lg:mx-0 qs-rise" style={rise(400)}>
             {s.desc}
           </p>
           <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-9 qs-rise" style={rise(500)}>
@@ -143,7 +144,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           style={rise(120)}
         >
           <div className="relative w-full max-w-[456px] mx-auto">
-            <div className="qs-float relative h-[clamp(432px,62vh,672px)]">
+            <div className="qs-float relative h-[clamp(300px,44vh,560px)] lg:h-[clamp(432px,62vh,672px)]">
               {/* gold pool the product floats above */}
               <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-3/4" style={{ background: "radial-gradient(ellipse 56% 58% at 50% 100%, rgba(232,200,120,.34), transparent 70%)" }} />
               <Image
@@ -167,7 +168,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           key={`s-${active}`}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          className="flex flex-col text-[#cfc9b8] w-full max-w-[440px] mx-auto lg:mx-0"
+          className="flex flex-col min-h-[17.5rem] text-[#cfc9b8] w-full max-w-[440px] mx-auto lg:mx-0"
         >
           {s.specs.map(([k, v], i) => (
             <li

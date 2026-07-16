@@ -22,12 +22,12 @@
     "eyebrow": "Service · CNC Machine Upgrades",
     "heading1": "CNC machine",
     "heading2": "upgrade service",
-    "intro": "In modern manufacturing, CNC technology is the foundation that determines the machining productivity of the entire factory. Yet long-term operation inevitably leads to equipment wear: faults arise, performance degrades, and mechanical precision is lost — directly affecting product quality and production schedules.",
+    "intro": "CNC technology drives the productivity of an entire factory. But over long-term use, equipment wears down — faults arise, performance drops, and precision is lost, hurting product quality and schedules.",
     "cta": "Request a consultation →",
     "solution": {
       "eyebrow": "[ Solution ]",
       "heading": "End-to-end optimisation",
-      "lead": "To solve this problem at the root, QS Technology delivers a comprehensive CNC machine reconditioning and upgrade solution. With a team of engineers who understand the technology and carry hands-on experience across a wide range of machines, QS Technology confidently diagnoses the exact cause, fully resolves the fault, and restores your machine to peak operating performance.",
+      "lead": "QS Technology delivers a comprehensive CNC reconditioning and upgrade solution. Our experienced engineers diagnose the exact cause, resolve it fully, and restore your machine to peak performance.",
       "pillars": [
         ["01", "Electrical system", "Diagnose and fully resolve electrical-system issues."],
         ["02", "Controller", "Upgrade the controller to the modern QS Astro platform."],

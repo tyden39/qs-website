@@ -139,19 +139,19 @@
     "items": [
       {
         "t": "CNC milling machine",
-        "d": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 6-axis closed-loop control for mould-making and complex parts."
+        "d": "6-axis closed-loop control for mould-making and complex parts."
       },
       {
         "t": "Jigsaw machine",
-        "d": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Smooth interpolation, sharp cut lines on wood and composite materials."
+        "d": "Smooth interpolation and sharp cut lines on wood and composite materials."
       },
       {
         "t": "Gluing machine",
-        "d": "Ut enim ad minim veniam, quis nostrud exercitation. Precise glue metering, real-time conveyor speed synchronisation."
+        "d": "Precise glue metering with real-time conveyor speed synchronisation."
       },
       {
         "t": "Spring bending machine",
-        "d": "Duis aute irure dolor in reprehenderit in voluptate velit. Stable bend-angle and pitch control for mass production."
+        "d": "Stable bend-angle and pitch control for mass production."
       }
     ],
     "mobileLabel": "Application",
@@ -166,8 +166,8 @@
   "about": {
     "eyebrow": "[ About us · Founded in Ho Chi Minh City ]",
     "heading": "About QS Technology Co., LTD.",
-    "p1": "QS Technology Co., LTD. We are proud to be a pioneer in developing, applying, and commercialising “Made By Vietnam” CNC controllers. After years of development, products bearing the QS Technology brand have earned growing trust and interest from customers at home and abroad.",
-    "p2": "Drawing on the strengths and experience accumulated over many years in machine building, automation systems, and electronic circuit boards, we confidently master the core technology, diversify our offerings, and satisfy our customers' needs.",
+    "p1": "A pioneer in developing and commercialising “Made By Vietnam” CNC controllers. QS products have earned growing trust from customers at home and abroad.",
+    "p2": "By mastering the core technology — from machine building and automation to electronic boards — we develop and meet customer needs end to end.",
     "cta": "Learn more",
     "caption": "Ho Chi Minh City factory",
     "imgAlt": "QS Technology factory"
@@ -191,7 +191,7 @@
   },
   "cta": {
     "heading": "Need a controller for a specialised machine?",
-    "body": "By fully mastering our technology — from design, programming, and operating-system development to manufacturing and maintenance — we develop new products, improve existing ones, and meet customers' special requirements quickly and flexibly.",
+    "body": "By fully mastering our technology — from design and firmware to manufacturing and maintenance — we flexibly build solutions tailored to your specialised needs.",
     "button": "Contact us now",
     "imgAlt": "QS CNC controller"
   },

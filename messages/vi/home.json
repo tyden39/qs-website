@@ -139,19 +139,19 @@
     "items": [
       {
         "t": "Máy phay CNC",
-        "d": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Điều khiển 6 trục vòng kín cho gia công khuôn mẫu và chi tiết phức tạp."
+        "d": "Điều khiển 6 trục vòng kín cho gia công khuôn mẫu và chi tiết phức tạp."
       },
       {
         "t": "Máy cưa lọng",
-        "d": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nội suy mượt mà, đường cắt sắc nét trên vật liệu gỗ và composite."
+        "d": "Nội suy mượt mà, đường cắt sắc nét trên vật liệu gỗ và composite."
       },
       {
         "t": "Máy dán keo",
-        "d": "Ut enim ad minim veniam, quis nostrud exercitation. Định lượng keo chính xác, đồng bộ tốc độ băng tải theo thời gian thực."
+        "d": "Định lượng keo chính xác, đồng bộ tốc độ băng tải theo thời gian thực."
       },
       {
         "t": "Máy uốn lò xo",
-        "d": "Duis aute irure dolor in reprehenderit in voluptate velit. Điều khiển góc uốn và bước xoắn ổn định cho sản xuất hàng loạt."
+        "d": "Điều khiển góc uốn và bước xoắn ổn định cho sản xuất hàng loạt."
       }
     ],
     "mobileLabel": "Ứng dụng",
@@ -166,8 +166,8 @@
   "about": {
     "eyebrow": "[ Về chúng tôi · Thành lập tại TP. Hồ Chí Minh ]",
     "heading": "Đôi nét về QS Technology Co., LTD.",
-    "p1": "QS Technology Co., LTD. Chúng tôi tự hào là đơn vị tiên phong phát triển, ứng dụng và thương mại sản phẩm bộ điều khiển CNC “Made By Vietnam”. Sau nhiều năm phát triển, những sản phẩm mang thương hiệu QS Technology ngày càng nhận được nhiều sự tin tưởng, quan tâm từ khách hàng trong cũng như ngoài nước.",
-    "p2": "Bên cạnh đó, từ những thế mạnh và kinh nghiệm tích lũy sau nhiều năm hoạt động trong lĩnh vực chế tạo máy, hệ thống tự động hóa và board mạch điện tử, chúng tôi tự tin làm chủ phần công nghệ lõi, phát triển đa dạng và làm hài lòng những mong muốn của khách hàng.",
+    "p1": "Đơn vị tiên phong phát triển và thương mại hoá bộ điều khiển CNC “Made By Vietnam”. Sản phẩm QS ngày càng được khách hàng trong và ngoài nước tin dùng.",
+    "p2": "Làm chủ công nghệ lõi — từ chế tạo máy, tự động hoá đến board mạch điện tử — chúng tôi chủ động phát triển và đáp ứng trọn vẹn nhu cầu khách hàng.",
     "cta": "Xem thêm",
     "caption": "Nhà máy TP. Hồ Chí Minh",
     "imgAlt": "Nhà máy QS Technology"
@@ -191,7 +191,7 @@
   },
   "cta": {
     "heading": "Cần controller cho dòng máy đặc thù?",
-    "body": "Thông qua việc tự chủ hoàn toàn về công nghệ — từ thiết kế, lập trình, xây dựng hệ điều hành đến sản xuất và bảo trì — chúng tôi linh hoạt và nhanh chóng trong việc phát triển sản phẩm mới, cải tiến sản phẩm và đáp ứng các yêu cầu đặc biệt của khách hàng.",
+    "body": "Tự chủ hoàn toàn công nghệ — từ thiết kế, firmware đến sản xuất và bảo trì — chúng tôi linh hoạt phát triển giải pháp riêng cho yêu cầu đặc thù của bạn.",
     "button": "Liên hệ ngay",
     "imgAlt": "Bộ điều khiển CNC QS"
   },

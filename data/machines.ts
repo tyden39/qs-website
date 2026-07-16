@@ -106,7 +106,7 @@ export const machines: Machine[] = [
     controllerSlug: "astro-6av",
     tagline: "Máy phay CNC 3 trục hiệu suất cao, khung đúc nguyên khối và ray trượt tuyến tính cho gia công cơ khí chính xác.",
     taglineEn: "High-performance 3-axis CNC milling machine with a monolithic cast frame and linear guideways for precision machining.",
-    image: IMG("qsm125"),
+    image: IMG("qsm125", 1288, 1400),
     specs: [
       { k: "axes", v: "3" },
       { k: "spindleSpeed", v: "24000 rpm" },
@@ -126,10 +126,10 @@ export const machines: Machine[] = [
       { k: "airPressure", v: "0.6 – 0.8 MPa" },
     ],
     features: [
-      { title: "Đúc nguyên khối", titleEn: "Monolithic casting", desc: "Tăng độ cứng vững, giảm rung lắc khi gia công.", descEn: "Higher rigidity and less vibration during machining." },
-      { title: "Ray trượt tuyến tính", titleEn: "Linear guideways", desc: "Chuyển động êm ái, độ chính xác cao và tuổi thọ cao.", descEn: "Smooth motion with high accuracy and long service life." },
-      { title: "Hệ thống bôi trơn", titleEn: "Lubrication system", desc: "Giảm ma sát, tăng tuổi thọ các cơ cấu truyền động.", descEn: "Reduces friction and extends the life of the drive train." },
-      { title: "Độ chính xác", titleEn: "Accuracy", desc: "Đảm bảo chất lượng gia công ổn định và đồng đều.", descEn: "Ensures stable and consistent machining quality." },
+      { title: "Đúc nguyên khối", titleEn: "Monolithic casting", desc: "Tăng độ cứng vững, giảm rung lắc khi gia công.", descEn: "Higher rigidity and less vibration during machining.", img: FIMG("qsm125-casting") },
+      { title: "Ray trượt tuyến tính", titleEn: "Linear guideways", desc: "Chuyển động êm ái, độ chính xác cao và tuổi thọ cao.", descEn: "Smooth motion with high accuracy and long service life.", img: FIMG("qsm125-guideways") },
+      { title: "Hệ thống bôi trơn", titleEn: "Lubrication system", desc: "Giảm ma sát, tăng tuổi thọ các cơ cấu truyền động.", descEn: "Reduces friction and extends the life of the drive train.", img: FIMG("qsm125-lubrication") },
+      { title: "Độ chính xác", titleEn: "Accuracy", desc: "Đảm bảo chất lượng gia công ổn định và đồng đều.", descEn: "Ensures stable and consistent machining quality.", img: FIMG("qsm125-accuracy") },
     ],
   },
   {
@@ -141,7 +141,7 @@ export const machines: Machine[] = [
     controllerSlug: "astro-6ah",
     tagline: "Máy phay CNC 3 trục thiết kế và chế tạo với độ chính xác cao, đáp ứng hiệu quả các nhu cầu gia công cơ khí hiện đại.",
     taglineEn: "A 3-axis CNC milling machine designed and built to high precision, efficiently meeting the demands of modern machining.",
-    image: IMG("vmc", 843, 1200),
+    image: IMG("vmc", 1050, 1400),
     specs: [
       { k: "axes", v: "3" },
       { k: "spindleSpeed", v: "12000 rpm" },

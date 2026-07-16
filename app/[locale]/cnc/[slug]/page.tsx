@@ -175,20 +175,16 @@ export default async function MachineDetailPage({
             </div>
 
             <div className="qs-rise relative border border-line bg-white overflow-hidden" style={{ animationDelay: "220ms" }}>
-              <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden">
-                {/* blueprint grid + ambient gold bloom behind the machine */}
-                <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
-                <div className="qs-breathe pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 58% at 50% 54%, rgba(190,145,55,.14), transparent 70%)" }} aria-hidden="true"></div>
-                {/* perpetual scan beam reading the machine */}
-                <div className="pointer-events-none absolute inset-x-8 top-0 h-[2px] qs-scan" aria-hidden="true"></div>
-                {/* machine levitates on a slow loop */}
+              <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden bg-white">
+                {/* machine levitates on a slow loop; plain white plate so the
+                    render's own white backdrop reads seamlessly (no grid box) */}
                 <div className="qs-float absolute inset-0">
                   <Image
                     src={machine.image.src}
                     alt={machine.model}
                     fill
                     sizes="(max-width: 1024px) 100vw, 55vw"
-                    className="object-contain p-6 lg:p-10 [filter:drop-shadow(0_18px_26px_rgba(0,0,0,.14))]"
+                    className="object-contain p-6 lg:p-10"
                     priority
                   />
                 </div>

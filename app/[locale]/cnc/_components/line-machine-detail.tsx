@@ -92,8 +92,7 @@ export default async function LineMachineDetail({
 
             <Reveal delay={120}>
               <figure className="relative m-0 border border-line bg-white">
-                <div className="relative h-[360px] sm:h-[440px] lg:h-[540px] w-full overflow-hidden bg-gradient-to-b from-white to-paper-2/70">
-                  <div className="absolute inset-0 qs-grid-bg opacity-40" aria-hidden="true"></div>
+                <div className="relative h-[360px] sm:h-[440px] lg:h-[540px] w-full overflow-hidden bg-white">
                   <Image
                     src={machine.image.src}
                     alt={machine.model}

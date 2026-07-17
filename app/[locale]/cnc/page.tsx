@@ -3,7 +3,7 @@ import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Reveal from "@/components/reveal";
 import CircuitTraces from "@/components/circuit-traces";
-import MachineAnnotation, { type CalloutText } from "./_components/machine-annotation";
+import MachineAnnotation from "./_components/machine-annotation";
 import CncFeatureVideo from "./_components/cnc-feature-video";
 import MachineList from "./_components/machine-list";
 import { getMachines } from "@/lib/data/machines";
@@ -29,7 +29,7 @@ export async function generateMetadata({
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
       url: "/cnc",
-      images: [{ url: "/home/app-phay-cnc.webp", width: 1600, height: 1067, alt: title }],
+      images: [{ url: "/home/cnc-machine-hero.webp", width: 1672, height: 941, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
   };
@@ -37,7 +37,7 @@ export async function generateMetadata({
 
 // Static, non-translated fields (assets, numbers, routing) — localized text is
 // merged in from the `cnc` namespace by position, mirroring the home page.
-const MACHINE_IMG = "/home/app-phay-cnc.webp";
+const MACHINE_IMG = "/home/cnc-machine-hero.webp";
 const VIDEO_ID = "kLcNpeHu-2A";
 
 export default async function CncPage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -45,7 +45,6 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "cnc" });
 
-  const callouts = t.raw("hero.callouts") as CalloutText[];
   const machines = getMachines(locale);
 
   return (
@@ -68,9 +67,6 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
             <MachineAnnotation
               img={MACHINE_IMG}
               alt={t("hero.imgAlt")}
-              caption={t("hero.diagramCaption")}
-              legendLabel={t("hero.legendLabel")}
-              callouts={callouts}
             />
           </Reveal>
         </div>

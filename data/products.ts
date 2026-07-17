@@ -43,6 +43,51 @@ const COMPONENT_PHOTO = {
   touchProbe: { src: "/img/products/components/touch-probe.webp", w: 600, h: 625 },
 } as const;
 
+/**
+ * The three studio renders shown in the detail-page hero, in display order:
+ * front face, rear face, and the controller installed on a machine. Sourced
+ * from `images-origin/<model>/` and keyed by product slug.
+ */
+export type HeroTriptych = { front: ProductPhoto; rear: ProductPhoto; machine: ProductPhoto };
+
+export const HERO_TRIPTYCH: Record<string, HeroTriptych> = {
+  f54: {
+    front: { src: "/img/products/f54-front.webp", w: 1400, h: 904 },
+    rear: { src: "/img/products/f54-rear.webp", w: 1400, h: 893 },
+    machine: { src: "/img/products/f54-machine.webp", w: 1400, h: 788 },
+  },
+  f86: {
+    front: { src: "/img/products/f86-front.webp", w: 1400, h: 1037 },
+    rear: { src: "/img/products/f86-rear.webp", w: 1400, h: 1007 },
+    machine: { src: "/img/products/f86-machine.webp", w: 1400, h: 830 },
+  },
+  f10t: {
+    front: { src: "/img/products/f10t-front.webp", w: 1400, h: 1037 },
+    rear: { src: "/img/products/f10t-rear.webp", w: 1400, h: 1096 },
+    machine: { src: "/img/products/f10t-machine.webp", w: 1400, h: 1867 },
+  },
+  "astro-6ah": {
+    front: { src: "/img/products/astro-6ah-front.webp", w: 1400, h: 1271 },
+    rear: { src: "/img/products/astro-6ah-rear.webp", w: 1400, h: 1297 },
+    machine: { src: "/img/products/astro-6ah-machine.webp", w: 1400, h: 826 },
+  },
+  "astro-6av": {
+    front: { src: "/img/products/astro-6av-front.webp", w: 1400, h: 3133 },
+    rear: { src: "/img/products/astro-6av-rear.webp", w: 1400, h: 2112 },
+    machine: { src: "/img/products/astro-6av-machine.webp", w: 1024, h: 1536 },
+  },
+  "astro-10s": {
+    front: { src: "/img/products/astro-10s-front.webp", w: 1400, h: 1141 },
+    rear: { src: "/img/products/astro-10s-rear.webp", w: 1400, h: 1123 },
+    machine: { src: "/img/products/astro-10s-machine.webp", w: 1400, h: 788 },
+  },
+  "astro-10i": {
+    front: { src: "/img/products/astro-10i-front.webp", w: 1400, h: 2747 },
+    rear: { src: "/img/products/astro-10i-rear.webp", w: 1400, h: 2734 },
+    machine: { src: "/img/products/astro-10i-machine.webp", w: 1400, h: 788 },
+  },
+};
+
 /** A control-interface column in the spec table (catalogue order). */
 export type SpecColumn = { name: string; note?: string };
 

@@ -128,6 +128,7 @@
     "accessoriesEyebrow": "[ Accessories ]",
     "accessoriesHeading": "Included accessories",
     "calibrationLabel": "calibration view",
+    "heroShots": { "front": "Front", "rear": "Rear", "machine": "On machine" },
     "lightbox": { "prev": "Previous image", "next": "Next image", "close": "Close", "zoom": "View larger" },
     "tourEyebrow": "[ A closer look ]",
     "tourHeading": "The product in detail — real photos",

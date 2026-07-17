@@ -128,8 +128,19 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   const heroShots: HeroShot[] =
     pinnedHero.length > 0 ? pinnedHero : visible.filter((g) => g.place !== "tour").slice(0, 4);
   const heroSrcs = new Set(heroShots.map((g) => g.src));
+  // Hero carousel shots: when studio renders exist, show them front / rear /
+  // on-machine in that fixed order; each one feeds the gallery in sequence.
+  const heroStudioShots: HeroShot[] | null = p.heroTriptych
+    ? (["front", "rear", "machine"] as const).map((kind) => ({
+        src: p.heroTriptych![kind].src,
+        w: p.heroTriptych![kind].w,
+        h: p.heroTriptych![kind].h,
+        alt: `${p.name} — ${t(`heroShots.${kind}`)}`,
+      }))
+    : null;
   const galleryShots: HeroShot[] =
-    heroShots.length > 0 ? heroShots : [{ src: p.image.src, w: p.image.w, h: p.image.h, alt: p.tag }];
+    heroStudioShots ??
+    (heroShots.length > 0 ? heroShots : [{ src: p.image.src, w: p.image.w, h: p.image.h, alt: p.tag }]);
   const annotated = visible
     .filter((g) => !heroSrcs.has(g.src))
     .map((g) => ({ img: g, kind: g.kind }));

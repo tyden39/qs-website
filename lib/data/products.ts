@@ -1,11 +1,13 @@
 import {
   products,
+  HERO_TRIPTYCH,
   type Product,
   type KitItem,
   type ProductPhoto,
   type SpecColumn,
   type ProductGalleryPhoto,
   type ProductSpecGroup,
+  type HeroTriptych,
 } from "@/data/products";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -39,6 +41,8 @@ export type ProductView = {
   highlights: string[];
   overviewImage: ProductFrontPhoto | null;
   video: { youtubeId: string; title?: string } | null;
+  /** Front / rear / on-machine studio renders shown in the detail-page hero. */
+  heroTriptych: HeroTriptych | null;
   gallery: ProductGalleryImage[];
   documents: string[];
   software: string[];
@@ -181,6 +185,7 @@ function toView(p: Product, index: number, locale: Locale): ProductView {
     highlights: (en ? p.highlightsEn ?? p.highlights : p.highlights) ?? [],
     overviewImage: p.overviewImage ?? null,
     video: p.video ?? null,
+    heroTriptych: HERO_TRIPTYCH[p.slug] ?? null,
     gallery,
     documents: p.documents ?? [],
     software: p.software ?? [],

@@ -128,6 +128,7 @@
     "accessoriesEyebrow": "[ Phụ kiện ]",
     "accessoriesHeading": "Phụ kiện đi kèm",
     "calibrationLabel": "calibration view",
+    "heroShots": { "front": "Mặt trước", "rear": "Mặt sau", "machine": "Lắp lên máy" },
     "lightbox": { "prev": "Ảnh trước", "next": "Ảnh sau", "close": "Đóng", "zoom": "Xem ảnh lớn" },
     "tourEyebrow": "[ Tìm hiểu qua hình ảnh ]",
     "tourHeading": "Chi tiết sản phẩm qua hình ảnh thực tế",

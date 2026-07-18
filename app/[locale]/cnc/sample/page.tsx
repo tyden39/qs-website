@@ -474,7 +474,7 @@ export default async function MachineDetailSamplePage({
               </span>
             </div>
             <div className="grid sm:grid-cols-[220px_1fr] gap-6 items-stretch flex-1">
-              <div className="relative border border-line overflow-hidden min-h-[280px]">
+              <div className="relative border border-line bg-white overflow-hidden min-h-[280px]">
                 <Image
                   src="/img/products/astro-6av-front.webp"
                   alt="QS Astro 6AVE"

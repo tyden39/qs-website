@@ -204,7 +204,7 @@ export default async function MachineDetailSamplePage({
     <>
       {/* ── HERO ── */}
       <section
-        className="relative overflow-hidden border-b border-line"
+        className="relative overflow-hidden"
         style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}
       >
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true" />
@@ -213,13 +213,13 @@ export default async function MachineDetailSamplePage({
           variant="light"
           className="hidden lg:block absolute bottom-0 right-0 w-[40%] h-[86%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)]"
         />
-        <div className="relative z-10 qs-wrap-wide py-14 lg:py-20">
-          <nav className="qs-crumb mb-8">
+        <div className="relative z-10 qs-wrap-wide py-12 lg:py-16">
+          <nav className="qs-crumb mb-6">
             <Link href="/cnc">Máy CNC</Link>
             <span className="sep">/</span>
             <span className="here">QSM-125</span>
           </nav>
-          <div className="grid lg:grid-cols-[minmax(360px,1fr)_1.15fr] gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[minmax(360px,1fr)_1.15fr] gap-10 lg:gap-12 items-center">
             <div>
               <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>
                 Trung tâm gia công
@@ -288,14 +288,14 @@ export default async function MachineDetailSamplePage({
       </section>
 
       {/* ── ỨNG DỤNG PHÙ HỢP ── */}
-      <section className="relative py-20 bg-paper border-t border-line overflow-hidden">
+      <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="pb-7 border-b border-line mb-10 max-w-[70ch]">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-7 max-w-[70ch]">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Ứng dụng phù hợp
-              </span>
+              </h2>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
@@ -318,7 +318,7 @@ export default async function MachineDetailSamplePage({
       </section>
 
       {/* ── ĐIỂM NỔI BẬT ── */}
-      <section className="relative py-20 bg-paper border-t border-line overflow-hidden">
+      <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
         <CircuitTraces
           variant="light"
@@ -326,10 +326,10 @@ export default async function MachineDetailSamplePage({
         />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="pb-7 border-b border-line mb-10 max-w-[70ch]">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-7 max-w-[70ch]">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Điểm nổi bật
-              </span>
+              </h2>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
@@ -364,14 +364,14 @@ export default async function MachineDetailSamplePage({
       </section>
 
       {/* ── KHẢ NĂNG GIA CÔNG + KHÔNG GIAN GIA CÔNG ── */}
-      <section className="relative py-20 bg-paper border-t border-line overflow-hidden">
+      <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="relative qs-wrap-wide grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
           <Reveal>
-            <div className="pb-7 border-b border-line mb-8">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-6">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Khả năng gia công
-              </span>
+              </h2>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line">
               {CAPABILITIES.map((c) => (
@@ -394,10 +394,10 @@ export default async function MachineDetailSamplePage({
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="pb-7 border-b border-line mb-8">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-6">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Không gian gia công
-              </span>
+              </h2>
             </div>
             <div className="grid sm:grid-cols-[minmax(0,240px)_1fr] gap-8 items-center">
               {/* isometric working-envelope wireframe */}
@@ -443,14 +443,14 @@ export default async function MachineDetailSamplePage({
       </section>
 
       {/* ── HIỆU SUẤT GIA CÔNG + BỘ ĐIỀU KHIỂN CNC ── */}
-      <section className="relative py-20 bg-paper border-t border-line overflow-hidden">
+      <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+        <div className="relative qs-wrap-wide grid lg:grid-cols-2 gap-10 lg:gap-12 items-stretch">
           <Reveal className="flex flex-col">
-            <div className="pb-7 border-b border-line mb-8">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-6">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Hiệu suất gia công
-              </span>
+              </h2>
             </div>
             <div className="grid grid-cols-2 gap-px bg-line border border-line flex-1">
               {PERFORMANCE.map((p) => {
@@ -468,10 +468,10 @@ export default async function MachineDetailSamplePage({
           </Reveal>
 
           <Reveal delay={120} className="flex flex-col">
-            <div className="pb-7 border-b border-line mb-8">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-6">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Bộ điều khiển CNC
-              </span>
+              </h2>
             </div>
             <div className="grid sm:grid-cols-[220px_1fr] gap-6 items-stretch flex-1">
               <div className="relative border border-line bg-white overflow-hidden min-h-[280px]">
@@ -505,14 +505,14 @@ export default async function MachineDetailSamplePage({
       </section>
 
       {/* ── THÔNG SỐ KỸ THUẬT ── */}
-      <section className="relative py-20 bg-paper border-t border-line overflow-hidden">
+      <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="pb-7 border-b border-line mb-10 max-w-[70ch]">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-7 max-w-[70ch]">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Thông số kỹ thuật
-              </span>
+              </h2>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-px bg-line border border-line">
@@ -542,14 +542,14 @@ export default async function MachineDetailSamplePage({
       </section>
 
       {/* ── CẤU HÌNH TIÊU CHUẨN & TÙY CHỌN ── */}
-      <section className="relative py-20 bg-paper border-t border-line overflow-hidden">
+      <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="pb-7 border-b border-line mb-10 max-w-[70ch]">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-7 max-w-[70ch]">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Cấu hình tiêu chuẩn &amp; Tùy chọn
-              </span>
+              </h2>
             </div>
           </Reveal>
           <div className="grid lg:grid-cols-2 gap-px bg-line border border-line">
@@ -580,14 +580,14 @@ export default async function MachineDetailSamplePage({
       </section>
 
       {/* ── TÀI LIỆU TẢI VỀ ── */}
-      <section className="relative py-20 bg-paper border-t border-line overflow-hidden">
+      <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="pb-7 border-b border-line mb-10 max-w-[70ch]">
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
+            <div className="pb-4 border-b border-line mb-7 max-w-[70ch]">
+              <h2 className="qs-panel-title">
                 <span className="qs-live-dot" />Tài liệu tải về
-              </span>
+              </h2>
             </div>
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-line border border-line">
@@ -613,7 +613,7 @@ export default async function MachineDetailSamplePage({
       </section>
 
       {/* ── CTA (dark) ── */}
-      <section className="relative bg-ink text-[#cfc9b8] py-20 overflow-hidden">
+      <section className="relative bg-ink text-[#cfc9b8] py-16 overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true" />
         <CircuitTraces
           variant="dark"
@@ -630,7 +630,7 @@ export default async function MachineDetailSamplePage({
           </Reveal>
           <Reveal delay={120}>
             <div className="flex flex-col gap-3">
-              <Link className="qs-btn qs-btn-gold justify-between" href="/contact">
+              <Link className="qs-btn qs-btn-gold justify-center" href="/contact">
                 Yêu cầu báo giá <span className="arr">→</span>
               </Link>
               <Link

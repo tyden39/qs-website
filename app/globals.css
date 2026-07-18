@@ -134,6 +134,12 @@ body {
     @apply flex items-end justify-between gap-8 pb-6 border-b border-line mb-10;
   }
 
+  /* section title: original mono/gold eyebrow style, larger + bold */
+  .qs-panel-title {
+    @apply font-mono font-bold text-[13px] text-gold-1 tracking-[.16em] uppercase
+           leading-tight m-0 inline-flex items-center gap-2.5;
+  }
+
   /* technical placeholder image */
   .qs-img-ph {
     background:

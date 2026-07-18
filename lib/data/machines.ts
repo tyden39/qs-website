@@ -12,6 +12,8 @@ import type { Locale } from "@/lib/i18n/config";
 export type { MachineCategory, MachineSpec, MachinePhoto, MachineHeroShot };
 
 export type MachineFeatureView = { title: string; desc: string; img?: string };
+export type MachineUseCaseView = { icon: string; title: string; desc: string };
+export type MachineCapabilityView = { img?: string; caption: string };
 export type MachineLineStepView = { title: string; desc: string };
 export type MachineControlView = { system: string; points: string[] };
 export type MachineShotView = { src: string; caption: string };
@@ -23,6 +25,8 @@ export type MachineView = {
   axes: number;
   controller: string | null;
   controllerSlug: string | null;
+  /** Neutral English product line under the model on the datasheet hero. */
+  subtitle: string | null;
   tagline: string;
   image: MachinePhoto;
   /** Hero slideshow shots (CNC template). Empty when the machine ships none. */
@@ -31,6 +35,14 @@ export type MachineView = {
   /** Leading spec rows for the list panel / card preview. */
   highlights: MachineSpec[];
   features: MachineFeatureView[];
+  /**
+   * CNC datasheet sections. Empty arrays are expected — the template renders an
+   * "updating" placeholder in their slot so every machine keeps the same shape.
+   */
+  useCases: MachineUseCaseView[];
+  capabilities: MachineCapabilityView[];
+  standardEquip: string[];
+  optionalEquip: string[];
   /** Line-station template extras (automation/inspection). Empty when unused. */
   line: MachineLineStepView[];
   control: MachineControlView | null;
@@ -57,6 +69,7 @@ function toView(m: Machine, locale: Locale): MachineView {
     axes: m.axes,
     controller: m.controller ?? null,
     controllerSlug: m.controllerSlug ?? null,
+    subtitle: m.subtitle ?? null,
     tagline: en ? m.taglineEn ?? m.tagline : m.tagline,
     image: m.image,
     heroShots: m.heroShots ?? [],
@@ -67,6 +80,17 @@ function toView(m: Machine, locale: Locale): MachineView {
       desc: en ? f.descEn ?? f.desc : f.desc,
       img: f.img,
     })),
+    useCases: (m.useCases ?? []).map((u) => ({
+      icon: u.icon,
+      title: en ? u.titleEn ?? u.title : u.title,
+      desc: en ? u.descEn ?? u.desc : u.desc,
+    })),
+    capabilities: (m.capabilities ?? []).map((c) => ({
+      img: c.img,
+      caption: en ? c.captionEn ?? c.caption : c.caption,
+    })),
+    standardEquip: (m.standardEquip ?? []).map((e) => (en ? e.labelEn ?? e.label : e.label)),
+    optionalEquip: (m.optionalEquip ?? []).map((e) => (en ? e.labelEn ?? e.label : e.label)),
     line: (m.line ?? []).map((s) => ({
       title: en ? s.titleEn ?? s.title : s.title,
       desc: en ? s.descEn ?? s.desc : s.desc,

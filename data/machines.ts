@@ -59,6 +59,28 @@ export type MachineHeroShot = { src: string; w: number; h: number; kind: string 
 /** An industry this machine is deployed in (chip cloud). */
 export type MachineApplication = { label: string; labelEn?: string };
 
+/**
+ * A "suitable applications" card on the CNC datasheet template. `icon` is a key
+ * resolved to a Lucide icon by the view (see `USE_CASE_ICON`); prose localized.
+ */
+export type MachineUseCase = {
+  icon: string;
+  title: string;
+  titleEn?: string;
+  desc: string;
+  descEn?: string;
+};
+
+/**
+ * A machining-capability thumbnail (a representative workpiece). `img` is
+ * omitted while no photo has been shot — the view then draws a blueprint plate
+ * placeholder in its slot.
+ */
+export type MachineCapability = { img?: string; caption: string; captionEn?: string };
+
+/** One line in the standard / optional configuration lists. */
+export type MachineEquip = { label: string; labelEn?: string };
+
 export type Machine = {
   slug: string;
   model: string;
@@ -72,6 +94,12 @@ export type Machine = {
   controller?: string;
   /** Slug of the matching controller in the products catalogue, if any. */
   controllerSlug?: string;
+  /**
+   * Neutral English product line printed under the model on the datasheet hero
+   * (e.g. "Compact CNC Machining Center"). Not localized — it reads as a model
+   * designation in both languages.
+   */
+  subtitle?: string;
   /** Short positioning line — vi primary, en override. */
   tagline: string;
   taglineEn?: string;
@@ -85,6 +113,15 @@ export type Machine = {
   specs: MachineSpec[];
   /** Datasheet callout boxes shown on the detail page. */
   features: MachineFeature[];
+  /**
+   * CNC datasheet template sections. Each is optional: the detail page always
+   * renders the section so every machine has the same shape, filling the gaps
+   * with an "updating" placeholder until the datasheet content lands.
+   */
+  useCases?: MachineUseCase[];
+  capabilities?: MachineCapability[];
+  standardEquip?: MachineEquip[];
+  optionalEquip?: MachineEquip[];
   /**
    * Line-station template extras (automation/inspection machines). When present,
    * the detail page renders the light "line station" layout instead of the dark
@@ -123,6 +160,7 @@ export const machines: Machine[] = [
     axes: 3,
     controller: "QS Astro 6AVE (EtherCAT)",
     controllerSlug: "astro-6av",
+    subtitle: "Compact CNC Machining Center",
     tagline: "Máy phay CNC 3 trục hiệu suất cao, khung đúc nguyên khối và ray trượt tuyến tính cho gia công cơ khí chính xác.",
     taglineEn: "High-performance 3-axis CNC milling machine with a monolithic cast frame and linear guideways for precision machining.",
     image: IMG("qsm125", 1288, 1400),
@@ -154,6 +192,12 @@ export const machines: Machine[] = [
       { title: "Hệ thống bôi trơn", titleEn: "Lubrication system", desc: "Giảm ma sát, tăng tuổi thọ các cơ cấu truyền động.", descEn: "Reduces friction and extends the life of the drive train.", img: FIMG("qsm125-lubrication") },
       { title: "Độ chính xác", titleEn: "Accuracy", desc: "Đảm bảo chất lượng gia công ổn định và đồng đều.", descEn: "Ensures stable and consistent machining quality.", img: FIMG("qsm125-accuracy") },
     ],
+    useCases: [
+      { icon: "precision", title: "Gia công chi tiết chính xác", titleEn: "Precision part machining", desc: "Chi tiết dung sai nhỏ, yêu cầu bề mặt hoàn thiện cao.", descEn: "Tight-tolerance parts that need a high-quality surface finish." },
+      { icon: "components", title: "Sản xuất linh kiện", titleEn: "Component production", desc: "Linh kiện cơ khí, đồ gá và chi tiết máy theo lô.", descEn: "Mechanical components, fixtures and machine parts in batches." },
+      { icon: "prototype", title: "R&D và tạo mẫu", titleEn: "R&D and prototyping", desc: "Gia công nguyên mẫu phục vụ nghiên cứu và phát triển sản phẩm.", descEn: "Prototype machining for product research and development." },
+      { icon: "training", title: "Đào tạo CNC", titleEn: "CNC training", desc: "Kích thước gọn, phù hợp đào tạo và thực hành vận hành CNC.", descEn: "A compact footprint suited to CNC training and hands-on practice." },
+    ],
   },
   {
     slug: "vmc-300",
@@ -162,6 +206,7 @@ export const machines: Machine[] = [
     axes: 3,
     controller: "QS Astro 6AHE",
     controllerSlug: "astro-6ah",
+    subtitle: "Vertical Machining Center",
     tagline: "Máy phay CNC 3 trục thiết kế và chế tạo với độ chính xác cao, đáp ứng hiệu quả các nhu cầu gia công cơ khí hiện đại.",
     taglineEn: "A 3-axis CNC milling machine designed and built to high precision, efficiently meeting the demands of modern machining.",
     image: IMG("vmc", 1050, 1400),
@@ -178,6 +223,12 @@ export const machines: Machine[] = [
       { title: "Bộ điều khiển", titleEn: "Controller", desc: "QS Astro 6AHE, đồng bộ cơ khí, điện và phần mềm.", descEn: "QS Astro 6AHE, with machine, electrics and software in sync.", img: FIMG("vmc-controller") },
       { title: "3D Touch Probe", titleEn: "3D touch probe", desc: "Dò và thiết lập gốc phôi tự động, tăng độ chính xác.", descEn: "Automatic workpiece probing and zeroing for higher accuracy.", img: FIMG("vmc-probe") },
     ],
+    useCases: [
+      { icon: "precision", title: "Gia công chi tiết chính xác", titleEn: "Precision part machining", desc: "Chi tiết cơ khí yêu cầu độ chính xác và độ lặp lại cao.", descEn: "Mechanical parts demanding high accuracy and repeatability." },
+      { icon: "components", title: "Sản xuất linh kiện", titleEn: "Component production", desc: "Linh kiện cơ khí và chi tiết máy cho sản xuất công nghiệp.", descEn: "Mechanical components and machine parts for industrial production." },
+      { icon: "mold", title: "Khuôn mẫu & đồ gá", titleEn: "Moulds and fixtures", desc: "Gia công khuôn, đồ gá và dụng cụ phục vụ dây chuyền sản xuất.", descEn: "Machining moulds, fixtures and tooling for production lines." },
+      { icon: "prototype", title: "R&D và tạo mẫu", titleEn: "R&D and prototyping", desc: "Đầu dò 3D hỗ trợ set gốc nhanh khi gia công mẫu đơn chiếc.", descEn: "The 3D probe speeds up zeroing when machining one-off samples." },
+    ],
   },
   {
     slug: "qsm-r4020",
@@ -186,6 +237,7 @@ export const machines: Machine[] = [
     axes: 5,
     controller: "QS Astro 6AH",
     controllerSlug: "astro-6ah",
+    subtitle: "5-Axis CNC Router",
     tagline: "Máy CNC Router 5 trục gia công hiệu quả các chi tiết 3D phức tạp trong một lần gá nhờ khả năng thay đổi góc cắt linh hoạt.",
     taglineEn: "A 5-axis CNC router that machines complex 3D parts in a single setup through flexible cutting-angle control.",
     image: IMG("r4020", 1024, 1130),
@@ -209,6 +261,12 @@ export const machines: Machine[] = [
       { title: "Trục chính", titleEn: "Spindle", desc: "Tốc độ 18.000 rpm, đầu kẹp ER25 cho phôi lớn.", descEn: "18,000 rpm with an ER25 collet for large workpieces.", img: FIMG("r4020-spindle") },
       { title: "Bộ điều khiển", titleEn: "Controller", desc: "QS Astro 6AH điều khiển đồng thời 5 trục.", descEn: "QS Astro 6AH driving five simultaneous axes.", img: FIMG("r4020-controller") },
     ],
+    useCases: [
+      { icon: "largePart", title: "Phôi khổ lớn", titleEn: "Large-format workpieces", desc: "Bàn máy 4000 × 1800 mm cho tấm và phôi kích thước lớn.", descEn: "A 4000 × 1800 mm table for panels and oversized workpieces." },
+      { icon: "complex3d", title: "Chi tiết 3D phức tạp", titleEn: "Complex 3D parts", desc: "5 trục thay đổi góc cắt linh hoạt, hoàn thiện trong một lần gá.", descEn: "Five axes vary the cutting angle to finish parts in one setup." },
+      { icon: "mold", title: "Khuôn mẫu", titleEn: "Mould making", desc: "Gia công khuôn và mẫu 3D với biên dạng cong phức tạp.", descEn: "Machining moulds and 3D masters with complex curved profiles." },
+      { icon: "engraving", title: "Nội thất & trang trí", titleEn: "Furniture and décor", desc: "Chạm khắc, cắt tạo hình cho nội thất, biển hiệu và chi tiết trang trí.", descEn: "Carving and profile cutting for furniture, signage and décor." },
+    ],
   },
   {
     slug: "pjm-420",
@@ -217,6 +275,7 @@ export const machines: Machine[] = [
     axes: 7,
     controller: "QS Astro 10i",
     controllerSlug: "astro-10i",
+    subtitle: "7-Axis Jewelry Machining Center",
     tagline: "Trung tâm gia công kim hoàn CNC 7 trục cho chi tiết nhỏ, phức tạp; hoàn thiện 3D một lần gá, tăng năng suất và thẩm mỹ.",
     taglineEn: "A 7-axis CNC jewelry machining center for small, complex parts; complete 3D machining in one setup for higher output and finish.",
     image: IMG("pjm", 895, 1200),
@@ -241,6 +300,12 @@ export const machines: Machine[] = [
       { title: "Giao diện vận hành", titleEn: "Operation interface", desc: "Dễ sử dụng và thao tác cho vận hành hàng ngày.", descEn: "Easy to use and operate day to day.", img: FIMG("pjm-interface") },
       { title: "Trục xoay", titleEn: "Rotary axis", desc: "Trục xoay độ chính xác cao, khử rơ (zero backlash).", descEn: "High-precision rotary axis with zero backlash.", img: FIMG("pjm-rotary") },
     ],
+    useCases: [
+      { icon: "jewelry", title: "Sản xuất trang sức", titleEn: "Jewelry production", desc: "Nhẫn, mặt dây và chi tiết trang sức tinh xảo theo lô.", descEn: "Rings, pendants and intricate jewelry pieces in batches." },
+      { icon: "complex3d", title: "Chi tiết 3D một lần gá", titleEn: "3D parts in one setup", desc: "7 trục hoàn thiện biên dạng 3D mà không cần gá lại.", descEn: "Seven axes finish 3D contours without a second setup." },
+      { icon: "mold", title: "Mẫu & khuôn đúc", titleEn: "Masters and casting moulds", desc: "Gia công mẫu chủ và khuôn phục vụ đúc trang sức.", descEn: "Machining masters and moulds for jewelry casting." },
+      { icon: "precision", title: "Chi tiết nhỏ chính xác", titleEn: "Small precision parts", desc: "Đầu dao HSK25 và trục chính 45.000 rpm cho chi tiết kích thước nhỏ.", descEn: "An HSK25 tool head and 45,000 rpm spindle for miniature parts." },
+    ],
   },
   {
     slug: "jw-230",
@@ -249,6 +314,7 @@ export const machines: Machine[] = [
     axes: 5,
     controller: "QS Astro 6AV",
     controllerSlug: "astro-6av",
+    subtitle: "5-Axis Jewelry CNC Machine",
     tagline: "Máy kim hoàn CNC 5 trục gia công trang sức tinh xảo, độ chính xác cao, tối ưu thời gian và hiệu suất.",
     taglineEn: "A 5-axis jewelry CNC machine producing intricate designs at high precision while optimizing time and efficiency.",
     image: IMG("jw", 683, 1200),
@@ -270,6 +336,12 @@ export const machines: Machine[] = [
       { title: "Trục chính", titleEn: "Spindle", desc: "Tốc độ 60.000 rpm, đường kính dao tối đa 6 mm.", descEn: "60,000 rpm with a maximum tool diameter of 6 mm.", img: FIMG("jw-spindle") },
       { title: "Hệ thống truyền động", titleEn: "Transmission system", desc: "Ray trượt tuyến tính kết hợp vít me bi cho độ chính xác cao.", descEn: "Linear guideways paired with ball screws for high precision.", img: FIMG("jw-transmission") },
       { title: "Bộ điều khiển", titleEn: "Controller", desc: "QS Astro 6AV điều khiển đồng thời 5 trục.", descEn: "QS Astro 6AV driving five simultaneous axes.", img: FIMG("jw-controller") },
+    ],
+    useCases: [
+      { icon: "jewelry", title: "Sản xuất trang sức", titleEn: "Jewelry production", desc: "Gia công trang sức tinh xảo với độ chính xác cao.", descEn: "Producing intricate jewelry at high precision." },
+      { icon: "engraving", title: "Chạm khắc chi tiết", titleEn: "Fine engraving", desc: "Trục chính 60.000 rpm cho đường nét chạm khắc sắc gọn.", descEn: "A 60,000 rpm spindle for crisp, clean engraved detail." },
+      { icon: "complex3d", title: "Biên dạng 3D", titleEn: "3D contours", desc: "5 trục gia công biên dạng cong mà không cần nhiều lần gá.", descEn: "Five axes machine curved contours without repeated setups." },
+      { icon: "prototype", title: "Mẫu thử trang sức", titleEn: "Jewelry prototyping", desc: "Tạo mẫu nhanh trước khi vào sản xuất hàng loạt.", descEn: "Rapid sample making ahead of volume production." },
     ],
   },
   {

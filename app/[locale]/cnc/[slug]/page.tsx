@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { getMachineBySlug, getMachineSlugs } from "@/lib/data/machines";
 import LineMachineDetail from "../_components/line-machine-detail";
+import { MachineHeroGallery } from "../_components/machine-hero-gallery";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
 import type { Locale } from "@/lib/i18n/config";
@@ -117,6 +118,20 @@ export default async function MachineDetailPage({
   );
   const heroSpecs = cncHeroSpecs.length > 0 ? cncHeroSpecs : machine.specs.slice(0, 4);
 
+  // Studio shots feed the hero slideshow; each carries a localized caption from
+  // its `kind` key. Empty for machines that haven't been photographed yet — the
+  // hero falls back to the single levitating render below.
+  const heroGalleryShots = machine.heroShots.map((s) => ({
+    src: s.src,
+    w: s.w,
+    h: s.h,
+    alt: `${machine.model} — ${t(`machines.detail.shots.${s.kind}`)}`,
+  }));
+  const heroFooterRight =
+    machine.axes > 0
+      ? `${machine.axes} ${t("machines.axesUnit")}`
+      : t(`machines.categories.${machine.category}`);
+
   // Feature grid columns follow the item count (max 4) so the row fills
   // without leaving empty cells. Static classes keep Tailwind's JIT happy.
   const featureCols =
@@ -174,36 +189,44 @@ export default async function MachineDetailPage({
               </dl>
             </div>
 
-            <div className="qs-rise relative border border-line bg-white overflow-hidden" style={{ animationDelay: "220ms" }}>
-              <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden bg-white">
-                {/* machine levitates on a slow loop; plain white plate so the
-                    render's own white backdrop reads seamlessly (no grid box) */}
-                <div className="qs-float absolute inset-0">
-                  <Image
-                    src={machine.image.src}
-                    alt={machine.model}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 55vw"
-                    className="object-contain p-6 lg:p-10"
-                    priority
-                  />
+            <div className="qs-rise" style={{ animationDelay: "220ms" }}>
+              {heroGalleryShots.length > 0 ? (
+                <MachineHeroGallery
+                  shots={heroGalleryShots}
+                  model={machine.model}
+                  footerRight={heroFooterRight}
+                  zoomLabel={t("machines.detail.galleryZoom")}
+                  closeLabel={t("machines.detail.galleryClose")}
+                />
+              ) : (
+                <div className="relative border border-line bg-white overflow-hidden">
+                  <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden bg-white">
+                    {/* machine levitates on a slow loop; plain white plate so the
+                        render's own white backdrop reads seamlessly (no grid box) */}
+                    <div className="qs-float absolute inset-0">
+                      <Image
+                        src={machine.image.src}
+                        alt={machine.model}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 55vw"
+                        className="object-contain p-6 lg:p-10"
+                        priority
+                      />
+                    </div>
+                    {/* corner registration ticks */}
+                    <div className="pointer-events-none absolute inset-3" aria-hidden="true">
+                      <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-gold-1/50"></span>
+                      <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-gold-1/50"></span>
+                      <span className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l border-gold-1/50"></span>
+                      <span className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r border-gold-1/50"></span>
+                    </div>
+                  </div>
+                  <div className="px-5 py-3 border-t border-line flex items-center justify-between">
+                    <span className="font-mono text-[11px] tracking-[.16em] uppercase text-muted">{machine.model}</span>
+                    <span className="font-mono text-[11px] tracking-[.16em] uppercase text-gold-1">{heroFooterRight}</span>
+                  </div>
                 </div>
-                {/* corner registration ticks */}
-                <div className="pointer-events-none absolute inset-3" aria-hidden="true">
-                  <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-gold-1/50"></span>
-                  <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-gold-1/50"></span>
-                  <span className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l border-gold-1/50"></span>
-                  <span className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r border-gold-1/50"></span>
-                </div>
-              </div>
-              <div className="px-5 py-3 border-t border-line flex items-center justify-between">
-                <span className="font-mono text-[11px] tracking-[.16em] uppercase text-muted">{machine.model}</span>
-                <span className="font-mono text-[11px] tracking-[.16em] uppercase text-gold-1">
-                  {machine.axes > 0
-                    ? `${machine.axes} ${t("machines.axesUnit")}`
-                    : t(`machines.categories.${machine.category}`)}
-                </span>
-              </div>
+              )}
             </div>
           </div>
         </div>

@@ -96,7 +96,21 @@ export type SpecColumn = { name: string; note?: string };
  * one value per interface column (array length must equal `interfaces.length`).
  */
 export type ProductSpec = { l: string; v: string | string[] };
-export type ProductSpecGroup = { title: string; rows: ProductSpec[] };
+
+/**
+ * A control-protocol column in the spec datasheet (from the QS spec workbook —
+ * one sheet per product×protocol). `name` is the protocol, `loop` the control
+ * loop mode shown under it. Products publish 1-2 columns.
+ */
+export type SpecCol = { name: string; loop: string };
+/** A spec category (General / Hardware / Software) with its rows. */
+export type SpecSection = { title: string; rows: ProductSpec[] };
+/**
+ * The full technical-spec datasheet: protocol columns plus grouped rows. A
+ * row's `v` is one value spanning every column, or one value per column (array
+ * length must equal `cols.length`); "—" marks a value that column lacks.
+ */
+export type ProductSpecSheet = { cols: SpecCol[]; sections: SpecSection[] };
 
 export type Product = {
   slug: string;
@@ -135,7 +149,7 @@ export type Product = {
   software?: string[];
   accessories?: string[];
   sourceUrl?: string;
-  detailedSpecs?: ProductSpecGroup[];
+  specSheet?: ProductSpecSheet;
   gCodes?: string[];
 };
 
@@ -171,49 +185,30 @@ const SHARED_ACCESSORIES = [
   "Board-DAC-12FCV1-1222",
 ];
 
-const fSeriesFunctionRows: ProductSpec[] = [
-  { l: "Bù rơ cơ khí (Backlash)", v: "Có" },
-  { l: "Bù sai số hành trình (Pitch Error)", v: "Không" },
-  { l: "MPG Simulation", v: "Có" },
-  { l: "Dry Run", v: "Có" },
-  { l: "Optional Stop", v: "Có" },
-  { l: "Single Block", v: "Có" },
-  { l: "External Offsets", v: "Có" },
-  { l: "MPG Offsets", v: "Có" },
-];
+// --- Spec datasheet vocabulary (Vietnamese primary; EN via lib/data maps) -----
+// The QS spec workbook groups every model's specs into three categories and
+// publishes one column per control protocol. These constants keep the repeated
+// cell values from the workbook identical across models.
+const YES = "Có hỗ trợ"; // "Có hỗ trợ" — feature supported
+const OPT = "Option"; // available as an option
+const NA = "—"; // column does not offer this row
+const ALUM = "Aluminum";
+const PLC_LADDER = "PLC Ladder tích hợp";
+const IO_EXP = "256/256"; // max expanded I/O, same on every model
 
-const astroFunctionRows: ProductSpec[] = [
-  { l: "Bù rơ cơ khí (Backlash)", v: "Có" },
-  { l: "Bù sai số hành trình (Pitch Error)", v: "Có" },
-  { l: "Real-time PLC debug", v: "Có" },
-  { l: "Macro programming", v: "Có" },
-  { l: "MPG Simulation", v: "Có" },
-  { l: "Dry Run", v: "Có" },
-  { l: "Optional Stop", v: "Có" },
-  { l: "Single Block", v: "Có" },
+// Software rows every model supports, in workbook order.
+const SOFTWARE_TAIL: ProductSpec[] = [
+  { l: "MPG Simulation", v: YES },
+  { l: "MPG Offset", v: YES },
+  { l: "Restart at feedhold", v: YES },
+  { l: "Thay dao tự động (ATC)", v: YES },
 ];
-
-// Standardized headline spec block shown first in every product's spec table.
-// Values are locale-neutral where possible; the Vietnamese wordings (PLC loop,
-// encoder scope) are translated for `en` via the maps in lib/data/products.ts.
-const keySpecRows = (o: {
-  axes: string;
-  dims: string;
-  display: string;
-  io: string;
-  encoder: string;
-  protocol: string;
-  loop: string;
-}): ProductSpec[] => [
-  { l: "Số trục điều khiển", v: o.axes },
-  { l: "Kích thước", v: o.dims },
-  { l: "Màn hình", v: o.display },
-  { l: "Số cổng I/O", v: o.io },
-  { l: "PLC", v: "Ladder tích hợp" },
-  { l: "Encoder", v: o.encoder },
-  { l: "Điện áp đầu vào", v: "24VDC, 1.5A" },
-  { l: "Giao thức điều khiển", v: o.protocol },
-  { l: "Chế độ điều khiển", v: o.loop },
+// Optional high-end kinematics, listed after the software tail when a model
+// offers them.
+const OPTION_TAIL: ProductSpec[] = [
+  { l: "DWO", v: OPT },
+  { l: "TWP", v: OPT },
+  { l: "RTCP", v: OPT },
 ];
 
 // Specs and bundles follow the QS "CNC Solution Controller" catalogue: only the
@@ -289,29 +284,32 @@ export const products: Product[] = [
     software: SHARED_SOFTWARE,
     accessories: ["4 Axis MPG Handwheel", ...SHARED_ACCESSORIES],
     sourceUrl: "https://qstcnc.com/san-pham/f54-controller",
-    detailedSpecs:[
-      { title:"Thông số chính", rows:keySpecRows({ axes:"4", dims:"220 × 140 × 30 mm", display:"5\"", io:"16/6", encoder:"Phase Z", protocol:"Pulse Train", loop:"Vòng hở (Open loop)" }) },
-      { title:"Đặc tính kỹ thuật", rows:[
-        {l:"Vật liệu vỏ",v:"Aluminum"},
-        {l:"Max. PLC Axis",v:"0"},
-        {l:"Standard Axis",v:"4"},
-        {l:"Max. Axis Optional",v:"4"},
-        {l:"Max. Spindle",v:"1"},
-        {l:"Max Spindle Simultaneous Axis Control",v:"4"},
+    specSheet:{ cols:[{name:"Pulse Train",loop:"Open loop"}], sections:[
+      { title:"Thông số chung", rows:[
+        {l:"Kích thước",v:"220 × 140 × 30 mm"},
+        {l:"Vật liệu vỏ",v:ALUM},
+        {l:"Số trục điều khiển",v:"4 trục"},
+        {l:"Số trục chính điều khiển đồng thời",v:"2 trục"},
+        {l:"Số lượng dao có thể quản lý",v:"40"},
+        {l:"Look-Ahead",v:"250 dòng"},
+        {l:"Block Processing Time",v:"250 µs"},
         {l:"Min. Control Unit",v:"0.0001"},
-        {l:"Max. Number Of Program Coordinate",v:"18"},
-        {l:"Max. Number of Table Tools",v:"40"},
-        {l:"Look-Ahead",v:"250"},
-        {l:"Block Processing Time",v:"250"},
       ]},
-      { title:"Phần cứng", rows:[
-        {l:"Optional I/O",v:"256/256"},
-        {l:"DA",v:"1"},
+      { title:"Thông số phần cứng", rows:[
+        {l:"Số cổng I/O tích hợp",v:"16/6"},
+        {l:"Số cổng I/O mở rộng tối đa",v:IO_EXP},
+        {l:"Màn hình",v:"5 inches"},
         {l:"RS485",v:"1"},
-        {l:"USB",v:"1"},
+        {l:"USB port",v:"1"},
+        {l:"DA",v:"1"},
       ]},
-      { title:"Chức năng", rows:fSeriesFunctionRows },
-    ],
+      { title:"Thông số phần mềm", rows:[
+        {l:"Encoder feedback",v:"Index Z"},
+        {l:"PLC",v:PLC_LADDER},
+        {l:"Bù sai số hành trình (Backlash)",v:YES},
+        ...SOFTWARE_TAIL,
+      ]},
+    ]},
     gCodes: STANDARD_G_CODES },
 
   { slug:"f86", name:"F86", axes:"6 trục", display:"8\"", series:"F",
@@ -383,31 +381,36 @@ export const products: Product[] = [
     software: SHARED_SOFTWARE,
     accessories: SHARED_ACCESSORIES,
     sourceUrl: "https://qstcnc.com/san-pham/bo-dieu-khien-cnc-6-truc-f86",
-    detailedSpecs:[
-      { title:"Đặc tính kỹ thuật", rows:[
-        {l:"Kích thước",v:"320 × 185 × 30 mm"},
-        {l:"Vật liệu vỏ",v:"Aluminum Anodizing"},
-        {l:"Max. PLC Axis",v:"6"},
-        {l:"Standard Axis",v:"6"},
-        {l:"Max. Axis Optional",v:"6"},
-        {l:"Max. Spindle",v:"2"},
-        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+    specSheet:{ cols:[{name:"Pulse Train",loop:"Open loop"},{name:"EtherCAT",loop:"Open loop"}], sections:[
+      { title:"Thông số chung", rows:[
+        {l:"Kích thước",v:"326 × 185 × 30 mm"},
+        {l:"Vật liệu vỏ",v:ALUM},
+        {l:"Số trục điều khiển",v:"6 trục"},
+        {l:"Số trục điều khiển bằng PLC",v:["6 trục","Standard: 6 trục · Optional: 8 trục"]},
+        {l:"Số trục chính điều khiển đồng thời",v:"4 trục"},
+        {l:"Số lượng dao có thể quản lý",v:"40"},
+        {l:"Look-Ahead",v:"500 dòng"},
+        {l:"Block Processing Time",v:"500 µs"},
         {l:"Min. Control Unit",v:"0.0001"},
-        {l:"Max. Number Of Program Coordinate",v:"18"},
-        {l:"Max. Number of Table Tools",v:"40"},
-        {l:"Look-Ahead",v:"250"},
-        {l:"Block Processing Time",v:"250"},
       ]},
-      { title:"Phần cứng", rows:[
-        {l:"Standard I/O",v:"24/16"},
-        {l:"Optional I/O",v:"256/256"},
-        {l:"DA",v:"1"},
-        {l:"Monitor",v:"8 Inches"},
+      { title:"Thông số phần cứng", rows:[
+        {l:"Số cổng I/O tích hợp",v:["24/16","16/16"]},
+        {l:"Số cổng I/O mở rộng tối đa",v:IO_EXP},
+        {l:"Màn hình",v:"8 inches"},
         {l:"RS485",v:"1"},
-        {l:"USB",v:"1"},
+        {l:"USB port",v:"1"},
+        {l:"DA",v:"1"},
       ]},
-      { title:"Chức năng", rows:fSeriesFunctionRows },
-    ],
+      { title:"Thông số phần mềm", rows:[
+        {l:"Encoder feedback",v:["Index Z","All axes"]},
+        {l:"Torque feedback",v:[NA,YES]},
+        {l:"Quản lý parameter Servo",v:[NA,YES]},
+        {l:"PLC",v:PLC_LADDER},
+        {l:"Bù sai số hành trình (Backlash)",v:YES},
+        ...SOFTWARE_TAIL,
+        ...OPTION_TAIL,
+      ]},
+    ]},
     gCodes: STANDARD_G_CODES },
 
   { slug:"f10t", name:"F10T", axes:"6 trục", display:"10.4\"", series:"F", badge:"Touch",
@@ -472,31 +475,36 @@ export const products: Product[] = [
     software: SHARED_SOFTWARE,
     accessories: SHARED_ACCESSORIES,
     sourceUrl: "https://qstcnc.com/san-pham/astro-series-10t",
-    detailedSpecs:[
-      { title:"Đặc tính kỹ thuật", rows:[
-        {l:"Kích thước",v:"254 × 210 × 40 mm"},
-        {l:"Vật liệu vỏ",v:"Aluminum"},
-        {l:"Max. PLC Axis",v:"6"},
-        {l:"Standard Axis",v:"6"},
-        {l:"Max. Axis Optional",v:"6"},
-        {l:"Max. Spindle",v:"2"},
-        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+    specSheet:{ cols:[{name:"Pulse Train",loop:"Open loop"},{name:"EtherCAT",loop:"Open loop"}], sections:[
+      { title:"Thông số chung", rows:[
+        {l:"Kích thước",v:"254 × 195 × 40 mm"},
+        {l:"Vật liệu vỏ",v:ALUM},
+        {l:"Số trục điều khiển",v:"6 trục"},
+        {l:"Số trục điều khiển bằng PLC",v:[NA,"Standard: 6 trục · Optional: 8 trục"]},
+        {l:"Số trục chính điều khiển đồng thời",v:"4 trục"},
+        {l:"Số lượng dao có thể quản lý",v:"40"},
+        {l:"Look-Ahead",v:"500 dòng"},
+        {l:"Block Processing Time",v:"500 µs"},
         {l:"Min. Control Unit",v:"0.0001"},
-        {l:"Max. Number Of Program Coordinate",v:"18"},
-        {l:"Max. Number of Table Tools",v:"40"},
-        {l:"Look-Ahead",v:"250"},
-        {l:"Block Processing Time",v:"250"},
       ]},
-      { title:"Phần cứng", rows:[
-        {l:"Standard I/O",v:"24/16"},
-        {l:"Optional I/O",v:"256/256"},
-        {l:"DA",v:"1"},
-        {l:"Monitor",v:"10.4 Inch (Touch)"},
+      { title:"Thông số phần cứng", rows:[
+        {l:"Số cổng I/O tích hợp",v:["24/16","16/16"]},
+        {l:"Số cổng I/O mở rộng tối đa",v:IO_EXP},
+        {l:"Màn hình",v:"10.4 inches (Touch screen)"},
         {l:"RS485",v:"1"},
-        {l:"USB",v:"1"},
+        {l:"USB port",v:"1"},
+        {l:"DA",v:"1"},
       ]},
-      { title:"Chức năng", rows:fSeriesFunctionRows },
-    ],
+      { title:"Thông số phần mềm", rows:[
+        {l:"Encoder feedback",v:["Index Z","All axes"]},
+        {l:"Torque feedback",v:[NA,YES]},
+        {l:"Quản lý parameter Servo",v:[NA,YES]},
+        {l:"PLC",v:PLC_LADDER},
+        {l:"Bù sai số hành trình (Backlash)",v:YES},
+        ...SOFTWARE_TAIL,
+        ...OPTION_TAIL,
+      ]},
+    ]},
     gCodes: STANDARD_G_CODES },
 
   { slug:"astro-6ah", name:"Astro 6AH", axes:"6 trục", display:"8\"", series:"Astro",
@@ -566,31 +574,36 @@ export const products: Product[] = [
     software: SHARED_SOFTWARE,
     accessories: SHARED_ACCESSORIES,
     sourceUrl: "https://qstcnc.com/san-pham/astro-series-6ah",
-    detailedSpecs:[
-      { title:"Đặc tính kỹ thuật", rows:[
-        {l:"Kích thước",v:"325 × 295 × 42 mm"},
-        {l:"Vật liệu vỏ",v:"Aluminum"},
-        {l:"Max. PLC Axis",v:"6"},
-        {l:"Standard Axis",v:"6"},
-        {l:"Max. Axis Optional",v:"6"},
-        {l:"Max. Spindle",v:"2"},
-        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+    specSheet:{ cols:[{name:"Pulse Train",loop:"Closed loop"},{name:"EtherCAT/Mechatrolink",loop:"Closed loop"}], sections:[
+      { title:"Thông số chung", rows:[
+        {l:"Kích thước",v:"220 × 460 × 42 mm"},
+        {l:"Vật liệu vỏ",v:ALUM},
+        {l:"Số trục điều khiển",v:["6 trục","8 trục"]},
+        {l:"Số trục chính điều khiển đồng thời",v:["6 trục","8 trục"]},
+        {l:"Số lượng dao có thể quản lý",v:"40"},
+        {l:"Look-Ahead",v:"1000 dòng"},
+        {l:"Block Processing Time",v:"1000 µs"},
         {l:"Min. Control Unit",v:"0.0001"},
-        {l:"Max. Number Of Program Coordinate",v:"18"},
-        {l:"Max. Number of Table Tools",v:"40"},
-        {l:"Look-Ahead",v:"500"},
-        {l:"Block Processing Time",v:"500"},
       ]},
-      { title:"Phần cứng", rows:[
-        {l:"Standard I/O",v:"24/16"},
-        {l:"Optional I/O",v:"256/256"},
-        {l:"DA",v:"2"},
-        {l:"Monitor",v:"8 Inch"},
-        {l:"RS485",v:"1"},
-        {l:"USB",v:"1"},
+      { title:"Thông số phần cứng", rows:[
+        {l:"Số cổng I/O tích hợp",v:["24/16","16/16"]},
+        {l:"Số cổng I/O mở rộng tối đa",v:IO_EXP},
+        {l:"Màn hình",v:"8 inches"},
+        {l:"RS485",v:["1","2"]},
+        {l:"USB port",v:["1","2"]},
+        {l:"DA",v:"1"},
       ]},
-      { title:"Chức năng", rows:astroFunctionRows },
-    ],
+      { title:"Thông số phần mềm", rows:[
+        {l:"Encoder feedback",v:"Tất cả các trục"},
+        {l:"Torque feedback",v:[NA,YES]},
+        {l:"Quản lý parameter Servo",v:[NA,YES]},
+        {l:"PLC",v:PLC_LADDER},
+        {l:"Bù sai số hành trình (Backlash)",v:YES},
+        {l:"Bù sai số cơ khí (Pitch Error)",v:YES},
+        ...SOFTWARE_TAIL,
+        ...OPTION_TAIL,
+      ]},
+    ]},
     gCodes: STANDARD_G_CODES },
 
   { slug:"astro-6av", name:"Astro 6AV", axes:"6 trục", display:"8\"", series:"Astro",
@@ -658,31 +671,36 @@ export const products: Product[] = [
     software: SHARED_SOFTWARE,
     accessories: SHARED_ACCESSORIES,
     sourceUrl: "https://qstcnc.com/san-pham/astro-series-6av",
-    detailedSpecs:[
-      { title:"Đặc tính kỹ thuật", rows:[
-        {l:"Kích thước",v:"460 × 220 × 70 mm"},
-        {l:"Vật liệu vỏ",v:"Aluminum"},
-        {l:"Max. PLC Axis",v:"6"},
-        {l:"Standard Axis",v:"6"},
-        {l:"Max. Axis Optional",v:"6"},
-        {l:"Max. Spindle",v:"2"},
-        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+    specSheet:{ cols:[{name:"Pulse Train",loop:"Closed loop"},{name:"EtherCAT/Mechatrolink",loop:"Closed loop"}], sections:[
+      { title:"Thông số chung", rows:[
+        {l:"Kích thước",v:"325 × 285 × 42 mm"},
+        {l:"Vật liệu vỏ",v:ALUM},
+        {l:"Số trục điều khiển",v:["6 trục","8 trục"]},
+        {l:"Số trục chính điều khiển đồng thời",v:["6 trục","8 trục"]},
+        {l:"Số lượng dao có thể quản lý",v:"40"},
+        {l:"Look-Ahead",v:"1000 dòng"},
+        {l:"Block Processing Time",v:"1000 µs"},
         {l:"Min. Control Unit",v:"0.0001"},
-        {l:"Max. Number Of Program Coordinate",v:"18"},
-        {l:"Max. Number of Table Tools",v:"40"},
-        {l:"Look-Ahead",v:"500"},
-        {l:"Block Processing Time",v:"500"},
       ]},
-      { title:"Phần cứng", rows:[
-        {l:"Standard I/O",v:"24/16"},
-        {l:"Optional I/O",v:"256/256"},
-        {l:"DA",v:"2"},
-        {l:"Monitor",v:"8 Inch"},
-        {l:"RS485",v:"1"},
-        {l:"USB",v:"1"},
+      { title:"Thông số phần cứng", rows:[
+        {l:"Số cổng I/O tích hợp",v:["24/16","16/16"]},
+        {l:"Số cổng I/O mở rộng tối đa",v:IO_EXP},
+        {l:"Màn hình",v:"8 inches"},
+        {l:"RS485",v:["1","2"]},
+        {l:"USB port",v:["1","2"]},
+        {l:"DA",v:"1"},
       ]},
-      { title:"Chức năng", rows:astroFunctionRows },
-    ],
+      { title:"Thông số phần mềm", rows:[
+        {l:"Encoder feedback",v:"Tất cả các trục"},
+        {l:"Torque feedback",v:[NA,YES]},
+        {l:"Quản lý parameter Servo",v:[NA,YES]},
+        {l:"PLC",v:PLC_LADDER},
+        {l:"Bù sai số hành trình (Backlash)",v:YES},
+        {l:"Bù sai số cơ khí (Pitch Error)",v:YES},
+        ...SOFTWARE_TAIL,
+        ...OPTION_TAIL,
+      ]},
+    ]},
     gCodes: STANDARD_G_CODES },
 
   { slug:"astro-10s", name:"Astro 10S", axes:"16 trục", display:"10.4\"", series:"Astro",
@@ -712,7 +730,36 @@ export const products: Product[] = [
       {l:"Control mode",v:"Open loop"},
     ],
     image:{src:"/img/products/astro-10s-front.webp", w:900, h:733},
-    bundle:[ controller("Astro 10S"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.io1616 ] },
+    bundle:[ controller("Astro 10S"), PART.drive, PART.motor, PART.psu, PART.mpg, PART.io1616 ],
+    specSheet:{ cols:[{name:"Pulse Train",loop:"Open loop"},{name:"EtherCAT",loop:"Open loop"}], sections:[
+      { title:"Thông số chung", rows:[
+        {l:"Kích thước",v:"254 × 210 × 40 mm"},
+        {l:"Vật liệu vỏ",v:ALUM},
+        {l:"Số trục điều khiển",v:["6 trục","14 trục"]},
+        {l:"Số trục điều khiển bằng PLC",v:[NA,"14 trục"]},
+        {l:"Số trục chính điều khiển đồng thời",v:"4 trục"},
+        {l:"Số lượng dao có thể quản lý",v:"40"},
+        {l:"Look-Ahead",v:"500 dòng"},
+        {l:"Block Processing Time",v:"500 µs"},
+        {l:"Min. Control Unit",v:"0.0001"},
+      ]},
+      { title:"Thông số phần cứng", rows:[
+        {l:"Số cổng I/O tích hợp",v:["24/16","16/16"]},
+        {l:"Số cổng I/O mở rộng tối đa",v:IO_EXP},
+        {l:"Màn hình",v:"10.4 inches (Touch screen)"},
+        {l:"RS485",v:"1"},
+        {l:"USB port",v:"1"},
+        {l:"DA",v:"1"},
+      ]},
+      { title:"Thông số phần mềm", rows:[
+        {l:"Encoder feedback",v:["Index Z","All axes"]},
+        {l:"Torque feedback",v:[NA,YES]},
+        {l:"Quản lý parameter Servo",v:[NA,YES]},
+        {l:"PLC",v:PLC_LADDER},
+        {l:"Bù sai số hành trình (Backlash)",v:YES},
+        ...SOFTWARE_TAIL,
+      ]},
+    ]} },
 
   { slug:"astro-10i", name:"Astro 10i", axes:"6 trục", display:"10.4\"", series:"Astro", badge:"Flagship",
     tag:"Bộ điều khiển Astro 10i",
@@ -777,30 +824,35 @@ export const products: Product[] = [
     software: SHARED_SOFTWARE,
     accessories: SHARED_ACCESSORIES,
     sourceUrl: "https://qstcnc.com/san-pham/bo-dieu-khien-cnc-6-truc-astro-10i",
-    detailedSpecs:[
-      { title:"Đặc tính kỹ thuật", rows:[
-        {l:"Kích thước",v:"254 × 515 × 42 mm"},
-        {l:"Vật liệu vỏ",v:"Aluminum"},
-        {l:"Max. PLC Axis",v:"6"},
-        {l:"Standard Axis",v:"6"},
-        {l:"Max. Axis Optional",v:"6"},
-        {l:"Max. Spindle",v:"2"},
-        {l:"Max Spindle Simultaneous Axis Control",v:"6"},
+    specSheet:{ cols:[{name:"Pulse Train",loop:"Closed loop"},{name:"EtherCAT/Mechatrolink",loop:"Closed loop"}], sections:[
+      { title:"Thông số chung", rows:[
+        {l:"Kích thước",v:"254 × 485 × 42 mm"},
+        {l:"Vật liệu vỏ",v:ALUM},
+        {l:"Số trục điều khiển",v:["6 trục","8 trục"]},
+        {l:"Số trục chính điều khiển đồng thời",v:["6 trục","8 trục"]},
+        {l:"Số lượng dao có thể quản lý",v:"40"},
+        {l:"Look-Ahead",v:"2000 dòng"},
+        {l:"Block Processing Time",v:"2000 µs"},
         {l:"Min. Control Unit",v:"0.0001"},
-        {l:"Max. Number Of Program Coordinate",v:"18"},
-        {l:"Max. Number of Table Tools",v:"40"},
-        {l:"Look-Ahead",v:"1000"},
-        {l:"Block Processing Time",v:"1000"},
       ]},
-      { title:"Phần cứng", rows:[
-        {l:"Standard I/O",v:"24/16"},
-        {l:"Optional I/O",v:"256/256"},
-        {l:"DA",v:"2"},
-        {l:"Monitor",v:"10.4 Inch"},
-        {l:"RS485",v:"1"},
-        {l:"USB",v:"1"},
+      { title:"Thông số phần cứng", rows:[
+        {l:"Số cổng I/O tích hợp",v:["24/16","16/16"]},
+        {l:"Số cổng I/O mở rộng tối đa",v:IO_EXP},
+        {l:"Màn hình",v:"10.4 inches"},
+        {l:"RS485",v:["1","2"]},
+        {l:"USB port",v:["1","2"]},
+        {l:"DA",v:"1"},
       ]},
-      { title:"Chức năng", rows:astroFunctionRows },
-    ],
+      { title:"Thông số phần mềm", rows:[
+        {l:"Encoder feedback",v:"Tất cả các trục"},
+        {l:"Torque feedback",v:[NA,YES]},
+        {l:"Quản lý parameter Servo",v:[NA,YES]},
+        {l:"PLC",v:PLC_LADDER},
+        {l:"Bù sai số hành trình (Backlash)",v:YES},
+        {l:"Bù sai số cơ khí (Pitch Error)",v:YES},
+        ...SOFTWARE_TAIL,
+        ...OPTION_TAIL,
+      ]},
+    ]},
     gCodes: STANDARD_G_CODES },
 ];

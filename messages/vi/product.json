@@ -99,7 +99,8 @@
       "Tài liệu & phần mềm"
     ],
     "specsEyebrow": "[ Thông số kỹ thuật ]",
-    "specsHeading": "Bảng spec đầy đủ",
+    "specsHeading": "Bảng thông số đầy đủ",
+    "specsHint": "Các giá trị giống nhau ở mọi giao thức được gộp chung. Khi một giao thức khác biệt, giá trị riêng nằm ở cột giao thức đó.",
     "specsColHead": "Giao tiếp điều khiển",
     "quoteEyebrow": "[ Yêu cầu báo giá {name} ]",
     "quoteHeading": "Nhận báo giá nhanh",

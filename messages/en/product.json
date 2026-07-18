@@ -100,6 +100,7 @@
     ],
     "specsEyebrow": "[ Technical specifications ]",
     "specsHeading": "Full spec table",
+    "specsHint": "Values shared across every protocol are merged. Where a protocol differs, its own value sits in that column.",
     "specsColHead": "Control interface",
     "quoteEyebrow": "[ Request a quote for {name} ]",
     "quoteHeading": "Get a fast quote",

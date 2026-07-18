@@ -152,7 +152,18 @@
       "controlSystemBody": "Operated from the {system} with an andon status tower and emergency stop — clear at a glance for line operators.",
       "applicationsHeading": "Applications",
       "applicationsBody": "Deployed across a range of production and packaging lines.",
-      "specsNoteAuto": "Standard configuration — throughput, conveyor and controls can be tailored to your line."
+      "specsNoteAuto": "Standard configuration — throughput, conveyor and controls can be tailored to your line.",
+      "galleryZoom": "Zoom photo",
+      "galleryClose": "Close",
+      "shots": {
+        "front": "Front",
+        "back": "Rear",
+        "left": "Left side",
+        "right": "Right side",
+        "structure": "Structure",
+        "cabinet": "Control cabinet",
+        "controller": "Controller"
+      }
     }
   },
   "monitor": {

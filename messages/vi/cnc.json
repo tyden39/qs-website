@@ -152,7 +152,18 @@
       "controlSystemBody": "Vận hành qua {system} với đèn tháp báo trạng thái và nút dừng khẩn cấp — trực quan cho công nhân đứng máy.",
       "applicationsHeading": "Ngành ứng dụng",
       "applicationsBody": "Đã triển khai trên nhiều dây chuyền sản xuất và đóng gói.",
-      "specsNoteAuto": "Thông số cấu hình chuẩn — năng suất, băng tải và bộ điều khiển có thể tuỳ biến theo dây chuyền."
+      "specsNoteAuto": "Thông số cấu hình chuẩn — năng suất, băng tải và bộ điều khiển có thể tuỳ biến theo dây chuyền.",
+      "galleryZoom": "Phóng to ảnh",
+      "galleryClose": "Đóng",
+      "shots": {
+        "front": "Mặt trước",
+        "back": "Mặt sau",
+        "left": "Cạnh trái",
+        "right": "Cạnh phải",
+        "structure": "Kết cấu",
+        "cabinet": "Tủ điện",
+        "controller": "Bộ điều khiển"
+      }
     }
   },
   "monitor": {

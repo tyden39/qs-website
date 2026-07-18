@@ -13,7 +13,7 @@ export default function MachineAnnotation({
   alt: string;
 }) {
   return (
-    <div className="relative aspect-[3/2] overflow-hidden border border-[#2a2620] bg-ink-2">
+    <div className="relative aspect-[1672/941] overflow-hidden border border-[#2a2620] bg-ink-2">
       <Image
         src={img}
         alt={alt}

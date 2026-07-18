@@ -49,6 +49,13 @@ export type MachineControl = {
 /** An in-context photo for the gallery strip, with a localized caption. */
 export type MachineShot = { src: string; caption: string; captionEn?: string };
 
+/**
+ * A studio shot for the CNC hero slideshow. `kind` is an i18n key resolved from
+ * `cnc.machines.detail.shots.*` (front, back, left, controller…) so the caption
+ * localizes; `src`/`w`/`h` point at the real photo under `/img/machines/gallery`.
+ */
+export type MachineHeroShot = { src: string; w: number; h: number; kind: string };
+
 /** An industry this machine is deployed in (chip cloud). */
 export type MachineApplication = { label: string; labelEn?: string };
 
@@ -69,6 +76,11 @@ export type Machine = {
   tagline: string;
   taglineEn?: string;
   image: MachinePhoto;
+  /**
+   * Studio shots for the hero slideshow (CNC datasheet template). When present,
+   * the detail hero cross-fades through these instead of the single `image`.
+   */
+  heroShots?: MachineHeroShot[];
   /** Ordered spec rows; the machine list panel shows the first `HIGHLIGHT_COUNT`. */
   specs: MachineSpec[];
   /** Datasheet callout boxes shown on the detail page. */
@@ -95,6 +107,13 @@ const IMG = (slug: string, w = 1000, h = 800): MachinePhoto => ({
 });
 /** Feature detail photo cropped from the datasheet, under `/features`. */
 const FIMG = (name: string): string => `/img/machines/features/${name}.webp`;
+/** Hero slideshow studio shot, under `/gallery/<slug>`. */
+const GIMG = (slug: string, kind: string, w: number, h: number): MachineHeroShot => ({
+  src: `/img/machines/gallery/${slug}/${kind}.webp`,
+  w,
+  h,
+  kind,
+});
 
 export const machines: Machine[] = [
   {
@@ -107,6 +126,10 @@ export const machines: Machine[] = [
     tagline: "Máy phay CNC 3 trục hiệu suất cao, khung đúc nguyên khối và ray trượt tuyến tính cho gia công cơ khí chính xác.",
     taglineEn: "High-performance 3-axis CNC milling machine with a monolithic cast frame and linear guideways for precision machining.",
     image: IMG("qsm125", 1288, 1400),
+    heroShots: [
+      GIMG("qsm-125", "front", 1472, 1600),
+      GIMG("qsm-125", "back", 1600, 898),
+    ],
     specs: [
       { k: "axes", v: "3" },
       { k: "spindleSpeed", v: "24000 rpm" },
@@ -166,6 +189,10 @@ export const machines: Machine[] = [
     tagline: "Máy CNC Router 5 trục gia công hiệu quả các chi tiết 3D phức tạp trong một lần gá nhờ khả năng thay đổi góc cắt linh hoạt.",
     taglineEn: "A 5-axis CNC router that machines complex 3D parts in a single setup through flexible cutting-angle control.",
     image: IMG("r4020", 1024, 1130),
+    heroShots: [
+      GIMG("qsm-r4020", "front", 1600, 1118),
+      GIMG("qsm-r4020", "controller", 1536, 1024),
+    ],
     specs: [
       { k: "axes", v: "5" },
       { k: "spindleSpeed", v: "18000 rpm" },
@@ -193,6 +220,11 @@ export const machines: Machine[] = [
     tagline: "Trung tâm gia công kim hoàn CNC 7 trục cho chi tiết nhỏ, phức tạp; hoàn thiện 3D một lần gá, tăng năng suất và thẩm mỹ.",
     taglineEn: "A 7-axis CNC jewelry machining center for small, complex parts; complete 3D machining in one setup for higher output and finish.",
     image: IMG("pjm", 895, 1200),
+    heroShots: [
+      GIMG("pjm-420", "front", 1200, 1600),
+      GIMG("pjm-420", "left", 1200, 1600),
+      GIMG("pjm-420", "right", 1200, 1600),
+    ],
     specs: [
       { k: "axes", v: "7" },
       { k: "spindleSpeed", v: "45000 rpm" },
@@ -220,6 +252,11 @@ export const machines: Machine[] = [
     tagline: "Máy kim hoàn CNC 5 trục gia công trang sức tinh xảo, độ chính xác cao, tối ưu thời gian và hiệu suất.",
     taglineEn: "A 5-axis jewelry CNC machine producing intricate designs at high precision while optimizing time and efficiency.",
     image: IMG("jw", 683, 1200),
+    heroShots: [
+      GIMG("jw-230", "front", 906, 1600),
+      GIMG("jw-230", "structure", 960, 1011),
+      GIMG("jw-230", "cabinet", 1600, 757),
+    ],
     specs: [
       { k: "axes", v: "5" },
       { k: "spindleSpeed", v: "60000 rpm" },

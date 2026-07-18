@@ -5,10 +5,11 @@ import {
   type MachineCategory,
   type MachineSpec,
   type MachinePhoto,
+  type MachineHeroShot,
 } from "@/data/machines";
 import type { Locale } from "@/lib/i18n/config";
 
-export type { MachineCategory, MachineSpec, MachinePhoto };
+export type { MachineCategory, MachineSpec, MachinePhoto, MachineHeroShot };
 
 export type MachineFeatureView = { title: string; desc: string; img?: string };
 export type MachineLineStepView = { title: string; desc: string };
@@ -24,6 +25,8 @@ export type MachineView = {
   controllerSlug: string | null;
   tagline: string;
   image: MachinePhoto;
+  /** Hero slideshow shots (CNC template). Empty when the machine ships none. */
+  heroShots: MachineHeroShot[];
   specs: MachineSpec[];
   /** Leading spec rows for the list panel / card preview. */
   highlights: MachineSpec[];
@@ -56,6 +59,7 @@ function toView(m: Machine, locale: Locale): MachineView {
     controllerSlug: m.controllerSlug ?? null,
     tagline: en ? m.taglineEn ?? m.tagline : m.tagline,
     image: m.image,
+    heroShots: m.heroShots ?? [],
     specs,
     highlights: specs.slice(0, HIGHLIGHT_COUNT),
     features: m.features.map((f) => ({

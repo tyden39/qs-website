@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -62,8 +63,8 @@ function safeHtml(raw: string): string {
 
 function findSpec(p: ProductView, needles: string[]): string | null {
   const normalizedNeedles = needles.map((n) => n.toLowerCase());
-  for (const group of p.detailedSpecs) {
-    for (const row of group.rows) {
+  for (const section of p.specSheet.sections) {
+    for (const row of section.rows) {
       const label = row.l.toLowerCase();
       if (normalizedNeedles.some((n) => label.includes(n))) {
         return Array.isArray(row.v) ? row.v.join(" · ") : row.v;
@@ -79,23 +80,82 @@ function findSpec(p: ProductView, needles: string[]): string | null {
   return null;
 }
 
-function SpecLedger({ title, rows }: { title: string; rows: { l: string; v: string | string[] }[] }) {
+// Values that carry a status meaning rather than a measurement get a glyph:
+// supported → gold tick, unavailable → muted dash, option → outlined chip.
+const SUPPORTED = new Set(["Có hỗ trợ", "Supported"]);
+
+function SpecValue({ value }: { value: string }) {
+  if (value === "—") {
+    return <span className="text-muted/60 select-none" aria-hidden="true">—</span>;
+  }
+  if (value === "Option") {
+    return (
+      <span className="inline-flex items-center font-mono text-[9.5px] tracking-[.14em] uppercase text-gold-1 border border-gold-1/40 px-2 py-0.5">
+        {value}
+      </span>
+    );
+  }
+  if (SUPPORTED.has(value)) {
+    return (
+      <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink">
+        <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 text-gold-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+          <path d="M3 8.5l3.2 3.2L13 4.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        {value}
+      </span>
+    );
+  }
+  return <span className="text-[13.5px] font-semibold tracking-[-.005em] text-ink tabular-nums">{value}</span>;
+}
+
+// Blueprint-style datasheet: parameter rows on the left, one column per control
+// protocol on the right. A value shared across every protocol spans the whole
+// value area; differing values sit in their own protocol column.
+function SpecDatasheet({ model, sheet }: { model: string; sheet: ProductView["specSheet"] }) {
+  const cols = sheet.cols;
+  const n = Math.max(cols.length, 1);
+  const template = `minmax(132px,1.1fr) repeat(${n}, minmax(0,1fr))`;
   return (
-    <section className="bg-white border border-line">
-      <h3 className="font-mono text-[11px] tracking-[.16em] uppercase text-ink px-5 py-4 border-b border-line bg-paper">
-        {title}
-      </h3>
-      <dl className="divide-y divide-line">
-        {rows.map((row) => (
-          <div key={row.l} className="grid grid-cols-[minmax(120px,.82fr)_1fr] gap-4 px-5 py-3.5">
-            <dt className="font-mono text-[10px] tracking-[.12em] uppercase text-muted leading-relaxed">{row.l}</dt>
-            <dd className="m-0 text-[15px] font-semibold tracking-[-.01em] text-ink text-right sm:text-left">
-              {Array.isArray(row.v) ? row.v.join(" · ") : row.v}
-            </dd>
+    <div className="overflow-x-auto border border-line">
+      <div className="grid gap-px bg-line" style={{ gridTemplateColumns: template, minWidth: 132 + n * 150 }}>
+        <div className="bg-[#11120f] px-4 py-3.5 flex items-end">
+          <span className="font-display text-[15px] font-bold tracking-[-.01em] text-white">{model}</span>
+        </div>
+        {cols.map((c) => (
+          <div key={c.name} className="bg-[#11120f] px-4 py-3">
+            <div className="font-mono text-[11.5px] tracking-[.04em] text-gold-2 leading-tight">{c.name}</div>
+            <div className="font-mono text-[9px] tracking-[.14em] uppercase text-[#8f8878] mt-1">{c.loop}</div>
           </div>
         ))}
-      </dl>
-    </section>
+
+        {sheet.sections.map((section) => (
+          <Fragment key={section.title}>
+            <div style={{ gridColumn: "1 / -1" }} className="bg-paper px-4 py-2.5 flex items-center gap-3">
+              <span className="font-mono text-[10px] tracking-[.16em] uppercase text-ink">{section.title}</span>
+              <span className="h-px flex-1 bg-line" />
+            </div>
+            {section.rows.map((row) => (
+              <Fragment key={section.title + row.l}>
+                <div className="bg-white px-4 py-3 flex items-center font-mono text-[10.5px] leading-snug tracking-[.03em] uppercase text-muted">
+                  {row.l}
+                </div>
+                {Array.isArray(row.v) ? (
+                  row.v.map((val, i) => (
+                    <div key={i} className="bg-white px-4 py-3 flex items-center">
+                      <SpecValue value={val} />
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ gridColumn: "2 / -1" }} className="bg-white px-4 py-3 flex items-center">
+                    <SpecValue value={row.v} />
+                  </div>
+                )}
+              </Fragment>
+            ))}
+          </Fragment>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -162,7 +222,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
     .filter((x): x is LightboxShot => x !== null);
   const lightboxLabels = { prev: t("lightbox.prev"), next: t("lightbox.next"), close: t("lightbox.close") };
   const overviewHtml = p.overview ?? `<p>${p.desc}</p>`;
-  const detailedSpecs = p.detailedSpecs.length > 0 ? p.detailedSpecs : [{ title: t("specsHeading"), rows: p.specs }];
+  const multiProtocol = p.specSheet.cols.length > 1;
   const heroStats = [
     { l: t("factAxes"), v: p.axes },
     { l: t("factDisplay"), v: p.display },
@@ -235,8 +295,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
               {tourGroups.map((group) => (
                 <div key={group.id}>
                   <div className="flex items-baseline gap-4 mb-5">
-                    <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t(`tourGroups.${group.id}.tag`)}</span>
-                    <span className="text-[13px] leading-[1.5] text-muted hidden sm:block">{t(`tourGroups.${group.id}.desc`)}</span>
+                    <span className="font-mono text-[13px] sm:text-sm text-gold-1 tracking-[.16em] uppercase">{t(`tourGroups.${group.id}.tag`)}</span>
+                    <span className="text-[15px] leading-[1.5] text-muted hidden sm:block">{t(`tourGroups.${group.id}.desc`)}</span>
                     <span className="h-px flex-1 bg-line self-center" />
                     <span className="font-mono text-[10px] text-muted tracking-[.14em] shrink-0">{String(group.shots.length).padStart(2, "0")}</span>
                   </div>
@@ -295,11 +355,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
       />
       <div className="relative qs-wrap-wide">
         <span className="qs-eyebrow">{t("specsEyebrow")}</span>
-        <h2 className="qs-h2 mt-3 mb-8">{t("specsHeading")}</h2>
-        <div className="grid gap-5 lg:grid-cols-3 items-start">
-          {detailedSpecs.map((group) => (
-            <SpecLedger key={group.title} title={group.title} rows={group.rows} />
-          ))}
+        <h2 className="qs-h2 mt-3">{t("specsHeading")}</h2>
+        {multiProtocol && (
+          <p className="text-[13.5px] leading-[1.6] text-muted max-w-[62ch] mt-3 mb-8">{t("specsHint")}</p>
+        )}
+        <div className={multiProtocol ? "" : "mt-8"}>
+          <SpecDatasheet model={p.name} sheet={p.specSheet} />
         </div>
 
         {p.gCodes.length > 0 && (

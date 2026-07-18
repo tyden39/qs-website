@@ -6,7 +6,9 @@ import {
   type ProductPhoto,
   type SpecColumn,
   type ProductGalleryPhoto,
-  type ProductSpecGroup,
+  type SpecCol,
+  type SpecSection,
+  type ProductSpecSheet,
   type HeroTriptych,
 } from "@/data/products";
 import type { Locale } from "@/lib/i18n/config";
@@ -48,7 +50,7 @@ export type ProductView = {
   software: string[];
   accessories: string[];
   sourceUrl: string | null;
-  detailedSpecs: ProductSpecGroup[];
+  specSheet: ProductSpecSheet;
   gCodes: string[];
   sort: number;
   publishedAt: Date | null;
@@ -83,33 +85,42 @@ const BUNDLE_LABEL_EN: Record<string, string> = {
 };
 
 const SPEC_TITLE_EN: Record<string, string> = {
-  "Thông số chính": "Key specifications",
-  "Đặc tính kỹ thuật": "Specifications",
-  "Phần cứng": "Hardware",
-  "Chức năng": "Functions",
+  "Thông số chung": "General",
+  "Thông số phần cứng": "Hardware",
+  "Thông số phần mềm": "Software",
 };
 
 const SPEC_LABEL_EN: Record<string, string> = {
-  "Số trục điều khiển": "Control axes",
   "Kích thước": "Dimensions",
-  "Màn hình": "Display",
-  "Số cổng I/O": "I/O ports",
-  "Điện áp đầu vào": "Input voltage",
-  "Giao thức điều khiển": "Control protocol",
-  "Chế độ điều khiển": "Control mode",
   "Vật liệu vỏ": "Housing material",
-  "Bù rơ cơ khí (Backlash)": "Backlash compensation",
-  "Bù sai số hành trình (Pitch Error)": "Pitch error compensation",
+  "Số trục điều khiển": "Control axes",
+  "Số trục điều khiển bằng PLC": "PLC-controlled axes",
+  "Số trục chính điều khiển đồng thời": "Simultaneous spindle axes",
+  "Số lượng dao có thể quản lý": "Tool table capacity",
+  "Block Processing Time": "Block processing time",
+  "Min. Control Unit": "Min. control unit",
+  "Số cổng I/O tích hợp": "Integrated I/O ports",
+  "Số cổng I/O mở rộng tối đa": "Max. expanded I/O ports",
+  "Màn hình": "Display",
+  "USB port": "USB port",
+  "Quản lý parameter Servo": "Servo parameter management",
+  "Bù sai số hành trình (Backlash)": "Backlash compensation",
+  "Bù sai số cơ khí (Pitch Error)": "Pitch error compensation",
+  "Thay dao tự động (ATC)": "Automatic tool change (ATC)",
 };
 
 const SPEC_VALUE_EN: Record<string, string> = {
-  Có: "Yes",
-  Không: "No",
-  "Ladder tích hợp": "Integrated Ladder",
+  "Có hỗ trợ": "Supported",
   "Tất cả các trục": "All axes",
-  "Vòng hở (Open loop)": "Open loop",
-  "Vòng kín (Closed loop)": "Closed loop",
+  "PLC Ladder tích hợp": "Integrated PLC Ladder",
 };
+
+// Localize a single spec value: exact map first, then the recurring Vietnamese
+// unit words that appear inside otherwise numeric values.
+function localizeSpecValueStr(v: string): string {
+  if (SPEC_VALUE_EN[v]) return SPEC_VALUE_EN[v];
+  return v.replace(/trục/g, "axes").replace(/dòng/g, "lines");
+}
 
 function localizeAxes(axes: string): string {
   // "4 trục" -> "4 axes"
@@ -124,13 +135,25 @@ function localizeBundleLabel(label: string): string {
 }
 
 function localizeSpecValue(v: string | string[]): string | string[] {
-  return Array.isArray(v) ? v.map((x) => SPEC_VALUE_EN[x] ?? x) : SPEC_VALUE_EN[v] ?? v;
+  return Array.isArray(v) ? v.map(localizeSpecValueStr) : localizeSpecValueStr(v);
 }
 
-function localizeSpecGroup(group: ProductSpecGroup): ProductSpecGroup {
+function localizeSpecCol(c: SpecCol): SpecCol {
+  // Protocol name is a proper noun; loop mode is already English in the source.
+  return { name: c.name, loop: c.loop };
+}
+
+function localizeSpecSection(section: SpecSection): SpecSection {
   return {
-    title: SPEC_TITLE_EN[group.title] ?? group.title,
-    rows: group.rows.map((r) => ({ l: SPEC_LABEL_EN[r.l] ?? r.l, v: localizeSpecValue(r.v) })),
+    title: SPEC_TITLE_EN[section.title] ?? section.title,
+    rows: section.rows.map((r) => ({ l: SPEC_LABEL_EN[r.l] ?? r.l, v: localizeSpecValue(r.v) })),
+  };
+}
+
+function localizeSpecSheet(sheet: ProductSpecSheet): ProductSpecSheet {
+  return {
+    cols: sheet.cols.map(localizeSpecCol),
+    sections: sheet.sections.map(localizeSpecSection),
   };
 }
 
@@ -163,7 +186,7 @@ function toView(p: Product, index: number, locale: Locale): ProductView {
     alt: en ? localizeAlt(g.alt) : g.alt,
     kind: classifyShot(g.alt),
   }));
-  const detailedSpecs = p.detailedSpecs ?? [];
+  const specSheet: ProductSpecSheet = p.specSheet ?? { cols: [], sections: [] };
   const bundle = p.bundle;
   return {
     slug: p.slug,
@@ -191,7 +214,7 @@ function toView(p: Product, index: number, locale: Locale): ProductView {
     software: p.software ?? [],
     accessories: p.accessories ?? [],
     sourceUrl: p.sourceUrl ?? null,
-    detailedSpecs: en ? detailedSpecs.map(localizeSpecGroup) : detailedSpecs,
+    specSheet: en ? localizeSpecSheet(specSheet) : specSheet,
     gCodes: p.gCodes ?? [],
     sort: index,
     publishedAt: null,

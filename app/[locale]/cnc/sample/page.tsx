@@ -445,18 +445,18 @@ export default async function MachineDetailSamplePage({
       {/* ── HIỆU SUẤT GIA CÔNG + BỘ ĐIỀU KHIỂN CNC ── */}
       <section className="relative py-20 bg-paper border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          <Reveal>
+        <div className="relative qs-wrap-wide grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+          <Reveal className="flex flex-col">
             <div className="pb-7 border-b border-line mb-8">
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
                 <span className="qs-live-dot" />Hiệu suất gia công
               </span>
             </div>
-            <div className="grid grid-cols-2 gap-px bg-line border border-line">
+            <div className="grid grid-cols-2 gap-px bg-line border border-line flex-1">
               {PERFORMANCE.map((p) => {
                 const Icon = p.icon;
                 return (
-                  <div key={p.label} className="bg-white px-5 py-7 text-center">
+                  <div key={p.label} className="bg-white px-5 py-7 flex flex-col justify-center text-center">
                     <Icon className="w-6 h-6 mx-auto text-gold-1" strokeWidth={1.5} aria-hidden="true" />
                     <div className="font-display font-semibold text-ink text-[26px] mt-3 tracking-[-.02em] leading-none">{p.value}</div>
                     <div className="font-mono text-[10px] tracking-[.12em] uppercase text-gold-1 mt-1.5">{p.unit}</div>
@@ -467,18 +467,19 @@ export default async function MachineDetailSamplePage({
             </div>
           </Reveal>
 
-          <Reveal delay={120}>
+          <Reveal delay={120} className="flex flex-col">
             <div className="pb-7 border-b border-line mb-8">
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2">
                 <span className="qs-live-dot" />Bộ điều khiển CNC
               </span>
             </div>
-            <div className="grid sm:grid-cols-[250px_1fr] gap-6 items-start">
-              <div className="relative border border-line bg-white aspect-square overflow-hidden">
+            <div className="grid sm:grid-cols-[220px_1fr] gap-6 items-stretch flex-1">
+              <div className="relative border border-line overflow-hidden min-h-[280px]">
                 <Image
                   src="/img/products/astro-6av-front.webp"
                   alt="QS Astro 6AVE"
-                  // width="250"
+                  fill
+                  sizes="220px"
                   className="object-contain p-3"
                 />
               </div>
@@ -489,14 +490,14 @@ export default async function MachineDetailSamplePage({
                 <p className="text-[13.5px] leading-[1.65] text-muted mt-2 m-0">
                   Bộ điều khiển CNC thế hệ mới với hiệu năng nâng cao, độ ổn định vượt trội và khả năng mở rộng linh hoạt.
                 </p>
-            <div className="flex flex-wrap gap-2 mt-6">
-              {CONTROLLER_TAGS.map((tag) => (
-                <span key={tag} className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.04em] text-ink border border-line bg-white px-2.5 py-1.5">
-                  <Check className="w-3 h-3 text-gold-1" strokeWidth={2.4} aria-hidden="true" />
-                  {tag}
-                </span>
-              ))}
-            </div>
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {CONTROLLER_TAGS.map((tag) => (
+                    <span key={tag} className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.04em] text-ink border border-line bg-white px-2.5 py-1.5">
+                      <Check className="w-3 h-3 text-gold-1" strokeWidth={2.4} aria-hidden="true" />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>

@@ -181,7 +181,7 @@ export default async function LineMachineDetail({
                 </span>
               </div>
             </Reveal>
-            <div className={`grid grid-cols-1 gap-4 ${machine.gallery.length === 4 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
+            <div className={`grid grid-cols-1 gap-4 ${machine.gallery.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
               {machine.gallery.map((shot, i) => (
                 <Reveal key={shot.src} delay={i * 70}>
                   <figure className="group m-0 border border-line bg-white overflow-hidden">
@@ -190,7 +190,7 @@ export default async function LineMachineDetail({
                         src={shot.src}
                         alt={shot.caption}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         className="object-cover [filter:saturate(.97)_contrast(1.03)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                       />
                     </div>

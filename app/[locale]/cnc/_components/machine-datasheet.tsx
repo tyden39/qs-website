@@ -66,6 +66,8 @@ const SPEC_ICON: Record<string, LucideIcon> = {
   axes: Box,
   spindleSpeed: Gauge,
   spindlePower: Zap,
+  machinePower: Zap,
+  vacuumPump: Zap,
   machineTravel: Move3d,
   machineSize: Ruler,
   controller: Cpu,
@@ -83,9 +85,18 @@ const SPEC_ICON: Record<string, LucideIcon> = {
   repeatability: Crosshair,
   resolution: Crosshair,
   rapidSpeed: Activity,
+  rapidSpeedZ: Activity,
   feedSpeed: Activity,
   transmission: Move3d,
   rotaryAxis: Move3d,
+  axisServo: Settings,
+  lubrication: Settings,
+  frameMaterial: Box,
+  materials: Layers,
+  spindleTaper: Wrench,
+  chipRemoval: Settings,
+  coolant: Settings,
+  atc: Wrench,
 };
 const specIcon = (k: string): LucideIcon => SPEC_ICON[k] ?? Settings;
 
@@ -214,7 +225,7 @@ export default async function MachineDatasheet({
             <span className="sep">/</span>
             <span className="here">{machine.model}</span>
           </nav>
-          <div className="grid lg:grid-cols-[minmax(360px,1fr)_1.15fr] gap-10 lg:gap-12 items-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-[minmax(360px,1fr)_1.15fr] gap-10 lg:gap-12 items-center">
             <div>
               <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>
                 {category}

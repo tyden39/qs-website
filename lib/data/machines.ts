@@ -50,18 +50,18 @@ export type MachineView = {
   applications: string[];
 };
 
-/** Localize thousands separators: integer runs of 4+ digits are grouped per locale. */
-function formatSpecs(specs: MachineSpec[], nf: Intl.NumberFormat): MachineSpec[] {
+/** Localize prose values and thousands separators for the requested locale. */
+function formatSpecs(specs: MachineSpec[], nf: Intl.NumberFormat, en: boolean): MachineSpec[] {
   return specs.map((s) => ({
     k: s.k,
-    v: s.v.replace(/\d{4,}/g, (d) => nf.format(Number(d))),
+    v: (en ? s.vEn ?? s.v : s.v).replace(/\d{4,}/g, (d) => nf.format(Number(d))),
   }));
 }
 
 function toView(m: Machine, locale: Locale): MachineView {
   const en = locale === "en";
   const nf = new Intl.NumberFormat(en ? "en-US" : "vi-VN");
-  const specs = formatSpecs(m.specs, nf);
+  const specs = formatSpecs(m.specs, nf, en);
   return {
     slug: m.slug,
     model: m.model,

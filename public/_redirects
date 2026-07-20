@@ -18,3 +18,7 @@
 /about                     /vi/about/                 301
 /contact                   /vi/contact/               301
 /search                    /vi/search/                301
+
+# Renamed CNC machine: QSM-125 -> QSM-215 (model and slug renamed)
+/vi/cnc/qsm-125            /vi/cnc/qsm-215            301
+/en/cnc/qsm-125            /en/cnc/qsm-215            301

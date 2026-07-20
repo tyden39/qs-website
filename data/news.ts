@@ -21,8 +21,8 @@ export const news: News[] = [
 <img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-2.webp" alt="Trung tâm Hội chợ và Triển lãm Sài Gòn (SECC)">
 <p>Từ ngày 01/07 đến 04/07/2026, <strong>QS Technology</strong> đã tham gia <strong>MTA Vietnam 2026</strong> tại Trung tâm Hội chợ và Triển lãm Sài Gòn (SECC), TP. Hồ Chí Minh. Đây là một trong những triển lãm quốc tế uy tín trong lĩnh vực cơ khí chính xác, gia công kim loại và công nghệ sản xuất, quy tụ đông đảo doanh nghiệp, chuyên gia và khách hàng trong nước cũng như quốc tế.</p>
 <img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-3.webp" alt="Cổng chào triển lãm MTA Vietnam 2026">
-<p>Tại <b>Booth VN15 | Hall B1 – JETRO Zone</b>, QS Technology đã giới thiệu các giải pháp CNC do chính đội ngũ kỹ sư Việt Nam nghiên cứu và phát triển, nổi bật là dòng máy <strong>CNC Mini QSM-125</strong> cùng bộ điều khiển CNC QS. Gian hàng đã thu hút sự quan tâm của nhiều doanh nghiệp sản xuất, đơn vị gia công cơ khí, trường học và đối tác đang tìm kiếm những giải pháp gia công chính xác, ổn định và tối ưu chi phí.</p>
-<img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-4.webp" alt="Máy CNC Mini QSM-125 tại gian hàng QS Technology">
+<p>Tại <b>Booth VN15 | Hall B1 – JETRO Zone</b>, QS Technology đã giới thiệu các giải pháp CNC do chính đội ngũ kỹ sư Việt Nam nghiên cứu và phát triển, nổi bật là dòng máy <strong>CNC Mini QSM-215</strong> cùng bộ điều khiển CNC QS. Gian hàng đã thu hút sự quan tâm của nhiều doanh nghiệp sản xuất, đơn vị gia công cơ khí, trường học và đối tác đang tìm kiếm những giải pháp gia công chính xác, ổn định và tối ưu chi phí.</p>
+<img src="/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/body-4.webp" alt="Máy CNC Mini QSM-215 tại gian hàng QS Technology">
 <h2>Không gian trưng bày thu hút đông đảo khách tham quan</h2>
 <p>Trong suốt 4 ngày triển lãm, gian hàng QS Technology liên tục đón tiếp khách tham quan đến tìm hiểu sản phẩm, trao đổi kỹ thuật và trải nghiệm trực tiếp khả năng vận hành của các thiết bị CNC. Những màn trình diễn gia công thực tế đã giúp khách hàng có cái nhìn trực quan về độ chính xác, tốc độ và tính ổn định của máy.</p>
 <h2>Kết nối – Chia sẻ – Hợp tác</h2>
@@ -34,7 +34,7 @@ export const news: News[] = [
 <p>Hành trình tại MTA Vietnam 2026 đã khép lại, nhưng QS Technology sẽ tiếp tục đồng hành cùng doanh nghiệp trên con đường nâng cao hiệu quả sản xuất bằng những công nghệ CNC tiên tiến, được nghiên cứu và phát triển tại Việt Nam.</p>
 <p>Một lần nữa, xin chân thành cảm ơn và hẹn gặp lại Quý khách tại những triển lãm tiếp theo!</p>`,
     cover: "/img/news/qs-technology-tham-gia-trien-lam-mta-vietnam-2026/cover.webp",
-    tags: ["MTA Vietnam 2026", "Triển lãm", "CNC", "QSM-125"],
+    tags: ["MTA Vietnam 2026", "Triển lãm", "CNC", "QSM-215"],
   },
   {
     slug: "qs-technology-the-future-brand-2025",

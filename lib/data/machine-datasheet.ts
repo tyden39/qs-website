@@ -12,11 +12,25 @@ import type { MachineSpec } from "@/data/machines";
 
 /** Spec-table groups, in render order, with the spec keys each one collects. */
 const SPEC_GROUP_KEYS: { id: string; keys: string[] }[] = [
-  { id: "capacity", keys: ["axes", "machineTravel", "tableSize", "tableLoad", "spindleNose"] },
-  { id: "spindle", keys: ["spindleSpeed", "spindlePower", "toolHead", "collet", "toolCapacity", "toolMagazine"] },
-  { id: "feed", keys: ["rapidSpeed", "feedSpeed", "transmission", "rotaryAxis"] },
+  { id: "capacity", keys: ["materials", "axes", "machineTravel", "tableSize", "tableLoad", "spindleNose"] },
+  { id: "spindle", keys: ["spindleSpeed", "spindlePower", "spindleTaper", "toolHead", "collet", "toolCapacity", "toolMagazine"] },
+  { id: "feed", keys: ["rapidSpeed", "rapidSpeedZ", "feedSpeed", "transmission", "rotaryAxis", "axisServo", "lubrication"] },
   { id: "accuracy", keys: ["positioning", "repeatability", "resolution"] },
-  { id: "machine", keys: ["machineSize", "weight", "powerSupply", "airPressure"] },
+  {
+    id: "machine",
+    keys: [
+      "frameMaterial",
+      "machineSize",
+      "weight",
+      "machinePower",
+      "vacuumPump",
+      "powerSupply",
+      "airPressure",
+      "chipRemoval",
+      "coolant",
+      "atc",
+    ],
+  },
   { id: "cnc", keys: ["controller", "controlSystem"] },
 ];
 

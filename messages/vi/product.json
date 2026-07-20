@@ -95,6 +95,7 @@
     "quoteBtn": "Nhận báo giá →",
     "tabs": [
       "Giới thiệu",
+      "Trọn bộ",
       "Thông số kỹ thuật",
       "Tài liệu & phần mềm"
     ],
@@ -107,6 +108,8 @@
     "quoteBody": "Phản hồi trong vòng 24 giờ làm việc · giá đại lý cho đơn hàng ≥ 10 cái.",
     "packageEyebrow": "[ Hệ thống tích hợp · {name} ]",
     "packageHeading": "Bộ điều khiển CNC — Trọn bộ",
+    "packageTeaser": "Trọn bộ {count} thành phần",
+    "packageTeaserLink": "Xem chi tiết →",
     "relatedEyebrow": "[ 05 / Same family ]",
     "relatedHeading": "Các sản phẩm liên quan",
     "ctaHeading": "Cần tư vấn cấu hình {name}?",

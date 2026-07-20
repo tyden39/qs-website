@@ -95,6 +95,7 @@
     "quoteBtn": "Get a quote →",
     "tabs": [
       "Overview",
+      "Full package",
       "Technical specs",
       "Documents & software"
     ],
@@ -107,6 +108,8 @@
     "quoteBody": "Response within 24 business hours · dealer pricing for orders ≥ 10 units.",
     "packageEyebrow": "[ Integrated system · {name} ]",
     "packageHeading": "CNC Controller — Full Package",
+    "packageTeaser": "Full package · {count} components",
+    "packageTeaserLink": "See what's included →",
     "relatedEyebrow": "[ 05 / Same family ]",
     "relatedHeading": "Related products",
     "ctaHeading": "Need help configuring the {name}?",

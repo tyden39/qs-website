@@ -61,6 +61,8 @@ function safeHtml(raw: string): string {
   });
 }
 
+// Pulls a hero stat out of the datasheet by matching a label fragment, so the
+// strip survives models that name the same parameter differently.
 function findSpec(p: ProductView, needles: string[]): string | null {
   const normalizedNeedles = needles.map((n) => n.toLowerCase());
   for (const section of p.specSheet.sections) {
@@ -83,6 +85,10 @@ function findSpec(p: ProductView, needles: string[]): string | null {
 // Values that carry a status meaning rather than a measurement get a glyph:
 // supported → gold tick, unavailable → muted dash, option → outlined chip.
 const SUPPORTED = new Set(["Có hỗ trợ", "Supported"]);
+
+// How many kit icons the hero teaser shows before collapsing the rest into a
+// "+N" chip — keeps the row one line tall on a phone whatever the kit size.
+const PACKAGE_TEASER_ICONS = 5;
 
 function SpecValue({ value }: { value: string }) {
   if (value === "—") {
@@ -494,10 +500,47 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
     </section>
   );
 
+  const packagePanel = (
+    <section className="py-16 lg:py-20 bg-white">
+      <div className="qs-wrap-wide">
+        <div className="qs-section-head">
+          <div>
+            <span className="qs-eyebrow">{t("packageEyebrow", { name: p.name })}</span>
+            <h2 className="qs-h2 mt-2">{t("packageHeading")}</h2>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-line border border-line">
+          {p.bundle.map((c, i) => {
+            const photo = c.photo ?? (c.icon === "controller" ? p.image : null);
+            return (
+              <div key={c.label} className="bg-white p-5 sm:p-6 flex flex-col gap-3 min-h-[238px]">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em]">[ {String(i + 1).padStart(2, "0")} ]</span>
+                  <span className="h-px flex-1 bg-line" />
+                </div>
+                <div className="bg-paper border border-line grid place-items-center p-4 h-[150px]">
+                  {photo ? (
+                    <LightboxTrigger group={bundleShots} index={bundleShotIndex[i]} ariaLabel={t("lightbox.zoom")} className="grid h-full w-full place-items-center">
+                      <Image src={photo.src} alt={c.label} width={photo.w} height={photo.h} sizes="160px" className="max-h-[118px] w-auto max-w-full object-contain" />
+                    </LightboxTrigger>
+                  ) : (
+                    <KitComponentIcon type={c.icon} className="h-3/4 w-auto" />
+                  )}
+                </div>
+                <div className="font-display font-semibold text-[15px] text-ink leading-[1.35]">{c.label}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+
   const tabs: ProductDetailTab[] = [
     { id: "overview", label: tabLabels[0], content: overviewPanel },
-    { id: "specs", label: tabLabels[1], content: specsPanel },
-    ...(hasDownloads ? [{ id: "resources", label: tabLabels[2], content: resourcesPanel }] : []),
+    { id: "package", label: tabLabels[1], content: packagePanel },
+    { id: "specs", label: tabLabels[2], content: specsPanel },
+    ...(hasDownloads ? [{ id: "resources", label: tabLabels[3], content: resourcesPanel }] : []),
   ];
 
   return (
@@ -550,44 +593,50 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
               </div>
             ))}
           </dl>
+
+          {/* Kit teaser: shows what ships in the box right from the hero, using
+              the real part photos where we have them so the kit reads as a
+              product rather than a legend. The full grid with every label still
+              lives in its tab. Borders collapse with the stat strip via -mt-px. */}
+          <a
+            href="#package"
+            className="group -mt-px block border border-white/10 bg-[#141510] no-underline transition-colors hover:bg-[#191a14]"
+          >
+            <span className="flex items-center justify-between gap-4 px-4 pt-3 sm:px-5">
+              <span className="font-mono text-[10px] tracking-[.16em] uppercase text-[#837b6c]">
+                {t("packageTeaser", { count: p.bundle.length })}
+              </span>
+              <span className="shrink-0 text-[13px] font-semibold text-gold-2 group-hover:underline">
+                {t("packageTeaserLink")}
+              </span>
+            </span>
+            <span className="mt-3 grid grid-cols-3 gap-px border-t border-white/10 bg-white/10 sm:grid-cols-6">
+              {p.bundle.slice(0, PACKAGE_TEASER_ICONS).map((c) => {
+                const photo = c.photo ?? (c.icon === "controller" ? p.image : null);
+                return (
+                  <span key={c.label} className="flex flex-col items-center gap-2 bg-[#141510] px-3 py-4 transition-colors group-hover:bg-[#191a14]">
+                    <span className="grid h-[86px] w-full place-items-center">
+                      {photo ? (
+                        <Image src={photo.src} alt="" width={photo.w} height={photo.h} sizes="150px" className="max-h-[86px] w-auto max-w-full object-contain" />
+                      ) : (
+                        <KitComponentIcon type={c.icon} className="h-[64px] w-auto" />
+                      )}
+                    </span>
+                    <span className="line-clamp-2 text-center text-[11px] leading-[1.35] text-[#9f9788]">{c.label}</span>
+                  </span>
+                );
+              })}
+              {p.bundle.length > PACKAGE_TEASER_ICONS ? (
+                <span className="grid place-items-center bg-[#141510] px-3 py-4 font-mono text-[13px] text-[#c9c2b3] transition-colors group-hover:bg-[#191a14]">
+                  +{p.bundle.length - PACKAGE_TEASER_ICONS}
+                </span>
+              ) : null}
+            </span>
+          </a>
         </div>
       </section>
 
       <ProductDetailTabs tabs={tabs} />
-
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="qs-wrap-wide">
-          <div className="qs-section-head">
-            <div>
-              <span className="qs-eyebrow">{t("packageEyebrow", { name: p.name })}</span>
-              <h2 className="qs-h2 mt-2">{t("packageHeading")}</h2>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-line border border-line">
-            {p.bundle.map((c, i) => {
-              const photo = c.photo ?? (c.icon === "controller" ? p.image : null);
-              return (
-                <div key={c.label} className="bg-white p-5 sm:p-6 flex flex-col gap-3 min-h-[238px]">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="font-mono text-[10px] text-gold-1 tracking-[.16em]">[ {String(i + 1).padStart(2, "0")} ]</span>
-                    <span className="h-px flex-1 bg-line" />
-                  </div>
-                  <div className="bg-paper border border-line grid place-items-center p-4 h-[150px]">
-                    {photo ? (
-                      <LightboxTrigger group={bundleShots} index={bundleShotIndex[i]} ariaLabel={t("lightbox.zoom")} className="grid h-full w-full place-items-center">
-                        <Image src={photo.src} alt={c.label} width={photo.w} height={photo.h} sizes="160px" className="max-h-[118px] w-auto max-w-full object-contain" />
-                      </LightboxTrigger>
-                    ) : (
-                      <KitComponentIcon type={c.icon} className="h-3/4 w-auto" />
-                    )}
-                  </div>
-                  <div className="font-display font-semibold text-[15px] text-ink leading-[1.35]">{c.label}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
       <section className="py-18 lg:py-20 bg-white border-t border-line">
         <div className="qs-wrap-wide">

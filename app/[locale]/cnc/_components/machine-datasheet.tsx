@@ -503,17 +503,18 @@ export default async function MachineDatasheet({
                 <g stroke="var(--color-gold-1)" strokeWidth="1" strokeOpacity=".6">
                   <path d="M30 162 L150 162 M30 158 L30 166 M150 158 L150 166" />
                   <path d="M18 70 L18 150 M14 70 L22 70 M14 150 L22 150" />
-                  <path d="M158 152 L196 118 M156 148 L162 156 M192 114 L198 122" />
+                  {/* depth dimension runs parallel to the isometric edge (40,-30) */}
+                  <path d="M155 156 L195 126 M152.6 152.8 L157.4 159.2 M192.6 122.8 L197.4 129.2" />
                 </g>
                 <g fontFamily="var(--font-mono)" fontSize="9" fill="var(--color-muted)">
                   <text x="90" y="176" textAnchor="middle">
                     X {travel ? `${travel.x} ${travel.unit}` : "—"}
                   </text>
                   <text x="8" y="114" textAnchor="middle" transform="rotate(-90 8 114)">
-                    Y {travel ? `${travel.y} ${travel.unit}` : "—"}
-                  </text>
-                  <text x="182" y="146">
                     Z {travel ? `${travel.z} ${travel.unit}` : "—"}
+                  </text>
+                  <text x="178" y="152">
+                    Y {travel ? `${travel.y} ${travel.unit}` : "—"}
                   </text>
                 </g>
               </svg>

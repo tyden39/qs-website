@@ -12,7 +12,7 @@ import CircuitTraces from "@/components/circuit-traces";
 import { ProductDetailTabs, type ProductDetailTab } from "../_components/product-detail-tabs";
 import { ProductHeroGallery, type HeroShot } from "../_components/product-hero-gallery";
 import { ProductVideo } from "../_components/product-video";
-import { LightboxProvider, LightboxTrigger, type LightboxShot } from "@/components/products/product-image-lightbox";
+import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildProduct, JsonLd } from "@/lib/seo/jsonld";
@@ -279,9 +279,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   let bundleSeen = 0;
   const bundleShotIndex = bundlePhotos.map((ph) => (ph ? bundleSeen++ : -1));
   const bundleShots: LightboxShot[] = bundlePhotos
-    .map((ph, i) => (ph ? { src: ph.src, w: ph.w, h: ph.h, alt: p.bundle[i].label } : null))
+    .map((ph, i): LightboxShot | null => (ph ? { src: ph.src, w: ph.w, h: ph.h, alt: p.bundle[i].label } : null))
     .filter((x): x is LightboxShot => x !== null);
-  const lightboxLabels = { prev: t("lightbox.prev"), next: t("lightbox.next"), close: t("lightbox.close") };
   const overviewHtml = p.overview ?? `<p>${p.desc}</p>`;
   const multiProtocol = p.specSheet.cols.length > 1;
   const heroStats = [
@@ -502,7 +501,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   ];
 
   return (
-    <LightboxProvider labels={lightboxLabels}>
+    <>
       <JsonLd data={productJsonLd} />
       <section className="relative overflow-hidden bg-[#10110f] text-white border-b border-[#28261f]">
         <div className="absolute inset-0 qs-grid-bg opacity-[.12]" />
@@ -601,6 +600,6 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           </div>
         </div>
       </section>
-    </LightboxProvider>
+    </>
   );
 }

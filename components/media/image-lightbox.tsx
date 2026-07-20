@@ -4,7 +4,8 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import Image from "next/image";
 import { useHorizontalSwipe } from "@/lib/use-swipe";
 
-export type LightboxShot = { src: string; w: number; h: number; alt: string };
+/** `w`/`h` are optional — shots that only carry a src are rendered fill-boxed. */
+export type LightboxShot = { src: string; w?: number; h?: number; alt: string };
 type Labels = { prev: string; next: string; close: string };
 
 type LightboxCtx = { open: (group: LightboxShot[], index: number) => void };
@@ -18,9 +19,10 @@ export function useLightbox(): LightboxCtx {
 }
 
 /**
- * Full-screen image viewer shared across the product detail page. Each trigger
- * hands over its own group of shots, so prev/next cycles only within that group
- * (hero product shots, overview tour, bundle photos…). Keyboard: Esc / ← / →.
+ * Full-screen image viewer, mounted once per locale layout so any page can zoom
+ * an image that isn't already a link. Each trigger hands over its own group of
+ * shots, so prev/next cycles only within that group (hero shots, feature grid,
+ * bundle photos…). Keyboard: Esc / ← / →.
  */
 export function LightboxProvider({ labels, children }: { labels: Labels; children: ReactNode }) {
   const [group, setGroup] = useState<LightboxShot[] | null>(null);
@@ -97,15 +99,29 @@ export function LightboxProvider({ labels, children }: { labels: Labels; childre
 
             <figure className="m-0 flex flex-col items-center gap-4 max-w-full">
               <div className="bg-paper border border-white/10 p-3 sm:p-4 shadow-[0_40px_100px_-30px_rgba(0,0,0,.9)] animate-[qs-rise_.35s_ease-out]">
-                <Image
-                  key={current.src}
-                  src={current.src}
-                  alt={current.alt}
-                  width={current.w}
-                  height={current.h}
-                  sizes="90vw"
-                  className="h-auto w-auto max-h-[70vh] max-w-[82vw] object-contain"
-                />
+                {current.w && current.h ? (
+                  <Image
+                    key={current.src}
+                    src={current.src}
+                    alt={current.alt}
+                    width={current.w}
+                    height={current.h}
+                    sizes="90vw"
+                    className="h-auto w-auto max-h-[70vh] max-w-[82vw] object-contain"
+                  />
+                ) : (
+                  // Shots without intrinsic dimensions fill a viewport-sized box instead.
+                  <div className="relative h-[70vh] w-[82vw]">
+                    <Image
+                      key={current.src}
+                      src={current.src}
+                      alt={current.alt}
+                      fill
+                      sizes="90vw"
+                      className="object-contain"
+                    />
+                  </div>
+                )}
               </div>
               <figcaption className="text-center font-mono text-[11px] tracking-[.14em] uppercase text-[#8f8878] max-w-[70ch]">
                 {current.alt}
@@ -141,7 +157,8 @@ export function LightboxTrigger({
   index: number;
   ariaLabel: string;
   className?: string;
-  children: ReactNode;
+  /** Omit to use the trigger as a transparent overlay above a `fill` image. */
+  children?: ReactNode;
 }) {
   const { open } = useLightbox();
   return (

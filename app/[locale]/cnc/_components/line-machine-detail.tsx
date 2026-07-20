@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import Reveal from "@/components/reveal";
+import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
 import {
   LogIn,
   Cog,
@@ -45,6 +46,14 @@ export default async function LineMachineDetail({
 
   const readout = machine.specs.slice(0, 3);
   const category = t(`machines.categories.${machine.category}`);
+
+  // Hero figure and gallery grid are illustrations, not links — each zooms as
+  // its own group. Gallery shots carry no dimensions; the lightbox fill-boxes them.
+  const zoomLabel = d("galleryZoom");
+  const heroShots: LightboxShot[] = [
+    { src: machine.image.src, w: machine.image.w, h: machine.image.h, alt: machine.model },
+  ];
+  const galleryShots: LightboxShot[] = machine.gallery.map((s) => ({ src: s.src, alt: s.caption }));
 
   return (
     <>
@@ -100,6 +109,12 @@ export default async function LineMachineDetail({
                     sizes="(max-width: 1024px) 100vw, 58vw"
                     className="object-contain p-6 lg:p-10 [filter:drop-shadow(0_16px_28px_rgba(52,86,111,.18))]"
                     priority
+                  />
+                  <LightboxTrigger
+                    group={heroShots}
+                    index={0}
+                    ariaLabel={zoomLabel}
+                    className="absolute inset-0 z-[6]"
                   />
                   {/* corner registration ticks */}
                   <div className="pointer-events-none absolute inset-3" aria-hidden="true">
@@ -192,6 +207,12 @@ export default async function LineMachineDetail({
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         className="object-cover [filter:saturate(.97)_contrast(1.03)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                      />
+                      <LightboxTrigger
+                        group={galleryShots}
+                        index={i}
+                        ariaLabel={zoomLabel}
+                        className="absolute inset-0 z-[6]"
                       />
                     </div>
                     <figcaption className="px-4 py-3 border-t border-line font-mono text-[11.5px] leading-[1.5] text-muted">

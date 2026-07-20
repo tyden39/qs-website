@@ -3,11 +3,12 @@ import "../globals.css";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchPanel, { type FeaturedProduct } from "@/components/SearchPanel";
 import FloatingContact from "@/components/floating-contact";
+import { LightboxProvider } from "@/components/media/image-lightbox";
 import { getAllProducts } from "@/lib/data/products";
 import { routing } from "@/lib/i18n/routing";
 import type { Locale } from "@/lib/i18n/config";
@@ -73,6 +74,13 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
+  const t = await getTranslations("common");
+  const lightboxLabels = {
+    prev: t("lightbox.prev"),
+    next: t("lightbox.next"),
+    close: t("lightbox.close"),
+  };
+
   const products = getAllProducts(locale);
   const featured: FeaturedProduct[] = products.slice(0, 5).map((p) => ({
     slug: p.slug,
@@ -94,11 +102,13 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <JsonLd data={buildOrganization()} />
           <JsonLd data={buildWebSite()} />
-          <Header />
-          <SearchPanel featured={featured} productCount={products.length} />
-          {children}
-          <Footer />
-          <FloatingContact />
+          <LightboxProvider labels={lightboxLabels}>
+            <Header />
+            <SearchPanel featured={featured} productCount={products.length} />
+            {children}
+            <Footer />
+            <FloatingContact />
+          </LightboxProvider>
         </NextIntlClientProvider>
       </body>
     </html>

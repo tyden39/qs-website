@@ -19,5 +19,6 @@
   "yes": "Yes",
   "no": "No",
   "call": "Call",
-  "backToTop": "Back to top"
+  "backToTop": "Back to top",
+  "lightbox": { "prev": "Previous image", "next": "Next image", "close": "Close", "zoom": "View larger" }
 }

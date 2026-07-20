@@ -19,5 +19,6 @@
   "yes": "Có",
   "no": "Không",
   "call": "Gọi điện",
-  "backToTop": "Lên đầu trang"
+  "backToTop": "Lên đầu trang",
+  "lightbox": { "prev": "Ảnh trước", "next": "Ảnh sau", "close": "Đóng", "zoom": "Xem ảnh lớn" }
 }

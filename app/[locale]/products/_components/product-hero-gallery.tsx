@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useLightbox } from "@/components/products/product-image-lightbox";
+import { useLightbox } from "@/components/media/image-lightbox";
 import { useHorizontalSwipe } from "@/lib/use-swipe";
 
 export type HeroShot = { src: string; w: number; h: number; alt: string };

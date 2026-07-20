@@ -41,6 +41,7 @@ import {
 } from "@/lib/data/machine-datasheet";
 import { getProductBySlug } from "@/lib/data/products";
 import { getAllDownloads, getProductDownloads } from "@/lib/data/downloads";
+import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
 import { MachineHeroGallery } from "./machine-hero-gallery";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -181,11 +182,30 @@ export default async function MachineDatasheet({
 
   const heroGalleryShots = machine.heroShots.map((s) => ({
     src: s.src,
+    thumbnailSrc: s.src === machine.image.src ? machine.thumbnail.src : undefined,
     w: s.w,
     h: s.h,
     alt: `${machine.model} — ${t(`machines.detail.shots.${s.kind}`)}`,
   }));
   const heroFooterRight = machine.axes > 0 ? `${machine.axes} ${t("machines.axesUnit")}` : category;
+
+  // Photos on this page are illustrations, not links, so each grid gets its own
+  // zoomable group and prev/next cycles only within that grid. Feature and
+  // capability shots carry no intrinsic dimensions — the lightbox fill-boxes them.
+  const zoomLabel = d("galleryZoom");
+  const heroFallbackShots: LightboxShot[] = [
+    { src: machine.image.src, w: machine.image.w, h: machine.image.h, alt: machine.model },
+  ];
+  const featureShots: LightboxShot[] = machine.features
+    .filter((f) => f.img)
+    .map((f) => ({ src: f.img as string, alt: `${machine.model} — ${f.title}` }));
+  let featureSeen = 0;
+  const featureShotIndex = machine.features.map((f) => (f.img ? featureSeen++ : -1));
+  const capabilityShots: LightboxShot[] = machine.capabilities
+    .filter((c) => c.img)
+    .map((c) => ({ src: c.img as string, alt: c.caption }));
+  let capabilitySeen = 0;
+  const capabilityShotIndex = machine.capabilities.map((c) => (c.img ? capabilitySeen++ : -1));
 
   const travel = parseTravel(specValue(machine.specs, "machineTravel"));
   const specGroups = groupSpecs(machine.specs);
@@ -282,7 +302,6 @@ export default async function MachineDatasheet({
                   model={machine.model}
                   footerRight={heroFooterRight}
                   zoomLabel={d("galleryZoom")}
-                  closeLabel={d("galleryClose")}
                 />
               ) : (
                 <div className="relative border border-line bg-white overflow-hidden">
@@ -297,6 +316,12 @@ export default async function MachineDatasheet({
                         priority
                       />
                     </div>
+                    <LightboxTrigger
+                      group={heroFallbackShots}
+                      index={0}
+                      ariaLabel={zoomLabel}
+                      className="absolute inset-0 z-[6]"
+                    />
                     <div className="pointer-events-none absolute inset-3" aria-hidden="true">
                       <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-gold-1/50" />
                       <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-gold-1/50" />
@@ -377,6 +402,14 @@ export default async function MachineDatasheet({
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                             className="relative object-cover [filter:saturate(.96)_contrast(1.03)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                           />
+                        ) : null}
+                        {f.img ? (
+                          <LightboxTrigger
+                            group={featureShots}
+                            index={featureShotIndex[i]}
+                            ariaLabel={zoomLabel}
+                            className="absolute inset-0 z-[6]"
+                          />
                         ) : (
                           <span
                             className="absolute inset-0 flex items-center justify-center font-mono font-semibold text-[68px] leading-none text-ink/[.06] select-none"
@@ -415,18 +448,26 @@ export default async function MachineDatasheet({
             <PanelTitle>{d("capabilitiesHeading")}</PanelTitle>
             {machine.capabilities.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line">
-                {machine.capabilities.map((c) => (
+                {machine.capabilities.map((c, i) => (
                   <div key={c.caption} className="bg-white">
                     <div className="relative aspect-square overflow-hidden bg-paper-2/60">
                       <div className="absolute inset-0 qs-grid-bg opacity-50" aria-hidden="true" />
                       {c.img && (
-                        <Image
-                          src={c.img}
-                          alt={c.caption}
-                          fill
-                          sizes="(max-width: 640px) 50vw, 12vw"
-                          className="relative object-cover [filter:saturate(.96)_contrast(1.03)]"
-                        />
+                        <>
+                          <Image
+                            src={c.img}
+                            alt={c.caption}
+                            fill
+                            sizes="(max-width: 640px) 50vw, 12vw"
+                            className="relative object-cover [filter:saturate(.96)_contrast(1.03)]"
+                          />
+                          <LightboxTrigger
+                            group={capabilityShots}
+                            index={capabilityShotIndex[i]}
+                            ariaLabel={zoomLabel}
+                            className="absolute inset-0 z-[6]"
+                          />
+                        </>
                       )}
                     </div>
                     <p className="font-mono text-[11px] tracking-[.06em] text-center text-muted px-2 py-2.5 border-t border-line m-0">
@@ -541,6 +582,19 @@ export default async function MachineDatasheet({
                     fill
                     sizes="220px"
                     className="object-contain p-3"
+                  />
+                  <LightboxTrigger
+                    group={[
+                      {
+                        src: controller.image.src,
+                        w: controller.image.w,
+                        h: controller.image.h,
+                        alt: controller.name,
+                      },
+                    ]}
+                    index={0}
+                    ariaLabel={zoomLabel}
+                    className="absolute inset-0 z-[6]"
                   />
                 </div>
                 <div>

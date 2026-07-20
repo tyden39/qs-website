@@ -63,6 +63,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
             <MachineAnnotation
               img={MACHINE_IMG}
               alt={t("hero.imgAlt")}
+              zoomLabel={t("machines.detail.galleryZoom")}
             />
           </Reveal>
         </div>

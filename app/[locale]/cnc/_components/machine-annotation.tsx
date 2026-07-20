@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LightboxTrigger } from "@/components/media/image-lightbox";
 
 /**
  * Machine photo framed like an engineering figure: a blueprint scan beam sweeps
@@ -8,9 +9,11 @@ import Image from "next/image";
 export default function MachineAnnotation({
   img,
   alt,
+  zoomLabel,
 }: {
   img: string;
   alt: string;
+  zoomLabel: string;
 }) {
   return (
     <div className="relative aspect-[1672/941] overflow-hidden border border-[#2a2620] bg-ink-2">
@@ -21,6 +24,12 @@ export default function MachineAnnotation({
         priority
         sizes="(max-width:1024px) 100vw, 60vw"
         className="object-cover"
+      />
+      <LightboxTrigger
+        group={[{ src: img, alt }]}
+        index={0}
+        ariaLabel={zoomLabel}
+        className="absolute inset-0 z-[6]"
       />
       {/* blueprint scan beam reading the machine */}
       <div className="pointer-events-none absolute inset-x-6 top-0 h-[2px] qs-scan" aria-hidden="true"></div>

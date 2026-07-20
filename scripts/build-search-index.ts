@@ -13,6 +13,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getAllProducts } from "@/lib/data/products";
+import { getCatalogProducts } from "@/lib/data/catalog";
 import { getAllNews } from "@/lib/data/news";
 import { getAllDownloads } from "@/lib/data/downloads";
 import type { DownloadFile } from "@/lib/data/downloads";
@@ -44,6 +45,23 @@ function buildForLocale(locale: Locale): SearchRecord[] {
         p.display,
         ...p.bullets,
         ...p.specs.map((s) => `${s.l} ${s.v}`),
+      ]).join(" "),
+    });
+  }
+
+  for (const c of getCatalogProducts(locale)) {
+    records.push({
+      id: `product-${c.slug}`,
+      type: "product",
+      title: c.name,
+      excerpt: c.desc,
+      href: `/products/${c.slug}`,
+      meta: clean([c.tag]),
+      keywords: clean([
+        c.name,
+        c.tag,
+        ...c.specs.map((s) => `${s.l} ${s.v}`),
+        ...c.features.map((f) => f.title),
       ]).join(" "),
     });
   }

@@ -5,6 +5,9 @@ import { getAllProducts } from "@/lib/data/products";
 import { getApplicationSlugs, getApplicationSlugsForProduct } from "@/lib/data/applications";
 import { ProductBundleCard } from "@/components/products/product-bundle-card";
 import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";
+import { ProductCategoryTabs } from "./_components/product-category-tabs";
+import { CatalogList } from "./_components/catalog-list";
+import { getCatalogProducts } from "@/lib/data/catalog";
 import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -71,6 +74,10 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     slug,
     label: appItems[i]?.machine ?? slug,
   }));
+  // Each tab is illustrated by the first product in its group, so the thumbnails
+  // follow the catalogue instead of hardcoding a path that can go stale.
+  const dncProducts = getCatalogProducts(locale, "dnc");
+  const accessoryProducts = getCatalogProducts(locale, "accessory");
   const breadcrumb = buildBreadcrumbList([
     { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
     { name: seo("productsTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/products` },
@@ -132,20 +139,46 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       {/* BODY */}
       <section className="py-12 lg:py-16" id="list">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <ProductListFilter
-            items={items}
-            labels={{
-              filters: t.raw("toolbar.filters") as string[],
-              sortOptions: t.raw("toolbar.sortOptions") as string[],
-              tree: categoryTree,
-              sidebarHeading: t("sidebar.heading"),
-              supportTitle: t("sidebar.support.title"),
-              supportCta: t("sidebar.support.cta"),
-              showing: t("toolbar.showing"),
-              ofModels: t("toolbar.ofModels"),
-              sortLabel: t("toolbar.sortLabel"),
-              emptyState: t("toolbar.empty"),
-            }}
+          <ProductCategoryTabs
+            tabs={[
+              {
+                id: "controllers",
+                label: t("tabs.controllers.label"),
+                count: products.length,
+                thumb: products[0].image,
+                node: (
+                  <ProductListFilter
+                    items={items}
+                    labels={{
+                      filters: t.raw("toolbar.filters") as string[],
+                      sortOptions: t.raw("toolbar.sortOptions") as string[],
+                      tree: categoryTree,
+                      sidebarHeading: t("sidebar.heading"),
+                      supportTitle: t("sidebar.support.title"),
+                      supportCta: t("sidebar.support.cta"),
+                      showing: t("toolbar.showing"),
+                      ofModels: t("toolbar.ofModels"),
+                      sortLabel: t("toolbar.sortLabel"),
+                      emptyState: t("toolbar.empty"),
+                    }}
+                  />
+                ),
+              },
+              {
+                id: "dnc",
+                label: t("tabs.dnc.label"),
+                count: dncProducts.length,
+                thumb: dncProducts[0].image,
+                node: <CatalogList locale={locale} category="dnc" />,
+              },
+              {
+                id: "accessory",
+                label: t("tabs.accessory.label"),
+                count: accessoryProducts.length,
+                thumb: accessoryProducts[0].image,
+                node: <CatalogList locale={locale} category="accessory" />,
+              },
+            ]}
           />
         </div>
       </section>

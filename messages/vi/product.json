@@ -54,6 +54,19 @@
         "Màn hình ↑"
       ],
       "empty": "Không có model nào khớp bộ lọc. Hãy thử bỏ bớt điều kiện."
+    },
+    "tabs": {
+      "controllers": {
+        "label": "Bộ điều khiển CNC"
+      },
+      "dnc": {
+        "label": "Thiết bị truyền DNC",
+        "blurb": "Thiết bị nạp chương trình gia công vào máy CNC qua cổng RS232, thay thế cho việc truyền dữ liệu bằng máy tính."
+      },
+      "accessory": {
+        "label": "Phụ kiện",
+        "blurb": "Board mở rộng I/O, board chuyển đổi tín hiệu, PLC nhỏ gọn, cáp kết nối và nguồn cho hệ thống CNC."
+      }
     }
   },
   "card": {
@@ -69,7 +82,10 @@
     "viewDetails": "Xem chi tiết",
     "components": "Thành phần bộ sản phẩm",
     "modelLabel": "Model",
-    "parts": "chi tiết"
+    "parts": "chi tiết",
+    "priceOnRequest": "Liên hệ báo giá",
+    "specifications": "[ Thông số kỹ thuật ]",
+    "moreSpecs": "+{count} thông số khác"
   },
   "detailPage": {
     "breadcrumb": {
@@ -130,14 +146,32 @@
     "accessoriesEyebrow": "[ Phụ kiện ]",
     "accessoriesHeading": "Phụ kiện đi kèm",
     "calibrationLabel": "calibration view",
-    "heroShots": { "front": "Mặt trước", "rear": "Mặt sau", "machine": "Lắp lên máy" },
-    "lightbox": { "prev": "Ảnh trước", "next": "Ảnh sau", "close": "Đóng", "zoom": "Xem ảnh lớn" },
+    "heroShots": {
+      "front": "Mặt trước",
+      "rear": "Mặt sau",
+      "machine": "Lắp lên máy"
+    },
+    "lightbox": {
+      "prev": "Ảnh trước",
+      "next": "Ảnh sau",
+      "close": "Đóng",
+      "zoom": "Xem ảnh lớn"
+    },
     "tourEyebrow": "[ Tìm hiểu qua hình ảnh ]",
     "tourHeading": "Chi tiết sản phẩm qua hình ảnh thực tế",
     "tourGroups": {
-      "real": { "tag": "Ảnh thực tế", "desc": "Hình chụp thực tế của bộ điều khiển." },
-      "ui": { "tag": "Giao diện vận hành", "desc": "Các màn hình và chức năng vận hành chính." },
-      "machine": { "tag": "Thực tế lắp trên máy cơ khí", "desc": "Bộ điều khiển lắp đặt và vận hành thực tế trên máy cơ khí." }
+      "real": {
+        "tag": "Ảnh thực tế",
+        "desc": "Hình chụp thực tế của bộ điều khiển."
+      },
+      "ui": {
+        "tag": "Giao diện vận hành",
+        "desc": "Các màn hình và chức năng vận hành chính."
+      },
+      "machine": {
+        "tag": "Thực tế lắp trên máy cơ khí",
+        "desc": "Bộ điều khiển lắp đặt và vận hành thực tế trên máy cơ khí."
+      }
     },
     "overviewPhotoComingSoon": "Hình ảnh đang được cập nhật",
     "videoEyebrow": "[ Video ]",
@@ -171,7 +205,11 @@
         "tag": "Mặt bên",
         "desc": "Thiết kế mặt bên và kích thước lắp đặt."
       }
-    }
+    },
+    "priceLabel": "Giá",
+    "specsLink": "Xem thông số →",
+    "featuresHeading": "[ Tính năng ]",
+    "catalogCtaBody": "Kỹ sư QS hỗ trợ chọn model phù hợp, kiểm tra khả năng tương thích với máy CNC hiện có và hướng dẫn lắp đặt."
   },
   "list": {
     "title": "Sản phẩm",

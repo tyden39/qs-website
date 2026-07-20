@@ -54,6 +54,19 @@
         "Display ↑"
       ],
       "empty": "No models match the current filters. Try clearing some."
+    },
+    "tabs": {
+      "controllers": {
+        "label": "CNC Controllers"
+      },
+      "dnc": {
+        "label": "DNC Transfer Units",
+        "blurb": "Devices that load machining programs into a CNC machine over RS232, replacing computer-based data transfer."
+      },
+      "accessory": {
+        "label": "Accessories",
+        "blurb": "I/O expansion boards, signal converter boards, compact PLCs, connection cables and power supplies for CNC systems."
+      }
     }
   },
   "card": {
@@ -69,7 +82,10 @@
     "viewDetails": "View details",
     "components": "Bundle components",
     "modelLabel": "Model",
-    "parts": "parts"
+    "parts": "parts",
+    "priceOnRequest": "Price on request",
+    "specifications": "[ Specifications ]",
+    "moreSpecs": "+{count} more specs"
   },
   "detailPage": {
     "breadcrumb": {
@@ -130,14 +146,32 @@
     "accessoriesEyebrow": "[ Accessories ]",
     "accessoriesHeading": "Included accessories",
     "calibrationLabel": "calibration view",
-    "heroShots": { "front": "Front", "rear": "Rear", "machine": "On machine" },
-    "lightbox": { "prev": "Previous image", "next": "Next image", "close": "Close", "zoom": "View larger" },
+    "heroShots": {
+      "front": "Front",
+      "rear": "Rear",
+      "machine": "On machine"
+    },
+    "lightbox": {
+      "prev": "Previous image",
+      "next": "Next image",
+      "close": "Close",
+      "zoom": "View larger"
+    },
     "tourEyebrow": "[ A closer look ]",
     "tourHeading": "The product in detail — real photos",
     "tourGroups": {
-      "real": { "tag": "Actual photos", "desc": "Real photographs of the controller." },
-      "ui": { "tag": "Operating interface", "desc": "Key operating screens and functions." },
-      "machine": { "tag": "Installed on a machine", "desc": "Controller installed and running on a real CNC machine." }
+      "real": {
+        "tag": "Actual photos",
+        "desc": "Real photographs of the controller."
+      },
+      "ui": {
+        "tag": "Operating interface",
+        "desc": "Key operating screens and functions."
+      },
+      "machine": {
+        "tag": "Installed on a machine",
+        "desc": "Controller installed and running on a real CNC machine."
+      }
     },
     "overviewPhotoComingSoon": "Image coming soon",
     "videoEyebrow": "[ Video ]",
@@ -171,7 +205,11 @@
         "tag": "Side view",
         "desc": "Side profile and installation dimensions."
       }
-    }
+    },
+    "priceLabel": "Price",
+    "specsLink": "View specs →",
+    "featuresHeading": "[ Features ]",
+    "catalogCtaBody": "QS engineers help you pick the right model, confirm compatibility with your existing CNC machine, and walk you through installation."
   },
   "list": {
     "title": "Products",

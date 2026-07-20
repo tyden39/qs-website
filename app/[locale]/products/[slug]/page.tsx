@@ -6,6 +6,8 @@ import DOMPurify from "isomorphic-dompurify";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getProductBySlug, getProductSlugs, type ProductView } from "@/lib/data/products";
+import { getCatalogProductBySlug, getCatalogSlugs } from "@/lib/data/catalog";
+import { CatalogDetail } from "../_components/catalog-detail";
 import { getProductDownloads, groupByDocument, formatBytes, type DownloadFile } from "@/lib/data/downloads";
 import { KitComponentIcon } from "@/components/products/kit-component-icon";
 import CircuitTraces from "@/components/circuit-traces";
@@ -24,6 +26,23 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
+  const c = getCatalogProductBySlug(slug, locale);
+  if (c) {
+    return {
+      title: c.name,
+      description: c.desc.slice(0, 160),
+      alternates: buildAlternates(`/products/${slug}`, locale),
+      openGraph: {
+        title: c.name,
+        description: c.desc,
+        type: "website",
+        locale: locale === "en" ? "en_US" : "vi_VN",
+        url: `/products/${slug}`,
+        images: [{ url: c.image.src, width: c.image.w, height: c.image.h, alt: c.image.alt }],
+      },
+      twitter: { card: "summary_large_image", title: c.name, description: c.desc },
+    };
+  }
   const p = await getProductBySlug(slug, locale);
   if (!p) return {};
   return {
@@ -50,7 +69,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const slugs = await getProductSlugs();
+  const slugs = [...(await getProductSlugs()), ...getCatalogSlugs()];
   return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
@@ -230,6 +249,12 @@ function SpecDatasheet({ model, sheet }: { model: string; sheet: ProductView["sp
 export default async function ProductDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  // DNC units and accessories share this route but not the controller layout —
+  // they have no protocol datasheet, kit or downloads to render.
+  const catalogProduct = getCatalogProductBySlug(slug, locale);
+  if (catalogProduct) {
+    return <CatalogDetail product={catalogProduct} locale={locale} />;
+  }
   const t = await getTranslations({ locale, namespace: "product.detailPage" });
   const tDl = await getTranslations({ locale, namespace: "downloads.index" });
   const p = await getProductBySlug(slug, locale);
@@ -487,7 +512,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
       />
-      <div className="qs-wrap-wide">
+      <div className="relative qs-wrap-wide">
         <div className="qs-section-head">
           <div className="max-w-[62ch]">
             <span className="qs-eyebrow">{t("resourcesEyebrow")}</span>
@@ -506,7 +531,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   );
 
   const packagePanel = (
-    <section className="py-16 lg:py-20 bg-white">
+    <section className="py-16 lg:py-20 bg-[#f7f5ef]">
       <div className="qs-wrap-wide">
         <div className="qs-section-head">
           <div>
@@ -607,48 +632,50 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           product rather than a legend. Nothing here wraps the whole block in a
           link — a photo click zooms it, and only the explicit "see details" /
           "+N" links open the tab where the full grid with every label lives. */}
-      <section className="bg-[#10110f] text-white border-b border-[#28261f]">
-        <div className="qs-wrap-wide py-10 lg:py-12">
-          <div className="border border-white/10 bg-[#141510]">
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-white/10 px-4 py-4 sm:px-5">
-              <span className="font-mono text-[10px] tracking-[.16em] uppercase text-[#837b6c]">
-                {t("packageTeaser", { count: p.bundle.length })}
-              </span>
-              <a href="#package" className="qs-btn qs-btn-gold qs-btn-sm shrink-0">
-                {t("packageTeaserLink")}
+      <section className="relative overflow-hidden bg-white border-b border-line">
+        <CircuitTraces
+          variant="light"
+          className="hidden md:block absolute inset-y-0 right-0 w-[34%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)]"
+        />
+        <div className="relative qs-wrap-wide py-8 lg:py-10">
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+            <span className="qs-eyebrow">
+              {t("packageTeaser", { count: p.bundle.length })}
+            </span>
+            <a href="#package" className="qs-link hover:text-gold-1 hover:border-gold-1">
+              {t("packageTeaserLink")} <span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div className="mt-4 grid grid-cols-3 gap-px bg-line border border-line sm:grid-cols-6">
+            {p.bundle.slice(0, PACKAGE_TEASER_ICONS).map((c, i) => {
+              const photo = c.photo ?? (c.icon === "controller" ? p.image : null);
+              const image = photo ? (
+                <Image src={photo.src} alt="" width={photo.w} height={photo.h} sizes="96px" className="max-h-[52px] w-auto max-w-full object-contain" />
+              ) : (
+                <KitComponentIcon type={c.icon} className="h-[40px] w-auto" />
+              );
+              return (
+                <div key={c.label} className="group flex flex-col items-center gap-1.5 bg-white px-2 py-4 transition-colors hover:bg-paper">
+                  {photo ? (
+                    <LightboxTrigger group={bundleShots} index={bundleShotIndex[i]} ariaLabel={t("lightbox.zoom")} className="grid h-[52px] w-full place-items-center">
+                      {image}
+                    </LightboxTrigger>
+                  ) : (
+                    <span className="grid h-[52px] w-full place-items-center">{image}</span>
+                  )}
+                  <span className="line-clamp-2 text-center text-[11px] leading-[1.3] text-muted transition-colors group-hover:text-ink">{c.label}</span>
+                </div>
+              );
+            })}
+            {p.bundle.length > PACKAGE_TEASER_ICONS ? (
+              <a
+                href="#package"
+                aria-label={t("packageTeaserLink")}
+                className="grid place-items-center bg-white px-2 py-4 font-mono text-[13px] text-ink no-underline transition-colors hover:bg-paper hover:text-gold-1"
+              >
+                +{p.bundle.length - PACKAGE_TEASER_ICONS}
               </a>
-            </div>
-            <div className="grid grid-cols-3 gap-px bg-white/10 sm:grid-cols-6">
-              {p.bundle.slice(0, PACKAGE_TEASER_ICONS).map((c, i) => {
-                const photo = c.photo ?? (c.icon === "controller" ? p.image : null);
-                const image = photo ? (
-                  <Image src={photo.src} alt="" width={photo.w} height={photo.h} sizes="150px" className="max-h-[86px] w-auto max-w-full object-contain" />
-                ) : (
-                  <KitComponentIcon type={c.icon} className="h-[64px] w-auto" />
-                );
-                return (
-                  <div key={c.label} className="flex flex-col items-center gap-2 bg-[#141510] px-3 py-4">
-                    {photo ? (
-                      <LightboxTrigger group={bundleShots} index={bundleShotIndex[i]} ariaLabel={t("lightbox.zoom")} className="grid h-[86px] w-full place-items-center">
-                        {image}
-                      </LightboxTrigger>
-                    ) : (
-                      <span className="grid h-[86px] w-full place-items-center">{image}</span>
-                    )}
-                    <span className="line-clamp-2 text-center text-[11px] leading-[1.35] text-[#9f9788]">{c.label}</span>
-                  </div>
-                );
-              })}
-              {p.bundle.length > PACKAGE_TEASER_ICONS ? (
-                <a
-                  href="#package"
-                  aria-label={t("packageTeaserLink")}
-                  className="grid place-items-center bg-[#141510] px-3 py-4 font-mono text-[13px] text-[#c9c2b3] no-underline transition-colors hover:bg-[#191a14] hover:text-gold-2"
-                >
-                  +{p.bundle.length - PACKAGE_TEASER_ICONS}
-                </a>
-              ) : null}
-            </div>
+            ) : null}
           </div>
         </div>
       </section>

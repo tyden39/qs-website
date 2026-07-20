@@ -27,13 +27,22 @@ export function buildOrganization(): WithContext<Organization> {
     name: "QS Technology",
     url: APP_URL,
     logo: `${APP_URL}/logo-st-full.png`,
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+84-24-3997-6688",
-      contactType: "customer service",
-      areaServed: "VN",
-      availableLanguage: ["Vietnamese", "English"],
-    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: "+84-909-663-350",
+        contactType: "customer service",
+        areaServed: "VN",
+        availableLanguage: ["Vietnamese", "English"],
+      },
+      {
+        "@type": "ContactPoint",
+        telephone: "+84-922-322-338",
+        contactType: "customer service",
+        areaServed: "VN",
+        availableLanguage: ["Vietnamese", "English"],
+      },
+    ],
     address: {
       "@type": "PostalAddress",
       addressCountry: "VN",

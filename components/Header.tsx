@@ -53,6 +53,8 @@ export default function Header() {
           <span className="hidden md:inline shrink-0">
             Hotline <a href="tel:+84909663350" className="qs-topstrip-link">(+84) 909.663.350</a>
             {" · "}
+            <a href="tel:+84922322338" className="qs-topstrip-link">(+84) 922.322.338</a>
+            {" · "}
             <a href="mailto:support@qstcnc.com" className="qs-topstrip-link">support@qstcnc.com</a>
           </span>
         </div>
@@ -139,6 +141,7 @@ export default function Header() {
             <div className="mt-5 flex items-center justify-between gap-4">
               <div className="flex flex-col gap-1.5 font-mono text-[11px] tracking-[.1em] uppercase text-muted">
                 <a href="tel:+84909663350" className="hover:text-ink">Hotline · (+84) 909.663.350</a>
+                <a href="tel:+84922322338" className="hover:text-ink">Hotline · (+84) 922.322.338</a>
                 <a href="mailto:support@qstcnc.com" className="hover:text-ink lowercase tracking-[.06em]">support@qstcnc.com</a>
               </div>
               <div className="sm:hidden shrink-0"><LocaleSwitcher /></div>

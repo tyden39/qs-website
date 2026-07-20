@@ -122,6 +122,8 @@ export function ProductListFilter({ items, labels }: { items: ProductFilterItem[
           <p className="m-0 text-[13px] text-muted leading-[1.6]">
             <a href="tel:+84909663350" className="hover:text-ink">(+84) 909.663.350</a>
             <br />
+            <a href="tel:+84922322338" className="hover:text-ink">(+84) 922.322.338</a>
+            <br />
             <a href="mailto:support@qstcnc.com" className="hover:text-ink">support@qstcnc.com</a>
           </p>
           <Link className="qs-btn qs-btn-sm mt-3.5" href="/contact">{labels.supportCta}</Link>

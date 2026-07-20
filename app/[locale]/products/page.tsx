@@ -140,6 +140,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       <section className="py-12 lg:py-16" id="list">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <ProductCategoryTabs
+            eyebrow={t("tabs.eyebrow")}
             tabs={[
               {
                 id: "controllers",

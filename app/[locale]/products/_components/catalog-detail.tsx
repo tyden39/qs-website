@@ -21,7 +21,6 @@ export async function CatalogDetail({
   locale: Locale;
 }) {
   const t = await getTranslations({ locale, namespace: "product.detailPage" });
-  const tc = await getTranslations({ locale, namespace: "product.card" });
 
   return (
     <>
@@ -52,21 +51,6 @@ export async function CatalogDetail({
               <p className="mt-6 text-[17px] leading-[1.75] text-[#c9c2b3] max-w-[68ch]">
                 {product.desc}
               </p>
-
-              <div className="mt-8 flex items-baseline gap-3">
-                <span className="font-mono text-[10px] tracking-[.18em] uppercase text-[#837b6c]">
-                  {t("priceLabel")}
-                </span>
-                {product.price ? (
-                  <span className="font-display text-[28px] font-semibold tracking-[-.02em] text-white">
-                    {product.price}
-                  </span>
-                ) : (
-                  <span className="font-display text-[22px] font-semibold tracking-[-.01em] text-gold-2">
-                    {tc("priceOnRequest")}
-                  </span>
-                )}
-              </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link className="qs-btn qs-btn-gold" href="/contact">

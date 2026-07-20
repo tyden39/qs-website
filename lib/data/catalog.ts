@@ -19,7 +19,6 @@ export type CatalogProductView = {
   name: string;
   tag: string;
   desc: string;
-  price: string | null;
   specs: CatalogSpec[];
   image: CatalogImage;
   features: CatalogFeatureView[];
@@ -82,7 +81,6 @@ function toView(p: CatalogProduct, locale: Locale): CatalogProductView {
     name: p.name,
     tag: en ? p.tagEn : p.tag,
     desc: en ? p.descEn : p.desc,
-    price: p.price,
     specs: en ? p.specs.map(localizeSpec) : p.specs,
     image: toImage(p.image, en),
     features: p.features.map((f) => ({

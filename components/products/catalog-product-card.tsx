@@ -53,14 +53,6 @@ export async function CatalogProductCard({
 
         <p className="mt-2.5 m-0 text-[13px] text-[#3a3a3a] leading-[1.65]">{product.desc}</p>
 
-        <div className="mt-4 font-mono text-[11px] tracking-[.08em] uppercase">
-          {product.price ? (
-            <span className="text-ink font-semibold">{product.price}</span>
-          ) : (
-            <span className="text-gold-1">{t("priceOnRequest")}</span>
-          )}
-        </div>
-
         <Link href={`/products/${product.slug}`} className="qs-link mt-auto pt-6 self-start">
           {t("viewDetails")} <span aria-hidden>→</span>
         </Link>

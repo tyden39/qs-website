@@ -56,6 +56,7 @@
       "empty": "No models match the current filters. Try clearing some."
     },
     "tabs": {
+      "eyebrow": "Catalogue",
       "controllers": {
         "label": "CNC Controllers"
       },
@@ -83,7 +84,6 @@
     "components": "Bundle components",
     "modelLabel": "Model",
     "parts": "parts",
-    "priceOnRequest": "Price on request",
     "specifications": "[ Specifications ]",
     "moreSpecs": "+{count} more specs"
   },
@@ -206,7 +206,6 @@
         "desc": "Side profile and installation dimensions."
       }
     },
-    "priceLabel": "Price",
     "specsLink": "View specs →",
     "featuresHeading": "[ Features ]",
     "catalogCtaBody": "QS engineers help you pick the right model, confirm compatibility with your existing CNC machine, and walk you through installation."

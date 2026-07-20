@@ -56,6 +56,7 @@
       "empty": "Không có model nào khớp bộ lọc. Hãy thử bỏ bớt điều kiện."
     },
     "tabs": {
+      "eyebrow": "Danh mục",
       "controllers": {
         "label": "Bộ điều khiển CNC"
       },
@@ -83,7 +84,6 @@
     "components": "Thành phần bộ sản phẩm",
     "modelLabel": "Model",
     "parts": "chi tiết",
-    "priceOnRequest": "Liên hệ báo giá",
     "specifications": "[ Thông số kỹ thuật ]",
     "moreSpecs": "+{count} thông số khác"
   },
@@ -169,8 +169,8 @@
         "desc": "Các màn hình và chức năng vận hành chính."
       },
       "machine": {
-        "tag": "Thực tế lắp trên máy cơ khí",
-        "desc": "Bộ điều khiển lắp đặt và vận hành thực tế trên máy cơ khí."
+        "tag": "Thực tế lắp trên máy",
+        "desc": "Bộ điều khiển lắp đặt và vận hành thực tế trên máy."
       }
     },
     "overviewPhotoComingSoon": "Hình ảnh đang được cập nhật",
@@ -206,7 +206,6 @@
         "desc": "Thiết kế mặt bên và kích thước lắp đặt."
       }
     },
-    "priceLabel": "Giá",
     "specsLink": "Xem thông số →",
     "featuresHeading": "[ Tính năng ]",
     "catalogCtaBody": "Kỹ sư QS hỗ trợ chọn model phù hợp, kiểm tra khả năng tương thích với máy CNC hiện có và hướng dẫn lắp đặt."

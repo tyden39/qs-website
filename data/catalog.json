@@ -1,0 +1,446 @@
+[
+  {
+    "slug": "micro-dnc-2d",
+    "category": "dnc",
+    "name": "Micro DNC 2D",
+    "tag": "Thiết bị truyền DNC · Màn hình màu 3.2\"",
+    "tagEn": "DNC transfer unit · 3.2\" colour display",
+    "desc": "Thiết bị truyền DNC giúp người vận hành nạp chương trình gia công vào máy CNC qua quy trình rút gọn, kèm mô phỏng đường chạy dao và chỉnh sửa chương trình ngay trên thiết bị mà không cần dùng máy tính.",
+    "descEn": "A DNC transfer unit that loads machining programs into a CNC machine through a shortened workflow, with tool-path simulation and on-device program editing — no computer required.",
+    "specs": [
+      {
+        "l": "Kích thước",
+        "v": "110 x 75 x 30 (mm)"
+      },
+      {
+        "l": "USB port",
+        "v": "2 port"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "12 VDC"
+      },
+      {
+        "l": "RS232 port",
+        "v": "1 port"
+      },
+      {
+        "l": "Vỏ hộp",
+        "v": "Aluminum"
+      },
+      {
+        "l": "Kích thước màn hình",
+        "v": "3.2 Inch"
+      },
+      {
+        "l": "Bộ nhớ",
+        "v": "4Gb"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/micro-dnc-2d.webp",
+      "w": 1400,
+      "h": 980,
+      "alt": "Thiết bị truyền DNC Micro DNC 2D",
+      "altEn": "Micro DNC 2D DNC transfer unit"
+    },
+    "features": [
+      {
+        "title": "Truyền DNC",
+        "titleEn": "DNC transfer",
+        "body": "Truyền chương trình gia công vào máy CNC với 3 bước: thiết lập thông số tốc độ (baudrate), lựa chọn chương trình gia công, kiểm tra và vận hành máy.",
+        "bodyEn": "Load a machining program into the CNC machine in three steps: set the baud rate, select the program, then verify and run the machine.",
+        "photo": {
+          "src": "/img/products/catalog/micro-dnc-2d-ui.webp",
+          "w": 1400,
+          "h": 1019,
+          "alt": "Giao diện truyền chương trình trên Micro DNC 2D",
+          "altEn": "Program transfer interface on the Micro DNC 2D"
+        }
+      },
+      {
+        "title": "Mô phỏng đường chạy dao",
+        "titleEn": "Tool-path simulation",
+        "body": "Micro DNC 2D cho phép người dùng kiểm tra biên dạng và đường chạy của dao cắt nhằm đảm bảo tính chính xác thông qua tính năng mô phỏng.",
+        "bodyEn": "The Micro DNC 2D lets the operator check the contour and cutter path to confirm accuracy before running, using the built-in simulation.",
+        "photo": {
+          "src": "/img/products/catalog/micro-dnc-2d-sim.webp",
+          "w": 1400,
+          "h": 980,
+          "alt": "Mô phỏng đường chạy dao trên Micro DNC 2D",
+          "altEn": "Tool-path simulation on the Micro DNC 2D"
+        }
+      },
+      {
+        "title": "Chỉnh sửa chương trình",
+        "titleEn": "Program editing",
+        "body": "Tăng hiệu quả công việc với tính năng chỉnh sửa chương trình trực tiếp trên thiết bị Micro DNC 2D mà không cần dùng đến máy tính.",
+        "bodyEn": "Edit programs directly on the Micro DNC 2D without reaching for a computer, cutting the turnaround on shop-floor corrections.",
+        "photo": {
+          "src": "/img/products/catalog/micro-dnc-2d-edit.webp",
+          "w": 1400,
+          "h": 792,
+          "alt": "Chỉnh sửa chương trình gia công trên Micro DNC 2D",
+          "altEn": "Editing a machining program on the Micro DNC 2D"
+        }
+      },
+      {
+        "title": "Quản lý dữ liệu thông qua mạng Wi-Fi",
+        "titleEn": "Wi-Fi data management",
+        "body": "Giảm thời gian di chuyển để nạp chương trình cho máy, quản lý và giám sát quá trình hoạt động của máy thông qua mạng Wi-Fi.",
+        "bodyEn": "Cut the walking time spent loading programs, and manage and monitor machine activity over the Wi-Fi network.",
+        "photo": {
+          "src": "/img/products/catalog/micro-dnc-2d-wifi.webp",
+          "w": 1400,
+          "h": 782,
+          "alt": "Quản lý dữ liệu qua Wi-Fi với Micro DNC 2D",
+          "altEn": "Wi-Fi data management with the Micro DNC 2D"
+        }
+      }
+    ],
+    "sourceUrl": "https://qstcnc.com/san-pham/thiet-bi-truyen-dnc-micro-dnc-2d"
+  },
+  {
+    "slug": "micro-dnc-3a",
+    "category": "dnc",
+    "name": "Micro DNC 3A",
+    "tag": "Thiết bị truyền DNC · Màn hình mono 2.5\"",
+    "tagEn": "DNC transfer unit · 2.5\" mono display",
+    "desc": "Thiết bị hỗ trợ người vận hành truyền chương trình gia công vào máy CNC thông qua cổng giao tiếp RS232. Có thể thay thế cho phương pháp truyền dữ liệu truyền thống bằng máy tính.",
+    "descEn": "A transfer unit that feeds machining programs into a CNC machine over the RS232 port, replacing the traditional computer-based data transfer workflow.",
+    "specs": [
+      {
+        "l": "Kích thước",
+        "v": "110 x 75 x 30 (mm)"
+      },
+      {
+        "l": "USB port",
+        "v": "2 port"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "12 VDC"
+      },
+      {
+        "l": "RS232 port",
+        "v": "1 port"
+      },
+      {
+        "l": "Vỏ hộp",
+        "v": "Nhựa ABS"
+      },
+      {
+        "l": "Kích thước màn hình",
+        "v": "2.5 Inch MONO"
+      },
+      {
+        "l": "Bộ nhớ",
+        "v": "4Gb"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/micro-dnc-3a.webp",
+      "w": 1400,
+      "h": 963,
+      "alt": "Thiết bị truyền DNC Micro DNC 3A",
+      "altEn": "Micro DNC 3A DNC transfer unit"
+    },
+    "features": [
+      {
+        "title": "Truyền DNC",
+        "titleEn": "DNC transfer",
+        "body": "Truyền chương trình gia công qua 3 bước: cài baudrate, lựa chọn chương trình, bắt đầu chạy.",
+        "bodyEn": "Transfer a machining program in three steps: set the baud rate, select the program, start the run."
+      },
+      {
+        "title": "Read from CNC",
+        "titleEn": "Read from CNC",
+        "body": "Lấy chương trình gia công và thông số máy, lưu trữ trên thiết bị.",
+        "bodyEn": "Pull machining programs and machine parameters off the control and store them on the unit."
+      },
+      {
+        "title": "Wi-Fi",
+        "titleEn": "Wi-Fi",
+        "body": "Quản lý dữ liệu và giám sát quá trình hoạt động của máy.",
+        "bodyEn": "Manage program data and monitor machine activity over Wi-Fi."
+      }
+    ],
+    "sourceUrl": "https://qstcnc.com/san-pham/micro-dnc-3a"
+  },
+  {
+    "slug": "io-link-32",
+    "category": "accessory",
+    "name": "I/O Link 32_V1_10722",
+    "tag": "Board mở rộng I/O · 32 in / 32 out",
+    "tagEn": "I/O expansion board · 32 in / 32 out",
+    "desc": "Board mạch mở rộng số cổng input / output cho bộ điều khiển CNC.",
+    "descEn": "An expansion board that adds input / output ports to a CNC controller.",
+    "specs": [
+      {
+        "l": "Kích thước",
+        "v": "150 x 90 (mm)"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "24 -28 VDC"
+      },
+      {
+        "l": "Số cổng Input",
+        "v": "32"
+      },
+      {
+        "l": "Số cổng Output",
+        "v": "32"
+      },
+      {
+        "l": "Số cổng COM đầu vào",
+        "v": "4 port"
+      },
+      {
+        "l": "Số cổng COM đầu ra",
+        "v": "4 port"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/io-link-32.webp",
+      "w": 1400,
+      "h": 792,
+      "alt": "Board I/O Link 32_V1_10722",
+      "altEn": "I/O Link 32_V1_10722 board"
+    },
+    "features": [],
+    "sourceUrl": "https://qstcnc.com/san-pham/i-o-link32_v1_10722-board"
+  },
+  {
+    "slug": "io-link-rltr",
+    "category": "accessory",
+    "name": "I/O Link RLTR_07_V10723",
+    "tag": "Board mở rộng I/O · Kiêm chế độ PLC",
+    "tagEn": "I/O expansion board · Doubles as PLC",
+    "desc": "Board mạch mở rộng cổng input/output cho bộ điều khiển CNC. Có thể chuyển đổi và sử dụng như một thiết bị PLC.",
+    "descEn": "An input/output expansion board for CNC controllers that can also be switched over and used as a standalone PLC.",
+    "specs": [
+      {
+        "l": "Kích thước",
+        "v": "90 x 86 (mm)"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "24 VDC"
+      },
+      {
+        "l": "Số cổng Input",
+        "v": "8"
+      },
+      {
+        "l": "Số cổng Output",
+        "v": "8"
+      },
+      {
+        "l": "Cổng giao tiếp",
+        "v": "RS485"
+      },
+      {
+        "l": "Chế độ I/O link",
+        "v": "Có"
+      },
+      {
+        "l": "Chế độ PLC",
+        "v": "Có"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/io-link-rltr.webp",
+      "w": 1400,
+      "h": 1279,
+      "alt": "Board I/O Link RLTR_07_V10723",
+      "altEn": "I/O Link RLTR_07_V10723 board"
+    },
+    "features": [],
+    "sourceUrl": "https://qstcnc.com/san-pham/i-o-link-rltr_07_v10723-board"
+  },
+  {
+    "slug": "pid-v1-10722",
+    "category": "accessory",
+    "name": "PID_V1_10722",
+    "tag": "Board chuyển đổi Digital → Analog",
+    "tagEn": "Digital → analog converter board",
+    "desc": "Board mạch hỗ trợ chuyển đổi tín hiệu Digital từ bộ điều khiển sang tín hiệu Analog để điều khiển các dòng driver servo đời cũ.",
+    "descEn": "A board that converts digital signals from the controller into analog signals, so older-generation servo drives can be driven from a modern control.",
+    "specs": [
+      {
+        "l": "Kích thước",
+        "v": "155 x 90 (mm)"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "24 -28 VDC"
+      },
+      {
+        "l": "Cổng giao tiếp",
+        "v": "RS485"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/pid-board.webp",
+      "w": 1400,
+      "h": 792,
+      "alt": "Board PID_V1_10722",
+      "altEn": "PID_V1_10722 board"
+    },
+    "features": [],
+    "sourceUrl": "https://qstcnc.com/san-pham/pid-v1-10722-board"
+  },
+  {
+    "slug": "dac-12fcv1-1222",
+    "category": "accessory",
+    "name": "DAC 12FCV1-1222",
+    "tag": "Board Analog · Điều khiển tốc độ trục chính",
+    "tagEn": "Analog board · Spindle speed control",
+    "desc": "Board mạch chuyển đổi tín hiệu Digital đầu vào của bộ điều khiển sang tín hiệu đầu ra Analog để điều khiển tốc độ của trục chính và các thiết bị khác sử dụng tín hiệu Analog.",
+    "descEn": "A board that converts the controller's digital input signals into analog outputs, driving spindle speed and any other equipment that takes an analog reference.",
+    "specs": [
+      {
+        "l": "Model",
+        "v": "DAC 12FCV1-1222"
+      },
+      {
+        "l": "Kích thước",
+        "v": "90 x 86 (mm)"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "24 -28 VDC"
+      },
+      {
+        "l": "Số cổng Input",
+        "v": "12"
+      },
+      {
+        "l": "Tín hiệu đầu ra Analog",
+        "v": "0V – 10V / -10V – 10V / 4mA – 20mA"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/dac-board.webp",
+      "w": 1400,
+      "h": 933,
+      "alt": "Board DAC 12FCV1-1222",
+      "altEn": "DAC 12FCV1-1222 board"
+    },
+    "features": [],
+    "sourceUrl": "https://qstcnc.com/san-pham/dac-12fcv1-1222-board"
+  },
+  {
+    "slug": "plc-qs-mn-v1-009-22",
+    "category": "accessory",
+    "name": "PLC_QS_MN_V1_009_22",
+    "tag": "PLC nhỏ gọn · Ngõ ra Transistor",
+    "tagEn": "Compact PLC · Transistor output",
+    "desc": "Thiết bị PLC với thiết kế nhỏ gọn, dễ dàng sử dụng, phù hợp cho các ứng dụng đơn giản với ngõ ra tín hiệu là Transistor.",
+    "descEn": "A compact, straightforward PLC suited to simple applications, with transistor signal outputs.",
+    "specs": [
+      {
+        "l": "Kích thước",
+        "v": "90 x 86 (mm)"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "24 VDC"
+      },
+      {
+        "l": "Số cổng Input",
+        "v": "10"
+      },
+      {
+        "l": "Số cổng Output",
+        "v": "4"
+      },
+      {
+        "l": "Cổng giao tiếp",
+        "v": "RS232"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/plc-board.webp",
+      "w": 1400,
+      "h": 788,
+      "alt": "Board PLC_QS_MN_V1_009_22",
+      "altEn": "PLC_QS_MN_V1_009_22 board"
+    },
+    "features": [],
+    "sourceUrl": "https://qstcnc.com/san-pham/plc-qs-mn-v1-009-22-board"
+  },
+  {
+    "slug": "rs232-cable",
+    "category": "accessory",
+    "name": "Dây cáp RS232 kết nối máy CNC",
+    "tag": "Cáp kết nối · DB9(F) – DB25(M)",
+    "tagEn": "Connection cable · DB9(F) – DB25(M)",
+    "desc": "Dây cáp DB9(F) – DB25(M) dùng để kết nối thiết bị truyền Micro DNC với cổng giao tiếp RS232 trên máy CNC.",
+    "descEn": "A DB9(F) – DB25(M) cable that connects a Micro DNC transfer unit to the RS232 port on a CNC machine.",
+    "specs": [
+      {
+        "l": "Đầu nối",
+        "v": "DB9 (Female) – DB25 (Male)"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/rs232-cable.webp",
+      "w": 1400,
+      "h": 781,
+      "alt": "Dây cáp RS232 kết nối máy CNC",
+      "altEn": "RS232 cable for connecting a CNC machine"
+    },
+    "features": [],
+    "sourceUrl": "https://qstcnc.com/san-pham/rs232-cable"
+  },
+  {
+    "slug": "power-adapter-12v-1a",
+    "category": "accessory",
+    "name": "Adapter nguồn DC 12V-1A",
+    "tag": "Nguồn DC · 220 VAC → 12 VDC",
+    "tagEn": "DC power supply · 220 VAC → 12 VDC",
+    "desc": "Thiết bị chuyển đổi điện áp xoay chiều AC thành điện áp một chiều 12 VDC cho các thiết bị thông dụng như board mạch điều khiển, module điều khiển và các thiết bị ngoại vi. Sản phẩm được thiết kế chắc chắn, vỏ nhựa cứng bền bỉ.",
+    "descEn": "Converts AC mains into 12 VDC for common equipment such as controller boards, control modules and peripherals. Solidly built, in a hard-wearing rigid plastic housing.",
+    "specs": [
+      {
+        "l": "Kích thước",
+        "v": "70 x 55 x 35 (mm)"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "220 VAC"
+      },
+      {
+        "l": "Điện áp đầu ra",
+        "v": "12 VDC"
+      },
+      {
+        "l": "Dòng đầu ra",
+        "v": "1 A"
+      },
+      {
+        "l": "Chiều dài cáp",
+        "v": "1,5 m"
+      },
+      {
+        "l": "Cổng kết nối",
+        "v": "Jack DC 5.5 x 2.1mm"
+      },
+      {
+        "l": "Khối lượng",
+        "v": "68 gram"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/power-adapter-12v.webp",
+      "w": 996,
+      "h": 1000,
+      "alt": "Adapter nguồn DC 12V-1A",
+      "altEn": "12V-1A DC power adapter"
+    },
+    "features": [],
+    "sourceUrl": "https://qstcnc.com/san-pham/12-voltage-power-adapter-1a"
+  }
+]

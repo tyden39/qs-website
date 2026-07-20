@@ -1,6 +1,11 @@
 # Trang admin nội bộ chỉnh sửa & push nội dung website
 
-Status: DRAFT — chờ duyệt để bắt đầu Phase 0
+Status: Phase 0 DONE (verified) — tiếp theo: Phase 1
+
+## Tiến độ
+- **Phase 0 ✅** Tách data→JSON xong. `data/{products,hero-triptych,machines,news,applications,services,downloads,catalog}.json`;
+  các `data/*.ts` giờ chỉ giữ type + re-export JSON. Build xanh, 116 trang HTML không đổi nội dung,
+  search-index byte-identical, i18n + tsc pass. Bao gồm cả `catalog.ts` (dữ liệu trang Products).
 
 ## Mục tiêu
 

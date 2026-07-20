@@ -1,3 +1,7 @@
+// Service data now lives in `services.json` (edited by the internal admin app).
+// This module keeps the types and re-exports the JSON so consumers are unchanged.
+import servicesData from "./services.json";
+
 export type ServicePackage = {
   name: string;
   title: string;
@@ -41,106 +45,4 @@ export type Service = {
   cta: { title: string; desc: string };
 };
 
-export const services: Service[] = [
-  {
-    slug: "retrofit",
-    number: "02 of 06",
-    name: "Retrofit",
-    hero: {
-      line1: "Retrofit máy CNC",
-      emphasis: "máy mới",
-      line2: "cũ — biến thành",
-    },
-    lede: "Thay thế controller Fanuc/Siemens/Mitsubishi đời cũ bằng QS F-series hoặc Astro. Giữ nguyên cơ khí, motor, hộp điện — chỉ thay phần điện tử và HMI. Tiết kiệm 70–80% so với mua máy mới, ROI điển hình dưới 18 tháng.",
-    stats: [
-      ["Đã retrofit", "240+ máy"],
-      ["Lead time", "14 ngày"],
-      ["Bảo hành", "24 tháng"],
-    ],
-    process: [
-      { num: 1, day: "Day 0",     title: "Khảo sát hiện trường",   desc: "FAE đến tận xưởng đo cơ khí, kiểm tra motor, hộp điện, lập danh mục linh kiện cần giữ và thay.", duration: "Miễn phí · 1 buổi", active: true },
-      { num: 2, day: "Day 1–3",   title: "Đề xuất & báo giá",      desc: "Báo giá chi tiết theo BOM, sơ đồ wiring đề xuất, lịch triển khai, dự kiến downtime của máy.",     duration: "3 ngày làm việc", active: true },
-      { num: 3, day: "Day 4–8",   title: "Chuẩn bị & lập trình",   desc: "Chuẩn bị controller, viết firmware tuỳ biến cho máy, làm tủ điện tại xưởng QS — máy của bạn vẫn chạy.", duration: "5 ngày song song", active: true },
-      { num: 4, day: "Day 9–11",  title: "Lắp đặt on-site",        desc: "Tháo controller cũ, lắp QS, đấu wiring, test trục, hiệu chuẩn. 2 kỹ sư ở tại xưởng cho đến khi xong.", duration: "Downtime 3 ngày" },
-      { num: 5, day: "Day 12–14", title: "Đào tạo & nghiệm thu",   desc: "Đào tạo vận hành viên, chạy 12 sản phẩm thật, nghiệm thu theo checklist QS. Bàn giao kèm 24 tháng bảo hành.", duration: "3 ngày · 4 buổi" },
-    ],
-    includesIntro: [
-      "QS đã chuẩn hoá quy trình retrofit qua 240+ dự án. Bạn sẽ nhận một gói trọn vẹn — không lo thiếu linh kiện hay phải tự tìm thợ phụ. Các hạng mục dưới đây là tiêu chuẩn; tuỳ máy có thể bổ sung.",
-      "Với máy đặc thù (5 trục, máy uốn, máy chuyên dụng), QS có gói riêng — vui lòng đặt khảo sát để báo giá chính xác.",
-    ],
-    includes: [
-      { has: true,  name: "Controller QS F-series hoặc Astro",  note: "Tuỳ chọn theo nhu cầu trục & độ chính xác", tag: "Phần cứng" },
-      { has: true,  name: "Servo drive + cable + connectors",   note: "Tương thích motor hiện tại của bạn",        tag: "Phần cứng" },
-      { has: true,  name: "Tủ điện gia công lại",                note: "Layout chuẩn IEC, tem nhãn tiếng Việt",     tag: "Phần cứng" },
-      { has: true,  name: "Firmware tuỳ biến cho máy",           note: "Macro G-code, profile gia công riêng",     tag: "Phần mềm" },
-      { has: true,  name: "Wiring diagram & bản vẽ tủ",          note: "PDF tiếng Việt + AutoCAD source",          tag: "Tài liệu" },
-      { has: true,  name: "Đào tạo 4 buổi cho vận hành viên",    note: "Có cấp chứng chỉ QS",                      tag: "Đào tạo" },
-      { has: true,  name: "Bảo hành 24 tháng phần cứng",         note: "+ firmware update trọn đời",               tag: "Bảo hành" },
-      { has: false, name: "Thay motor & vít me",                 note: "Báo giá riêng nếu cần",                    tag: "Tuỳ chọn" },
-      { has: false, name: "Thay spindle & ATC",                  note: "Báo giá riêng nếu cần",                    tag: "Tuỳ chọn" },
-    ],
-    packages: [
-      {
-        name: "[ Pkg · Basic ]",
-        title: "Phay 3 trục cũ",
-        price: "78 tr",
-        priceNote: "Per máy · F54 controller · Đã VAT",
-        features: [
-          "Controller QS F54 · 5\" display",
-          "3 servo drive cơ bản",
-          "Tủ điện chuẩn",
-          "Firmware standard",
-          "Đào tạo 2 buổi",
-          "Bảo hành 12 tháng",
-          "Lead time 10 ngày",
-        ],
-        cta: "Báo giá cụ thể →",
-      },
-      {
-        name: "[ Pkg · Pro · phổ biến nhất ]",
-        title: "Phay 4–6 trục",
-        price: "185 tr",
-        priceNote: "Per máy · F86 / Astro 6AH · Đã VAT",
-        features: [
-          "Controller QS F86 hoặc Astro 6AH",
-          "6 servo drive vòng kín",
-          "Tủ điện custom + IP54",
-          "Firmware tuỳ biến",
-          "EtherCAT bus + MES gateway",
-          "Đào tạo 4 buổi + chứng chỉ",
-          "Bảo hành 24 tháng",
-          "Lead time 14 ngày",
-        ],
-        cta: "Đặt khảo sát →",
-        featured: true,
-      },
-      {
-        name: "[ Pkg · Premium ]",
-        title: "5 trục / khuôn mẫu",
-        price: "320 tr+",
-        priceNote: "Per máy · Astro 10i · Báo giá riêng",
-        features: [
-          "Controller Astro 10i flagship",
-          "Servo Yaskawa Σ-7 vòng kín",
-          "Tủ điện công nghiệp đầy đủ",
-          "RTCP, Look-ahead nâng cao",
-          "EtherCAT + MES integration",
-          "Đào tạo 6 buổi tại QS",
-          "SLA Premium 24/7",
-          "Lead time 21 ngày",
-        ],
-        cta: "Báo giá cụ thể →",
-      },
-    ],
-    faqs: [
-      { q: "Máy đã 15 năm tuổi có retrofit được không?", a: "Được, nếu cơ khí (đường ray, vít me) còn dung sai chấp nhận được. QS sẽ đo trong buổi khảo sát và tư vấn — đôi khi cần thay vít me trước khi retrofit để có ý nghĩa." },
-      { q: "Có giữ được chương trình G-code cũ không?",   a: "Có. QS hỗ trợ post-processor cho hầu hết định dạng cũ (Fanuc, Siemens 840D), chuyển đổi tự động. Macro phức tạp có thể cần điều chỉnh nhỏ — đội kỹ sư hỗ trợ miễn phí trong 30 ngày." },
-      { q: "Downtime thực tế là bao lâu?",                a: "Trung bình 3 ngày làm việc. Nếu máy là điểm nghẽn của line, QS có thể chia ca làm tối + cuối tuần để rút xuống 36–48h, có phụ phí 15%." },
-      { q: "Sau retrofit có dùng Mastercam như cũ được không?", a: "Có. QS cấp post-processor Mastercam (từ 2023) miễn phí. Workflow của lập trình viên CAM hầu như không đổi — chỉ thay file .pst." },
-    ],
-    cta: {
-      title: "Đặt khảo sát hiện trường — miễn phí, không ràng buộc",
-      desc: "FAE QS sẽ đến tận xưởng trong vòng 5 ngày làm việc. Bạn nhận lại báo giá chi tiết và kế hoạch downtime cụ thể trong 3 ngày sau đó.",
-    },
-  },
-];
+export const services = servicesData as unknown as Service[];

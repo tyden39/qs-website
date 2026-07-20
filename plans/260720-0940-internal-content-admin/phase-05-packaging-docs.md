@@ -1,25 +1,30 @@
-# Phase 5 — Đóng gói `yarn admin` + tài liệu
+# Phase 5 — Đóng gói `electron-builder` + tài liệu
 
 ## Files
-- Sửa: `package.json` scripts:
-  - `admin`: build client nếu `admin/dist` thiếu/cũ → chạy server → mở trình duyệt.
-  - `admin:dev`: Vite + server song song (dev).
-  - `admin:build`: chỉ build client.
-- Tạo: `scripts/admin/open-browser.ts` (mở `http://127.0.0.1:<port>` cross-platform).
-- Tạo: `docs/admin-guide.md` (HDSD cho người dùng cuối, tiếng Việt).
-- Sửa: `README.md` (mục "Chỉnh sửa nội dung bằng trang admin").
+- Sửa: `admin/package.json` — scripts + config `electron-builder` (appId, productName, targets).
+- Tạo: `admin/electron-builder.yml` (hoặc field `build` trong package.json): targets
+  Linux `AppImage`+`deb`, Windows `nsis`, Mac `dmg`; icon; `asar` on.
+- Tạo: `admin/build/icon.*` (icon app).
+- Tạo: `docs/admin-guide.md` (HDSD tiếng Việt cho người dùng cuối).
+- Sửa: `README.md` (mục "Chỉnh sửa nội dung bằng app admin").
 
-## `yarn admin` (trải nghiệm người dùng cuối)
-1. Kiểm tra `admin/dist` tồn tại; nếu không → `admin:build` tự chạy.
-2. Kiểm tra git: có `origin`, push được (`git ls-remote`) → nếu lỗi, in hướng dẫn cấu hình SSH/token.
-3. Chạy server (bind 127.0.0.1), tự mở trình duyệt.
-4. Người dùng sửa → Publish → push → Cloudflare build.
+## Scripts (trong `admin/`)
+- `dev`: `electron-vite dev` (HMR main+renderer).
+- `build`: `electron-vite build`.
+- `dist`: `electron-vite build && electron-builder` → xuất installer trong `admin/release/`.
+
+## Trải nghiệm người dùng cuối
+1. IT/người dùng clone repo qs-website 1 lần (git + SSH đã cấu hình để push).
+2. Cài app: tải installer (`.exe`/`.dmg`/`.AppImage`) → cài như phần mềm thường.
+3. Mở app → lần đầu chọn thư mục qs-website → app nhớ lại.
+4. Sửa nội dung → nút **Publish** → app commit + push → Cloudflare tự build & deploy (~vài phút).
 
 ## docs/admin-guide.md (nội dung)
-- Cài 1 lần: cài Node LTS, `git clone`, `yarn install`, cấu hình quyền push GitHub (SSH key hoặc HTTPS).
-- Dùng hằng ngày: `yarn admin` → sửa → nút Publish → chờ ~vài phút site cập nhật.
-- Xử lý sự cố: git chưa cấu hình, port bận, publish lỗi do conflict (cần người kỹ thuật).
+- Chuẩn bị: clone repo, cấu hình quyền push GitHub (SSH key hoặc git credential), cài app.
+- Dùng hằng ngày: mở app → chọn/đã nhớ folder → sửa → Publish → chờ site cập nhật.
+- Xử lý sự cố: git chưa cấu hình push, publish lỗi do conflict (cần người kỹ thuật kéo/rebase thủ công),
+  chọn nhầm thư mục không hợp lệ.
 
 ## Validation
-- Trên máy sạch (Node + repo + quyền git): `yarn install` → `yarn admin` → sửa → Publish → commit lên GitHub, Cloudflare deploy.
-- `admin/` KHÔNG bị đưa vào `out/` khi `yarn build` site (kiểm tra `out/` không chứa file admin).
+- `admin: yarn dist` xuất installer; cài trên máy sạch → mở → chọn folder repo → sửa → Publish → commit lên GitHub.
+- Build site (`yarn build` ở repo gốc) KHÔNG kéo `admin/` vào `out/` (admin là workspace tách, ngoài phạm vi Next).

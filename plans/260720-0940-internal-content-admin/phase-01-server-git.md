@@ -1,30 +1,37 @@
-# Phase 1 — Server admin + Git
+# Phase 1 — Electron main + IPC + Git
 
-Server Node local: API đọc/ghi nội dung + thao tác git. Chạy qua `tsx` (đã có dep).
+Main process của app: chọn thư mục qs-website, đọc/ghi nội dung, thao tác git. Giao tiếp UI qua IPC (không HTTP).
 
 ## Files
-- Tạo: `scripts/admin/server.ts` (entry Hono + @hono/node-server).
-- Tạo: `scripts/admin/lib/fs-content.ts` (đọc/ghi JSON atomic + validate zod).
-- Tạo: `scripts/admin/lib/git.ts` (status, pull --rebase, add, commit, push qua `child_process`).
-- Tạo: `scripts/admin/schemas/*.ts` (zod schema cho từng loại; tái dùng type từ `data/*.ts`).
-- Sửa: `package.json` scripts + deps (`hono`, `@hono/node-server`).
+- Tạo: `admin/` workspace — `package.json` riêng, `electron.vite.config.ts`, `tsconfig`.
+- Tạo: `admin/src/main/index.ts` (entry Electron: tạo BrowserWindow, đăng ký IPC handlers).
+- Tạo: `admin/src/main/content.ts` (đọc/ghi JSON atomic + validate zod; thuần, không phụ thuộc Electron).
+- Tạo: `admin/src/main/git.ts` (status, pull --rebase, add, commit, push qua `child_process`; thuần).
+- Tạo: `admin/src/main/workspace.ts` (chọn/nhớ thư mục repo, kiểm tra hợp lệ).
+- Tạo: `admin/src/main/schemas/*.ts` (zod schema mỗi loại nội dung).
+- Tạo: `admin/src/preload/index.ts` (contextBridge → `window.api`).
 
-## API (REST, JSON)
-- `GET  /api/content/:type` → trả JSON hiện tại.
-- `PUT  /api/content/:type` → validate zod → ghi atomic (temp file → rename).
-- `GET  /api/messages/:locale/:file` , `PUT` tương ứng.
-- `POST /api/assets` (multipart) → lưu vào `public/<dir>/` theo loại, trả path.
-- `GET  /api/git/status` → dirty files, ahead/behind, remote ok?
-- `POST /api/git/publish` `{message}` → pull --rebase → add nội dung/asset đã đổi → commit → push; trả hash.
+## Chọn & kiểm tra workspace
+- Lần đầu: `dialog.showOpenDialog` chọn thư mục; lưu path vào `app.getPath('userData')/config.json`.
+- Kiểm tra hợp lệ: có `data/`, `messages/`, `.git/`, `package.json` name = `qs-shop` → nếu không, báo lỗi.
+- Kiểm tra git: `git remote get-url origin` + `git ls-remote` → nếu fail, cảnh báo "chưa cấu hình quyền push".
+
+## IPC channels (đều async, trả `{ok, data|error}`)
+- `workspace:pick`, `workspace:current`
+- `content:read` (type) , `content:write` (type, data) — validate zod trước khi ghi
+- `messages:read` (locale, file) , `messages:write`
+- `asset:list` (dir) , `asset:import` (dir, sourcePath|bytes) → copy vào `public/<dir>/`, trả path
+- `git:status` → dirty files, ahead/behind, remote ok
+- `git:publish` (message) → pull --rebase → add nội dung/asset đã đổi → commit → push; trả hash
 
 ## Quy tắc an toàn
-- Chỉ cho ghi trong whitelist đường dẫn: `data/`, `messages/`, `public/img/`, `public/home/`, `public/downloads/`.
-- Chặn path traversal (`..`), chuẩn hoá + kiểm tra prefix.
-- Ghi atomic; validate zod trước khi ghi, lỗi → 400 kèm chi tiết field.
-- Git: kiểm tra `git remote get-url origin` + `git ls-remote` lúc khởi động; nếu fail → cảnh báo rõ (chưa cấu hình SSH/quyền).
-- Publish: nếu `git pull --rebase` conflict → abort rebase, trả lỗi "cần xử lý thủ công", KHÔNG tự resolve.
-- Chỉ bind `127.0.0.1` (không mở ra LAN).
+- `contextIsolation: true`, `nodeIntegration: false`, `sandbox` ở renderer; chỉ preload expose API tối thiểu.
+- Ghi chỉ trong whitelist đường dẫn *bên trong workspace*: `data/`, `messages/`, `public/img/`, `public/home/`, `public/downloads/`.
+  Chuẩn hoá path + kiểm tra prefix để chặn traversal (`..`, symlink ra ngoài).
+- Ghi atomic (temp → rename); validate zod trước, lỗi → trả field chi tiết.
+- Publish: `git pull --rebase` conflict → abort, trả lỗi "cần xử lý thủ công", KHÔNG tự resolve.
 
 ## Validation
-- `curl` PUT 1 product hợp lệ → file đổi; PUT sai schema → 400.
-- `POST /api/git/publish` trên thay đổi test → commit + push, hash trả về khớp `git log`.
+- Chạy `admin:dev`, chọn folder repo → `content:read('products')` trả JSON đúng.
+- `content:write` data hợp lệ → file đổi; data sai schema → trả lỗi, KHÔNG ghi.
+- `git:publish` trên thay đổi test → commit + push, hash khớp `git log`.

@@ -3,9 +3,9 @@
 Form theo schema cho từng loại data (đọc/ghi `data/*.json` qua API Phase 1).
 
 ## Files
-- Tạo: `admin/src/editors/products.tsx`, `machines.tsx`, `news.tsx`, `applications.tsx`, `services.tsx`, `downloads.tsx`.
-- Tạo: `admin/src/components/field-*.tsx` (text, textarea, số, select union, mảng lồng nhau, ảnh, song ngữ vi/en).
-- Dùng lại zod schema từ `scripts/admin/schemas/*` (chia sẻ type).
+- Tạo: `admin/src/renderer/editors/products.tsx`, `machines.tsx`, `news.tsx`, `applications.tsx`, `services.tsx`, `downloads.tsx`.
+- Tạo: `admin/src/renderer/components/field-*.tsx` (text, textarea, số, select union, mảng lồng nhau, ảnh, song ngữ vi/en).
+- Dùng lại zod schema từ `admin/src/main/schemas/*` (chia sẻ type qua d.ts).
 
 ## Yêu cầu từng editor
 - Danh sách bản ghi (theo `slug`) → chọn để sửa; thêm/xoá/nhân bản; sắp xếp thứ tự nếu UI cần.

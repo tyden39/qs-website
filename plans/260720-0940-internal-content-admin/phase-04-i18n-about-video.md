@@ -3,10 +3,10 @@
 Sửa `messages/{vi,en}/*.json`. Hybrid: form riêng cho about/home, editor tổng quát cho phần còn lại.
 
 ## Files
-- Tạo: `admin/src/editors/about.tsx` (form theo cấu trúc `about.json`: hero, story, missionVision, values[]...).
-- Tạo: `admin/src/editors/i18n.tsx` (editor key-value/tree tổng quát cho mọi file messages).
-- Tạo: `admin/src/editors/video.tsx` (showreel: mảng `home.showreel.videos` + YouTube ID nếu có; và video sản phẩm liên kết Phase 3).
-- Tạo: `admin/src/components/locale-tabs.tsx` (chuyển vi/en, hiển thị song song để dịch).
+- Tạo: `admin/src/renderer/editors/about.tsx` (form theo cấu trúc `about.json`: hero, story, missionVision, values[]...).
+- Tạo: `admin/src/renderer/editors/i18n.tsx` (editor key-value/tree tổng quát cho mọi file messages).
+- Tạo: `admin/src/renderer/editors/video.tsx` (showreel: mảng `home.showreel.videos` + YouTube ID nếu có; và video sản phẩm liên kết Phase 3).
+- Tạo: `admin/src/renderer/components/locale-tabs.tsx` (chuyển vi/en, hiển thị song song để dịch).
 
 ## Yêu cầu
 - **About**: form khớp `about.json` (đã khảo sát: hero/story/missionVision/values items). Sửa vi và en cạnh nhau.

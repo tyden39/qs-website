@@ -56,7 +56,12 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         <div className="qs-glow" style={{ top: "-140px", right: "18%", width: "420px", height: "420px" }} aria-hidden="true"></div>
         <div className="relative qs-wrap-wide py-16 lg:py-24 grid lg:grid-cols-[minmax(400px,1fr)_1.35fr] gap-12 lg:gap-16 items-center">
           <Reveal>
-            <h1 className="qs-h1 text-white">{t("hero.heading")}</h1>
+            <h1 className="qs-h1 text-white">
+              <span className="block">
+                <em className="not-italic font-semibold qs-gold-shimmer">{t("hero.heading1")}</em>
+              </span>
+              <span className="block">{t("hero.heading2")}</span>
+            </h1>
             <p className="text-[#a8a499] text-base leading-[1.7] mt-6 max-w-[54ch]">{t("hero.lede")}</p>
           </Reveal>
           <Reveal delay={120}>

@@ -6,8 +6,9 @@
   "hero": {
     "eyebrow": "CNC Machines · Assembled in Vietnam",
     "model": "QS VMC-850",
-    "heading": "A CNC machining center built for Vietnamese workshops",
-    "lede": "Cast-iron frame, C3 ball screws, BT40 spindle — driven by the Astro 10i that QS designs and writes firmware for. One point of contact for the machine, electrics and software.",
+    "heading1": "QS TECHNOLOGY",
+    "heading2": "MACHINE BUILDING SOLUTIONS",
+    "lede": "QS Technology delivers CNC machine building solutions, from consulting and design through to manufacturing and installation. With full command of the technology and years of CNC experience, we build CNC systems that hold high accuracy, run reliably and maximise throughput.",
     "ctaQuote": "Request a quote",
     "ctaSpecs": "View specifications",
     "droLabel": "Axis travel",
@@ -16,22 +17,56 @@
     "diagramCaption": "Live machining at the QS workshop",
     "legendLabel": "Key functions",
     "callouts": [
-      { "t": "BT40 spindle", "d": "12,000 rpm · 11 kW — mills steel, aluminium, copper." },
-      { "t": "High-pressure coolant", "d": "Directional nozzle, 8-bar pump — keeps the tool cool on deep cuts." },
-      { "t": "C3 ball screws", "d": "All three axes, ±0.005 mm positioning." },
-      { "t": "Workholding zone", "d": "Vise and T-slot clamps, quick changeover between batches." },
-      { "t": "1,000 × 500 table", "d": "Five 18 mm T-slots, 500 kg load capacity." }
+      {
+        "t": "BT40 spindle",
+        "d": "12,000 rpm · 11 kW — mills steel, aluminium, copper."
+      },
+      {
+        "t": "High-pressure coolant",
+        "d": "Directional nozzle, 8-bar pump — keeps the tool cool on deep cuts."
+      },
+      {
+        "t": "C3 ball screws",
+        "d": "All three axes, ±0.005 mm positioning."
+      },
+      {
+        "t": "Workholding zone",
+        "d": "Vise and T-slot clamps, quick changeover between batches."
+      },
+      {
+        "t": "1,000 × 500 table",
+        "d": "Five 18 mm T-slots, 500 kg load capacity."
+      }
     ]
   },
-  "ticker": ["3-Axis CNC Milling", "BT40 · 12,000 rpm", "±0.005 mm positioning", "Astro 10i inside", "Assembled in Vietnam", "24-month warranty"],
+  "ticker": [
+    "3-Axis CNC Milling",
+    "BT40 · 12,000 rpm",
+    "±0.005 mm positioning",
+    "Astro 10i inside",
+    "Assembled in Vietnam",
+    "24-month warranty"
+  ],
   "stats": {
     "eyebrow": "Machining capability",
     "heading": "Let the numbers speak",
     "items": [
-      { "suffix": ",000 rpm", "label": "Spindle speed" },
-      { "suffix": " tools", "label": "Tool magazine" },
-      { "suffix": " m/min", "label": "Rapid traverse X/Y" },
-      { "suffix": " µm", "label": "Positioning accuracy" }
+      {
+        "suffix": ",000 rpm",
+        "label": "Spindle speed"
+      },
+      {
+        "suffix": " tools",
+        "label": "Tool magazine"
+      },
+      {
+        "suffix": " m/min",
+        "label": "Rapid traverse X/Y"
+      },
+      {
+        "suffix": " µm",
+        "label": "Positioning accuracy"
+      }
     ]
   },
   "specs": {
@@ -44,39 +79,93 @@
       {
         "title": "Travel & table",
         "rows": [
-          ["X / Y / Z travel", "850 / 500 / 540 mm"],
-          ["Table size", "1,000 × 500 mm"],
-          ["Table load", "500 kg"],
-          ["T-slots", "18 mm × 5 slots"]
+          [
+            "X / Y / Z travel",
+            "850 / 500 / 540 mm"
+          ],
+          [
+            "Table size",
+            "1,000 × 500 mm"
+          ],
+          [
+            "Table load",
+            "500 kg"
+          ],
+          [
+            "T-slots",
+            "18 mm × 5 slots"
+          ]
         ]
       },
       {
         "title": "Spindle",
         "rows": [
-          ["Maximum speed", "12,000 rpm"],
-          ["Tool taper", "BT40"],
-          ["Power", "11 kW"],
-          ["Tool magazine", "24 tools — carousel"]
+          [
+            "Maximum speed",
+            "12,000 rpm"
+          ],
+          [
+            "Tool taper",
+            "BT40"
+          ],
+          [
+            "Power",
+            "11 kW"
+          ],
+          [
+            "Tool magazine",
+            "24 tools — carousel"
+          ]
         ]
       },
       {
         "title": "Accuracy & feed",
         "rows": [
-          ["Positioning accuracy", "±0.005 mm"],
-          ["Repeatability", "±0.003 mm"],
-          ["Rapid traverse X / Y", "36 m/min"],
-          ["Rapid traverse Z", "24 m/min"],
-          ["Cutting feed", "1 – 10,000 mm/min"]
+          [
+            "Positioning accuracy",
+            "±0.005 mm"
+          ],
+          [
+            "Repeatability",
+            "±0.003 mm"
+          ],
+          [
+            "Rapid traverse X / Y",
+            "36 m/min"
+          ],
+          [
+            "Rapid traverse Z",
+            "24 m/min"
+          ],
+          [
+            "Cutting feed",
+            "1 – 10,000 mm/min"
+          ]
         ]
       },
       {
         "title": "Control & electrical",
         "rows": [
-          ["Controller", "QS Astro 10i"],
-          ["Motors", "3-axis AC servo"],
-          ["Power supply", "380 V · 3-phase"],
-          ["Compressed air", "0.6 MPa"],
-          ["Machine weight", "4,200 kg"]
+          [
+            "Controller",
+            "QS Astro 10i"
+          ],
+          [
+            "Motors",
+            "3-axis AC servo"
+          ],
+          [
+            "Power supply",
+            "380 V · 3-phase"
+          ],
+          [
+            "Compressed air",
+            "0.6 MPa"
+          ],
+          [
+            "Machine weight",
+            "4,200 kg"
+          ]
         ]
       }
     ]
@@ -96,7 +185,13 @@
     "listLabel": "Machine",
     "viewDetail": "View details",
     "axesUnit": "axes",
-    "categories": { "milling": "CNC milling", "router": "Router", "jewelry": "Jewelry", "automation": "Automation", "inspection": "Checkweighing" },
+    "categories": {
+      "milling": "CNC milling",
+      "router": "Router",
+      "jewelry": "Jewelry",
+      "automation": "Automation",
+      "inspection": "Checkweighing"
+    },
     "labels": {
       "axes": "Control axes",
       "controller": "Controller",

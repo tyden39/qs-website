@@ -6,8 +6,9 @@
   "hero": {
     "eyebrow": "Máy CNC · Lắp ráp tại Việt Nam",
     "model": "QS VMC-850",
-    "heading": "Trung tâm phay CNC cho xưởng cơ khí Việt",
-    "lede": "Khung máy đúc gang, vít me bi C3, trục chính BT40 — điều khiển bởi Astro 10i do QS thiết kế và viết firmware. Một đầu mối duy nhất cho cả máy, điện và phần mềm.",
+    "heading1": "QS TECHNOLOGY",
+    "heading2": "GIẢI PHÁP CHẾ TẠO MÁY",
+    "lede": "QS Technology cung cấp giải pháp chế tạo máy CNC, từ khâu tư vấn, thiết kế đến chế tạo và lắp đặt. Với năng lực làm chủ công nghệ và kinh nghiệm trong lĩnh vực CNC, chúng tôi tự tin mang đến các hệ thống CNC có độ chính xác cao, vận hành ổn định và tối ưu hiệu suất.",
     "ctaQuote": "Nhận báo giá",
     "ctaSpecs": "Xem thông số",
     "droLabel": "Hành trình trục",
@@ -16,22 +17,56 @@
     "diagramCaption": "Gia công thực tế tại xưởng QS",
     "legendLabel": "Chức năng chính",
     "callouts": [
-      { "t": "Trục chính BT40", "d": "12.000 v/ph · 11 kW — phay thép, nhôm, đồng." },
-      { "t": "Tưới nguội áp lực", "d": "Vòi định hướng, bơm 8 bar — giữ dao mát khi cắt sâu." },
-      { "t": "Vít me bi C3", "d": "Truyền động cả 3 trục, định vị ±0.005 mm." },
-      { "t": "Vùng gá phôi", "d": "Ê tô và bích kẹp rãnh T, thay gá nhanh theo loạt." },
-      { "t": "Bàn máy 1.000 × 500", "d": "5 rãnh T 18 mm, chịu tải 500 kg." }
+      {
+        "t": "Trục chính BT40",
+        "d": "12.000 v/ph · 11 kW — phay thép, nhôm, đồng."
+      },
+      {
+        "t": "Tưới nguội áp lực",
+        "d": "Vòi định hướng, bơm 8 bar — giữ dao mát khi cắt sâu."
+      },
+      {
+        "t": "Vít me bi C3",
+        "d": "Truyền động cả 3 trục, định vị ±0.005 mm."
+      },
+      {
+        "t": "Vùng gá phôi",
+        "d": "Ê tô và bích kẹp rãnh T, thay gá nhanh theo loạt."
+      },
+      {
+        "t": "Bàn máy 1.000 × 500",
+        "d": "5 rãnh T 18 mm, chịu tải 500 kg."
+      }
     ]
   },
-  "ticker": ["Phay CNC 3 trục", "BT40 · 12.000 v/ph", "Định vị ±0.005 mm", "Astro 10i bên trong", "Lắp ráp tại Việt Nam", "Bảo hành 24 tháng"],
+  "ticker": [
+    "Phay CNC 3 trục",
+    "BT40 · 12.000 v/ph",
+    "Định vị ±0.005 mm",
+    "Astro 10i bên trong",
+    "Lắp ráp tại Việt Nam",
+    "Bảo hành 24 tháng"
+  ],
   "stats": {
     "eyebrow": "Năng lực gia công",
     "heading": "Số liệu nói thay máy",
     "items": [
-      { "suffix": ".000 v/ph", "label": "Tốc độ trục chính" },
-      { "suffix": " dao", "label": "Ổ chứa dao" },
-      { "suffix": " m/ph", "label": "Chạy nhanh X/Y" },
-      { "suffix": " µm", "label": "Độ chính xác định vị" }
+      {
+        "suffix": ".000 v/ph",
+        "label": "Tốc độ trục chính"
+      },
+      {
+        "suffix": " dao",
+        "label": "Ổ chứa dao"
+      },
+      {
+        "suffix": " m/ph",
+        "label": "Chạy nhanh X/Y"
+      },
+      {
+        "suffix": " µm",
+        "label": "Độ chính xác định vị"
+      }
     ]
   },
   "specs": {
@@ -44,39 +79,93 @@
       {
         "title": "Hành trình & bàn máy",
         "rows": [
-          ["Hành trình X / Y / Z", "850 / 500 / 540 mm"],
-          ["Kích thước bàn máy", "1.000 × 500 mm"],
-          ["Tải trọng bàn", "500 kg"],
-          ["Rãnh T", "18 mm × 5 rãnh"]
+          [
+            "Hành trình X / Y / Z",
+            "850 / 500 / 540 mm"
+          ],
+          [
+            "Kích thước bàn máy",
+            "1.000 × 500 mm"
+          ],
+          [
+            "Tải trọng bàn",
+            "500 kg"
+          ],
+          [
+            "Rãnh T",
+            "18 mm × 5 rãnh"
+          ]
         ]
       },
       {
         "title": "Trục chính",
         "rows": [
-          ["Tốc độ tối đa", "12.000 v/ph"],
-          ["Côn dao", "BT40"],
-          ["Công suất", "11 kW"],
-          ["Ổ chứa dao", "24 dao — tay quay"]
+          [
+            "Tốc độ tối đa",
+            "12.000 v/ph"
+          ],
+          [
+            "Côn dao",
+            "BT40"
+          ],
+          [
+            "Công suất",
+            "11 kW"
+          ],
+          [
+            "Ổ chứa dao",
+            "24 dao — tay quay"
+          ]
         ]
       },
       {
         "title": "Độ chính xác & tốc độ",
         "rows": [
-          ["Độ chính xác định vị", "±0.005 mm"],
-          ["Độ lặp lại", "±0.003 mm"],
-          ["Chạy nhanh X / Y", "36 m/ph"],
-          ["Chạy nhanh Z", "24 m/ph"],
-          ["Tiến dao cắt", "1 – 10.000 mm/ph"]
+          [
+            "Độ chính xác định vị",
+            "±0.005 mm"
+          ],
+          [
+            "Độ lặp lại",
+            "±0.003 mm"
+          ],
+          [
+            "Chạy nhanh X / Y",
+            "36 m/ph"
+          ],
+          [
+            "Chạy nhanh Z",
+            "24 m/ph"
+          ],
+          [
+            "Tiến dao cắt",
+            "1 – 10.000 mm/ph"
+          ]
         ]
       },
       {
         "title": "Điều khiển & điện",
         "rows": [
-          ["Bộ điều khiển", "QS Astro 10i"],
-          ["Động cơ", "Servo AC 3 trục"],
-          ["Nguồn điện", "380 V · 3 pha"],
-          ["Khí nén", "0,6 MPa"],
-          ["Khối lượng máy", "4.200 kg"]
+          [
+            "Bộ điều khiển",
+            "QS Astro 10i"
+          ],
+          [
+            "Động cơ",
+            "Servo AC 3 trục"
+          ],
+          [
+            "Nguồn điện",
+            "380 V · 3 pha"
+          ],
+          [
+            "Khí nén",
+            "0,6 MPa"
+          ],
+          [
+            "Khối lượng máy",
+            "4.200 kg"
+          ]
         ]
       }
     ]
@@ -96,7 +185,13 @@
     "listLabel": "Dòng máy",
     "viewDetail": "Xem chi tiết",
     "axesUnit": "trục",
-    "categories": { "milling": "Phay CNC", "router": "Router", "jewelry": "Kim hoàn", "automation": "Tự động hóa", "inspection": "Cân kiểm tra" },
+    "categories": {
+      "milling": "Phay CNC",
+      "router": "Router",
+      "jewelry": "Kim hoàn",
+      "automation": "Tự động hóa",
+      "inspection": "Cân kiểm tra"
+    },
     "labels": {
       "axes": "Số trục điều khiển",
       "controller": "Bộ điều khiển",

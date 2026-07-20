@@ -56,8 +56,8 @@ export default function Header() {
       </div>
 
       <nav className="qs-nav relative">
-        <div className="qs-wrap-wide flex items-center justify-between gap-4 lg:gap-8 h-[64px] lg:h-[72px]">
-          <div className="flex items-center gap-7 min-w-0">
+        <div className="qs-wrap-wide flex items-center justify-between gap-4 lg:gap-0 h-[64px] lg:h-[72px]">
+          <div className="flex items-center gap-2 min-w-0">
             <Link href="/" className="flex items-center gap-3 shrink-0">
               <span className="grid place-items-center h-[38px] lg:h-[42px]">
                 <Image src="/logo-st.png" alt="ST" width={1707} height={877} priority className="h-[38px] lg:h-[42px] w-auto block" />
@@ -69,14 +69,14 @@ export default function Header() {
             </Link>
             <div className="hidden lg:flex gap-0.5">
               {left.map(([h,l]) => (
-                <Link key={h} href={h} className={`qs-menu-link ${is(h) ? "is-active" : ""}`}>{l}</Link>
+                <Link key={h} href={h} className={`qs-menu-link p-2 lg:px-4! lg:py-2! ${is(h) ? "is-active" : ""}`}>{l}</Link>
               ))}
             </div>
           </div>
-          <div className="flex items-center gap-2 lg:gap-7">
+          <div className="flex items-center gap-2 lg:gap-2">
             <div className="hidden lg:flex gap-0.5">
               {right.map(([h,l]) => (
-                <Link key={h} href={h} className={`qs-menu-link ${is(h) ? "is-active" : ""}`}>{l}</Link>
+                <Link key={h} href={h} className={`qs-menu-link p-2 lg:px-4! lg:py-2! ${is(h) ? "is-active" : ""}`}>{l}</Link>
               ))}
             </div>
             <div className="flex items-center gap-1.5 pl-2 lg:border-l border-line lg:ml-1">

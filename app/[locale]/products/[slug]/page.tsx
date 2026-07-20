@@ -203,17 +203,20 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
     (heroShots.length > 0 ? heroShots : [{ src: p.image.src, w: p.image.w, h: p.image.h, alt: p.tag }]);
   const annotated = visible
     .filter((g) => !heroSrcs.has(g.src))
-    .map((g) => ({ img: g, kind: g.kind }));
+    // Wiring / connection diagrams aren't part of the photo tour.
+    .filter((g) => g.kind !== "wiring")
+    .map((g, i) => ({ img: g, kind: g.kind, index: i }));
   const tourShots: LightboxShot[] = annotated.map((x) => x.img);
-  // Photo tour split into fixed groups by position, so every model follows the
-  // same order: first 3 = real product photos, next 3 = operating-interface
-  // screens, the rest = the controller installed on a real machine. `start` is
-  // the absolute index into `tourShots` so the lightbox keeps one flat sequence.
-  const tourGroups = [
-    { id: "real", start: 0, shots: annotated.slice(0, 3) },
-    { id: "ui", start: 3, shots: annotated.slice(3, 6) },
-    { id: "machine", start: 6, shots: annotated.slice(6) },
-  ].filter((g) => g.shots.length > 0);
+  // Photo tour split into the same three sections for every model — real product
+  // photos, operating-interface screens, and the controller installed on a real
+  // machine — keyed off what each shot depicts rather than its position, so a
+  // section shows whatever photos exist for it however many that is. `index` is
+  // the absolute position in `tourShots` so the lightbox keeps one flat sequence.
+  const tourSection = (kind: string): "real" | "ui" | "machine" =>
+    kind === "ui" ? "ui" : kind === "application" ? "machine" : "real";
+  const tourGroups = (["real", "ui", "machine"] as const)
+    .map((id) => ({ id, shots: annotated.filter((x) => tourSection(x.kind) === id) }))
+    .filter((g) => g.shots.length > 0);
   const bundlePhotos = p.bundle.map((c) => c.photo ?? (c.icon === "controller" ? p.image : null));
   let bundleSeen = 0;
   const bundleShotIndex = bundlePhotos.map((ph) => (ph ? bundleSeen++ : -1));
@@ -247,30 +250,30 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
       />
       <div className="relative qs-wrap-wide">
-        <div className="grid lg:grid-cols-[minmax(0,760px)_minmax(0,1fr)] gap-x-16 gap-y-10 items-start">
-          <header className="lg:col-span-2 max-w-[820px]">
-            <span className="qs-eyebrow">{t("overviewEyebrow")}</span>
-            <h2 className="qs-h2 mt-3">{t("overviewHeading")}</h2>
-          </header>
-
-          <article className="min-w-0">
+        <div className="grid lg:grid-cols-[minmax(0,760px)_minmax(0,1fr)] gap-x-16 gap-y-10 items-center">
+          <div className="min-w-0">
+            <header className="max-w-[820px]">
+              <span className="qs-eyebrow">{t("overviewEyebrow")}</span>
+              <h2 className="qs-h2 mt-3">{t("overviewHeading")}</h2>
+            </header>
             <div
-              className="prose prose-sm max-w-[70ch] prose-p:text-[16.5px] prose-p:leading-[1.9] prose-p:text-[#2f2c26] prose-p:my-5"
+              className="prose prose-sm max-w-[70ch] mt-8 prose-p:text-[16.5px] prose-p:leading-[1.9] prose-p:text-[#2f2c26] prose-p:my-5"
               dangerouslySetInnerHTML={{ __html: safeHtml(overviewHtml) }}
             />
-          </article>
+          </div>
 
-          <aside className="min-w-0 lg:sticky lg:top-32">
-            {p.overviewImage ? (
-              <div className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden border border-line bg-white">
-                <div className="absolute inset-0 qs-grid-bg opacity-30" />
+          <aside className="min-w-0 grid">
+            {galleryShots[0] ? (
+              <div className="relative min-h-[420px] lg:min-h-[480px] grid place-items-center p-6 overflow-hidden">
+                <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-70" aria-hidden="true" />
+                <span className="qs-glow left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />
                 <Image
-                  src={p.overviewImage.src}
-                  alt={p.name}
-                  width={p.overviewImage.w}
-                  height={p.overviewImage.h}
-                  sizes="(max-width: 1024px) 92vw, 380px"
-                  className="relative w-auto max-h-[260px] max-w-full object-contain"
+                  src={galleryShots[0].src}
+                  alt={galleryShots[0].alt ?? p.name}
+                  width={galleryShots[0].w}
+                  height={galleryShots[0].h}
+                  sizes="(max-width: 1024px) 92vw, 560px"
+                  className="qs-float relative w-auto max-h-[400px] lg:max-h-[460px] max-w-full object-contain drop-shadow-[0_22px_44px_rgba(0,0,0,.2)]"
                 />
               </div>
             ) : (
@@ -301,11 +304,11 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                     <span className="font-mono text-[10px] text-muted tracking-[.14em] shrink-0">{String(group.shots.length).padStart(2, "0")}</span>
                   </div>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
-                    {group.shots.map(({ img }, i) => (
+                    {group.shots.map(({ img, index }) => (
                       <figure key={img.src} className="m-0 bg-white flex flex-col">
-                        <LightboxTrigger group={tourShots} index={group.start + i} ariaLabel={t("lightbox.zoom")} className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden w-full">
+                        <LightboxTrigger group={tourShots} index={index} ariaLabel={t("lightbox.zoom")} className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden w-full">
                           <div className="absolute inset-0 qs-grid-bg opacity-30" />
-                          <span className="absolute top-3 left-4 font-mono text-[10px] text-gold-1 tracking-[.16em]">{String(group.start + i + 1).padStart(2, "0")}</span>
+                          <span className="absolute top-3 left-4 font-mono text-[10px] text-gold-1 tracking-[.16em]">{String(index + 1).padStart(2, "0")}</span>
                           <Image
                             src={img.src}
                             alt={img.alt}
@@ -362,25 +365,6 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         <div className={multiProtocol ? "" : "mt-8"}>
           <SpecDatasheet model={p.name} sheet={p.specSheet} />
         </div>
-
-        {p.gCodes.length > 0 && (
-          <section className="mt-5 bg-[#11120f] text-white border border-[#27251f] p-5 sm:p-6">
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 border-b border-white/10 pb-4 mb-5">
-              <div>
-                <div className="font-mono text-[10px] tracking-[.18em] uppercase text-gold-2/80">{t("gCodesEyebrow")}</div>
-                <h3 className="font-display text-xl font-semibold m-0 mt-1">{t("gCodesHeading")}</h3>
-              </div>
-              <span className="font-mono text-[11px] text-[#aaa18f]">{p.gCodes.length} codes</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {p.gCodes.map((code) => (
-                <span key={code} className="font-mono text-[11px] tracking-[.08em] border border-white/10 bg-white/[.04] px-3 py-2 text-[#eee9d7]">
-                  {code}
-                </span>
-              ))}
-            </div>
-          </section>
-        )}
       </div>
     </section>
   );

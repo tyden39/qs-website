@@ -186,16 +186,15 @@
       "datasheetTitle": "Datasheet kỹ thuật",
       "datasheetDesc": "Thông số kỹ thuật chi tiết của máy — liên hệ để nhận bản đầy đủ.",
       "specGroups": {
-        "capacity": "Năng lực gia công",
-        "spindle": "Trục chính",
-        "feed": "Tốc độ",
-        "accuracy": "Độ chính xác",
-        "machine": "Thân máy",
-        "cnc": "Hệ điều khiển",
+        "capacity": "Vật liệu gia công",
+        "spindle": "Thông số chung",
+        "feed": "Trục chính",
+        "accuracy": "Tốc độ",
+        "machine": "Độ chính xác",
+        "cnc": "Thân máy",
         "other": "Thông số khác"
       },
       "galleryZoom": "Phóng to ảnh",
-      "galleryClose": "Đóng",
       "shots": {
         "front": "Mặt trước",
         "back": "Mặt sau",

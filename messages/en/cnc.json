@@ -186,16 +186,15 @@
       "datasheetTitle": "Technical datasheet",
       "datasheetDesc": "Full technical specifications for this machine — contact us for the complete sheet.",
       "specGroups": {
-        "capacity": "Capacity",
-        "spindle": "Spindle",
-        "feed": "Speed",
-        "accuracy": "Accuracy",
-        "machine": "Machine",
-        "cnc": "CNC system",
+        "capacity": "Machining materials",
+        "spindle": "General specifications",
+        "feed": "Spindle",
+        "accuracy": "Speed",
+        "machine": "Accuracy",
+        "cnc": "Machine body",
         "other": "Other specifications"
       },
       "galleryZoom": "Zoom photo",
-      "galleryClose": "Close",
       "shots": {
         "front": "Front",
         "back": "Rear",

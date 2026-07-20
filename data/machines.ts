@@ -104,7 +104,10 @@ export type Machine = {
   /** Short positioning line — vi primary, en override. */
   tagline: string;
   taglineEn?: string;
+  /** Full-size representative image used by metadata and detail fallbacks. */
   image: MachinePhoto;
+  /** Optional smaller derivative for catalogue and gallery thumbnails. */
+  thumbnail?: MachinePhoto;
   /**
    * Studio shots for the hero slideshow (CNC datasheet template). When present,
    * the detail hero cross-fades through these instead of the single `image`.
@@ -309,9 +312,10 @@ export const machines: Machine[] = [
     subtitle: "5-Axis CNC Router",
     tagline: "Máy CNC Router 5 trục gia công hiệu quả các chi tiết 3D phức tạp trong một lần gá nhờ khả năng thay đổi góc cắt linh hoạt.",
     taglineEn: "A 5-axis CNC router that machines complex 3D parts in a single setup through flexible cutting-angle control.",
-    image: IMG("r4020", 1024, 1130),
+    image: { src: "/img/machines/r4020.webp", w: 1448, h: 1086 },
+    thumbnail: { src: "/img/machines/thumbnails/r4020.webp", w: 480, h: 360 },
     heroShots: [
-      GIMG("qsm-r4020", "front", 1600, 1118),
+      { src: "/img/machines/r4020.webp", w: 1448, h: 1086, kind: "front" },
       GIMG("qsm-r4020", "controller", 1536, 1024),
     ],
     specs: [

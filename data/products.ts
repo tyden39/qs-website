@@ -274,7 +274,7 @@ export const products: Product[] = [
       { src: "/img/products/crawled/f54/gallery-7.webp", w: 1400, h: 893, alt: "Mặt sau Bộ điều khiển CNC 4 trục F54" },
       { src: "/img/products/crawled/f54/gallery-8.webp", w: 480, h: 272, alt: "Giao diện vận hành trên Bộ điều khiển CNC 4 trục F54" },
       { src: "/img/products/crawled/f54/gallery-9.webp", w: 480, h: 272, alt: "Giao diện vận hành trên Bộ điều khiển CNC 4 trục F54" },
-      { src: "/img/products/crawled/f54/gallery-10.webp", w: 480, h: 272, alt: "Bộ điều khiển CNC 4 trục F54" },
+      { src: "/img/products/crawled/f54/gallery-10.webp", w: 480, h: 272, alt: "Giao diện vận hành trên Bộ điều khiển CNC 4 trục F54" },
       { src: "/img/products/crawled/f54/gallery-11.webp", w: 1400, h: 2473, alt: "Bộ điều khiển CNC 4 trục F54" },
       { src: "/img/products/crawled/f54/gallery-12.webp", w: 960, h: 720, alt: "Ứng dụng thực tế Bộ điều khiển CNC 4 trục F54 trên máy CNC" },
       { src: "/img/products/crawled/f54/gallery-13.webp", w: 1400, h: 1867, alt: "Ứng dụng thực tế Bộ điều khiển CNC 4 trục F54 trên máy CNC" },

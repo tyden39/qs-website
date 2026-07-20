@@ -41,7 +41,7 @@ export default function MachineList({ machines }: { machines: MachineView[] }) {
               >
                 <span className="relative block aspect-[5/4] bg-white overflow-hidden">
                   <Image
-                    src={m.image.src}
+                    src={m.thumbnail.src}
                     alt={m.model}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"

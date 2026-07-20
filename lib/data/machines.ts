@@ -29,6 +29,7 @@ export type MachineView = {
   subtitle: string | null;
   tagline: string;
   image: MachinePhoto;
+  thumbnail: MachinePhoto;
   /** Hero slideshow shots (CNC template). Empty when the machine ships none. */
   heroShots: MachineHeroShot[];
   specs: MachineSpec[];
@@ -72,6 +73,7 @@ function toView(m: Machine, locale: Locale): MachineView {
     subtitle: m.subtitle ?? null,
     tagline: en ? m.taglineEn ?? m.tagline : m.tagline,
     image: m.image,
+    thumbnail: m.thumbnail ?? m.image,
     heroShots: m.heroShots ?? [],
     specs,
     highlights: specs.slice(0, HIGHLIGHT_COUNT),

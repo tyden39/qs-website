@@ -253,7 +253,7 @@ export const machines: Machine[] = [
     subtitle: "Vertical Machining Center",
     tagline: "Máy phay CNC 3 trục thiết kế và chế tạo với độ chính xác cao, đáp ứng hiệu quả các nhu cầu gia công cơ khí hiện đại.",
     taglineEn: "A 3-axis CNC milling machine designed and built to high precision, efficiently meeting the demands of modern machining.",
-    image: IMG("vmc", 1050, 1400),
+    image: IMG("vmc", 1086, 1448),
     specs: [
       { k: "materials", v: "Nhôm, đồng thau, gỗ, nhựa", vEn: "Aluminium, brass, wood, plastic" },
       { k: "axes", v: "3" },

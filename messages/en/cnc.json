@@ -188,7 +188,7 @@
       "specGroups": {
         "capacity": "Capacity",
         "spindle": "Spindle",
-        "feed": "Feed system",
+        "feed": "Speed",
         "accuracy": "Accuracy",
         "machine": "Machine",
         "cnc": "CNC system",

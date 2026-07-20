@@ -188,7 +188,7 @@
       "specGroups": {
         "capacity": "Năng lực gia công",
         "spindle": "Trục chính",
-        "feed": "Hệ truyền động",
+        "feed": "Tốc độ",
         "accuracy": "Độ chính xác",
         "machine": "Thân máy",
         "cnc": "Hệ điều khiển",

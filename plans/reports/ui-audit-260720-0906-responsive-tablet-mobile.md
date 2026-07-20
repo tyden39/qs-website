@@ -91,3 +91,29 @@ Chuẩn tham chiếu: Apple HIG / Material Design / WCAG (44px touch target, 16p
 - AppDeck: chọn phương án (a) stacked tới lg hay (b) tap-to-expand?
 - Spec table mobile: sticky column hay accordion theo protocol (ảnh hưởng cách so sánh protocol)?
 - "Privacy · Terms · Cookies": có trang thật để link không, hay bỏ?
+
+---
+
+## Implementation status (2026-07-20, cùng ngày)
+
+Decisions: md tier = YES · AppDeck = option (a) · spec table = accordion per protocol · Privacy/Terms = bỏ.
+
+Done (build + tsc pass; `yarn lint` hỏng sẵn — `next lint` không tương thích, pre-existing):
+- #1 AppDeck → `hidden lg:flex`; mobile/tablet stacked cards `lg:hidden` + 2-up từ sm.
+- #2 Hero swipe + #15 lightbox/gallery swipe → hook mới `lib/use-swipe.ts` dùng chung (hero-slider, product-image-lightbox, machine-hero-gallery, product-hero-gallery).
+- #3 `.qs-icon-btn` 44px trên `pointer: coarse`; nút đóng search 44px.
+- #4+quyết định: SpecDatasheet multi-protocol → `SpecAccordion` (details/summary per protocol) dưới md; single-protocol giữ grid.
+- #5+#6 Hero mobile: bỏ min-h 84vh mobile, ảnh clamp 240px/36vh, desc 16px + line-clamp-4 + min-h khớp clamp, spec list 2-col grid (md 4-col full-width, lg cột dọc như cũ), selector 3 hàng → dots 44px dưới sm.
+- #7 md tier: home hero 2-col md (specs span 2), About/CTA/news-feed/video-reel md 2-col, product hero + heroStats md, machine hero md 2-col.
+- #8 `.qs-search-panel` top 64px (<lg) / 72px (lg+).
+- #9 Version có nhãn inline dưới md ở download list.
+- #10 body 16px mặc định, 15px từ lg; fig caption 9px→10px màu sáng hơn.
+- #11 Hotline tel: hiện trên topstrip mobile.
+- #13 Tour group desc hiện bản mobile dưới tag row.
+- #14 Footer breakpoints → 1023/639; bỏ "Privacy · Terms · Cookies".
+- Bonus: `px-12` cố định ở 10 trang (services, news, about, downloads, applications, search, not-found) → `px-5 sm:px-8 lg:px-12`; xoá `.qs-wrap` chết; h1 product detail floor 44→36px.
+
+Deferred (chưa làm, lý do):
+- Locale switcher <640px vẫn trong drawer — bar 360px không đủ chỗ nếu thêm VI/EN.
+- Nav rút gọn ở md–lg (bỏ hamburger) — cần cân nhắc label dài VI, để sau.
+- Text phụ 13–13.5px trên card giữ nguyên — đã bù bằng body 16px; nâng tiếp nếu có feedback thực tế.

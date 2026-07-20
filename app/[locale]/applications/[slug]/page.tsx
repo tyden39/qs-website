@@ -71,11 +71,10 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
   // Per-machine content overrides the shared defaults; unknown slugs fall back to the defaults.
   const machines = t.raw("machines") as Record<
     string,
-    { heroLede: string; heroStats: [string, string][]; workflowLede: string; workflow: { l: string; t: string; d: string }[] }
+    { heroLede: string; workflowLede: string; workflow: { l: string; t: string; d: string }[] }
   >;
   const machine_ = machines?.[slug];
   const heroLede = machine_?.heroLede ?? t("heroLede");
-  const heroStats = machine_?.heroStats ?? (t.raw("heroStats") as [string, string][]);
   const specs = t.raw("specs") as [string, string][];
   const deployments = t.raw("deployments") as { name: string; loc: string }[];
   const relatedApps = relatedAppsMeta.map((r) => ({ ...r, t: machineFor(r.slug) }));
@@ -107,14 +106,6 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
               <p className="qs-rise mt-6 text-[17px] leading-[1.6] text-[#a8a499] max-w-[55ch]" style={{ animationDelay: "180ms" }}>
                 {heroLede}
               </p>
-              <div className="qs-rise grid grid-cols-3 gap-4 sm:gap-6 mt-10 pt-8 border-t border-[#2a2620]" style={{ animationDelay: "280ms" }}>
-                {heroStats.map(([v,l]) => (
-                  <div key={l}>
-                    <div className="font-display font-bold text-[26px] sm:text-[32px] text-gold-2 tracking-[-.01em]">{v}</div>
-                    <div className="font-mono text-[10px] text-[#7a7570] tracking-[.16em] uppercase mt-1.5">{l}</div>
-                  </div>
-                ))}
-              </div>
             </div>
             <div className="qs-rise relative aspect-4/5 border overflow-hidden"
                  style={{ background:"linear-gradient(135deg, #1a1815, #0a0a08)", borderColor:"#2a2620", animationDelay: "160ms" }}>

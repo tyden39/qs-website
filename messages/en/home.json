@@ -103,6 +103,7 @@
     "heading": "QS Controllers",
     "lede": "Six controller lines for milling, turning, bending, and gluing — choose by axis count and control protocol.",
     "viewAll": "View all controllers",
+    "swipeHint": "Swipe for more",
     "items": [
       {
         "lbl": "[ F Series ]",
@@ -155,6 +156,7 @@
       }
     ],
     "mobileLabel": "Application",
+    "swipeHint": "Swipe for more",
     "viewAll": "View all applications",
     "deck": {
       "label": "Application",

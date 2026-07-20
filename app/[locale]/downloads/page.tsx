@@ -52,7 +52,7 @@ export default async function Downloads({ params }: Props) {
           variant="light"
           className="hidden lg:block absolute bottom-0 right-0 w-[40%] h-[86%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)]"
         />
-        <div className="relative z-10 max-w-wrap mx-auto px-12 pt-12 pb-16">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
             <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
@@ -109,7 +109,7 @@ export default async function Downloads({ params }: Props) {
           key={group.category}
           className={gi % 2 === 0 ? "py-16 bg-white" : "py-16 bg-paper border-y border-line"}
         >
-          <div className="max-w-wrap mx-auto px-12">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <div className="qs-section-head">
               <div className="max-w-[62ch]">
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">
@@ -188,7 +188,7 @@ export default async function Downloads({ params }: Props) {
 
       {/* HELPERS */}
       <section className="py-20 bg-white border-t border-line">
-        <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-2 gap-6">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-2 gap-6">
           <div className="border border-line p-8 relative
                           before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
             <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("plc.tag")}</div>

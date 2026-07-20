@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import { useHorizontalSwipe } from "@/lib/use-swipe";
 
 export type MachineHeroGalleryShot = { src: string; w: number; h: number; alt: string };
 
@@ -50,6 +51,8 @@ export function MachineHeroGallery({
     (dir: number) => setActive((i) => (i + dir + shots.length) % shots.length),
     [shots.length],
   );
+  const swipe = useHorizontalSwipe(go);
+  const swipeProps = shots.length > 1 ? swipe : {};
 
   useEffect(() => {
     if (!zoomed) return;
@@ -76,7 +79,7 @@ export function MachineHeroGallery({
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden bg-white">
+      <div className="relative h-[380px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden bg-white" {...swipeProps}>
         {shots.map((s, i) => (
           <div
             key={s.src}
@@ -180,6 +183,7 @@ export function MachineHeroGallery({
           <div
             className="relative flex-1 flex items-center justify-center px-4 pb-6"
             onClick={(e) => e.stopPropagation()}
+            {...swipeProps}
           >
             <figure className="m-0 flex flex-col items-center gap-4 max-w-full">
               <div className="bg-white border border-white/10 p-3 sm:p-4 shadow-[0_40px_100px_-30px_rgba(0,0,0,.9)]">

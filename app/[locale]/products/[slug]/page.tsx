@@ -111,11 +111,58 @@ function SpecValue({ value }: { value: string }) {
 // Blueprint-style datasheet: parameter rows on the left, one column per control
 // protocol on the right. A value shared across every protocol spans the whole
 // value area; differing values sit in their own protocol column.
+// Multi-protocol sheets are wider than a phone, so below md they render as one
+// accordion per protocol (label/value pairs) instead of a side-scrolled grid
+// that loses its parameter column.
+function SpecAccordion({ sheet }: { sheet: ProductView["specSheet"] }) {
+  return (
+    <div className="flex flex-col gap-3">
+      {sheet.cols.map((c, ci) => (
+        <details key={c.name} open={ci === 0} className="group border border-line bg-white">
+          <summary className="flex items-center justify-between gap-3 bg-[#11120f] px-4 py-3.5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+            <span className="min-w-0">
+              <span className="block font-mono text-[12px] tracking-[.04em] text-gold-2 leading-tight">{c.name}</span>
+              <span className="block font-mono text-[9px] tracking-[.14em] uppercase text-[#8f8878] mt-1">{c.loop}</span>
+            </span>
+            <svg
+              viewBox="0 0 24 24"
+              className="w-4 h-4 shrink-0 text-[#8f8878] transition-transform group-open:rotate-180"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </summary>
+          {sheet.sections.map((section) => (
+            <Fragment key={section.title}>
+              <div className="bg-paper px-4 py-2.5 flex items-center gap-3 border-t border-line">
+                <span className="font-mono text-[10px] tracking-[.16em] uppercase text-ink">{section.title}</span>
+                <span className="h-px flex-1 bg-line" />
+              </div>
+              {section.rows.map((row) => (
+                <div
+                  key={section.title + row.l}
+                  className="grid grid-cols-[1.1fr_1fr] gap-3 items-center px-4 py-2.5 border-t border-line/70"
+                >
+                  <span className="font-mono text-[10.5px] leading-snug tracking-[.03em] uppercase text-muted">{row.l}</span>
+                  <SpecValue value={Array.isArray(row.v) ? row.v[ci] : row.v} />
+                </div>
+              ))}
+            </Fragment>
+          ))}
+        </details>
+      ))}
+    </div>
+  );
+}
+
 function SpecDatasheet({ model, sheet }: { model: string; sheet: ProductView["specSheet"] }) {
   const cols = sheet.cols;
   const n = Math.max(cols.length, 1);
   const template = `minmax(132px,1.1fr) repeat(${n}, minmax(0,1fr))`;
-  return (
+  const grid = (
     <div className="overflow-x-auto border border-line">
       <div className="grid gap-px bg-line" style={{ gridTemplateColumns: template, minWidth: 132 + n * 150 }}>
         <div className="bg-[#11120f] px-4 py-3.5 flex items-end">
@@ -156,6 +203,17 @@ function SpecDatasheet({ model, sheet }: { model: string; sheet: ProductView["sp
         ))}
       </div>
     </div>
+  );
+  // Single-protocol sheets fit a phone as-is; multi-protocol ones swap to the
+  // per-protocol accordion below md.
+  if (cols.length <= 1) return grid;
+  return (
+    <>
+      <div className="hidden md:block">{grid}</div>
+      <div className="md:hidden">
+        <SpecAccordion sheet={sheet} />
+      </div>
+    </>
   );
 }
 
@@ -297,12 +355,14 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             <div className="flex flex-col gap-10">
               {tourGroups.map((group) => (
                 <div key={group.id}>
-                  <div className="flex items-baseline gap-4 mb-5">
+                  <div className="flex items-baseline gap-4 mb-2 sm:mb-5">
                     <span className="font-mono text-[13px] sm:text-sm text-gold-1 tracking-[.16em] uppercase">{t(`tourGroups.${group.id}.tag`)}</span>
                     <span className="text-[15px] leading-[1.5] text-muted hidden sm:block">{t(`tourGroups.${group.id}.desc`)}</span>
                     <span className="h-px flex-1 bg-line self-center" />
                     <span className="font-mono text-[10px] text-muted tracking-[.14em] shrink-0">{String(group.shots.length).padStart(2, "0")}</span>
                   </div>
+                  {/* phones keep the group's explainer, just below the tag row */}
+                  <p className="sm:hidden text-[13px] leading-[1.55] text-muted mt-0 mb-4">{t(`tourGroups.${group.id}.desc`)}</p>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
                     {group.shots.map(({ img, index }) => (
                       <figure key={img.src} className="m-0 bg-white flex flex-col">
@@ -392,6 +452,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                 <span className="font-semibold text-ink text-[14px] tracking-[-.005em] min-w-0">{downloadTitle(head)}</span>
               </div>
               <span className="font-mono text-[11px] text-muted md:text-[#3a3a3a]">
+                {/* the column header is hidden below md, so label the value inline there */}
+                <span className="md:hidden text-[10px] tracking-[.12em] uppercase text-muted/70">{tDl("table.version")}: </span>
                 {head.version ?? (head.date ? head.date.slice(0, 7).replace("-", "/") : "—")}
               </span>
               <div className="flex gap-2 md:justify-end">
@@ -452,10 +514,10 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             <span className="here text-[#eee9d7]">{p.name}</span>
           </div>
 
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(420px,.86fr)] gap-10 lg:gap-14 items-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(420px,.86fr)] gap-10 lg:gap-14 items-center">
             <div>
               <small className="block font-mono text-[11px] text-gold-2 tracking-[.18em] uppercase mb-4">{t("modelLine", { name: p.name })}</small>
-              <h1 className="font-display font-bold tracking-[-.035em] leading-[.98] text-balance m-0 text-[clamp(44px,7vw,92px)]">
+              <h1 className="font-display font-bold tracking-[-.035em] leading-[.98] text-balance m-0 text-[clamp(36px,7vw,92px)]">
                 {p.tag}
               </h1>
               <p className="mt-6 text-[17px] leading-[1.75] text-[#c9c2b3] max-w-[68ch]">{p.desc}</p>
@@ -481,7 +543,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             <ProductHeroGallery shots={galleryShots} name={p.name} calibrationLabel={t("calibrationLabel")} zoomLabel={t("lightbox.zoom")} />
           </div>
 
-          <dl className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+          <dl className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
             {heroStats.map((stat) => (
               <div key={stat.l} className="bg-[#141510] px-4 py-4 sm:px-5 sm:py-5">
                 <dt className="font-mono text-[10px] tracking-[.16em] uppercase text-[#837b6c]">{stat.l}</dt>

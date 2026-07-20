@@ -45,7 +45,7 @@ export default async function About({ params }: Props) {
           variant="light"
           className="hidden lg:block absolute bottom-0 right-0 w-[48%] h-[86%] opacity-[.6] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_24%,transparent_74%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_24%,transparent_74%)]"
         />
-        <div className="relative z-10 max-w-wrap mx-auto px-12 grid lg:grid-cols-[1.05fr_1fr] gap-16 items-end">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid lg:grid-cols-[1.05fr_1fr] gap-16 items-end">
           <div>
             <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("hero.eyebrow")}</div>
             <h1 className="font-display font-bold tracking-tight leading-[.95] mt-3.5"
@@ -77,7 +77,7 @@ export default async function About({ params }: Props) {
 
       {/* STORY — the QS-made board sits beside the company narrative */}
       <section className="py-24 bg-white border-b border-line">
-        <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-2 gap-16 items-center">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-2 gap-16 items-center">
           <Reveal className="relative border border-line bg-ink overflow-hidden order-1 group">
             <Image
               src="/home/about-qs.webp"
@@ -118,7 +118,7 @@ export default async function About({ params }: Props) {
         />
         {/* breathing gold atmosphere anchored top-right */}
         <div className="qs-glow hidden sm:block right-[3%] top-[-14%] w-[40%] h-[66%]" aria-hidden="true"></div>
-        <div className="relative z-10 max-w-wrap mx-auto px-12">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal className="relative border-b border-line pb-6 mb-10">
             <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("missionVision.eyebrow")}</span>
             <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
@@ -164,7 +164,7 @@ export default async function About({ params }: Props) {
         <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-70 [mask-image:linear-gradient(to_left,#000_0%,transparent_60%)] [-webkit-mask-image:linear-gradient(to_left,#000_0%,transparent_60%)]" aria-hidden="true"></div>
         {/* soft gold light rising behind the section header */}
         <div className="qs-glow hidden sm:block right-[-6%] top-[-14%] w-[34%] h-[56%]" aria-hidden="true"></div>
-        <div className="relative z-10 max-w-wrap mx-auto px-12">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal className="relative border-b border-line pb-6 mb-10">
             <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("values.eyebrow")}</span>
             <h2 className="qs-h2 mt-2">{t("values.heading")}</h2>
@@ -213,7 +213,7 @@ export default async function About({ params }: Props) {
           variant="dark"
           className="absolute inset-y-0 right-[-8%] w-[52%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_70%)]"
         />
-        <div className="relative max-w-wrap mx-auto px-12">
+        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal className="max-w-[860px] mx-auto text-center">
             <div className="font-display text-gold-2 text-6xl leading-none mb-4 select-none qs-gold-shimmer inline-block" aria-hidden="true">&ldquo;</div>
             <blockquote className="font-display font-semibold text-white text-[28px] md:text-[34px] leading-[1.32] tracking-[-.01em] m-0">

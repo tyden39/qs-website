@@ -45,7 +45,7 @@ export default function AppDeck({ items }: { items: App[] }) {
 
   return (
     <div
-      className="qs-strip hidden md:flex w-full"
+      className="qs-strip hidden lg:flex w-full"
       style={{ height: STRIP_H }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

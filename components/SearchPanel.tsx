@@ -140,7 +140,7 @@ export default function SearchPanel({
                    role="combobox" aria-expanded={querying} aria-autocomplete="list" aria-controls="qs-search-suggestions"
                    value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={onKeyDown}
                    className="flex-1 border-0 outline-0 bg-transparent text-lg font-display font-medium text-ink placeholder:text-muted placeholder:font-normal"/>
-            <button type="button" onClick={close} aria-label={t("close")} className="w-8 h-8 grid place-items-center text-muted hover:text-ink text-sm">✕</button>
+            <button type="button" onClick={close} aria-label={t("close")} className="w-11 h-11 grid place-items-center text-muted hover:text-ink text-sm">✕</button>
           </form>
 
           {/* live suggestions (autocomplete) */}

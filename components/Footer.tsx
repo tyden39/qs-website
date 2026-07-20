@@ -88,7 +88,6 @@ export default async function Footer() {
       <div className="qs-foot-bottom relative z-10">
         <span>© 2026 QS Technology Co., Ltd · All rights reserved</span>
         <span className="made"><span className="qs-live-dot" aria-hidden="true"></span>{t("made")}</span>
-        <span>Privacy · Terms · Cookies</span>
       </div>
     </footer>
   );

@@ -67,7 +67,7 @@ export default async function News({ params }: { params: Promise<{ locale: Local
           variant="light"
           className="hidden md:block absolute inset-y-0 right-0 w-[40%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_72%)]"
         />
-        <div className="relative max-w-wrap mx-auto px-12 flex justify-between items-end gap-8">
+        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 flex justify-between items-end gap-8">
           <div>
             <span className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("list.eyebrow")}</span>
             <h1 className="font-display font-bold text-[64px] tracking-[-.02em] mt-3.5 mb-0 leading-none">

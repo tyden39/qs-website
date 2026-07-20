@@ -4,6 +4,8 @@ import { Link } from "@/lib/i18n/navigation";
 import Reveal from "@/components/reveal";
 import Marquee from "@/components/marquee";
 import CircuitTraces from "@/components/circuit-traces";
+import RailNudge from "@/components/rail-nudge";
+import RailLand from "@/components/rail-land";
 import AppDeck from "@/components/app-deck";
 import HeroSlider, { type HeroSlide } from "@/components/hero-slider";
 import NewsFeed, { type NewsItem } from "@/components/news-feed";
@@ -112,12 +114,12 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <HeroSlider slides={heroSlides} />
 
       {/* PRODUCTS — contained wide, 3-up datasheet cards */}
-      <section className="relative py-24 bg-paper overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute bottom-0 right-0 w-[44%] h-[72%] opacity-[.55] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_26%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_26%,transparent_72%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("products.eyebrow")}</span>
@@ -125,21 +127,37 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               </div>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line">
+          {/* phones/tablets: a snap-scrolling rail, one full-width card per screen. With no
+              peeking neighbour to imply the strip scrolls, the swipe cue is the nudge button
+              below. md+ returns to the static 3-up grid. */}
+          <div id="home-product-rail" className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                          md:grid md:grid-cols-3 md:overflow-visible
+                          gap-px bg-line border border-line">
+            {/* No height utility on the wrapper or the card: `align-items: stretch` only applies
+                to items whose cross-size is auto, so any explicit height (h-full included) opts
+                them out of stretching and a short card leaves the container's bg-line showing as
+                a grey band. Stretch fills the row in both the flex rail and the md+ grid.
+                bg-white sits on the wrapper too, since that is the element being stretched;
+                dropped at md+ so the hover lift still reveals the divider grid behind the card. */}
             {homeProducts.map((item, i) => (
-              <Reveal key={`${item.slug}-${i}`} className="h-full" delay={i * 80}>
+              <Reveal key={`${item.slug}-${i}`} className="flex items-stretch w-full shrink-0 snap-start bg-white md:w-auto md:bg-transparent" delay={i * 80}>
                 <Link href={`/products/${item.slug}`}
-                      className="group h-full bg-white p-8 flex flex-col gap-4 relative transition-all duration-300
+                      className="group w-full bg-white p-5 sm:p-8 flex flex-col gap-4 relative transition-all duration-300
                                  hover:-translate-y-2 hover:z-10 hover:shadow-[0_30px_60px_-22px_rgba(20,16,8,.45)]
                                  hover:ring-1 hover:ring-gold-2/70
-                                 before:content-[''] before:absolute before:top-0 before:left-8 before:w-8 before:h-0.5 before:bg-gold
+                                 before:content-[''] before:absolute before:top-0 before:left-5 sm:before:left-8 before:w-8 before:h-0.5 before:bg-gold
                                  before:transition-all before:duration-300 group-hover:before:w-20 group-hover:before:bg-gold-2">
                   <div className="font-mono text-[11px] text-gold-1 tracking-[.16em]">{item.lbl}</div>
                   <h3 className="font-display font-semibold text-[23px] tracking-[-.01em] m-0 transition-colors group-hover:text-gold-1">{item.name}</h3>
                   <p className="text-[13px] text-muted leading-[1.55] m-0">{item.desc}</p>
                   {/* product stage — shared showroom: blueprint grid + gold pedestal,
-                      products bottom-aligned on one baseline so the lineup reads as a set */}
-                  <div className="relative flex-1 min-h-[248px] border border-line group-hover:border-gold-2/60 overflow-hidden mt-1 transition-all duration-500 group-hover:shadow-[inset_0_0_42px_rgba(232,200,120,.18)]"
+                      products centred in the frame so the lineup reads as a set.
+                      On the rail the stage grows into whatever height the tallest card forces,
+                      so no card ends with dead space under its footer — only one card is on
+                      screen at a time there, so the size variance between them never shows.
+                      From md+ every card is visible at once, so the height locks to a fixed
+                      value and all three renders match. */}
+                  <div className="relative flex-1 min-h-[180px] md:flex-none md:h-[200px] lg:h-[248px] border border-line group-hover:border-gold-2/60 overflow-hidden mt-1 transition-all duration-500 group-hover:shadow-[inset_0_0_42px_rgba(232,200,120,.18)]"
                        style={{ background: "linear-gradient(180deg,#ffffff 0%,#f1efe8 100%)" }}>
                     <div className="absolute inset-0 qs-grid-bg opacity-40" aria-hidden="true"></div>
                     {/* perpetual scan beam reading the product (staggered per card) */}
@@ -162,7 +180,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                     {/* product levitates on a perpetual loop (staggered per card) */}
                     <div className="qs-float absolute inset-0" style={{ animationDelay: `${i * 1.2}s` }}>
                       <Image src={item.img} alt={item.name} fill sizes="(max-width:1024px) 100vw, 30vw"
-                             className="object-contain object-bottom px-7 pt-7 pb-8 origin-bottom transition-[transform,filter] duration-500 group-hover:scale-[1.06] group-hover:[filter:brightness(1.06)_contrast(1.04)_drop-shadow(0_16px_22px_rgba(232,200,120,.4))]" />
+                             className="object-contain object-center p-7 origin-center transition-[transform,filter] duration-500 group-hover:scale-[1.06] group-hover:[filter:brightness(1.06)_contrast(1.04)_drop-shadow(0_16px_22px_rgba(232,200,120,.4))]" />
                     </div>
                     {/* light sheen sweeping across the render on hover */}
                     <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[900ms] ease-out"
@@ -176,7 +194,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               </Reveal>
             ))}
           </div>
-          <Reveal className="flex justify-center mt-12">
+          <RailNudge targetId="home-product-rail" label={t("products.swipeHint")} className="md:hidden" />
+          <Reveal className="flex justify-center mt-7 sm:mt-9 lg:mt-12">
             <Link className="qs-btn qs-btn-gold" href="/products">{t("products.viewAll")} <span className="arr">→</span></Link>
           </Reveal>
         </div>
@@ -184,16 +203,16 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       {/* TICKER — running dual-row marquee band between the product showrooms */}
       <div className="bg-ink text-[#cfc9b8] border-y border-[#2a2620] overflow-hidden">
-        <div className="py-3.5 border-b border-[#2a2620]">
+        <div className="py-2.5 sm:py-3.5 border-b border-[#2a2620]">
           <Marquee items={tickerWords} speed={52} />
         </div>
-        <div className="py-3.5 text-[#8a8676]">
+        <div className="py-2.5 sm:py-3.5 text-[#8a8676]">
           <Marquee items={tickerWords} speed={46} reverse />
         </div>
       </div>
 
       {/* APPLICATIONS — contained hover-expand accordion */}
-      <section className="relative py-24 bg-paper overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <div className="relative qs-wrap-wide">
           <Reveal>
@@ -206,19 +225,42 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </Reveal>
 
           {/* desktop: chồng xéo top-left → bottom-right, thẻ active mở rộng sẵn, lia tới đâu active tới đó */}
-          <Reveal className="mt-12">
+          <Reveal className="mt-7 sm:mt-9 lg:mt-12">
             <AppDeck items={apps} />
           </Reveal>
 
-          {/* mobile: stacked cards */}
-          <div className="md:hidden mt-10 flex flex-col gap-3">
+          {/* mobile/tablet: the filmstrip needs hover, so below lg the same cards render as
+              tappable stills — a snap rail on phones (one card per screen, swipe cue below)
+              and the 2-up grid from md. No height utility on the wrapper: `align-items:
+              stretch` only applies to items whose cross-size is auto, so a fixed height would
+              opt the card out of stretching. The min-height on the card sets the floor instead. */}
+          <div id="home-applications-rail"
+               className="lg:hidden mt-6 sm:mt-8 flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                          md:grid md:grid-cols-2 md:overflow-visible
+                          gap-px md:gap-3">
             {apps.map((a, i) => (
-              <Reveal key={a.slug} delay={i * 70}>
-                <Link href={`/applications/${a.slug}`}
-                      className="group relative block h-[240px] overflow-hidden bg-ink-2 border border-line">
-                  <Image src={a.img} alt={a.t} fill sizes="100vw"
-                         className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Reveal key={a.slug} delay={i * 70} className="flex items-stretch w-full shrink-0 snap-start md:w-auto">
+                <Link href={`/applications/${a.slug}`} data-rail-card
+                      className="group relative block w-full min-h-[260px] md:min-h-[240px] overflow-hidden bg-ink-2 border border-line transition-colors duration-500 hover:border-gold-2/55">
+                  {/* Photo with perpetual ken-burns drift — alive on touch with no hover needed
+                      (matches the About/CTA editorial stills). Replaces the old group-hover:scale,
+                      which never fired on touch and would fight the ken-burns transform.
+                      Reduced-motion holds at a static 1.06 crop. */}
+                  <Image src={a.img} alt={a.t} fill sizes="(max-width:1024px) 100vw, 50vw"
+                         className="object-cover qs-kenburns transition-[filter] duration-500 group-hover:brightness-110" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.92) 0%,rgba(10,10,8,.2) 50%,transparent 78%)" }}></div>
+                  {/* Gold scan-line sweeping the still — same language as the desktop deck;
+                      staggered per card so the 2-up grid doesn't pulse in sync. display:none
+                      under reduced-motion (handled on .qs-scan in globals.css). */}
+                  <div className="qs-scan pointer-events-none" style={{ animationDelay: `${i * 1.2}s` }} aria-hidden="true"></div>
+                  {/* Decorative frame + corner ticks (deck language); border warms to gold on
+                      hover for pointer devices. pointer-events-none so the card stays one tap target. */}
+                  <div className="pointer-events-none absolute inset-3 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/55" aria-hidden="true">
+                    <span className="absolute -top-px -left-px w-3 h-3 border-t border-l border-gold-2/80" />
+                    <span className="absolute -top-px -right-px w-3 h-3 border-t border-r border-gold-2/80" />
+                    <span className="absolute -bottom-px -left-px w-3 h-3 border-b border-l border-gold-2/80" />
+                    <span className="absolute -bottom-px -right-px w-3 h-3 border-b border-r border-gold-2/80" />
+                  </div>
                   <div className="absolute inset-x-0 bottom-0 p-5">
                     <span className="font-mono text-[10px] text-gold-2 tracking-[.2em] uppercase">{t("applications.mobileLabel")} {a.n}</span>
                     <h4 className="font-display font-semibold text-white text-lg mt-1.5 leading-tight">{a.t}</h4>
@@ -227,32 +269,34 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 </Link>
               </Reveal>
             ))}
-            <Reveal delay={apps.length * 70}>
-              <Link href="/applications"
-                    className="group flex items-center justify-between bg-ink border border-line px-5 py-5">
-                <span className="font-display font-semibold text-white text-lg">{t("applications.viewAll")}</span>
-                <span className="font-mono text-sm text-gold-2 transition-transform duration-500 group-hover:translate-x-1">→</span>
-              </Link>
-            </Reveal>
           </div>
+          <RailLand targetId="home-applications-rail" />
+          <RailNudge targetId="home-applications-rail" label={t("applications.swipeHint")} className="md:hidden" />
+          <Reveal className="lg:hidden mt-3">
+            <Link href="/applications"
+                  className="group flex items-center justify-between bg-ink border border-line px-5 py-5">
+              <span className="font-display font-semibold text-white text-lg">{t("applications.viewAll")}</span>
+              <span className="font-mono text-sm text-gold-2 transition-transform duration-500 group-hover:translate-x-1">→</span>
+            </Link>
+          </Reveal>
         </div>
       </section>
 
       {/* ABOUT — full-bleed dark, factory photo bleeding to the left edge */}
-      <section className="bg-ink text-[#cfc9b8] grid lg:grid-cols-2 items-stretch overflow-hidden">
-        <Reveal className="relative min-h-[360px] lg:h-full overflow-hidden">
+      <section className="bg-ink text-[#cfc9b8] grid md:grid-cols-2 items-stretch overflow-hidden">
+        <Reveal className="relative min-h-[240px] sm:min-h-[300px] md:h-full overflow-hidden">
           {/* ambient ken-burns drift — slow perpetual zoom/pan */}
           <Image src="/home/about-qs.webp" alt={t("about.imgAlt")} fill
                  sizes="(max-width:1024px) 100vw, 50vw" className="object-cover qs-kenburns" />
           {/* dark tint + seam blend into the text column on desktop */}
           <div className="absolute inset-0 bg-[#0a0a0a]/25"></div>
-          <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-transparent via-transparent to-ink/95"></div>
+          <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-transparent via-transparent to-ink/95"></div>
           {/* live caption */}
           <div className="absolute left-6 bottom-6 flex items-center gap-2 font-mono text-[10px] tracking-[.18em] uppercase text-[#e8e6df]">
             <span className="qs-live-dot" aria-hidden="true"></span>{t("about.caption")}
           </div>
         </Reveal>
-        <div className="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
+        <div className="relative py-12 sm:py-16 lg:py-28 px-5 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
           <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)]" />
           <Reveal className="relative max-w-[640px]">
@@ -270,12 +314,12 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       </section>
 
       {/* SHOWREEL — broadcast control room on a light stage */}
-      <section className="relative py-24 bg-paper border-t border-line overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 left-0 w-[40%] h-[64%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("showreel.eyebrow")}</span>
@@ -295,7 +339,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
         <CircuitTraces variant="dark" className="absolute inset-y-0 left-[-6%] w-[52%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)]" />
         <div className="qs-glow" style={{ bottom: "-150px", left: "24%", width: "440px", height: "440px" }} aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide py-14 lg:py-16 grid lg:grid-cols-[1fr_minmax(480px,620px)] gap-12 items-center">
+        <div className="relative qs-wrap-wide py-12 sm:py-14 lg:py-16 grid md:grid-cols-2 lg:grid-cols-[1fr_minmax(480px,620px)] gap-7 sm:gap-10 md:gap-12 items-center">
           <Reveal>
             <h3 className="font-display font-bold text-white tracking-[-.015em] leading-[1.08] m-0"
                 style={{ fontSize: "clamp(30px,3.4vw,46px)" }}>{t("cta.heading")}</h3>
@@ -318,12 +362,12 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       </section>
 
       {/* NEWSROOM — editorial wire feed (closing section) */}
-      <section className="relative py-24 bg-paper overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute bottom-0 left-0 w-[42%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_bottom_left,#000_26%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_left,#000_26%,transparent_72%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line mb-12">
+            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("news.eyebrow")}</span>

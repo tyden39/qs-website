@@ -13,7 +13,7 @@ export default async function NotFound() {
     <section className="relative overflow-hidden bg-paper grid items-center"
              style={{ padding: "96px 0", minHeight: "calc(100vh - 380px)" }}>
       <div className="absolute inset-0 qs-grid-bg opacity-40"></div>
-      <div className="relative max-w-wrap mx-auto px-12 text-center flex flex-col items-center gap-2">
+      <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 text-center flex flex-col items-center gap-2">
         <div className="font-mono text-[11px] text-gold-1 tracking-[.2em] uppercase flex gap-3 items-center
                         before:content-[''] before:w-8 before:h-px before:bg-gold before:opacity-60
                         after:content-[''] after:w-8 after:h-px after:bg-gold after:opacity-60">

@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
+import { useHorizontalSwipe } from "@/lib/use-swipe";
 
 export type LightboxShot = { src: string; w: number; h: number; alt: string };
 type Labels = { prev: string; next: string; close: string };
@@ -37,6 +38,7 @@ export function LightboxProvider({ labels, children }: { labels: Labels; childre
     (dir: number) => setIndex((i) => (count ? (i + dir + count) % count : 0)),
     [count],
   );
+  const swipe = useHorizontalSwipe(go);
 
   useEffect(() => {
     if (!group) return;
@@ -80,6 +82,7 @@ export function LightboxProvider({ labels, children }: { labels: Labels; childre
           <div
             className="relative flex-1 flex items-center justify-center px-4 pb-6"
             onClick={(e) => e.stopPropagation()}
+            {...(count > 1 ? swipe : {})}
           >
             {count > 1 && (
               <button

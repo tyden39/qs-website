@@ -103,6 +103,7 @@
     "heading": "Bộ điều khiển QS",
     "lede": "Sáu dòng bộ điều khiển cho phay, tiện, uốn và dán keo — chọn theo số trục và giao thức điều khiển.",
     "viewAll": "Xem tất cả controller",
+    "swipeHint": "Vuốt để xem thêm",
     "items": [
       {
         "lbl": "[ Dòng F ]",
@@ -155,6 +156,7 @@
       }
     ],
     "mobileLabel": "Ứng dụng",
+    "swipeHint": "Vuốt để xem thêm",
     "viewAll": "Xem tất cả ứng dụng",
     "deck": {
       "label": "Ứng dụng",

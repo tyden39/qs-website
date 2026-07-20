@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLightbox } from "@/components/products/product-image-lightbox";
+import { useHorizontalSwipe } from "@/lib/use-swipe";
 
 export type HeroShot = { src: string; w: number; h: number; alt: string };
 
@@ -36,6 +37,8 @@ export function ProductHeroGallery({
   }, []);
 
   const autoplay = shots.length > 1 && !reduced;
+  const swipe = useHorizontalSwipe((dir) => setActive((i) => (i + dir + shots.length) % shots.length));
+  const swipeProps = shots.length > 1 ? swipe : {};
 
   useEffect(() => {
     if (!autoplay || paused) return;
@@ -62,7 +65,7 @@ export function ProductHeroGallery({
         QS · {name.toUpperCase()}
       </div>
 
-      <div className="relative h-[320px] sm:h-[380px] bg-paper border border-white/10">
+      <div className="relative h-[320px] sm:h-[380px] bg-paper border border-white/10" {...swipeProps}>
         {shots.map((s, i) => (
           <div
             key={s.src}

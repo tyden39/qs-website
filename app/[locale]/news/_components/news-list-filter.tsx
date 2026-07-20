@@ -55,7 +55,7 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
     <>
       {/* TABS */}
       <div className="bg-white border-b border-line sticky top-18 z-30">
-        <div className="max-w-wrap mx-auto px-4 sm:px-12 flex overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 flex overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {TAB_IDS.map((id, i) => (
             <button
               key={id}
@@ -72,7 +72,7 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
       {/* FEATURED — editorial highlight, shown only on the "All" tab */}
       {showFeatured && feat && (
         <section className="py-14 bg-white">
-          <div className="max-w-wrap mx-auto px-12">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <Link
               href={`/news/${feat.slug}`}
               className="group relative grid md:grid-cols-[1.35fr_1fr] bg-white border border-line rounded-[3px] overflow-hidden transition-all duration-200 hover:border-ink-3 hover:shadow-[0_1px_0_rgba(0,0,0,.04),0_18px_44px_-20px_rgba(0,0,0,.28)]"
@@ -111,7 +111,7 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
 
       {/* GRID */}
       <section className="py-14 pb-16 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("list.gridEyebrow")}</span>

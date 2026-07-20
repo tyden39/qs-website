@@ -91,7 +91,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.15]" aria-hidden="true"></div>
         {/* breathing gold atmosphere behind the detail plate */}
         <div className="qs-glow hidden sm:block right-[4%] top-[-25%] w-[34%] h-[150%]" aria-hidden="true"></div>
-        <div className="relative max-w-wrap mx-auto px-12 pt-12 pb-16">
+        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
             <Link href="/" className="text-[#a8a499]!">{t("breadcrumb.home")}</Link><span className="sep text-[#a8a499]!">/</span>
             <Link href="/applications" className="text-[#a8a499]!">{t("breadcrumb.applications")}</Link><span className="sep text-[#a8a499]!">/</span>
@@ -136,7 +136,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       {/* MATCHING PRODUCTS */}
       {relatedProducts.length > 0 && (
         <section className="py-20 bg-white border-b border-line">
-          <div className="max-w-wrap mx-auto px-12">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <Reveal className="qs-section-head">
               <div>
                 <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("productsEyebrow")}</span>
@@ -175,7 +175,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
 
       {/* CONTACT CTA */}
       <section className="py-18 lg:py-20 bg-white border-t border-line">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
             <div>
               <h3 className="font-display font-bold text-3xl text-white tracking-[-.01em] m-0">{t("ctaHeading", { machine })}</h3>

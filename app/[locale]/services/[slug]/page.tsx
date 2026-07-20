@@ -71,7 +71,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7, #f0eee8)", padding: "48px 0 64px" }}>
         <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
-        <div className="relative max-w-wrap mx-auto px-12">
+        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-16 items-start">
             <div>
               <nav className="qs-crumb">
@@ -138,7 +138,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
 
       {/* PROCESS */}
       <section className="py-24 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="mb-10 pb-4 border-b border-line">
             <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("processEyebrow")}</span>
             <h2 className="qs-h2 mt-1.5 max-w-[24ch]">{t("processHeading")}</h2>
@@ -162,7 +162,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
 
       {/* INCLUDES */}
       <section className="py-24 bg-paper border-t border-line">
-        <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_1.2fr] gap-16 items-start">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.2fr] gap-16 items-start">
           <div>
             <span className="qs-eyebrow">{t("includesEyebrow")}</span>
             <h2 className="font-display text-[32px] font-bold tracking-[-.015em] mt-2 mb-4 leading-[1.1]">
@@ -195,7 +195,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
 
       {/* PRICING */}
       <section className="py-24 bg-white" id="pricing">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="text-center mb-10">
             <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("pricingEyebrow")}</span>
             <h2 className="qs-h2 mt-1.5">{t("pricingHeading")}</h2>
@@ -231,7 +231,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
 
       {/* CTA */}
       <section className="py-20 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="bg-ink text-[#cfc9b8] p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center">
             <div>
               <h3 className="font-display font-bold text-[28px] text-white tracking-[-.01em] m-0">{s.cta.title}</h3>

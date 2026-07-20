@@ -61,7 +61,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
           variant="light"
           className="hidden lg:block absolute top-0 right-0 w-[44%] h-full opacity-[.45] [mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_72%)]"
         />
-        <div className="relative z-10 max-w-wrap mx-auto px-12 pt-12 pb-16">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-12 pb-16">
           <div className="qs-crumb mb-8">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
@@ -83,7 +83,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
 
       {/* GIẢI PHÁP TOÀN DIỆN */}
       <section className="py-24 bg-white">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("solution.eyebrow")}</span>
@@ -108,7 +108,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
 
       {/* CASE STUDY — BEFORE / AFTER */}
       <section className="py-24 bg-paper border-y border-line">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("upgrade.eyebrow")}</span>
@@ -168,7 +168,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
         <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold-grad" aria-hidden="true"></div>
         <div className="qs-glow hidden sm:block right-[6%] top-[-30%] w-[30%] h-[140%]" aria-hidden="true"></div>
 
-        <div className="relative z-10 max-w-wrap mx-auto px-12">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="mx-auto max-w-[64ch] text-center flex flex-col items-center">
             <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("contact.eyebrow")}</span>
             <h2 className="qs-h2 mt-2">{t("contact.heading")}</h2>

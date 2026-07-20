@@ -68,7 +68,7 @@ export default async function Applications({ params }: { params: Promise<{ local
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         {/* breathing gold atmosphere behind the board panel */}
         <div className="qs-glow hidden sm:block right-[8%] top-[-30%] w-[36%] h-[150%]" aria-hidden="true"></div>
-        <div className="relative z-10 max-w-wrap mx-auto px-12 pt-12 pb-14">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-12 pb-14">
           <div className="qs-crumb mb-6">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
@@ -101,7 +101,7 @@ export default async function Applications({ params }: { params: Promise<{ local
 
       {/* GRID */}
       <section className="py-20 bg-white" id="list">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
               <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("catalogEyebrow")}</span>
@@ -142,7 +142,7 @@ export default async function Applications({ params }: { params: Promise<{ local
 
       {/* VIDEO — centered feature clip below the catalog */}
       <section className="py-20 bg-paper border-t border-line">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="max-w-[900px] mx-auto text-center">
             <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>
             <h2 className="qs-h2 mt-2">{t("videoHeading")}</h2>
@@ -155,7 +155,7 @@ export default async function Applications({ params }: { params: Promise<{ local
 
       {/* CONTACT CTA */}
       <section className="py-18 lg:py-20 bg-white border-t border-line">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
             <div>
               <h3 className="font-display font-bold text-3xl text-white tracking-[-.01em] m-0">{t("ctaHeading")}</h3>

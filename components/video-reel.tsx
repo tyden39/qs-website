@@ -74,7 +74,7 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
 
   return (
     <div
-      className="grid lg:grid-cols-[1.25fr_1fr] gap-8 lg:gap-12"
+      className="grid md:grid-cols-[1.25fr_1fr] gap-8 lg:gap-12"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}

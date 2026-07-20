@@ -122,7 +122,7 @@ export function SearchResults() {
         style={{ background: "linear-gradient(180deg, #fafaf7, #f0eee8)", padding: "48px 0 32px" }}
       >
         <div className="absolute inset-0 qs-grid-bg opacity-50"></div>
-        <div className="relative max-w-wrap mx-auto px-12">
+        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-crumb">
             <Link href="/">Home</Link>
             <span className="sep">/</span>
@@ -145,7 +145,7 @@ export function SearchResults() {
 
       {/* INPUT */}
       <section className="bg-white border-b border-line sticky top-16 lg:top-[72px] z-30 py-6">
-        <div className="max-w-wrap mx-auto px-12">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <form onSubmit={onSubmit} className="flex gap-3.5 items-center border border-ink bg-white px-[18px] py-3.5">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="shrink-0 opacity-50">
               <circle cx="11" cy="11" r="7" />
@@ -168,7 +168,7 @@ export function SearchResults() {
       {/* TABS */}
       {scored.length > 0 && (
         <section className="bg-white border-b border-line">
-          <div className="max-w-wrap mx-auto px-12">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <div className="flex flex-wrap">
               {tabTypes.map((ty) => (
                 <button
@@ -190,7 +190,7 @@ export function SearchResults() {
 
       {/* BODY */}
       <section className="bg-white py-12 pb-24">
-        <div className="max-w-wrap mx-auto px-12 grid md:grid-cols-[1fr_280px] gap-12 items-start">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_280px] gap-12 items-start">
           <div className="min-w-0">
             {!query && <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0">{t("emptyPrompt")}</p>}
 

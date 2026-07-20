@@ -47,6 +47,9 @@ export default function Header() {
       <div className="qs-topstrip">
         <div className="qs-wrap-wide py-1.5 flex justify-between items-center gap-6">
           <span className="min-w-0 truncate"><span className="qs-topstrip-dot"></span>QS Technology Co., Ltd · {t("tagline")}</span>
+          {/* On phones the tap-to-call hotline is the highest-value strip item, so
+              it stays visible while the full hotline+email pair waits for md. */}
+          <a href="tel:+84909663350" className="md:hidden shrink-0 qs-topstrip-link">(+84) 909.663.350</a>
           <span className="hidden md:inline shrink-0">
             Hotline <a href="tel:+84909663350" className="qs-topstrip-link">(+84) 909.663.350</a>
             {" · "}

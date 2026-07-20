@@ -327,7 +327,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
           <aside className="min-w-0 grid">
             {galleryShots[0] ? (
-              <div className="relative min-h-[420px] lg:min-h-[480px] grid place-items-center p-6 overflow-hidden">
+              <LightboxTrigger
+                group={galleryShots}
+                index={0}
+                ariaLabel={t("lightbox.zoom")}
+                className="relative min-h-[420px] lg:min-h-[480px] grid place-items-center p-6 overflow-hidden w-full"
+              >
                 <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-70" aria-hidden="true" />
                 <span className="qs-glow left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />
                 <Image
@@ -338,7 +343,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                   sizes="(max-width: 1024px) 92vw, 560px"
                   className="qs-float relative w-auto max-h-[400px] lg:max-h-[460px] max-w-full object-contain drop-shadow-[0_22px_44px_rgba(0,0,0,.2)]"
                 />
-              </div>
+              </LightboxTrigger>
             ) : (
               <div className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden border border-dashed border-line bg-white">
                 <div className="absolute inset-0 qs-grid-bg opacity-30" />
@@ -594,45 +599,57 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             ))}
           </dl>
 
-          {/* Kit teaser: shows what ships in the box right from the hero, using
-              the real part photos where we have them so the kit reads as a
-              product rather than a legend. The full grid with every label still
-              lives in its tab. Borders collapse with the stat strip via -mt-px. */}
-          <a
-            href="#package"
-            className="group -mt-px block border border-white/10 bg-[#141510] no-underline transition-colors hover:bg-[#191a14]"
-          >
-            <span className="flex items-center justify-between gap-4 px-4 pt-3 sm:px-5">
+        </div>
+      </section>
+
+      {/* Kit teaser: its own band under the hero, showing what ships in the box
+          with the real part photos where we have them so the kit reads as a
+          product rather than a legend. Nothing here wraps the whole block in a
+          link — a photo click zooms it, and only the explicit "see details" /
+          "+N" links open the tab where the full grid with every label lives. */}
+      <section className="bg-[#10110f] text-white border-b border-[#28261f]">
+        <div className="qs-wrap-wide py-10 lg:py-12">
+          <div className="border border-white/10 bg-[#141510]">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-white/10 px-4 py-4 sm:px-5">
               <span className="font-mono text-[10px] tracking-[.16em] uppercase text-[#837b6c]">
                 {t("packageTeaser", { count: p.bundle.length })}
               </span>
-              <span className="shrink-0 text-[13px] font-semibold text-gold-2 group-hover:underline">
+              <a href="#package" className="qs-btn qs-btn-gold qs-btn-sm shrink-0">
                 {t("packageTeaserLink")}
-              </span>
-            </span>
-            <span className="mt-3 grid grid-cols-3 gap-px border-t border-white/10 bg-white/10 sm:grid-cols-6">
-              {p.bundle.slice(0, PACKAGE_TEASER_ICONS).map((c) => {
+              </a>
+            </div>
+            <div className="grid grid-cols-3 gap-px bg-white/10 sm:grid-cols-6">
+              {p.bundle.slice(0, PACKAGE_TEASER_ICONS).map((c, i) => {
                 const photo = c.photo ?? (c.icon === "controller" ? p.image : null);
+                const image = photo ? (
+                  <Image src={photo.src} alt="" width={photo.w} height={photo.h} sizes="150px" className="max-h-[86px] w-auto max-w-full object-contain" />
+                ) : (
+                  <KitComponentIcon type={c.icon} className="h-[64px] w-auto" />
+                );
                 return (
-                  <span key={c.label} className="flex flex-col items-center gap-2 bg-[#141510] px-3 py-4 transition-colors group-hover:bg-[#191a14]">
-                    <span className="grid h-[86px] w-full place-items-center">
-                      {photo ? (
-                        <Image src={photo.src} alt="" width={photo.w} height={photo.h} sizes="150px" className="max-h-[86px] w-auto max-w-full object-contain" />
-                      ) : (
-                        <KitComponentIcon type={c.icon} className="h-[64px] w-auto" />
-                      )}
-                    </span>
+                  <div key={c.label} className="flex flex-col items-center gap-2 bg-[#141510] px-3 py-4">
+                    {photo ? (
+                      <LightboxTrigger group={bundleShots} index={bundleShotIndex[i]} ariaLabel={t("lightbox.zoom")} className="grid h-[86px] w-full place-items-center">
+                        {image}
+                      </LightboxTrigger>
+                    ) : (
+                      <span className="grid h-[86px] w-full place-items-center">{image}</span>
+                    )}
                     <span className="line-clamp-2 text-center text-[11px] leading-[1.35] text-[#9f9788]">{c.label}</span>
-                  </span>
+                  </div>
                 );
               })}
               {p.bundle.length > PACKAGE_TEASER_ICONS ? (
-                <span className="grid place-items-center bg-[#141510] px-3 py-4 font-mono text-[13px] text-[#c9c2b3] transition-colors group-hover:bg-[#191a14]">
+                <a
+                  href="#package"
+                  aria-label={t("packageTeaserLink")}
+                  className="grid place-items-center bg-[#141510] px-3 py-4 font-mono text-[13px] text-[#c9c2b3] no-underline transition-colors hover:bg-[#191a14] hover:text-gold-2"
+                >
                   +{p.bundle.length - PACKAGE_TEASER_ICONS}
-                </span>
+                </a>
               ) : null}
-            </span>
-          </a>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -41,14 +41,14 @@ export async function CatalogDetail({
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(420px,.86fr)] gap-10 lg:gap-14 items-center">
-            <div>
-              <small className="block font-mono text-[11px] text-gold-2 tracking-[.18em] uppercase mb-4">
+            <div className="order-2 md:order-1">
+              <small className="block font-mono text-label text-gold-2 tracking-[.18em] uppercase mb-4">
                 {t("modelLine", { name: product.name })}
               </small>
               <h1 className="font-display font-bold tracking-[-.035em] leading-[1.02] text-balance m-0 text-[clamp(32px,5.5vw,64px)]">
                 {product.tag}
               </h1>
-              <p className="mt-6 text-[17px] leading-[1.75] text-[#c9c2b3] max-w-[68ch]">
+              <p className="mt-6 text-lede leading-[1.75] text-[#c9c2b3] max-w-[68ch]">
                 {product.desc}
               </p>
 
@@ -66,7 +66,7 @@ export async function CatalogDetail({
             </div>
 
             <div
-              className="relative grid place-items-center border border-white/10 p-6 lg:p-8 overflow-hidden"
+              className="relative order-1 grid place-items-center border border-white/10 p-6 md:order-2 lg:p-8 overflow-hidden"
               style={{ background: "radial-gradient(circle at 50% 38%, #1b1c17, #101109)" }}
             >
               <div
@@ -88,7 +88,7 @@ export async function CatalogDetail({
       </section>
 
       {/* ── Specifications ── */}
-      <section id="specs" className="relative overflow-hidden bg-paper border-b border-line py-14 lg:py-18">
+      <section id="specs" className="relative overflow-hidden bg-paper border-b border-line py-12 sm:py-16 lg:py-24">
         <CircuitTraces
           variant="light"
           className="hidden md:block absolute inset-y-0 right-0 w-[34%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)]"
@@ -97,17 +97,17 @@ export async function CatalogDetail({
           <div className="qs-eyebrow mb-5">{t("specsEyebrow")}</div>
           <div className="border border-line">
             <div className="bg-[#11120f] px-4 py-3.5">
-              <span className="font-display text-[15px] font-bold tracking-[-.01em] text-white">
+              <span className="font-display text-body font-bold tracking-[-.01em] text-white">
                 {product.name}
               </span>
             </div>
             <div className="grid sm:grid-cols-2 gap-px bg-line border-t border-line">
               {product.specs.map((s) => (
                 <div key={s.l} className="bg-white px-4 py-3.5 flex flex-col gap-1">
-                  <span className="font-mono text-[10px] leading-snug tracking-[.06em] uppercase text-muted">
+                  <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
                     {s.l}
                   </span>
-                  <span className="text-[14px] font-semibold tracking-[-.005em] text-ink tabular-nums">
+                  <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
                     {s.v}
                   </span>
                 </div>
@@ -119,7 +119,7 @@ export async function CatalogDetail({
 
       {/* ── Features (only where the catalogue documents them) ── */}
       {product.features.length > 0 && (
-        <section className="py-14 lg:py-20 bg-white border-b border-line">
+        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
           <div className="qs-wrap-wide">
             <div className="qs-eyebrow mb-8">{t("featuresHeading")}</div>
             <div className="flex flex-col gap-12 lg:gap-16">
@@ -131,13 +131,13 @@ export async function CatalogDetail({
                   }`}
                 >
                   <div className={f.photo && i % 2 === 1 ? "md:order-2" : ""}>
-                    <div className="font-mono text-[10px] tracking-[.18em] text-gold-1">
+                    <div className="font-mono text-label-xs tracking-[.18em] text-gold-1">
                       {String(i + 1).padStart(2, "0")}
                     </div>
-                    <h2 className="mt-2.5 font-display font-bold text-[26px] tracking-[-.02em] m-0">
+                    <h2 className="mt-2.5 font-display font-bold text-subhead tracking-[-.02em] m-0">
                       {f.title}
                     </h2>
-                    <p className="mt-3.5 m-0 text-[15px] leading-[1.75] text-[#3a3a3a] max-w-[62ch]">
+                    <p className="mt-3.5 m-0 text-body leading-[1.75] text-[#3a3a3a] max-w-[62ch]">
                       {f.body}
                     </p>
                   </div>
@@ -166,14 +166,14 @@ export async function CatalogDetail({
       )}
 
       {/* ── CTA ── */}
-      <section className="py-18 lg:py-20 bg-white">
+      <section className="py-12 sm:py-16 lg:py-24 bg-white">
         <div className="qs-wrap-wide">
           <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
             <div>
-              <h3 className="font-display font-bold text-3xl text-white tracking-[-.01em] m-0">
+              <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">
                 {t("ctaHeading", { name: product.name })}
               </h3>
-              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-[15px] leading-relaxed">
+              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-body leading-relaxed">
                 {t("catalogCtaBody")}
               </p>
             </div>

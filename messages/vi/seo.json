@@ -13,7 +13,13 @@
   "newsTitle": "Tin tức & Sự kiện",
   "newsDescription": "Cập nhật mới nhất về sản phẩm, sự kiện và kỹ thuật từ QS Technology.",
   "applicationsTitle": "Ứng dụng công nghiệp",
-  "applicationsDescription": "Bộ điều khiển QS đang vận hành trong nhiều loại máy gia công — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm.",
+  "applicationsDescription": "Bộ điều khiển QS đang vận hành trong nhiều loại máy gia công — từ phay kim loại đến uốn lò xo, dán keo và làm mộng gỗ.",
   "servicesTitle": "Dịch vụ chế tạo controller",
-  "servicesDescription": "Thiết kế PCB, viết firmware và bàn giao controller theo yêu cầu — phù hợp 100% cho dây chuyền của bạn."
+  "servicesDescription": "Thiết kế PCB, viết firmware và bàn giao controller theo yêu cầu — phù hợp 100% cho dây chuyền của bạn.",
+  "aboutTitle": "Giới thiệu QS Technology",
+  "aboutDescription": "Đội ngũ kỹ sư Việt Nam thiết kế phần cứng và firmware bộ điều khiển CNC từ năm đầu tiên — câu chuyện, giá trị và định hướng của QS Technology.",
+  "contactTitle": "Liên hệ QS Technology",
+  "contactDescription": "Tư vấn chọn bộ điều khiển CNC, báo giá và hỗ trợ kỹ thuật trực tiếp tại 35 tỉnh thành. Gọi 0909 663 350 hoặc gửi yêu cầu trong ngày làm việc.",
+  "downloadsTitle": "Tài liệu & Phần mềm",
+  "downloadsDescription": "Tải hướng dẫn vận hành, sơ đồ đấu nối và tài liệu kỹ thuật cho toàn bộ dòng controller QS — song ngữ Việt / Anh, cập nhật theo từng model."
 }

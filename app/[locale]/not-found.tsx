@@ -4,17 +4,19 @@ import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("errors.notFound");
-  return { title: t("metaTitle") };
+  // Static export serves 404 as a real page, so it needs the noindex tag that a
+  // 404 status would otherwise imply.
+  return { title: t("metaTitle"), robots: { index: false, follow: false } };
 }
 
 export default async function NotFound() {
   const t = await getTranslations("errors.notFound");
   return (
     <section className="relative overflow-hidden bg-paper grid items-center"
-             style={{ padding: "96px 0", minHeight: "calc(100vh - 380px)" }}>
+             style={{ padding: "96px 0", minHeight: "calc(100dvh - 380px)" }}>
       <div className="absolute inset-0 qs-grid-bg opacity-40"></div>
       <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 text-center flex flex-col items-center gap-2">
-        <div className="font-mono text-[11px] text-gold-1 tracking-[.2em] uppercase flex gap-3 items-center
+        <div className="font-mono text-label text-gold-1 tracking-[.2em] uppercase flex gap-3 items-center
                         before:content-[''] before:w-8 before:h-px before:bg-gold before:opacity-60
                         after:content-[''] after:w-8 after:h-px after:bg-gold after:opacity-60">
           {t("tag")}
@@ -32,7 +34,7 @@ export default async function NotFound() {
             style={{ fontSize: "clamp(28px, 3vw, 40px)" }}>
           {t("heading")}
         </h1>
-        <p className="text-[15px] leading-[1.7] text-[#4a4842] mt-3.5 max-w-[48ch]">
+        <p className="text-body leading-[1.7] text-[#4a4842] mt-3.5 max-w-[48ch]">
           {t("body")}
         </p>
         <div className="flex gap-2.5 mt-8">

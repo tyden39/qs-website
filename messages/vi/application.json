@@ -19,12 +19,13 @@
     "breadcrumb": { "home": "Trang chủ", "current": "Ứng dụng" },
     "eyebrow": "Ứng dụng công nghiệp",
     "heading": "Ứng Dụng",
-    "lede": "Bộ điều khiển QS đang vận hành trong bảy loại máy gia công khác nhau — từ phay kim loại đến uốn lò xo, dán keo và chế biến thực phẩm. Mỗi case study là một bài toán kỹ thuật riêng.",
+    "lede": "Bộ điều khiển QS đang vận hành trong sáu loại máy gia công khác nhau — từ phay kim loại đến uốn lò xo, dán keo và làm mộng gỗ. Mỗi case study là một bài toán kỹ thuật riêng.",
     "catalogEyebrow": "[ Catalog · 01 / 01 ]",
     "catalogHeading": "Ứng Dụng Công Nghiệp",
     "caseStudies": "{count} nghiên cứu ứng dụng",
     "controllerFor": "Bộ điều khiển cho",
     "detail": "Chi tiết",
+    "swipeHint": "Vuốt để xem thêm",
     "videoEyebrow": "[ Video ]",
     "videoHeading": "Ứng dụng thực tế tại xưởng",
     "videoPlay": "Phát video",
@@ -35,7 +36,6 @@
       { "t": "Phay CNC", "machine": "Máy Phay CNC" },
       { "t": "Cưa Lọng", "machine": "Máy Cưa Lọng" },
       { "t": "Dán Keo", "machine": "Máy Dán Keo" },
-      { "t": "Thực Phẩm", "machine": "Máy Cắt Thực Phẩm" },
       { "t": "Lò Xo", "machine": "Máy Uốn Lò Xo" },
       { "t": "Mộng Gỗ", "machine": "Máy Làm Mộng" },
       { "t": "Kim Hoàn", "machine": "Máy Kim Hoàn" }
@@ -112,17 +112,6 @@
           { "l": "Plan · Path", "t": "Tối ưu hóa góc cua", "d": "Thuật toán Look-ahead xử lý tính toán trước quỹ đạo 3D, kết hợp giảm tốc tự động tại các góc cua gắt để tránh hiện tượng dồn cục keo." },
           { "l": "Drive · Dispenser", "t": "Đồng bộ van bơm & servo", "d": "Điều khiển vòng kín giữa tốc độ di chuyển của trục XYZ và độ mở của van bơm keo, đảm bảo đường keo ra đều đặn, không đứt quãng." },
           { "l": "Monitor · HMI", "t": "Kiểm soát chu trình", "d": "Quản lý số lượng mẻ, thời gian chu kỳ dán. Màn hình cảnh báo ngay lập tức nếu phát hiện áp suất keo yếu hoặc tắc đầu phun." }
-        ]
-      },
-      "thuc-pham": {
-        "heroLede": "Hệ thống điều khiển tốc độ cao, đảm bảo nhịp cắt chính xác và đồng đều cho các dây chuyền chế biến thịt, bánh, và rau củ quả. Giao diện tối ưu giúp thao tác nhanh chóng và đáp ứng khắt khe các tiêu chuẩn vệ sinh công nghiệp.",
-        "heroStats": [["2–4", "Số trục"], ["0.1–50 mm", "Độ dày cắt"], ["200", "Nhịp cắt (lần/phút)"]],
-        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy cắt thực phẩm.",
-        "workflow": [
-          { "l": "Input · Recipe", "t": "Thiết lập công thức cắt", "d": "Người vận hành chỉ cần chọn \"Recipe\" (công thức) đã lưu sẵn trên HMI, bao gồm độ dày lát cắt và số lượng yêu cầu cho từng mẻ nguyên liệu." },
-          { "l": "Plan · Speed", "t": "Đồng bộ tốc độ", "d": "Tính toán tốc độ băng tải nạp liệu ăn khớp tuyệt đối với nhịp dập/xoay của dao cắt, đảm bảo không làm nát phôi thực phẩm." },
-          { "l": "Drive · Sync", "t": "Truyền động cắt tốc độ cao", "d": "Phát xung tốc độ cao điều khiển động cơ servo trục dao, mang lại những nhát cắt chém dứt khoát, mượt mà và chính xác về độ dày." },
-          { "l": "Monitor · HMI", "t": "Quản lý sản lượng", "d": "Đếm số lượng lát cắt, số mẻ hoàn thành. Giao diện đơn giản, chống nước (nếu dùng dòng HMI công nghiệp) phù hợp môi trường xưởng thực phẩm." }
         ]
       },
       "uon-lo-xo": {

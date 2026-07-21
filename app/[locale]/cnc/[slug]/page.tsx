@@ -6,6 +6,7 @@ import LineMachineDetail from "../_components/line-machine-detail";
 import MachineDatasheet from "../_components/machine-datasheet";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
+import { buildMachine, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
 export async function generateMetadata({
@@ -50,12 +51,25 @@ export default async function MachineDetailPage({
   const machine = getMachineBySlug(slug, locale);
   if (!machine) notFound();
 
+  const t = await getTranslations({ locale, namespace: "cnc" });
+  const categoryLabel = t(`machines.categories.${machine.category}`);
+  const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
+    { name: t("breadcrumb.current"), path: "/cnc" },
+    { name: machine.model, path: `/cnc/${slug}` },
+  ]);
+
   // Line-integrated machines (bottle rotator, checkweigher...) ship process-flow
   // data and render the light "line station" template; the CNC machines render
   // the full editorial datasheet.
-  return machine.line.length > 0 ? (
-    <LineMachineDetail machine={machine} locale={locale} />
-  ) : (
-    <MachineDatasheet machine={machine} locale={locale} />
+  return (
+    <>
+      <JsonLd data={buildMachine(machine, categoryLabel, locale)} />
+      <JsonLd data={breadcrumb} />
+      {machine.line.length > 0 ? (
+        <LineMachineDetail machine={machine} locale={locale} />
+      ) : (
+        <MachineDatasheet machine={machine} locale={locale} />
+      )}
+    </>
   );
 }

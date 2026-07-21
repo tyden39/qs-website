@@ -8,7 +8,14 @@ type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "search.results" });
-  return { title: t("metaTitle") };
+  return {
+    title: t("metaTitle"),
+    // Search-results pages are thin, query-dependent, and near-duplicates of one
+    // another — classic index bloat that dilutes crawl budget for the product and
+    // application pages. `follow` still lets crawlers traverse the results out to
+    // those pages. Also dropped from the sitemap, which must list only indexables.
+    robots: { index: false, follow: true },
+  };
 }
 
 export default async function SearchPage({ params }: Props) {

@@ -15,10 +15,9 @@ import type { ProductView } from "@/lib/data/products";
 import type { NewsView } from "@/lib/data/news";
 import type { ApplicationView } from "@/lib/data/applications";
 import type { ServiceView } from "@/lib/data/services";
+import type { MachineView } from "@/lib/data/machines";
 import type { Locale } from "@/lib/i18n/config";
-
-const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
+import { APP_URL, localeUrl } from "@/lib/seo/app-url";
 
 export function buildOrganization(): WithContext<Organization> {
   return {
@@ -48,7 +47,7 @@ export function buildOrganization(): WithContext<Organization> {
       addressCountry: "VN",
       addressLocality: "Hà Nội",
     },
-    sameAs: [],
+    sameAs: ["https://youtube.com/@qstechnology7516"],
   };
 }
 
@@ -86,21 +85,38 @@ export function buildProduct(p: ProductView, locale: Locale): WithContext<Produc
       name: "QS Technology",
     },
     image: images.length > 0 ? images : [`${APP_URL}/og-default.png`],
-    url: `${APP_URL}/${locale}/products/${p.slug}/`,
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      priceCurrency: "VND",
-      seller: {
-        "@type": "Organization",
-        name: "QS Technology",
-      },
+    url: localeUrl(`/products/${p.slug}`, locale),
+    // No `offers`: the site publishes no prices, and an Offer without `price` is
+    // invalid — Google rejects the whole Product node rather than ignoring the
+    // Offer. Quote-only products are better served by a valid priceless Product.
+  };
+}
+
+/**
+ * Machines are physical goods like the controllers, so they share the Product
+ * type — and the same priceless shape, since machine pricing is quote-only.
+ * `category` maps to the localized machine category so the node carries the
+ * machine class, not just a model number.
+ */
+export function buildMachine(m: MachineView, categoryLabel: string, locale: Locale): WithContext<Product> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: m.model,
+    description: m.tagline,
+    sku: m.slug,
+    category: categoryLabel,
+    brand: {
+      "@type": "Brand",
+      name: "QS Technology",
     },
+    image: m.image.src.startsWith("http") ? m.image.src : `${APP_URL}${m.image.src}`,
+    url: localeUrl(`/cnc/${m.slug}`, locale),
   };
 }
 
 export function buildArticle(n: NewsView, locale: Locale): WithContext<Article> {
-  const url = `${APP_URL}/${locale}/news/${n.slug}/`;
+  const url = localeUrl(`/news/${n.slug}`, locale);
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -127,7 +143,7 @@ export function buildArticle(n: NewsView, locale: Locale): WithContext<Article> 
 }
 
 export function buildTechArticle(a: ApplicationView, locale: Locale): WithContext<TechArticle> {
-  const url = `${APP_URL}/${locale}/applications/${a.slug}/`;
+  const url = localeUrl(`/applications/${a.slug}`, locale);
   return {
     "@context": "https://schema.org",
     "@type": "TechArticle",
@@ -154,7 +170,7 @@ export function buildTechArticle(a: ApplicationView, locale: Locale): WithContex
 }
 
 export function buildService(s: ServiceView, locale: Locale): WithContext<Service> {
-  const url = `${APP_URL}/${locale}/services/${s.slug}/`;
+  const url = localeUrl(`/services/${s.slug}`, locale);
   // schema-dts ServiceLeaf lacks inLanguage; cast via unknown to satisfy strict types
   return {
     "@context": "https://schema.org",
@@ -201,6 +217,23 @@ export function buildBreadcrumbList(
       item: item.url,
     })),
   };
+}
+
+/**
+ * Breadcrumb trail from locale-relative paths, resolving each crumb through
+ * `localeUrl` so every `item` equals that page's canonical. Callers pass paths
+ * ("/products"), never absolute URLs — hand-built URLs are how the trail drifts
+ * out of sync with the canonical. The home crumb is prepended automatically.
+ */
+export function buildTrail(
+  locale: Locale,
+  homeName: string,
+  crumbs: { name: string; path: string }[],
+): WithContext<BreadcrumbList> {
+  return buildBreadcrumbList([
+    { name: homeName, url: localeUrl("/", locale) },
+    ...crumbs.map((c) => ({ name: c.name, url: localeUrl(c.path, locale) })),
+  ]);
 }
 
 /** Lightweight server component — renders structured data script tag. */

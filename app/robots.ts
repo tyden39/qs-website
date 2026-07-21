@@ -1,9 +1,7 @@
 import type { MetadataRoute } from "next";
+import { APP_URL } from "@/lib/seo/app-url";
 
 export const dynamic = "force-static";
-
-const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {

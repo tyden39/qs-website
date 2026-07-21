@@ -29,10 +29,10 @@ export default async function Footer() {
         <div className="qs-foot-masthead">
           <div className="flex items-center gap-3.5">
             <div className="grid place-items-center h-12">
-              <Image src="/logo-st.png" alt="ST" width={1707} height={877} className="h-12 w-auto block brightness-105"/>
+              <Image src="/logo-st.webp" alt="ST" width={320} height={164} className="h-12 w-auto block brightness-105"/>
             </div>
             <div>
-              <b className="font-display font-bold text-[22px] bg-gold-grad bg-clip-text text-transparent tracking-[.02em] block">QS TECHNOLOGY CO., LTD</b>
+              <b className="font-display font-bold text-subhead bg-gold-grad bg-clip-text text-transparent tracking-[.02em] block">QS TECHNOLOGY CO., LTD</b>
             </div>
           </div>
           <div className="qs-foot-tagline">
@@ -46,7 +46,7 @@ export default async function Footer() {
           {/* About the company */}
           <div>
             <h5>{t("about.title")}</h5>
-            <p className="text-[#a8a395] leading-relaxed text-[15px] mt-0">
+            <p className="text-[#a8a395] leading-relaxed text-body mt-0">
               {t("about.body")}
             </p>
             <a href="http://online.gov.vn/Website/chi-tiet-135123" target="_blank" rel="noopener noreferrer"
@@ -127,7 +127,7 @@ function ContactGroup({ svg, label, children }: { svg: string; label: string; ch
         <GoldIcon svg={svg} />
       </span>
       <div className="min-w-0">
-        <div className="font-mono text-[10px] tracking-[.16em] uppercase text-gold-2/85 mb-1.5">{label}</div>
+        <div className="font-mono text-label-xs tracking-[.16em] uppercase text-gold-2/85 mb-1.5">{label}</div>
         <div className="flex flex-col gap-1">{children}</div>
       </div>
     </div>
@@ -135,7 +135,7 @@ function ContactGroup({ svg, label, children }: { svg: string; label: string; ch
 }
 
 function Line({ href, children }: { href?: string; children: React.ReactNode }) {
-  const cls = "text-[15px] leading-relaxed text-[#c2bdb0]";
+  const cls = "text-body leading-relaxed text-[#c2bdb0]";
   if (!href) return <span className={cls}>{children}</span>;
   const external = href.startsWith("http");
   return (

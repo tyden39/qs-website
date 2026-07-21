@@ -17,15 +17,10 @@ import { buildOrganization, buildWebSite, JsonLd } from "@/lib/seo/jsonld";
 
 const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-sans" });
 const display = Inter_Tight({ subsets: ["latin", "vietnamese"], variable: "--font-display" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
-
-const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
-
-const descriptions: Record<string, string> = {
-  vi: "Thiết kế và sản xuất bộ điều khiển CNC, servo, board mở rộng tại Việt Nam. Hỗ trợ trực tiếp tại 35 tỉnh thành, bảo hành 24 tháng.",
-  en: "Design and manufacture CNC controllers, servo drives, and expansion boards in Vietnam. Direct support across 35 provinces, 24-month warranty.",
-};
+// Mono is only used for small labels (eyebrows, spec keys, meta) — never an LCP
+// candidate — so it is not preloaded and does not compete with the hero image
+// for bandwidth during the LCP window.
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", preload: false });
 
 // This layout owns <html>/<body> so `lang` reflects the active locale (the
 // root app/layout.tsx is a pass-through). The `/` path is redirected to `/vi/`
@@ -36,13 +31,15 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const description = descriptions[locale] ?? descriptions.vi;
+  const { locale: requested } = await params;
+  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const description = t("siteDescription");
   return {
-    metadataBase: new URL(APP_URL),
+    // metadataBase is inherited from the root layout.
     title: {
-      default: "QS Technology — Bộ điều khiển CNC Made in Vietnam",
-      template: "%s | QS Technology",
+      default: t("defaultOgAlt"),
+      template: `%s | ${t("siteName")}`,
     },
     description,
     alternates: buildAlternates("/", locale as Locale),

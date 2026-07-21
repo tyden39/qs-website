@@ -5,10 +5,9 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/lib/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 
-function openSearch(){
-  document.getElementById("qs-search-panel")?.classList.add("open");
-  document.getElementById("qs-search-backdrop")?.classList.add("open");
-  setTimeout(() => document.getElementById("qs-search-field")?.focus(), 50);
+function closeSearch(){
+  document.getElementById("qs-search-panel")?.classList.remove("open");
+  document.getElementById("qs-search-backdrop")?.classList.remove("open");
 }
 
 export default function Header() {
@@ -19,6 +18,21 @@ export default function Header() {
   const is = (href: string) => path === href || (href !== "/" && path.startsWith(href));
 
   const [open, setOpen] = useState(false);
+
+  // Opening the search panel closes the mobile drawer, and vice versa, so only
+  // one overlay is ever live at a time.
+  function openSearch() {
+    setOpen(false);
+    document.getElementById("qs-search-panel")?.classList.add("open");
+    document.getElementById("qs-search-backdrop")?.classList.add("open");
+    setTimeout(() => document.getElementById("qs-search-field")?.focus(), 50);
+  }
+  function toggleMenu() {
+    setOpen((v) => {
+      if (!v) closeSearch();
+      return !v;
+    });
+  }
 
   // Close the mobile drawer whenever navigation lands on a new route, and lock
   // body scroll while it is open so the page behind cannot drift.
@@ -65,11 +79,11 @@ export default function Header() {
           <div className="flex items-center gap-2 min-w-0">
             <Link href="/" className="flex items-center gap-3 shrink-0">
               <span className="grid place-items-center h-[38px] lg:h-[42px]">
-                <Image src="/logo-st.png" alt="ST" width={1707} height={877} priority className="h-[38px] lg:h-[42px] w-auto block" />
+                <Image src="/logo-st.webp" alt="ST" width={320} height={164} priority className="h-[38px] lg:h-[42px] w-auto block" />
               </span>
               <div className="flex flex-col leading-[1.1]">
-                <b className="font-display font-bold text-sm tracking-[.04em] whitespace-nowrap">QS TECHNOLOGY</b>
-                <small className="hidden sm:block font-mono text-[9px] text-muted tracking-[.18em] uppercase whitespace-nowrap">CNC · Automation · Vietnam</small>
+                <b className="font-display font-bold text-meta tracking-[.04em] whitespace-nowrap">QS TECHNOLOGY</b>
+                <small className="hidden sm:block font-mono text-label-xs text-muted tracking-[.18em] uppercase whitespace-nowrap">CNC · Automation · Vietnam</small>
               </div>
             </Link>
             <div className="hidden lg:flex gap-0.5">
@@ -86,16 +100,16 @@ export default function Header() {
             </div>
             <div className="flex items-center gap-1.5 pl-2 lg:border-l border-line lg:ml-1">
               <button onClick={openSearch} aria-label={t("search")} className="qs-icon-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
               </button>
               <div className="hidden sm:block"><LocaleSwitcher /></div>
-              <a href="https://crm.qstcnc.com/login" className="hidden lg:inline-flex items-center rounded bg-ink px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-widest text-white transition-colors hover:bg-black">{t("login")}</a>
+              <a href="https://crm.qstcnc.com/login" className="hidden lg:inline-flex items-center rounded bg-ink px-3 py-1 text-label font-mono font-semibold uppercase tracking-widest text-white transition-colors hover:bg-black">{t("login")}</a>
               {/* hamburger — only below the desktop nav breakpoint. Wrapped in a
                   plain div so `lg:hidden` wins: `.qs-icon-btn` is an unlayered
                   rule and would otherwise beat the layered utility on the button. */}
               <div className="lg:hidden flex">
                 <button
-                  onClick={() => setOpen((v) => !v)}
+                  onClick={toggleMenu}
                   aria-label={open ? t("close") : t("menu")}
                   aria-expanded={open}
                   aria-controls="qs-mobile-menu"
@@ -125,10 +139,10 @@ export default function Header() {
                 key={h}
                 href={h}
                 onClick={() => setOpen(false)}
-                className={`flex items-center justify-between py-3.5 border-b border-line font-display font-medium text-[17px] tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
+                className={`flex items-center justify-between py-3.5 border-b border-line font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
               >
                 {l}
-                <span className={`font-mono text-sm ${is(h) ? "text-gold-1" : "text-muted"}`}>→</span>
+                <span className={`font-mono text-meta ${is(h) ? "text-gold-1" : "text-muted"}`}>→</span>
               </Link>
             ))}
             <a
@@ -139,7 +153,7 @@ export default function Header() {
               {t("login")}
             </a>
             <div className="mt-5 flex items-center justify-between gap-4">
-              <div className="flex flex-col gap-1.5 font-mono text-[11px] tracking-[.1em] uppercase text-muted">
+              <div className="flex flex-col gap-1.5 font-mono text-label tracking-[.1em] uppercase text-muted">
                 <a href="tel:+84909663350" className="hover:text-ink">Hotline · (+84) 909.663.350</a>
                 <a href="tel:+84922322338" className="hover:text-ink">Hotline · (+84) 922.322.338</a>
                 <a href="mailto:support@qstcnc.com" className="hover:text-ink lowercase tracking-[.06em]">support@qstcnc.com</a>

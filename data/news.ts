@@ -5,12 +5,17 @@ import newsData from "./news.json";
 export type News = {
   slug: string;
   title: string;
+  titleEn?: string;
   date: string;
   cat: string;
+  catEn?: string;
   excerpt: string;
+  excerptEn?: string;
   body: string; // HTML — sanitized at crawl time, rendered with prose styles.
+  bodyEn?: string; // Same HTML structure, English copy (including image alts).
   cover?: string; // Local hero image derived from the first body image.
   tags?: string[];
+  tagsEn?: string[];
 };
 
 // Crawled from qstcnc.com (WordPress REST API, category "News"). Newest first.

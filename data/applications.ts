@@ -19,7 +19,10 @@ export type ApplicationDeployment = {
 export type Application = {
   slug: string;
   machine: string;
+  /** English machine name; matches `application.index.items[].machine` in messages. */
+  machineEn?: string;
   summary: string;
+  summaryEn?: string;
   workflow: ApplicationWorkflowStep[];
   specs: Array<{ label: string; value: string }>;
   deployments: ApplicationDeployment[];

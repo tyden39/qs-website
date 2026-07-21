@@ -133,7 +133,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           {/* line-clamp caps phone copy at 4 lines and min-h matches that cap, so
               switching slides never reflows the stack below (no scroll jump)
               while short copy no longer leaves a tall blank gap. */}
-          <p className="mt-6 lg:mt-7 min-h-[7rem] sm:min-h-[6rem] lg:min-h-[7rem] text-base sm:text-lg leading-[1.7] text-[#b4afa0] max-w-[50ch] mx-auto md:mx-0 line-clamp-4 sm:line-clamp-none qs-sweep-in" style={sweep(400)}>
+          <p className="mt-6 lg:mt-7 min-h-[7rem] sm:min-h-[6rem] lg:min-h-[7rem] text-body sm:text-title leading-[1.7] text-[#b4afa0] max-w-[50ch] mx-auto md:mx-0 line-clamp-4 sm:line-clamp-none qs-sweep-in" style={sweep(400)}>
             {s.desc}
           </p>
           <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-8 lg:mt-9 qs-sweep-in" style={sweep(500)}>
@@ -184,8 +184,8 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
               className="qs-spec flex items-baseline justify-between gap-4 py-3.5 border-t border-[#2a2620] qs-sweep-in"
               style={sweep(420 + i * 90)}
             >
-              <span className="qs-spec-k font-mono text-[10px] tracking-[.18em] uppercase text-[#8a8676]">{k}</span>
-              <span className="qs-spec-v font-display text-[15px] font-medium text-white text-right">{v}</span>
+              <span className="qs-spec-k font-mono text-label-xs tracking-[.18em] uppercase text-[#8a8676]">{k}</span>
+              <span className="qs-spec-v font-display text-body font-medium text-white text-right">{v}</span>
             </li>
           ))}
         </ul>
@@ -226,18 +226,18 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                 aria-current={i === active ? "true" : undefined}
                 className="qs-hero-tab group relative overflow-hidden text-left px-5 py-4 flex items-center gap-4 bg-transparent transition-colors duration-300 hover:bg-white/[.04] data-[active=true]:bg-gold-2/[.07]"
               >
-                <span className="font-mono text-[11px] tabular-nums text-[#7a7565] group-data-[active=true]:text-gold-2 transition-colors">
+                <span className="font-mono text-label tabular-nums text-[#7a7565] group-data-[active=true]:text-gold-2 transition-colors">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block font-display text-[15px] font-semibold tracking-[-.01em] text-[#aaa498] group-data-[active=true]:text-white transition-colors truncate">
+                  <span className="block font-display text-body font-semibold tracking-[-.01em] text-[#aaa498] group-data-[active=true]:text-white transition-colors truncate">
                     {slide.name}
                   </span>
-                  <span className="block font-mono text-[9px] tracking-[.16em] uppercase text-[#6b6453] group-data-[active=true]:text-gold-1 transition-colors truncate">
+                  <span className="block font-mono text-label-xs tracking-[.16em] uppercase text-[#6b6453] group-data-[active=true]:text-gold-1 transition-colors truncate">
                     {slide.tag}
                   </span>
                 </span>
-                <span className="font-mono text-sm text-[#46402f] group-data-[active=true]:text-gold-2 group-hover:translate-x-0.5 transition-all">→</span>
+                <span className="font-mono text-meta text-[#46402f] group-data-[active=true]:text-gold-2 group-hover:translate-x-0.5 transition-all">→</span>
                 {/* autoplay progress seam — restarts whenever this tab becomes active */}
                 <span className="pointer-events-none absolute left-0 bottom-0 h-[2px] w-full bg-transparent">
                   {i === active && animate && !paused && slides.length > 1 && (

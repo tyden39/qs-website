@@ -11,11 +11,8 @@ import { getCatalogProducts } from "@/lib/data/catalog";
 import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
-import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
+import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
-
-const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 export async function generateMetadata({
   params,
@@ -78,9 +75,8 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   // follow the catalogue instead of hardcoding a path that can go stale.
   const dncProducts = getCatalogProducts(locale, "dnc");
   const accessoryProducts = getCatalogProducts(locale, "accessory");
-  const breadcrumb = buildBreadcrumbList([
-    { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
-    { name: seo("productsTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/products` },
+  const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
+    { name: seo("productsTitle"), path: "/products" },
   ]);
   return (
     <>
@@ -102,26 +98,25 @@ export default async function Products({ params }: { params: Promise<{ locale: L
             <Link href="/products">{t("breadcrumb.products")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
           </div>
-          <div className="grid md:grid-cols-[1fr_1.4fr] gap-8 md:gap-12 items-center">
-            <div>
+          <div className="grid lg:grid-cols-[1fr_1.4fr] gap-8 lg:gap-12 items-center">
+            <div className="order-2 lg:order-none">
               <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("eyebrow")}</div>
-              <h1 className="qs-h1 mt-3.5 qs-rise text-[clamp(34px,9vw,54px)]" style={{ animationDelay: "90ms" }}>
+              <h1 className="qs-h1 mt-3.5 qs-rise" style={{ animationDelay: "90ms" }}>
                 {headingLead && <>{headingLead} </>}
                 <em className="not-italic qs-gold-shimmer">{headingGold}</em>
               </h1>
               <p className="qs-lede mt-4 qs-rise" style={{ animationDelay: "190ms" }}>{t("lede")}</p>
               <div className="mt-7 flex flex-col gap-2.5 qs-rise" style={{ animationDelay: "290ms" }}>
                 {features.map(f => (
-                  <div key={f} className="flex items-center gap-3.5 text-sm
+                  <div key={f} className="flex items-center gap-3.5 text-meta
                                           before:content-[''] before:block before:w-6 before:h-px before:bg-gold">{f}</div>
                 ))}
               </div>
             </div>
-            <div className="relative aspect-16/10 bg-white border border-line p-6 overflow-hidden">
+            <div className="order-1 lg:order-none relative aspect-16/10 bg-white border border-line p-6 overflow-hidden">
               <div className="absolute inset-3 border border-dashed border-gold opacity-30 pointer-events-none"></div>
               {/* gold blueprint scan sweeping the controller render */}
               <div className="qs-scan" aria-hidden="true"></div>
-              <div className="absolute bottom-4 left-6 z-10 font-mono text-[10px] tracking-[.18em] uppercase text-gold bg-ink px-2.5 py-1">{t("seriesTag")}</div>
               <Image
                 src="/img/products/products-hero-controllers.webp"
                 alt={seo("productsTitle")}
@@ -155,10 +150,13 @@ export default async function Products({ params }: { params: Promise<{ locale: L
                       sortOptions: t.raw("toolbar.sortOptions") as string[],
                       tree: categoryTree,
                       sidebarHeading: t("sidebar.heading"),
+                      allMachines: t("sidebar.allMachines"),
                       supportTitle: t("sidebar.support.title"),
                       supportCta: t("sidebar.support.cta"),
                       showing: t("toolbar.showing"),
                       ofModels: t("toolbar.ofModels"),
+                      filtersLabel: t("toolbar.filtersLabel"),
+                      interfaceLabel: t("toolbar.interfaceLabel"),
                       sortLabel: t("toolbar.sortLabel"),
                       emptyState: t("toolbar.empty"),
                     }}

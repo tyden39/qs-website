@@ -13,7 +13,13 @@
   "newsTitle": "News & Events",
   "newsDescription": "Latest product releases, events, and technical updates from QS Technology.",
   "applicationsTitle": "Industrial Applications",
-  "applicationsDescription": "QS controllers are running in a wide range of machine types — from metal milling to spring bending, adhesive dispensing, and food processing.",
+  "applicationsDescription": "QS controllers are running in a wide range of machine types — from metal milling to spring bending, adhesive dispensing, and woodworking joinery.",
   "servicesTitle": "Custom Controller Development",
-  "servicesDescription": "PCB design, firmware development, and controller delivery to specification — a 100% fit for your production line."
+  "servicesDescription": "PCB design, firmware development, and controller delivery to specification — a 100% fit for your production line.",
+  "aboutTitle": "About QS Technology",
+  "aboutDescription": "A Vietnamese engineering team designing CNC controller hardware and firmware in-house — the story, values, and direction behind QS Technology.",
+  "contactTitle": "Contact QS Technology",
+  "contactDescription": "Controller selection advice, quotes, and direct technical support across 35 provinces. Call +84 909 663 350 or send a request on any business day.",
+  "downloadsTitle": "Documentation & Software",
+  "downloadsDescription": "Download operation manuals, wiring diagrams, and technical documentation for every QS controller line — Vietnamese / English, kept current per model."
 }

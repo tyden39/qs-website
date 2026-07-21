@@ -58,33 +58,59 @@ function readingMinutes(bodyHtml: string): number {
   return Math.max(1, Math.round(words / 200));
 }
 
+/**
+ * Seed dates are display strings in `DD · MM · YYYY`. Parse them into a real
+ * Date so the SEO layer has a machine-readable publish date — `Article`
+ * structured data, the OG `article:published_time` tag, and the sitemap
+ * `lastmod` all read this. Anchored at UTC noon so a timezone shift can never
+ * roll the date onto an adjacent day.
+ *
+ * Returns null on a malformed date rather than an Invalid Date, since callers
+ * guard on null and an Invalid Date would throw on `.toISOString()`.
+ */
+function parsePublishedAt(display: string): Date | null {
+  const m = /^(\d{2}) · (\d{2}) · (\d{4})$/.exec(display);
+  if (!m) return null;
+  const [, dd, mm, yyyy] = m;
+  const d = new Date(Date.UTC(Number(yyyy), Number(mm) - 1, Number(dd), 12));
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
 // Seed dates are pre-formatted display strings (e.g. "28 · 04 · 2026"); array
-// order is already newest-first, so no re-sort is needed.
-function toView(n: News): NewsView {
+// order is already newest-first, so no re-sort is needed. Vietnamese is the
+// primary copy; `*En` fields serve the `en` locale and fall back to Vietnamese
+// per-field so a partially translated article still renders. The category id
+// always derives from the Vietnamese label, keeping tab filtering stable.
+function toView(n: News, locale: Locale): NewsView {
+  const en = locale === "en";
+  const title = (en ? n.titleEn : null) ?? n.title;
+  const excerpt = (en ? n.excerptEn : null) ?? n.excerpt;
+  const body = (en ? n.bodyEn : null) ?? n.body;
+  const cat = (en ? n.catEn : null) ?? n.cat;
   return {
     slug: n.slug,
-    title: n.title,
-    excerpt: cleanExcerpt(n.excerpt, n.title),
-    bodyHtml: n.body,
+    title,
+    excerpt: cleanExcerpt(excerpt, title),
+    bodyHtml: body,
     bodyJson: null,
     coverImage: n.cover ?? null,
-    category: n.cat,
-    cat: n.cat,
+    category: cat,
+    cat,
     categoryId: CATEGORY_ID_BY_LABEL[n.cat] ?? "company",
-    tags: n.tags ?? [],
-    publishedAt: null,
+    tags: (en ? n.tagsEn : null) ?? n.tags ?? [],
+    publishedAt: parsePublishedAt(n.date),
     date: n.date,
-    readMinutes: readingMinutes(n.body),
+    readMinutes: readingMinutes(body),
   };
 }
 
-export function getAllNews(_locale: Locale): NewsView[] {
-  return news.map(toView);
+export function getAllNews(locale: Locale): NewsView[] {
+  return news.map((n) => toView(n, locale));
 }
 
-export function getNewsBySlug(slug: string, _locale: Locale): NewsView | null {
+export function getNewsBySlug(slug: string, locale: Locale): NewsView | null {
   const n = news.find((x) => x.slug === slug);
-  return n ? toView(n) : null;
+  return n ? toView(n, locale) : null;
 }
 
 export function getNewsSlugs(): string[] {

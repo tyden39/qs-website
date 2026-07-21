@@ -30,7 +30,7 @@ export async function ProductBundleCard({
   return (
     <article className="qs-card grid md:grid-cols-[minmax(0,300px)_1fr] group shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)]">
       {/* ── Featured controller ── */}
-      <div className="relative flex flex-col bg-white p-7 border-b md:border-b-0 md:border-r border-line">
+      <div className="relative flex flex-col bg-white p-5 sm:p-7 border-b md:border-b-0 md:border-r border-line">
         {/* gold seam echoing the catalogue's accent rule */}
         <span
           aria-hidden
@@ -54,8 +54,8 @@ export async function ProductBundleCard({
           />
         </Link>
 
-        <h3 className="mt-5 font-display font-bold text-[22px] tracking-[-.01em] m-0">
-          <span className="text-muted font-medium text-[15px]">{t("model")}</span>{" "}
+        <h3 className="mt-5 font-display font-bold text-subhead tracking-[-.01em] m-0">
+          <span className="text-muted font-medium text-body">{t("model")}</span>{" "}
           <Link href={`/products/${product.slug}`} className="hover:text-gold-1 transition-colors">
             {product.name}
           </Link>
@@ -65,7 +65,7 @@ export async function ProductBundleCard({
           {product.bullets.map((b) => (
             <li
               key={b}
-              className="text-[13px] text-[#3a3a3a] flex gap-2.5 before:content-['—'] before:text-gold-1 before:font-mono"
+              className="text-meta text-[#3a3a3a] flex gap-2.5 before:content-['—'] before:text-gold-1 before:font-mono"
             >
               {b.includes(":") ? (
                 <span>
@@ -88,27 +88,48 @@ export async function ProductBundleCard({
       </div>
 
       {/* ── Bundle component grid ── */}
-      <div className="p-6 flex flex-col">
-        <div className="flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
-          <div>
-            <div className="qs-eyebrow">{t("components")}</div>
-            <div className="mt-1 font-mono text-[10px] tracking-[.14em] uppercase text-muted">
-              {t("modelLabel")} {idx} / {String(total).padStart(2, "0")} · {product.tag}
-            </div>
-          </div>
-          <span className="font-mono text-[11px] tracking-widest text-muted whitespace-nowrap">
+      {/* On mobile the bundle collapses behind a summary so the card stays
+          compact; from sm+ it is always expanded (the toggle hides and the body
+          is forced visible regardless of the details open state). */}
+      {/* sm+ also neutralises the UA `content-visibility:hidden` that modern
+          browsers put on the closed <details> content wrapper, so the forced
+          `sm:!flex` body below actually paints on desktop. */}
+      <details className="group/bd p-5 sm:p-6 sm:[&::details-content]:[content-visibility:visible]">
+        <summary className="sm:hidden flex items-center justify-between gap-3 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+          <span className="qs-eyebrow">{t("components")}</span>
+          <span className="flex items-center gap-2 font-mono text-label tracking-widest text-muted whitespace-nowrap">
             <b className="text-ink font-semibold">{count}</b> {t("parts")}
+            <svg
+              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+              className="text-muted transition-transform duration-200 group-open/bd:rotate-180"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
           </span>
-        </div>
+        </summary>
 
-        {/* hairline-divided datasheet matrix */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-line border border-line rounded-[2px] overflow-hidden">
+        <div className="hidden group-open/bd:flex sm:!flex flex-col mt-4 sm:mt-0">
+          <div className="hidden sm:flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
+            <div>
+              <div className="qs-eyebrow">{t("components")}</div>
+              <div className="mt-1 font-mono text-label-xs tracking-[.14em] uppercase text-muted">
+                {t("modelLabel")} {idx} / {String(total).padStart(2, "0")} · {product.tag}
+              </div>
+            </div>
+            <span className="font-mono text-label tracking-widest text-muted whitespace-nowrap">
+              <b className="text-ink font-semibold">{count}</b> {t("parts")}
+            </span>
+          </div>
+
+          {/* hairline-divided datasheet matrix */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-line border border-line rounded-[2px] overflow-hidden">
           {product.bundle.map((c, i) => (
             <div
               key={c.label}
               className="group/tile relative bg-white p-4 flex flex-col items-center text-center transition-colors hover:bg-paper"
             >
-              <span className="absolute top-2 right-2.5 font-mono text-[9px] text-line-2 tracking-widest">
+              <span className="absolute top-2 right-2.5 font-mono text-label-xs text-line-2 tracking-widest">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div className="grid place-items-center h-[84px] w-full">
@@ -132,22 +153,23 @@ export async function ProductBundleCard({
                   );
                 })()}
               </div>
-              <div className="mt-3 font-mono text-[10px] leading-[1.5] tracking-[.06em] uppercase text-muted">
+              <div className="mt-3 font-mono text-label-xs leading-[1.5] tracking-[.06em] uppercase text-muted">
                 {c.label}
               </div>
             </div>
           ))}
-        </div>
-
-        {badge && (
-          <div className="mt-4 flex items-center gap-2.5">
-            <span className="qs-live-dot" aria-hidden />
-            <span className="font-mono text-[10px] tracking-[.16em] uppercase text-gold-1">
-              {badge}
-            </span>
           </div>
-        )}
-      </div>
+
+          {badge && (
+            <div className="mt-4 flex items-center gap-2.5">
+              <span className="qs-live-dot" aria-hidden />
+              <span className="font-mono text-label-xs tracking-[.16em] uppercase text-gold-1">
+                {badge}
+              </span>
+            </div>
+          )}
+        </div>
+      </details>
     </article>
   );
 }

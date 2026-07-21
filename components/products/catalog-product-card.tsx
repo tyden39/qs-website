@@ -45,13 +45,13 @@ export async function CatalogProductCard({
           />
         </Link>
 
-        <h3 className="mt-5 font-display font-bold text-[22px] tracking-[-.01em] m-0">
+        <h3 className="mt-5 font-display font-bold text-subhead tracking-[-.01em] m-0">
           <Link href={`/products/${product.slug}`} className="hover:text-gold-1 transition-colors">
             {product.name}
           </Link>
         </h3>
 
-        <p className="mt-2.5 m-0 text-[13px] text-[#3a3a3a] leading-[1.65]">{product.desc}</p>
+        <p className="mt-2.5 m-0 text-meta text-[#3a3a3a] leading-[1.65]">{product.desc}</p>
 
         <Link href={`/products/${product.slug}`} className="qs-link mt-auto pt-6 self-start">
           {t("viewDetails")} <span aria-hidden>→</span>
@@ -63,7 +63,7 @@ export async function CatalogProductCard({
         <div className="flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
           <div>
             <div className="qs-eyebrow">{t("specifications")}</div>
-            <div className="mt-1 font-mono text-[10px] tracking-[.14em] uppercase text-muted">
+            <div className="mt-1 font-mono text-label-xs tracking-[.14em] uppercase text-muted">
               {t("modelLabel")} {idx} / {String(total).padStart(2, "0")} · {product.tag}
             </div>
           </div>
@@ -72,10 +72,10 @@ export async function CatalogProductCard({
         <div className="grid sm:grid-cols-2 gap-px bg-line border border-line rounded-[2px] overflow-hidden">
           {preview.map((s) => (
             <div key={s.l} className="bg-white px-4 py-3 flex flex-col gap-1">
-              <span className="font-mono text-[10px] leading-snug tracking-[.06em] uppercase text-muted">
+              <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
                 {s.l}
               </span>
-              <span className="text-[13.5px] font-semibold tracking-[-.005em] text-ink tabular-nums">
+              <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
                 {s.v}
               </span>
             </div>
@@ -83,7 +83,7 @@ export async function CatalogProductCard({
         </div>
 
         {rest > 0 && (
-          <div className="mt-3 font-mono text-[10px] tracking-[.14em] uppercase text-muted">
+          <div className="mt-3 font-mono text-label-xs tracking-[.14em] uppercase text-muted">
             {t("moreSpecs", { count: rest })}
           </div>
         )}

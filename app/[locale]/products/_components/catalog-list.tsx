@@ -24,19 +24,19 @@ export async function CatalogList({
     <div className="flex flex-col gap-8 md:grid md:grid-cols-[240px_1fr] md:gap-16 md:items-start">
       <div className="order-1 flex flex-col gap-6">
         <div className="border border-line bg-white p-5">
-          <div className="font-mono text-[11px] tracking-[.16em] uppercase text-ink pb-3.5 border-b border-ink">
+          <div className="font-mono text-label tracking-[.16em] uppercase text-ink pb-3.5 border-b border-ink">
             {t(`tabs.${category}.label`)}
           </div>
-          <p className="m-0 mt-3.5 text-[13px] text-muted leading-[1.7]">
+          <p className="m-0 mt-3.5 text-meta text-muted leading-[1.7]">
             {t(`tabs.${category}.blurb`)}
           </p>
         </div>
 
         <aside className="border border-line bg-white p-5">
-          <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-2">
+          <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase mb-2">
             {t("sidebar.support.title")}
           </div>
-          <p className="m-0 text-[13px] text-muted leading-[1.6]">
+          <p className="m-0 text-meta text-muted leading-[1.6]">
             <a href="tel:+84909663350" className="hover:text-ink">(+84) 909.663.350</a>
             <br />
             <a href="tel:+84922322338" className="hover:text-ink">(+84) 922.322.338</a>

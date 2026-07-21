@@ -47,7 +47,7 @@ export function NewsletterForm({ locale = "vi" }: { locale?: string }) {
 
   if (status === "success") {
     return (
-      <p className="text-[13px] text-gold-2 leading-relaxed">
+      <p className="text-meta text-gold-2 leading-relaxed">
         {t("success")}
       </p>
     );
@@ -64,22 +64,22 @@ export function NewsletterForm({ locale = "vi" }: { locale?: string }) {
           {...register("email")}
           type="email"
           placeholder={t("placeholder")}
-          className={`flex-1 min-w-0 border ${errors.email ? "border-red-400" : "border-[#2a2a2a]"} bg-transparent px-4 py-2.5 text-[16px] text-[#cfc9b8] placeholder:text-[#5a5650] focus:outline-none focus:border-gold-1 transition-colors`}
+          className={`flex-1 min-w-0 border ${errors.email ? "border-red-400" : "border-[#2a2a2a]"} bg-transparent px-4 py-2.5 text-body text-[#cfc9b8] placeholder:text-[#5a5650] focus:outline-none focus:border-gold-1 transition-colors`}
         />
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="border border-l-0 border-[#2a2a2a] px-4 py-2.5 font-mono text-[10px] tracking-[.14em] uppercase text-[#cfc9b8] hover:border-gold-1 hover:text-gold-2 transition-colors disabled:opacity-50 whitespace-nowrap"
+          className="border border-l-0 border-[#2a2a2a] px-4 py-2.5 font-mono text-label-xs tracking-[.14em] uppercase text-[#cfc9b8] hover:border-gold-1 hover:text-gold-2 transition-colors disabled:opacity-50 whitespace-nowrap"
         >
           {status === "submitting" ? t("submitting") : t("submit")}
         </button>
       </div>
 
       {errors.email && (
-        <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>
+        <p className="mt-1 text-meta text-red-400">{errors.email.message}</p>
       )}
       {status === "error" && (
-        <p className="mt-1 text-xs text-red-400">{t("error")}</p>
+        <p className="mt-1 text-meta text-red-400">{t("error")}</p>
       )}
     </form>
   );

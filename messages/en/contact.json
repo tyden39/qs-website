@@ -12,11 +12,11 @@
     "heading": "Request a quote & consultation",
     "note": "The QS team responds within 4 business hours (8:00–17:30, Mon–Fri). Need it urgently? Call (+84) 909.663.350 or (+84) 922.322.338.",
     "name": "Full name *",
-    "namePlaceholder": "John Smith",
+    "namePlaceholder": "Enter your full name",
     "email": "Email",
-    "emailPlaceholder": "name@company.com",
+    "emailPlaceholder": "Enter your email",
     "phone": "Phone *",
-    "phonePlaceholder": "0901 234 567",
+    "phonePlaceholder": "Enter your phone number",
     "businessField": "Business field",
     "businessFieldPlaceholder": "Select a field…",
     "businessOptions": {
@@ -36,7 +36,7 @@
       "machine_upgrade": "Machine upgrade"
     },
     "message": "Request details",
-    "messagePlaceholder": "Describe your requirements, machine type, number of axes, products of interest…",
+    "messagePlaceholder": "Enter your request details",
     "submit": "Submit request →",
     "submitting": "Submitting…",
     "sendAnother": "Send another request"
@@ -58,7 +58,7 @@
   "newsletter": {
     "heading": "Subscribe to technical updates",
     "description": "Receive the latest product releases, firmware updates, and documentation from QS.",
-    "placeholder": "email@company.com",
+    "placeholder": "Enter your email",
     "submit": "Subscribe →",
     "submitting": "…",
     "success": "Subscribed successfully! You will receive technical updates from QS.",

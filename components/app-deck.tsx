@@ -85,10 +85,10 @@ export default function AppDeck({ items }: { items: App[] }) {
 
           {/* COLLAPSED state — sideways spine: big index up top, vertical title */}
           <div className="qs-spine pointer-events-none absolute inset-0 p-6">
-            <span className="font-mono text-[11px] text-gold-2 tracking-[.24em] uppercase">{a.n}</span>
+            <span className="font-mono text-label text-gold-2 tracking-[.24em] uppercase">{a.n}</span>
             <div className="absolute bottom-7 left-1/2 -translate-x-1/2">
               <span
-                className="block whitespace-nowrap font-display font-semibold text-white/92 text-[32px] tracking-tight"
+                className="block whitespace-nowrap font-display font-semibold text-white/92 text-h2 tracking-tight"
                 style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
               >
                 {a.t}
@@ -98,14 +98,14 @@ export default function AppDeck({ items }: { items: App[] }) {
 
           {/* OPEN state — full content block */}
           <div className="qs-open absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
-            <span className="font-mono text-[11px] text-gold-2 tracking-[.22em] uppercase">
+            <span className="font-mono text-label text-gold-2 tracking-[.22em] uppercase">
               {t("label")} · {a.n}
             </span>
-            <h4 className="font-display font-semibold text-white text-[28px] lg:text-[34px] leading-[1.05] tracking-tight mt-3 max-w-[20ch]">
+            <h4 className="font-display font-semibold text-white text-h2 leading-[1.05] tracking-tight mt-3 max-w-[20ch]">
               {a.t}
             </h4>
-            <p className="text-[#d2ccba] text-[15px] leading-[1.65] mt-4 max-w-[46ch]">{a.d}</p>
-            <span className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] tracking-[.16em] uppercase text-gold-2">
+            <p className="text-[#d2ccba] text-body leading-[1.65] mt-4 max-w-[46ch]">{a.d}</p>
+            <span className="mt-6 inline-flex items-center gap-2 font-mono text-label tracking-[.16em] uppercase text-gold-2">
               <span className="qs-live-dot" />
               {t("viewDetail")}
             </span>
@@ -136,15 +136,15 @@ export default function AppDeck({ items }: { items: App[] }) {
         </div>
 
         <div className="absolute inset-0 p-6 flex flex-col items-center">
-          <span className="font-display font-bold text-gold-2 text-[26px] tracking-tight">+{items.length}</span>
+          <span className="font-display font-bold text-gold-2 text-subhead tracking-tight">+{items.length}</span>
           <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
             <span
-              className="block whitespace-nowrap font-display font-semibold text-white/92 text-[30px] tracking-[.04em]"
+              className="block whitespace-nowrap font-display font-semibold text-white/92 text-h2 tracking-[.04em]"
               style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
             >
               {t("viewAll")}
             </span>
-            <span className="font-mono text-[13px] text-gold-2 leading-none transition-transform duration-500 group-hover:translate-y-1">↓</span>
+            <span className="font-mono text-meta text-gold-2 leading-none transition-transform duration-500 group-hover:translate-y-1">↓</span>
           </div>
         </div>
       </Link>

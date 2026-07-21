@@ -21,17 +21,19 @@ const heroImages: Record<string, string> = {
   "phay-cnc": "/home/app-phay-cnc.webp",
   "cua-long": "/home/app-cua-long.webp",
   "dan-keo": "/home/app-dan-keo.webp",
-  "thuc-pham": "/home/app-thuc-pham.webp",
   "uon-lo-xo": "/home/app-uon-lo-xo.webp",
   "mong-go": "/home/app-mong-go.webp",
   "kim-hoan": "/home/app-kim-hoan.webp",
 };
 
-function toView(a: Application, index: number): ApplicationView {
+// Vietnamese is the primary copy; `machineEn` / `summaryEn` serve the `en`
+// locale (metadata, JSON-LD, and the search index all read this view).
+function toView(a: Application, index: number, locale: Locale): ApplicationView {
+  const en = locale === "en";
   return {
     slug: a.slug,
-    title: a.machine,
-    summary: a.summary,
+    title: (en ? a.machineEn : null) ?? a.machine,
+    summary: (en ? a.summaryEn : null) ?? a.summary,
     heroImage: heroImages[a.slug] ?? null,
     workflow: a.workflow,
     specs: a.specs,
@@ -41,9 +43,9 @@ function toView(a: Application, index: number): ApplicationView {
   };
 }
 
-export function getApplicationBySlug(slug: string, _locale: Locale): ApplicationView | null {
+export function getApplicationBySlug(slug: string, locale: Locale): ApplicationView | null {
   const index = applications.findIndex((a) => a.slug === slug);
-  return index === -1 ? null : toView(applications[index], index);
+  return index === -1 ? null : toView(applications[index], index, locale);
 }
 
 export function getApplicationSlugs(): string[] {

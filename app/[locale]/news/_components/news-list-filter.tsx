@@ -61,9 +61,9 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
               key={id}
               type="button"
               onClick={() => selectTab(id)}
-              className={`shrink-0 whitespace-nowrap py-4 px-4 sm:px-5 text-sm font-medium border-b-2 transition-colors cursor-pointer bg-transparent ${activeTab === id ? "text-ink border-gold-2" : "text-[#5a5650] border-transparent hover:text-ink"}`}
+              className={`shrink-0 whitespace-nowrap py-4 px-4 sm:px-5 text-meta font-medium border-b-2 transition-colors cursor-pointer bg-transparent ${activeTab === id ? "text-ink border-gold-2" : "text-[#5a5650] border-transparent hover:text-ink"}`}
             >
-              {tabLabels[i]}<span className="font-mono text-[10px] text-muted ml-1.5 tracking-widest">{counts[id] ?? 0}</span>
+              {tabLabels[i]}<span className="font-mono text-label-xs text-muted ml-1.5 tracking-widest">{counts[id] ?? 0}</span>
             </button>
           ))}
         </div>
@@ -71,7 +71,7 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
 
       {/* FEATURED — editorial highlight, shown only on the "All" tab */}
       {showFeatured && feat && (
-        <section className="py-14 bg-white">
+        <section className="py-12 sm:py-16 bg-white">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <Link
               href={`/news/${feat.slug}`}
@@ -89,17 +89,17 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
                   <FeaturePlaceholder />
                 )}
                 {/* category marker */}
-                <span className="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-[.16em] uppercase font-semibold bg-gold text-ink-2 py-1 px-2.5 rounded-[2px] shadow-sm">
+                <span className="absolute top-4 left-4 z-10 font-mono text-label-xs tracking-[.16em] uppercase font-semibold bg-gold text-ink-2 py-1 px-2.5 rounded-[2px] shadow-sm">
                   {feat.cat}
                 </span>
               </div>
               <div className="p-8 lg:p-12 flex flex-col justify-between">
                 <div>
                   <span className="qs-eyebrow">{t("list.featuredLabel")}</span>
-                  <h2 className="font-display font-bold text-[28px] lg:text-[34px] tracking-[-.015em] leading-[1.3] mt-4 mb-4 text-balance line-clamp-3 group-hover:text-ink transition-colors">{feat.title}</h2>
-                  <p className="text-[#3a3a3a] text-[15px] leading-[1.7] m-0 line-clamp-4">{feat.excerpt}</p>
+                  <h2 className="font-display font-bold text-h2 tracking-[-.015em] leading-[1.3] mt-4 mb-4 text-balance line-clamp-3 group-hover:text-ink transition-colors">{feat.title}</h2>
+                  <p className="text-[#3a3a3a] text-body leading-[1.7] m-0 line-clamp-4">{feat.excerpt}</p>
                 </div>
-                <div className="mt-8 pt-4 border-t border-line flex items-center justify-between font-mono text-[11px] text-muted tracking-[.14em]">
+                <div className="mt-8 pt-4 border-t border-line flex items-center justify-between font-mono text-label text-muted tracking-[.14em]">
                   <span>{feat.date} · {t("meta.author")}</span>
                   <span className="inline-flex items-center gap-1.5 text-ink group-hover:translate-x-0.5 transition-transform">{t("list.readTime")}</span>
                 </div>
@@ -110,14 +110,14 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
       )}
 
       {/* GRID */}
-      <section className="py-14 pb-16 bg-white">
+      <section className="py-12 sm:py-16 pb-14 sm:pb-16 bg-white">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("list.gridEyebrow")}</span>
+              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("list.gridEyebrow")}</span>
               <h2 className="qs-h2 mt-2">{t("list.gridHeading")}</h2>
             </div>
-            <span className="font-mono text-[11px] text-muted tracking-[.1em] uppercase">{filtered.length} {t("list.articlesShort")}</span>
+            <span className="font-mono text-label text-muted tracking-[.1em] uppercase">{filtered.length} {t("list.articlesShort")}</span>
           </div>
 
           {pageItems.length > 0 ? (
@@ -134,12 +134,12 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
                     ) : (
                       <ThumbPlaceholder label={n.cat} />
                     )}
-                    <span className="absolute top-3 left-3 z-10 font-mono text-[9px] tracking-[.16em] uppercase font-semibold bg-white/90 backdrop-blur-sm text-ink py-1 px-2 rounded-[2px] border border-line shadow-sm">{n.cat}</span>
+                    <span className="absolute top-3 left-3 z-10 font-mono text-label-xs tracking-[.16em] uppercase font-semibold bg-white/90 backdrop-blur-sm text-ink py-1 px-2 rounded-[2px] border border-line shadow-sm">{n.cat}</span>
                   </div>
                   <div className="p-6 flex flex-col flex-1">
-                    <h3 className="font-display font-semibold text-lg leading-[1.35] tracking-[-.005em] mb-3 line-clamp-2 group-hover:text-ink transition-colors">{n.title}</h3>
-                    <p className="text-[13px] text-[#5a5650] leading-[1.6] flex-1 m-0 mb-4 line-clamp-3">{n.excerpt}</p>
-                    <div className="flex items-center justify-between pt-3.5 border-t border-line font-mono text-[10px] text-muted tracking-[.14em]">
+                    <h3 className="font-display font-semibold text-title leading-[1.35] tracking-[-.005em] mb-3 line-clamp-2 group-hover:text-ink transition-colors">{n.title}</h3>
+                    <p className="text-meta text-[#5a5650] leading-[1.6] flex-1 m-0 mb-4 line-clamp-3">{n.excerpt}</p>
+                    <div className="flex items-center justify-between pt-3.5 border-t border-line font-mono text-label-xs text-muted tracking-[.14em]">
                       <span>{n.date}</span>
                       <span className="text-ink opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">→</span>
                     </div>
@@ -148,31 +148,32 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
               ))}
             </div>
           ) : (
-            <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0 py-12 text-center">{t("list.empty")}</p>
+            <p className="text-body text-[#3a3a3a] leading-[1.7] m-0 py-12 text-center">{t("list.empty")}</p>
           )}
 
-          {/* pagination */}
+          {/* pagination — touch devices get the 44px minimum hit area, mouse
+              pointers keep the compact 36px squares */}
           {totalPages > 1 && (
             <div className="flex justify-center gap-1.5 mt-12">
               <button
                 type="button"
                 disabled={safePage === 1}
                 onClick={() => setPage(safePage - 1)}
-                className="px-4 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                className="px-4 h-9 pointer-coarse:h-11 border border-line grid place-items-center font-mono text-label text-muted hover:border-ink hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
               >{t("list.prev")}</button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                 <button
                   key={p}
                   type="button"
                   onClick={() => setPage(p)}
-                  className={`w-9 h-9 border grid place-items-center font-mono text-[11px] cursor-pointer ${p === safePage ? "border-ink bg-ink text-white" : "border-line text-muted hover:border-ink hover:text-ink"}`}
+                  className={`w-9 h-9 pointer-coarse:w-11 pointer-coarse:h-11 border grid place-items-center font-mono text-label cursor-pointer ${p === safePage ? "border-ink bg-ink text-white" : "border-line text-muted hover:border-ink hover:text-ink"}`}
                 >{p}</button>
               ))}
               <button
                 type="button"
                 disabled={safePage === totalPages}
                 onClick={() => setPage(safePage + 1)}
-                className="px-4 h-9 border border-line grid place-items-center font-mono text-[11px] text-muted hover:border-ink hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                className="px-4 h-9 pointer-coarse:h-11 border border-line grid place-items-center font-mono text-label text-muted hover:border-ink hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
               >{t("list.next")}</button>
             </div>
           )}
@@ -213,7 +214,7 @@ function ThumbPlaceholder({ label }: { label: string }) {
           <circle cx="8.5" cy="9.5" r="1.75" />
           <path d="M21 16l-5-5L5 20" />
         </svg>
-        <span className="font-mono text-[10px] tracking-[.18em] uppercase">FIG · {label}</span>
+        <span className="font-mono text-label-xs tracking-[.18em] uppercase">FIG · {label}</span>
       </div>
     </div>
   );

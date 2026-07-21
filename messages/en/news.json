@@ -14,7 +14,8 @@
   "related": {
     "label": "Related articles",
     "heading": "Read more",
-    "viewAll": "All news →"
+    "viewAll": "All news →",
+    "swipeHint": "Swipe for more"
   },
   "detail": {
     "toc": "In this article"

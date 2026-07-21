@@ -12,11 +12,11 @@
     "heading": "Yêu cầu báo giá & tư vấn",
     "note": "Đội QS phản hồi trong 4 giờ làm việc (8:00–17:30, T2–T6). Cần gấp, gọi hotline (+84) 909.663.350 hoặc (+84) 922.322.338.",
     "name": "Họ & tên *",
-    "namePlaceholder": "Nguyễn Văn A",
+    "namePlaceholder": "Nhập họ & tên",
     "email": "Email",
-    "emailPlaceholder": "name@company.vn",
+    "emailPlaceholder": "Nhập email",
     "phone": "Điện thoại *",
-    "phonePlaceholder": "0901 234 567",
+    "phonePlaceholder": "Nhập số điện thoại",
     "businessField": "Lĩnh vực hoạt động",
     "businessFieldPlaceholder": "Chọn lĩnh vực…",
     "businessOptions": {
@@ -36,7 +36,7 @@
       "machine_upgrade": "Nâng cấp máy"
     },
     "message": "Nội dung yêu cầu",
-    "messagePlaceholder": "Mô tả nhu cầu, loại máy, số trục, sản phẩm quan tâm…",
+    "messagePlaceholder": "Nhập nội dung yêu cầu",
     "submit": "Gửi yêu cầu →",
     "submitting": "Đang gửi…",
     "sendAnother": "Gửi yêu cầu khác"
@@ -58,7 +58,7 @@
   "newsletter": {
     "heading": "Nhận bản tin kỹ thuật",
     "description": "Cập nhật sản phẩm, firmware và tài liệu mới nhất từ QS.",
-    "placeholder": "email@company.vn",
+    "placeholder": "Nhập email",
     "submit": "Đăng ký →",
     "submitting": "…",
     "success": "Đăng ký thành công! Bạn sẽ nhận bản tin kỹ thuật từ QS.",

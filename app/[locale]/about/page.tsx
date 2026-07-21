@@ -3,6 +3,9 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import CircuitTraces from "@/components/circuit-traces";
 import Reveal from "@/components/reveal";
+import { buildAlternates } from "@/lib/seo/alternates";
+import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
+import type { Locale } from "@/lib/i18n/config";
 import {
   Target,
   Telescope,
@@ -18,12 +21,28 @@ import {
 // across locales): Challenge · Innovation · Creativity · Attitude · Reputation.
 const VALUE_ICONS: LucideIcon[] = [Mountain, Cpu, PenTool, HeartHandshake, ShieldCheck];
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = { params: Promise<{ locale: Locale }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about" });
-  return { title: t("metaTitle") };
+  const seo = await getTranslations({ locale, namespace: "seo" });
+  const title = t("metaTitle");
+  const description = seo("aboutDescription");
+  return {
+    title,
+    description,
+    alternates: buildAlternates("/about", locale),
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: locale === "en" ? "en_US" : "vi_VN",
+      url: "/about",
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
 }
 
 export default async function About({ params }: Props) {
@@ -31,11 +50,16 @@ export default async function About({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "about" });
   const values = t.raw("values.items") as { t: string; d: string }[];
+  const nav = await getTranslations({ locale, namespace: "nav" });
+  const breadcrumb = buildTrail(locale, nav("home"), [
+    { name: nav("about"), path: "/about" },
+  ]);
   return (
     <>
+      <JsonLd data={breadcrumb} />
       {/* HERO — kinetic typographic headline; the brand PCB signature replaces the old figure,
           carrying the "we engineer the path" journey metaphor with live gold current. */}
-      <section className="relative overflow-hidden border-b border-line pt-20 pb-24 min-h-[clamp(420px,52vw,620px)]"
+      <section className="relative overflow-hidden border-b border-line pt-14 pb-16 sm:pt-20 sm:pb-24 min-h-[clamp(420px,52vw,620px)]"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         {/* breathing gold atmosphere anchored toward the signature */}
@@ -45,11 +69,11 @@ export default async function About({ params }: Props) {
           variant="light"
           className="hidden lg:block absolute bottom-0 right-0 w-[48%] h-[86%] opacity-[.6] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_24%,transparent_74%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_24%,transparent_74%)]"
         />
-        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid lg:grid-cols-[1.05fr_1fr] gap-16 items-end">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid lg:grid-cols-[1.05fr_1fr] gap-10 sm:gap-16 items-end">
           <div>
             <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("hero.eyebrow")}</div>
             <h1 className="font-display font-bold tracking-tight leading-[.95] mt-3.5"
-                style={{fontSize:"clamp(56px,7vw,88px)"}}>
+                style={{fontSize:"clamp(36px,5vw,64px)"}}>
               {/* each line masked + rising for a staggered kinetic reveal */}
               <span className="block overflow-hidden pb-[.06em]">
                 <span className="block qs-rise" style={{ animationDelay: "90ms" }}>{t("hero.heading1")}</span>
@@ -65,10 +89,10 @@ export default async function About({ params }: Props) {
             </h1>
           </div>
           <div className="lg:pb-2 qs-rise" style={{ animationDelay: "440ms" }}>
-            <p className="text-[17px] leading-[1.7] text-[#3a3a3a] m-0 max-w-[480px]">
+            <p className="text-lede leading-[1.7] text-[#3a3a3a] m-0 max-w-[480px]">
               {t("hero.lede")}
             </p>
-            <div className="font-mono text-[10px] text-muted tracking-[.18em] uppercase pt-4.5 border-t border-line mt-8 max-w-[480px]">
+            <div className="font-mono text-label-xs text-muted tracking-[.18em] uppercase pt-4.5 border-t border-line mt-8 max-w-[480px]">
               {t("hero.profileNote")}
             </div>
           </div>
@@ -76,8 +100,8 @@ export default async function About({ params }: Props) {
       </section>
 
       {/* STORY — the QS-made board sits beside the company narrative */}
-      <section className="py-24 bg-white border-b border-line">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-2 gap-16 items-center">
+      <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-2 gap-10 sm:gap-16 items-center">
           <Reveal className="relative border border-line bg-ink overflow-hidden order-1 group">
             <Image
               src="/home/about-qs.webp"
@@ -92,16 +116,16 @@ export default async function About({ params }: Props) {
             <div className="absolute inset-3 border border-dashed border-gold/40 pointer-events-none"></div>
             <div className="absolute bottom-0 inset-x-0 flex justify-between items-center px-4 py-3
                             bg-gradient-to-t from-black/75 to-transparent">
-              <span className="font-mono text-[9px] text-gold-2 tracking-[.18em] uppercase">QS · HCMC FACTORY</span>
-              <span className="font-mono text-[9px] text-white/55 tracking-[.18em] uppercase">qstcnc.com</span>
+              <span className="font-mono text-label-xs text-gold-2 tracking-[.18em] uppercase">QS · HCMC FACTORY</span>
+              <span className="font-mono text-label-xs text-white/55 tracking-[.18em] uppercase">qstcnc.com</span>
             </div>
           </Reveal>
           <Reveal className="order-2" delay={120}>
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("story.tag")}</span>
-            <h2 className="font-display font-bold text-[36px] tracking-[-.015em] mt-2 mb-6 leading-[1.1]">{t("story.heading")}</h2>
-            <p className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0 mb-4.5">{t("story.p1")}</p>
-            <p className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0 mb-4.5">{t("story.p2")}</p>
-            <p className="text-[15px] leading-[1.75] text-[#3a3a3a] m-0">
+            <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("story.tag")}</span>
+            <h2 className="font-display font-bold text-h2 tracking-[-.015em] mt-2 mb-6 leading-[1.1]">{t("story.heading")}</h2>
+            <p className="text-body leading-[1.75] text-[#3a3a3a] m-0 mb-4.5">{t("story.p1")}</p>
+            <p className="text-body leading-[1.75] text-[#3a3a3a] m-0 mb-4.5">{t("story.p2")}</p>
+            <p className="text-body leading-[1.75] text-[#3a3a3a] m-0">
               {t("story.p3")}<strong className="font-semibold text-ink">{t("story.p3strong")}</strong>
             </p>
           </Reveal>
@@ -109,7 +133,7 @@ export default async function About({ params }: Props) {
       </section>
 
       {/* MISSION / VISION */}
-      <section className="relative overflow-hidden py-24 bg-paper border-b border-line">
+      <section className="relative overflow-hidden py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
         {/* live board current threading in from the right — the brand signature carrying "direction" */}
         <CircuitTraces
@@ -120,11 +144,11 @@ export default async function About({ params }: Props) {
         <div className="qs-glow hidden sm:block right-[3%] top-[-14%] w-[40%] h-[66%]" aria-hidden="true"></div>
         <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal className="relative border-b border-line pb-6 mb-10">
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("missionVision.eyebrow")}</span>
+            <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("missionVision.eyebrow")}</span>
             <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-8">
-            <Reveal className="group qs-card !rounded-none p-10 relative overflow-hidden
+            <Reveal className="group qs-card !rounded-none p-7 sm:p-10 relative overflow-hidden
                             before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
               {/* blueprint scanner sweeping the card */}
               <div className="qs-scan" aria-hidden="true"></div>
@@ -135,11 +159,11 @@ export default async function About({ params }: Props) {
                                  transition-colors duration-300 group-hover:border-gold/60">
                   <Target aria-hidden="true" className="w-5 h-5" strokeWidth={1.6} />
                 </span>
-                <div className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("missionVision.mission.label")}</div>
+                <div className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("missionVision.mission.label")}</div>
               </div>
-              <p className="relative text-[16px] leading-[1.75] text-[#3a3a3a] mt-5 m-0">{t("missionVision.mission.body")}</p>
+              <p className="relative text-body leading-[1.75] text-[#3a3a3a] mt-5 m-0">{t("missionVision.mission.body")}</p>
             </Reveal>
-            <Reveal delay={110} className="group qs-card !rounded-none p-10 relative overflow-hidden
+            <Reveal delay={110} className="group qs-card !rounded-none p-7 sm:p-10 relative overflow-hidden
                             before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
               {/* second scanner offset in time so the pair pulses out of phase */}
               <div className="qs-scan" style={{ animationDelay: "2.4s" }} aria-hidden="true"></div>
@@ -150,23 +174,23 @@ export default async function About({ params }: Props) {
                                  transition-colors duration-300 group-hover:border-gold/60">
                   <Telescope aria-hidden="true" className="w-5 h-5" strokeWidth={1.6} />
                 </span>
-                <div className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("missionVision.vision.label")}</div>
+                <div className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("missionVision.vision.label")}</div>
               </div>
-              <p className="relative text-[16px] leading-[1.75] text-[#3a3a3a] mt-5 m-0">{t("missionVision.vision.body")}</p>
+              <p className="relative text-body leading-[1.75] text-[#3a3a3a] mt-5 m-0">{t("missionVision.vision.body")}</p>
             </Reveal>
           </div>
         </div>
       </section>
 
       {/* VALUES — five real core values rebuilt as connected numbered cells (localizable) */}
-      <section className="relative overflow-hidden py-24 bg-white border-b border-line">
+      <section className="relative overflow-hidden py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
         {/* dot field mirrored from the right — opposite the story section for vertical rhythm */}
         <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-70 [mask-image:linear-gradient(to_left,#000_0%,transparent_60%)] [-webkit-mask-image:linear-gradient(to_left,#000_0%,transparent_60%)]" aria-hidden="true"></div>
         {/* soft gold light rising behind the section header */}
         <div className="qs-glow hidden sm:block right-[-6%] top-[-14%] w-[34%] h-[56%]" aria-hidden="true"></div>
         <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal className="relative border-b border-line pb-6 mb-10">
-            <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("values.eyebrow")}</span>
+            <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("values.eyebrow")}</span>
             <h2 className="qs-h2 mt-2">{t("values.heading")}</h2>
             <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
           </Reveal>
@@ -195,8 +219,8 @@ export default async function About({ params }: Props) {
                       <Icon aria-hidden="true" className="w-[18px] h-[18px]" strokeWidth={1.6} />
                     </span>
                   </div>
-                  <h3 className="relative font-display font-semibold text-[19px] tracking-[-.01em] mt-4 mb-2.5 m-0">{v.t}</h3>
-                  <p className="relative text-[#4a4842] text-[13px] leading-[1.65] m-0">{v.d}</p>
+                  <h3 className="relative font-display font-semibold text-title tracking-[-.01em] mt-4 mb-2.5 m-0">{v.t}</h3>
+                  <p className="relative text-[#4a4842] text-meta leading-[1.65] m-0">{v.d}</p>
                 </Reveal>
               );
             })}
@@ -205,7 +229,7 @@ export default async function About({ params }: Props) {
       </section>
 
       {/* QUOTE */}
-      <section className="py-24 bg-ink text-[#cfc9b8] relative overflow-hidden">
+      <section className="py-12 sm:py-16 lg:py-24 bg-ink text-[#cfc9b8] relative overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.12]" aria-hidden="true"></div>
         <div className="qs-glow left-1/2 -translate-x-1/2 top-[-30%] w-[60%] h-[130%]" aria-hidden="true"></div>
         {/* brand PCB current threading behind the quote */}
@@ -216,10 +240,10 @@ export default async function About({ params }: Props) {
         <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal className="max-w-[860px] mx-auto text-center">
             <div className="font-display text-gold-2 text-6xl leading-none mb-4 select-none qs-gold-shimmer inline-block" aria-hidden="true">&ldquo;</div>
-            <blockquote className="font-display font-semibold text-white text-[28px] md:text-[34px] leading-[1.32] tracking-[-.01em] m-0">
+            <blockquote className="font-display font-semibold text-white text-h2 leading-[1.32] tracking-[-.01em] m-0">
               {t("quote.body")}
             </blockquote>
-            <div className="font-mono text-[11px] text-gold-2 tracking-[.18em] uppercase mt-8">{t("quote.attribution")}</div>
+            <div className="font-mono text-label text-gold-2 tracking-[.18em] uppercase mt-8">{t("quote.attribution")}</div>
           </Reveal>
         </div>
       </section>

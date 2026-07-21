@@ -41,11 +41,26 @@ export function ProductCategoryTabs({
   return (
     <>
       {eyebrow ? (
-        <div className="mb-2.5 font-mono text-[10px] tracking-[.18em] uppercase text-[#5a5650]">
+        <div className="mb-2.5 font-mono text-label-xs tracking-[.18em] uppercase text-[#5a5650]">
           {eyebrow}
         </div>
       ) : null}
-      <div className="overflow-x-auto -mx-5 px-5 sm:mx-0 sm:px-0 mb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {/* mobile: the horizontal tab strip collapses to a native select so the
+          groups don't force a sideways scroll on a phone. Styling stays in the
+          same mono/line family as the toolbar selects inside each panel. */}
+      <select
+        aria-label={eyebrow ?? tabs.map((t) => t.label).join(" / ")}
+        value={active}
+        onChange={(e) => setActive(Number(e.target.value))}
+        className="qs-select sm:hidden w-full mb-4 font-mono text-[16px] tracking-[.08em] uppercase border border-line py-2 px-3 bg-white cursor-pointer"
+      >
+        {tabs.map((tab, i) => (
+          <option key={tab.id} value={i}>
+            {tab.label} ({String(tab.count).padStart(2, "0")})
+          </option>
+        ))}
+      </select>
+      <div className="hidden sm:block overflow-x-auto -mx-5 px-5 sm:mx-0 sm:px-0 mb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div
           role="tablist"
           aria-label={tabs.map((t) => t.label).join(" / ")}
@@ -77,7 +92,7 @@ export function ProductCategoryTabs({
                 // rule so the active gold underscore reads as one continuous line.
                 className={`relative -mb-px min-h-11 flex items-center gap-3 pr-4 sm:pr-5 ${
                   i === 0 ? "pl-0" : "pl-4 sm:pl-5"
-                } py-2.5 text-[13.5px] font-semibold tracking-[-.005em] whitespace-nowrap border-b-2 transition-colors cursor-pointer ${
+                } py-2.5 text-meta font-semibold tracking-[-.005em] whitespace-nowrap border-b-2 transition-colors cursor-pointer ${
                   isActive
                     ? "border-b-gold-2 text-ink"
                     : "border-b-transparent text-[#5a5650] hover:text-ink"
@@ -103,7 +118,7 @@ export function ProductCategoryTabs({
                 </span>
                 {tab.label}
                 <span
-                  className={`font-mono text-[10px] tabular-nums ${
+                  className={`font-mono text-label-xs tabular-nums ${
                     isActive ? "text-gold-2" : "text-line-2"
                   }`}
                 >

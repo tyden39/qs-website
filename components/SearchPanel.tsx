@@ -139,16 +139,16 @@ export default function SearchPanel({
             <input id="qs-search-field" name="q" placeholder={t("placeholder")} autoComplete="off"
                    role="combobox" aria-expanded={querying} aria-autocomplete="list" aria-controls="qs-search-suggestions"
                    value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={onKeyDown}
-                   className="flex-1 border-0 outline-0 bg-transparent text-lg font-display font-medium text-ink placeholder:text-muted placeholder:font-normal"/>
-            <button type="button" onClick={close} aria-label={t("close")} className="w-11 h-11 grid place-items-center text-muted hover:text-ink text-sm">✕</button>
+                   className="flex-1 border-0 outline-0 bg-transparent text-title font-display font-medium text-ink placeholder:text-muted placeholder:font-normal"/>
+            <button type="button" onClick={close} aria-label={t("close")} className="w-11 h-11 grid place-items-center text-muted hover:text-ink text-meta">✕</button>
           </form>
 
           {/* live suggestions (autocomplete) */}
           {querying ? (
             <div className="mt-6">
-              <div className="font-mono text-[10px] tracking-[.18em] uppercase text-muted mb-3.5">{t("suggestions")}</div>
+              <div className="font-mono text-label-xs tracking-[.18em] uppercase text-muted mb-3.5">{t("suggestions")}</div>
               {db && suggestions.length === 0 ? (
-                <p className="text-sm text-muted py-2">{t("noSuggestions", { query: query.trim() })}</p>
+                <p className="text-meta text-muted py-2">{t("noSuggestions", { query: query.trim() })}</p>
               ) : (
                 <div id="qs-search-suggestions" ref={listRef} role="listbox" className="flex flex-col border border-line divide-y divide-line">
                   {suggestions.map((s, i) => (
@@ -161,12 +161,12 @@ export default function SearchPanel({
                       onClick={() => go(s.href)}
                       className={`flex items-center gap-3.5 px-4 py-3 text-left transition-colors ${i === active ? "bg-paper" : "bg-white hover:bg-paper"}`}
                     >
-                      <span className="font-mono text-[9px] tracking-[.14em] uppercase text-gold-1 border border-line px-1.5 py-1 shrink-0 min-w-[74px] text-center">
+                      <span className="font-mono text-label-xs tracking-[.14em] uppercase text-gold-1 border border-line px-1.5 py-1 shrink-0 min-w-[74px] text-center">
                         {tType(s.type)}
                       </span>
                       <span className="min-w-0">
-                        <span className="block font-display font-semibold text-[15px] text-ink truncate">{s.title}</span>
-                        {s.excerpt && <span className="block text-xs text-muted truncate">{s.excerpt}</span>}
+                        <span className="block font-display font-semibold text-body text-ink truncate">{s.title}</span>
+                        {s.excerpt && <span className="block text-meta text-muted truncate">{s.excerpt}</span>}
                       </span>
                     </button>
                   ))}
@@ -174,7 +174,7 @@ export default function SearchPanel({
                   <button
                     type="button"
                     onClick={() => submit(query)}
-                    className="flex items-center gap-2 px-4 py-3 text-left bg-white hover:bg-paper transition-colors font-mono text-[11px] tracking-[.1em] uppercase text-ink"
+                    className="flex items-center gap-2 px-4 py-3 text-left bg-white hover:bg-paper transition-colors font-mono text-label tracking-[.1em] uppercase text-ink"
                   >
                     {t("searchFor", { query: query.trim() })}
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gold-1"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -185,20 +185,20 @@ export default function SearchPanel({
           ) : (
             /* featured products */
             <div className="mt-6">
-              <div className="font-mono text-[10px] tracking-[.18em] uppercase text-muted mb-3.5">{t("featured")}</div>
-              <div className="grid grid-cols-3 lg:grid-cols-6 gap-px bg-line border border-line">
+              <div className="font-mono text-label-xs tracking-[.18em] uppercase text-muted mb-3.5">{t("featured")}</div>
+              <div className="grid grid-cols-2 lg:grid-cols-6 gap-px bg-line border border-line">
 
-                {featured.map((p) => (
+                {featured.map((p, i) => (
                   <Link key={p.slug} href={`/products/${p.slug}`} onClick={close}
-                        className="bg-white p-4 hover:bg-paper transition-colors flex flex-col text-ink">
+                        className={`bg-white p-4 hover:bg-paper transition-colors flex-col text-ink ${i >= 3 ? "hidden lg:flex" : "flex"}`}>
                     <div className="relative h-28 mb-3 border border-line overflow-hidden"
                          style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
                       <Image src={p.img} alt={p.name} fill sizes="200px" className="object-contain p-3" />
                     </div>
                     <div className="flex flex-col gap-[3px]">
-                      <b className="font-display font-bold text-base tracking-[-.01em]">{p.name}</b>
-                      <span className="font-mono text-[10px] text-muted tracking-[.1em]">{p.meta}</span>
-                      <span className="text-xs text-[#4a4842] mt-0.5">{p.tag}</span>
+                      <b className="font-display font-bold text-body tracking-[-.01em]">{p.name}</b>
+                      <span className="font-mono text-label-xs text-muted tracking-[.1em]">{p.meta}</span>
+                      <span className="text-meta text-[#4a4842] mt-0.5">{p.tag}</span>
                     </div>
                   </Link>
                 ))}
@@ -208,9 +208,9 @@ export default function SearchPanel({
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
                   </div>
                   <div className="flex flex-col gap-[3px]">
-                    <b className="font-display font-bold text-base tracking-[-.01em] bg-gold-grad bg-clip-text text-transparent">{t("viewAll")}</b>
-                    <span className="font-mono text-[10px] text-[#a8a499] tracking-[.1em]">{t("productCount", { count: productCount })}</span>
-                    <span className="text-xs text-[#a8a499] mt-0.5">{t("fullCatalog")}</span>
+                    <b className="font-display font-bold text-body tracking-[-.01em] bg-gold-grad bg-clip-text text-transparent">{t("viewAll")}</b>
+                    <span className="font-mono text-label-xs text-[#a8a499] tracking-[.1em]">{t("productCount", { count: productCount })}</span>
+                    <span className="text-meta text-[#a8a499] mt-0.5">{t("fullCatalog")}</span>
                   </div>
                 </Link>
               </div>

@@ -33,7 +33,9 @@ export function LocaleSwitcher() {
           onClick={() => switchLocale(value)}
           aria-pressed={locale === value}
           className={[
-            "px-2 py-0.5 rounded text-[11px] font-mono font-semibold tracking-widest transition-colors",
+            // Touch devices get the 44px minimum hit area (Apple HIG / Material);
+            // the compact pill look is kept for mouse pointers.
+            "px-2 py-0.5 rounded text-label font-mono font-semibold tracking-widest transition-colors pointer-coarse:min-h-11 pointer-coarse:min-w-11",
             locale === value
               ? "bg-ink text-white"
               : "text-muted hover:text-ink",

@@ -22,7 +22,7 @@ export default function Marquee({
   const Track = ({ hidden = false }: { hidden?: boolean }) => (
     <div className="qs-marquee-track" aria-hidden={hidden || undefined}>
       {items.map((it, i) => (
-        <span key={i} className="inline-flex items-center whitespace-nowrap font-mono text-[11px] tracking-[.2em] uppercase px-7">
+        <span key={i} className="inline-flex items-center whitespace-nowrap font-mono text-label tracking-[.2em] uppercase px-7">
           <span className="w-1.5 h-1.5 rounded-full bg-gold-2 mr-7" aria-hidden="true"></span>
           {it}
         </span>

@@ -34,8 +34,10 @@ export type CatalogFeature = {
 export type CatalogProduct = {
   slug: string;
   category: CatalogCategory;
-  /** Model designation as the catalogue prints it — not localized. */
+  /** Model designation as the catalogue prints it — usually locale-neutral. */
   name: string;
+  /** English name for the few accessories whose `name` is a Vietnamese phrase. */
+  nameEn?: string;
   /** Short label above the name on cards. */
   tag: string;
   tagEn: string;

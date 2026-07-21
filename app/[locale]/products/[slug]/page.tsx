@@ -11,13 +11,14 @@ import { CatalogDetail } from "../_components/catalog-detail";
 import { getProductDownloads, groupByDocument, formatBytes, type DownloadFile } from "@/lib/data/downloads";
 import { KitComponentIcon } from "@/components/products/kit-component-icon";
 import CircuitTraces from "@/components/circuit-traces";
+import RailNudge from "@/components/rail-nudge";
 import { ProductDetailTabs, type ProductDetailTab } from "../_components/product-detail-tabs";
 import { ProductHeroGallery, type HeroShot } from "../_components/product-hero-gallery";
 import { ProductVideo } from "../_components/product-video";
 import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
-import { buildProduct, JsonLd } from "@/lib/seo/jsonld";
+import { buildProduct, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
 export async function generateMetadata({
@@ -115,14 +116,14 @@ function SpecValue({ value }: { value: string }) {
   }
   if (value === "Option") {
     return (
-      <span className="inline-flex items-center font-mono text-[9.5px] tracking-[.14em] uppercase text-gold-1 border border-gold-1/40 px-2 py-0.5">
+      <span className="inline-flex items-center font-mono text-label-xs tracking-[.14em] uppercase text-gold-1 border border-gold-1/40 px-2 py-0.5">
         {value}
       </span>
     );
   }
   if (SUPPORTED.has(value)) {
     return (
-      <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink">
+      <span className="inline-flex items-center gap-1.5 text-meta font-semibold text-ink">
         <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 text-gold-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
           <path d="M3 8.5l3.2 3.2L13 4.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -130,7 +131,7 @@ function SpecValue({ value }: { value: string }) {
       </span>
     );
   }
-  return <span className="text-[13.5px] font-semibold tracking-[-.005em] text-ink tabular-nums">{value}</span>;
+  return <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">{value}</span>;
 }
 
 // Blueprint-style datasheet: parameter rows on the left, one column per control
@@ -146,8 +147,8 @@ function SpecAccordion({ sheet }: { sheet: ProductView["specSheet"] }) {
         <details key={c.name} open={ci === 0} className="group border border-line bg-white">
           <summary className="flex items-center justify-between gap-3 bg-[#11120f] px-4 py-3.5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
             <span className="min-w-0">
-              <span className="block font-mono text-[12px] tracking-[.04em] text-gold-2 leading-tight">{c.name}</span>
-              <span className="block font-mono text-[9px] tracking-[.14em] uppercase text-[#8f8878] mt-1">{c.loop}</span>
+              <span className="block font-mono text-meta tracking-[.04em] text-gold-2 leading-tight">{c.name}</span>
+              <span className="block font-mono text-label-xs tracking-[.14em] uppercase text-[#8f8878] mt-1">{c.loop}</span>
             </span>
             <svg
               viewBox="0 0 24 24"
@@ -163,7 +164,7 @@ function SpecAccordion({ sheet }: { sheet: ProductView["specSheet"] }) {
           {sheet.sections.map((section) => (
             <Fragment key={section.title}>
               <div className="bg-paper px-4 py-2.5 flex items-center gap-3 border-t border-line">
-                <span className="font-mono text-[10px] tracking-[.16em] uppercase text-ink">{section.title}</span>
+                <span className="font-mono text-label-xs tracking-[.16em] uppercase text-ink">{section.title}</span>
                 <span className="h-px flex-1 bg-line" />
               </div>
               {section.rows.map((row) => (
@@ -171,7 +172,7 @@ function SpecAccordion({ sheet }: { sheet: ProductView["specSheet"] }) {
                   key={section.title + row.l}
                   className="grid grid-cols-[1.1fr_1fr] gap-3 items-center px-4 py-2.5 border-t border-line/70"
                 >
-                  <span className="font-mono text-[10.5px] leading-snug tracking-[.03em] uppercase text-muted">{row.l}</span>
+                  <span className="font-mono text-label-xs leading-snug tracking-[.03em] uppercase text-muted">{row.l}</span>
                   <SpecValue value={Array.isArray(row.v) ? row.v[ci] : row.v} />
                 </div>
               ))}
@@ -191,24 +192,24 @@ function SpecDatasheet({ model, sheet }: { model: string; sheet: ProductView["sp
     <div className="overflow-x-auto border border-line">
       <div className="grid gap-px bg-line" style={{ gridTemplateColumns: template, minWidth: 132 + n * 150 }}>
         <div className="bg-[#11120f] px-4 py-3.5 flex items-end">
-          <span className="font-display text-[15px] font-bold tracking-[-.01em] text-white">{model}</span>
+          <span className="font-display text-body font-bold tracking-[-.01em] text-white">{model}</span>
         </div>
         {cols.map((c) => (
           <div key={c.name} className="bg-[#11120f] px-4 py-3">
-            <div className="font-mono text-[11.5px] tracking-[.04em] text-gold-2 leading-tight">{c.name}</div>
-            <div className="font-mono text-[9px] tracking-[.14em] uppercase text-[#8f8878] mt-1">{c.loop}</div>
+            <div className="font-mono text-label tracking-[.04em] text-gold-2 leading-tight">{c.name}</div>
+            <div className="font-mono text-label-xs tracking-[.14em] uppercase text-[#8f8878] mt-1">{c.loop}</div>
           </div>
         ))}
 
         {sheet.sections.map((section) => (
           <Fragment key={section.title}>
             <div style={{ gridColumn: "1 / -1" }} className="bg-paper px-4 py-2.5 flex items-center gap-3">
-              <span className="font-mono text-[10px] tracking-[.16em] uppercase text-ink">{section.title}</span>
+              <span className="font-mono text-label-xs tracking-[.16em] uppercase text-ink">{section.title}</span>
               <span className="h-px flex-1 bg-line" />
             </div>
             {section.rows.map((row) => (
               <Fragment key={section.title + row.l}>
-                <div className="bg-white px-4 py-3 flex items-center font-mono text-[10.5px] leading-snug tracking-[.03em] uppercase text-muted">
+                <div className="bg-white px-4 py-3 flex items-center font-mono text-label-xs leading-snug tracking-[.03em] uppercase text-muted">
                   {row.l}
                 </div>
                 {Array.isArray(row.v) ? (
@@ -243,7 +244,7 @@ function SpecDatasheet({ model, sheet }: { model: string; sheet: ProductView["sp
 }
 
 // A photo's `place` pins it: "hero" (the lead gallery up top), "tour" (the
-// "product in detail" grid), or "hide". When unset, the first 4 shots make up
+// "product in detail" grouped swipe rails), or "hide". When unset, the first 4 shots make up
 // the hero gallery and the rest drop into the tour, each tagged by what its
 // alt describes (the gallery item's `kind`, classified in the data layer).
 export default async function ProductDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
@@ -261,14 +262,11 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   if (!p) notFound();
 
   const productJsonLd = buildProduct(p, locale);
+  const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
+    { name: t("breadcrumb.products"), path: "/products" },
+    { name: p.name, path: `/products/${slug}` },
+  ]);
   const tabLabels = t.raw("tabs") as string[];
-  // Hero value-prop cards: fixed titles, descriptions filled from this model's
-  // real catalogue data (axis count, actual control interfaces, display size).
-  const featureText = [
-    { t: t("features.perf.t"), d: t("features.perf.d", { axes: p.axes }) },
-    { t: t("features.io.t"), d: t("features.io.d", { interfaces: p.interfaces.map((i) => i.name).join(", ") }) },
-    { t: t("features.custom.t"), d: t("features.custom.d", { display: p.display }) },
-  ];
   // Pinned `place: "hero"` photos take over the gallery when present; otherwise
   // the first 4 visible shots (skipping any pinned to "tour") lead. Everything
   // left over drops into the tour. `hide` drops a photo entirely.
@@ -314,11 +312,14 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
     .filter((x): x is LightboxShot => x !== null);
   const overviewHtml = p.overview ?? `<p>${p.desc}</p>`;
   const multiProtocol = p.specSheet.cols.length > 1;
+  // Hero spec strip: one compact band that replaces the old prose feature cards,
+  // which restated these same facts (axes, interfaces, display) in words. Each
+  // cell pairs a short value-prop label with the model's real catalogue value.
   const heroStats = [
     { l: t("factAxes"), v: p.axes },
+    { l: t("factInterface"), v: p.interfaces.map((i) => i.name).join(" · ") },
     { l: t("factDisplay"), v: p.display },
     { l: "I/O", v: findSpec(p, ["standard i/o", "i/o ports"]) ?? "—" },
-    { l: "Look-Ahead", v: findSpec(p, ["look-ahead"]) ?? "—" },
   ];
 
   const productDownloads = getProductDownloads(slug);
@@ -332,7 +333,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   };
 
   const overviewPanel = (
-    <section className="relative overflow-hidden bg-[#f7f5ef] py-16 lg:py-20">
+    <section className="relative overflow-hidden bg-[#f7f5ef] py-12 sm:py-16 lg:py-24">
       <CircuitTraces
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
@@ -345,7 +346,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
               <h2 className="qs-h2 mt-3">{t("overviewHeading")}</h2>
             </header>
             <div
-              className="prose prose-sm max-w-[70ch] mt-8 prose-p:text-[16.5px] prose-p:leading-[1.9] prose-p:text-[#2f2c26] prose-p:my-5"
+              className="prose prose-sm max-w-[70ch] mt-8 prose-p:text-lede prose-p:leading-[1.9] prose-p:text-[#2f2c26] prose-p:my-5"
               dangerouslySetInnerHTML={{ __html: safeHtml(overviewHtml) }}
             />
           </div>
@@ -356,7 +357,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                 group={galleryShots}
                 index={0}
                 ariaLabel={t("lightbox.zoom")}
-                className="relative min-h-[420px] lg:min-h-[480px] grid place-items-center p-6 overflow-hidden w-full"
+                className="relative lg:min-h-[480px] grid place-items-center p-6 sm:p-8 overflow-hidden w-full"
               >
                 <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-70" aria-hidden="true" />
                 <span className="qs-glow left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />
@@ -366,13 +367,13 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                   width={galleryShots[0].w}
                   height={galleryShots[0].h}
                   sizes="(max-width: 1024px) 92vw, 560px"
-                  className="qs-float relative w-auto max-h-[400px] lg:max-h-[460px] max-w-full object-contain drop-shadow-[0_22px_44px_rgba(0,0,0,.2)]"
+                  className="qs-float relative w-auto lg:max-h-[460px] max-w-full object-contain drop-shadow-[0_22px_44px_rgba(0,0,0,.2)]"
                 />
               </LightboxTrigger>
             ) : (
               <div className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden border border-dashed border-line bg-white">
                 <div className="absolute inset-0 qs-grid-bg opacity-30" />
-                <span className="relative font-mono text-[11px] tracking-[.16em] uppercase text-muted">{t("overviewPhotoComingSoon")}</span>
+                <span className="relative font-mono text-label tracking-[.16em] uppercase text-muted">{t("overviewPhotoComingSoon")}</span>
               </div>
             )}
           </aside>
@@ -382,28 +383,35 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           <div className="mt-14">
             <div className="flex items-end justify-between gap-4 border-b border-line pb-3 mb-8">
               <div>
-                <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("tourEyebrow")}</span>
-                <h3 className="font-display text-xl sm:text-2xl font-semibold tracking-[-.015em] text-ink mt-1.5 mb-0">{t("tourHeading")}</h3>
+                <span className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{t("tourEyebrow")}</span>
+                <h3 className="font-display text-title sm:text-subhead font-semibold tracking-[-.015em] text-ink mt-1.5 mb-0">{t("tourHeading")}</h3>
               </div>
-              <span className="font-mono text-[10px] text-muted tracking-[.14em] shrink-0">{String(annotated.length).padStart(2, "0")} / {String(p.gallery.length).padStart(2, "0")}</span>
+              <span className="font-mono text-label-xs text-muted tracking-[.14em] shrink-0">{String(annotated.length).padStart(2, "0")} / {String(p.gallery.length).padStart(2, "0")}</span>
             </div>
             <div className="flex flex-col gap-10">
               {tourGroups.map((group) => (
                 <div key={group.id}>
                   <div className="flex items-baseline gap-4 mb-2 sm:mb-5">
-                    <span className="font-mono text-[13px] sm:text-sm text-gold-1 tracking-[.16em] uppercase">{t(`tourGroups.${group.id}.tag`)}</span>
-                    <span className="text-[15px] leading-[1.5] text-muted hidden sm:block">{t(`tourGroups.${group.id}.desc`)}</span>
+                    <span className="font-mono text-meta text-gold-1 tracking-[.16em] uppercase">{t(`tourGroups.${group.id}.tag`)}</span>
+                    <span className="text-body leading-[1.5] text-muted hidden sm:block">{t(`tourGroups.${group.id}.desc`)}</span>
                     <span className="h-px flex-1 bg-line self-center" />
-                    <span className="font-mono text-[10px] text-muted tracking-[.14em] shrink-0">{String(group.shots.length).padStart(2, "0")}</span>
+                    <span className="font-mono text-label-xs text-muted tracking-[.14em] shrink-0">{String(group.shots.length).padStart(2, "0")}</span>
                   </div>
                   {/* phones keep the group's explainer, just below the tag row */}
-                  <p className="sm:hidden text-[13px] leading-[1.55] text-muted mt-0 mb-4">{t(`tourGroups.${group.id}.desc`)}</p>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
+                  <p className="sm:hidden text-meta leading-[1.55] text-muted mt-0 mb-4">{t(`tourGroups.${group.id}.desc`)}</p>
+                  <div
+                    id={`product-tour-${group.id}`}
+                    className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain gap-px bg-line border border-line
+                               [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  >
                     {group.shots.map(({ img, index }) => (
-                      <figure key={img.src} className="m-0 bg-white flex flex-col">
+                      <figure
+                        key={img.src}
+                        className="m-0 bg-white flex flex-col w-full sm:w-[calc(50%-0.5px)] lg:w-[calc(33.333%-0.667px)] shrink-0 snap-start"
+                      >
                         <LightboxTrigger group={tourShots} index={index} ariaLabel={t("lightbox.zoom")} className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden w-full">
                           <div className="absolute inset-0 qs-grid-bg opacity-30" />
-                          <span className="absolute top-3 left-4 font-mono text-[10px] text-gold-1 tracking-[.16em]">{String(index + 1).padStart(2, "0")}</span>
+                          <span className="absolute top-3 left-4 font-mono text-label-xs text-gold-1 tracking-[.16em]">{String(index + 1).padStart(2, "0")}</span>
                           <Image
                             src={img.src}
                             alt={img.alt}
@@ -417,6 +425,15 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                       </figure>
                     ))}
                   </div>
+                  {group.shots.length > 1 && (
+                    <RailNudge
+                      targetId={`product-tour-${group.id}`}
+                      label={t("tourSwipeHint")}
+                      // 3 shots fit per row from lg up, so only keep the cue on
+                      // desktop when the rail actually overflows there.
+                      className={group.shots.length > 3 ? "" : "lg:hidden"}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -426,8 +443,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         <div className="mt-14">
           <div className="flex items-end justify-between gap-4 border-b border-line pb-3 mb-6">
             <div>
-              <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>
-              <h3 className="font-display text-xl sm:text-2xl font-semibold tracking-[-.015em] text-ink mt-1.5 mb-0">{t("videoHeading")}</h3>
+              <span className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>
+              <h3 className="font-display text-title sm:text-subhead font-semibold tracking-[-.015em] text-ink mt-1.5 mb-0">{t("videoHeading")}</h3>
             </div>
           </div>
           <div className="max-w-[960px] mx-auto">
@@ -436,7 +453,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             ) : (
               <div className="relative aspect-video border border-dashed border-line bg-white grid place-items-center overflow-hidden">
                 <div className="absolute inset-0 qs-grid-bg opacity-30" />
-                <span className="relative font-mono text-[11px] tracking-[.16em] uppercase text-muted">{t("videoComingSoon")}</span>
+                <span className="relative font-mono text-label tracking-[.16em] uppercase text-muted">{t("videoComingSoon")}</span>
               </div>
             )}
           </div>
@@ -446,7 +463,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   );
 
   const specsPanel = (
-    <section className="relative overflow-hidden bg-[#f7f5ef] py-16 lg:py-20">
+    <section className="relative overflow-hidden bg-[#f7f5ef] py-12 sm:py-16 lg:py-24">
       <CircuitTraces
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
@@ -455,7 +472,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         <span className="qs-eyebrow">{t("specsEyebrow")}</span>
         <h2 className="qs-h2 mt-3">{t("specsHeading")}</h2>
         {multiProtocol && (
-          <p className="text-[13.5px] leading-[1.6] text-muted max-w-[62ch] mt-3 mb-8">{t("specsHint")}</p>
+          <p className="text-meta leading-[1.6] text-muted max-w-[62ch] mt-3 mb-8">{t("specsHint")}</p>
         )}
         <div className={multiProtocol ? "" : "mt-8"}>
           <SpecDatasheet model={p.name} sheet={p.specSheet} />
@@ -467,11 +484,11 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   const downloadList = (heading: string, count: number, groups: ReturnType<typeof groupByDocument>) => (
     <div className="relative">
       <div className="flex items-end justify-between gap-4 border-b border-line pb-3 mb-4">
-        <h3 className="font-display text-lg sm:text-xl font-semibold tracking-[-.015em] text-ink m-0">{heading}</h3>
-        <span className="font-mono text-[10px] text-muted tracking-[.14em] shrink-0">{String(count).padStart(2, "0")}</span>
+        <h3 className="font-display text-title font-semibold tracking-[-.015em] text-ink m-0">{heading}</h3>
+        <span className="font-mono text-label-xs text-muted tracking-[.14em] shrink-0">{String(count).padStart(2, "0")}</span>
       </div>
       <div className="border border-line bg-white">
-        <div className="hidden md:grid grid-cols-[1fr_120px_minmax(200px,auto)] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-[10px] tracking-[.16em] uppercase">
+        <div className="hidden md:grid grid-cols-[1fr_120px_minmax(200px,auto)] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
           <span>{tDl("table.name")}</span>
           <span>{tDl("table.version")}</span>
           <span className="text-right">{tDl("table.download")}</span>
@@ -481,21 +498,21 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           return (
             <div key={doc.key} className="grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line hover:bg-paper transition-colors">
               <div className="flex items-center gap-4">
-                <span className="w-10 h-[52px] flex-shrink-0 border border-line grid place-items-center font-display font-extrabold text-[10px] tracking-[-.02em] bg-white text-ink">
+                <span className="w-10 h-[52px] flex-shrink-0 border border-line grid place-items-center font-display font-extrabold text-label-xs tracking-[-.02em] bg-white text-ink">
                   {head.ext}
                 </span>
-                <span className="font-semibold text-ink text-[14px] tracking-[-.005em] min-w-0">{downloadTitle(head)}</span>
+                <span className="font-semibold text-ink text-meta tracking-[-.005em] min-w-0">{downloadTitle(head)}</span>
               </div>
-              <span className="font-mono text-[11px] text-muted md:text-[#3a3a3a]">
+              <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
                 {/* the column header is hidden below md, so label the value inline there */}
-                <span className="md:hidden text-[10px] tracking-[.12em] uppercase text-muted/70">{tDl("table.version")}: </span>
+                <span className="md:hidden text-label-xs tracking-[.12em] uppercase text-muted/70">{tDl("table.version")}: </span>
                 {head.version ?? (head.date ? head.date.slice(0, 7).replace("-", "/") : "—")}
               </span>
               <div className="flex gap-2 md:justify-end">
                 {doc.variants.map((v) => (
                   <a key={v.slug} href={v.fileUrl} download className="flex-1 md:flex-initial inline-flex flex-col items-center gap-0.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors">
-                    <span className="font-mono text-[11px] tracking-[.14em] uppercase">{v.lang.toUpperCase()} ↓</span>
-                    <span className="font-mono text-[9px] tracking-[.06em] opacity-60">{formatBytes(v.sizeBytes)}</span>
+                    <span className="font-mono text-label tracking-[.14em] uppercase">{v.lang.toUpperCase()} ↓</span>
+                    <span className="font-mono text-label-xs tracking-[.06em] opacity-60">{formatBytes(v.sizeBytes)}</span>
                   </a>
                 ))}
               </div>
@@ -507,7 +524,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   );
 
   const resourcesPanel = (
-    <section className="relative overflow-hidden py-16 bg-paper">
+    <section className="relative overflow-hidden py-12 sm:py-16 lg:py-24 bg-paper">
       <CircuitTraces
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
@@ -517,7 +534,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           <div className="max-w-[62ch]">
             <span className="qs-eyebrow">{t("resourcesEyebrow")}</span>
             <h2 className="qs-h2 mt-2">{t("resourcesHeading")}</h2>
-            <p className="text-[14px] text-muted leading-[1.7] mt-3 mb-0">{t("resourcesHint")}</p>
+            <p className="text-meta text-muted leading-[1.7] mt-3 mb-0">{t("resourcesHint")}</p>
           </div>
           <Link href="/downloads" className="qs-btn qs-btn-ghost qs-btn-sm">{t("resourcesAllLink")}</Link>
         </div>
@@ -531,7 +548,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   );
 
   const packagePanel = (
-    <section className="py-16 lg:py-20 bg-[#f7f5ef]">
+    <section className="py-12 sm:py-16 lg:py-24 bg-[#f7f5ef]">
       <div className="qs-wrap-wide">
         <div className="qs-section-head">
           <div>
@@ -545,7 +562,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             return (
               <div key={c.label} className="bg-white p-5 sm:p-6 flex flex-col gap-3 min-h-[238px]">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em]">[ {String(i + 1).padStart(2, "0")} ]</span>
+                  <span className="font-mono text-label-xs text-gold-1 tracking-[.16em]">[ {String(i + 1).padStart(2, "0")} ]</span>
                   <span className="h-px flex-1 bg-line" />
                 </div>
                 <div className="bg-paper border border-line grid place-items-center p-4 h-[150px]">
@@ -557,7 +574,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                     <KitComponentIcon type={c.icon} className="h-3/4 w-auto" />
                   )}
                 </div>
-                <div className="font-display font-semibold text-[15px] text-ink leading-[1.35]">{c.label}</div>
+                <div className="font-display font-semibold text-body text-ink leading-[1.35]">{c.label}</div>
               </div>
             );
           })}
@@ -576,6 +593,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   return (
     <>
       <JsonLd data={productJsonLd} />
+      <JsonLd data={breadcrumb} />
       <section className="relative overflow-hidden bg-[#10110f] text-white border-b border-[#28261f]">
         <div className="absolute inset-0 qs-grid-bg opacity-[.12]" />
         <div className="absolute -right-20 top-0 h-[420px] w-[420px] rounded-full bg-gold-2/10 blur-3xl" aria-hidden="true" />
@@ -587,22 +605,13 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(420px,.86fr)] gap-10 lg:gap-14 items-center">
-            <div>
-              <small className="block font-mono text-[11px] text-gold-2 tracking-[.18em] uppercase mb-4">{t("modelLine", { name: p.name })}</small>
-              <h1 className="font-display font-bold tracking-[-.035em] leading-[.98] text-balance m-0 text-[clamp(36px,7vw,92px)]">
+            <div className="order-2 md:order-1">
+              <small className="block font-mono text-label text-gold-2 tracking-[.18em] uppercase mb-3">{t("modelLine", { name: p.name })}</small>
+              <h1 className="font-display font-bold tracking-[-.03em] leading-[1.02] text-balance m-0 text-[clamp(34px,5vw,60px)]">
                 {p.tag}
               </h1>
-              <p className="mt-6 text-[17px] leading-[1.75] text-[#c9c2b3] max-w-[68ch]">{p.desc}</p>
-              <div className="mt-8 grid sm:grid-cols-3 gap-px bg-white/10 border border-white/10 max-w-[820px]">
-                {featureText.map((f, i) => (
-                  <div key={f.t} className="bg-[#141510] p-4">
-                    <div className="font-mono text-[10px] tracking-[.18em] text-gold-2/80">0{i + 1}</div>
-                    <b className="block text-white font-semibold mt-2">{f.t}</b>
-                    <span className="block text-[13px] leading-[1.55] text-[#9f9788] mt-1">{f.d}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <p className="mt-4 text-body leading-[1.6] text-[#c9c2b3] max-w-[60ch]">{p.desc}</p>
+              <div className="mt-6 flex flex-wrap gap-3">
                 <Link className="qs-btn qs-btn-gold" href="/contact">{t("quoteBtn")}</Link>
                 {hasDownloads ? (
                   <a className="qs-btn border border-white/25 bg-transparent text-white hover:bg-white hover:text-ink" href="#resources">{t("resourcesAllLink")}</a>
@@ -612,14 +621,16 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
               </div>
             </div>
 
-            <ProductHeroGallery shots={galleryShots} name={p.name} calibrationLabel={t("calibrationLabel")} zoomLabel={t("lightbox.zoom")} />
+            <div className="order-1 md:order-2">
+              <ProductHeroGallery shots={galleryShots} name={p.name} calibrationLabel={t("calibrationLabel")} zoomLabel={t("lightbox.zoom")} />
+            </div>
           </div>
 
-          <dl className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
+          <dl className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
             {heroStats.map((stat) => (
-              <div key={stat.l} className="bg-[#141510] px-4 py-4 sm:px-5 sm:py-5">
-                <dt className="font-mono text-[10px] tracking-[.16em] uppercase text-[#837b6c]">{stat.l}</dt>
-                <dd className="m-0 mt-2 font-display text-[22px] font-semibold tracking-[-.02em] text-white">{stat.v}</dd>
+              <div key={stat.l} className="bg-[#141510] px-4 py-3 sm:px-5 sm:py-4">
+                <dt className="font-mono text-label-xs tracking-[.16em] uppercase text-[#837b6c]">{stat.l}</dt>
+                <dd className="m-0 mt-1.5 font-display text-title font-semibold tracking-[-.02em] text-white">{stat.v}</dd>
               </div>
             ))}
           </dl>
@@ -663,7 +674,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                   ) : (
                     <span className="grid h-[52px] w-full place-items-center">{image}</span>
                   )}
-                  <span className="line-clamp-2 text-center text-[11px] leading-[1.3] text-muted transition-colors group-hover:text-ink">{c.label}</span>
+                  <span className="line-clamp-2 text-center text-label leading-[1.3] text-muted transition-colors group-hover:text-ink">{c.label}</span>
                 </div>
               );
             })}
@@ -671,7 +682,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
               <a
                 href="#package"
                 aria-label={t("packageTeaserLink")}
-                className="grid place-items-center bg-white px-2 py-4 font-mono text-[13px] text-ink no-underline transition-colors hover:bg-paper hover:text-gold-1"
+                className="grid place-items-center bg-white px-2 py-4 font-mono text-meta text-ink no-underline transition-colors hover:bg-paper hover:text-gold-1"
               >
                 +{p.bundle.length - PACKAGE_TEASER_ICONS}
               </a>
@@ -682,12 +693,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
       <ProductDetailTabs tabs={tabs} />
 
-      <section className="py-18 lg:py-20 bg-white border-t border-line">
+      <section className="py-12 sm:py-16 lg:py-24 bg-white border-t border-line">
         <div className="qs-wrap-wide">
           <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
             <div>
-              <h3 className="font-display font-bold text-3xl text-white tracking-[-.01em] m-0">{t("ctaHeading", { name: p.name })}</h3>
-              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-[15px] leading-relaxed">{t("ctaBody")}</p>
+              <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">{t("ctaHeading", { name: p.name })}</h3>
+              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-body leading-relaxed">{t("ctaBody")}</p>
             </div>
             <Link className="qs-btn qs-btn-gold" href="/contact">{t("ctaBtn")}</Link>
           </div>

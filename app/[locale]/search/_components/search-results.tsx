@@ -136,7 +136,7 @@ export function SearchResults() {
             <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{query || "…"}</em>&quot;
           </h1>
           {query && db && (
-            <div className="mt-3.5 font-mono text-[11px] text-muted tracking-[.14em] uppercase">
+            <div className="mt-3.5 font-mono text-label text-muted tracking-[.14em] uppercase">
               <b className="text-ink font-medium">{scored.length}</b> {t("statsSuffix")}
             </div>
           )}
@@ -156,9 +156,9 @@ export function SearchResults() {
               defaultValue={query}
               key={query}
               autoComplete="off"
-              className="min-w-0 flex-1 border-0 outline-0 text-lg font-display font-medium text-ink"
+              className="min-w-0 flex-1 border-0 outline-0 text-title font-display font-medium text-ink"
             />
-            <button type="submit" className="px-4 py-2.5 bg-ink text-white font-mono text-[11px] tracking-[.14em] uppercase cursor-pointer">
+            <button type="submit" className="px-4 py-2.5 bg-ink text-white font-mono text-label tracking-[.14em] uppercase cursor-pointer">
               {t("searchBtn")}
             </button>
           </form>
@@ -174,13 +174,13 @@ export function SearchResults() {
                 <button
                   key={ty}
                   onClick={() => navigate({ type: ty, page: 1 })}
-                  className={`py-3.5 px-[18px] font-mono text-[11px] tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 border-b-2
+                  className={`py-3.5 px-[18px] font-mono text-label tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 border-b-2
                               ${activeType === ty ? "border-ink text-ink" : "border-transparent text-muted hover:text-ink"}`}
                 >
-                  <b className="font-display text-[13px] tracking-normal normal-case font-semibold text-ink">
+                  <b className="font-display text-meta tracking-normal normal-case font-semibold text-ink">
                     {t(`typeLabels.${ty}`)}
                   </b>
-                  <span className="font-mono text-[11px] text-gold-1 ml-2">{counts[ty]}</span>
+                  <span className="font-mono text-label text-gold-1 ml-2">{counts[ty]}</span>
                 </button>
               ))}
             </div>
@@ -189,13 +189,13 @@ export function SearchResults() {
       )}
 
       {/* BODY */}
-      <section className="bg-white py-12 pb-24">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_280px] gap-12 items-start">
+      <section className="bg-white py-12 pb-16 sm:pb-24">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_280px] gap-10 md:gap-12 items-start">
           <div className="min-w-0">
-            {!query && <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0">{t("emptyPrompt")}</p>}
+            {!query && <p className="text-body text-[#3a3a3a] leading-[1.7] m-0">{t("emptyPrompt")}</p>}
 
             {query && db && scored.length === 0 && (
-              <p className="text-[15px] text-[#3a3a3a] leading-[1.7] m-0">{t("noResults", { query })}</p>
+              <p className="text-body text-[#3a3a3a] leading-[1.7] m-0">{t("noResults", { query })}</p>
             )}
 
             {pageItems.length > 0 && (
@@ -211,19 +211,19 @@ export function SearchResults() {
                   >
                     <Thumb kind={r.type} />
                     <div className="min-w-0">
-                      <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase flex gap-3.5">
+                      <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase flex gap-3.5">
                         <span>[ {t(`typeLabels.${r.type}`)} ]</span>
                       </div>
                       <h3
-                        className="mt-1.5 mb-1.5 font-display text-[19px] font-semibold leading-[1.3] tracking-[-.005em]"
+                        className="mt-1.5 mb-1.5 font-display text-title font-semibold leading-[1.3] tracking-[-.005em]"
                         dangerouslySetInnerHTML={{ __html: highlight(r.title, query) }}
                       />
                       <p
-                        className="m-0 text-[#3a3a3a] text-[13.5px] leading-[1.6] max-w-[65ch]"
+                        className="m-0 text-[#3a3a3a] text-meta leading-[1.6] max-w-[65ch]"
                         dangerouslySetInnerHTML={{ __html: highlight(r.excerpt, query) }}
                       />
                       {r.meta.length > 0 && (
-                        <div className="mt-2.5 font-mono text-[10px] text-muted tracking-[.12em] uppercase flex gap-[18px]">
+                        <div className="mt-2.5 font-mono text-label-xs text-muted tracking-[.12em] uppercase flex gap-[18px]">
                           {r.meta.map((m) => (
                             <span key={m}>{m}</span>
                           ))}
@@ -237,7 +237,7 @@ export function SearchResults() {
 
             {filtered.length > PAGE_SIZE && (
               <div className="flex justify-between items-center mt-8 pt-6 border-t border-line">
-                <div className="font-mono text-[11px] text-muted tracking-[.12em]">
+                <div className="font-mono text-label text-muted tracking-[.12em]">
                   {t("showing", {
                     start: (safePage - 1) * PAGE_SIZE + 1,
                     end: (safePage - 1) * PAGE_SIZE + pageItems.length,
@@ -249,7 +249,7 @@ export function SearchResults() {
                     <button
                       key={p}
                       onClick={() => navigate({ page: p })}
-                      className={`w-9 h-9 border border-line grid place-items-center font-mono text-xs
+                      className={`w-9 h-9 border border-line grid place-items-center font-mono text-meta
                                   ${p === safePage ? "bg-ink text-white border-ink" : "bg-white text-ink"}`}
                     >
                       {p}
@@ -264,17 +264,17 @@ export function SearchResults() {
           <aside className="sticky top-40 flex flex-col gap-6">
             {scored.length > 0 && (
               <div className="border border-line bg-paper p-[22px]">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3.5">{t("filtersTitle")}</div>
+                <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase mb-3.5">{t("filtersTitle")}</div>
                 <ul className="list-none p-0 m-0 flex flex-col">
                   {(["all", ...TYPE_ORDER] as const).map((ty) => (
                     <li key={ty}>
                       <button
                         onClick={() => navigate({ type: ty, page: 1 })}
-                        className={`w-full flex justify-between py-2 border-b border-line last:border-b-0 text-[13px] cursor-pointer text-left
+                        className={`w-full flex justify-between py-2 border-b border-line last:border-b-0 text-meta cursor-pointer text-left
                                     ${activeType === ty ? "font-semibold" : ""}`}
                       >
                         <span>{t(`typeLabels.${ty}`)}</span>
-                        <span className="font-mono text-[10px] text-gold-1">{counts[ty] ?? 0}</span>
+                        <span className="font-mono text-label-xs text-gold-1">{counts[ty] ?? 0}</span>
                       </button>
                     </li>
                   ))}
@@ -284,13 +284,13 @@ export function SearchResults() {
 
             {recent.length > 0 && (
               <div className="border border-line bg-paper p-[22px]">
-                <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3.5">{t("recentTitle")}</div>
+                <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase mb-3.5">{t("recentTitle")}</div>
                 <ul className="list-none p-0 m-0 flex flex-col">
                   {recent.map((term) => (
                     <li key={term}>
                       <Link
                         href={`/search?q=${encodeURIComponent(term)}`}
-                        className="block py-2.5 border-b border-dashed border-line last:border-b-0 text-[13px] text-[#3a3a3a] leading-[1.5] hover:text-ink"
+                        className="block py-2.5 border-b border-dashed border-line last:border-b-0 text-meta text-[#3a3a3a] leading-[1.5] hover:text-ink"
                       >
                         {term}
                       </Link>
@@ -301,8 +301,8 @@ export function SearchResults() {
             )}
 
             <div className="border border-ink bg-ink text-[#cfc9b8] p-[22px]">
-              <div className="font-mono text-[10px] text-gold-2 tracking-[.16em] uppercase mb-3.5">{t("helpTitle")}</div>
-              <p className="m-0 mb-3.5 text-[13px] leading-[1.6] text-[#a8a499]">{t("helpBody")}</p>
+              <div className="font-mono text-label-xs text-gold-2 tracking-[.16em] uppercase mb-3.5">{t("helpTitle")}</div>
+              <p className="m-0 mb-3.5 text-meta leading-[1.6] text-[#a8a499]">{t("helpBody")}</p>
               <Link className="qs-btn qs-btn-gold qs-btn-sm inline-flex" href="/contact">
                 {t("helpCta")}
               </Link>
@@ -336,7 +336,7 @@ function highlight(text: string, query: string) {
 function Thumb({ kind }: { kind: SearchType }) {
   const wrap = "aspect-[5/4] bg-paper-2 border border-line overflow-hidden grid place-items-center";
   if (kind === "faq") {
-    return <div className={`${wrap} bg-ink text-gold-2 font-display text-3xl font-bold`}>?</div>;
+    return <div className={`${wrap} bg-ink text-gold-2 font-display text-h2 font-bold`}>?</div>;
   }
   return (
     <div className={wrap}>

@@ -109,7 +109,6 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
               alt={feat.title}
               fill
               sizes="(max-width:1024px) 100vw, 52vw"
-              priority={active === 0}
               onError={() => setNoMaxres((m) => ({ ...m, [feat.youtubeId]: true }))}
               onLoad={(e) => {
                 // YouTube serves a 120×90 gray placeholder (HTTP 200, not 404) when a video
@@ -143,8 +142,8 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
               <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
             </button>
             <div className="absolute inset-x-0 bottom-0 px-6 py-5 flex items-center gap-3.5">
-              {feat.duration && <span className="font-mono text-[11px] bg-gold text-ink py-0.5 px-2 font-semibold tracking-[.04em]">{feat.duration}</span>}
-              <span className="font-display text-sm font-medium text-white">{feat.title}</span>
+              {feat.duration && <span className="font-mono text-label bg-gold text-ink py-0.5 px-2 font-semibold tracking-[.04em]">{feat.duration}</span>}
+              <span className="font-display text-meta font-medium text-white">{feat.title}</span>
             </div>
           </>
         )}
@@ -154,8 +153,8 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
       <div className="flex flex-col">
         <div className="relative flex items-center justify-between pb-3 mb-1 border-b border-line">
           <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true" />
-          <span className="font-mono text-[10px] tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot" />{t("playlist")}</span>
-          <span className="font-mono text-[10px] tracking-[.14em] text-gold-1">{String(items.length).padStart(2, "0")} video</span>
+          <span className="font-mono text-label-xs tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot" />{t("playlist")}</span>
+          <span className="font-mono text-label-xs tracking-[.14em] text-gold-1">{String(items.length).padStart(2, "0")} video</span>
         </div>
         {items.map((v, i) => (
           <button
@@ -178,12 +177,12 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
               </span>
             </span>
             <div className="min-w-0">
-              <span className="font-mono text-[9px] text-muted tracking-[.16em] uppercase block mb-1 group-data-[active=true]:text-gold-1 transition-colors">
+              <span className="font-mono text-label-xs text-muted tracking-[.16em] uppercase block mb-1 group-data-[active=true]:text-gold-1 transition-colors">
                 {i === active ? t("nowPlaying") : t("video")}{v.duration ? ` · ${v.duration}` : ""}
               </span>
-              <h4 className="font-display font-semibold text-[14px] leading-[1.35] m-0 tracking-[-.005em] text-ink line-clamp-2 transition-colors group-hover:text-gold-1 group-data-[active=true]:text-gold-1">{v.title}</h4>
+              <h4 className="font-display font-semibold text-meta leading-[1.35] m-0 tracking-[-.005em] text-ink line-clamp-2 transition-colors group-hover:text-gold-1 group-data-[active=true]:text-gold-1">{v.title}</h4>
             </div>
-            <span className="font-mono text-gold-1 text-sm opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">▶</span>
+            <span className="font-mono text-gold-1 text-meta opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">▶</span>
             {/* autoplay progress seam — only under the active row while cycling (hidden once a clip is playing) */}
             {i === active && (
               <span className="pointer-events-none absolute left-0 right-0 bottom-0 h-[2px] bg-line/60 overflow-hidden">

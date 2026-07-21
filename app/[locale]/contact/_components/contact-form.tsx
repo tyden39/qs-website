@@ -99,16 +99,16 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <div className="bg-white border border-line p-6 sm:p-8">
-        <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-3">
+        <div className="font-mono text-label sm:text-label-xs text-gold-1 tracking-[.12em] sm:tracking-[.16em] uppercase mb-3">
           {t("success.eyebrow")}
         </div>
-        <h3 className="font-display font-semibold text-xl tracking-[-.005em] m-0 mb-3">
+        <h3 className="font-display font-semibold text-title tracking-[-.005em] m-0 mb-3">
           {t("success.heading")}
         </h3>
-        <p className="text-sm text-[#3a3a3a] leading-[1.7] m-0">{t("success.body")}</p>
+        <p className="text-meta text-[#3a3a3a] leading-[1.7] m-0">{t("success.body")}</p>
         <button
           onClick={() => setStatus("idle")}
-          className="mt-5 font-mono text-[11px] tracking-[.14em] uppercase text-gold-1 underline underline-offset-2"
+          className="mt-5 font-mono text-label tracking-[.14em] uppercase text-gold-1 underline underline-offset-2"
         >
           {t("form.sendAnother")}
         </button>
@@ -121,13 +121,13 @@ export function ContactForm() {
       {/* Honeypot — hidden from humans, bots fill it */}
       <input {...register("honeypot")} type="text" tabIndex={-1} aria-hidden="true" style={{ display: "none" }} />
 
-      <div className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase mb-5">
+      <div className="font-mono text-label sm:text-label-xs text-gold-1 tracking-[.12em] sm:tracking-[.16em] uppercase mb-5">
         {t("form.eyebrow")}
       </div>
-      <h3 className="font-display font-semibold text-xl tracking-[-.005em] m-0 mb-2.5">
+      <h3 className="font-display font-semibold text-title tracking-[-.005em] m-0 mb-2.5">
         {t("form.heading")}
       </h3>
-      <p className="text-sm text-[#5a5650] leading-[1.6] m-0 mb-6">{t("form.note")}</p>
+      <p className="text-meta text-[#5a5650] leading-[1.6] m-0 mb-6">{t("form.note")}</p>
 
       <div className="space-y-5">
         <FormField label={t("form.name")} error={errors.name && t("error.validation.name")}>
@@ -182,14 +182,14 @@ export function ContactForm() {
         )}
 
         <fieldset>
-          <legend className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-2.5">
+          <legend className="block font-mono text-label sm:text-label-xs text-muted tracking-[.12em] sm:tracking-[.16em] uppercase mb-2.5">
             {t("form.services")}
           </legend>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             {CRM_SERVICE_CODES.map((code) => (
               <label
                 key={code}
-                className="flex items-center gap-2.5 border border-line px-3 py-2.5 text-sm cursor-pointer hover:border-ink transition-colors"
+                className="flex items-center gap-2.5 border border-line px-3 py-2.5 text-meta cursor-pointer hover:border-ink transition-colors"
               >
                 <input {...register("services")} type="checkbox" value={code} className="accent-gold-1" />
                 {t(`form.serviceOptions.${code}`)}
@@ -208,7 +208,7 @@ export function ContactForm() {
         </FormField>
 
         {status === "error" && (
-          <p className="text-sm text-red-600 border border-red-200 bg-red-50 px-4 py-3">{errorMsg}</p>
+          <p className="text-meta text-red-600 border border-red-200 bg-red-50 px-4 py-3">{errorMsg}</p>
         )}
 
         <button
@@ -224,7 +224,9 @@ export function ContactForm() {
 }
 
 function inputCls(hasError: boolean) {
-  return `w-full border ${hasError ? "border-red-400" : "border-line"} bg-white px-4 py-3 text-base sm:text-sm focus:outline-none focus:border-ink transition-colors`;
+  // 16px on phones: iOS Safari auto-zooms the page when a focused control's
+  // font-size is under 16px, and the user has to pinch back out.
+  return `w-full border ${hasError ? "border-red-400" : "border-line"} bg-white px-4 py-3 text-[16px] sm:text-meta focus:outline-none focus:border-ink transition-colors`;
 }
 
 function FormField({
@@ -239,12 +241,12 @@ function FormField({
   return (
     <div>
       <label className="block">
-        <span className="block font-mono text-[10px] text-muted tracking-[.16em] uppercase mb-1.5">
+        <span className="block font-mono text-label sm:text-label-xs text-muted tracking-[.12em] sm:tracking-[.16em] uppercase mb-1.5">
           {label}
         </span>
         {children}
       </label>
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+      {error && <p className="mt-1 text-meta text-red-500">{error}</p>}
     </div>
   );
 }

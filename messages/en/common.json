@@ -20,5 +20,6 @@
   "no": "No",
   "call": "Call",
   "backToTop": "Back to top",
+  "railEnd": "End of list — back to start",
   "lightbox": { "prev": "Previous image", "next": "Next image", "close": "Close", "zoom": "View larger" }
 }

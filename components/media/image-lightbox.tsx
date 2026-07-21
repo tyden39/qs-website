@@ -60,7 +60,7 @@ export function LightboxProvider({ labels, children }: { labels: Labels; childre
 
   const current = group?.[index];
   const navBtn =
-    "grid h-12 w-12 place-items-center border border-white/25 text-white text-2xl leading-none hover:bg-white hover:text-ink transition-colors";
+    "grid h-12 w-12 place-items-center border border-white/25 text-white text-subhead leading-none hover:bg-white hover:text-ink transition-colors";
 
   return (
     <Ctx.Provider value={{ open }}>
@@ -72,7 +72,7 @@ export function LightboxProvider({ labels, children }: { labels: Labels; childre
           className="fixed inset-0 z-[100] flex flex-col bg-black/92 backdrop-blur-sm"
           onClick={close}
         >
-          <div className="flex items-center justify-between px-5 py-4 font-mono text-[11px] tracking-[.16em] uppercase text-[#cfc9b8]">
+          <div className="flex items-center justify-between px-5 py-4 font-mono text-label tracking-[.16em] uppercase text-[#cfc9b8]">
             <span>
               {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
             </span>
@@ -107,11 +107,11 @@ export function LightboxProvider({ labels, children }: { labels: Labels; childre
                     width={current.w}
                     height={current.h}
                     sizes="90vw"
-                    className="h-auto w-auto max-h-[70vh] max-w-[82vw] object-contain"
+                    className="h-auto w-auto max-h-[70dvh] max-w-[82vw] object-contain"
                   />
                 ) : (
                   // Shots without intrinsic dimensions fill a viewport-sized box instead.
-                  <div className="relative h-[70vh] w-[82vw]">
+                  <div className="relative h-[70dvh] w-[82vw]">
                     <Image
                       key={current.src}
                       src={current.src}
@@ -123,7 +123,7 @@ export function LightboxProvider({ labels, children }: { labels: Labels; childre
                   </div>
                 )}
               </div>
-              <figcaption className="text-center font-mono text-[11px] tracking-[.14em] uppercase text-[#8f8878] max-w-[70ch]">
+              <figcaption className="text-center font-mono text-label tracking-[.14em] uppercase text-[#8f8878] max-w-[70ch]">
                 {current.alt}
               </figcaption>
             </figure>

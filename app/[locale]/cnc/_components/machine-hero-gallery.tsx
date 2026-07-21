@@ -151,8 +151,8 @@ export function MachineHeroGallery({
       )}
 
       <div className="px-5 py-3 border-t border-line flex items-center justify-between">
-        <span className="font-mono text-[11px] tracking-[.16em] uppercase text-muted truncate">{current.alt}</span>
-        <span className="font-mono text-[11px] tracking-[.16em] uppercase text-gold-1 shrink-0 pl-3">{footerRight}</span>
+        <span className="font-mono text-label tracking-[.16em] uppercase text-muted truncate">{current.alt}</span>
+        <span className="font-mono text-label tracking-[.16em] uppercase text-gold-1 shrink-0 pl-3">{footerRight}</span>
       </div>
     </div>
   );

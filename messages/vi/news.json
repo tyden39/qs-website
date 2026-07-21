@@ -14,7 +14,8 @@
   "related": {
     "label": "Bài liên quan",
     "heading": "Đọc thêm",
-    "viewAll": "Tất cả tin tức →"
+    "viewAll": "Tất cả tin tức →",
+    "swipeHint": "Vuốt để xem thêm"
   },
   "detail": {
     "toc": "Trong bài"

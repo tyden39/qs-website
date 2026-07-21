@@ -75,7 +75,7 @@ export function ProductDetailTabs({ tabs }: { tabs: ProductDetailTab[] }) {
                   aria-selected={isActive}
                   aria-controls={`panel-${tab.id}`}
                   onClick={() => selectTab(tab.id)}
-                  className={`relative min-h-11 px-5 sm:px-6 py-3 text-[13.5px] font-semibold tracking-[-.005em] whitespace-nowrap border-t-2 transition-colors cursor-pointer ${
+                  className={`relative min-h-11 px-5 sm:px-6 py-3 text-meta font-semibold tracking-[-.005em] whitespace-nowrap border-t-2 transition-colors cursor-pointer ${
                     i > 0 ? "border-l border-l-line" : ""
                   } ${
                     isActive

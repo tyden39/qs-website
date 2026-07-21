@@ -58,10 +58,10 @@ export function ProductHeroGallery({
       onMouseLeave={() => setPaused(false)}
     >
       {/* <div className="absolute inset-4 sm:inset-6 border border-dashed border-gold-2/25 pointer-events-none" />
-      <div className="absolute top-4 left-5 font-mono text-[10px] tracking-[.18em] uppercase text-[#8f8878]">
+      <div className="absolute top-4 left-5 font-mono text-label-xs tracking-[.18em] uppercase text-[#8f8878]">
         {calibrationLabel}
       </div> */}
-      <div className="absolute bottom-2 right-2 z-10 font-mono text-[10px] tracking-[.18em] uppercase text-[#8f8878]">
+      <div className="absolute bottom-2 right-2 z-10 font-mono text-label-xs tracking-[.18em] uppercase text-[#8f8878]">
         QS · {name.toUpperCase()}
       </div>
 
@@ -103,7 +103,7 @@ export function ProductHeroGallery({
         </div>
       )}
 
-      <figcaption className="relative mt-3 h-4 overflow-hidden text-center font-mono text-[10px] tracking-[.14em] uppercase text-[#8f8878]">
+      <figcaption className="relative mt-3 h-4 overflow-hidden text-center font-mono text-label-xs tracking-[.14em] uppercase text-[#8f8878]">
         <span className="block truncate">{current.alt}</span>
       </figcaption>
 

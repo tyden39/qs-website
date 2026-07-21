@@ -55,7 +55,7 @@ const BADGE =
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-md bg-[#1a1206] px-2.5 py-1 text-[12px] font-medium text-gold-2 opacity-0 shadow-lg transition-opacity duration-200 group-hover/fc:opacity-100">
+    <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-md bg-[#1a1206] px-2.5 py-1 text-meta font-medium text-gold-2 opacity-0 shadow-lg transition-opacity duration-200 group-hover/fc:opacity-100">
       {children}
     </span>
   );

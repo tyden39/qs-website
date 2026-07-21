@@ -7,11 +7,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllNews, getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
-import { buildArticle, JsonLd } from "@/lib/seo/jsonld";
+import { buildArticle, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
-
-const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
+import { APP_URL } from "@/lib/seo/app-url";
+import RailNudge from "@/components/rail-nudge";
 
 export async function generateMetadata({
   params,
@@ -99,6 +98,10 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
   const others = allNews.filter(x => x.slug !== slug).slice(0, 3);
   const isFlagship = slug === "astro-12x";
   const articleJsonLd = buildArticle(n, locale);
+  const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
+    { name: t("breadcrumb.news"), path: "/news" },
+    { name: n.title, path: `/news/${slug}` },
+  ]);
 
   const metaRows: [string, string][] = [
     [t("meta.dateLabel"), n.date],
@@ -114,9 +117,10 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
   return (
     <article>
       <JsonLd data={articleJsonLd} />
+      <JsonLd data={breadcrumb} />
       {/* CRUMB */}
       <div className="bg-white border-b border-line py-3">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 flex items-center gap-2 sm:gap-2.5 font-mono text-[10px] sm:text-[11px] text-muted tracking-[.1em] sm:tracking-[.12em] uppercase overflow-hidden">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 flex items-center gap-2 sm:gap-2.5 font-mono text-label-xs sm:text-label text-muted tracking-[.1em] sm:tracking-[.12em] uppercase overflow-hidden">
           <Link href="/" className="hover:text-ink whitespace-nowrap">{t("breadcrumb.home")}</Link><span className="text-gold-1">/</span>
           <Link href="/news" className="hover:text-ink whitespace-nowrap">{t("breadcrumb.news")}</Link><span className="text-gold-1">/</span>
           <Link href="/news" className="hover:text-ink whitespace-nowrap">{n.cat}</Link>
@@ -128,10 +132,22 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
       {/* HEAD */}
       <section className="py-9 pb-8 sm:py-16 sm:pb-12 bg-white border-b border-line">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_320px] gap-8 md:gap-16 items-start">
+          {n.coverImage && (
+            <div className="relative col-span-full aspect-[16/10] overflow-hidden border border-line bg-paper md:hidden">
+              <Image
+                src={n.coverImage}
+                alt={n.title}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover"
+              />
+            </div>
+          )}
           <div>
             <div className="flex flex-wrap gap-2 items-center">
-              <span className="inline-block font-mono text-[10px] bg-gold text-ink-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">[ {n.cat} ]</span>
-              {isFlagship && <span className="inline-block font-mono text-[10px] bg-ink text-gold-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">{t("detailPage.flagshipBadge")}</span>}
+              <span className="inline-block font-mono text-label-xs bg-gold text-ink-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">[ {n.cat} ]</span>
+              {isFlagship && <span className="inline-block font-mono text-label-xs bg-ink text-gold-2 py-1 px-3 tracking-[.16em] uppercase font-semibold">{t("detailPage.flagshipBadge")}</span>}
             </div>
             <h1 className="font-display font-bold tracking-[-.02em] leading-[1.12] text-balance mt-3.5 sm:mt-4.5 mb-0 break-words"
                 style={{fontSize:"clamp(26px,6vw,60px)"}}>{n.title}</h1>
@@ -139,8 +155,8 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
           <aside className="border border-line p-5 sm:p-6 grid grid-cols-2 md:grid-cols-1 gap-4 bg-paper">
             {metaRows.map(([l,v]) => (
               <div key={l} className="flex flex-col gap-1">
-                <span className="font-mono text-[9px] text-muted tracking-[.18em] uppercase">{l}</span>
-                <span className="font-display text-sm font-semibold text-ink">{v}</span>
+                <span className="font-mono text-label-xs text-muted tracking-[.18em] uppercase">{l}</span>
+                <span className="font-display text-meta font-semibold text-ink">{v}</span>
               </div>
             ))}
           </aside>
@@ -148,12 +164,12 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
       </section>
 
       {/* BODY */}
-      <section className="py-12 sm:py-20 bg-white">
+      <section className="py-12 sm:py-16 lg:py-24 bg-white">
         <div className={`max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid gap-10 md:gap-20 items-start ${hasToc ? "md:grid-cols-[1fr_240px]" : ""}`}>
           <article
             className="prose prose-sm md:prose-base max-w-[72ch]
                        prose-headings:font-display prose-headings:font-bold prose-headings:tracking-[-.01em]
-                       prose-h2:text-[21px] md:prose-h2:text-[26px] prose-h2:leading-[1.25] prose-h2:mt-9 md:prose-h2:mt-12 prose-h2:mb-4 prose-h2:scroll-mt-28
+                       prose-h2:text-title md:prose-h2:text-subhead prose-h2:leading-[1.25] prose-h2:mt-9 md:prose-h2:mt-12 prose-h2:mb-4 prose-h2:scroll-mt-28
                        prose-h2:before:content-[''] prose-h2:before:block prose-h2:before:w-8 prose-h2:before:h-0.5 prose-h2:before:bg-gold-grad prose-h2:before:mb-3.5
                        prose-p:leading-[1.85] prose-p:text-[#2a2520]
                        prose-a:text-gold-1 prose-a:no-underline hover:prose-a:underline
@@ -165,7 +181,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
 
             {n.tags.length > 0 && (
               <div className="mt-12 pt-6 border-t border-line not-prose">
-                <span className="font-mono text-[10px] text-muted tracking-[.16em] uppercase block mb-3">{t("detailPage.tags")}</span>
+                <span className="font-mono text-label-xs text-muted tracking-[.16em] uppercase block mb-3">{t("detailPage.tags")}</span>
                 <div className="flex flex-wrap gap-2">
                   {n.tags.map((tag) => (
                     <span key={tag} className="qs-tag">{tag}</span>
@@ -181,10 +197,10 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
 
           {hasToc && (
             <aside className="border-l border-line pl-8 sticky top-32 hidden md:block">
-              <div className="font-mono text-[10px] text-gold-1 tracking-[.18em] uppercase mb-4">[ {t("detail.toc")} ]</div>
+              <div className="font-mono text-label-xs text-gold-1 tracking-[.18em] uppercase mb-4">[ {t("detail.toc")} ]</div>
               <ul className="list-none p-0 m-0 space-y-2.5">
                 {article.toc.map((s) => (
-                  <li key={s.id}><a href={`#${s.id}`} className="text-sm text-muted hover:text-ink leading-[1.4] block">{s.text}</a></li>
+                  <li key={s.id}><a href={`#${s.id}`} className="text-meta text-muted hover:text-ink leading-[1.4] block">{s.text}</a></li>
                 ))}
               </ul>
             </aside>
@@ -193,32 +209,48 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
       </section>
 
       {/* RELATED */}
-      <section className="py-12 sm:py-20 bg-paper border-t border-line">
+      <section className="py-12 sm:py-16 lg:py-24 bg-paper border-t border-line">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
-              <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">[ {t("related.label")} ]</span>
+              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">[ {t("related.label")} ]</span>
               <h2 className="qs-h2 mt-2">{t("related.heading")}</h2>
             </div>
             <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">{t("related.viewAll")}</Link>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div
+            id="related-news-rail"
+            role="region"
+            aria-label={t("related.heading")}
+            tabIndex={0}
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain
+                       [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                       focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-1
+                       md:grid md:grid-cols-3 md:overflow-visible"
+          >
             {others.map(o => (
               <Link key={o.slug} href={`/news/${o.slug}`}
-                    className="bg-white border border-line flex flex-col hover:-translate-y-0.5 hover:border-ink transition-all">
+                    className="w-full shrink-0 snap-start bg-white border border-line flex flex-col
+                               hover:-translate-y-0.5 hover:border-ink transition-[transform,border-color]
+                               md:w-auto">
                 {o.coverImage && (
                   <div className="aspect-[5/3] border-b border-line overflow-hidden relative">
                     <Image src={o.coverImage} alt={o.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
                   </div>
                 )}
                 <div className="p-5 sm:p-7 flex flex-col flex-1">
-                  <span className="font-mono text-[10px] text-gold-1 tracking-[.16em] uppercase">[ {o.cat} ]</span>
-                  <h3 className="font-display font-semibold text-lg leading-[1.35] tracking-[-.005em] mt-3 mb-3 flex-1">{o.title}</h3>
-                  <div className="font-mono text-[10px] text-muted tracking-[.14em] pt-3.5 border-t border-line">{o.date}</div>
+                  <span className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">[ {o.cat} ]</span>
+                  <h3 className="font-display font-semibold text-title leading-[1.35] tracking-[-.005em] mt-3 mb-3 flex-1">{o.title}</h3>
+                  <div className="font-mono text-label-xs text-muted tracking-[.14em] pt-3.5 border-t border-line">{o.date}</div>
                 </div>
               </Link>
             ))}
           </div>
+          <RailNudge
+            targetId="related-news-rail"
+            label={t("related.swipeHint")}
+            className="md:hidden"
+          />
         </div>
       </section>
     </article>

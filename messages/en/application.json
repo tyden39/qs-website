@@ -19,12 +19,13 @@
     "breadcrumb": { "home": "Home", "current": "Applications" },
     "eyebrow": "Industrial Applications",
     "heading": "Applications",
-    "lede": "QS controllers run across seven different machining categories — from metal milling to spring bending, gluing, and food processing. Each case study is its own engineering challenge.",
+    "lede": "QS controllers run across six different machining categories — from metal milling to spring bending, gluing, and woodworking joinery. Each case study is its own engineering challenge.",
     "catalogEyebrow": "[ Catalog · 01 / 01 ]",
     "catalogHeading": "Industrial Applications",
     "caseStudies": "{count} case studies",
     "controllerFor": "Controller for",
     "detail": "Details",
+    "swipeHint": "Swipe for more",
     "videoEyebrow": "[ Video ]",
     "videoHeading": "Applications on the shop floor",
     "videoPlay": "Play video",
@@ -35,7 +36,6 @@
       { "t": "CNC Milling", "machine": "CNC Milling Machine" },
       { "t": "Jigsaw", "machine": "Jigsaw Machine" },
       { "t": "Gluing", "machine": "Gluing Machine" },
-      { "t": "Food", "machine": "Food Cutting Machine" },
       { "t": "Spring", "machine": "Spring Bending Machine" },
       { "t": "Tenon", "machine": "Tenoning Machine" },
       { "t": "Jewellery", "machine": "Jewellery Machine" }
@@ -112,17 +112,6 @@
           { "l": "Plan · Path", "t": "Optimise cornering", "d": "A look-ahead algorithm precomputes the 3D path and applies automatic deceleration at sharp corners to avoid glue pooling." },
           { "l": "Drive · Dispenser", "t": "Sync pump valve & servo", "d": "Closed-loop control between the XYZ travel speed and the glue-pump valve opening keeps the glue bead even and unbroken." },
           { "l": "Monitor · HMI", "t": "Cycle control", "d": "Manages batch counts and dispensing cycle time. The screen alarms immediately if it detects low glue pressure or a clogged nozzle." }
-        ]
-      },
-      "thuc-pham": {
-        "heroLede": "A high-speed control system that ensures precise, uniform cutting cadence for meat, bakery, and produce processing lines. The streamlined interface enables fast operation and meets strict industrial hygiene standards.",
-        "heroStats": [["2–4", "Axes"], ["0.1–50 mm", "Cut thickness"], ["200", "Cuts per minute"]],
-        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a food cutting machine.",
-        "workflow": [
-          { "l": "Input · Recipe", "t": "Set the cutting recipe", "d": "The operator simply selects a saved \"recipe\" on the HMI, including the slice thickness and the required quantity for each batch of material." },
-          { "l": "Plan · Speed", "t": "Speed synchronisation", "d": "Computes a feed-conveyor speed that meshes exactly with the blade's stamping/rotating cadence, ensuring the food is not crushed." },
-          { "l": "Drive · Sync", "t": "High-speed cutting drive", "d": "High-speed pulses drive the blade-axis servo motor for decisive, smooth cuts that are accurate to thickness." },
-          { "l": "Monitor · HMI", "t": "Output management", "d": "Counts slices and completed batches. A simple, waterproof interface (with an industrial HMI) suits the food-shop environment." }
         ]
       },
       "uon-lo-xo": {

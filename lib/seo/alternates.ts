@@ -1,7 +1,5 @@
 import type { Locale } from "@/lib/i18n/config";
-
-const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
+import { localeUrl } from "@/lib/seo/app-url";
 
 export type AlternatesResult = {
   canonical: string;
@@ -23,11 +21,9 @@ export type AlternatesResult = {
  * so canonical/hreflang/sitemap URLs all resolve without an extra 308 redirect.
  */
 export function buildAlternates(path: string, locale: Locale): AlternatesResult {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
   // Root ("/") becomes "/vi/"; "/products" becomes "/vi/products/".
-  const segment = normalized === "/" ? "" : normalized;
-  const viUrl = `${APP_URL}/vi${segment}/`;
-  const enUrl = `${APP_URL}/en${segment}/`;
+  const viUrl = localeUrl(path, "vi");
+  const enUrl = localeUrl(path, "en");
   return {
     canonical: locale === "en" ? enUrl : viUrl,
     languages: {

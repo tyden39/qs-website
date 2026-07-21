@@ -4,11 +4,8 @@ import { getAllNews } from "@/lib/data/news";
 import { NewsListFilter, type NewsListItem } from "./_components/news-list-filter";
 import CircuitTraces from "@/components/circuit-traces";
 import { buildAlternates } from "@/lib/seo/alternates";
-import { buildBreadcrumbList, JsonLd } from "@/lib/seo/jsonld";
+import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
-
-const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://qstcnc.com";
 
 export async function generateMetadata({
   params,
@@ -50,16 +47,15 @@ export default async function News({ params }: { params: Promise<{ locale: Local
     categoryId: n.categoryId,
     img: n.coverImage,
   }));
-  const breadcrumb = buildBreadcrumbList([
-    { name: t("breadcrumb.home"), url: `${APP_URL}${locale === "en" ? "/en" : ""}` },
-    { name: seo("newsTitle"), url: `${APP_URL}${locale === "en" ? "/en" : ""}/news` },
+  const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
+    { name: seo("newsTitle"), path: "/news" },
   ]);
 
   return (
     <>
       <JsonLd data={breadcrumb} />
       {/* HEAD */}
-      <section className="relative overflow-hidden border-b border-line py-16 pb-14"
+      <section className="relative overflow-hidden border-b border-line py-12 sm:py-16 pb-10 sm:pb-14"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         <div className="qs-glow hidden sm:block right-[4%] top-[-40%] w-[38%] h-[150%]" aria-hidden="true"></div>
@@ -70,7 +66,7 @@ export default async function News({ params }: { params: Promise<{ locale: Local
         <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 flex justify-between items-end gap-8">
           <div>
             <span className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("list.eyebrow")}</span>
-            <h1 className="font-display font-bold text-[64px] tracking-[-.02em] mt-3.5 mb-0 leading-none">
+            <h1 className="font-display font-bold text-[clamp(36px,5vw,64px)] tracking-[-.02em] mt-3.5 mb-0 leading-none">
               <span className="block overflow-hidden pb-[.06em]">
                 <span className="block qs-rise" style={{ animationDelay: "110ms" }}>
                   {t("list.heading")} <em className="not-italic qs-gold-shimmer">{t("list.headingEm")}</em>

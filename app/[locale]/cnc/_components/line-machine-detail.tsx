@@ -70,15 +70,15 @@ export default async function LineMachineDetail({
           </Reveal>
 
           <div className="mt-8 grid lg:grid-cols-[1.02fr_1.22fr] gap-10 lg:gap-16 items-center">
-            <Reveal>
-              <span className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[.18em] uppercase text-white bg-steelblue px-2.5 py-1">
+            <Reveal className="order-2 lg:order-1">
+              <span className="inline-flex items-center gap-2 font-mono text-label tracking-[.18em] uppercase text-white bg-steelblue px-2.5 py-1">
                 {category}
               </span>
               <h1 className="qs-h1 mt-4">{machine.model}</h1>
               <p className="qs-lede mt-5">{machine.tagline}</p>
 
               {/* andon status — the machine reads "ready" on the line */}
-              <div className="mt-6 inline-flex items-center gap-2.5 font-mono text-[12px] tracking-[.12em] uppercase text-muted">
+              <div className="mt-6 inline-flex items-center gap-2.5 font-mono text-meta tracking-[.12em] uppercase text-muted">
                 <span className="qs-andon inline-block w-2.5 h-2.5 rounded-full bg-signal" aria-hidden="true"></span>
                 {d("statusReady")}
               </div>
@@ -87,8 +87,8 @@ export default async function LineMachineDetail({
               <dl className="mt-7 grid grid-cols-3 gap-px bg-line border border-line">
                 {readout.map((s) => (
                   <div key={s.k} className="bg-white px-4 py-4">
-                    <dt className="font-mono text-[10px] tracking-[.12em] uppercase text-muted m-0">{label(s.k)}</dt>
-                    <dd className="font-display font-bold text-ink text-[19px] leading-tight mt-2 m-0 tabular-nums tracking-[-.01em]">{s.v}</dd>
+                    <dt className="font-mono text-label-xs tracking-[.12em] uppercase text-muted m-0">{label(s.k)}</dt>
+                    <dd className="font-display font-bold text-ink text-title leading-tight mt-2 m-0 tabular-nums tracking-[-.01em]">{s.v}</dd>
                   </div>
                 ))}
               </dl>
@@ -99,7 +99,7 @@ export default async function LineMachineDetail({
               </div>
             </Reveal>
 
-            <Reveal delay={120}>
+            <Reveal className="order-1 lg:order-2" delay={120}>
               <figure className="relative m-0 border border-line bg-white">
                 <div className="relative h-[360px] sm:h-[440px] lg:h-[540px] w-full overflow-hidden bg-white">
                   <Image
@@ -125,8 +125,8 @@ export default async function LineMachineDetail({
                   </div>
                 </div>
                 <figcaption className="px-5 py-3 border-t border-line flex items-center justify-between">
-                  <span className="font-mono text-[11px] tracking-[.16em] uppercase text-muted">{machine.model}</span>
-                  <span className="font-mono text-[11px] tracking-[.16em] uppercase text-steelblue tabular-nums">{readout[0]?.v}</span>
+                  <span className="font-mono text-label tracking-[.16em] uppercase text-muted">{machine.model}</span>
+                  <span className="font-mono text-label tracking-[.16em] uppercase text-steelblue tabular-nums">{readout[0]?.v}</span>
                 </figcaption>
               </figure>
             </Reveal>
@@ -136,14 +136,14 @@ export default async function LineMachineDetail({
 
       {/* PROCESS FLOW — infeed → cycle → discharge, on an animated conveyor */}
       {machine.line.length > 0 && (
-        <section className="relative py-20 lg:py-24 bg-paper-2 border-b border-line overflow-hidden">
+        <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-b border-line overflow-hidden">
           <div className="relative qs-wrap-wide">
             <Reveal>
               <div className="pb-6 border-b border-line mb-12 max-w-[70ch]">
-                <span className="font-mono text-[11px] text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
+                <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-steelblue"></span>{d("lineHeading")}
                 </span>
-                <p className="text-[15px] text-muted mt-3 m-0">{d("lineBody", { model: machine.model })}</p>
+                <p className="text-body text-muted mt-3 m-0">{d("lineBody", { model: machine.model })}</p>
               </div>
             </Reveal>
 
@@ -164,12 +164,12 @@ export default async function LineMachineDetail({
                           <span className="grid place-items-center w-10 h-10 rounded-full bg-steelblue/10 text-steelblue">
                             <Icon className="w-5 h-5" strokeWidth={1.7} aria-hidden="true" />
                           </span>
-                          <span className="font-mono text-[28px] font-bold leading-none text-line-2 tabular-nums select-none" aria-hidden="true">
+                          <span className="font-mono text-h2 font-bold leading-none text-line-2 tabular-nums select-none" aria-hidden="true">
                             {String(i + 1).padStart(2, "0")}
                           </span>
                         </div>
-                        <h3 className="font-display font-bold text-ink text-[17px] tracking-[-.01em] mt-4">{step.title}</h3>
-                        <p className="text-[14px] leading-[1.6] text-muted mt-2 m-0">{step.desc}</p>
+                        <h3 className="font-display font-bold text-ink text-lede tracking-[-.01em] mt-4">{step.title}</h3>
+                        <p className="text-meta leading-[1.6] text-muted mt-2 m-0">{step.desc}</p>
                       </div>
                     </Reveal>
                   </div>
@@ -186,12 +186,12 @@ export default async function LineMachineDetail({
 
       {/* GALLERY — the machine on a real line, captioned */}
       {machine.gallery.length > 0 && (
-        <section className="relative py-20 lg:py-24 bg-paper overflow-hidden">
+        <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
           <div className="relative qs-wrap-wide">
             <Reveal>
               <div className="pb-6 border-b border-line mb-10">
-                <span className="font-mono text-[11px] text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
+                <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-steelblue"></span>{d("galleryHeading")}
                 </span>
               </div>
@@ -215,7 +215,7 @@ export default async function LineMachineDetail({
                         className="absolute inset-0 z-[6]"
                       />
                     </div>
-                    <figcaption className="px-4 py-3 border-t border-line font-mono text-[11.5px] leading-[1.5] text-muted">
+                    <figcaption className="px-4 py-3 border-t border-line font-mono text-label leading-[1.5] text-muted">
                       <span className="text-steelblue mr-1.5">{String(i + 1).padStart(2, "0")}</span>{shot.caption}
                     </figcaption>
                   </figure>
@@ -227,11 +227,11 @@ export default async function LineMachineDetail({
       )}
 
       {/* FEATURES — icon callouts on hairline dividers */}
-      <section className="relative py-20 lg:py-24 bg-paper-2 border-y border-line">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-y border-line">
         <div className="relative qs-wrap-wide">
           <Reveal>
             <div className="pb-6 border-b border-line mb-10">
-              <span className="font-mono text-[11px] text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
+              <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-steelblue"></span>{d("featuresHeading")}
               </span>
             </div>
@@ -246,8 +246,8 @@ export default async function LineMachineDetail({
                       <Icon className="w-5 h-5" strokeWidth={1.7} aria-hidden="true" />
                     </span>
                     <div>
-                      <h3 className="font-display font-bold text-ink text-[17px] tracking-[-.01em]">{f.title}</h3>
-                      <p className="text-[14px] leading-[1.6] text-muted mt-2 m-0">{f.desc}</p>
+                      <h3 className="font-display font-bold text-ink text-lede tracking-[-.01em]">{f.title}</h3>
+                      <p className="text-meta leading-[1.6] text-muted mt-2 m-0">{f.desc}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -258,12 +258,12 @@ export default async function LineMachineDetail({
       </section>
 
       {/* SPECS + CONTROL + APPLICATIONS */}
-      <section className="relative py-20 lg:py-24 bg-paper overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
         <div className="relative qs-wrap-wide grid gap-12 lg:gap-16 items-start lg:grid-cols-[1.15fr_.85fr]">
           <Reveal>
             <div className="pb-6 border-b border-line mb-8">
-              <span className="font-mono text-[11px] text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
+              <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-steelblue"></span>{d("specsHeading")}
               </span>
               <h2 className="qs-h2 mt-3">{machine.model}</h2>
@@ -271,12 +271,12 @@ export default async function LineMachineDetail({
             <dl className="m-0">
               {machine.specs.map((s) => (
                 <div key={s.k} className="flex items-baseline justify-between gap-6 py-3 border-b border-line">
-                  <dt className="text-[14px] text-muted m-0">{label(s.k)}</dt>
-                  <dd className="font-mono text-[14px] text-ink text-right m-0 tabular-nums">{s.v}</dd>
+                  <dt className="text-meta text-muted m-0">{label(s.k)}</dt>
+                  <dd className="font-mono text-meta text-ink text-right m-0 tabular-nums">{s.v}</dd>
                 </div>
               ))}
             </dl>
-            <p className="text-[12px] leading-[1.6] text-muted mt-5 m-0">{d("specsNoteAuto")}</p>
+            <p className="text-meta leading-[1.6] text-muted mt-5 m-0">{d("specsNoteAuto")}</p>
           </Reveal>
 
           <div className="flex flex-col gap-8 lg:sticky lg:top-24">
@@ -284,10 +284,10 @@ export default async function LineMachineDetail({
               <Reveal delay={100}>
                 <div className="border border-line bg-white p-7">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[11px] text-steelblue tracking-[.16em] uppercase">{d("controlSystemHeading")}</span>
+                    <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase">{d("controlSystemHeading")}</span>
                     <MonitorCog className="w-5 h-5 text-steelblue" strokeWidth={1.6} aria-hidden="true" />
                   </div>
-                  <p className="font-display font-bold text-ink text-[21px] tracking-[-.02em] mt-4">{machine.control.system}</p>
+                  <p className="font-display font-bold text-ink text-title tracking-[-.02em] mt-4">{machine.control.system}</p>
 
                   {/* andon stack-light motif */}
                   <div className="mt-5 flex items-center gap-4">
@@ -296,12 +296,12 @@ export default async function LineMachineDetail({
                       <span className="w-3 h-3 rounded-full bg-gold/70"></span>
                       <span className="qs-andon w-3 h-3 rounded-full bg-signal"></span>
                     </span>
-                    <p className="text-[13.5px] leading-[1.6] text-muted m-0">{d("controlSystemBody", { system: machine.control.system })}</p>
+                    <p className="text-meta leading-[1.6] text-muted m-0">{d("controlSystemBody", { system: machine.control.system })}</p>
                   </div>
 
                   <ul className="mt-6 m-0 p-0 list-none grid gap-2.5">
                     {machine.control.points.map((p) => (
-                      <li key={p} className="flex items-start gap-2.5 text-[13.5px] text-ink">
+                      <li key={p} className="flex items-start gap-2.5 text-meta text-ink">
                         <span className="mt-[7px] w-1.5 h-1.5 rounded-full bg-steelblue shrink-0" aria-hidden="true"></span>
                         {p}
                       </li>
@@ -314,11 +314,11 @@ export default async function LineMachineDetail({
             {machine.applications.length > 0 && (
               <Reveal delay={160}>
                 <div className="border border-line bg-white p-7">
-                  <span className="font-mono text-[11px] text-steelblue tracking-[.16em] uppercase">{d("applicationsHeading")}</span>
-                  <p className="text-[13.5px] leading-[1.6] text-muted mt-3 m-0">{d("applicationsBody")}</p>
+                  <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase">{d("applicationsHeading")}</span>
+                  <p className="text-meta leading-[1.6] text-muted mt-3 m-0">{d("applicationsBody")}</p>
                   <ul className="mt-5 flex flex-wrap gap-2 m-0 p-0 list-none">
                     {machine.applications.map((a) => (
-                      <li key={a} className="font-mono text-[11px] tracking-[.06em] text-ink bg-paper border border-line rounded-full px-3 py-1.5">
+                      <li key={a} className="font-mono text-label tracking-[.06em] text-ink bg-paper border border-line rounded-full px-3 py-1.5">
                         {a}
                       </li>
                     ))}
@@ -331,7 +331,7 @@ export default async function LineMachineDetail({
       </section>
 
       {/* CTA — closing consultation band */}
-      <section className="relative py-24 bg-paper-2 border-t border-line overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         <div className="relative qs-wrap-wide max-w-[880px] text-center">
           <Reveal>
@@ -353,7 +353,7 @@ function FlowEndCap({ label }: { label: string }) {
   return (
     <div className="flex lg:flex-col items-center justify-center gap-2 shrink-0 lg:w-[104px] bg-white border border-line px-4 py-4 lg:py-0">
       <ArrowRight className="w-5 h-5 text-steelblue lg:rotate-0 rotate-90" strokeWidth={1.7} aria-hidden="true" />
-      <span className="font-mono text-[10px] tracking-[.14em] uppercase text-muted text-center">{label}</span>
+      <span className="font-mono text-label-xs tracking-[.14em] uppercase text-muted text-center">{label}</span>
     </div>
   );
 }

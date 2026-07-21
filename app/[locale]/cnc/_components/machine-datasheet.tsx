@@ -153,7 +153,7 @@ function PlaceholderPanel({ label }: { label: string }) {
   return (
     <div className="relative border border-line bg-white overflow-hidden">
       <div className="absolute inset-0 qs-grid-bg opacity-50" aria-hidden="true" />
-      <p className="relative font-mono text-[11px] tracking-[.16em] uppercase text-muted text-center px-6 py-14 m-0">
+      <p className="relative font-mono text-label tracking-[.16em] uppercase text-muted text-center px-6 py-14 m-0">
         {label}
       </p>
     </div>
@@ -246,7 +246,7 @@ export default async function MachineDatasheet({
             <span className="here">{machine.model}</span>
           </nav>
           <div className="grid md:grid-cols-2 lg:grid-cols-[minmax(360px,1fr)_1.15fr] gap-10 lg:gap-12 items-center">
-            <div>
+            <div className="order-2 md:order-1">
               <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>
                 {category}
               </div>
@@ -255,7 +255,7 @@ export default async function MachineDatasheet({
               </h1>
               {machine.subtitle && (
                 <p
-                  className="font-display font-semibold text-ink text-[19px] mt-2 qs-rise"
+                  className="font-display font-semibold text-ink text-title mt-2 qs-rise"
                   style={{ animationDelay: "170ms" }}
                 >
                   {machine.subtitle}
@@ -273,11 +273,11 @@ export default async function MachineDatasheet({
                   const Icon = specIcon(s.k);
                   return (
                     <div key={s.k} className="bg-white px-4 py-3.5">
-                      <dt className="flex items-center gap-1.5 font-mono text-[10px] tracking-[.14em] uppercase text-gold-1 m-0">
+                      <dt className="flex items-center gap-1.5 font-mono text-label-xs tracking-[.14em] uppercase text-gold-1 m-0">
                         <Icon className="w-3.5 h-3.5 shrink-0" strokeWidth={1.6} aria-hidden="true" />
                         {label(s.k)}
                       </dt>
-                      <dd className="font-display font-semibold text-ink text-[17px] mt-1.5 m-0 tracking-[-.01em]">
+                      <dd className="font-display font-semibold text-ink text-lede mt-1.5 m-0 tracking-[-.01em]">
                         {s.v}
                       </dd>
                     </div>
@@ -295,7 +295,7 @@ export default async function MachineDatasheet({
               </div>
             </div>
 
-            <div className="qs-rise" style={{ animationDelay: "220ms" }}>
+            <div className="order-1 qs-rise md:order-2" style={{ animationDelay: "220ms" }}>
               {heroGalleryShots.length > 0 ? (
                 <MachineHeroGallery
                   shots={heroGalleryShots}
@@ -330,10 +330,10 @@ export default async function MachineDatasheet({
                     </div>
                   </div>
                   <div className="px-5 py-3 border-t border-line flex items-center justify-between">
-                    <span className="font-mono text-[11px] tracking-[.16em] uppercase text-muted">
+                    <span className="font-mono text-label tracking-[.16em] uppercase text-muted">
                       {machine.model}
                     </span>
-                    <span className="font-mono text-[11px] tracking-[.16em] uppercase text-gold-1">
+                    <span className="font-mono text-label tracking-[.16em] uppercase text-gold-1">
                       {heroFooterRight}
                     </span>
                   </div>
@@ -361,8 +361,8 @@ export default async function MachineDatasheet({
                       <span className="inline-flex items-center justify-center w-11 h-11 border border-line text-gold-1 bg-paper-2/50 transition-colors group-hover:border-gold-1/40">
                         <Icon className="w-5 h-5" strokeWidth={1.6} aria-hidden="true" />
                       </span>
-                      <h3 className="font-display font-bold text-ink text-[16px] tracking-[-.01em] mt-4">{u.title}</h3>
-                      <p className="text-[13.5px] leading-[1.6] text-muted mt-2 m-0">{u.desc}</p>
+                      <h3 className="font-display font-bold text-ink text-body tracking-[-.01em] mt-4">{u.title}</h3>
+                      <p className="text-meta leading-[1.6] text-muted mt-2 m-0">{u.desc}</p>
                     </div>
                   </Reveal>
                 );
@@ -386,11 +386,17 @@ export default async function MachineDatasheet({
             <PanelTitle>{d("featuresHeading")}</PanelTitle>
           </Reveal>
           {machine.features.length > 0 ? (
-            <div className={`grid grid-cols-1 ${gridCols(machine.features.length)} gap-px bg-line border border-line`}>
+            <div
+              className={`flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain ${gridCols(machine.features.length)} gap-px bg-line border border-line [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:overflow-visible`}
+            >
               {machine.features.map((f, i) => {
                 const idx = String(i + 1).padStart(2, "0");
                 return (
-                  <Reveal key={f.title} delay={i * 80}>
+                  <Reveal
+                    key={f.title}
+                    delay={i * 80}
+                    className="w-[88%] shrink-0 snap-start sm:w-auto sm:shrink"
+                  >
                     <div className="group bg-white h-full flex flex-col">
                       <div className="relative aspect-[4/3] overflow-hidden bg-paper-2/60">
                         <div className="absolute inset-0 qs-grid-bg opacity-50" aria-hidden="true" />
@@ -426,8 +432,8 @@ export default async function MachineDatasheet({
                         </div>
                       </div>
                       <div className="p-5 flex flex-col flex-1 border-t border-line">
-                        <h3 className="font-display font-bold text-ink text-[16px] tracking-[-.01em]">{f.title}</h3>
-                        <p className="text-[13.5px] leading-[1.6] text-muted mt-2 m-0">{f.desc}</p>
+                        <h3 className="font-display font-bold text-ink text-body tracking-[-.01em]">{f.title}</h3>
+                        <p className="text-meta leading-[1.6] text-muted mt-2 m-0">{f.desc}</p>
                       </div>
                     </div>
                   </Reveal>
@@ -470,7 +476,7 @@ export default async function MachineDatasheet({
                         </>
                       )}
                     </div>
-                    <p className="font-mono text-[11px] tracking-[.06em] text-center text-muted px-2 py-2.5 border-t border-line m-0">
+                    <p className="font-mono text-label tracking-[.06em] text-center text-muted px-2 py-2.5 border-t border-line m-0">
                       {c.caption}
                     </p>
                   </div>
@@ -527,8 +533,8 @@ export default async function MachineDatasheet({
                     <div key={k} className="flex items-start gap-3 py-3 border-b border-line first:border-t">
                       <Icon className="w-4 h-4 mt-0.5 shrink-0 text-gold-1" strokeWidth={1.6} aria-hidden="true" />
                       <div>
-                        <dt className="text-[12px] text-muted m-0">{label(k)}</dt>
-                        <dd className={`font-mono text-[13.5px] mt-0.5 m-0 ${v ? "text-ink" : "text-muted/70"}`}>
+                        <dt className="text-meta text-muted m-0">{label(k)}</dt>
+                        <dd className={`font-mono text-meta mt-0.5 m-0 ${v ? "text-ink" : "text-muted/70"}`}>
                           {v ?? tbd}
                         </dd>
                       </div>
@@ -556,16 +562,16 @@ export default async function MachineDatasheet({
                   <div key={k} className="bg-white px-5 py-7 flex flex-col justify-center text-center">
                     <Icon className="w-6 h-6 mx-auto text-gold-1" strokeWidth={1.5} aria-hidden="true" />
                     <div
-                      className={`font-display font-semibold text-[26px] mt-3 tracking-[-.02em] leading-none ${
+                      className={`font-display font-semibold text-subhead mt-3 tracking-[-.02em] leading-none ${
                         split ? "text-ink" : "text-muted/50"
                       }`}
                     >
                       {split ? split.value : "—"}
                     </div>
-                    <div className="font-mono text-[10px] tracking-[.12em] uppercase text-gold-1 mt-1.5 min-h-[13px]">
+                    <div className="font-mono text-label-xs tracking-[.12em] uppercase text-gold-1 mt-1.5 min-h-[13px]">
                       {split?.unit}
                     </div>
-                    <p className="text-[12px] leading-[1.5] text-muted mt-2.5 m-0">{label(k)}</p>
+                    <p className="text-meta leading-[1.5] text-muted mt-2.5 m-0">{label(k)}</p>
                   </div>
                 );
               })}
@@ -599,15 +605,15 @@ export default async function MachineDatasheet({
                   />
                 </div>
                 <div>
-                  <p className="font-display font-bold text-ink text-[18px] tracking-[-.01em]">
+                  <p className="font-display font-bold text-ink text-title tracking-[-.01em]">
                     {machine.controller ?? controller.name}
                   </p>
-                  <p className="text-[13.5px] leading-[1.65] text-muted mt-2 m-0">{controller.desc}</p>
+                  <p className="text-meta leading-[1.65] text-muted mt-2 m-0">{controller.desc}</p>
                   <div className="flex flex-wrap gap-2 mt-6">
                     {controller.bullets.map((b) => (
                       <span
                         key={b}
-                        className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.04em] text-ink border border-line bg-white px-2.5 py-1.5"
+                        className="inline-flex items-center gap-1.5 font-mono text-label tracking-[.04em] text-ink border border-line bg-white px-2.5 py-1.5"
                       >
                         <Check className="w-3 h-3 text-gold-1 shrink-0" strokeWidth={2.4} aria-hidden="true" />
                         {b}
@@ -636,15 +642,19 @@ export default async function MachineDatasheet({
           <Reveal>
             <PanelTitle>{d("specsHeading")}</PanelTitle>
           </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-px bg-line border border-line">
+          <div className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain gap-px bg-line border border-line [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-3 xl:grid-cols-6">
             {specGroups.map((g, i) => {
               const Icon = GROUP_ICON[g.id] ?? Settings;
               return (
-                <Reveal key={g.id} delay={i * 60}>
+                <Reveal
+                  key={g.id}
+                  delay={i * 60}
+                  className="w-[88%] shrink-0 snap-start sm:w-auto sm:shrink"
+                >
                   <div className="bg-white h-full">
                     <div className="flex items-center gap-2 px-4 py-3.5 border-b border-line">
                       <Icon className="w-4 h-4 text-gold-1 shrink-0" strokeWidth={1.6} aria-hidden="true" />
-                      <span className="font-display font-bold text-ink text-[14px]">
+                      <span className="font-display font-bold text-ink text-meta">
                         {d(`specGroups.${g.id}`)}
                       </span>
                     </div>
@@ -652,13 +662,13 @@ export default async function MachineDatasheet({
                       <dl className="m-0 px-4 py-1">
                         {g.rows.map((r) => (
                           <div key={r.k} className="py-2.5 border-b border-line/70 last:border-b-0">
-                            <dt className="text-[11.5px] leading-tight text-muted m-0">{label(r.k)}</dt>
-                            <dd className="font-mono text-[12.5px] text-ink mt-1 m-0">{r.v}</dd>
+                            <dt className="text-label leading-tight text-muted m-0">{label(r.k)}</dt>
+                            <dd className="font-mono text-meta text-ink mt-1 m-0">{r.v}</dd>
                           </div>
                         ))}
                       </dl>
                     ) : (
-                      <p className="font-mono text-[11px] tracking-[.1em] uppercase text-muted/70 px-4 py-6 m-0">
+                      <p className="font-mono text-label tracking-[.1em] uppercase text-muted/70 px-4 py-6 m-0">
                         {tbd}
                       </p>
                     )}
@@ -667,7 +677,7 @@ export default async function MachineDatasheet({
               );
             })}
           </div>
-          <p className="text-[12px] leading-[1.6] text-muted mt-5 m-0">{d("specsNote")}</p>
+          <p className="text-meta leading-[1.6] text-muted mt-5 m-0">{d("specsNote")}</p>
         </div>
       </section>
 
@@ -680,33 +690,33 @@ export default async function MachineDatasheet({
           </Reveal>
           <div className="grid lg:grid-cols-2 gap-px bg-line border border-line">
             <div className="bg-white p-7">
-              <h3 className="font-display font-bold text-ink text-[16px] mb-5">{d("standardHeading")}</h3>
+              <h3 className="font-display font-bold text-ink text-body mb-5">{d("standardHeading")}</h3>
               {machine.standardEquip.length > 0 ? (
                 <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3 m-0 p-0 list-none">
                   {machine.standardEquip.map((it) => (
-                    <li key={it} className="flex items-start gap-2.5 text-[13.5px] leading-[1.5] text-ink">
+                    <li key={it} className="flex items-start gap-2.5 text-meta leading-[1.5] text-ink">
                       <Check className="w-4 h-4 mt-0.5 shrink-0 text-gold-1" strokeWidth={2.2} aria-hidden="true" />
                       {it}
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="font-mono text-[11px] tracking-[.1em] uppercase text-muted/70 m-0">{tbd}</p>
+                <p className="font-mono text-label tracking-[.1em] uppercase text-muted/70 m-0">{tbd}</p>
               )}
             </div>
             <div className="bg-white p-7">
-              <h3 className="font-display font-bold text-ink text-[16px] mb-5">{d("optionalHeading")}</h3>
+              <h3 className="font-display font-bold text-ink text-body mb-5">{d("optionalHeading")}</h3>
               {machine.optionalEquip.length > 0 ? (
                 <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3 m-0 p-0 list-none">
                   {machine.optionalEquip.map((it) => (
-                    <li key={it} className="flex items-start gap-2.5 text-[13.5px] leading-[1.5] text-muted">
+                    <li key={it} className="flex items-start gap-2.5 text-meta leading-[1.5] text-muted">
                       <Check className="w-4 h-4 mt-0.5 shrink-0 text-line-2" strokeWidth={2.2} aria-hidden="true" />
                       {it}
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="font-mono text-[11px] tracking-[.1em] uppercase text-muted/70 m-0">{tbd}</p>
+                <p className="font-mono text-label tracking-[.1em] uppercase text-muted/70 m-0">{tbd}</p>
               )}
             </div>
           </div>
@@ -729,12 +739,12 @@ export default async function MachineDatasheet({
                   <FileText className="w-5 h-5" strokeWidth={1.5} aria-hidden="true" />
                 </span>
                 <div className="flex-1">
-                  <h3 className="font-display font-bold text-ink text-[15px] tracking-[-.01em]">
+                  <h3 className="font-display font-bold text-ink text-body tracking-[-.01em]">
                     {d("datasheetTitle")}
                   </h3>
-                  <p className="font-mono text-[11px] tracking-[.08em] text-gold-1 mt-0.5">{machine.model}</p>
-                  <p className="text-[13px] leading-[1.55] text-muted mt-2 m-0">{d("datasheetDesc")}</p>
-                  <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.1em] uppercase text-muted/70 mt-3">
+                  <p className="font-mono text-label tracking-[.08em] text-gold-1 mt-0.5">{machine.model}</p>
+                  <p className="text-meta leading-[1.55] text-muted mt-2 m-0">{d("datasheetDesc")}</p>
+                  <span className="inline-flex items-center gap-1.5 font-mono text-label tracking-[.1em] uppercase text-muted/70 mt-3">
                     {tbd}
                   </span>
                 </div>
@@ -751,14 +761,14 @@ export default async function MachineDatasheet({
                     <FileText className="w-5 h-5" strokeWidth={1.5} aria-hidden="true" />
                   </span>
                   <div className="flex-1">
-                    <h3 className="font-display font-bold text-ink text-[15px] tracking-[-.01em]">
+                    <h3 className="font-display font-bold text-ink text-body tracking-[-.01em]">
                       {d("catalogueTitle")}
                     </h3>
-                    <p className="font-mono text-[11px] tracking-[.08em] text-gold-1 mt-0.5">
+                    <p className="font-mono text-label tracking-[.08em] text-gold-1 mt-0.5">
                       {catalogue.ext} · {catalogue.lang.toUpperCase()}
                     </p>
-                    <p className="text-[13px] leading-[1.55] text-muted mt-2 m-0">{d("catalogueDesc")}</p>
-                    <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.1em] uppercase text-ink mt-3 group-hover:text-gold-1 transition-colors">
+                    <p className="text-meta leading-[1.55] text-muted mt-2 m-0">{d("catalogueDesc")}</p>
+                    <span className="inline-flex items-center gap-1.5 font-mono text-label tracking-[.1em] uppercase text-ink mt-3 group-hover:text-gold-1 transition-colors">
                       {d("downloadCta")}{" "}
                       <span className="arr transition-transform group-hover:translate-x-0.5">→</span>
                     </span>
@@ -777,14 +787,14 @@ export default async function MachineDatasheet({
                     <FileText className="w-5 h-5" strokeWidth={1.5} aria-hidden="true" />
                   </span>
                   <div className="flex-1">
-                    <h3 className="font-display font-bold text-ink text-[15px] tracking-[-.01em]">
+                    <h3 className="font-display font-bold text-ink text-body tracking-[-.01em]">
                       {d("controllerDocTitle")}
                     </h3>
-                    <p className="font-mono text-[11px] tracking-[.08em] text-gold-1 mt-0.5">
+                    <p className="font-mono text-label tracking-[.08em] text-gold-1 mt-0.5">
                       {controllerDoc.model}
                     </p>
-                    <p className="text-[13px] leading-[1.55] text-muted mt-2 m-0">{d("controllerDocDesc")}</p>
-                    <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.1em] uppercase text-ink mt-3 group-hover:text-gold-1 transition-colors">
+                    <p className="text-meta leading-[1.55] text-muted mt-2 m-0">{d("controllerDocDesc")}</p>
+                    <span className="inline-flex items-center gap-1.5 font-mono text-label tracking-[.1em] uppercase text-ink mt-3 group-hover:text-gold-1 transition-colors">
                       {d("downloadCta")}{" "}
                       <span className="arr transition-transform group-hover:translate-x-0.5">→</span>
                     </span>
@@ -798,11 +808,11 @@ export default async function MachineDatasheet({
                     <FileText className="w-5 h-5" strokeWidth={1.5} aria-hidden="true" />
                   </span>
                   <div className="flex-1">
-                    <h3 className="font-display font-bold text-ink text-[15px] tracking-[-.01em]">
+                    <h3 className="font-display font-bold text-ink text-body tracking-[-.01em]">
                       {d("controllerDocTitle")}
                     </h3>
-                    <p className="text-[13px] leading-[1.55] text-muted mt-2 m-0">{d("controllerDocDesc")}</p>
-                    <span className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.1em] uppercase text-muted/70 mt-3">
+                    <p className="text-meta leading-[1.55] text-muted mt-2 m-0">{d("controllerDocDesc")}</p>
+                    <span className="inline-flex items-center gap-1.5 font-mono text-label tracking-[.1em] uppercase text-muted/70 mt-3">
                       {tbd}
                     </span>
                   </div>
@@ -814,7 +824,7 @@ export default async function MachineDatasheet({
       </section>
 
       {/* ── CTA ── */}
-      <section className="relative bg-ink text-[#cfc9b8] py-16 overflow-hidden">
+      <section className="relative bg-ink text-[#cfc9b8] py-12 sm:py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true" />
         <CircuitTraces
           variant="dark"
@@ -823,7 +833,7 @@ export default async function MachineDatasheet({
         <div className="relative qs-wrap-wide grid lg:grid-cols-[1.3fr_1fr] gap-10 items-center">
           <Reveal>
             <h2 className="qs-h2 text-white max-w-[24ch]">{d("ctaHeading")}</h2>
-            <p className="text-[15px] leading-[1.7] text-[#a8a499] mt-4 max-w-[54ch]">{d("ctaBody")}</p>
+            <p className="text-body leading-[1.7] text-[#a8a499] mt-4 max-w-[54ch]">{d("ctaBody")}</p>
           </Reveal>
           <Reveal delay={120}>
             <div className="flex flex-col gap-3">

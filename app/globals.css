@@ -28,6 +28,19 @@
   --font-sans: var(--font-sans), Inter, ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), "JetBrains Mono", ui-monospace, Menlo, monospace;
 
+  /* ─── Type scale ─── single source of truth for text sizing.
+     Every size in the app maps to one of these steps (utilities: text-<name>).
+     Mono labels 10–11 · body 13–17 · display 20 → subhead 24 → h2/h1 clamps.
+     Decorative one-offs (giant stat/watermark numerals) stay as arbitrary values. */
+  --text-label-xs: 10px;   /* mono tags, chips, micro crumbs */
+  --text-label: 11px;      /* mono eyebrows, panel labels */
+  --text-meta: 13px;       /* captions, meta, buttons, small UI */
+  --text-body: 15px;       /* default paragraph / body copy */
+  --text-lede: 17px;       /* intro / lede paragraphs */
+  --text-title: 20px;      /* card titles, small headings */
+  --text-subhead: 24px;    /* sub-heads, stat values */
+  --text-h2: clamp(26px, 2.4vw, 36px); /* section headings */
+
   --max-width-wrap: 1280px;
 
   --background-image-gold-grad: linear-gradient(180deg, #f0d28a 0%, #c9a35a 50%, #8a6f35 100%);
@@ -77,41 +90,44 @@ body {
   /* layout */
   /* wide frame for full-width layout: edge-to-edge feel, capped on ultra-wide */
   .qs-wrap-wide { @apply max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-14; }
-  .qs-section  { @apply py-20; }
+  .qs-section  { @apply py-12 sm:py-16 lg:py-24; }
   .qs-rule     { @apply h-px bg-line border-0; }
   .qs-mono     { @apply font-mono; }
 
   /* eyebrow / breadcrumb / tags */
-  .qs-eyebrow  { @apply font-mono text-[11px] tracking-[.18em] uppercase text-gold-1
+  .qs-eyebrow  { @apply font-mono text-label tracking-[.18em] uppercase text-gold-1
                        inline-flex items-center gap-2.5
                        before:content-[''] before:inline-block before:w-6 before:h-px before:bg-gold; }
-  .qs-crumb    { @apply font-mono text-[11px] tracking-[.1em] uppercase text-muted
+  .qs-crumb    { @apply font-mono text-label-xs sm:text-label tracking-[.1em] uppercase text-muted
                        flex gap-2.5 items-center; }
   .qs-crumb a  { @apply text-muted hover:text-ink; }
   .qs-crumb .sep  { @apply opacity-40; }
   .qs-crumb .here { @apply text-ink; }
-  .qs-tag      { @apply font-mono text-[10px] tracking-[.12em] uppercase
+  .qs-tag      { @apply font-mono text-label-xs tracking-[.12em] uppercase
                        py-1 px-2 border border-line rounded-[2px] text-muted; }
-  .qs-chip     { @apply font-mono text-[10px] tracking-[.14em] uppercase text-muted
+  .qs-chip     { @apply font-mono text-label-xs tracking-[.14em] uppercase text-muted
                        bg-white/70 border border-line rounded-full px-3 py-1.5 inline-flex items-center; }
 
   /* headings */
   .qs-h1 { font-family: var(--font-display), "Inter Tight", sans-serif;
            @apply font-bold tracking-[-.025em] leading-[1.02] text-balance text-ink m-0;
-           font-size: clamp(36px, 4.6vw, 64px); }
+           font-size: clamp(36px, 5vw, 64px); }
   .qs-h2 { font-family: var(--font-display), "Inter Tight", sans-serif;
            @apply font-bold tracking-[-.02em] leading-[1.1] m-0;
            font-size: clamp(26px, 2.4vw, 36px); }
   .qs-h3 { font-family: var(--font-display), "Inter Tight", sans-serif;
-           @apply font-semibold text-xl tracking-[-.01em] m-0; }
-  .qs-lede { @apply text-[17px] leading-[1.55] text-[#3a3a3a] max-w-[60ch]; }
+           @apply font-semibold text-title tracking-[-.01em] m-0; }
+  .qs-lede { @apply text-lede leading-[1.55] text-[#3a3a3a] max-w-[60ch]; }
 
-  /* buttons */
+  /* buttons — responsive: comfortable 44px touch target on mobile/tablet,
+     refined compact size on desktop (≥1024px). */
   .qs-btn {
-    @apply inline-flex items-center gap-2.5 px-[18px] py-[11px]
-           text-[13px] font-semibold tracking-[.01em] rounded-[3px]
+    @apply inline-flex items-center justify-center gap-2.5
+           text-meta font-semibold tracking-[.01em] rounded-[3px]
            bg-ink text-white transition-all duration-150
-           hover:bg-black hover:-translate-y-px;
+           hover:bg-black hover:-translate-y-px
+           min-h-[44px] px-5 py-3
+           lg:min-h-0 lg:px-[18px] lg:py-[11px];
   }
   .qs-btn .arr { @apply transition-transform duration-150; }
   .qs-btn:hover .arr { transform: translateX(3px); }
@@ -119,10 +135,11 @@ body {
                   border: 1px solid #8a6f35; }
   .qs-btn-gold:hover { background: var(--gold-grad); color: #0a0a0a; }
   .qs-btn-ghost { @apply bg-transparent text-ink border border-ink hover:bg-ink hover:text-white; }
-  .qs-btn-sm    { @apply px-3 py-[7px] text-xs; }
+  .qs-btn-sm    { @apply text-meta min-h-[38px] px-4 py-2.5
+                         lg:min-h-0 lg:px-3 lg:py-[7px]; }
 
   .qs-link {
-    @apply inline-flex items-center gap-2 font-mono text-xs tracking-[.1em] uppercase
+    @apply inline-flex items-center gap-2 font-mono text-meta tracking-[.1em] uppercase
            text-ink border-b border-ink pb-0.5;
   }
 
@@ -134,13 +151,17 @@ body {
   }
 
   /* section header */
+  /* Stacks on narrow viewports so the title column keeps its full width;
+     side-by-side title/lede only once there is room for both. */
   .qs-section-head {
-    @apply flex items-end justify-between gap-8 pb-6 border-b border-line mb-10;
+    @apply flex flex-col items-start gap-4 pb-5 border-b border-line mb-8
+           md:flex-row md:items-end md:justify-between md:gap-8 md:pb-6 md:mb-10;
   }
+  .qs-section-head > * { @apply min-w-0; }
 
   /* section title: original mono/gold eyebrow style, larger + bold */
   .qs-panel-title {
-    @apply font-mono font-bold text-[13px] text-gold-1 tracking-[.16em] uppercase
+    @apply font-mono font-bold text-meta text-gold-1 tracking-[.16em] uppercase
            leading-tight m-0 inline-flex items-center gap-2.5;
   }
 
@@ -150,8 +171,29 @@ body {
       repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(0,0,0,.03) 8px, rgba(0,0,0,.03) 9px),
       linear-gradient(180deg, #f0eee8 0%, #e6e3da 100%);
     @apply border border-line grid place-items-center
-           font-mono text-[11px] text-muted tracking-[.18em] uppercase relative;
+           font-mono text-label text-muted tracking-[.18em] uppercase relative;
   }
+}
+
+/* Products filter selects: strip the platform-native chrome and draw a
+   consistent chevron so the control renders identically across browsers and its
+   arrow never hides behind overlapping floating widgets. color-scheme keeps the
+   native option popup on a light background regardless of OS theme.
+
+   Left UNLAYERED on purpose: in Tailwind v4 `@layer components` is overridden by
+   utility classes, so from inside the layer these declarations would lose to the
+   `px-3`/`bg-white`/etc. utilities on each <select>. Unlayered CSS outranks any
+   `@layer`, so the padding-right and appearance reset reliably win. */
+.qs-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color-scheme: light;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M1 3l4 4 4-4' fill='none' stroke='%23807a70' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 10px;
 }
 
 /* ─── Scroll-reveal ─── */
@@ -166,6 +208,19 @@ body {
    their 1px borders round away on fractional column widths (missing dividers). */
 .qs-reveal:not(.is-visible) { will-change: opacity, transform; }
 .qs-reveal.is-visible { opacity: 1; transform: none; }
+/* Swipe-rail card lists opt out of the scroll-reveal on phones — the horizontal
+   swipe already carries the motion there and per-card staggered fade-ins fight it.
+   md+ keeps the reveal. Opt in per instance: <Reveal className="qs-reveal-desktop">.
+   `will-change: auto` releases the compositor layer the pending-reveal rule above
+   would otherwise pin on every card. */
+@media (max-width: 767px) {
+  .qs-reveal.qs-reveal-desktop {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}
 
 /* ─── Drifting technical grid ─── */
 .qs-grid-drift { animation: qs-grid-drift 38s linear infinite; }
@@ -214,12 +269,12 @@ body {
   50%      { transform: translateY(-12px); }
 }
 
-/* ─── Blueprint scan line sweeping the product ─── */
+/* ─── Blueprint scan line sweeping the product (down, then back up) ─── */
 .qs-scan {
   position: absolute; left: 0; right: 0; top: 0; height: 2px;
   background: linear-gradient(90deg, transparent, rgba(232,200,120,.9), transparent);
   box-shadow: 0 0 14px 2px rgba(232,200,120,.45);
-  animation: qs-scan 4.8s ease-in-out infinite;
+  animation: qs-scan 4.8s ease-in-out infinite alternate;
 }
 @keyframes qs-scan {
   0%   { top: 0;    opacity: 0; }
@@ -227,6 +282,12 @@ body {
   88%  { opacity: 1; }
   100% { top: 100%; opacity: 0; }
 }
+/* Product cards gate the scan behind hover (`opacity-0 group-hover:opacity-100`).
+   opacity:0 alone never stops the animation clock — idle cards keep laying out and
+   painting an invisible 2px bar every frame — so pause it until the card is hovered.
+   (Must live here unlayered: Tailwind arbitrary-property utilities sit in a layer
+   and would lose to the shorthand `animation:` above.) */
+.group:not(:hover) .qs-scan.opacity-0 { animation-play-state: paused; }
 
 /* ─── Kinetic headline / staggered load-in ─── */
 .qs-rise { animation: qs-rise .9s cubic-bezier(.16, 1, .3, 1) both; }
@@ -327,7 +388,14 @@ body {
 .qs-strip:hover .qs-panel .qs-shot       { filter: grayscale(.55) brightness(.62); }
 .qs-strip:hover .qs-panel:hover .qs-shot { filter: none; transform: scale(1.05); }
 
-/* (scan-line styling lives in the shared .qs-scan block above) */
+/* Scan-line styling lives in the shared .qs-scan block above. Closed panels hold
+   their scan at opacity 0 through the .qs-open cross-fade, which never stops the
+   animation clock — pause it, and run it only in the states where the .qs-open
+   layer is actually visible (same state ladder as the opacity rules above). */
+.qs-panel .qs-scan                       { animation-play-state: paused; }
+.qs-panel[data-open="true"] .qs-scan     { animation-play-state: running; }
+.qs-strip:hover .qs-panel .qs-scan       { animation-play-state: paused; }
+.qs-strip:hover .qs-panel:hover .qs-scan { animation-play-state: running; }
 
 @media (prefers-reduced-motion: reduce) {
   .qs-panel, .qs-panel .qs-open, .qs-panel .qs-spine, .qs-panel .qs-shot { transition: none; }
@@ -401,17 +469,6 @@ body {
 .qs-spec-v { transition: color .35s ease, transform .35s cubic-bezier(.16,1,.3,1); }
 .qs-spec:hover .qs-spec-k, .qs-spec:focus-within .qs-spec-k { color: #e8c878; }
 .qs-spec:hover .qs-spec-v, .qs-spec:focus-within .qs-spec-v { transform: translateX(-3px); }
-
-/* ─── Hero slider prev/next arrows ─── */
-.qs-hero-arrow {
-  width: 26px; height: 26px; line-height: 1;
-  display: grid; place-items: center;
-  font-size: 17px; color: #8a8676;
-  border: 1px solid #2a2620; background: transparent;
-  border-radius: 2px; cursor: pointer;
-  transition: color .2s, border-color .2s, background .2s;
-}
-.qs-hero-arrow:hover { color: #0a0a0a; background: #e8c878; border-color: #e8c878; }
 
 /* ─── Hero slider tab — active rail seam ─── */
 .qs-hero-tab::before {
@@ -523,6 +580,9 @@ body {
 /* Touch devices get the full 44px minimum hit area (Apple HIG / Material). */
 @media (pointer: coarse) {
   .qs-icon-btn { width: 44px; height: 44px; }
+  /* Breadcrumb links are 10–11px mono — grow the hit area with a padding /
+     negative-margin pair so the visual layout doesn't move. */
+  .qs-crumb a { padding: 12px 4px; margin: -12px -4px; }
 }
 .qs-icon-btn .flag {
   width: 18px; height: 13px; background: #da251d;
@@ -687,15 +747,56 @@ body {
 }
 
 /* Footer breakpoints follow the Tailwind system (lg 1024 / sm 640) so the
-   whole site collapses on the same rails. */
+   whole site collapses on the same rails. On tablet & mobile the social and
+   contact tiles shed their card shell and read as plain text rows for a
+   lighter, more compact footer. */
 @media (max-width: 1023px) {
-  .qs-foot-cols { grid-template-columns: 1fr 1fr; gap: 32px 40px; }
+  .qs-foot-inner { padding-top: 48px; }
+  /* About spans the full width; Social + Contact sit side-by-side below it. */
+  .qs-foot-cols { grid-template-columns: 1fr 1fr; gap: 34px 40px; }
+  .qs-foot-cols > div:first-child { grid-column: 1 / -1; }
   .qs-foot-tagline { text-align: left; }
   :root { --pad: 24px; }
+
+  /* strip the tile shell — no card background, border, gold badge, arrow or sheen */
+  .qs-foot-social-row,
+  .qs-foot-contact-row {
+    background: none; border: 0; border-radius: 0;
+  }
+  .qs-foot-social-row::before,
+  .qs-foot-contact-row::before,
+  .qs-foot-social-row::after,
+  .qs-foot-contact-row::after { display: none; }
+  .qs-foot-social-ic,
+  .qs-foot-social-arrow { display: none; }
+
+  /* social → "Name … handle" on one text line, hairline-separated */
+  .qs-foot ul.qs-foot-social { gap: 0; }
+  .qs-foot-social-row {
+    grid-template-columns: auto 1fr; gap: 12px; padding: 9px 0;
+    border-bottom: 1px solid rgba(232, 200, 120, .1);
+  }
+  .qs-foot-social li:last-child .qs-foot-social-row { border-bottom: 0; }
+
+  /* contact → mono label + stacked values, no badge indent */
+  .qs-foot-contact { gap: 14px; }
+  .qs-foot-contact-row { grid-template-columns: 1fr; gap: 4px; padding: 0; }
 }
 @media (max-width: 639px) {
-  .qs-foot-cols { grid-template-columns: 1fr; gap: 30px; }
-  .qs-foot-bottom { justify-content: flex-start; }
+  /* tighter vertical rhythm — the whole footer collapses to a single column,
+     so the generous desktop padding reads as dead space on a phone. */
+  .qs-foot-inner { padding-top: 36px; }
+  .qs-foot-masthead { gap: 14px; }
+  .qs-foot-cols {
+    grid-template-columns: 1fr; gap: 26px;
+    padding: 30px 0 34px;
+  }
+  .qs-foot-cols > div:first-child { grid-column: auto; }
+  /* trim the badge that sits under the About copy so it doesn't push the
+     next section down as hard */
+  .qs-foot-cols > div:first-child a { margin-top: 20px; }
+  .qs-foot h5 { margin-bottom: 16px; padding-bottom: 11px; }
+  .qs-foot-bottom { justify-content: flex-start; padding-top: 18px; padding-bottom: 18px; }
 }
 
 /* ─── Line-station process flow (automation/inspection detail template) ─── */
@@ -728,14 +829,3 @@ body {
   .qs-swipe-nudge { animation: none; opacity: 1; }
 }
 
-/* ─── Rail card landing — replayed each time a card swipes into the rail viewport ─── */
-/* Applied by components/rail-land.tsx, never in the served markup: the card is fully
-   visible on its own, so this only adds motion on top of a working static rail. */
-.qs-rail-land { animation: qs-rail-land .5s cubic-bezier(.22,.61,.36,1) both; }
-@keyframes qs-rail-land {
-  from { opacity: .3; transform: translateY(14px) scale(.985); }
-  to   { opacity: 1; transform: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .qs-rail-land { animation: none; }
-}

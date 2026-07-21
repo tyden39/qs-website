@@ -24,7 +24,6 @@ export default function CountUp({
 }) {
   const [val, setVal] = useState(to);
   const ref = useRef<HTMLSpanElement>(null);
-
   useEffect(() => {
     const el = ref.current;
     if (!el) return;

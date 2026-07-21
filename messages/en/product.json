@@ -17,6 +17,7 @@
     "seriesTag": "[ Series 2026 · F + Astro ]",
     "sidebar": {
       "heading": "CNC machine controllers",
+      "allMachines": "All machine types",
       "tree": [
         "Milling machine",
         "Pipe bending machine",
@@ -40,7 +41,9 @@
     },
     "toolbar": {
       "showing": "Showing",
-      "ofModels": "/ 07 models",
+      "ofModels": "models",
+      "filtersLabel": "Filters",
+      "interfaceLabel": "Connection interface",
       "filters": [
         "All",
         "Pulse Train",
@@ -81,7 +84,7 @@
     "model": "Model:",
     "frontView": "front view",
     "viewDetails": "View details",
-    "components": "Bundle components",
+    "components": "Bundle",
     "modelLabel": "Model",
     "parts": "parts",
     "specifications": "[ Specifications ]",
@@ -159,6 +162,7 @@
     },
     "tourEyebrow": "[ A closer look ]",
     "tourHeading": "The product in detail — real photos",
+    "tourSwipeHint": "Swipe for more",
     "tourGroups": {
       "real": {
         "tag": "Actual photos",

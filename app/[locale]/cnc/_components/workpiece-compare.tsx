@@ -73,7 +73,7 @@ export default function WorkpieceCompare({
         sizes="(max-width:1024px) 100vw, 60vw"
         className="object-cover"
       />
-      <span className="pointer-events-none absolute top-3 right-3 z-10 font-mono text-[10px] tracking-[.16em] uppercase text-ink bg-gold-2/95 px-2 py-1">
+      <span className="pointer-events-none absolute top-3 right-3 z-10 font-mono text-label-xs tracking-[.16em] uppercase text-ink bg-gold-2/95 px-2 py-1">
         {afterLabel}
       </span>
 
@@ -97,7 +97,7 @@ export default function WorkpieceCompare({
         )}
       </div>
       <span
-        className="pointer-events-none absolute top-3 left-3 z-10 font-mono text-[10px] tracking-[.16em] uppercase text-[#e8e6df] bg-ink/80 border border-white/15 px-2 py-1"
+        className="pointer-events-none absolute top-3 left-3 z-10 font-mono text-label-xs tracking-[.16em] uppercase text-[#e8e6df] bg-ink/80 border border-white/15 px-2 py-1"
         style={{ opacity: pos > 12 ? 1 : 0, transition: "opacity .2s" }}
       >
         {beforeLabel}
@@ -133,7 +133,7 @@ export default function WorkpieceCompare({
 
       {/* hint pill — fades once the user starts dragging */}
       <span
-        className="pointer-events-none absolute left-1/2 bottom-3 z-20 -translate-x-1/2 font-mono text-[10px] tracking-[.16em] uppercase text-[#e8e6df] bg-ink/70 border border-white/15 px-2.5 py-1"
+        className="pointer-events-none absolute left-1/2 bottom-3 z-20 -translate-x-1/2 font-mono text-label-xs tracking-[.16em] uppercase text-[#e8e6df] bg-ink/70 border border-white/15 px-2.5 py-1"
         style={{ opacity: dragging ? 0 : 1, transition: "opacity .3s" }}
       >
         {hint}

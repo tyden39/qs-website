@@ -5,7 +5,6 @@ import Reveal from "@/components/reveal";
 import Marquee from "@/components/marquee";
 import CircuitTraces from "@/components/circuit-traces";
 import RailNudge from "@/components/rail-nudge";
-import RailLand from "@/components/rail-land";
 import AppDeck from "@/components/app-deck";
 import HeroSlider, { type HeroSlide } from "@/components/hero-slider";
 import NewsFeed, { type NewsItem } from "@/components/news-feed";
@@ -122,7 +121,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("products.eyebrow")}</span>
+                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("products.eyebrow")}</span>
                 <h2 className="qs-h2 mt-3">{t("products.heading")}</h2>
               </div>
             </div>
@@ -140,16 +139,16 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 bg-white sits on the wrapper too, since that is the element being stretched;
                 dropped at md+ so the hover lift still reveals the divider grid behind the card. */}
             {homeProducts.map((item, i) => (
-              <Reveal key={`${item.slug}-${i}`} className="flex items-stretch w-full shrink-0 snap-start bg-white md:w-auto md:bg-transparent" delay={i * 80}>
+              <Reveal key={`${item.slug}-${i}`} className="qs-reveal-desktop flex items-stretch w-full shrink-0 snap-start bg-white md:w-auto md:bg-transparent" delay={i * 80}>
                 <Link href={`/products/${item.slug}`}
                       className="group w-full bg-white p-5 sm:p-8 flex flex-col gap-4 relative transition-all duration-300
                                  hover:-translate-y-2 hover:z-10 hover:shadow-[0_30px_60px_-22px_rgba(20,16,8,.45)]
                                  hover:ring-1 hover:ring-gold-2/70
                                  before:content-[''] before:absolute before:top-0 before:left-5 sm:before:left-8 before:w-8 before:h-0.5 before:bg-gold
                                  before:transition-all before:duration-300 group-hover:before:w-20 group-hover:before:bg-gold-2">
-                  <div className="font-mono text-[11px] text-gold-1 tracking-[.16em]">{item.lbl}</div>
-                  <h3 className="font-display font-semibold text-[23px] tracking-[-.01em] m-0 transition-colors group-hover:text-gold-1">{item.name}</h3>
-                  <p className="text-[13px] text-muted leading-[1.55] m-0">{item.desc}</p>
+                  <div className="font-mono text-label text-gold-1 tracking-[.16em]">{item.lbl}</div>
+                  <h3 className="font-display font-semibold text-subhead tracking-[-.01em] m-0 transition-colors group-hover:text-gold-1">{item.name}</h3>
+                  <p className="text-meta text-muted leading-[1.55] m-0">{item.desc}</p>
                   {/* product stage — shared showroom: blueprint grid + gold pedestal,
                       products centred in the frame so the lineup reads as a set.
                       On the rail the stage grows into whatever height the tallest card forces,
@@ -186,7 +185,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                     <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[900ms] ease-out"
                          style={{ background: "linear-gradient(115deg, transparent 38%, rgba(255,255,255,.5) 50%, transparent 62%)" }} aria-hidden="true"></div>
                   </div>
-                  <div className="flex justify-between items-center pt-4 border-t border-line font-mono text-[11px] tracking-[.12em] uppercase text-muted">
+                  <div className="flex justify-between items-center pt-4 border-t border-line font-mono text-label tracking-[.12em] uppercase text-muted">
                     <span className="leading-[1.5]">{item.meta[0]}<br />{item.meta[1]}</span>
                     <span className="text-ink transition-transform group-hover:translate-x-1">→</span>
                   </div>
@@ -218,7 +217,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line">
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase">{t("applications.eyebrow")}</span>
+                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("applications.eyebrow")}</span>
                 <h2 className="qs-h2 mt-3">{t("applications.heading")}</h2>
               </div>
             </div>
@@ -239,8 +238,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                           md:grid md:grid-cols-2 md:overflow-visible
                           gap-px md:gap-3">
             {apps.map((a, i) => (
-              <Reveal key={a.slug} delay={i * 70} className="flex items-stretch w-full shrink-0 snap-start md:w-auto">
-                <Link href={`/applications/${a.slug}`} data-rail-card
+              <Reveal key={a.slug} delay={i * 70} className="qs-reveal-desktop flex items-stretch w-full shrink-0 snap-start md:w-auto">
+                <Link href={`/applications/${a.slug}`}
                       className="group relative block w-full min-h-[260px] md:min-h-[240px] overflow-hidden bg-ink-2 border border-line transition-colors duration-500 hover:border-gold-2/55">
                   {/* Photo with perpetual ken-burns drift — alive on touch with no hover needed
                       (matches the About/CTA editorial stills). Replaces the old group-hover:scale,
@@ -262,21 +261,20 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                     <span className="absolute -bottom-px -right-px w-3 h-3 border-b border-r border-gold-2/80" />
                   </div>
                   <div className="absolute inset-x-0 bottom-0 p-5">
-                    <span className="font-mono text-[10px] text-gold-2 tracking-[.2em] uppercase">{t("applications.mobileLabel")} {a.n}</span>
-                    <h4 className="font-display font-semibold text-white text-lg mt-1.5 leading-tight">{a.t}</h4>
-                    <p className="text-[#cfc9b8] text-[13px] leading-[1.55] mt-2">{a.d}</p>
+                    <span className="font-mono text-label-xs text-gold-2 tracking-[.2em] uppercase">{t("applications.mobileLabel")} {a.n}</span>
+                    <h4 className="font-display font-semibold text-white text-title mt-1.5 leading-tight">{a.t}</h4>
+                    <p className="text-[#cfc9b8] text-meta leading-[1.55] mt-2">{a.d}</p>
                   </div>
                 </Link>
               </Reveal>
             ))}
           </div>
-          <RailLand targetId="home-applications-rail" />
           <RailNudge targetId="home-applications-rail" label={t("applications.swipeHint")} className="md:hidden" />
-          <Reveal className="lg:hidden mt-3">
+          <Reveal className="qs-reveal-desktop lg:hidden mt-3">
             <Link href="/applications"
                   className="group flex items-center justify-between bg-ink border border-line px-5 py-5">
-              <span className="font-display font-semibold text-white text-lg">{t("applications.viewAll")}</span>
-              <span className="font-mono text-sm text-gold-2 transition-transform duration-500 group-hover:translate-x-1">→</span>
+              <span className="font-display font-semibold text-white text-title">{t("applications.viewAll")}</span>
+              <span className="font-mono text-meta text-gold-2 transition-transform duration-500 group-hover:translate-x-1">→</span>
             </Link>
           </Reveal>
         </div>
@@ -292,7 +290,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <div className="absolute inset-0 bg-[#0a0a0a]/25"></div>
           <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-transparent via-transparent to-ink/95"></div>
           {/* live caption */}
-          <div className="absolute left-6 bottom-6 flex items-center gap-2 font-mono text-[10px] tracking-[.18em] uppercase text-[#e8e6df]">
+          <div className="absolute left-6 bottom-6 flex items-center gap-2 font-mono text-label-xs tracking-[.18em] uppercase text-[#e8e6df]">
             <span className="qs-live-dot" aria-hidden="true"></span>{t("about.caption")}
           </div>
         </Reveal>
@@ -300,12 +298,12 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
           <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)]" />
           <Reveal className="relative max-w-[640px]">
-            <span className="font-mono text-[11px] text-gold-2 tracking-[.16em] uppercase">{t("about.eyebrow")}</span>
+            <span className="font-mono text-label text-gold-2 tracking-[.16em] uppercase">{t("about.eyebrow")}</span>
             <h2 className="qs-h2 text-white mt-3">{t("about.heading")}</h2>
-            <p className="text-[#a8a499] text-base leading-[1.7] mt-5">
+            <p className="text-[#a8a499] text-body leading-[1.7] mt-5">
               {t("about.p1")}
             </p>
-            <p className="text-[#a8a499] text-base leading-[1.7] mt-4">
+            <p className="text-[#a8a499] text-body leading-[1.7] mt-4">
               {t("about.p2")}
             </p>
             <Link className="qs-btn qs-btn-gold mt-8" href="/about">{t("about.cta")} <span className="arr">→</span></Link>
@@ -322,7 +320,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("showreel.eyebrow")}</span>
+                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("showreel.eyebrow")}</span>
                 <h2 className="qs-h2 mt-3">{t("showreel.heading")}</h2>
               </div>
               <a className="qs-btn qs-btn-ghost qs-btn-sm" href="https://youtube.com/@qstechnology7516" target="_blank" rel="noopener noreferrer">{t("showreel.youtube")} <span className="arr">→</span></a>
@@ -343,7 +341,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <Reveal>
             <h3 className="font-display font-bold text-white tracking-[-.015em] leading-[1.08] m-0"
                 style={{ fontSize: "clamp(30px,3.4vw,46px)" }}>{t("cta.heading")}</h3>
-            <p className="text-[#a8a499] mt-5 max-w-[60ch] text-base leading-[1.7]">
+            <p className="text-[#a8a499] mt-5 max-w-[60ch] text-body leading-[1.7]">
               {t("cta.body")}
             </p>
             <Link className="qs-btn qs-btn-gold mt-8" href="/contact">{t("cta.button")} <span className="arr">→</span></Link>
@@ -370,7 +368,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-[11px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("news.eyebrow")}</span>
+                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("news.eyebrow")}</span>
                 <h2 className="qs-h2 mt-3">{t("news.heading")}</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">{t("news.viewAll")} <span className="arr">→</span></Link>

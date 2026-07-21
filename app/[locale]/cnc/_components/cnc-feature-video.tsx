@@ -66,7 +66,7 @@ export default function CncFeatureVideo({ youtubeId }: { youtubeId: string }) {
             <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
           </button>
           <div className="absolute inset-x-0 bottom-0 px-6 py-5">
-            <span className="font-display text-sm font-medium text-white">{t("title")}</span>
+            <span className="font-display text-meta font-medium text-white">{t("title")}</span>
           </div>
         </>
       )}

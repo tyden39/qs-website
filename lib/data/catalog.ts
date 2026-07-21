@@ -78,7 +78,7 @@ function toView(p: CatalogProduct, locale: Locale): CatalogProductView {
   return {
     slug: p.slug,
     category: p.category,
-    name: p.name,
+    name: (en ? p.nameEn : null) ?? p.name,
     tag: en ? p.tagEn : p.tag,
     desc: en ? p.descEn : p.desc,
     specs: en ? p.specs.map(localizeSpec) : p.specs,

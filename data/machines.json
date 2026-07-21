@@ -1237,7 +1237,8 @@
       },
       {
         "k": "beltType",
-        "v": "Băng tải nhựa modular"
+        "v": "Băng tải nhựa modular",
+        "vEn": "Modular plastic conveyor belt"
       }
     ],
     "features": [
@@ -1378,11 +1379,13 @@
       },
       {
         "k": "loadCell",
-        "v": "Load cell + đầu cân CAS"
+        "v": "Load cell + đầu cân CAS",
+        "vEn": "Load cell + CAS weighing indicator"
       },
       {
         "k": "beltType",
-        "v": "Băng tải PU thực phẩm"
+        "v": "Băng tải PU thực phẩm",
+        "vEn": "Food-grade PU conveyor belt"
       }
     ],
     "features": [

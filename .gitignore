@@ -27,3 +27,5 @@ images-origin/
 
 # crawl scratch data (not bundled)
 download/
+dims-tmp.json
+.claude/

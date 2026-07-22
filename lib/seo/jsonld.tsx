@@ -12,6 +12,7 @@ import type {
   Thing,
 } from "schema-dts";
 import type { ProductView } from "@/lib/data/products";
+import type { CatalogProductView } from "@/lib/data/catalog";
 import type { NewsView } from "@/lib/data/news";
 import type { ApplicationView } from "@/lib/data/applications";
 import type { ServiceView } from "@/lib/data/services";
@@ -89,6 +90,29 @@ export function buildProduct(p: ProductView, locale: Locale): WithContext<Produc
     // No `offers`: the site publishes no prices, and an Offer without `price` is
     // invalid — Google rejects the whole Product node rather than ignoring the
     // Offer. Quote-only products are better served by a valid priceless Product.
+  };
+}
+
+/**
+ * Catalogue items (DNC units, accessories) render through a lighter template
+ * than the controllers but are still physical goods, so they carry the same
+ * priceless `Product` node. Their single catalogue photo may be a site-relative
+ * path, so it is resolved to an absolute URL the same way machines are.
+ */
+export function buildCatalogProduct(p: CatalogProductView, locale: Locale): WithContext<Product> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: p.name,
+    description: p.desc,
+    sku: p.slug,
+    brand: {
+      "@type": "Brand",
+      name: "QS Technology",
+    },
+    image: p.image.src.startsWith("http") ? p.image.src : `${APP_URL}${p.image.src}`,
+    url: localeUrl(`/products/${p.slug}`, locale),
+    // No `offers`: quote-only catalogue, same rationale as buildProduct.
   };
 }
 

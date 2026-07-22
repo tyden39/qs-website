@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import CircuitTraces from "@/components/circuit-traces";
+import { buildCatalogProduct, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { CatalogProductView } from "@/lib/data/catalog";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -22,8 +23,16 @@ export async function CatalogDetail({
 }) {
   const t = await getTranslations({ locale, namespace: "product.detailPage" });
 
+  const productJsonLd = buildCatalogProduct(product, locale);
+  const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
+    { name: t("breadcrumb.products"), path: "/products" },
+    { name: product.name, path: `/products/${product.slug}` },
+  ]);
+
   return (
     <>
+      <JsonLd data={productJsonLd} />
+      <JsonLd data={breadcrumb} />
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-[#10110f] text-white border-b border-[#28261f]">
         <div className="absolute inset-0 qs-grid-bg opacity-[.12]" />

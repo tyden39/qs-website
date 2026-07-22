@@ -3,20 +3,25 @@
     "breadcrumb": {
       "home": "Trang chủ",
       "products": "Sản phẩm",
-      "current": "Bộ điều khiển CNC"
+      "current": "Sản phẩm"
     },
-    "eyebrow": "QS Controller Series · Controller Series",
-    "heading": "Bộ điều khiển CNC",
-    "lede": "Thông qua việc tự chủ về công nghệ, QS Controller mang lại khả năng tùy biến linh hoạt và đa dạng chức năng. Nhờ đó, hệ thống dễ dàng phát triển mở rộng để đáp ứng trọn vẹn mọi yêu cầu chuyên biệt của khách hàng.",
+    "eyebrow": "QS Product Range · Máy · Điều khiển · Truyền động",
+    "heading": "Sản phẩm QS",
+    "lede": "Hệ sản phẩm khép kín từ máy CNC, bộ điều khiển đến servo và biến tần — thiết kế, sản xuất và hỗ trợ kỹ thuật bởi QS Technology.",
     "features": [
-      "Hiệu năng vượt trội",
-      "Tính năng đa dạng",
-      "Khả năng tùy biến cao"
+      "07 dòng máy CNC & tự động hóa",
+      "07 bộ điều khiển đa giao thức",
+      "Servo & biến tần công nghiệp"
+    ],
+    "tiles": [
+      "Máy",
+      "Điều khiển",
+      "Truyền động"
     ],
     "catalogBtn": "QS Products Catalog",
     "seriesTag": "[ Series 2026 · F + Astro ]",
     "sidebar": {
-      "heading": "Bộ điều khiển máy CNC",
+      "heading": "Bộ điều khiển",
       "allMachines": "Tất cả loại máy",
       "tree": [
         "Máy phay",
@@ -42,26 +47,29 @@
     "toolbar": {
       "showing": "Hiển thị",
       "ofModels": "model",
-      "filtersLabel": "Bộ lọc",
-      "interfaceLabel": "Giao thức kết nối",
-      "filters": [
-        "Tất cả",
-        "Pulse Train",
-        "EtherCat",
-        "Mechatrolink"
-      ],
-      "sortLabel": "Sắp xếp",
-      "sortOptions": [
-        "Mới nhất",
-        "Số trục ↑",
-        "Màn hình ↑"
-      ],
+      "ofMachines": "máy",
+      "ofSeries": "dòng",
       "empty": "Không có model nào khớp bộ lọc. Hãy thử bỏ bớt điều kiện."
     },
-    "tabs": {
+    "groups": {
       "eyebrow": "Danh mục",
+      "heading": "Danh mục sản phẩm",
+      "viewList": "Xem danh sách",
+      "machines": {
+        "label": "Máy",
+        "blurb": "Máy CNC và thiết bị tự động hóa do QS thiết kế, lắp ráp — bảo hành và hỗ trợ kỹ thuật tại Việt Nam."
+      },
       "controllers": {
-        "label": "Bộ điều khiển CNC"
+        "label": "Bộ điều khiển",
+        "blurb": "Bộ điều khiển đa giao thức cho máy CNC, robot và tự động hóa — Pulse Train, EtherCAT, Mechatrolink."
+      },
+      "servo": {
+        "label": "Servo",
+        "blurb": "Hệ truyền động servo QS: driver SDV3 và SDA2 từ 0.4 đến 55 kW, cùng motor, cáp và đầu nối đồng bộ."
+      },
+      "inverter": {
+        "label": "Biến tần",
+        "blurb": "Biến tần Savch từ 0.4 đến 630 kW: dòng mini, đa dụng, kỹ thuật và siêu cao tốc."
       },
       "dnc": {
         "label": "Thiết bị truyền DNC",
@@ -71,7 +79,33 @@
         "label": "Phụ kiện",
         "blurb": "Board mở rộng I/O, board chuyển đổi tín hiệu, PLC nhỏ gọn, cáp kết nối và nguồn cho hệ thống CNC."
       }
+    },
+    "types": {
+      "navLabel": "Loại sản phẩm",
+      "all": "Tất cả",
+      "machines": {
+        "cnc": "Máy CNC",
+        "automation": "Máy tự động hóa",
+        "inspection": "Máy kiểm tra"
+      },
+      "controllers": {
+        "motion": "Điều khiển chuyển động",
+        "cnc": "Điều khiển CNC",
+        "robot": "Điều khiển robot",
+        "cobot": "Điều khiển cobot"
+      },
+      "servo": {
+        "driver": "Driver servo",
+        "motor": "Motor servo",
+        "cable": "Cáp & đầu nối"
+      }
     }
+  },
+  "seriesCard": {
+    "quote": "Nhận báo giá",
+    "imageUpdating": "Hình ảnh đang cập nhật",
+    "specifications": "[ Thông số dòng ]",
+    "seriesLabel": "Dòng"
   },
   "card": {
     "badge": {
@@ -94,7 +128,7 @@
     "breadcrumb": {
       "home": "Trang chủ",
       "products": "Sản phẩm",
-      "category": "Bộ điều khiển CNC"
+      "category": "Bộ điều khiển"
     },
     "modelLine": "Model · {name} · Series 2026",
     "features": {
@@ -126,7 +160,7 @@
     "quoteHeading": "Nhận báo giá nhanh",
     "quoteBody": "Phản hồi trong vòng 24 giờ làm việc · giá đại lý cho đơn hàng ≥ 10 cái.",
     "packageEyebrow": "[ Hệ thống tích hợp · {name} ]",
-    "packageHeading": "Bộ điều khiển CNC — Trọn bộ",
+    "packageHeading": "Bộ điều khiển — Trọn bộ",
     "packageTeaser": "Trọn bộ {count} thành phần",
     "packageTeaserLink": "Xem chi tiết →",
     "relatedEyebrow": "[ 05 / Same family ]",
@@ -216,7 +250,7 @@
   },
   "list": {
     "title": "Sản phẩm",
-    "subtitle": "Khám phá các dòng sản phẩm máy CNC của QS Technology",
+    "subtitle": "Khám phá các dòng sản phẩm điều khiển của QS Technology",
     "empty": "Chưa có sản phẩm nào.",
     "viewDetails": "Xem chi tiết"
   },

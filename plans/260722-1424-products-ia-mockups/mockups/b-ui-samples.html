@@ -1,0 +1,543 @@
+<title>5 giao diện — Phương án B — QS</title>
+<style>
+  :root {
+    --paper: #f5f3ee;
+    --paper-2: #ecebe5;
+    --surface: #ffffff;
+    --ink: #0a0a0a;
+    --text: #1a1a1a;
+    --muted: #6b6960;
+    --line: #d8d6cf;
+    --line-2: #b8b6ae;
+    --gold: #c9a35a;
+    --gold-deep: #8a6f35;
+    --gold-soft: rgba(201, 163, 90, .12);
+    --tile: radial-gradient(circle at 50% 38%, #ffffff, #ecebe5);
+    --font-body: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #16150f; --paper-2: #1d1c15; --surface: #211f18;
+      --ink: #f2f0e9; --text: #e6e4dc; --muted: #98948a;
+      --line: #37342a; --line-2: #4d493c;
+      --gold: #c9a35a; --gold-deep: #d8b56a; --gold-soft: rgba(201,163,90,.10);
+      --tile: radial-gradient(circle at 50% 38%, #262419, #1d1c15);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper: #f5f3ee; --paper-2: #ecebe5; --surface: #ffffff;
+    --ink: #0a0a0a; --text: #1a1a1a; --muted: #6b6960;
+    --line: #d8d6cf; --line-2: #b8b6ae;
+    --gold: #c9a35a; --gold-deep: #8a6f35; --gold-soft: rgba(201,163,90,.12);
+    --tile: radial-gradient(circle at 50% 38%, #ffffff, #ecebe5);
+  }
+  :root[data-theme="dark"] {
+    --paper: #16150f; --paper-2: #1d1c15; --surface: #211f18;
+    --ink: #f2f0e9; --text: #e6e4dc; --muted: #98948a;
+    --line: #37342a; --line-2: #4d493c;
+    --gold: #c9a35a; --gold-deep: #d8b56a; --gold-soft: rgba(201,163,90,.10);
+    --tile: radial-gradient(circle at 50% 38%, #262419, #1d1c15);
+  }
+
+  body { background: var(--paper); color: var(--text); font-family: var(--font-body); line-height: 1.6; margin: 0; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold-deep);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--gold); }
+
+  header.page { padding: 52px 0 28px; }
+  h1 { font-size: clamp(26px, 4vw, 38px); font-weight: 700; letter-spacing: -.015em; margin: 14px 0 10px; color: var(--ink); text-wrap: balance; }
+  .lede { max-width: 66ch; color: var(--muted); font-size: 16px; margin: 0 0 14px; }
+  .meta { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; color: var(--muted); }
+
+  /* ── switcher ─────────────────────────────────────────────── */
+  .switch { position: sticky; top: 0; z-index: 30; background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .switch .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }
+  .vbtn {
+    flex-shrink: 0; cursor: pointer; font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--line); background: var(--surface); padding: 8px 13px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .vbtn:hover { border-color: var(--ink); color: var(--ink); }
+  .vbtn:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .vbtn[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .vbtn b { color: var(--gold); font-weight: 700; margin-right: 7px; }
+  .vbtn[aria-pressed="true"] b { color: var(--gold); }
+
+  section.variant { padding: 44px 0 10px; display: none; }
+  section.variant.active { display: block; }
+  body.show-all section.variant { display: block; }
+
+  .v-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .v-num { font-family: var(--font-mono); font-weight: 700; font-size: 13px; color: var(--paper); background: var(--ink); padding: 6px 10px; align-self: center; }
+  h2.v-title { font-size: clamp(20px, 2.6vw, 25px); font-weight: 700; letter-spacing: -.01em; margin: 0; color: var(--ink); }
+  .v-thesis { margin: 8px 0 14px; color: var(--muted); max-width: 70ch; font-size: 14.5px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .chip {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+    border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+    border-radius: 999px; padding: 5px 12px;
+  }
+  .chip.warn { border-color: var(--line-2); color: var(--gold-deep); }
+
+  .frame { border: 1px solid var(--line-2); background: var(--surface); box-shadow: 0 2px 22px -14px rgba(0,0,0,.25); }
+  .frame-bar { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--line); padding: 9px 14px; background: var(--paper-2); }
+  .frame-bar .dots { display: flex; gap: 5px; }
+  .frame-bar .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
+  .frame-bar .url { font-family: var(--font-mono); font-size: 11px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); padding: 3px 10px; letter-spacing: .04em; }
+  .wf { padding: 28px 28px 32px; overflow-x: auto; }
+  .wf-crumb { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+  .wf-crumb .here { color: var(--ink); }
+  .wf h3 { font-size: 22px; font-weight: 700; letter-spacing: -.012em; color: var(--ink); margin: 0 0 4px; text-wrap: balance; }
+  .wf .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 20px; }
+
+  .pick-note { margin: 16px 0 0; padding: 12px 16px; border-left: 2px solid var(--gold); background: var(--surface); font-size: 13px; color: var(--muted); max-width: 78ch; }
+  .pick-note b { color: var(--gold-deep); font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+  /* shared mock atoms */
+  .tag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-deep); }
+  .models { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: .04em; }
+  .golink { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+  .golink::after { content: " →"; color: var(--gold-deep); }
+  .searchbar { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-2); background: var(--paper-2); padding: 11px 14px; }
+  .searchbar .q { flex: 1; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .searchbar .btn { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 7px 14px; }
+  .cat-label { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 22px 0 10px; }
+  .cat-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .mini-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .mini { border: 1px solid var(--line); background: var(--surface); padding: 10px 10px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .mini b { font-size: 11.5px; color: var(--ink); font-weight: 600; }
+  .mini span { font-family: var(--font-mono); font-size: 10px; color: var(--gold-deep); }
+  .imgbox { display: grid; place-items: center; border: 1px solid var(--line); background: var(--tile); }
+  .imgbox .ph { font-family: var(--font-mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border: 1px dashed var(--line-2); padding: 12px 14px; }
+
+  /* ── V1: tam liên thẻ ─────────────────────────────────────── */
+  .t-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .t-card { border: 1px solid var(--line); background: var(--surface); display: flex; flex-direction: column; gap: 8px; padding: 14px; transition: border-color .15s; }
+  .t-card:hover { border-color: var(--ink); }
+  .t-card .imgbox { aspect-ratio: 16/9; margin-bottom: 4px; }
+  .t-card b.name { font-size: 15.5px; color: var(--ink); letter-spacing: -.005em; }
+  .t-card p { margin: 0; font-size: 12.5px; color: var(--muted); flex: 1; }
+  .t-card .models { border-top: 1px dashed var(--line); padding-top: 8px; }
+  .v1-search { margin: 18px 0 0; }
+
+  /* ── V2: băng ngang ───────────────────────────────────────── */
+  .band-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+  .band-head .searchbar { flex: 0 1 340px; padding: 8px 12px; margin: 0; }
+  .bands { display: flex; flex-direction: column; }
+  .band {
+    display: grid; grid-template-columns: 56px 1.15fr 1fr auto; gap: 18px; align-items: center;
+    border: 1px solid var(--line); border-bottom: none; background: var(--surface); padding: 18px 20px;
+    transition: background .15s;
+  }
+  .band:last-child { border-bottom: 1px solid var(--line); }
+  .band:hover { background: var(--gold-soft); }
+  .band .no { font-family: var(--font-mono); font-size: 22px; font-weight: 700; color: var(--gold); }
+  .band .cell b { display: block; font-size: 15px; color: var(--ink); margin-top: 2px; }
+  .band .cell p { margin: 3px 0 0; font-size: 12px; color: var(--muted); }
+  .band .chipset { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pchip { font-family: var(--font-mono); font-size: 9.5px; border: 1px solid var(--line); background: var(--paper); color: var(--muted); padding: 3px 8px; }
+
+  /* ── V3: hỏi trước ────────────────────────────────────────── */
+  .q-hero h3 { font-size: clamp(26px, 4vw, 40px); margin-bottom: 22px; }
+  .q-rows { border-top: 1px solid var(--line-2); }
+  .q-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    border-bottom: 1px solid var(--line-2); padding: 20px 6px; cursor: pointer;
+    transition: background .15s, padding .15s;
+  }
+  .q-row:hover { background: var(--gold-soft); padding-left: 14px; }
+  .q-row .qq { display: flex; align-items: baseline; gap: 16px; }
+  .q-row .no { font-family: var(--font-mono); font-size: 11px; color: var(--gold-deep); }
+  .q-row b { font-size: clamp(17px, 2.4vw, 22px); font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+  .q-row span.hint { font-size: 12.5px; color: var(--muted); }
+  .q-row .arr { font-size: 18px; color: var(--gold-deep); flex-shrink: 0; }
+  .q-code { margin-top: 18px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .q-code u { text-decoration: none; border-bottom: 1px solid var(--gold); color: var(--ink); }
+
+  /* ── V4: hai cột ──────────────────────────────────────────── */
+  .split { display: grid; grid-template-columns: 1.45fr 1fr; gap: 20px; align-items: start; }
+  .s-entries { display: flex; flex-direction: column; gap: 10px; }
+  .s-entry { border: 1px solid var(--line); background: var(--surface); padding: 15px 17px; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s; }
+  .s-entry:hover { border-color: var(--ink); }
+  .s-entry .row1 { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .s-entry b.name { font-size: 15px; color: var(--ink); }
+  .s-entry p { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .panel { border: 1px solid var(--line-2); background: var(--paper-2); padding: 16px; position: sticky; top: 70px; }
+  .panel .ptitle { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 10px; }
+  .panel .searchbar { background: var(--surface); margin-bottom: 12px; }
+  .cat-list { display: flex; flex-direction: column; }
+  .cat-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 2px; border-bottom: 1px solid var(--line); font-size: 12.5px; color: var(--ink); }
+  .cat-row:last-child { border-bottom: 0; }
+  .cat-row .cnt { font-family: var(--font-mono); font-size: 10px; color: var(--gold-deep); }
+  .panel .tel { margin-top: 12px; font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); letter-spacing: .04em; }
+  .panel .tel b { color: var(--ink); }
+
+  /* ── V5: kit dẫn đầu ──────────────────────────────────────── */
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+  .tab { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--line); background: var(--surface); color: var(--muted); padding: 7px 13px; }
+  .tab.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .kits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .kit { border: 1px solid var(--gold); background: var(--surface); padding: 16px; display: flex; flex-direction: column; gap: 9px; }
+  .kit .khead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .kit b.name { font-size: 15.5px; color: var(--ink); letter-spacing: -.005em; }
+  .kit .code { font-family: var(--font-mono); font-size: 9.5px; color: var(--gold-deep); letter-spacing: .1em; }
+  .kit p { margin: 0; font-size: 12px; color: var(--muted); flex: 1; }
+  .parts { display: flex; flex-wrap: wrap; gap: 5px; }
+  .part { font-family: var(--font-mono); font-size: 9.5px; border: 1px solid var(--line-2); background: var(--paper); color: var(--text); padding: 3px 8px; }
+  .part i { font-style: normal; color: var(--muted); }
+  .kit .cta { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 8px 14px; text-align: center; }
+  .kit .note { font-size: 10.5px; color: var(--muted); }
+  .v5-foot { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 20px; }
+  .v5-foot .searchbar { flex: 1 1 300px; margin: 0; padding: 9px 12px; }
+  .v5-foot .cats { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: .06em; }
+  .v5-foot .cats u { text-decoration: none; border-bottom: 1px solid var(--line-2); margin-right: 8px; color: var(--text); }
+
+  /* ── compare ──────────────────────────────────────────────── */
+  section.compare { padding: 48px 0 20px; }
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 13px; }
+  th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--paper-2); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.v { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  td.v span { font-family: var(--font-mono); font-size: 10px; color: var(--gold-deep); display: block; font-weight: 400; }
+  td { color: var(--text); }
+  td.dim { color: var(--muted); font-size: 12.5px; }
+
+  footer.page { border-top: 1px solid var(--line); margin-top: 36px; padding: 20px 0 42px; }
+  footer.page p { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: .04em; margin: 0; }
+
+  @media (max-width: 860px) {
+    .t-cards, .kits { grid-template-columns: 1fr; }
+    .band { grid-template-columns: 40px 1fr; }
+    .band .chipset, .band .golink { grid-column: 2; }
+    .split { grid-template-columns: 1fr; }
+    .panel { position: static; }
+    .mini-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vbtn, .t-card, .band, .q-row, .s-entry { transition: none; }
+  }
+</style>
+
+<header class="page">
+  <div class="wrap">
+    <span class="eyebrow">QS Website · Phương án B · Giao diện</span>
+    <h1>Năm giao diện cho cùng một cấu trúc B</h1>
+    <p class="lede">Cùng một IA — ba lối vào theo bài toán, ô tra mã, lưới danh mục tầng dưới — trình bày theo năm bố cục khác nhau về trọng tâm. Chọn một bản để làm spec giao diện cho bước triển khai.</p>
+    <p class="meta">22/07/2026 · plans/260722-1424-products-ia-mockups · tên sản phẩm lấy từ data thật</p>
+  </div>
+</header>
+
+<div class="switch" role="toolbar" aria-label="Chọn bản giao diện">
+  <div class="wrap">
+    <button class="vbtn" data-v="v1" aria-pressed="true"><b>V1</b>Tam liên thẻ</button>
+    <button class="vbtn" data-v="v2" aria-pressed="false"><b>V2</b>Băng ngang</button>
+    <button class="vbtn" data-v="v3" aria-pressed="false"><b>V3</b>Hỏi trước</button>
+    <button class="vbtn" data-v="v4" aria-pressed="false"><b>V4</b>Hai cột</button>
+    <button class="vbtn" data-v="v5" aria-pressed="false"><b>V5</b>Kit dẫn đầu</button>
+    <button class="vbtn" data-v="all" aria-pressed="false"><b>≡</b>Xem tất cả</button>
+  </div>
+</div>
+
+<!-- ═══════ V1 — TAM LIÊN THẺ ═══════ -->
+<section class="variant active" id="v1">
+  <div class="wrap">
+    <div class="v-head"><span class="v-num">V1</span><h2 class="v-title">Tam liên thẻ — sát ngôn ngữ card hiện tại của site</h2></div>
+    <p class="v-thesis">Ba thẻ đứng có ô ảnh, cùng nhịp với GroupGrid đang chạy. Bản ít rủi ro nhất: người quen site cũ không thấy gãy.</p>
+    <div class="chips"><span class="chip">Ít lệch design system nhất</span><span class="chip">Tái dùng qs-card</span><span class="chip warn">Ba thẻ dễ bị đọc thành "ba danh mục nữa"</span></div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">qstcnc.com/vi/products</span></div>
+      <div class="wf">
+        <div class="wf-crumb">Trang chủ <span>/</span> <span class="here">Sản phẩm</span></div>
+        <h3>Bạn đang cần gì?</h3>
+        <p class="sub">Chọn theo việc của bạn — hoặc tra thẳng mã hàng bên dưới.</p>
+        <div class="t-cards">
+          <div class="t-card">
+            <div class="imgbox"><span class="ph">Ảnh máy QSM-215</span></div>
+            <span class="tag">Mua máy hoàn chỉnh</span>
+            <b class="name">Máy CNC ráp sẵn, bàn giao chạy ngay</b>
+            <p>Phay, router, kim hoàn, tự động hóa — kèm lắp đặt và đào tạo vận hành.</p>
+            <span class="models">QSM-215 · VMC-300 · PJM-420 · +4</span>
+            <span class="golink">Xem 07 máy</span>
+          </div>
+          <div class="t-card">
+            <div class="imgbox"><span class="ph">Ảnh kit F54 + SDV3</span></div>
+            <span class="tag">Tự ráp · Nâng cấp</span>
+            <b class="name">Bộ kit điều khiển + truyền động</b>
+            <p>Controller, servo drive, motor đi bộ với nhau — cho xưởng tự dựng máy hoặc thay hệ cũ.</p>
+            <span class="models">Kit phay 4 trục: F54 + SDV3 + SCH</span>
+            <span class="golink">Xem bộ kit</span>
+          </div>
+          <div class="t-card">
+            <div class="imgbox"><span class="ph">Ảnh Micro DNC</span></div>
+            <span class="tag">Thay thế · Sửa chữa</span>
+            <b class="name">Linh kiện lẻ cho máy đang chạy</b>
+            <p>DNC, bảng I/O, cáp, nguồn — đúng chuẩn chân cắm, có hàng sẵn.</p>
+            <span class="models">Micro DNC 2D · RS232 · Adapter 12V</span>
+            <span class="golink">Tìm linh kiện</span>
+          </div>
+        </div>
+        <div class="searchbar v1-search"><span class="q">Biết mã hàng? Gõ F54, SDV3, S3100…</span><span class="btn">Tìm</span></div>
+        <div class="cat-label">Duyệt theo danh mục</div>
+        <div class="mini-grid">
+          <div class="mini"><b>Máy CNC</b><span>07</span></div>
+          <div class="mini"><b>Bộ điều khiển</b><span>07</span></div>
+          <div class="mini"><b>Servo</b><span>05</span></div>
+          <div class="mini"><b>Biến tần</b><span>04</span></div>
+          <div class="mini"><b>DNC</b><span>02</span></div>
+          <div class="mini"><b>Phụ kiện</b><span>07</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pick-note"><b>Chọn bản này khi</b>Ưu tiên an toàn thị giác và tốc độ triển khai: không thêm pattern mới nào vào design system, chỉ thêm nội dung. Nhược: ba thẻ trông giống ba danh mục nữa — phải dựa vào câu hỏi tiêu đề để phân biệt tầng.</div>
+  </div>
+</section>
+
+<!-- ═══════ V2 — BĂNG NGANG ═══════ -->
+<section class="variant" id="v2">
+  <div class="wrap">
+    <div class="v-head"><span class="v-num">V2</span><h2 class="v-title">Băng ngang tuần tự — đọc từ trên xuống như mục lục</h2></div>
+    <p class="v-thesis">Mỗi lối vào là một dải full-width: số thứ tự, mô tả, model tiêu biểu, mũi tên. Nhịp đọc dọc rất nhanh trên cả desktop lẫn mobile; ô tra mã đứng ngay cạnh tiêu đề.</p>
+    <div class="chips"><span class="chip">Quét nhanh nhất khi đọc dọc</span><span class="chip">Mobile gần như không phải thiết kế lại</span><span class="chip warn">Ít "trưng bày" — không có ảnh sản phẩm</span></div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">qstcnc.com/vi/products</span></div>
+      <div class="wf">
+        <div class="wf-crumb">Trang chủ <span>/</span> <span class="here">Sản phẩm</span></div>
+        <div class="band-head">
+          <div><h3>Bạn đang cần gì?</h3><p class="sub" style="margin-bottom:0">Ba lối vào theo việc của bạn.</p></div>
+          <div class="searchbar"><span class="q">Tra mã: F54, SDV3…</span><span class="btn">Tìm</span></div>
+        </div>
+        <div class="bands">
+          <div class="band">
+            <span class="no">01</span>
+            <div class="cell"><span class="tag">Mua máy hoàn chỉnh</span><b>Máy CNC ráp sẵn, bàn giao chạy ngay</b><p>Kèm lắp đặt, đào tạo vận hành và bảo hành tại xưởng.</p></div>
+            <div class="chipset"><span class="pchip">QSM-215</span><span class="pchip">VMC-300</span><span class="pchip">QSM-R4020</span><span class="pchip">PJM-420</span><span class="pchip">+3</span></div>
+            <span class="golink">07 máy</span>
+          </div>
+          <div class="band">
+            <span class="no">02</span>
+            <div class="cell"><span class="tag">Tự ráp · Nâng cấp</span><b>Bộ kit điều khiển + truyền động</b><p>Controller, drive, motor chọn sẵn đi bộ với nhau.</p></div>
+            <div class="chipset"><span class="pchip">F54</span><span class="pchip">F86</span><span class="pchip">Astro 10S</span><span class="pchip">SDV3</span><span class="pchip">SCH</span></div>
+            <span class="golink">Xem kit</span>
+          </div>
+          <div class="band">
+            <span class="no">03</span>
+            <div class="cell"><span class="tag">Thay thế · Sửa chữa</span><b>Linh kiện lẻ cho máy đang chạy</b><p>DNC, bảng I/O, cáp, nguồn — có hàng sẵn.</p></div>
+            <div class="chipset"><span class="pchip">Micro DNC 2D</span><span class="pchip">I/O Link 32</span><span class="pchip">RS232</span><span class="pchip">12V-1A</span></div>
+            <span class="golink">09 mục</span>
+          </div>
+        </div>
+        <div class="cat-label">Duyệt theo danh mục</div>
+        <div class="mini-grid">
+          <div class="mini"><b>Máy CNC</b><span>07</span></div>
+          <div class="mini"><b>Bộ điều khiển</b><span>07</span></div>
+          <div class="mini"><b>Servo</b><span>05</span></div>
+          <div class="mini"><b>Biến tần</b><span>04</span></div>
+          <div class="mini"><b>DNC</b><span>02</span></div>
+          <div class="mini"><b>Phụ kiện</b><span>07</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pick-note"><b>Chọn bản này khi</b>Traffic mobile chiếm đa số (dải ngang xếp dọc tự nhiên, không cần layout riêng) và bạn muốn khách lướt hết ba lựa chọn trong một màn hình. Nhược: thiếu ảnh nên trang kém chất "trưng bày năng lực".</div>
+  </div>
+</section>
+
+<!-- ═══════ V3 — HỎI TRƯỚC ═══════ -->
+<section class="variant" id="v3">
+  <div class="wrap">
+    <div class="v-head"><span class="v-num">V3</span><h2 class="v-title">Hỏi trước, duyệt sau — typography thuần, không ảnh</h2></div>
+    <p class="v-thesis">Câu hỏi là hero. Ba dòng chữ lớn kiểu mục lục sách, hover đổ nền vàng. Trang tải nhẹ, thẳng vào việc; toàn bộ phần trưng bày dồn xuống lưới danh mục bên dưới.</p>
+    <div class="chips"><span class="chip">Trực diện nhất, không nhiễu</span><span class="chip">Nhẹ — không ảnh hero</span><span class="chip warn">Cá tính mạnh, lệch nhịp card của site</span></div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">qstcnc.com/vi/products</span></div>
+      <div class="wf">
+        <div class="wf-crumb">Trang chủ <span>/</span> <span class="here">Sản phẩm</span></div>
+        <div class="q-hero">
+          <h3>Bạn đang cần gì?</h3>
+          <div class="q-rows">
+            <div class="q-row">
+              <span class="qq"><span class="no">01</span><span><b>Mua máy CNC hoàn chỉnh</b><br><span class="hint">07 máy ráp sẵn — QSM-215, VMC-300, PJM-420…</span></span></span>
+              <span class="arr">→</span>
+            </div>
+            <div class="q-row">
+              <span class="qq"><span class="no">02</span><span><b>Tự ráp hoặc nâng cấp máy</b><br><span class="hint">Kit controller + servo đi bộ — F54 + SDV3 + SCH…</span></span></span>
+              <span class="arr">→</span>
+            </div>
+            <div class="q-row">
+              <span class="qq"><span class="no">03</span><span><b>Thay thế linh kiện đang hỏng</b><br><span class="hint">DNC, bảng I/O, cáp, nguồn — có hàng sẵn</span></span></span>
+              <span class="arr">→</span>
+            </div>
+          </div>
+          <p class="q-code">Biết mã hàng? Gõ thẳng: <u>F54</u> · <u>SDV3</u> · <u>S3100</u> · <u>Micro DNC 2D</u> …</p>
+        </div>
+        <div class="cat-label">Hoặc duyệt theo danh mục</div>
+        <div class="mini-grid">
+          <div class="mini"><b>Máy CNC</b><span>07</span></div>
+          <div class="mini"><b>Bộ điều khiển</b><span>07</span></div>
+          <div class="mini"><b>Servo</b><span>05</span></div>
+          <div class="mini"><b>Biến tần</b><span>04</span></div>
+          <div class="mini"><b>DNC</b><span>02</span></div>
+          <div class="mini"><b>Phụ kiện</b><span>07</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pick-note"><b>Chọn bản này khi</b>Muốn tuyên bố rõ "trang này để chọn đường, không phải để ngắm" — hợp nếu số liệu cho thấy khách vào /products chủ yếu từ quảng cáo/tìm kiếm với ý định rõ. Nhược: lệch nhịp thẩm mỹ card của phần còn lại của site; cần cân nhắc đồng bộ.</div>
+  </div>
+</section>
+
+<!-- ═══════ V4 — HAI CỘT ═══════ -->
+<section class="variant" id="v4">
+  <div class="wrap">
+    <div class="v-head"><span class="v-num">V4</span><h2 class="v-title">Hai cột song hành — lối vào bên trái, tra cứu bên phải</h2></div>
+    <p class="v-thesis">Hai kiểu khách nhìn thấy đường của mình cùng lúc, không ai phải cuộn: khách mới đi cột trái (ba lối vào), khách rành đi panel phải (tra mã + nhảy thẳng danh mục), panel dính khi cuộn.</p>
+    <div class="chips"><span class="chip">Phục vụ 2 kiểu khách trên 1 màn hình</span><span class="chip">Tra mã luôn trong tầm mắt</span><span class="chip warn">Mobile mất lợi thế — panel rơi xuống cuối</span></div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">qstcnc.com/vi/products</span></div>
+      <div class="wf">
+        <div class="wf-crumb">Trang chủ <span>/</span> <span class="here">Sản phẩm</span></div>
+        <div class="split">
+          <div>
+            <h3>Bạn đang cần gì?</h3>
+            <p class="sub">Chọn theo việc của bạn.</p>
+            <div class="s-entries">
+              <div class="s-entry">
+                <div class="row1"><span class="tag">Mua máy hoàn chỉnh</span><span class="models">07 máy</span></div>
+                <b class="name">Máy CNC ráp sẵn, bàn giao chạy ngay</b>
+                <p>Phay, router, kim hoàn, tự động hóa — kèm lắp đặt và đào tạo.</p>
+                <span class="models">QSM-215 · VMC-300 · PJM-420 · +4</span>
+              </div>
+              <div class="s-entry">
+                <div class="row1"><span class="tag">Tự ráp · Nâng cấp</span><span class="models">05 kit</span></div>
+                <b class="name">Bộ kit điều khiển + truyền động</b>
+                <p>Controller, drive, motor chọn sẵn đi bộ với nhau.</p>
+                <span class="models">Kit phay 4 trục: F54 + SDV3 + SCH</span>
+              </div>
+              <div class="s-entry">
+                <div class="row1"><span class="tag">Thay thế · Sửa chữa</span><span class="models">09 mục</span></div>
+                <b class="name">Linh kiện lẻ cho máy đang chạy</b>
+                <p>DNC, bảng I/O, cáp, nguồn — đúng chuẩn chân cắm.</p>
+                <span class="models">Micro DNC 2D · RS232 · Adapter 12V</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="ptitle">Tra cứu nhanh</div>
+            <div class="searchbar"><span class="q">Gõ mã: F54, SDV3…</span><span class="btn">Tìm</span></div>
+            <div class="cat-list">
+              <div class="cat-row"><span>Máy CNC</span><span class="cnt">07 →</span></div>
+              <div class="cat-row"><span>Bộ điều khiển</span><span class="cnt">07 →</span></div>
+              <div class="cat-row"><span>Servo</span><span class="cnt">05 →</span></div>
+              <div class="cat-row"><span>Biến tần</span><span class="cnt">04 →</span></div>
+              <div class="cat-row"><span>DNC</span><span class="cnt">02 →</span></div>
+              <div class="cat-row"><span>Phụ kiện</span><span class="cnt">07 →</span></div>
+            </div>
+            <div class="tel">Cần tư vấn ngay? <b>(+84) 909.663.350</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pick-note"><b>Chọn bản này khi</b>Tệp khách trộn đều giữa "biết mã" và "mô tả nhu cầu" — không ai phải nhường ai. Nhược: trên mobile panel phải rơi xuống dưới ba lối vào, mất đúng lợi thế cốt lõi; cần thanh tra mã rút gọn ghim đầu trang cho mobile.</div>
+  </div>
+</section>
+
+<!-- ═══════ V5 — KIT DẪN ĐẦU ═══════ -->
+<section class="variant" id="v5">
+  <div class="wrap">
+    <div class="v-head"><span class="v-num">V5</span><h2 class="v-title">Kit dẫn đầu — bán cấu hình, không bán danh mục</h2></div>
+    <p class="v-thesis">Nhân vật chính là các bộ kit đặt tên kèm mã tham chiếu và CTA gọi. Ba lối vào thu thành tab lọc phía trên; danh mục và tra mã nén xuống chân trang. Bản "sales" nhất — cũng là cầu nối sẵn sang phương án E.</p>
+    <div class="chips"><span class="chip">CTA gọi xuất hiện sớm nhất</span><span class="chip">Mã kit nối web ↔ điện thoại</span><span class="chip warn">Cần viết & bảo trì 3–5 kit</span></div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">qstcnc.com/vi/products</span></div>
+      <div class="wf">
+        <div class="wf-crumb">Trang chủ <span>/</span> <span class="here">Sản phẩm</span></div>
+        <h3>Chọn theo bộ — gọi là chạy</h3>
+        <p class="sub">Cấu hình chọn sẵn cho từng bài toán. Đọc mã kit khi gọi để kỹ thuật viên tra đúng cấu hình.</p>
+        <div class="tabs">
+          <span class="tab">Mua máy hoàn chỉnh</span>
+          <span class="tab on">Tự ráp · Nâng cấp</span>
+          <span class="tab">Thay thế · Sửa chữa</span>
+        </div>
+        <div class="kits">
+          <div class="kit">
+            <div class="khead"><b class="name">Kit phay 4 trục</b><span class="code">KIT-P4T</span></div>
+            <div class="parts"><span class="part">F54 <i>ctrl</i></span><span class="part">SDV3 ×4</span><span class="part">SCH ×4</span><span class="part">Nguồn 24V</span><span class="part">MPG</span></div>
+            <p>Cho máy phay kim loại/gỗ 3–4 trục, hành trình vừa. Cấu hình bán chạy nhất.</p>
+            <span class="cta">Gọi chốt cấu hình</span>
+            <span class="note">Hoặc nhắn Zalo kèm mã KIT-P4T</span>
+          </div>
+          <div class="kit">
+            <div class="khead"><b class="name">Kit phay 6 trục</b><span class="code">KIT-P6T</span></div>
+            <div class="parts"><span class="part">F86 <i>ctrl</i></span><span class="part">SDA2 ×6</span><span class="part">SCH ×6</span><span class="part">I/O Link 32</span></div>
+            <p>Máy nhiều trục, đồng bộ phức tạp — dùng dòng drive hiệu năng cao SDA2.</p>
+            <span class="cta">Gọi chốt cấu hình</span>
+            <span class="note">Hoặc nhắn Zalo kèm mã KIT-P6T</span>
+          </div>
+          <div class="kit">
+            <div class="khead"><b class="name">Kit robot 6 khớp</b><span class="code">KIT-R6K</span></div>
+            <div class="parts"><span class="part">Astro 6AH <i>ctrl</i></span><span class="part">SDA2 ×6</span><span class="part">PLC QS</span></div>
+            <p>Tay máy công nghiệp và cell tự động hóa — điều khiển Astro chuyên robot.</p>
+            <span class="cta">Gọi chốt cấu hình</span>
+            <span class="note">Hoặc nhắn Zalo kèm mã KIT-R6K</span>
+          </div>
+        </div>
+        <div class="v5-foot">
+          <div class="searchbar"><span class="q">Tra mã linh kiện lẻ: F54, SDV3…</span><span class="btn">Tìm</span></div>
+          <span class="cats"><u>Máy 07</u><u>Controller 07</u><u>Servo 05</u><u>Biến tần 04</u><u>DNC 02</u><u>Phụ kiện 07</u></span>
+        </div>
+      </div>
+    </div>
+    <div class="pick-note"><b>Chọn bản này khi</b>Đã xác nhận đa số đơn bắt đầu từ "khách mô tả nhu cầu" và sales muốn mọi cuộc gọi có mã tham chiếu. Đây cũng là bước đệm tự nhiên lên phương án E (wizard). Nhược: nội dung kit phải sales duyệt và cập nhật theo hàng tồn — cam kết bảo trì thật, không phải làm một lần.</div>
+  </div>
+</section>
+
+<!-- ═══════ SO SÁNH ═══════ -->
+<section class="compare" id="compare">
+  <div class="wrap">
+    <span class="eyebrow">So sánh nhanh</span>
+    <h2 class="v-title" style="margin-top:12px">Năm bản đặt cạnh nhau</h2>
+    <p class="v-thesis">Cùng IA, khác trọng tâm. Bấm nút V1–V5 phía trên để xem từng bản, hoặc "Xem tất cả" để cuộn so sánh.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Bản</th><th>Nhấn mạnh</th><th>Hợp khi</th><th>Rủi ro chính</th></tr></thead>
+        <tbody>
+          <tr><td class="v">V1<span>Tam liên thẻ</span></td><td>Đồng bộ design system</td><td class="dim">Muốn triển khai nhanh, an toàn thị giác</td><td class="dim">Ba thẻ bị đọc thành ba danh mục nữa</td></tr>
+          <tr><td class="v">V2<span>Băng ngang</span></td><td>Nhịp đọc dọc, mobile-first</td><td class="dim">Traffic mobile chiếm đa số</td><td class="dim">Thiếu ảnh, kém chất trưng bày</td></tr>
+          <tr><td class="v">V3<span>Hỏi trước</span></td><td>Trực diện, tải nhẹ</td><td class="dim">Khách vào với ý định rõ (ads/search)</td><td class="dim">Lệch nhịp thẩm mỹ phần còn lại của site</td></tr>
+          <tr><td class="v">V4<span>Hai cột</span></td><td>Hai kiểu khách cùng một màn hình</td><td class="dim">Tệp trộn đều biết-mã / mô-tả-nhu-cầu</td><td class="dim">Mobile mất lợi thế cốt lõi</td></tr>
+          <tr><td class="v">V5<span>Kit dẫn đầu</span></td><td>Lead gọi điện + mã tham chiếu</td><td class="dim">Đa số đơn từ mô tả nhu cầu; sales cam kết duyệt kit</td><td class="dim">Chi phí bảo trì nội dung kit</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="page">
+  <div class="wrap">
+    <p>Giao diện minh họa phương án B — tên &amp; số lượng sản phẩm từ products.json, machines.json, series.json, catalog.json · 22/07/2026</p>
+  </div>
+</footer>
+
+<script>
+  const btns = document.querySelectorAll(".vbtn");
+  const sections = document.querySelectorAll("section.variant");
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const v = btn.dataset.v;
+      btns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      if (v === "all") {
+        document.body.classList.add("show-all");
+      } else {
+        document.body.classList.remove("show-all");
+        sections.forEach((s) => s.classList.toggle("active", s.id === v));
+      }
+    });
+  });
+</script>

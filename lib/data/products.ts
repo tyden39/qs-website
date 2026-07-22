@@ -2,6 +2,7 @@ import {
   products,
   HERO_TRIPTYCH,
   type Product,
+  type ControllerType,
   type KitItem,
   type ProductPhoto,
   type SpecColumn,
@@ -23,9 +24,16 @@ export type ProductFrontPhoto = ProductPhoto;
 export type ShotKind = "ui" | "wiring" | "application" | "rear" | "side" | "product";
 export type ProductGalleryImage = ProductGalleryPhoto & { kind: ShotKind };
 
+export type { ControllerType };
+
+/** Section order on the controllers list page, general motion first. */
+export const CONTROLLER_TYPES: ControllerType[] = ["motion", "cnc", "robot", "cobot"];
+
 export type ProductView = {
   slug: string;
   series: string;
+  /** Catalogue sub-type — drives the sections on the controllers list page. */
+  type: ControllerType;
   axes: string;
   display: string;
   badge: string | null;
@@ -157,10 +165,10 @@ function localizeSpecSheet(sheet: ProductSpecSheet): ProductSpecSheet {
   };
 }
 
-// "Bộ điều khiển CNC 4 trục F54" -> "F54 4-axis CNC Controller"
+// "Bộ điều khiển 4 trục F54" -> "F54 4-axis Controller"
 function localizeBaseAlt(s: string): string {
-  const m = s.match(/^Bộ điều khiển CNC (\d+) trục (.+)$/);
-  return m ? `${m[2]} ${m[1]}-axis CNC Controller` : s;
+  const m = s.match(/^Bộ điều khiển (\d+) trục (.+)$/);
+  return m ? `${m[2]} ${m[1]}-axis Controller` : s;
 }
 
 function localizeAlt(alt: string): string {
@@ -191,6 +199,7 @@ function toView(p: Product, index: number, locale: Locale): ProductView {
   return {
     slug: p.slug,
     series: p.series,
+    type: p.type,
     axes: en ? localizeAxes(p.axes) : p.axes,
     display: p.display,
     badge: p.badge ?? null,

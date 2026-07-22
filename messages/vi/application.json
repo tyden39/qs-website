@@ -19,10 +19,27 @@
     "breadcrumb": { "home": "Trang chủ", "current": "Ứng dụng" },
     "eyebrow": "Ứng dụng công nghiệp",
     "heading": "Ứng Dụng",
-    "lede": "Bộ điều khiển QS đang vận hành trong sáu loại máy gia công khác nhau — từ phay kim loại đến uốn lò xo, dán keo và làm mộng gỗ. Mỗi case study là một bài toán kỹ thuật riêng.",
-    "catalogEyebrow": "[ Catalog · 01 / 01 ]",
-    "catalogHeading": "Ứng Dụng Công Nghiệp",
+    "lede": "Bộ điều khiển QS vận hành trên nhiều nhóm vật liệu — kim loại, gỗ, đá và kim hoàn — cùng các dòng máy tự động hóa chuyên dụng. Mỗi nhóm là một bài toán gia công riêng.",
+    "catalogEyebrow": "[ Phân loại · theo vật liệu ]",
+    "catalogHeading": "Ứng Dụng Theo Vật Liệu",
     "caseStudies": "{count} nghiên cứu ứng dụng",
+    "groupsCount": "{count} nhóm",
+    "groups": [
+      { "name": "Kim loại", "tag": "Metal", "desc": "Phay CNC gia công kim loại — khuôn mẫu, linh kiện cơ khí, thiết bị y tế.", "axes": "3 · 4 · 5 trục" },
+      { "name": "Gỗ", "tag": "Wood", "desc": "Điêu khắc, cưa lọng và làm mộng cho ngành nội thất, mỹ nghệ." },
+      { "name": "Đá", "tag": "Stone", "desc": "Điêu khắc và cắt đá tự nhiên, đá nhân tạo với độ nét cao." },
+      { "name": "Kim hoàn", "tag": "Jewelry", "desc": "Chạm khắc, phay tinh xảo trên vàng, bạc và hợp kim quý." },
+      { "name": "Máy tự động hóa khác", "tag": "Automation", "desc": "Các dòng máy chuyên dụng khác dùng bộ điều khiển QS — bồi keo, uốn lò xo." }
+    ],
+    "soon": {
+      "label": "Đang cập nhật",
+      "imageLabel": "Hình ảnh đang cập nhật",
+      "items": {
+        "dieu-khac-go": "Điêu khắc gỗ",
+        "dieu-khac-da": "Điêu khắc đá",
+        "cat-da": "Cắt đá"
+      }
+    },
     "controllerFor": "Bộ điều khiển cho",
     "detail": "Chi tiết",
     "swipeHint": "Vuốt để xem thêm",

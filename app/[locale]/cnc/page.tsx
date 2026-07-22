@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Reveal from "@/components/reveal";
@@ -41,7 +42,13 @@ export async function generateMetadata({
 const MACHINE_IMG = "/home/cnc-machine-hero.webp";
 const VIDEO_ID = "kLcNpeHu-2A";
 
+// Standalone CNC page is temporarily hidden: unlinked from the nav and returns
+// 404 while the machine line-up is served from the Products page. The
+// `/cnc/[slug]` detail pages remain live. Flip to false to restore.
+const CNC_PAGE_HIDDEN: boolean = true;
+
 export default async function CncPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  if (CNC_PAGE_HIDDEN) notFound();
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "cnc" });

@@ -19,10 +19,27 @@
     "breadcrumb": { "home": "Home", "current": "Applications" },
     "eyebrow": "Industrial Applications",
     "heading": "Applications",
-    "lede": "QS controllers run across six different machining categories — from metal milling to spring bending, gluing, and woodworking joinery. Each case study is its own engineering challenge.",
-    "catalogEyebrow": "[ Catalog · 01 / 01 ]",
-    "catalogHeading": "Industrial Applications",
+    "lede": "QS controllers run across multiple material families — metal, wood, stone, and jewellery — plus dedicated automation machines. Each group is its own machining challenge.",
+    "catalogEyebrow": "[ Grouped · by material ]",
+    "catalogHeading": "Applications by Material",
     "caseStudies": "{count} case studies",
+    "groupsCount": "{count} groups",
+    "groups": [
+      { "name": "Metal", "tag": "Kim loại", "desc": "CNC milling for metal — molds, mechanical parts, medical devices.", "axes": "3 · 4 · 5 axis" },
+      { "name": "Wood", "tag": "Gỗ", "desc": "Carving, jigsaw, and joinery for furniture and woodcraft." },
+      { "name": "Stone", "tag": "Đá", "desc": "Carving and cutting for natural and engineered stone." },
+      { "name": "Jewellery", "tag": "Kim hoàn", "desc": "Fine engraving and milling on gold, silver, and precious alloys." },
+      { "name": "Other automation", "tag": "Automation", "desc": "Other dedicated machines running QS controllers — gluing, spring bending." }
+    ],
+    "soon": {
+      "label": "Coming soon",
+      "imageLabel": "Image coming soon",
+      "items": {
+        "dieu-khac-go": "Wood carving",
+        "dieu-khac-da": "Stone carving",
+        "cat-da": "Stone cutting"
+      }
+    },
     "controllerFor": "Controller for",
     "detail": "Details",
     "swipeHint": "Swipe for more",

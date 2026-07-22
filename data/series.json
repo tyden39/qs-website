@@ -1,0 +1,269 @@
+[
+  {
+    "slug": "sdv3",
+    "category": "servo",
+    "kind": "driver",
+    "brand": "QS Servo",
+    "name": "SDV3",
+    "tag": "Dòng nhỏ gọn",
+    "tagEn": "Compact series",
+    "desc": "AC servo driver nhỏ gọn 0.4 – 4 kW cho máy công cụ và thiết bị tự động hóa — điều khiển vị trí, tốc độ và moment qua các bus công nghiệp phổ biến.",
+    "descEn": "Compact AC servo drive, 0.4 – 4 kW, for machine tools and automation equipment — position, speed and torque control over common industrial fieldbuses.",
+    "specs": [
+      { "l": "Công suất", "v": "0.4 – 4.0 kW" },
+      { "l": "Điện áp", "v": "1 pha 220 V · 3 pha 220 V · 3 pha 440 V" },
+      { "l": "Tần số đầu ra", "v": "0 – 250 Hz" },
+      { "l": "Giao tiếp", "v": "EtherCAT · Modbus · CANopen · CANlink · PROFINET" }
+    ],
+    "specsEn": [
+      { "l": "Power range", "v": "0.4 – 4.0 kW" },
+      { "l": "Supply voltage", "v": "1-ph 220 V · 3-ph 220 V · 3-ph 440 V" },
+      { "l": "Output frequency", "v": "0 – 250 Hz" },
+      { "l": "Fieldbus", "v": "EtherCAT · Modbus · CANopen · CANlink · PROFINET" }
+    ],
+    "image": {
+      "src": "/img/products/series/sdv3.webp",
+      "w": 300,
+      "h": 225,
+      "alt": "Driver servo SDV3 các cỡ công suất",
+      "altEn": "SDV3 servo drives across the power range"
+    },
+    "sourceUrl": "https://savch.net/sdv3home.html"
+  },
+  {
+    "slug": "sda2",
+    "category": "servo",
+    "kind": "driver",
+    "brand": "QS Servo",
+    "name": "SDA2",
+    "tag": "Dòng hiệu năng cao",
+    "tagEn": "High-performance series",
+    "desc": "Servo driver hiệu năng cao 0.4 – 55 kW cho tải nặng và chuyển động chính xác: cánh tay robot, máy khắc laser, máy ép nhựa, gia công gỗ – kính, thiết bị hàn, máy dệt và dây chuyền đóng gói.",
+    "descEn": "High-performance servo drive, 0.4 – 55 kW, for heavy loads and precision motion: robot arms, laser engravers, injection molding, wood and glass machining, welding equipment, textile machines and packaging lines.",
+    "specs": [
+      { "l": "Công suất", "v": "0.4 – 55 kW" },
+      { "l": "Điện áp", "v": "1 pha 220 V · 3 pha 220 V · 3 pha 380 V" },
+      { "l": "Tần số đầu ra", "v": "0 – 250 Hz" },
+      { "l": "Ứng dụng", "v": "Robot · laser · ép nhựa · gỗ / kính · hàn · dệt · CNC · đóng gói" }
+    ],
+    "specsEn": [
+      { "l": "Power range", "v": "0.4 – 55 kW" },
+      { "l": "Supply voltage", "v": "1-ph 220 V · 3-ph 220 V · 3-ph 380 V" },
+      { "l": "Output frequency", "v": "0 – 250 Hz" },
+      { "l": "Applications", "v": "Robots · laser · injection molding · wood / glass · welding · textile · CNC · packaging" }
+    ],
+    "image": {
+      "src": "/img/products/series/sda2.webp",
+      "w": 300,
+      "h": 225,
+      "alt": "Driver servo SDA2 các cỡ công suất",
+      "altEn": "SDA2 servo drives across the power range"
+    },
+    "sourceUrl": "https://savch.net/sda2home.html"
+  },
+  {
+    "slug": "sch-motor",
+    "category": "servo",
+    "kind": "motor",
+    "brand": "QS Servo",
+    "name": "SCH",
+    "tag": "Motor servo AC",
+    "tagEn": "AC servo motor",
+    "desc": "Motor servo AC dòng SCH ghép bộ với driver SDV3 và SDA2 — frame 60 đến 260 mm, 0.2 đến 45 kW, encoder tăng dần hoặc tuyệt đối, phanh DC 24 V tuỳ chọn. Mã motor gọi theo frame và công suất (ví dụ SCH130152E = frame 130, 1.5 kW).",
+    "descEn": "SCH-series AC servo motors matched to the SDV3 and SDA2 drives — frame 60 to 260 mm, 0.2 to 45 kW, incremental or absolute encoder, optional DC 24 V brake. Part numbers encode frame and power (e.g. SCH130152E = frame 130, 1.5 kW).",
+    "specs": [
+      { "l": "Công suất", "v": "0.2 – 45 kW" },
+      { "l": "Frame", "v": "60 · 80 · 110 · 130 · 180 · 200 · 230 · 260 mm" },
+      { "l": "Moment định mức", "v": "0.64 – 286 Nm" },
+      { "l": "Tốc độ định mức", "v": "1000 – 3000 v/ph (dòng HS tới 6000)" },
+      { "l": "Encoder", "v": "Tăng dần 17/20 bit · tuyệt đối 17/20 bit (kèm hộp pin)" },
+      { "l": "Tuỳ chọn", "v": "Phanh DC 24 V · cách điện F class · frame 200 – 260 làm mát quạt, IP54" }
+    ],
+    "specsEn": [
+      { "l": "Power range", "v": "0.2 – 45 kW" },
+      { "l": "Frame size", "v": "60 · 80 · 110 · 130 · 180 · 200 · 230 · 260 mm" },
+      { "l": "Rated torque", "v": "0.64 – 286 Nm" },
+      { "l": "Rated speed", "v": "1000 – 3000 rpm (HS line up to 6000)" },
+      { "l": "Encoder", "v": "17/20-bit incremental · 17/20-bit absolute (battery box included)" },
+      { "l": "Options", "v": "DC 24 V brake · class F insulation · frame 200 – 260 fan-cooled, IP54" }
+    ],
+    "image": {
+      "src": "/img/products/series/servo-motor-sch.webp",
+      "w": 412,
+      "h": 335,
+      "alt": "Motor servo dòng SCH với cáp động lực và cáp encoder",
+      "altEn": "SCH-series servo motor with power and encoder cables"
+    },
+    "sourceUrl": "https://savch.net/sdv3home/55.html"
+  },
+  {
+    "slug": "dl-power-cable",
+    "category": "servo",
+    "kind": "cable",
+    "brand": "QS Servo",
+    "name": "DL-SCH",
+    "tag": "Cáp động lực",
+    "tagEn": "Power cable",
+    "desc": "Cáp động lực đúc sẵn nối driver với motor SCH, đầu nối đi liền bộ — aviation plug cho frame từ 110 trở lên. Đặt theo chiều dài mét; motor frame 200 – 260 không kèm cáp động lực từ nhà máy.",
+    "descEn": "Pre-assembled power cable from drive to SCH motor, connectors included — aviation plug from frame 110 up. Ordered by length in metres; frame 200 – 260 motors ship without a factory power cable.",
+    "specs": [
+      { "l": "Nhóm mã", "v": "DL-SCH086 · DL-SCH130 · DL-SCH180" },
+      { "l": "Tương thích", "v": "Motor SCH060 – SCH180" },
+      { "l": "Phanh", "v": "N = không phanh · B = có phanh" },
+      { "l": "Tuỳ chọn", "v": "Chiều dài theo mét · hậu tố -R cho loại cáp mềm" }
+    ],
+    "specsEn": [
+      { "l": "Part groups", "v": "DL-SCH086 · DL-SCH130 · DL-SCH180" },
+      { "l": "Fits", "v": "SCH060 – SCH180 motors" },
+      { "l": "Brake", "v": "N = without brake · B = with brake" },
+      { "l": "Options", "v": "Ordered by length in metres · -R suffix for flexible cable" }
+    ],
+    "image": null,
+    "sourceUrl": "https://savch.net/sdv3home/55.html"
+  },
+  {
+    "slug": "sa2fk-encoder-cable",
+    "category": "servo",
+    "kind": "cable",
+    "brand": "QS Servo",
+    "name": "SA2FK",
+    "tag": "Cáp phản hồi encoder",
+    "tagEn": "Encoder feedback cable",
+    "desc": "Cáp phản hồi encoder đúc sẵn nối motor SCH về driver, đầu nối đi liền bộ. Mã chọn theo nhóm frame motor và loại encoder; bản ABS đi kèm hộp pin.",
+    "descEn": "Pre-assembled encoder feedback cable from SCH motor back to the drive, connectors included. Part number follows the motor frame group and encoder type; the absolute version includes the battery box.",
+    "specs": [
+      { "l": "Nhóm mã", "v": "SA2FK-P1 (SCH060 – SCH090) · SA2FK-P2 (SCH110 – SCH260)" },
+      { "l": "Loại encoder", "v": "S = tăng dần 17/20 bit · D = tuyệt đối · F = 2500 xung" },
+      { "l": "Tuỳ chọn", "v": "Chiều dài theo mét · hậu tố -R cho loại cáp mềm" }
+    ],
+    "specsEn": [
+      { "l": "Part groups", "v": "SA2FK-P1 (SCH060 – SCH090) · SA2FK-P2 (SCH110 – SCH260)" },
+      { "l": "Encoder type", "v": "S = 17/20-bit incremental · D = absolute · F = 2500-line" },
+      { "l": "Options", "v": "Ordered by length in metres · -R suffix for flexible cable" }
+    ],
+    "image": null,
+    "sourceUrl": "https://savch.net/sda2home/57.html"
+  },
+  {
+    "slug": "s600",
+    "category": "inverter",
+    "brand": "Savch",
+    "name": "S600 / S600E",
+    "tag": "Dòng mini",
+    "tagEn": "Mini series",
+    "desc": "Biến tần đa dụng nhỏ gọn, kinh tế cho thiết bị tự động nhỏ — S600 cho motor không đồng bộ (IM), S600E cho motor nam châm vĩnh cửu (PM).",
+    "descEn": "Compact, economical general-purpose inverter for small automation equipment — S600 drives induction motors (IM), S600E drives permanent-magnet motors (PM).",
+    "specs": [
+      { "l": "Công suất", "v": "0.4 – 5.5 kW" },
+      { "l": "Điện áp", "v": "1 pha 220 V · 3 pha 220 V · 3 pha 440 V" },
+      { "l": "Tần số đầu ra", "v": "0.1 – 500 Hz" },
+      { "l": "Điều khiển", "v": "V/f · vector không cảm biến (SVC)" },
+      { "l": "Động cơ", "v": "IM (S600) · PM (S600E)" },
+      { "l": "Ứng dụng", "v": "Logistics · điện tử · gia công · dệt may · in ấn & đóng gói" }
+    ],
+    "specsEn": [
+      { "l": "Power range", "v": "0.4 – 5.5 kW" },
+      { "l": "Supply voltage", "v": "1-ph 220 V · 3-ph 220 V · 3-ph 440 V" },
+      { "l": "Output frequency", "v": "0.1 – 500 Hz" },
+      { "l": "Control modes", "v": "V/f · sensorless vector (SVC)" },
+      { "l": "Motor type", "v": "IM (S600) · PM (S600E)" },
+      { "l": "Applications", "v": "Logistics · electronics · machining · textile · printing & packaging" }
+    ],
+    "image": {
+      "src": "/img/products/series/s600.webp",
+      "w": 300,
+      "h": 225,
+      "alt": "Biến tần Savch S600 và S600E",
+      "altEn": "Savch S600 and S600E inverters"
+    },
+    "sourceUrl": "https://savch.net/minixilieS600E.html"
+  },
+  {
+    "slug": "s3100",
+    "category": "inverter",
+    "brand": "Savch",
+    "name": "S3100A / S3100E",
+    "tag": "Dòng đa dụng",
+    "tagEn": "General-purpose series",
+    "desc": "Biến tần vector đa dụng dải công suất rất rộng, DSP nâng cấp — độ chính xác tốc độ và đáp ứng moment cao, hỗ trợ tần số đầu ra tới 3200 Hz.",
+    "descEn": "General-purpose vector inverter with a very wide power range and upgraded DSP — high speed accuracy and torque response, output frequency up to 3200 Hz.",
+    "specs": [
+      { "l": "Công suất", "v": "0.4 – 630 kW" },
+      { "l": "Điện áp", "v": "1 pha 220 V · 3 pha 220 V · 3 pha 440 V" },
+      { "l": "Tần số đầu ra", "v": "0.1 – 3200 Hz" },
+      { "l": "Điều khiển", "v": "V/f · vector không cảm biến (SVC)" },
+      { "l": "Động cơ", "v": "IM · PM" }
+    ],
+    "specsEn": [
+      { "l": "Power range", "v": "0.4 – 630 kW" },
+      { "l": "Supply voltage", "v": "1-ph 220 V · 3-ph 220 V · 3-ph 440 V" },
+      { "l": "Output frequency", "v": "0.1 – 3200 Hz" },
+      { "l": "Control modes", "v": "V/f · sensorless vector (SVC)" },
+      { "l": "Motor type", "v": "IM · PM" }
+    ],
+    "image": {
+      "src": "/img/products/series/s3100.webp",
+      "w": 300,
+      "h": 225,
+      "alt": "Biến tần Savch S3100A và S3100E",
+      "altEn": "Savch S3100A and S3100E inverters"
+    },
+    "sourceUrl": "https://savch.net/tongyongxilieS3100AE.html"
+  },
+  {
+    "slug": "penta",
+    "category": "inverter",
+    "brand": "Savch",
+    "name": "Sinus Penta",
+    "tag": "Dòng kỹ thuật",
+    "tagEn": "Engineering series",
+    "desc": "Biến tần kỹ thuật cho tải nặng — moment khởi động cao, một máy chạy bốn tải, điều khiển từ xa; bản Penta 12T chuyên cho mỏ than với tản nhiệt substrate độc lập, bảo trì không cần tháo rời.",
+    "descEn": "Engineering-grade inverter for heavy duty — high starting torque, one drive for four loads, remote control; the Penta 12T variant targets coal mines with an independent heatsink substrate serviced without disassembly.",
+    "specs": [
+      { "l": "Điều khiển", "v": "5 chế độ điều khiển" },
+      { "l": "Ứng dụng", "v": "Máy trộn · máy nén khí · máy nghiền · máy hút bụi · máy xay · mỏ than (Penta 12T)" }
+    ],
+    "specsEn": [
+      { "l": "Control modes", "v": "5 control modes" },
+      { "l": "Applications", "v": "Mixers · air compressors · crushers · dust collectors · mills · coal mines (Penta 12T)" }
+    ],
+    "image": {
+      "src": "/img/products/series/penta.webp",
+      "w": 300,
+      "h": 225,
+      "alt": "Biến tần kỹ thuật Savch Sinus Penta",
+      "altEn": "Savch Sinus Penta engineering inverter"
+    },
+    "sourceUrl": "https://savch.net/gongcheng.html"
+  },
+  {
+    "slug": "uhs-bldc",
+    "category": "inverter",
+    "brand": "Savch",
+    "name": "Ultra High-Speed BLDC",
+    "tag": "Dòng năng lượng · siêu cao tốc",
+    "tagEn": "Energy series · ultra-high-speed",
+    "desc": "Bộ điều khiển motor BLDC nam châm vĩnh cửu siêu tốc — tới 36.000 vòng/phút cho máy nén cao tốc và ứng dụng năng lượng.",
+    "descEn": "Ultra-high-speed permanent-magnet BLDC motor controller — up to 36,000 rpm for high-speed compressors and energy applications.",
+    "specs": [
+      { "l": "Công suất", "v": "15 – 500 kW" },
+      { "l": "Điện áp", "v": "220 – 2000 V" },
+      { "l": "Tốc độ tối đa", "v": "36.000 vòng/phút" },
+      { "l": "Động cơ", "v": "PM 2 – 6 cặp cực" }
+    ],
+    "specsEn": [
+      { "l": "Power range", "v": "15 – 500 kW" },
+      { "l": "Supply voltage", "v": "220 – 2000 V" },
+      { "l": "Max speed", "v": "36,000 rpm" },
+      { "l": "Motor type", "v": "PM, 2 – 6 pole pairs" }
+    ],
+    "image": {
+      "src": "/img/products/series/uhs-bldc.webp",
+      "w": 300,
+      "h": 225,
+      "alt": "Bộ điều khiển BLDC siêu cao tốc Savch",
+      "altEn": "Savch ultra-high-speed BLDC controller"
+    },
+    "sourceUrl": "https://savch.net/chaogaosubianpinqi.html"
+  }
+]

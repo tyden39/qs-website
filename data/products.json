@@ -5,16 +5,17 @@
     "axes": "4 trục",
     "display": "5\"",
     "series": "F",
+    "type": "cnc",
     "badge": "Recommended",
-    "tag": "Bộ điều khiển CNC F54",
-    "desc": "Bộ điều khiển CNC 4 trục dạng vòng hở, giao tiếp xung (Pulse Train). Thiết kế nhỏ gọn cho máy CNC cơ bản, đi kèm trọn bộ servo drive, servo motor, nguồn và board I/O Link.",
+    "tag": "Bộ điều khiển F54",
+    "desc": "Bộ điều khiển 4 trục dạng vòng hở, giao tiếp xung (Pulse Train). Thiết kế nhỏ gọn cho máy CNC cơ bản, đi kèm trọn bộ servo drive, servo motor, nguồn và board I/O Link.",
     "bullets": [
       "Số trục điều khiển: 4 trục",
       "Kiểu điều khiển: Vòng hở (Open-loop)",
       "Giao tiếp: Pulse Train"
     ],
-    "tagEn": "F54 CNC Controller",
-    "descEn": "4-axis open-loop CNC controller with Pulse Train interface. Compact design for entry-level CNC machines, shipped as a complete kit with servo drive, servo motor, power supply and I/O Link board.",
+    "tagEn": "F54 Controller",
+    "descEn": "4-axis open-loop controller with Pulse Train interface. Compact design for entry-level CNC machines, shipped as a complete kit with servo drive, servo motor, power supply and I/O Link board.",
     "bulletsEn": [
       "Control axes: 4 axes",
       "Control mode: Open-loop",
@@ -116,7 +117,7 @@
         }
       }
     ],
-    "overview": "<p>Bộ điều khiển CNC 4 trục F54 được thiết kế nhỏ gọn nhưng hiệu năng mạnh mẽ, có hồi tiếp encoder phase Z và tích hợp PLC ladder để theo dõi trạng thái máy, lập trình mở rộng ứng dụng. Màn hình 5 inch độ phân giải 480 × 272 px giúp người vận hành dễ theo dõi thông số.</p><p>Giao diện người dùng được thiết kế hiện đại, thân thiện và trực quan. Sản phẩm đã được lắp đặt đồng loạt trên nhiều máy phay CNC, bao gồm hệ máy GS-40 tại nhà máy của khách hàng Hàn Quốc.</p>",
+    "overview": "<p>Bộ điều khiển 4 trục F54 được thiết kế nhỏ gọn nhưng hiệu năng mạnh mẽ, có hồi tiếp encoder phase Z và tích hợp PLC ladder để theo dõi trạng thái máy, lập trình mở rộng ứng dụng. Màn hình 5 inch độ phân giải 480 × 272 px giúp người vận hành dễ theo dõi thông số.</p><p>Giao diện người dùng được thiết kế hiện đại, thân thiện và trực quan. Sản phẩm đã được lắp đặt đồng loạt trên nhiều máy phay CNC, bao gồm hệ máy GS-40 tại nhà máy của khách hàng Hàn Quốc.</p>",
     "highlights": [
       "LCD 5 Inch",
       "4 trục điều khiển đồng thời",
@@ -127,7 +128,7 @@
       "Tính năng bù rơ cơ khí (backlash)",
       "Hồi tiếp encoder: Phase Z"
     ],
-    "overviewEn": "<p>The F54 4-axis CNC controller pairs a compact footprint with strong performance, featuring Z-phase encoder feedback and an integrated PLC ladder for monitoring machine status and extending application logic. The 5-inch, 480 × 272 px display keeps operating parameters easy to read.</p><p>The user interface is modern, friendly and intuitive. The product has been deployed across many CNC milling machines, including the GS-40 line at a Korean customer's factory.</p>",
+    "overviewEn": "<p>The F54 4-axis controller pairs a compact footprint with strong performance, featuring Z-phase encoder feedback and an integrated PLC ladder for monitoring machine status and extending application logic. The 5-inch, 480 × 272 px display keeps operating parameters easy to read.</p><p>The user interface is modern, friendly and intuitive. The product has been deployed across many CNC milling machines, including the GS-40 line at a Korean customer's factory.</p>",
     "highlightsEn": [
       "5-inch LCD",
       "4 simultaneously controlled axes",
@@ -146,85 +147,85 @@
         "src": "/img/products/crawled/f54/gallery-1.webp",
         "w": 1339,
         "h": 1015,
-        "alt": "Bộ điều khiển CNC 4 trục F54"
+        "alt": "Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-2.webp",
         "w": 1400,
         "h": 1015,
-        "alt": "Bộ điều khiển CNC 4 trục F54"
+        "alt": "Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-3.webp",
         "w": 1400,
         "h": 916,
-        "alt": "Bộ điều khiển CNC 4 trục F54"
+        "alt": "Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-4.webp",
         "w": 1400,
         "h": 792,
-        "alt": "Bộ điều khiển CNC 4 trục F54"
+        "alt": "Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-5.webp",
         "w": 1400,
         "h": 1128,
-        "alt": "Bộ điều khiển CNC 4 trục F54"
+        "alt": "Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-6.webp",
         "w": 1400,
         "h": 904,
-        "alt": "Bộ điều khiển CNC 4 trục F54"
+        "alt": "Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-7.webp",
         "w": 1400,
         "h": 893,
-        "alt": "Mặt sau Bộ điều khiển CNC 4 trục F54"
+        "alt": "Mặt sau Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-8.webp",
         "w": 480,
         "h": 272,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 4 trục F54"
+        "alt": "Giao diện vận hành trên Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-9.webp",
         "w": 480,
         "h": 272,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 4 trục F54"
+        "alt": "Giao diện vận hành trên Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-10.webp",
         "w": 480,
         "h": 272,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 4 trục F54"
+        "alt": "Giao diện vận hành trên Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-11.webp",
         "w": 1400,
         "h": 2473,
-        "alt": "Bộ điều khiển CNC 4 trục F54"
+        "alt": "Bộ điều khiển 4 trục F54"
       },
       {
         "src": "/img/products/crawled/f54/gallery-12.webp",
         "w": 960,
         "h": 720,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 4 trục F54 trên máy CNC"
+        "alt": "Ứng dụng thực tế Bộ điều khiển 4 trục F54 trên máy CNC"
       },
       {
         "src": "/img/products/crawled/f54/gallery-13.webp",
         "w": 1400,
         "h": 1867,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 4 trục F54 trên máy CNC"
+        "alt": "Ứng dụng thực tế Bộ điều khiển 4 trục F54 trên máy CNC"
       },
       {
         "src": "/img/products/crawled/f54/gallery-14.webp",
         "w": 1400,
         "h": 1867,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 4 trục F54 trên máy CNC"
+        "alt": "Ứng dụng thực tế Bộ điều khiển 4 trục F54 trên máy CNC"
       }
     ],
     "documents": [
@@ -406,15 +407,16 @@
     "axes": "6 trục",
     "display": "8\"",
     "series": "F",
-    "tag": "Bộ điều khiển CNC F86",
-    "desc": "Bộ điều khiển CNC 6 trục vòng hở, hỗ trợ giao tiếp Pulse Train và EtherCAT. Phù hợp máy phay nhiều trục, đi kèm trọn bộ servo, tool setter và board I/O Link 1616.",
+    "type": "cnc",
+    "tag": "Bộ điều khiển F86",
+    "desc": "Bộ điều khiển 6 trục vòng hở, hỗ trợ giao tiếp Pulse Train và EtherCAT. Phù hợp máy phay nhiều trục, đi kèm trọn bộ servo, tool setter và board I/O Link 1616.",
     "bullets": [
       "Số trục điều khiển: 6 trục",
       "Kiểu điều khiển: Vòng hở (Open-loop)",
       "Giao tiếp: Pulse Train · EtherCAT"
     ],
-    "tagEn": "F86 CNC Controller",
-    "descEn": "6-axis open-loop CNC controller supporting Pulse Train and EtherCAT. Suited to multi-axis milling machines, shipped with a full servo set, tool setter and I/O Link 1616 board.",
+    "tagEn": "F86 Controller",
+    "descEn": "6-axis open-loop controller supporting Pulse Train and EtherCAT. Suited to multi-axis milling machines, shipped with a full servo set, tool setter and I/O Link 1616 board.",
     "bulletsEn": [
       "Control axes: 6 axes",
       "Control mode: Open-loop",
@@ -535,7 +537,7 @@
         }
       }
     ],
-    "overview": "<p>Bộ điều khiển CNC F86 thuộc dòng sản phẩm mới của QS Technology với thiết kế kích thước lớn hơn và màn hình 8 inch độ phân giải 800 × 600 px, giúp vận hành và theo dõi thông tin máy trực quan hơn.</p><p>F86 cho phép điều khiển từ 4 đến 6 trục đồng thời, có hồi tiếp Encoder phase Z để về home chính xác hơn. Bộ điều khiển tích hợp module xử lý PLC ladder, hỗ trợ theo dõi trạng thái hoạt động, lập trình mở rộng chức năng máy và lập trình Macro.</p>",
+    "overview": "<p>Bộ điều khiển F86 thuộc dòng sản phẩm mới của QS Technology với thiết kế kích thước lớn hơn và màn hình 8 inch độ phân giải 800 × 600 px, giúp vận hành và theo dõi thông tin máy trực quan hơn.</p><p>F86 cho phép điều khiển từ 4 đến 6 trục đồng thời, có hồi tiếp Encoder phase Z để về home chính xác hơn. Bộ điều khiển tích hợp module xử lý PLC ladder, hỗ trợ theo dõi trạng thái hoạt động, lập trình mở rộng chức năng máy và lập trình Macro.</p>",
     "highlights": [
       "LCD 8 Inches",
       "6 trục điều khiển đồng thời",
@@ -548,7 +550,7 @@
       "Tích hợp module xử lý PLC ladder",
       "Cho phép lập trình Macro"
     ],
-    "overviewEn": "<p>The F86 CNC controller is part of QS Technology's newer line, with a larger body and an 8-inch, 800 × 600 px display for clearer operation and machine monitoring.</p><p>The F86 controls 4 to 6 axes simultaneously and adds Z-phase encoder feedback for more accurate homing. It integrates a PLC ladder processing module, supporting status monitoring, extended machine functions and Macro programming.</p>",
+    "overviewEn": "<p>The F86 controller is part of QS Technology's newer line, with a larger body and an 8-inch, 800 × 600 px display for clearer operation and machine monitoring.</p><p>The F86 controls 4 to 6 axes simultaneously and adds Z-phase encoder feedback for more accurate homing. It integrates a PLC ladder processing module, supporting status monitoring, extended machine functions and Macro programming.</p>",
     "highlightsEn": [
       "8-inch LCD",
       "6 simultaneously controlled axes",
@@ -569,76 +571,76 @@
         "src": "/img/products/crawled/f86/gallery-1.webp",
         "w": 1280,
         "h": 970,
-        "alt": "Bộ điều khiển CNC 6 trục F86"
+        "alt": "Bộ điều khiển 6 trục F86"
       },
       {
         "src": "/img/products/crawled/f86/gallery-2.webp",
         "w": 1400,
         "h": 1297,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F86"
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục F86"
       },
       {
         "src": "/img/products/crawled/f86/gallery-ui-1.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F86",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục F86",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f86/gallery-ui-2.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F86",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục F86",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f86/gallery-ui-3.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F86",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục F86",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f86/gallery-3.webp",
         "w": 1400,
         "h": 929,
-        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục F86"
+        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển 6 trục F86"
       },
       {
         "src": "/img/products/crawled/f86/gallery-4.webp",
         "w": 1400,
         "h": 788,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC"
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục F86 trên máy CNC"
       },
       {
         "src": "/img/products/crawled/f86/gallery-6.webp",
         "w": 1400,
         "h": 1007,
-        "alt": "Mặt sau Bộ điều khiển CNC 6 trục F86"
+        "alt": "Mặt sau Bộ điều khiển 6 trục F86"
       },
       {
         "src": "/img/products/crawled/f86/gallery-7.webp",
         "w": 1400,
         "h": 1050,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC"
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục F86 trên máy CNC"
       },
       {
         "src": "/img/products/crawled/f86/gallery-8.webp",
         "w": 1400,
         "h": 1050,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC"
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục F86 trên máy CNC"
       },
       {
         "src": "/img/products/crawled/f86/gallery-9.webp",
         "w": 960,
         "h": 720,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC"
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục F86 trên máy CNC"
       },
       {
         "src": "/img/products/crawled/f86/gallery-10.webp",
         "w": 1400,
         "h": 1050,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F86 trên máy CNC"
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục F86 trên máy CNC"
       }
     ],
     "documents": [
@@ -862,16 +864,17 @@
     "axes": "6 trục",
     "display": "10.4\"",
     "series": "F",
+    "type": "motion",
     "badge": "Touch",
-    "tag": "Bộ điều khiển CNC F10T",
-    "desc": "Bộ điều khiển CNC 6 trục vòng hở với màn hình lớn, hỗ trợ Pulse Train và EtherCAT. Trọn bộ giải pháp gồm servo drive/motor, tool setter và board I/O Link 1616.",
+    "tag": "Bộ điều khiển F10T",
+    "desc": "Bộ điều khiển 6 trục vòng hở với màn hình lớn, hỗ trợ Pulse Train và EtherCAT. Trọn bộ giải pháp gồm servo drive/motor, tool setter và board I/O Link 1616.",
     "bullets": [
       "Số trục điều khiển: 6 trục",
       "Kiểu điều khiển: Vòng hở (Open-loop)",
       "Giao tiếp: Pulse Train · EtherCAT"
     ],
-    "tagEn": "F10T CNC Controller",
-    "descEn": "6-axis open-loop CNC controller with a large display, supporting Pulse Train and EtherCAT. Complete solution including servo drive/motor, tool setter and I/O Link 1616 board.",
+    "tagEn": "F10T Controller",
+    "descEn": "6-axis open-loop controller with a large display, supporting Pulse Train and EtherCAT. Complete solution including servo drive/motor, tool setter and I/O Link 1616 board.",
     "bulletsEn": [
       "Control axes: 6 axes",
       "Control mode: Open-loop",
@@ -992,7 +995,7 @@
         }
       }
     ],
-    "overview": "<p>Bộ điều khiển F10T là dòng bộ điều khiển CNC sử dụng màn hình cảm ứng điện dung, cho phép điều khiển từ 4 đến 6 trục. Màn hình 10.4 inch độ phân giải 800 × 600, độ chống nhiễu tín hiệu cao.</p><p>F10T tích hợp PLC ladder để người dùng theo dõi trạng thái hoạt động của máy và mở rộng thêm ứng dụng khi cần thiết.</p>",
+    "overview": "<p>Bộ điều khiển F10T là dòng bộ điều khiển sử dụng màn hình cảm ứng điện dung, cho phép điều khiển từ 4 đến 6 trục. Màn hình 10.4 inch độ phân giải 800 × 600, độ chống nhiễu tín hiệu cao.</p><p>F10T tích hợp PLC ladder để người dùng theo dõi trạng thái hoạt động của máy và mở rộng thêm ứng dụng khi cần thiết.</p>",
     "highlights": [
       "LCD 10.4 Inch",
       "6 trục điều khiển đồng thời",
@@ -1004,7 +1007,7 @@
       "Tính năng bù rơ cơ khí",
       "Hồi tiếp encoder: Phase Z"
     ],
-    "overviewEn": "<p>The F10T is a CNC controller with a capacitive touchscreen, controlling 4 to 6 axes. Its 10.4-inch, 800 × 600 display offers high signal-noise immunity.</p><p>The F10T integrates a PLC ladder so users can monitor machine status and add further applications as needed.</p>",
+    "overviewEn": "<p>The F10T is a controller with a capacitive touchscreen, controlling 4 to 6 axes. Its 10.4-inch, 800 × 600 display offers high signal-noise immunity.</p><p>The F10T integrates a PLC ladder so users can monitor machine status and add further applications as needed.</p>",
     "highlightsEn": [
       "10.4-inch LCD",
       "6 simultaneously controlled axes",
@@ -1021,56 +1024,56 @@
         "src": "/img/products/crawled/f10t/gallery-1.webp",
         "w": 1339,
         "h": 1015,
-        "alt": "Bộ điều khiển CNC 6 trục F10T (Touch)",
+        "alt": "Bộ điều khiển 6 trục F10T (Touch)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f10t/gallery-2.webp",
         "w": 1400,
         "h": 1151,
-        "alt": "Mặt bên Bộ điều khiển CNC 6 trục F10T (Touch)",
+        "alt": "Mặt bên Bộ điều khiển 6 trục F10T (Touch)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f10t/gallery-ui-1.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F10T (Touch)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục F10T (Touch)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f10t/gallery-ui-2.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F10T (Touch)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục F10T (Touch)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f10t/gallery-ui-3.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục F10T (Touch)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục F10T (Touch)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f10t/gallery-machine.webp",
         "w": 1200,
         "h": 1600,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục F10T (Touch) trên máy CNC",
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục F10T (Touch) trên máy CNC",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/f10t/gallery-3.webp",
         "w": 1400,
         "h": 916,
-        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục F10T (Touch)",
+        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển 6 trục F10T (Touch)",
         "place": "hide"
       },
       {
         "src": "/img/products/crawled/f10t/gallery-4.webp",
         "w": 1400,
         "h": 824,
-        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục F10T (Touch)",
+        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển 6 trục F10T (Touch)",
         "place": "hide"
       }
     ],
@@ -1295,15 +1298,16 @@
     "axes": "6 trục",
     "display": "8\"",
     "series": "Astro",
+    "type": "robot",
     "tag": "Bộ điều khiển Astro 6AH",
-    "desc": "Bộ điều khiển CNC 6 trục vòng kín, hỗ trợ Pulse Train, EtherCAT và Mechatrolink MII/MIII. Giải pháp tự động hoá đầy đủ với servo, board I/O Link 32, tool setter và đầu dò 3D.",
+    "desc": "Bộ điều khiển 6 trục vòng kín, hỗ trợ Pulse Train, EtherCAT và Mechatrolink MII/MIII. Giải pháp tự động hoá đầy đủ với servo, board I/O Link 32, tool setter và đầu dò 3D.",
     "bullets": [
       "Số trục điều khiển: 6 trục",
       "Kiểu điều khiển: Vòng kín (Closed-loop)",
       "Giao tiếp: Pulse Train · EtherCAT · Mechatrolink MII/MIII"
     ],
     "tagEn": "Astro 6AH Controller",
-    "descEn": "6-axis closed-loop CNC controller supporting Pulse Train, EtherCAT and Mechatrolink MII/MIII. A full automation solution with servo, I/O Link 32 board, tool setter and 3D touch probe.",
+    "descEn": "6-axis closed-loop controller supporting Pulse Train, EtherCAT and Mechatrolink MII/MIII. A full automation solution with servo, I/O Link 32 board, tool setter and 3D touch probe.",
     "bulletsEn": [
       "Control axes: 6 axes",
       "Control mode: Closed-loop",
@@ -1435,7 +1439,7 @@
         }
       }
     ],
-    "overview": "<p>Bộ điều khiển CNC thuộc series Astro là dòng sản phẩm cao cấp của QS Technology, có hồi tiếp encoder tất cả các trục, tích hợp PLC và hỗ trợ lập trình Macro. Bảng điều khiển nhiều chức năng, chia thành hai phần và có nút dừng khẩn cấp.</p><p>Kiểu dáng Astro 6AH phù hợp với hầu hết dạng máy CNC. Khả năng thu thập tín hiệu hồi tiếp từ encoder giúp vận hành an toàn, chính xác; tốc độ nội suy đồng thời vượt trội hơn các dòng F54, F86.</p>",
+    "overview": "<p>Bộ điều khiển thuộc series Astro là dòng sản phẩm cao cấp của QS Technology, có hồi tiếp encoder tất cả các trục, tích hợp PLC và hỗ trợ lập trình Macro. Bảng điều khiển nhiều chức năng, chia thành hai phần và có nút dừng khẩn cấp.</p><p>Kiểu dáng Astro 6AH phù hợp với hầu hết dạng máy CNC. Khả năng thu thập tín hiệu hồi tiếp từ encoder giúp vận hành an toàn, chính xác; tốc độ nội suy đồng thời vượt trội hơn các dòng F54, F86.</p>",
     "highlights": [
       "LCD 8 Inch",
       "6 trục điều khiển đồng thời",
@@ -1466,70 +1470,70 @@
         "src": "/img/products/crawled/astro-6ah/gallery-1.webp",
         "w": 1338,
         "h": 1015,
-        "alt": "Bộ điều khiển CNC 6 trục Astro-6A (H)",
+        "alt": "Bộ điều khiển 6 trục Astro-6A (H)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-rear.webp",
         "w": 1400,
         "h": 1297,
-        "alt": "Mặt sau Bộ điều khiển CNC 6 trục Astro-6A (H)",
+        "alt": "Mặt sau Bộ điều khiển 6 trục Astro-6A (H)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-param.webp",
         "w": 1400,
         "h": 934,
-        "alt": "Màn hình cài đặt tham số trên Bộ điều khiển CNC 6 trục Astro-6A (H)",
+        "alt": "Màn hình cài đặt tham số trên Bộ điều khiển 6 trục Astro-6A (H)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-ui-1.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro-6A (H)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro-6A (H)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-ui-2.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro-6A (H)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro-6A (H)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-ui-3.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro-6A (H)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro-6A (H)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-3.webp",
         "w": 1400,
         "h": 2473,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục Astro-6A (H) trên máy CNC",
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục Astro-6A (H) trên máy CNC",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-7.webp",
         "w": 1400,
         "h": 826,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục Astro-6A (H) trên máy CNC",
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục Astro-6A (H) trên máy CNC",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-4.webp",
         "w": 1400,
         "h": 929,
-        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro-6A (H)",
+        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển 6 trục Astro-6A (H)",
         "place": "hide"
       },
       {
         "src": "/img/products/crawled/astro-6ah/gallery-6.webp",
         "w": 1400,
         "h": 792,
-        "alt": "Bộ điều khiển CNC 6 trục Astro-6A (H)",
+        "alt": "Bộ điều khiển 6 trục Astro-6A (H)",
         "place": "hide"
       }
     ],
@@ -1760,6 +1764,7 @@
     "axes": "6 trục",
     "display": "8\"",
     "series": "Astro",
+    "type": "cobot",
     "tag": "Bộ điều khiển Astro 6AV",
     "desc": "Phiên bản bố trí dọc của dòng Astro 6 trục vòng kín, hỗ trợ Pulse Train, EtherCAT và Mechatrolink MII/MIII. Đi kèm trọn bộ servo, board I/O Link 32, tool setter và đầu dò 3D.",
     "bullets": [
@@ -1900,7 +1905,7 @@
         }
       }
     ],
-    "overview": "<p>Bộ điều khiển CNC series Astro là dòng cao cấp của QS Technology với đầy đủ tính năng, hiệu năng mạnh mẽ, điều khiển vòng kín và tích hợp FPGA. Astro-6AV là phiên bản dọc của Astro-6AH, có bàn phím chức năng mở rộng và tích hợp tay quay MPG.</p><p>Màn hình 8 inch độ phân giải 800 × 600 giúp người vận hành theo dõi thông số rõ ràng, chi tiết.</p>",
+    "overview": "<p>Bộ điều khiển series Astro là dòng cao cấp của QS Technology với đầy đủ tính năng, hiệu năng mạnh mẽ, điều khiển vòng kín và tích hợp FPGA. Astro-6AV là phiên bản dọc của Astro-6AH, có bàn phím chức năng mở rộng và tích hợp tay quay MPG.</p><p>Màn hình 8 inch độ phân giải 800 × 600 giúp người vận hành theo dõi thông số rõ ràng, chi tiết.</p>",
     "highlights": [
       "LCD 8 Inch",
       "6 trục điều khiển đồng thời",
@@ -1934,56 +1939,56 @@
         "src": "/img/products/crawled/astro-6av/gallery-1.webp",
         "w": 1339,
         "h": 2227,
-        "alt": "Bộ điều khiển CNC 6 trục Astro-6A (V)",
+        "alt": "Bộ điều khiển 6 trục Astro-6A (V)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6av/gallery-2.webp",
         "w": 1400,
         "h": 2473,
-        "alt": "Bộ điều khiển CNC 6 trục Astro-6A (V)",
+        "alt": "Bộ điều khiển 6 trục Astro-6A (V)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6av/gallery-5.webp",
         "w": 1400,
         "h": 788,
-        "alt": "Bộ điều khiển CNC 6 trục Astro-6A (V)",
+        "alt": "Bộ điều khiển 6 trục Astro-6A (V)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6av/gallery-ui-1.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro-6A (V)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro-6A (V)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6av/gallery-ui-2.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro-6A (V)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro-6A (V)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6av/gallery-ui-3.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro-6A (V)",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro-6A (V)",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6av/gallery-4.webp",
         "w": 1400,
         "h": 2473,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục Astro-6A (V) trên máy CNC",
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục Astro-6A (V) trên máy CNC",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-6av/gallery-3.webp",
         "w": 1400,
         "h": 1394,
-        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro-6A (V)",
+        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển 6 trục Astro-6A (V)",
         "place": "hide"
       }
     ],
@@ -2214,15 +2219,16 @@
     "axes": "16 trục",
     "display": "10.4\"",
     "series": "Astro",
+    "type": "cnc",
     "tag": "Bộ điều khiển Astro 10S",
-    "desc": "Bộ điều khiển CNC 16 trục dạng vòng hở, hỗ trợ Pulse Train và EtherCAT. Giải pháp điều khiển nhiều trục cho dây chuyền phức tạp, đi kèm servo drive/motor, nguồn và board I/O Link 1616.",
+    "desc": "Bộ điều khiển 16 trục dạng vòng hở, hỗ trợ Pulse Train và EtherCAT. Giải pháp điều khiển nhiều trục cho dây chuyền phức tạp, đi kèm servo drive/motor, nguồn và board I/O Link 1616.",
     "bullets": [
       "Số trục điều khiển: 16 trục",
       "Kiểu điều khiển: Vòng hở (Open-loop)",
       "Giao tiếp: Pulse Train · EtherCAT"
     ],
     "tagEn": "Astro 10S Controller",
-    "descEn": "16-axis open-loop CNC controller supporting Pulse Train and EtherCAT. A multi-axis control solution for complex production lines, shipped with servo drive/motor, power supply and I/O Link 1616 board.",
+    "descEn": "16-axis open-loop controller supporting Pulse Train and EtherCAT. A multi-axis control solution for complex production lines, shipped with servo drive/motor, power supply and I/O Link 1616 board.",
     "bulletsEn": [
       "Control axes: 16 axes",
       "Control mode: Open-loop",
@@ -2339,42 +2345,42 @@
         "src": "/img/products/crawled/astro-10s/gallery-front.webp",
         "w": 1600,
         "h": 1304,
-        "alt": "Bộ điều khiển CNC 16 trục Astro 10S",
+        "alt": "Bộ điều khiển 16 trục Astro 10S",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10s/gallery-rear.webp",
         "w": 1400,
         "h": 1123,
-        "alt": "Mặt sau Bộ điều khiển CNC 16 trục Astro 10S",
+        "alt": "Mặt sau Bộ điều khiển 16 trục Astro 10S",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10s/gallery-ui-1.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 16 trục Astro 10S",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10s/gallery-ui-2.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 16 trục Astro 10S",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10s/gallery-ui-3.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 16 trục Astro 10S",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10s/gallery-machine.webp",
         "w": 1600,
         "h": 900,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 16 trục Astro 10S trên máy CNC",
+        "alt": "Ứng dụng thực tế Bộ điều khiển 16 trục Astro 10S trên máy CNC",
         "place": "tour"
       }
     ],
@@ -2528,16 +2534,17 @@
     "axes": "6 trục",
     "display": "10.4\"",
     "series": "Astro",
+    "type": "motion",
     "badge": "Flagship",
     "tag": "Bộ điều khiển Astro 10i",
-    "desc": "Bộ điều khiển CNC 6 trục vòng kín màn hình lớn, hỗ trợ Pulse Train, EtherCAT và Mechatrolink MII/MIII. Trọn bộ giải pháp cao cấp với servo, board I/O Link 32, tool setter và đầu dò 3D.",
+    "desc": "Bộ điều khiển 6 trục vòng kín màn hình lớn, hỗ trợ Pulse Train, EtherCAT và Mechatrolink MII/MIII. Trọn bộ giải pháp cao cấp với servo, board I/O Link 32, tool setter và đầu dò 3D.",
     "bullets": [
       "Số trục điều khiển: 6 trục",
       "Kiểu điều khiển: Vòng kín (Closed-loop)",
       "Giao tiếp: Pulse Train · EtherCAT · Mechatrolink MII/MIII"
     ],
     "tagEn": "Astro 10i Controller",
-    "descEn": "Large-display 6-axis closed-loop CNC controller supporting Pulse Train, EtherCAT and Mechatrolink MII/MIII. A premium complete solution with servo, I/O Link 32 board, tool setter and 3D touch probe.",
+    "descEn": "Large-display 6-axis closed-loop controller supporting Pulse Train, EtherCAT and Mechatrolink MII/MIII. A premium complete solution with servo, I/O Link 32 board, tool setter and 3D touch probe.",
     "bulletsEn": [
       "Control axes: 6 axes",
       "Control mode: Closed-loop",
@@ -2669,7 +2676,7 @@
         }
       }
     ],
-    "overview": "<p>Bộ điều khiển CNC Astro 10i là dòng sản phẩm cao cấp nhất của QS Technology, với đầy đủ tính năng, hiệu năng mạnh mẽ, điều khiển vòng kín và tích hợp FPGA để mang lại trải nghiệm vận hành tốt nhất.</p><p>Astro 10i là phiên bản nâng cấp từ Astro 6AV và Astro-6AH, có bàn phím chức năng mở rộng, tích hợp thêm công tắc và nút dừng khẩn cấp. Màn hình 10.4 inch độ phân giải 800 × 600 giúp theo dõi thông số rõ ràng, chi tiết.</p>",
+    "overview": "<p>Bộ điều khiển Astro 10i là dòng sản phẩm cao cấp nhất của QS Technology, với đầy đủ tính năng, hiệu năng mạnh mẽ, điều khiển vòng kín và tích hợp FPGA để mang lại trải nghiệm vận hành tốt nhất.</p><p>Astro 10i là phiên bản nâng cấp từ Astro 6AV và Astro-6AH, có bàn phím chức năng mở rộng, tích hợp thêm công tắc và nút dừng khẩn cấp. Màn hình 10.4 inch độ phân giải 800 × 600 giúp theo dõi thông số rõ ràng, chi tiết.</p>",
     "highlights": [
       "LCD 10.4 Inch",
       "6 trục điều khiển đồng thời",
@@ -2700,56 +2707,56 @@
         "src": "/img/products/crawled/astro-10i/gallery-1.webp",
         "w": 1339,
         "h": 2227,
-        "alt": "Bộ điều khiển CNC 6 trục Astro 10i",
+        "alt": "Bộ điều khiển 6 trục Astro 10i",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10i/gallery-rear.webp",
         "w": 1400,
         "h": 2734,
-        "alt": "Mặt sau Bộ điều khiển CNC 6 trục Astro 10i",
+        "alt": "Mặt sau Bộ điều khiển 6 trục Astro 10i",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10i/gallery-panel.webp",
         "w": 1400,
         "h": 793,
-        "alt": "Bảng phím vận hành ASTRO OPK10i của Bộ điều khiển CNC 6 trục Astro 10i",
+        "alt": "Bảng phím vận hành ASTRO OPK10i của Bộ điều khiển 6 trục Astro 10i",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10i/gallery-ui-1.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro 10i",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro 10i",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10i/gallery-ui-2.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro 10i",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro 10i",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10i/gallery-ui-3.webp",
         "w": 800,
         "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển CNC 6 trục Astro 10i",
+        "alt": "Giao diện vận hành trên Bộ điều khiển 6 trục Astro 10i",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10i/gallery-machine.webp",
         "w": 1600,
         "h": 900,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục Astro 10i trên máy CNC",
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục Astro 10i trên máy CNC",
         "place": "tour"
       },
       {
         "src": "/img/products/crawled/astro-10i/gallery-machine-2.webp",
         "w": 941,
         "h": 1672,
-        "alt": "Ứng dụng thực tế Bộ điều khiển CNC 6 trục Astro 10i trên máy CNC",
+        "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục Astro 10i trên máy CNC",
         "place": "tour"
       },
       {
@@ -2763,7 +2770,7 @@
         "src": "/img/products/crawled/astro-10i/gallery-4.webp",
         "w": 1400,
         "h": 1387,
-        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển CNC 6 trục Astro 10i",
+        "alt": "Sơ đồ kết nối thiết bị ngoại vi cho Bộ điều khiển 6 trục Astro 10i",
         "place": "hide"
       }
     ],

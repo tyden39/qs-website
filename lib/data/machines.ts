@@ -1,15 +1,20 @@
 import {
   machines,
   HIGHLIGHT_COUNT,
+  MACHINE_TYPE,
   type Machine,
   type MachineCategory,
+  type MachineType,
   type MachineSpec,
   type MachinePhoto,
   type MachineHeroShot,
 } from "@/data/machines";
 import type { Locale } from "@/lib/i18n/config";
 
-export type { MachineCategory, MachineSpec, MachinePhoto, MachineHeroShot };
+export type { MachineCategory, MachineType, MachineSpec, MachinePhoto, MachineHeroShot };
+
+/** Section order on the machines list page: the CNC line first. */
+export const MACHINE_TYPES: MachineType[] = ["cnc", "automation", "inspection"];
 
 export type MachineFeatureView = { title: string; desc: string; img?: string };
 export type MachineUseCaseView = { icon: string; title: string; desc: string };
@@ -22,6 +27,8 @@ export type MachineView = {
   slug: string;
   model: string;
   category: MachineCategory;
+  /** Catalogue sub-type — drives the sections on the machines list page. */
+  type: MachineType;
   axes: number;
   controller: string | null;
   controllerSlug: string | null;
@@ -67,6 +74,7 @@ function toView(m: Machine, locale: Locale): MachineView {
     slug: m.slug,
     model: m.model,
     category: m.category,
+    type: MACHINE_TYPE[m.category],
     axes: m.axes,
     controller: m.controller ?? null,
     controllerSlug: m.controllerSlug ?? null,

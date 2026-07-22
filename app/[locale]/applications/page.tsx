@@ -5,7 +5,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import { ProductVideo } from "../products/_components/product-video";
-import RailNudge from "@/components/rail-nudge";
 import type { Locale } from "@/lib/i18n/config";
 
 // Shop-floor feature clip shown below the catalog list.
@@ -36,13 +35,28 @@ export async function generateMetadata({
   };
 }
 
+// Shop-floor still + short label for each existing case study. Order matches
+// `application.index.items` so the label/machine lookup by index stays in sync.
 const appAssets = [
-  { slug: "phay-cnc", n: "01", img: "/home/app-phay-cnc.webp" },
-  { slug: "cua-long", n: "02", img: "/home/app-cua-long.webp" },
-  { slug: "dan-keo", n: "03", img: "/home/app-dan-keo.webp" },
-  { slug: "uon-lo-xo", n: "04", img: "/home/app-uon-lo-xo.webp" },
-  { slug: "mong-go", n: "05", img: "/home/app-mong-go.webp" },
-  { slug: "kim-hoan", n: "06", img: "/home/app-kim-hoan.webp" },
+  { slug: "phay-cnc", img: "/home/app-phay-cnc.webp" },
+  { slug: "cua-long", img: "/home/app-cua-long.webp" },
+  { slug: "dan-keo", img: "/home/app-dan-keo.webp" },
+  { slug: "uon-lo-xo", img: "/home/app-uon-lo-xo.webp" },
+  { slug: "mong-go", img: "/home/app-mong-go.webp" },
+  { slug: "kim-hoan", img: "/home/app-kim-hoan.webp" },
+];
+
+type AppSubItem = { kind: "case"; slug: string } | { kind: "soon"; key: string };
+
+// Material-based taxonomy for the index (index-only regroup). Each row aligns
+// with `application.index.groups`: existing case studies link to their detail
+// page; sub-types without content yet render as "coming soon" placeholders.
+const appTaxonomy: AppSubItem[][] = [
+  [{ kind: "case", slug: "phay-cnc" }],
+  [{ kind: "soon", key: "dieu-khac-go" }, { kind: "case", slug: "cua-long" }, { kind: "case", slug: "mong-go" }],
+  [{ kind: "soon", key: "dieu-khac-da" }, { kind: "soon", key: "cat-da" }],
+  [{ kind: "case", slug: "kim-hoan" }],
+  [{ kind: "case", slug: "dan-keo" }, { kind: "case", slug: "uon-lo-xo" }],
 ];
 
 export default async function Applications({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -51,7 +65,15 @@ export default async function Applications({ params }: { params: Promise<{ local
   const t = await getTranslations({ locale, namespace: "application.index" });
   const seo = await getTranslations({ locale, namespace: "seo" });
   const appText = t.raw("items") as { t: string; machine: string }[];
-  const apps = appAssets.map((a, i) => ({ ...a, ...appText[i] }));
+  const groupMeta = t.raw("groups") as { name: string; tag: string; desc: string; axes?: string }[];
+  const soon = t.raw("soon") as { label: string; imageLabel: string; items: Record<string, string> };
+  // Resolve a case sub-item to its shop-floor image + labels from the shared rows.
+  const caseAt = (slug: string) => {
+    const i = appAssets.findIndex((a) => a.slug === slug);
+    return { img: appAssets[i].img, label: appText[i].t, machine: appText[i].machine };
+  };
+  const groups = groupMeta.map((meta, gi) => ({ ...meta, n: String(gi + 1).padStart(2, "0"), items: appTaxonomy[gi] }));
+  const caseCount = appTaxonomy.flat().filter((it) => it.kind === "case").length;
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: seo("applicationsTitle"), path: "/applications" },
   ]);
@@ -95,7 +117,7 @@ export default async function Applications({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      {/* GRID */}
+      {/* GROUPED BY MATERIAL */}
       <section className="py-12 sm:py-16 lg:py-24 bg-white" id="list">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
@@ -103,46 +125,62 @@ export default async function Applications({ params }: { params: Promise<{ local
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("catalogEyebrow")}</span>
               <h2 className="qs-h2 mt-2">{t("catalogHeading")}</h2>
             </div>
-            <span className="font-mono text-label text-muted tracking-[.1em] uppercase">{t("caseStudies", { count: apps.length })}</span>
+            <span className="font-mono text-label text-muted tracking-[.1em] uppercase">{t("caseStudies", { count: caseCount })}</span>
           </div>
-          {/* phones: a snap-scrolling rail, one full-width case study per screen (swipe cue
-              below); from md up the same cards lay out as the 4-up catalog grid. */}
-          <div id="applications-rail"
-               className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                          md:grid md:grid-cols-4 md:overflow-visible
-                          gap-px bg-line border border-line">
-            {apps.map((a, i) => (
-              <Link key={a.slug} href={`/applications/${a.slug}`}
-                    className="group w-full shrink-0 snap-start md:w-auto bg-white p-6 flex flex-col gap-4 hover:bg-paper transition-colors relative
-                               before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold">
-                <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">[ {a.n} ] {a.t}</div>
-                <div className="relative aspect-[5/4] border border-line overflow-hidden bg-paper">
-                  <Image src={a.img} alt={a.machine} fill sizes="(max-width:768px) 50vw, 25vw"
-                         className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                  {/* gold blueprint scan sweeping the figure — desktop flourish, staggered so
-                      the catalog grid doesn't pulse in sync (hidden on phones via globals.css) */}
-                  <div className="qs-scan" style={{ animationDelay: `${i * 0.6}s` }} aria-hidden="true"></div>
-                  <span className="absolute bottom-2 right-2 font-mono text-label-xs text-white/85 tracking-[.16em] mix-blend-difference">FIG · {a.n}</span>
+          {/* material groups stack vertically; sub-items lay out as a 2-up (phone)
+              / 4-up (desktop) grid. Existing case studies link out; new sub-types
+              render as non-clickable "coming soon" placeholders (no dead links). */}
+          <div className="flex flex-col gap-px bg-line border border-line">
+            {groups.map((g) => (
+              <div key={g.name} className="bg-white">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2 px-5 sm:px-7 pt-6 pb-5 border-b border-line">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
+                    <span className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">[ {g.n} / {String(groups.length).padStart(2, "0")} ]</span>
+                    <h3 className="font-display font-bold text-subhead tracking-[-.01em] m-0">{g.name}</h3>
+                    <span className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">· {g.tag}</span>
+                    {g.axes && (
+                      <span className="font-mono text-label-xs text-gold-1 tracking-[.14em] uppercase border border-gold/40 rounded-full px-2 py-0.5">{g.axes}</span>
+                    )}
+                  </div>
+                  <p className="text-meta text-muted leading-[1.5] m-0 max-w-[54ch]">{g.desc}</p>
                 </div>
-                <div>
-                  <div className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">{t("controllerFor")}</div>
-                  <h3 className="font-display font-semibold text-lede m-0 mt-1.5 leading-[1.3]">{a.machine}</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-line">
+                  {g.items.map((it) =>
+                    it.kind === "case" ? (
+                      (() => {
+                        const c = caseAt(it.slug);
+                        return (
+                          <Link key={it.slug} href={`/applications/${it.slug}`}
+                                className="group bg-white p-5 flex flex-col gap-3 hover:bg-paper transition-colors relative
+                                           before:content-[''] before:absolute before:top-0 before:left-5 before:w-8 before:h-0.5 before:bg-gold">
+                            <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{c.label}</div>
+                            <div className="relative aspect-[4/3] border border-line overflow-hidden bg-paper">
+                              <Image src={c.img} alt={c.machine} fill sizes="(max-width:768px) 50vw, 25vw"
+                                     className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                              <div className="qs-scan" aria-hidden="true"></div>
+                            </div>
+                            <div className="flex justify-between items-center pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-gold-1">
+                              <span>{t("detail")}</span>
+                              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                            </div>
+                          </Link>
+                        );
+                      })()
+                    ) : (
+                      <div key={it.key} className="bg-white p-5 flex flex-col gap-3">
+                        <div className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">{soon.items[it.key]}</div>
+                        <div className="relative aspect-[4/3] border border-dashed border-gold/40 overflow-hidden flex items-center justify-center px-3 text-center"
+                             style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
+                          <span className="font-mono text-label-xs text-muted tracking-[.14em] uppercase">{soon.imageLabel}</span>
+                        </div>
+                        <div className="pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-muted">{soon.label}</div>
+                      </div>
+                    ),
+                  )}
                 </div>
-                <div className="flex justify-between items-center pt-3 mt-auto border-t border-line font-mono text-label-xs tracking-[.12em] uppercase">
-                  <span>{t("detail")}</span><span>→</span>
-                </div>
-              </Link>
-            ))}
-            {/* honest catalog summary fills the trailing grid cell — grid-only, kept out of
-                the phone rail so swiping lands on case studies rather than a count tile */}
-            <div className="hidden md:flex md:col-span-2 bg-ink text-[#cfc9b8] p-6 flex-col items-center justify-center gap-3">
-              <div className="font-display font-bold text-h2 text-gold-2 tracking-[-.01em]">
-                {String(apps.length).padStart(2, "0")}
               </div>
-              <div className="font-mono text-label-xs text-[#a8a499] tracking-[.16em] uppercase text-center">{t("catalogHeading")}</div>
-            </div>
+            ))}
           </div>
-          <RailNudge targetId="applications-rail" label={t("swipeHint")} className="md:hidden" />
         </div>
       </section>
 

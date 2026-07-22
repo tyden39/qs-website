@@ -1,0 +1,573 @@
+<title>Mockup IA /products — QS</title>
+<style>
+  :root {
+    --paper: #f5f3ee;
+    --paper-2: #ecebe5;
+    --surface: #ffffff;
+    --ink: #0a0a0a;
+    --text: #1a1a1a;
+    --muted: #6b6960;
+    --line: #d8d6cf;
+    --line-2: #b8b6ae;
+    --gold: #c9a35a;
+    --gold-deep: #8a6f35;
+    --gold-soft: rgba(201, 163, 90, .12);
+    --font-body: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #16150f;
+      --paper-2: #1d1c15;
+      --surface: #211f18;
+      --ink: #f2f0e9;
+      --text: #e6e4dc;
+      --muted: #98948a;
+      --line: #37342a;
+      --line-2: #4d493c;
+      --gold: #c9a35a;
+      --gold-deep: #d8b56a;
+      --gold-soft: rgba(201, 163, 90, .10);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper: #f5f3ee; --paper-2: #ecebe5; --surface: #ffffff;
+    --ink: #0a0a0a; --text: #1a1a1a; --muted: #6b6960;
+    --line: #d8d6cf; --line-2: #b8b6ae;
+    --gold: #c9a35a; --gold-deep: #8a6f35; --gold-soft: rgba(201,163,90,.12);
+  }
+  :root[data-theme="dark"] {
+    --paper: #16150f; --paper-2: #1d1c15; --surface: #211f18;
+    --ink: #f2f0e9; --text: #e6e4dc; --muted: #98948a;
+    --line: #37342a; --line-2: #4d493c;
+    --gold: #c9a35a; --gold-deep: #d8b56a; --gold-soft: rgba(201,163,90,.10);
+  }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background: var(--paper);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold-deep);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--gold); }
+
+  header.page { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
+  h1 {
+    font-size: clamp(28px, 4.5vw, 42px); font-weight: 700;
+    letter-spacing: -.015em; margin: 14px 0 12px; color: var(--ink);
+    text-wrap: balance;
+  }
+  .lede { max-width: 62ch; color: var(--muted); font-size: 16.5px; margin: 0 0 18px; }
+  .meta { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; color: var(--muted); }
+
+  nav.toc {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+  }
+  nav.toc .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }
+  nav.toc a {
+    flex-shrink: 0; text-decoration: none;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--line); background: var(--surface);
+    padding: 7px 12px; transition: color .15s, border-color .15s;
+  }
+  nav.toc a:hover, nav.toc a:focus-visible { color: var(--ink); border-color: var(--ink); outline: none; }
+  nav.toc a b { color: var(--gold-deep); font-weight: 700; margin-right: 6px; }
+
+  section.option { padding: 52px 0 8px; }
+  .opt-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .opt-letter {
+    font-family: var(--font-mono); font-weight: 700; font-size: 15px;
+    color: var(--paper); background: var(--ink);
+    width: 34px; height: 34px; display: grid; place-items: center;
+    align-self: center; flex-shrink: 0;
+  }
+  h2.opt-title { font-size: clamp(21px, 3vw, 27px); font-weight: 700; letter-spacing: -.01em; margin: 0; color: var(--ink); }
+  .opt-thesis { margin: 10px 0 16px; color: var(--muted); max-width: 68ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .chip {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+    border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+    border-radius: 999px; padding: 5px 12px;
+  }
+  .chip.warn { border-color: var(--line-2); color: var(--gold-deep); }
+
+  /* ── browser frame quanh wireframe ─────────────────────────── */
+  .frame { border: 1px solid var(--line-2); background: var(--surface); box-shadow: 0 2px 22px -14px rgba(0,0,0,.25); }
+  .frame-bar {
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--line); padding: 9px 14px; background: var(--paper-2);
+  }
+  .frame-bar .dots { display: flex; gap: 5px; }
+  .frame-bar .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
+  .frame-bar .url {
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    background: var(--surface); border: 1px solid var(--line); padding: 3px 10px; letter-spacing: .04em;
+  }
+  .wf { padding: 26px 26px 30px; overflow-x: auto; }
+  .wf-crumb { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .wf-crumb .here { color: var(--ink); }
+  .wf h3 { font-size: 21px; font-weight: 700; letter-spacing: -.01em; color: var(--ink); margin: 0 0 4px; text-wrap: balance; }
+  .wf .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 18px; }
+
+  .mark {
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+    color: var(--gold-deep); border: 1px solid var(--gold);
+    width: 20px; height: 20px; border-radius: 50%;
+    display: inline-grid; place-items: center; background: var(--gold-soft);
+    flex-shrink: 0;
+  }
+
+  .entry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .entry {
+    border: 1px solid var(--line); background: var(--surface);
+    padding: 16px; display: flex; flex-direction: column; gap: 8px; position: relative;
+  }
+  .entry .mark { position: absolute; top: -10px; left: -10px; }
+  .entry .tag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-deep); }
+  .entry b.name { font-size: 15px; color: var(--ink); letter-spacing: -.005em; }
+  .entry p { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .entry .models { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: .04em; border-top: 1px dashed var(--line); padding-top: 8px; }
+  .entry .go { margin-top: auto; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+  .entry .go::after { content: " →"; color: var(--gold-deep); }
+
+  .searchbar {
+    margin-top: 14px; display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--line-2); background: var(--paper-2); padding: 11px 14px;
+  }
+  .searchbar .q { flex: 1; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .searchbar .btn {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    background: var(--ink); color: var(--paper); padding: 7px 14px;
+  }
+
+  .tier2 { margin-top: 22px; }
+  .tier2 .label { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .mini-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .mini {
+    border: 1px solid var(--line); background: var(--surface); padding: 10px 10px 8px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .mini b { font-size: 11.5px; color: var(--ink); font-weight: 600; }
+  .mini span { font-family: var(--font-mono); font-size: 10px; color: var(--gold-deep); }
+
+  /* ── D: chuỗi hệ thống ─────────────────────────────────────── */
+  .chain { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; align-items: stretch; margin-top: 6px; }
+  .node { position: relative; padding: 0 7px; display: flex; flex-direction: column; }
+  .node + .node::before {
+    content: "→"; position: absolute; left: -7px; top: 44px;
+    color: var(--gold); font-size: 13px; transform: translateX(-2px);
+  }
+  .node .box {
+    border: 1px solid var(--line); background: var(--surface); height: 88px;
+    display: grid; place-items: center; margin-bottom: 8px; position: relative;
+  }
+  .node .box .ph {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); border: 1px dashed var(--line-2); padding: 14px 10px;
+  }
+  .node .box .mark { position: absolute; top: -9px; right: -6px; }
+  .node b { font-size: 12px; color: var(--ink); line-height: 1.35; }
+  .node .cnt { font-family: var(--font-mono); font-size: 10px; color: var(--gold-deep); }
+  .node .models { font-family: var(--font-mono); font-size: 9px; color: var(--muted); margin-top: 3px; line-height: 1.6; }
+  .chain-note { margin-top: 16px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 10px; }
+
+  /* ── E: wizard ─────────────────────────────────────────────── */
+  .wizard { max-width: 620px; margin: 0 auto; }
+  .progress { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .progress .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line-2); }
+  .progress .dot.on { background: var(--gold); }
+  .answers { display: grid; gap: 10px; margin-top: 14px; }
+  .ans {
+    border: 1px solid var(--line); background: var(--surface); padding: 13px 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .ans:hover { border-color: var(--ink); }
+  .ans .rad { width: 14px; height: 14px; border: 1.5px solid var(--line-2); border-radius: 50%; flex-shrink: 0; }
+  .ans b { font-size: 13.5px; color: var(--ink); font-weight: 600; }
+  .ans span { font-size: 12px; color: var(--muted); }
+  .then {
+    text-align: center; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--muted); margin: 18px 0;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .then::before, .then::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .result { border: 1px solid var(--gold); background: var(--gold-soft); padding: 18px; position: relative; }
+  .result .mark { position: absolute; top: -10px; left: -10px; }
+  .result .tag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-deep); }
+  .result h4 { margin: 4px 0 10px; font-size: 17px; color: var(--ink); letter-spacing: -.005em; }
+  .parts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .part { font-family: var(--font-mono); font-size: 10.5px; border: 1px solid var(--line-2); background: var(--surface); color: var(--text); padding: 4px 9px; }
+  .part i { font-style: normal; color: var(--muted); }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .cta { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; background: var(--ink); color: var(--paper); padding: 9px 16px; }
+  .cta.alt { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .refnote { font-size: 11.5px; color: var(--muted); margin-top: 10px; }
+  .escape { display: block; margin-top: 16px; text-align: center; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); position: relative; }
+  .escape .mark { vertical-align: middle; margin-right: 8px; }
+
+  /* ── annotations ───────────────────────────────────────────── */
+  .notes { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+  .notes li { display: flex; gap: 12px; align-items: baseline; font-size: 13.5px; color: var(--text); max-width: 76ch; }
+  .notes li .mark { transform: translateY(3px); }
+  .notes li b { color: var(--ink); }
+  .weak { margin: 18px 0 0; padding: 12px 16px; border-left: 2px solid var(--gold); background: var(--surface); font-size: 13px; color: var(--muted); max-width: 76ch; }
+  .weak b { color: var(--gold-deep); font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+  /* ── scoring ───────────────────────────────────────────────── */
+  section.score { padding: 52px 0 24px; }
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 13px; }
+  th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--paper-2); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.opt { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  td.opt span { font-family: var(--font-mono); font-size: 10px; color: var(--gold-deep); display: block; font-weight: 400; }
+  .pips { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px; color: var(--gold-deep); white-space: nowrap; }
+  .pips i { font-style: normal; color: var(--line-2); }
+  td.note-cell { color: var(--muted); font-size: 12.5px; min-width: 180px; }
+  tr.dim td { opacity: .5; }
+  tr.pick td { background: var(--gold-soft); }
+
+  .verdict { margin-top: 26px; border: 1px solid var(--gold); background: var(--surface); padding: 20px 22px; }
+  .verdict .tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-deep); }
+  .verdict p { margin: 8px 0 0; max-width: 76ch; font-size: 14.5px; }
+  .verdict p + p { color: var(--muted); font-size: 13.5px; }
+
+  footer.page { border-top: 1px solid var(--line); margin-top: 40px; padding: 22px 0 44px; }
+  footer.page p { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: .04em; margin: 0; }
+
+  @media (max-width: 820px) {
+    .entry-grid { grid-template-columns: 1fr; }
+    .mini-grid { grid-template-columns: repeat(3, 1fr); }
+    .chain { grid-template-columns: repeat(2, 1fr); row-gap: 20px; }
+    .node + .node::before { display: none; }
+  }
+</style>
+
+<header class="page">
+  <div class="wrap">
+    <span class="eyebrow">QS Website · /products · Mockup</span>
+    <h1>Ba hướng tổ chức trang Sản phẩm</h1>
+    <p class="lede">Wireframe so sánh ba trục tư duy khả thi nhất cho landing /products. Tên và số lượng sản phẩm lấy từ data thật của site; token màu, kiểu chữ theo đúng design system hiện hành.</p>
+    <p class="meta">22/07/2026 · plans/260722-1424-products-ia-mockups · phân tích đầy đủ 5 phương án A–E trong plan.md</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Mục lục">
+  <div class="wrap">
+    <a href="#opt-b"><b>B</b>Bài toán khách</a>
+    <a href="#opt-d"><b>D</b>Sơ đồ hệ thống</a>
+    <a href="#opt-e"><b>E</b>Hội thoại cấu hình</a>
+    <a href="#score"><b>★</b>Chấm điểm</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ PHƯƠNG ÁN B ═══════════════ -->
+<section class="option" id="opt-b">
+  <div class="wrap">
+    <div class="opt-head">
+      <span class="opt-letter">B</span>
+      <h2 class="opt-title">Theo bài toán khách — lớp mỏng đặt trên lưới danh mục</h2>
+    </div>
+    <p class="opt-thesis">Khách tự nhận diện mình qua ba lối vào ("cần gì"), thay vì phải dịch nhu cầu sang taxonomy thiết bị. Lưới 6 nhóm hiện tại giữ nguyên làm tầng duyệt bên dưới.</p>
+    <div class="chips">
+      <span class="chip">3 bước tới cuộc gọi</span>
+      <span class="chip">Phục vụ đủ 4 nhóm khách</span>
+      <span class="chip">Tái dùng 6 trang nhóm hiện có</span>
+      <span class="chip warn">Cần viết 3–5 bộ kit</span>
+    </div>
+
+    <div class="frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">qstcnc.com/vi/products</span>
+      </div>
+      <div class="wf">
+        <div class="wf-crumb">Trang chủ <span>/</span> <span class="here">Sản phẩm</span></div>
+        <h3>Bạn đang cần gì?</h3>
+        <p class="sub">Chọn theo việc của bạn — hoặc tra thẳng mã hàng bên dưới.</p>
+
+        <div class="entry-grid">
+          <div class="entry">
+            <span class="mark">1</span>
+            <span class="tag">Mua máy hoàn chỉnh</span>
+            <b class="name">Máy CNC ráp sẵn, bàn giao chạy ngay</b>
+            <p>Phay, router, kim hoàn, tự động hóa — kèm lắp đặt và đào tạo vận hành.</p>
+            <span class="models">QSM-215 · VMC-300 · PJM-420 · +4</span>
+            <span class="go">Xem 07 máy</span>
+          </div>
+          <div class="entry">
+            <span class="tag">Tự ráp · Nâng cấp</span>
+            <b class="name">Bộ kit điều khiển + truyền động</b>
+            <p>Cho xưởng tự dựng máy hoặc thay hệ điều khiển cũ: controller, servo, motor đi bộ với nhau.</p>
+            <span class="models">Kit phay 4 trục: F54 + SDV3 + SCH</span>
+            <span class="go">Xem bộ kit</span>
+          </div>
+          <div class="entry">
+            <span class="tag">Thay thế · Sửa chữa</span>
+            <b class="name">Linh kiện lẻ cho máy đang chạy</b>
+            <p>DNC, bảng I/O, cáp, nguồn — đúng chuẩn chân cắm, có hàng sẵn.</p>
+            <span class="models">Micro DNC 2D · RS232 · Adapter 12V</span>
+            <span class="go">Tìm linh kiện</span>
+          </div>
+        </div>
+
+        <div class="searchbar">
+          <span class="mark">2</span>
+          <span class="q">Biết mã hàng? Gõ F54, SDV3, S3100…</span>
+          <span class="btn">Tìm</span>
+        </div>
+
+        <div class="tier2">
+          <div class="label"><span class="mark">3</span> Duyệt theo danh mục</div>
+          <div class="mini-grid">
+            <div class="mini"><b>Máy CNC</b><span>07</span></div>
+            <div class="mini"><b>Bộ điều khiển</b><span>07</span></div>
+            <div class="mini"><b>Servo</b><span>05</span></div>
+            <div class="mini"><b>Biến tần</b><span>04</span></div>
+            <div class="mini"><b>DNC</b><span>02</span></div>
+            <div class="mini"><b>Phụ kiện</b><span>07</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="notes">
+      <li><span class="mark">1</span><span><b>Ba lối vào theo bài toán</b> — khớp 1-1 với bốn nhóm khách: nhà máy → lối 1, xưởng tự ráp và kỹ sư tích hợp → lối 2, thợ sửa → lối 3. Trang lối vào kết bằng "gọi để chốt cấu hình".</span></li>
+      <li><span class="mark">2</span><span><b>Lối tắt tra mã</b> — index client-side từ slug/name của 4 file data, không cần backend, chạy được với static export.</span></li>
+      <li><span class="mark">3</span><span><b>Lưới 6 nhóm giữ nguyên</b> — tụt xuống tầng hai; URL và nội dung 6 trang nhóm hiện có không đổi.</span></li>
+    </ol>
+    <div class="weak"><b>Điểm yếu lớn nhất</b>Ranh giới lối vào mờ — biến tần S3100 nằm ở cả "tự ráp" lẫn "thay thế". Xử lý dở sẽ thành trùng lặp nội dung và giảm chất "kỹ thuật" trong mắt dân tích hợp.</div>
+  </div>
+</section>
+
+<!-- ═══════════════ PHƯƠNG ÁN D ═══════════════ -->
+<section class="option" id="opt-d">
+  <div class="wrap">
+    <div class="opt-head">
+      <span class="opt-letter">D</span>
+      <h2 class="opt-title">Theo sơ đồ hệ thống — điều hướng bằng vị trí trong chuỗi máy</h2>
+    </div>
+    <p class="opt-thesis">Landing là giải phẫu một máy CNC: chuỗi tín hiệu từ máy hoàn chỉnh xuống từng khối chức năng. Khách bấm vào khối mình cần — trục phân nhóm là vị trí kỹ thuật, không phải tên danh mục.</p>
+    <div class="chips">
+      <span class="chip">Dạy khách mới cấu trúc máy</span>
+      <span class="chip">Kỹ sư thấy ngay vị trí cần</span>
+      <span class="chip">Data mapping đã có sẵn</span>
+      <span class="chip warn">Mobile phải xoay dọc</span>
+    </div>
+
+    <div class="frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">qstcnc.com/vi/products</span>
+      </div>
+      <div class="wf">
+        <div class="wf-crumb">Trang chủ <span>/</span> <span class="here">Sản phẩm</span></div>
+        <h3>Một máy CNC hoàn chỉnh — chọn phần bạn cần</h3>
+        <p class="sub">Mỗi khối là một nhóm sản phẩm. Bấm để mở danh sách của khối đó.</p>
+
+        <div class="chain">
+          <div class="node">
+            <div class="box"><span class="ph">Máy</span><span class="mark">1</span></div>
+            <b>Máy hoàn chỉnh</b>
+            <span class="cnt">07 model</span>
+            <span class="models">QSM-215 · VMC-300 · PJM-420</span>
+          </div>
+          <div class="node">
+            <div class="box"><span class="ph">CNC / Robot</span></div>
+            <b>Bộ điều khiển</b>
+            <span class="cnt">07 model</span>
+            <span class="models">F54 · F86 · Astro 10S</span>
+          </div>
+          <div class="node">
+            <div class="box"><span class="ph">Drive + Motor</span><span class="mark">2</span></div>
+            <b>Truyền động servo</b>
+            <span class="cnt">05 dòng</span>
+            <span class="models">SDV3 · SDA2 · SCH</span>
+          </div>
+          <div class="node">
+            <div class="box"><span class="ph">Trục chính</span></div>
+            <b>Biến tần</b>
+            <span class="cnt">04 dòng</span>
+            <span class="models">S600 · S3100 · Penta</span>
+          </div>
+          <div class="node">
+            <div class="box"><span class="ph">Dữ liệu</span></div>
+            <b>Truyền chương trình</b>
+            <span class="cnt">02 model</span>
+            <span class="models">Micro DNC 2D · 3A</span>
+          </div>
+          <div class="node">
+            <div class="box"><span class="ph">I/O · Cáp</span><span class="mark">3</span></div>
+            <b>Phụ kiện · Kết nối</b>
+            <span class="cnt">07 mục</span>
+            <span class="models">I/O Link 32 · PLC QS · RS232</span>
+          </div>
+        </div>
+        <div class="chain-note">Tín hiệu chạy trái → phải: điều khiển → khuếch đại → chấp hành → phụ trợ. Trên mobile, chuỗi xoay dọc thành timeline.</div>
+      </div>
+    </div>
+
+    <ol class="notes">
+      <li><span class="mark">1</span><span><b>Mỗi khối mở đúng trang nhóm hiện có</b> — về data, D vẫn là trục thiết bị; cái mới là cách kể: quan hệ giữa các nhóm được vẽ ra thay vì để khách tự đoán.</span></li>
+      <li><span class="mark">2</span><span><b>Mapping đã có trong data</b> — <code>Product.bundle</code> và <code>machine.controllerSlug</code> cho phép highlight "khối này đi với khối kia" khi hover, không cần data mới.</span></li>
+      <li><span class="mark">3</span><span><b>Giá trị giáo dục</b> — khách chưa rành hiểu ngay vì sao mua controller thì cần thêm drive, motor, nguồn: sơ đồ bán chéo tự nhiên hơn mọi banner.</span></li>
+    </ol>
+    <div class="weak"><b>Điểm yếu lớn nhất</b>Đẹp với kỹ sư nhưng vô nghĩa với khách nhà máy chỉ muốn mua máy chạy ngay — họ phải hiểu chuỗi kỹ thuật trước khi thấy thứ mình cần. Bản chất là phương án A khoác áo sơ đồ, không đổi tư duy phân nhóm.</div>
+  </div>
+</section>
+
+<!-- ═══════════════ PHƯƠNG ÁN E ═══════════════ -->
+<section class="option" id="opt-e">
+  <div class="wrap">
+    <div class="opt-head">
+      <span class="opt-letter">E</span>
+      <h2 class="opt-title">Hội thoại chọn cấu hình — số hóa cuộc gọi sales</h2>
+    </div>
+    <p class="opt-thesis">Trục tổ chức là cây quyết định của cuộc gọi tư vấn, không phải taxonomy tĩnh. Sản phẩm chỉ xuất hiện ở cuối, dưới dạng cấu hình gợi ý kèm mã tham chiếu để đọc qua điện thoại.</p>
+    <div class="chips">
+      <span class="chip">Khách gọi kèm sẵn ngữ cảnh</span>
+      <span class="chip">2–3 câu hỏi tới kết quả</span>
+      <span class="chip warn">Cây quyết định phải sales duyệt</span>
+      <span class="chip warn">Khó SEO nội dung sau wizard</span>
+    </div>
+
+    <div class="frame">
+      <div class="frame-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">qstcnc.com/vi/products</span>
+      </div>
+      <div class="wf">
+        <div class="wizard">
+          <div class="progress">
+            <span>Câu 1/3</span>
+            <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <h3>Bạn đang có gì?</h3>
+          <div class="answers">
+            <div class="ans"><span class="rad"></span><span><b>Chưa có máy</b> — <span>cần máy CNC hoàn chỉnh, bàn giao chạy ngay</span></span></div>
+            <div class="ans"><span class="rad"></span><span><b>Có máy</b> — <span>muốn nâng cấp hệ điều khiển / truyền động</span></span></div>
+            <div class="ans"><span class="rad"></span><span><b>Máy đang hỏng</b> — <span>cần linh kiện thay thế đúng chuẩn</span></span></div>
+          </div>
+
+          <div class="then">Sau 2–3 câu hỏi</div>
+
+          <div class="result">
+            <span class="mark">1</span>
+            <span class="tag">Cấu hình gợi ý · Mã KIT-P4T</span>
+            <h4>Kit phay 4 trục</h4>
+            <div class="parts">
+              <span class="part">F54 <i>controller</i></span>
+              <span class="part">SDV3 ×4 <i>drive</i></span>
+              <span class="part">SCH ×4 <i>motor</i></span>
+              <span class="part">Nguồn 24V</span>
+              <span class="part">MPG</span>
+            </div>
+            <div class="cta-row">
+              <span class="cta">Gọi (+84) 909.663.350</span>
+              <span class="cta alt">Nhắn Zalo</span>
+            </div>
+            <p class="refnote"><span class="mark" style="vertical-align:middle">2</span> Đọc mã <b>KIT-P4T</b> để kỹ thuật viên tra đúng cấu hình bạn vừa chọn.</p>
+          </div>
+
+          <span class="escape"><span class="mark">3</span>Bỏ qua — xem toàn bộ danh mục →</span>
+        </div>
+      </div>
+    </div>
+
+    <ol class="notes">
+      <li><span class="mark">1</span><span><b>Kết quả là cấu hình, không phải danh sách</b> — khách mô tả nhu cầu nhận đúng thứ họ sẽ được sales tư vấn, nhưng trước cả khi nhấc máy.</span></li>
+      <li><span class="mark">2</span><span><b>Mã tham chiếu nối web với điện thoại</b> — đo được lead nào đến từ wizard, và cuộc gọi bắt đầu ở bước "chốt" thay vì bước "hỏi".</span></li>
+      <li><span class="mark">3</span><span><b>Luôn có lối thoát</b> — khách rành mã và khách ghét wizard rơi thẳng về lưới danh mục; wizard là cửa trước, không phải cửa duy nhất.</span></li>
+    </ol>
+    <div class="weak"><b>Điểm yếu lớn nhất</b>Chi phí bảo trì logic cao nhất trong 5 phương án: cây ~10–15 nút phải do sales duyệt và cập nhật theo hàng tồn. Sai một câu hỏi là dẫn khách tới gợi ý sai — mất uy tín ngay ở nhóm khách dễ chốt nhất.</div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHẤM ĐIỂM ═══════════════ -->
+<section class="score" id="score">
+  <div class="wrap">
+    <span class="eyebrow">Tổng hợp</span>
+    <h2 class="opt-title" style="margin-top:12px">Chấm điểm 5 phương án</h2>
+    <p class="opt-thesis">Thang 3 điểm mỗi tiêu chí. A và C giữ từ phân tích trước để so cùng mặt bằng.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Phương án</th>
+            <th>Khách mới hiểu ngay</th>
+            <th>Tra mã nhanh</th>
+            <th>Công sức ít</th>
+            <th>Nội dung viết thêm ít</th>
+            <th>Ghi chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="opt">A<span>Loại thiết bị</span></td>
+            <td><span class="pips">●●<i>●</i></span></td>
+            <td><span class="pips">●●●</span></td>
+            <td><span class="pips">●●●</span></td>
+            <td><span class="pips">●●●</span></td>
+            <td class="note-cell">Hiện trạng, đã build ~90%. Chỉ thiếu ô tra mã.</td>
+          </tr>
+          <tr class="pick">
+            <td class="opt">B<span>Bài toán khách</span></td>
+            <td><span class="pips">●●●</span></td>
+            <td><span class="pips">●●<i>●</i></span></td>
+            <td><span class="pips">●●<i>●</i></span></td>
+            <td><span class="pips">●●<i>●</i></span></td>
+            <td class="note-cell">Khuyến nghị — lớp mỏng trên A, phục vụ đủ 4 nhóm khách.</td>
+          </tr>
+          <tr class="dim">
+            <td class="opt">C<span>Ngành / ứng dụng</span></td>
+            <td><span class="pips">●●●</span></td>
+            <td><span class="pips">●<i>●●</i></span></td>
+            <td><span class="pips">●<i>●●</i></span></td>
+            <td><span class="pips">●<i>●●</i></span></td>
+            <td class="note-cell">Loại — trùng vai /applications, chỉ nên cross-link.</td>
+          </tr>
+          <tr>
+            <td class="opt">D<span>Sơ đồ hệ thống</span></td>
+            <td><span class="pips">●●<i>●</i></span></td>
+            <td><span class="pips">●●<i>●</i></span></td>
+            <td><span class="pips">●●<i>●</i></span></td>
+            <td><span class="pips">●●●</span></td>
+            <td class="note-cell">Nên dùng làm hero minh họa, không làm trục điều hướng chính.</td>
+          </tr>
+          <tr>
+            <td class="opt">E<span>Hội thoại cấu hình</span></td>
+            <td><span class="pips">●●●</span></td>
+            <td><span class="pips">●<i>●●</i></span></td>
+            <td><span class="pips">●<i>●●</i></span></td>
+            <td><span class="pips">●●<i>●</i></span></td>
+            <td class="note-cell">Bản tương tác của B — làm ở giai đoạn 2 nếu số liệu ủng hộ.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="verdict">
+      <span class="tag">Khuyến nghị</span>
+      <p><b>Triển khai B làm lớp mỏng trên A</b>: landing mở bằng ba lối vào theo bài toán + ô tra mã, lưới 6 nhóm tụt xuống tầng duyệt. Lấy ý tưởng sơ đồ của D làm hero minh họa (site đã có montage máy → controller → drive cùng ý). E để giai đoạn 2 — chính là lối vào B nâng cấp thành tương tác, chỉ đáng làm sau khi có số liệu.</p>
+      <p>Ngưỡng lật: nếu &gt;70% trong ~20 cuộc gọi gần nhất mở đầu bằng mã hàng, bỏ lớp B — chỉ cần A + ô tra mã thật nổi.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="page">
+  <div class="wrap">
+    <p>Wireframe minh họa — tên &amp; số lượng sản phẩm lấy từ products.json, machines.json, series.json, catalog.json · 22/07/2026</p>
+  </div>
+</footer>

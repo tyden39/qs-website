@@ -51,7 +51,7 @@ export default function Header() {
 
   const left = [
     ["/products", t("products")],
-    ["/cnc", t("cnc")],
+    // Standalone CNC page temporarily hidden; the machine line-up lives in the Products page.
     ["/applications", t("applications")],
     ["/services", t("services")],
     ["/downloads", t("downloads")],

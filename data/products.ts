@@ -65,6 +65,13 @@ export type SpecSection = { title: string; rows: ProductSpec[] };
  */
 export type ProductSpecSheet = { cols: SpecCol[]; sections: SpecSection[] };
 
+/**
+ * Sub-type a controller is listed under on /products/controllers. The four
+ * types are the ones the catalogue sells against; a model belongs to exactly
+ * one of them regardless of its hardware series (F / Astro).
+ */
+export type ControllerType = "motion" | "cnc" | "robot" | "cobot";
+
 export type Product = {
   slug: string;
   name: string;
@@ -72,6 +79,7 @@ export type Product = {
   display: string;
   tag: string;
   series: "F" | "Astro";
+  type: ControllerType;
   badge?: string;
   desc: string;
   bullets: string[];

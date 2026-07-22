@@ -22,10 +22,16 @@ export async function CatalogDetail({
   locale: Locale;
 }) {
   const t = await getTranslations({ locale, namespace: "product.detailPage" });
+  const tPage = await getTranslations({ locale, namespace: "product.page" });
 
+  // The two catalogue categories live on their own list pages now; the crumb
+  // walks through the right one.
+  const categoryPath = product.category === "dnc" ? "/products/dnc" : "/products/accessories";
+  const categoryLabel = tPage(`groups.${product.category}.label`);
   const productJsonLd = buildCatalogProduct(product, locale);
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: t("breadcrumb.products"), path: "/products" },
+    { name: categoryLabel, path: categoryPath },
     { name: product.name, path: `/products/${product.slug}` },
   ]);
 
@@ -45,6 +51,8 @@ export async function CatalogDetail({
             <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
             <Link href="/products">{t("breadcrumb.products")}</Link>
+            <span className="sep">/</span>
+            <Link href={categoryPath}>{categoryLabel}</Link>
             <span className="sep">/</span>
             <span className="here text-[#eee9d7]">{product.name}</span>
           </div>

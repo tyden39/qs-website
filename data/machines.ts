@@ -11,6 +11,22 @@ import machinesData from "./machines.json";
 
 export type MachineCategory = "milling" | "router" | "jewelry" | "automation" | "inspection";
 
+/**
+ * Sub-type the machine is listed under on /products/machines. The five
+ * datasheet categories are a finer cut than the catalogue sells against, so
+ * every milling/router/jewelry machine collapses into one "CNC" type while
+ * automation and inspection stay on their own.
+ */
+export type MachineType = "cnc" | "automation" | "inspection";
+
+export const MACHINE_TYPE: Record<MachineCategory, MachineType> = {
+  milling: "cnc",
+  router: "cnc",
+  jewelry: "cnc",
+  automation: "automation",
+  inspection: "inspection",
+};
+
 export type MachinePhoto = { src: string; w: number; h: number };
 
 /** A spec row: `k` is an i18n label key; `v` is vi primary, `vEn` optional EN. */

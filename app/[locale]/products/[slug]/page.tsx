@@ -264,6 +264,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   const productJsonLd = buildProduct(p, locale);
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: t("breadcrumb.products"), path: "/products" },
+    { name: t("breadcrumb.category"), path: "/products/controllers" },
     { name: p.name, path: `/products/${slug}` },
   ]);
   const tabLabels = t.raw("tabs") as string[];
@@ -601,6 +602,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           <div className="qs-crumb mb-8 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <Link href="/products">{t("breadcrumb.products")}</Link><span className="sep">/</span>
+            <Link href="/products/controllers">{t("breadcrumb.category")}</Link><span className="sep">/</span>
             <span className="here text-[#eee9d7]">{p.name}</span>
           </div>
 

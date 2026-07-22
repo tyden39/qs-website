@@ -3,20 +3,25 @@
     "breadcrumb": {
       "home": "Home",
       "products": "Products",
-      "current": "CNC Controllers"
+      "current": "Products"
     },
-    "eyebrow": "QS Controller Series · Controller Series",
-    "heading": "CNC Controllers",
-    "lede": "By mastering our own technology, QS Controller delivers flexible customisation and a rich feature set. The system scales easily to fully meet every specialised customer requirement.",
+    "eyebrow": "QS Product Range · Machines · Control · Drives",
+    "heading": "QS Products",
+    "lede": "A complete product system — from CNC machines and controllers to servos and inverters — designed, manufactured and supported by QS Technology.",
     "features": [
-      "Outstanding performance",
-      "Versatile features",
-      "Highly customisable"
+      "07 CNC & automation machine lines",
+      "07 multi-protocol controllers",
+      "Industrial servo & inverters"
+    ],
+    "tiles": [
+      "Machine",
+      "Control",
+      "Drive"
     ],
     "catalogBtn": "QS Products Catalog",
     "seriesTag": "[ Series 2026 · F + Astro ]",
     "sidebar": {
-      "heading": "CNC machine controllers",
+      "heading": "Controllers",
       "allMachines": "All machine types",
       "tree": [
         "Milling machine",
@@ -42,26 +47,29 @@
     "toolbar": {
       "showing": "Showing",
       "ofModels": "models",
-      "filtersLabel": "Filters",
-      "interfaceLabel": "Connection interface",
-      "filters": [
-        "All",
-        "Pulse Train",
-        "EtherCat",
-        "Mechatrolink"
-      ],
-      "sortLabel": "Sort",
-      "sortOptions": [
-        "Latest",
-        "Axes ↑",
-        "Display ↑"
-      ],
+      "ofMachines": "machines",
+      "ofSeries": "series",
       "empty": "No models match the current filters. Try clearing some."
     },
-    "tabs": {
+    "groups": {
       "eyebrow": "Catalogue",
+      "heading": "Product categories",
+      "viewList": "View list",
+      "machines": {
+        "label": "Machines",
+        "blurb": "CNC machines and automation equipment designed and assembled by QS — with local warranty and technical support in Vietnam."
+      },
       "controllers": {
-        "label": "CNC Controllers"
+        "label": "Controllers",
+        "blurb": "Multi-protocol motion controllers for CNC machines, robots and automation — Pulse Train, EtherCAT, Mechatrolink."
+      },
+      "servo": {
+        "label": "Servo",
+        "blurb": "QS servo drive line: SDV3 and SDA2 drivers from 0.4 to 55 kW, with matching motors, cables and connectors."
+      },
+      "inverter": {
+        "label": "Inverters",
+        "blurb": "Savch inverters from 0.4 to 630 kW: mini, general-purpose, engineering and ultra-high-speed series."
       },
       "dnc": {
         "label": "DNC Transfer Units",
@@ -71,7 +79,33 @@
         "label": "Accessories",
         "blurb": "I/O expansion boards, signal converter boards, compact PLCs, connection cables and power supplies for CNC systems."
       }
+    },
+    "types": {
+      "navLabel": "Product types",
+      "all": "All",
+      "machines": {
+        "cnc": "CNC machines",
+        "automation": "Automation machines",
+        "inspection": "Inspection machines"
+      },
+      "controllers": {
+        "motion": "Motion controllers",
+        "cnc": "CNC controllers",
+        "robot": "Robot controllers",
+        "cobot": "Cobot controllers"
+      },
+      "servo": {
+        "driver": "Servo drives",
+        "motor": "Servo motors",
+        "cable": "Cables & connectors"
+      }
     }
+  },
+  "seriesCard": {
+    "quote": "Request a quote",
+    "imageUpdating": "Image coming soon",
+    "specifications": "[ Series specifications ]",
+    "seriesLabel": "Series"
   },
   "card": {
     "badge": {
@@ -94,7 +128,7 @@
     "breadcrumb": {
       "home": "Home",
       "products": "Products",
-      "category": "CNC Controllers"
+      "category": "Controllers"
     },
     "modelLine": "Model · {name} · Series 2026",
     "features": {
@@ -126,7 +160,7 @@
     "quoteHeading": "Get a fast quote",
     "quoteBody": "Response within 24 business hours · dealer pricing for orders ≥ 10 units.",
     "packageEyebrow": "[ Integrated system · {name} ]",
-    "packageHeading": "CNC Controller — Full Package",
+    "packageHeading": "Controller — Full Package",
     "packageTeaser": "Full package · {count} components",
     "packageTeaserLink": "See what's included →",
     "relatedEyebrow": "[ 05 / Same family ]",
@@ -216,7 +250,7 @@
   },
   "list": {
     "title": "Products",
-    "subtitle": "Explore QS Technology's CNC controller product lines",
+    "subtitle": "Explore QS Technology's controller product lines",
     "empty": "No products found.",
     "viewDetails": "View details"
   },

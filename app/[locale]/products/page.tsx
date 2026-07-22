@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
-import { getAllProducts } from "@/lib/data/products";
-import { getApplicationSlugs, getApplicationSlugsForProduct } from "@/lib/data/applications";
-import { ProductBundleCard } from "@/components/products/product-bundle-card";
-import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";
-import { ProductCategoryTabs } from "./_components/product-category-tabs";
-import { CatalogList } from "./_components/catalog-list";
+import { CONTROLLER_TYPES, getAllProducts } from "@/lib/data/products";
+import { getMachines, MACHINE_TYPES } from "@/lib/data/machines";
 import { getCatalogProducts } from "@/lib/data/catalog";
+import { getSeries, getSeriesCount, SERIES_KINDS } from "@/lib/data/series";
+import { GroupGrid, type ProductGroupTile } from "./_components/group-grid";
 import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -45,36 +43,66 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const t = await getTranslations({ locale, namespace: "product.page" });
   const seo = await getTranslations({ locale, namespace: "seo" });
   const products = await getAllProducts(locale);
+  const machines = getMachines(locale);
   const features = t.raw("features") as string[];
+  const tiles = t.raw("tiles") as string[];
   // Split the hero title so the final word carries the animated gold sheen —
-  // "CNC Controllers" → gold "Controllers"; "Bộ điều khiển CNC" → gold "CNC".
+  // "QS Products" → gold "Products"; "Sản phẩm QS" → gold "QS".
   const headingWords = t("heading").trim().split(/\s+/);
   const headingGold = headingWords.pop() ?? "";
   const headingLead = headingWords.join(" ");
-  // Filter metadata derived from product data; the async card is pre-rendered
-  // on the server and handed to the client filter as an opaque node.
-  const items: ProductFilterItem[] = products.map((p, i) => ({
-    slug: p.slug,
-    axisNum: parseInt(p.axes, 10) || 0,
-    displayNum: parseFloat(p.display) || 0,
-    // Control interface drives the toolbar chips; derive it from the spec columns.
-    controlInterface: p.interfaces.map((c) => c.name).join(" ").toLowerCase(),
-    // Machine-type application slugs this controller is suited to (sidebar filter).
-    applications: getApplicationSlugsForProduct(p.slug),
-    node: <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />,
-  }));
-  // Sidebar category tree = machine types, sourced from the application catalogue
-  // so labels and the product mapping stay in sync.
-  const appT = await getTranslations({ locale, namespace: "application.index" });
-  const appItems = appT.raw("items") as { t: string; machine: string }[];
-  const categoryTree = getApplicationSlugs().map((slug, i) => ({
-    slug,
-    label: appItems[i]?.machine ?? slug,
-  }));
-  // Each tab is illustrated by the first product in its group, so the thumbnails
-  // follow the catalogue instead of hardcoding a path that can go stale.
+  // Each group card is illustrated by the first product in its group, so the
+  // thumbnails follow the catalogue instead of hardcoding a path that can go
+  // stale. Servo and inverters have no single lead product, so they point at
+  // the SDV3 / S3100 series renders.
   const dncProducts = getCatalogProducts(locale, "dnc");
   const accessoryProducts = getCatalogProducts(locale, "accessory");
+  const servo = getSeries(locale, "servo");
+  // Each card names the sub-types actually stocked in its group, so the reader
+  // knows what a group holds before opening it. Groups sold as one flat family
+  // (inverters, DNC units, accessories) list none.
+  const machineTypes = MACHINE_TYPES.filter((id) => machines.some((m) => m.type === id)).map((id) =>
+    t(`types.machines.${id}`),
+  );
+  const controllerTypes = CONTROLLER_TYPES.filter((id) =>
+    products.some((p) => p.type === id),
+  ).map((id) => t(`types.controllers.${id}`));
+  const servoKinds = SERIES_KINDS.filter((id) => servo.some((s) => s.kind === id)).map((id) =>
+    t(`types.servo.${id}`),
+  );
+  const groups: ProductGroupTile[] = [
+    {
+      id: "machines",
+      count: machines.length,
+      thumb: machines[0].image,
+      types: machineTypes,
+    },
+    {
+      id: "controllers",
+      count: products.length,
+      thumb: products[0].image,
+      types: controllerTypes,
+    },
+    {
+      id: "servo",
+      count: getSeriesCount("servo"),
+      thumb: { src: "/img/products/series/sdv3.webp", w: 300, h: 225 },
+      types: servoKinds,
+    },
+    {
+      id: "inverter",
+      count: getSeriesCount("inverter"),
+      thumb: { src: "/img/products/series/s3100.webp", w: 300, h: 225 },
+      types: [],
+    },
+    { id: "dnc", count: dncProducts.length, thumb: dncProducts[0].image, types: [] },
+    {
+      id: "accessory",
+      count: accessoryProducts.length,
+      thumb: accessoryProducts[0].image,
+      types: [],
+    },
+  ];
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: seo("productsTitle"), path: "/products" },
   ]);
@@ -95,7 +123,6 @@ export default async function Products({ params }: { params: Promise<{ locale: L
         <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-10 pb-12 lg:pt-12 lg:pb-14">
           <div className="qs-crumb mb-8">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
-            <Link href="/products">{t("breadcrumb.products")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
           </div>
           <div className="grid lg:grid-cols-[1fr_1.4fr] gap-8 lg:gap-12 items-center">
@@ -113,72 +140,53 @@ export default async function Products({ params }: { params: Promise<{ locale: L
                 ))}
               </div>
             </div>
-            <div className="order-1 lg:order-none relative aspect-16/10 bg-white border border-line p-6 overflow-hidden">
+            {/* System-chain montage: machine → controller → drive. Each render sits
+                on its own light tile so the frame reads as the whole product stack
+                rather than a single controller. Assets are reused from the machine
+                and controller catalogues — no bespoke hero art. */}
+            <div className="order-1 lg:order-none relative aspect-16/10 bg-white border border-line p-4 sm:p-6 overflow-hidden">
               <div className="absolute inset-3 border border-dashed border-gold opacity-30 pointer-events-none"></div>
-              {/* gold blueprint scan sweeping the controller render */}
+              <div className="relative h-full grid grid-cols-3 gap-2 sm:gap-3">
+                {[
+                  { src: "/img/machines/qsm215.webp", label: tiles[0] },
+                  { src: "/img/products/astro-10i-front.webp", label: tiles[1] },
+                  { src: "/img/products/components/servo-drive.webp", label: tiles[2] },
+                ].map((tile, i) => (
+                  <div
+                    key={tile.src}
+                    className={`flex flex-col ${i > 0 ? "border-l border-line/70" : ""}`}
+                  >
+                    <div
+                      className="relative flex-1 min-h-0"
+                      style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
+                    >
+                      <Image
+                        src={tile.src}
+                        alt={`${tile.label} — ${seo("productsTitle")}`}
+                        fill
+                        priority={i === 1}
+                        sizes="(max-width: 768px) 30vw, 210px"
+                        className="object-contain p-2 sm:p-3"
+                      />
+                    </div>
+                    <div className="pt-2 text-center font-mono text-label-xs tracking-[.16em] uppercase text-[#5a5650]">
+                      <span className="text-line-2">{String(i + 1).padStart(2, "0")}</span> {tile.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {/* gold blueprint scan sweeping the product renders — kept last so
+                  it paints above the opaque product tiles instead of behind. */}
               <div className="qs-scan" aria-hidden="true"></div>
-              <Image
-                src="/img/products/products-hero-controllers.webp"
-                alt={seo("productsTitle")}
-                width={1600}
-                height={1609}
-                priority
-                sizes="(max-width: 768px) 90vw, 640px"
-                className="qs-kenburns w-full h-full object-contain"
-              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* BODY */}
+      {/* BODY — one card per catalogue group, each opening its own list page */}
       <section className="py-12 lg:py-16" id="list">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <ProductCategoryTabs
-            eyebrow={t("tabs.eyebrow")}
-            tabs={[
-              {
-                id: "controllers",
-                label: t("tabs.controllers.label"),
-                count: products.length,
-                thumb: products[0].image,
-                node: (
-                  <ProductListFilter
-                    items={items}
-                    labels={{
-                      filters: t.raw("toolbar.filters") as string[],
-                      sortOptions: t.raw("toolbar.sortOptions") as string[],
-                      tree: categoryTree,
-                      sidebarHeading: t("sidebar.heading"),
-                      allMachines: t("sidebar.allMachines"),
-                      supportTitle: t("sidebar.support.title"),
-                      supportCta: t("sidebar.support.cta"),
-                      showing: t("toolbar.showing"),
-                      ofModels: t("toolbar.ofModels"),
-                      filtersLabel: t("toolbar.filtersLabel"),
-                      interfaceLabel: t("toolbar.interfaceLabel"),
-                      sortLabel: t("toolbar.sortLabel"),
-                      emptyState: t("toolbar.empty"),
-                    }}
-                  />
-                ),
-              },
-              {
-                id: "dnc",
-                label: t("tabs.dnc.label"),
-                count: dncProducts.length,
-                thumb: dncProducts[0].image,
-                node: <CatalogList locale={locale} category="dnc" />,
-              },
-              {
-                id: "accessory",
-                label: t("tabs.accessory.label"),
-                count: accessoryProducts.length,
-                thumb: accessoryProducts[0].image,
-                node: <CatalogList locale={locale} category="accessory" />,
-              },
-            ]}
-          />
+          <GroupGrid locale={locale} groups={groups} />
         </div>
       </section>
     </>

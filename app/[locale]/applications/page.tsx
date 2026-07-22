@@ -135,7 +135,7 @@ export default async function Applications({ params }: { params: Promise<{ local
             ))}
             {/* honest catalog summary fills the trailing grid cell — grid-only, kept out of
                 the phone rail so swiping lands on case studies rather than a count tile */}
-            <div className="hidden md:flex bg-ink text-[#cfc9b8] p-6 flex-col items-center justify-center gap-3">
+            <div className="hidden md:flex md:col-span-2 bg-ink text-[#cfc9b8] p-6 flex-col items-center justify-center gap-3">
               <div className="font-display font-bold text-h2 text-gold-2 tracking-[-.01em]">
                 {String(apps.length).padStart(2, "0")}
               </div>

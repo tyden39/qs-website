@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/i18n/navigation";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -21,6 +22,21 @@ export const PRODUCT_GROUPS = {
 } as const;
 
 export type ProductGroupId = keyof typeof PRODUCT_GROUPS;
+
+/**
+ * Hero render for each group's list page, shown object-contained on a light
+ * tile in the header band. Controllers reuse the Products page controller
+ * render and machines reuse the (currently hidden) CNC page machine hero, per
+ * request; the remaining groups point at their strongest catalogue asset.
+ */
+const GROUP_HERO: Record<ProductGroupId, { src: string; w: number; h: number }> = {
+  machines: { src: "/home/cnc-machine-hero.webp", w: 1672, h: 941 },
+  controllers: { src: "/img/products/products-hero-controllers.webp", w: 1400, h: 1408 },
+  servo: { src: "/img/products/components/servo-motor.webp", w: 600, h: 434 },
+  inverter: { src: "/img/products/series/s3100.webp", w: 300, h: 225 },
+  dnc: { src: "/img/products/catalog/micro-dnc-2d.webp", w: 1400, h: 980 },
+  accessory: { src: "/img/products/components/mpg-pendant.webp", w: 450, h: 504 },
+};
 
 export async function categoryMetadata(
   params: Promise<{ locale: Locale }>,
@@ -58,17 +74,16 @@ export async function categoryMetadata(
 export async function CategoryShell({
   locale,
   id,
-  count,
   children,
 }: {
   locale: Locale;
   id: ProductGroupId;
-  count: number;
   children: React.ReactNode;
 }) {
   const t = await getTranslations({ locale, namespace: "product.page" });
   const seo = await getTranslations({ locale, namespace: "seo" });
   const label = t(`groups.${id}.label`);
+  const hero = GROUP_HERO[id];
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: seo("productsTitle"), path: "/products" },
     { name: label, path: `/products/${PRODUCT_GROUPS[id].segment}` },
@@ -82,6 +97,8 @@ export async function CategoryShell({
         style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}
       >
         <div className="absolute inset-0 qs-grid-bg opacity-50" aria-hidden="true"></div>
+        {/* breathing gold atmosphere behind the group hero render */}
+        <div className="qs-glow hidden lg:block right-[3%] top-[-40%] w-[34%] h-[170%]" aria-hidden="true"></div>
         <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-8 pb-9">
           <div className="qs-crumb">
             <Link href="/">{t("breadcrumb.home")}</Link>
@@ -90,13 +107,36 @@ export async function CategoryShell({
             <span className="sep">/</span>
             <span className="here">{label}</span>
           </div>
-          <div className="mt-6 flex items-baseline gap-3.5">
-            <h1 className="qs-h1 m-0">{label}</h1>
-            <span className="font-mono text-meta tabular-nums text-gold-2">
-              {String(count).padStart(2, "0")}
-            </span>
+          <div className="mt-6 grid gap-7 lg:grid-cols-[1fr_minmax(0,1.05fr)] lg:gap-12 lg:items-center">
+            <div>
+              <h1 className="qs-h1 m-0">
+                <em className="not-italic qs-gold-shimmer">{label}</em>
+              </h1>
+              <p className="qs-lede mt-3.5 max-w-[54ch]">{t(`groups.${id}.blurb`)}</p>
+            </div>
+            {/* Group hero render on a light tile — reuses catalogue assets, no
+                bespoke art. object-contain keeps every shape (square controller,
+                landscape machine, tall pendant) whole inside the frame. */}
+            <div className="relative aspect-16/10 bg-white border border-line overflow-hidden">
+              <div className="absolute inset-3 border border-dashed border-gold opacity-30 pointer-events-none"></div>
+              <div
+                className="absolute inset-0"
+                style={{ background: "radial-gradient(circle at 50% 40%, #ffffff, #ecebe5)" }}
+                aria-hidden="true"
+              ></div>
+              <Image
+                src={hero.src}
+                alt={`${label} — ${seo("productsTitle")}`}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 560px"
+                className="object-contain p-5 sm:p-7"
+              />
+              {/* gold blueprint scan sweeping the render — painted last so it sits
+                  above the opaque product tile. */}
+              <div className="qs-scan" aria-hidden="true"></div>
+            </div>
           </div>
-          <p className="qs-lede mt-3.5 max-w-[62ch]">{t(`groups.${id}.blurb`)}</p>
         </div>
       </section>
 

@@ -23,7 +23,7 @@ export default async function MachinesPage({ params }: Props) {
     machines: machines.filter((m) => m.type === id),
   })).filter((s) => s.machines.length > 0);
   return (
-    <CategoryShell locale={locale} id="machines" count={machines.length}>
+    <CategoryShell locale={locale} id="machines">
       <MachineList
         machines={machines}
         sections={sections}

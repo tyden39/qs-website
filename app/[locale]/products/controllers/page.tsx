@@ -25,7 +25,7 @@ export default async function ControllersPage({ params }: Props) {
     node: <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />,
   }));
   return (
-    <CategoryShell locale={locale} id="controllers" count={products.length}>
+    <CategoryShell locale={locale} id="controllers">
       <ProductListFilter
         items={items}
         labels={{

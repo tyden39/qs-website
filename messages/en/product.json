@@ -57,26 +57,32 @@
       "viewList": "View list",
       "machines": {
         "label": "Machines",
+        "labelGold": "Machines",
         "blurb": "CNC machines and automation equipment designed and assembled by QS — with local warranty and technical support in Vietnam."
       },
       "controllers": {
         "label": "Controllers",
+        "labelGold": "Controllers",
         "blurb": "Multi-protocol motion controllers for CNC machines, robots and automation — Pulse Train, EtherCAT, Mechatrolink."
       },
       "servo": {
         "label": "Servo",
+        "labelGold": "Servo",
         "blurb": "QS servo drive line: SDV3 and SDA2 drivers from 0.4 to 55 kW, with matching motors, cables and connectors."
       },
       "inverter": {
         "label": "Inverters",
+        "labelGold": "Inverters",
         "blurb": "Savch inverters from 0.4 to 630 kW: mini, general-purpose, engineering and ultra-high-speed series."
       },
       "dnc": {
         "label": "DNC Transfer Units",
+        "labelGold": "DNC",
         "blurb": "Devices that load machining programs into a CNC machine over RS232, replacing computer-based data transfer."
       },
       "accessory": {
         "label": "Accessories",
+        "labelGold": "Accessories",
         "blurb": "I/O expansion boards, signal converter boards, compact PLCs, connection cables and power supplies for CNC systems."
       }
     },
@@ -105,7 +111,24 @@
     "quote": "Request a quote",
     "imageUpdating": "Image coming soon",
     "specifications": "[ Series specifications ]",
-    "seriesLabel": "Series"
+    "seriesLabel": "Series",
+    "details": "View details"
+  },
+  "seriesDetail": {
+    "specsEyebrow": "[ Series specs ]",
+    "specsHeading": "Series specifications",
+    "namingEyebrow": "[ Model code ]",
+    "namingHeading": "How to read the model code",
+    "tablesEyebrow": "[ Model selection ]",
+    "tablesHeading": "Model list & ratings",
+    "filterAll": "All",
+    "filterLabel": "Filter by",
+    "quoteBtn": "Request a quote",
+    "modelLine": "Product series",
+    "ctaHeading": "Need the right {name} model?",
+    "ctaBody": "Send us the load, voltage and application — QS engineering helps pick the model code, cable and matching accessories.",
+    "ctaBtn": "Contact engineering",
+    "comingSoon": "The detailed model table is being updated — contact us for the full part list."
   },
   "card": {
     "badge": {

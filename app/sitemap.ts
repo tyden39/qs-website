@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getProductSlugs } from "@/lib/data/products";
 import { getCatalogSlugs } from "@/lib/data/catalog";
+import { getSeriesSlugs } from "@/lib/data/series";
 import { getAllNews } from "@/lib/data/news";
 import { getApplicationSlugs } from "@/lib/data/applications";
 import { getServiceSlugs } from "@/lib/data/services";
@@ -75,7 +76,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       buildEntries(path, path === "/news" ? latestNews : undefined),
     ),
     ...getMachineSlugs().flatMap((slug) => buildEntries(`/cnc/${slug}`)),
-    ...[...productSlugs, ...getCatalogSlugs()].flatMap((slug) =>
+    ...[...productSlugs, ...getCatalogSlugs(), ...getSeriesSlugs()].flatMap((slug) =>
       buildEntries(`/products/${slug}`),
     ),
     ...news.flatMap((n) => buildEntries(`/news/${n.slug}`, n.publishedAt ?? undefined)),

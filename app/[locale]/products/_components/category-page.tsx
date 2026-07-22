@@ -32,7 +32,7 @@ export type ProductGroupId = keyof typeof PRODUCT_GROUPS;
 const GROUP_HERO: Record<ProductGroupId, { src: string; w: number; h: number }> = {
   machines: { src: "/home/cnc-machine-hero.webp", w: 1672, h: 941 },
   controllers: { src: "/img/products/products-hero-controllers.webp", w: 1400, h: 1408 },
-  servo: { src: "/img/products/components/servo-motor.webp", w: 600, h: 434 },
+  servo: { src: "/img/products/series/sdv3.webp", w: 300, h: 225 },
   inverter: { src: "/img/products/series/s3100.webp", w: 300, h: 225 },
   dnc: { src: "/img/products/catalog/micro-dnc-2d.webp", w: 1400, h: 980 },
   accessory: { src: "/img/products/components/mpg-pendant.webp", w: 450, h: 504 },
@@ -83,6 +83,15 @@ export async function CategoryShell({
   const t = await getTranslations({ locale, namespace: "product.page" });
   const seo = await getTranslations({ locale, namespace: "seo" });
   const label = t(`groups.${id}.label`);
+  // Only the distinctive product-type term shimmers gold; the generic prefix
+  // ("Bộ", "Thiết bị truyền", …) stays ink. `labelGold` names that term and is
+  // matched as a contiguous slice of `label`, so it works whether the term
+  // leads, trails, or sits mid-string. Falls back to the whole label.
+  const goldTerm = t(`groups.${id}.labelGold`);
+  const goldAt = label.indexOf(goldTerm);
+  const before = goldAt >= 0 ? label.slice(0, goldAt) : "";
+  const gold = goldAt >= 0 ? label.slice(goldAt, goldAt + goldTerm.length) : label;
+  const after = goldAt >= 0 ? label.slice(goldAt + goldTerm.length) : "";
   const hero = GROUP_HERO[id];
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: seo("productsTitle"), path: "/products" },
@@ -110,7 +119,9 @@ export async function CategoryShell({
           <div className="mt-6 grid gap-7 lg:grid-cols-[1fr_minmax(0,1.05fr)] lg:gap-12 lg:items-center">
             <div>
               <h1 className="qs-h1 m-0">
-                <em className="not-italic qs-gold-shimmer">{label}</em>
+                {before}
+                <em className="not-italic qs-gold-shimmer">{gold}</em>
+                {after}
               </h1>
               <p className="qs-lede mt-3.5 max-w-[54ch]">{t(`groups.${id}.blurb`)}</p>
             </div>

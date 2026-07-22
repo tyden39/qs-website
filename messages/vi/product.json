@@ -57,26 +57,32 @@
       "viewList": "Xem danh sách",
       "machines": {
         "label": "Máy",
+        "labelGold": "Máy",
         "blurb": "Máy CNC và thiết bị tự động hóa do QS thiết kế, lắp ráp — bảo hành và hỗ trợ kỹ thuật tại Việt Nam."
       },
       "controllers": {
         "label": "Bộ điều khiển",
+        "labelGold": "điều khiển",
         "blurb": "Bộ điều khiển đa giao thức cho máy CNC, robot và tự động hóa — Pulse Train, EtherCAT, Mechatrolink."
       },
       "servo": {
         "label": "Servo",
+        "labelGold": "Servo",
         "blurb": "Hệ truyền động servo QS: driver SDV3 và SDA2 từ 0.4 đến 55 kW, cùng motor, cáp và đầu nối đồng bộ."
       },
       "inverter": {
         "label": "Biến tần",
+        "labelGold": "Biến tần",
         "blurb": "Biến tần Savch từ 0.4 đến 630 kW: dòng mini, đa dụng, kỹ thuật và siêu cao tốc."
       },
       "dnc": {
         "label": "Thiết bị truyền DNC",
+        "labelGold": "DNC",
         "blurb": "Thiết bị nạp chương trình gia công vào máy CNC qua cổng RS232, thay thế cho việc truyền dữ liệu bằng máy tính."
       },
       "accessory": {
         "label": "Phụ kiện",
+        "labelGold": "Phụ kiện",
         "blurb": "Board mở rộng I/O, board chuyển đổi tín hiệu, PLC nhỏ gọn, cáp kết nối và nguồn cho hệ thống CNC."
       }
     },
@@ -105,7 +111,24 @@
     "quote": "Nhận báo giá",
     "imageUpdating": "Hình ảnh đang cập nhật",
     "specifications": "[ Thông số dòng ]",
-    "seriesLabel": "Dòng"
+    "seriesLabel": "Dòng",
+    "details": "Xem chi tiết"
+  },
+  "seriesDetail": {
+    "specsEyebrow": "[ Thông số dòng ]",
+    "specsHeading": "Thông số dòng sản phẩm",
+    "namingEyebrow": "[ Quy tắc mã ]",
+    "namingHeading": "Cách đọc mã model",
+    "tablesEyebrow": "[ Bảng chọn model ]",
+    "tablesHeading": "Danh mục model & thông số",
+    "filterAll": "Tất cả",
+    "filterLabel": "Lọc theo",
+    "quoteBtn": "Nhận báo giá",
+    "modelLine": "Dòng sản phẩm",
+    "ctaHeading": "Cần chọn đúng model {name}?",
+    "ctaBody": "Gửi yêu cầu về tải, điện áp và ứng dụng — kỹ thuật QS tư vấn chọn mã, cáp và phụ kiện đồng bộ.",
+    "ctaBtn": "Liên hệ kỹ thuật",
+    "comingSoon": "Bảng mã chi tiết đang được cập nhật — liên hệ để tra cứu đầy đủ."
   },
   "card": {
     "badge": {

@@ -79,8 +79,10 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     },
     {
       id: "controllers",
+      // Card thumb reuses the controllers group hero render rather than the
+      // first product image, matching GROUP_HERO.controllers.
       count: products.length,
-      thumb: products[0].image,
+      thumb: { src: "/img/products/products-hero-controllers.webp", w: 1400, h: 1408 },
       types: controllerTypes,
     },
     {

@@ -7,7 +7,9 @@ import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getProductBySlug, getProductSlugs, type ProductView } from "@/lib/data/products";
 import { getCatalogProductBySlug, getCatalogSlugs } from "@/lib/data/catalog";
+import { getSeriesBySlug, getSeriesSlugs } from "@/lib/data/series";
 import { CatalogDetail } from "../_components/catalog-detail";
+import { SeriesDetail } from "../_components/series-detail";
 import { getProductDownloads, groupByDocument, formatBytes, type DownloadFile } from "@/lib/data/downloads";
 import { KitComponentIcon } from "@/components/products/kit-component-icon";
 import CircuitTraces from "@/components/circuit-traces";
@@ -44,6 +46,26 @@ export async function generateMetadata({
       twitter: { card: "summary_large_image", title: c.name, description: c.desc },
     };
   }
+  const s = getSeriesBySlug(slug, locale);
+  if (s) {
+    const desc = s.desc.slice(0, 160);
+    return {
+      title: `${s.name} — ${s.brand}`,
+      description: desc,
+      alternates: buildAlternates(`/products/${slug}`, locale),
+      openGraph: {
+        title: `${s.name} — ${s.brand}`,
+        description: s.desc,
+        type: "website",
+        locale: locale === "en" ? "en_US" : "vi_VN",
+        url: `/products/${slug}`,
+        images: s.image
+          ? [{ url: s.image.src, width: s.image.w, height: s.image.h, alt: s.image.alt }]
+          : undefined,
+      },
+      twitter: { card: "summary_large_image", title: s.name, description: desc },
+    };
+  }
   const p = await getProductBySlug(slug, locale);
   if (!p) return {};
   return {
@@ -70,7 +92,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const slugs = [...(await getProductSlugs()), ...getCatalogSlugs()];
+  const slugs = [...(await getProductSlugs()), ...getCatalogSlugs(), ...getSeriesSlugs()];
   return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
@@ -255,6 +277,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   const catalogProduct = getCatalogProductBySlug(slug, locale);
   if (catalogProduct) {
     return <CatalogDetail product={catalogProduct} locale={locale} />;
+  }
+  // Drive-line series (servo drives/motors/cables, inverters) sold at series
+  // level render the datasheet template instead of the controller layout.
+  const series = getSeriesBySlug(slug, locale);
+  if (series) {
+    return <SeriesDetail series={series} locale={locale} />;
   }
   const t = await getTranslations({ locale, namespace: "product.detailPage" });
   const tDl = await getTranslations({ locale, namespace: "downloads.index" });

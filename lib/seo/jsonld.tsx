@@ -13,6 +13,7 @@ import type {
 } from "schema-dts";
 import type { ProductView } from "@/lib/data/products";
 import type { CatalogProductView } from "@/lib/data/catalog";
+import type { SeriesView } from "@/lib/data/series";
 import type { NewsView } from "@/lib/data/news";
 import type { ApplicationView } from "@/lib/data/applications";
 import type { ServiceView } from "@/lib/data/services";
@@ -112,6 +113,32 @@ export function buildCatalogProduct(p: CatalogProductView, locale: Locale): With
     },
     image: p.image.src.startsWith("http") ? p.image.src : `${APP_URL}${p.image.src}`,
     url: localeUrl(`/products/${p.slug}`, locale),
+    // No `offers`: quote-only catalogue, same rationale as buildProduct.
+  };
+}
+
+/**
+ * Drive-line series (servo drives/motors/cables, inverters) are sold at series
+ * level, so the Product node describes the whole series rather than a single
+ * part number — `sku` carries the series slug. Same priceless, quote-only shape
+ * as the other Product builders. A series without a hero photo yet (cables) falls
+ * back to the site default OG image.
+ */
+export function buildSeriesProduct(s: SeriesView, locale: Locale): WithContext<Product> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: s.name,
+    description: s.desc,
+    sku: s.slug,
+    brand: {
+      "@type": "Brand",
+      name: "QS Technology",
+    },
+    image: s.image
+      ? (s.image.src.startsWith("http") ? s.image.src : `${APP_URL}${s.image.src}`)
+      : `${APP_URL}/og-default.png`,
+    url: localeUrl(`/products/${s.slug}`, locale),
     // No `offers`: quote-only catalogue, same rationale as buildProduct.
   };
 }

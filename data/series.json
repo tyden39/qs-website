@@ -28,7 +28,27 @@
       "alt": "Driver servo SDV3 các cỡ công suất",
       "altEn": "SDV3 servo drives across the power range"
     },
-    "sourceUrl": "https://savch.net/sdv3home.html"
+    "sourceUrl": "https://savch.net/sdv3home.html",
+    "detail": {
+      "naming": {
+        "code": "SDV3-2S1.0G",
+        "lines": [
+          "SDV3 = dòng driver servo nhỏ gọn",
+          "2S = 1 pha 220 V · 2T = 3 pha 220 V · 4T = 3 pha 380 V",
+          "1.0 = công suất driver (kW)",
+          "G = model tiêu chuẩn",
+          "Chọn driver theo motor SCH ghép bộ — xem cột “Driver ghép” ở bảng motor SCH."
+        ],
+        "linesEn": [
+          "SDV3 = compact servo drive line",
+          "2S = 1-phase 220 V · 2T = 3-phase 220 V · 4T = 3-phase 380 V",
+          "1.0 = drive power (kW)",
+          "G = standard model",
+          "Match the drive to its SCH motor — see the “Matched drive” column in the SCH motor table."
+        ]
+      },
+      "tables": []
+    }
   },
   {
     "slug": "sda2",
@@ -59,7 +79,46 @@
       "alt": "Driver servo SDA2 các cỡ công suất",
       "altEn": "SDA2 servo drives across the power range"
     },
-    "sourceUrl": "https://savch.net/sda2home.html"
+    "sourceUrl": "https://savch.net/sda2home.html",
+    "detail": {
+      "naming": {
+        "code": "SDA2-4T5.5G",
+        "lines": [
+          "SDA2 = dòng driver servo hiệu năng cao",
+          "2S = 1 pha 220 V · 2T = 3 pha 220 V · 4T = 3 pha 380 V",
+          "5.5 = công suất driver (kW)",
+          "G = model tiêu chuẩn"
+        ],
+        "linesEn": [
+          "SDA2 = high-performance servo drive line",
+          "2S = 1-phase 220 V · 2T = 3-phase 220 V · 4T = 3-phase 380 V",
+          "5.5 = drive power (kW)",
+          "G = standard model"
+        ]
+      },
+      "tables": [
+        {
+          "caption": "Cỡ khung driver SDA2 theo công suất",
+          "captionEn": "SDA2 drive frame size by power",
+          "note": "Cùng một cỡ khung phủ dải công suất liền kề; chọn driver theo motor SCH ghép bộ (xem bảng motor). Frame lớn 4–7 chỉ có bản 380 V.",
+          "noteEn": "Each frame size covers an adjacent power band; pick the drive by its matched SCH motor (see the motor table). Large frames 4–7 are 380 V only.",
+          "cols": [
+            { "key": "size", "label": "Cỡ khung", "labelEn": "Frame size" },
+            { "key": "v220", "label": "220 V (2S/2T)", "labelEn": "220 V (2S/2T)" },
+            { "key": "v380", "label": "380 V (4T)", "labelEn": "380 V (4T)" }
+          ],
+          "rows": [
+            ["1", "0.4 – 1.0G", "—"],
+            ["2", "1.5 – 2.0G", "0.75 – 1.5G"],
+            ["3", "3.0 – 4.0G", "2.0 – 4.0G"],
+            ["4", "—", "5.5 – 11G"],
+            ["5", "—", "15 – 18.5G"],
+            ["6", "—", "22G"],
+            ["7", "—", "30 – 55G"]
+          ]
+        }
+      ]
+    }
   },
   {
     "slug": "sch-motor",
@@ -94,7 +153,98 @@
       "alt": "Motor servo dòng SCH với cáp động lực và cáp encoder",
       "altEn": "SCH-series servo motor with power and encoder cables"
     },
-    "sourceUrl": "https://savch.net/sdv3home/55.html"
+    "sourceUrl": "https://savch.net/sdv3home/55.html",
+    "detail": {
+      "naming": {
+        "code": "SCH130152E",
+        "lines": [
+          "SCH = motor servo AC dòng H, cách điện F class (155°C)",
+          "130 = đường kính frame (mm): 60 · 80 · 110 · 130 · 180 · 200 · 230 · 260",
+          "152 = công suất (2 số đầu × 10^số cuối, đơn vị W): 152 = 1.5 kW, 751 = 750 W",
+          "E/C/B/A/H = tổ hợp moment – tốc độ; điện áp theo driver ghép (2S/2T = 220 V, 4T = 380 V)",
+          "Hậu tố -□5 (chỉ SDA2) = dòng HS cao tốc, tối đa 6000 v/ph"
+        ],
+        "linesEn": [
+          "SCH = H-series AC servo motor, class F insulation (155°C)",
+          "130 = frame diameter (mm): 60 · 80 · 110 · 130 · 180 · 200 · 230 · 260",
+          "152 = power (first 2 digits × 10^last digit, in W): 152 = 1.5 kW, 751 = 750 W",
+          "E/C/B/A/H = torque–speed combination; voltage follows the matched drive (2S/2T = 220 V, 4T = 380 V)",
+          "Suffix -□5 (SDA2 only) = high-speed HS line, up to 6000 rpm"
+        ]
+      },
+      "tables": [
+        {
+          "caption": "Bảng chọn motor SCH — dòng H",
+          "captionEn": "SCH motor selection — H series",
+          "note": "Frame 60–180 dùng chung cho driver SDV3 và SDA2; frame 200–260 chỉ đi với SDA2, làm mát quạt, IP54, không kèm cáp động lực từ nhà máy. Dòng HS cao tốc (hậu tố -□5, tới 6000 v/ph) đặt riêng theo SDA2. Phanh DC 24 V ±10 % tuỳ chọn, encoder tăng dần/tuyệt đối 17/20 bit.",
+          "noteEn": "Frame 60–180 is shared by the SDV3 and SDA2 drives; frame 200–260 pairs with SDA2 only, fan-cooled, IP54, shipped without a factory power cable. The high-speed HS line (suffix -□5, up to 6000 rpm) is ordered against SDA2. Optional DC 24 V ±10 % brake, 17/20-bit incremental/absolute encoder.",
+          "filterCol": "volt",
+          "cols": [
+            { "key": "model", "label": "Mã motor", "labelEn": "Motor code" },
+            { "key": "kw", "label": "Công suất (kW)", "labelEn": "Power (kW)" },
+            { "key": "volt", "label": "Điện áp", "labelEn": "Supply" },
+            { "key": "driver", "label": "Driver ghép", "labelEn": "Matched drive" },
+            { "key": "nm", "label": "Moment (Nm)", "labelEn": "Torque (Nm)" },
+            { "key": "rpm", "label": "Tốc độ v/ph (max)", "labelEn": "Speed rpm (max)" },
+            { "key": "a", "label": "Dòng (A)", "labelEn": "Current (A)" },
+            { "key": "kg", "label": "Khối lượng (kg)", "labelEn": "Weight (kg)" }
+          ],
+          "rows": [
+            ["SCH060201C", "0.2", "220 V", "SDV3-2S0.4G", "0.64", "3000 (3600)", "1.8", "1.2"],
+            ["SCH060401C", "0.4", "220 V", "SDV3-2S0.4G", "1.27", "3000 (3600)", "2.6", "1.6"],
+            ["SCH080751C", "0.75", "220 V", "SDV3-2S0.75G", "2.39", "3000 (3600)", "3", "2.9"],
+            ["SCH080731B", "0.73", "220 V", "SDV3-2S0.75G", "3.5", "2000 (2400)", "3", "3.9"],
+            ["SCH080102E", "1.0", "220 V", "SDV3-2S1.0G", "4", "2500 (3000)", "4.4", "4.1"],
+            ["SCH110122C", "1.2", "220 V", "SDV3-2S1.0G", "4", "3000 (3600)", "5", "6"],
+            ["SCH110152C", "1.5", "220 V", "SDV3-2S1.5G", "5", "3000 (3600)", "6", "6.8"],
+            ["SCH110122B", "1.2", "220 V", "SDV3-2S1.0G", "6", "2000 (2400)", "4.5", "7.9"],
+            ["SCH110182C", "1.8", "220 V", "SDV3-2S1.5G", "6", "3000 (3600)", "6", "7.9"],
+            ["SCH130102E", "1.0", "220 V", "SDV3-2S1.0G", "4", "2500 (3000)", "4", "6.2"],
+            ["SCH130132E", "1.3", "220 V", "SDV3-2S1.0G", "5", "2500 (3000)", "5", "6.6"],
+            ["SCH130152E", "1.5", "220 V", "SDV3-2S1.5G", "6", "2500 (3000)", "6", "7.4"],
+            ["SCH130102A", "1.0", "220 V", "SDV3-2S1.0G", "10", "1000 (1200)", "4.5", "10.2"],
+            ["SCH130152H", "1.5", "220 V", "SDV3-2S1.5G", "10", "1500 (1800)", "6", "10.2"],
+            ["SCH130202E", "2.0", "220 V", "SDV3-2T2.0G", "7.7", "2500 (3000)", "7.5", "8.3"],
+            ["SCH130262E", "2.6", "220 V", "SDV3-2T2.0G", "10", "2500 (3000)", "10", "9.8"],
+            ["SCH130232H", "2.3", "220 V", "SDV3-2T2.0G", "15", "1500 (1800)", "9.5", "12.6"],
+            ["SCH130382E", "3.8", "220 V", "SDV3-2T3.0G", "15", "2500 (3000)", "13.5", "11.8"],
+            ["SCH180252H", "2.5", "220 V", "SDV3-2T2.0G", "17", "1500 (1800)", "10", "19.5"],
+            ["SCH180302H", "3.0", "220 V", "SDV3-2T3.0G", "19", "1500 (1800)", "12", "20.5"],
+            ["SCH080751C", "0.75", "380 V", "SDV3-4T0.75G", "2.39", "3000 (3600)", "1.6", "2.9"],
+            ["SCH080731B", "0.73", "380 V", "SDV3-4T0.75G", "3.5", "2000 (2400)", "1.8", "3.9"],
+            ["SCH080102E", "1.0", "380 V", "SDV3-4T1.0G", "4", "2500 (3000)", "2.3", "4.1"],
+            ["SCH110122C", "1.2", "380 V", "SDV3-4T1.0G", "4", "3000 (3600)", "3.0", "6"],
+            ["SCH110152C", "1.5", "380 V", "SDV3-4T1.5G", "5", "3000 (3600)", "4.5", "6.8"],
+            ["SCH110122B", "1.2", "380 V", "SDV3-4T1.0G", "6", "2000 (2400)", "3.0", "7.9"],
+            ["SCH110182C", "1.8", "380 V", "SDV3-4T1.5G", "6", "3000 (3600)", "4.5", "7.9"],
+            ["SCH130102E", "1.0", "380 V", "SDV3-4T1.0G", "4", "2500 (3000)", "2.6", "7.7"],
+            ["SCH130132E", "1.3", "380 V", "SDV3-4T1.0G", "5", "2500 (3000)", "3.0", "8.2"],
+            ["SCH130152E", "1.5", "380 V", "SDV3-4T1.5G", "6", "2500 (3000)", "4.0", "8.9"],
+            ["SCH130202E", "2.0", "380 V", "SDV3-4T2.0G", "7.7", "2500 (3000)", "4.7", "10.0"],
+            ["SCH130102A", "1.0", "380 V", "SDV3-4T1.0G", "10", "1000 (1200)", "2.5", "10.1"],
+            ["SCH130152H", "1.5", "380 V", "SDV3-4T1.5G", "10", "1500 (1800)", "3.5", "12.1"],
+            ["SCH130262E", "2.6", "380 V", "SDV3-4T2.0G", "10", "2500 (3000)", "6.0", "9.1"],
+            ["SCH130232H", "2.3", "380 V", "SDV3-4T2.0G", "15", "1500 (1800)", "5.0", "12.6"],
+            ["SCH130382E", "3.8", "380 V", "SDV3-4T4.0G", "15", "2500 (3000)", "8.8", "14.5"],
+            ["SCH180302H", "3.0", "380 V", "SDV3-4T3.0G", "19", "1500 (1800)", "7.5", "20.5"],
+            ["SCH180432H", "4.3", "380 V", "SDV3-4T4.0G", "27", "1500 (1800)", "10", "25.5"],
+            ["SCH180552H", "5.5", "380 V", "SDA2-4T5.5G", "35", "1500 (1800)", "12", "30.5"],
+            ["SCH180752H", "7.5", "380 V", "SDA2-4T7.5G", "48", "1500 (1800)", "20", "40"],
+            ["SCH200832H", "8.3", "380 V", "SDA2-4T7.5G", "53", "1500", "18", "46"],
+            ["SCH200113B", "11.1", "380 V", "SDA2-4T11G", "53", "2000", "22", "46"],
+            ["SCH200113H", "11", "380 V", "SDA2-4T11G", "70", "1500", "21", "52"],
+            ["SCH200133H", "13", "380 V", "SDA2-4T11G", "84", "1500", "23", "59"],
+            ["SCH200153B", "15", "380 V", "SDA2-4T15G", "70", "2000", "28", "52"],
+            ["SCH200183B", "18", "380 V", "SDA2-4T18.5G", "84", "2000", "32", "59"],
+            ["SCH230233H", "23", "380 V", "SDA2-4T22G", "149", "1500", "54", "—"],
+            ["SCH230293H", "29", "380 V", "SDA2-4T30G", "185", "1500", "65.5", "—"],
+            ["SCH230353H", "35", "380 V", "SDA2-4T37G", "223", "1500", "79", "—"],
+            ["SCH260383H", "38", "380 V", "SDA2-4T30G", "242", "1500", "67.5", "—"],
+            ["SCH260453H", "45", "380 V", "SDA2-4T45G", "286", "1500", "93", "—"]
+          ]
+        }
+      ]
+    }
   },
   {
     "slug": "dl-power-cable",
@@ -119,7 +269,45 @@
       { "l": "Options", "v": "Ordered by length in metres · -R suffix for flexible cable" }
     ],
     "image": null,
-    "sourceUrl": "https://savch.net/sdv3home/55.html"
+    "sourceUrl": "https://savch.net/sdv3home/55.html",
+    "detail": {
+      "naming": {
+        "code": "DL-SCH130(ZD1Y)-B-5",
+        "lines": [
+          "DL = cáp động lực đúc sẵn (driver → motor), đầu nối đi liền bộ",
+          "SCH086 / SCH130 / SCH180 = nhóm size motor tương thích",
+          "ZD1V = đi với driver SDV3 · ZD1Y = đi với driver SDA2",
+          "N = không phanh · B = có phanh (thêm lõi cấp phanh)",
+          "5 = chiều dài cáp (m) · hậu tố -R = loại cáp mềm (flexible)"
+        ],
+        "linesEn": [
+          "DL = pre-assembled power cable (drive → motor), connectors included",
+          "SCH086 / SCH130 / SCH180 = compatible motor size group",
+          "ZD1V = for SDV3 drives · ZD1Y = for SDA2 drives",
+          "N = without brake · B = with brake (adds brake-supply cores)",
+          "5 = cable length (m) · -R suffix = flexible cable"
+        ]
+      },
+      "tables": [
+        {
+          "caption": "Cáp động lực — chọn theo nhóm size motor",
+          "captionEn": "Power cable — select by motor size group",
+          "note": "Đầu nối aviation plug cho frame từ 110 trở lên, đầu rời cho frame nhỏ — đều đi liền bộ cáp. Motor frame 200–260 không kèm cáp động lực từ nhà máy. Đặt theo chiều dài mét; thêm hậu tố -R nếu cần cáp mềm.",
+          "noteEn": "Aviation-plug connector from frame 110 up, loose terminals for smaller frames — both ship with the cable set. Frame 200–260 motors ship without a factory power cable. Ordered by length in metres; add the -R suffix for flexible cable.",
+          "cols": [
+            { "key": "code", "label": "Mã cáp", "labelEn": "Cable code" },
+            { "key": "group", "label": "Nhóm size", "labelEn": "Size group" },
+            { "key": "brake", "label": "Phanh", "labelEn": "Brake" },
+            { "key": "fits", "label": "Motor tương thích", "labelEn": "Fits motors" }
+          ],
+          "rows": [
+            ["DL-SCH086(ZD1V/ZD1Y)-N/B-L", "SCH086", "N / B", "SCH060 – SCH090"],
+            ["DL-SCH130(ZD1V/ZD1Y)-N/B-L", "SCH130", "N / B", "SCH110 – SCH130"],
+            ["DL-SCH180(ZD1V/ZD1Y)-N/B-L", "SCH180", "N / B", "SCH180"]
+          ]
+        }
+      ]
+    }
   },
   {
     "slug": "sa2fk-encoder-cable",
@@ -142,7 +330,47 @@
       { "l": "Options", "v": "Ordered by length in metres · -R suffix for flexible cable" }
     ],
     "image": null,
-    "sourceUrl": "https://savch.net/sda2home/57.html"
+    "sourceUrl": "https://savch.net/sda2home/57.html",
+    "detail": {
+      "naming": {
+        "code": "SA2FK-P2S(ZD1Y)-5",
+        "lines": [
+          "SA2FK = cáp phản hồi encoder đúc sẵn (motor → driver), đầu nối đi liền bộ",
+          "P1 = motor SCH060 – SCH090 · P2 = motor SCH110 – SCH260",
+          "S = encoder tăng dần 17/20 bit · D = tuyệt đối (kèm hộp pin) · F = 2500 xung",
+          "ZD1V = đi với driver SDV3 · ZD1Y = đi với driver SDA2",
+          "5 = chiều dài cáp (m) · hậu tố -R = loại cáp mềm (flexible)"
+        ],
+        "linesEn": [
+          "SA2FK = pre-assembled encoder feedback cable (motor → drive), connectors included",
+          "P1 = SCH060 – SCH090 motors · P2 = SCH110 – SCH260 motors",
+          "S = 17/20-bit incremental encoder · D = absolute (battery box included) · F = 2500-line",
+          "ZD1V = for SDV3 drives · ZD1Y = for SDA2 drives",
+          "5 = cable length (m) · -R suffix = flexible cable"
+        ]
+      },
+      "tables": [
+        {
+          "caption": "Cáp phản hồi encoder — chọn theo frame & loại encoder",
+          "captionEn": "Encoder feedback cable — select by frame & encoder type",
+          "note": "Bản tuyệt đối (D) đi kèm hộp pin giữ vị trí. Đặt theo chiều dài mét; thêm hậu tố -R nếu cần cáp mềm.",
+          "noteEn": "The absolute (D) version includes a position-holding battery box. Ordered by length in metres; add the -R suffix for flexible cable.",
+          "cols": [
+            { "key": "code", "label": "Mã cáp", "labelEn": "Cable code" },
+            { "key": "group", "label": "Nhóm frame", "labelEn": "Frame group" },
+            { "key": "encoder", "label": "Encoder", "labelEn": "Encoder" },
+            { "key": "fits", "label": "Motor tương thích", "labelEn": "Fits motors" }
+          ],
+          "rows": [
+            ["SA2FK-P1S(ZD1V/ZD1Y)-L", "P1", "INC 17/20-bit", "SCH060 – SCH090"],
+            ["SA2FK-P1D(ZD1V/ZD1Y)-L", "P1", "ABS 17/20-bit", "SCH060 – SCH090"],
+            ["SA2FK-P2S(ZD1V/ZD1Y)-L", "P2", "INC 17/20-bit", "SCH110 – SCH260"],
+            ["SA2FK-P2D(ZD1V/ZD1Y)-L", "P2", "ABS 17/20-bit", "SCH110 – SCH260"],
+            ["SA2FK-P2F(ZD1V/ZD1Y)-L", "P2", "2500-line", "SCH110 – SCH260"]
+          ]
+        }
+      ]
+    }
   },
   {
     "slug": "s600",
@@ -176,6 +404,64 @@
       "alt": "Biến tần Savch S600 và S600E",
       "altEn": "Savch S600 and S600E inverters"
     },
+    "detail": {
+      "naming": {
+        "code": "S600 / S600E − 4T2.2G",
+        "lines": [
+          "S600 = động cơ không đồng bộ (IM) · S600E = nam châm vĩnh cửu (PM)",
+          "2T = 1 pha / 3 pha 220 V · 4T = 3 pha 440 V",
+          "2.2 = công suất motor lớn nhất (kW) · G = model tiêu chuẩn"
+        ],
+        "linesEn": [
+          "S600 = induction motor (IM) · S600E = permanent-magnet (PM)",
+          "2T = 1-phase / 3-phase 220 V · 4T = 3-phase 440 V",
+          "2.2 = max motor power (kW) · G = standard model"
+        ]
+      },
+      "tables": [
+        {
+          "caption": "Bảng chọn model — 220 V (S600/E-2T···G)",
+          "captionEn": "Model selection — 220 V (S600/E-2T···G)",
+          "note": "Đầu vào 1 pha / 3 pha 200–240 V, 50/60 Hz (±15 % điện áp, ±5 % tần số). Bản 4.0 kW không nhận đầu vào 1 pha. Tần số ra 0–500 Hz, quá tải 150 %/60 s, làm mát cưỡng bức.",
+          "noteEn": "Input 1-phase / 3-phase 200–240 V, 50/60 Hz (±15 % voltage, ±5 % frequency). The 4.0 kW rating does not accept single-phase input. Output 0–500 Hz, 150 %/60 s overload, forced-air cooling.",
+          "cols": [
+            { "key": "kw", "label": "Công suất (kW)", "labelEn": "Power (kW)" },
+            { "key": "hp", "label": "Động cơ (HP)", "labelEn": "Motor (HP)" },
+            { "key": "kva", "label": "Dung lượng (kVA)", "labelEn": "Capacity (kVA)" },
+            { "key": "outA", "label": "Dòng ra (A)", "labelEn": "Output (A)" },
+            { "key": "inA1", "label": "Dòng vào 1 pha (A)", "labelEn": "Input 1-ph (A)" },
+            { "key": "inA3", "label": "Dòng vào 3 pha (A)", "labelEn": "Input 3-ph (A)" }
+          ],
+          "rows": [
+            ["0.4", "0.5", "1.1", "2.3", "5.4", "3.1"],
+            ["0.75", "1", "1.5", "4.0", "8.2", "5.0"],
+            ["1.5", "2", "2.7", "7.0", "14.2", "7.7"],
+            ["2.2", "3", "3.7", "9.6", "23", "11.1"],
+            ["4.0", "5.4", "6.5", "17.0", "—", "22.2"]
+          ]
+        },
+        {
+          "caption": "Bảng chọn model — 440 V (S600/E-4T···G)",
+          "captionEn": "Model selection — 440 V (S600/E-4T···G)",
+          "note": "Đầu vào 3 pha 380–460 V, 50/60 Hz (±15 % điện áp, ±5 % tần số). Tần số ra 0–500 Hz, quá tải 150 %/60 s, làm mát cưỡng bức.",
+          "noteEn": "Input 3-phase 380–460 V, 50/60 Hz (±15 % voltage, ±5 % frequency). Output 0–500 Hz, 150 %/60 s overload, forced-air cooling.",
+          "cols": [
+            { "key": "kw", "label": "Công suất (kW)", "labelEn": "Power (kW)" },
+            { "key": "hp", "label": "Động cơ (HP)", "labelEn": "Motor (HP)" },
+            { "key": "kva", "label": "Dung lượng (kVA)", "labelEn": "Capacity (kVA)" },
+            { "key": "outA", "label": "Dòng ra (A)", "labelEn": "Output (A)" },
+            { "key": "inA", "label": "Dòng vào 3 pha (A)", "labelEn": "Input 3-ph (A)" }
+          ],
+          "rows": [
+            ["0.75", "1", "1.9", "2.5", "3.4"],
+            ["1.5", "2", "2.9", "3.8", "5.0"],
+            ["2.2", "3", "3.9", "5.1", "5.8"],
+            ["4.0", "5.4", "6.9", "9", "10.5"],
+            ["5.5", "7.4", "9.9", "13", "15"]
+          ]
+        }
+      ]
+    },
     "sourceUrl": "https://savch.net/minixilieS600E.html"
   },
   {
@@ -208,7 +494,95 @@
       "alt": "Biến tần Savch S3100A và S3100E",
       "altEn": "Savch S3100A and S3100E inverters"
     },
-    "sourceUrl": "https://savch.net/tongyongxilieS3100AE.html"
+    "sourceUrl": "https://savch.net/tongyongxilieS3100AE.html",
+    "detail": {
+      "naming": {
+        "code": "S3100A/E − 4T 7.5G/11P",
+        "lines": [
+          "2T = 3 pha / 1 pha 220 V · 4T = 3 pha 440 V",
+          "A = động cơ không đồng bộ (IM) · E = nam châm vĩnh cửu (PM)",
+          "G = tải nặng 150 %/60 s · P = tải nhẹ bơm/quạt 120 %/60 s"
+        ],
+        "linesEn": [
+          "2T = 3-phase / 1-phase 220 V · 4T = 3-phase 440 V",
+          "A = induction motor (IM) · E = permanent-magnet (PM)",
+          "G = heavy duty 150 %/60 s · P = light duty pump/fan 120 %/60 s"
+        ]
+      },
+      "tables": [
+        {
+          "caption": "Bảng chọn model — 220 V (S3100A/E-2T···G)",
+          "captionEn": "Model selection — 220 V (S3100A/E-2T···G)",
+          "note": "Đầu vào 1 pha chỉ tới 2.2 kW; công suất cao hơn nhận 3 pha 200–240 V. Tần số ra 0–500 Hz, làm mát cưỡng bức.",
+          "noteEn": "Single-phase input up to 2.2 kW only; higher ratings take 3-phase 200–240 V. Output 0–500 Hz, forced-air cooling.",
+          "cols": [
+            { "key": "kw", "label": "Công suất (kW)", "labelEn": "Power (kW)" },
+            { "key": "hp", "label": "Động cơ (HP)", "labelEn": "Motor (HP)" },
+            { "key": "kva", "label": "Dung lượng (kVA)", "labelEn": "Capacity (kVA)" },
+            { "key": "outA", "label": "Dòng ra (A)", "labelEn": "Output (A)" },
+            { "key": "inA1", "label": "Dòng vào 1 pha (A)", "labelEn": "Input 1-ph (A)" },
+            { "key": "inA3", "label": "Dòng vào 3 pha (A)", "labelEn": "Input 3-ph (A)" }
+          ],
+          "rows": [
+            ["0.4", "0.5", "1.1", "2.3", "5.4", "3.1"],
+            ["0.75", "1", "1.5", "4.0", "8.2", "5.0"],
+            ["1.5", "2", "2.7", "7.0", "14.2", "7.7"],
+            ["2.2", "3", "3.7", "9.6", "23", "11.1"],
+            ["4.0", "5.4", "6.5", "17.0", "—", "22.2"],
+            ["5.5", "7.4", "9.5", "25", "—", "31.5"],
+            ["7.5", "10", "12.2", "32", "—", "42.7"]
+          ]
+        },
+        {
+          "caption": "Bảng chọn model — 440 V (S3100A/E-4T···G/P)",
+          "captionEn": "Model selection — 440 V (S3100A/E-4T···G/P)",
+          "note": "Dòng ra ghi G (P): trị số máy G, trong ngoặc là máy P. Đầu vào 3 pha 380–460 V, ±15 % điện áp / ±5 % tần số. Tần số ra 0–500 Hz, làm mát cưỡng bức.",
+          "noteEn": "Output current as G (P): G-type value, P-type in parentheses. Input 3-phase 380–460 V, ±15 % voltage / ±5 % frequency. Output 0–500 Hz, forced-air cooling.",
+          "cols": [
+            { "key": "kw", "label": "Công suất (kW)", "labelEn": "Power (kW)" },
+            { "key": "hp", "label": "Động cơ (HP)", "labelEn": "Motor (HP)" },
+            { "key": "kva", "label": "Dung lượng (kVA)", "labelEn": "Capacity (kVA)" },
+            { "key": "outAgp", "label": "Dòng ra G (P) (A)", "labelEn": "Output G (P) (A)" },
+            { "key": "inA", "label": "Dòng vào (A)", "labelEn": "Input (A)" }
+          ],
+          "rows": [
+            ["0.75", "1", "1.9", "2.5 (3.2)", "3.4"],
+            ["1.5", "2", "2.9", "3.8 (4.7)", "5.0"],
+            ["2.2", "3", "3.9", "5.1 (6.5)", "5.8"],
+            ["4.0", "5.4", "6.9", "9 (11.8)", "10.5"],
+            ["5.5", "7.4", "9.9", "13 (15)", "15"],
+            ["7.5", "10", "13", "17 (21.7)", "20.5"],
+            ["11", "14.7", "19.1", "25 (28.5)", "26"],
+            ["15", "20", "24.4", "32 (35.4)", "35"],
+            ["18.5", "24.7", "28.2", "37 (42)", "38"],
+            ["22", "29.4", "34.3", "45 (60)", "46"],
+            ["30", "40", "45.7", "60 (75)", "62"],
+            ["37", "50", "57.1", "75 (85)", "76"],
+            ["45", "60", "68.6", "90 (110)", "92"],
+            ["55", "74", "83.8", "110 (152)", "113"],
+            ["75", "100", "114.3", "152 (176)", "157"],
+            ["90", "120", "134", "176 (210)", "180"],
+            ["110", "147", "160", "210 (253)", "214"],
+            ["132", "176", "191", "253 (304)", "256"],
+            ["160", "214", "229", "304 (340)", "308"],
+            ["185", "247", "259", "340 (377)", "345"],
+            ["200", "267", "290", "377 (426)", "382"],
+            ["220", "294", "316", "426 (465)", "430"],
+            ["250", "334", "358", "465 (520)", "470"],
+            ["280", "374", "396", "520 (585)", "525"],
+            ["315", "420", "445", "585 (650)", "590"],
+            ["355", "470", "500", "650 (725)", "655"],
+            ["400", "530", "565", "725 (820)", "730"],
+            ["450", "600", "630", "820 (860)", "825"],
+            ["500", "660", "700", "860", "865"],
+            ["560", "755", "785", "1040", "1045"],
+            ["630", "840", "871", "1180", "1185"],
+            ["710", "1031", "1006", "1320", "1452"],
+            ["800", "1172", "1143", "1500", "1650"]
+          ]
+        }
+      ]
+    }
   },
   {
     "slug": "penta",
@@ -233,6 +607,61 @@
       "h": 225,
       "alt": "Biến tần kỹ thuật Savch Sinus Penta",
       "altEn": "Savch Sinus Penta engineering inverter"
+    },
+    "detail": {
+      "naming": {
+        "code": "SINUS PENTA 0259 12T XA2KD",
+        "lines": [
+          "SINUS = dòng đơn · SINUS BOX = dạng hộp · SINUS CABINET = dạng tủ",
+          "0259 = mã công suất · 12 = điện áp định mức 1140 V · T = nguồn 3 pha (C = DC bus, D = 12 xung)",
+          "X = không module hãm · B = hãm tích hợp",
+          "A2 = lọc EMC cấp C3 · K = tích hợp bảng điều khiển",
+          "D = kiểu phòng nổ · 0 = lắp tiêu chuẩn · W = làm mát nước"
+        ],
+        "linesEn": [
+          "SINUS = standalone · SINUS BOX = box · SINUS CABINET = cabinet",
+          "0259 = power code · 12 = rated voltage 1140 V · T = 3-phase supply (C = DC bus, D = 12-pulse)",
+          "X = no brake unit · B = integrated brake",
+          "A2 = EMC filter class C3 · K = built-in keypad",
+          "D = explosion-proof · 0 = standard mount · W = water-cooled"
+        ]
+      },
+      "tables": [
+        {
+          "caption": "Bảng chọn model — Penta 12T (1140 V)",
+          "captionEn": "Model selection — Penta 12T (1140 V)",
+          "note": "Dải 1140 V / chỉnh lưu 12 xung (bản Penta 12T cho tải nặng, mỏ than). Cột kW/A ghi ở mức tải tiêu chuẩn và tải nặng, kèm dòng liên tục định mức Inom. Mã hãm / lọc EMC / bảng điều khiển / cấp bảo vệ ghép thêm ở đuôi model — liên hệ để chốt mã đầy đủ.",
+          "noteEn": "1140 V / 12-pulse range (Penta 12T for heavy duty and coal mining). kW/A shown at standard and heavy duty with the rated continuous current Inom. Brake / EMC filter / keypad / protection are appended in the model code — contact us for the full code.",
+          "filterCol": "frame",
+          "cols": [
+            { "key": "model", "label": "Model", "labelEn": "Model" },
+            { "key": "frame", "label": "Cỡ khung", "labelEn": "Frame" },
+            { "key": "stdKW", "label": "Tiêu chuẩn (kW)", "labelEn": "Standard (kW)" },
+            { "key": "stdA", "label": "Tiêu chuẩn (A)", "labelEn": "Standard (A)" },
+            { "key": "hduKW", "label": "Tải nặng (kW)", "labelEn": "Heavy duty (kW)" },
+            { "key": "hduA", "label": "Tải nặng (A)", "labelEn": "Heavy duty (A)" },
+            { "key": "inom", "label": "Inom (A)", "labelEn": "Inom (A)" }
+          ],
+          "rows": [
+            ["SINUS PENTA 0062 12T", "S33", "132", "81", "110", "65", "85"],
+            ["SINUS PENTA 0069 12T", "S33", "160", "98", "132", "81", "105"],
+            ["SINUS PENTA 0076 12T", "S33", "200", "125", "160", "98", "125"],
+            ["SINUS PENTA 0088 12T", "S53", "250", "150", "200", "125", "150"],
+            ["SINUS PENTA 0131 12T", "S53", "315", "190", "250", "150", "190"],
+            ["SINUS PENTA 0164 12T", "S53", "400", "230", "315", "190", "230"],
+            ["SINUS PENTA 0181 12T", "S53", "450", "270", "400", "230", "305"],
+            ["SINUS PENTA 0201 12T", "S53", "500", "305", "450", "270", "330"],
+            ["SINUS PENTA 0218 12T", "S53", "560", "335", "500", "305", "360"],
+            ["SINUS PENTA 0259 12T", "S53", "630", "380", "560", "355", "400"],
+            ["SINUS PENTA 0290 12T", "S63", "710", "430", "630", "380", "450"],
+            ["SINUS PENTA 0314 12T", "S63", "800", "480", "710", "430", "500"],
+            ["SINUS PENTA 0368 12T", "S63", "900", "540", "800", "480", "560"],
+            ["SINUS PENTA 0401 12T", "S63", "1000", "600", "900", "540", "640"],
+            ["SINUS PENTA 0457 12T", "S63", "1000", "600", "900", "540", "720"],
+            ["SINUS PENTA 0524 12T", "S63", "1200", "720", "1000", "600", "800"]
+          ]
+        }
+      ]
     },
     "sourceUrl": "https://savch.net/gongcheng.html"
   },

@@ -127,16 +127,21 @@ export default async function Applications({ params }: { params: Promise<{ local
             </div>
             <span className="font-mono text-label text-muted tracking-[.1em] uppercase">{t("caseStudies", { count: caseCount })}</span>
           </div>
-          {/* material groups stack vertically; sub-items lay out as a 2-up (phone)
-              / 4-up (desktop) grid. Existing case studies link out; new sub-types
-              render as non-clickable "coming soon" placeholders (no dead links). */}
-          <div className="flex flex-col gap-px bg-line border border-line">
+          {/* Each material group is its own bordered block with breathing room
+              between them, so the catalog reads as distinct sections instead of
+              one continuous grid. The tinted header band + gold rail mark where a
+              group starts; existing case studies link out, new sub-types render as
+              non-clickable "coming soon" placeholders (no dead links). */}
+          <div className="space-y-6 sm:space-y-8">
             {groups.map((g) => (
-              <div key={g.name} className="bg-white">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2 px-5 sm:px-7 pt-6 pb-5 border-b border-line">
+              <div key={g.name} className="border border-line bg-white">
+                {/* header band — tinted + gold rail so the group start is unmistakable */}
+                <div className="relative flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2.5 bg-paper border-b border-line py-5 pl-7 sm:pl-8 pr-5 sm:pr-7
+                                before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-gold">
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
-                    <span className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">[ {g.n} / {String(groups.length).padStart(2, "0")} ]</span>
-                    <h3 className="font-display font-bold text-subhead tracking-[-.01em] m-0">{g.name}</h3>
+                    <span className="font-mono font-bold text-subhead text-gold-1 leading-none tracking-[.02em]">{g.n}</span>
+                    <span className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">/ {String(groups.length).padStart(2, "0")}</span>
+                    <h3 className="font-display font-bold text-subhead tracking-[-.01em] m-0 ml-1">{g.name}</h3>
                     <span className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">· {g.tag}</span>
                     {g.axes && (
                       <span className="font-mono text-label-xs text-gold-1 tracking-[.14em] uppercase border border-gold/40 rounded-full px-2 py-0.5">{g.axes}</span>

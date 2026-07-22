@@ -6,10 +6,9 @@ import type { SeriesView } from "@/lib/data/series";
 /**
  * List card for a drive-line series (QS Servo, Savch inverters). The catalogue
  * sells these at series level, so the card carries series-wide facts only and
- * ends in a quote CTA instead of a detail link — no dead links while the
- * series has no page of its own. Unknown facts are omitted, never dashed out.
- * What the servo set is made of is told by the list page's own sections
- * (drives / motors / cables), so the card does not repeat it.
+ * links through to the series datasheet page. Unknown facts are omitted, never
+ * dashed out. What the servo set is made of is told by the list page's own
+ * sections (drives / motors / cables), so the card does not repeat it.
  */
 export async function SeriesCard({
   series,
@@ -62,8 +61,8 @@ export async function SeriesCard({
         </h3>
         <p className="mt-2.5 m-0 text-meta text-[#3a3a3a] leading-[1.65]">{series.desc}</p>
 
-        <Link href="/contact" className="qs-link mt-auto pt-6 self-start">
-          {t("quote")} <span aria-hidden>→</span>
+        <Link href={`/products/${series.slug}`} className="qs-link mt-auto pt-6 self-start">
+          {t("details")} <span aria-hidden>→</span>
         </Link>
       </div>
 

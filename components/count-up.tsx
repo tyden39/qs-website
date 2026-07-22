@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 
 /**
  * Counts from 0 up to `to` once it scrolls into view. Renders the final value on the
@@ -24,13 +25,10 @@ export default function CountUp({
 }) {
   const [val, setVal] = useState(to);
   const ref = useRef<HTMLSpanElement>(null);
+  const reduced = usePrefersReducedMotion();
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVal(to);
-      return;
-    }
+    if (!el || reduced) return;
 
     let raf = 0;
     let interval = 0;
@@ -73,9 +71,12 @@ export default function CountUp({
       cancelAnimationFrame(raf);
       if (interval) clearInterval(interval);
     };
-  }, [to, duration, repeatEvery]);
+  }, [to, duration, repeatEvery, reduced]);
 
-  const text = pad > 0 ? String(val).padStart(pad, "0") : String(val);
+  // Under reduced motion the ramp never runs, so show the target directly — this
+  // also keeps the figure correct if `to` changes while motion is disabled.
+  const displayed = reduced ? to : val;
+  const text = pad > 0 ? String(displayed).padStart(pad, "0") : String(displayed);
   return (
     <span ref={ref} className={className}>
       {text}

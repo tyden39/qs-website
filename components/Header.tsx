@@ -19,6 +19,15 @@ export default function Header() {
 
   const [open, setOpen] = useState(false);
 
+  // Close the mobile drawer whenever navigation lands on a new route. Comparing
+  // the previous path during render (rather than in an effect) applies the reset
+  // in the same pass, avoiding an extra render and the set-state-in-effect rule.
+  const [prevPath, setPrevPath] = useState(path);
+  if (prevPath !== path) {
+    setPrevPath(path);
+    setOpen(false);
+  }
+
   // Opening the search panel closes the mobile drawer, and vice versa, so only
   // one overlay is ever live at a time.
   function openSearch() {
@@ -34,9 +43,7 @@ export default function Header() {
     });
   }
 
-  // Close the mobile drawer whenever navigation lands on a new route, and lock
-  // body scroll while it is open so the page behind cannot drift.
-  useEffect(() => { setOpen(false); }, [path]);
+  // Lock body scroll while the drawer is open so the page behind cannot drift.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };

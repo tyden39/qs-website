@@ -36,17 +36,15 @@ export default function SearchPanel({
   const router = useRouter();
 
   const [query, setQuery] = useState("");
-  const [db, setDb] = useState<SearchDb | null>(null);
-  const [suggestions, setSuggestions] = useState<SearchRecord[]>([]);
+  // The engine is stored with the locale it was built for; a locale switch
+  // invalidates it by derivation (below), not a synchronous reset.
+  const [built, setBuilt] = useState<{ locale: string; db: SearchDb } | null>(null);
+  const [hits, setHits] = useState<SearchRecord[]>([]);
   // Keyboard-highlighted row among the live suggestions (-1 = none).
   const [active, setActive] = useState(-1);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // The index is locale-specific, so drop any built engine when the locale changes.
-  useEffect(() => {
-    setDb(null);
-    setSuggestions([]);
-  }, [locale]);
+  const db = built?.locale === locale ? built.db : null;
 
   // Prebuilt index is fetched and the Orama engine built lazily (once, per
   // locale) the first time the user types, so an unopened panel costs nothing.
@@ -56,7 +54,7 @@ export default function SearchPanel({
     fetch(`/search-index.${locale}.json`)
       .then((r) => r.json())
       .then((recs: SearchRecord[]) => createSearchDb(recs))
-      .then((built) => alive && setDb(built))
+      .then((engine) => alive && setBuilt({ locale, db: engine }))
       .catch(() => {
         /* index unavailable — suggestions stay empty */
       });
@@ -67,18 +65,25 @@ export default function SearchPanel({
 
   // Run the Orama query whenever the engine is ready or the term changes.
   useEffect(() => {
-    if (!db || !query.trim()) {
-      setSuggestions([]);
-      return;
-    }
+    if (!db || !query.trim()) return;
     let alive = true;
-    searchDb(db, query, MAX_SUGGESTIONS).then((hits) => alive && setSuggestions(hits));
+    searchDb(db, query, MAX_SUGGESTIONS).then((h) => alive && setHits(h));
     return () => {
       alive = false;
     };
   }, [db, query]);
 
-  useEffect(() => setActive(-1), [query]);
+  // Async hits belong to the last resolved term; hide them when the box is empty
+  // or the engine isn't ready, without a reset setState.
+  const suggestions = db && query.trim() ? hits : [];
+
+  // Reset the keyboard highlight when the term changes — compared during render
+  // so it applies in the same pass instead of a set-state-in-effect.
+  const [prevQuery, setPrevQuery] = useState(query);
+  if (prevQuery !== query) {
+    setPrevQuery(query);
+    setActive(-1);
+  }
 
   function go(href: string) {
     close();

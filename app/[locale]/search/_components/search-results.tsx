@@ -28,17 +28,18 @@ export function SearchResults() {
     : "all";
   const page = Math.max(1, Number(params.get("page") ?? "1") || 1);
 
-  const [db, setDb] = useState<SearchDb | null>(null);
-  const [scored, setScored] = useState<SearchRecord[]>([]);
+  // The engine is stored with the locale it was built for, so a locale switch
+  // invalidates it by derivation (below) instead of a synchronous reset.
+  const [built, setBuilt] = useState<{ locale: string; db: SearchDb } | null>(null);
+  const [hits, setHits] = useState<SearchRecord[]>([]);
   const [recent, setRecent] = useState<string[]>([]);
 
   useEffect(() => {
     let alive = true;
-    setDb(null);
     fetch(`/search-index.${locale}.json`)
       .then((r) => r.json())
       .then((recs: SearchRecord[]) => createSearchDb(recs))
-      .then((built) => alive && setDb(built))
+      .then((db) => alive && setBuilt({ locale, db }))
       .catch(() => {
         /* index unavailable — results stay empty */
       });
@@ -47,9 +48,16 @@ export function SearchResults() {
     };
   }, [locale]);
 
+  const db = built?.locale === locale ? built.db : null;
+
+  // Reading/persisting the recent-search list touches localStorage, which only
+  // exists on the client, so it must happen after mount to avoid a hydration
+  // mismatch — a legitimate set-state-in-effect the compiler rule can't tell
+  // apart from a cascading one.
   useEffect(() => {
     try {
       const raw = localStorage.getItem(RECENT_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only storage read, deferred past hydration by design
       if (raw) setRecent(JSON.parse(raw) as string[]);
     } catch {
       /* storage unavailable — skip recents */
@@ -58,6 +66,7 @@ export function SearchResults() {
 
   useEffect(() => {
     if (!query) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- persists the search term to client-only storage as history
     setRecent((prev) => {
       const next = [query, ...prev.filter((x) => x.toLowerCase() !== query.toLowerCase())].slice(0, 6);
       try {
@@ -70,16 +79,18 @@ export function SearchResults() {
   }, [query]);
 
   useEffect(() => {
-    if (!db || !query) {
-      setScored([]);
-      return;
-    }
+    if (!db || !query) return;
     let alive = true;
-    searchDb(db, query, MAX_RESULTS).then((hits) => alive && setScored(hits));
+    searchDb(db, query, MAX_RESULTS).then((h) => alive && setHits(h));
     return () => {
       alive = false;
     };
   }, [db, query]);
+
+  // Async hits belong to the last resolved query; blank them out when there is
+  // no live query/engine so a cleared box shows nothing without a reset setState.
+  // Memoized so the empty-case array keeps a stable identity for `counts` below.
+  const scored = useMemo(() => (db && query ? hits : []), [db, query, hits]);
 
   const counts = useMemo(() => {
     const c: Record<string, number> = { all: scored.length };

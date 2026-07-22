@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { useLightbox } from "@/components/media/image-lightbox";
 import { useHorizontalSwipe } from "@/lib/use-swipe";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 
 export type MachineHeroGalleryShot = {
   src: string;
@@ -36,11 +37,7 @@ export function MachineHeroGallery({
   const { open } = useLightbox();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    setReduced(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false);
-  }, []);
+  const reduced = usePrefersReducedMotion();
 
   // The zoomed caption carries the model so a full-screen shot stays identifiable.
   const zoomShots = useMemo(

@@ -28,6 +28,10 @@ export default function RootRedirect() {
       </head>
       <body>
         <p style={{ fontFamily: "sans-serif", padding: "2rem" }}>
+          {/* Plain anchor on purpose: this pre-locale redirect shell lives outside
+              the i18n routing and owns the whole document, so next/link's <Link>
+              (which expects the App Router locale tree) doesn't apply here. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           Đang chuyển hướng tới <a href="/vi/">/vi/</a>…
         </p>
       </body>

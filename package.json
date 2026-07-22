@@ -9,7 +9,7 @@
     "prebuild": "tsx scripts/build-search-index.ts",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "search:index": "tsx scripts/build-search-index.ts",
     "i18n:check": "tsx scripts/check-i18n-keys.ts"
   },
@@ -26,11 +26,15 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.6",
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^25.9.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
     "postcss": "8.5.14",
     "schema-dts": "^2.0.0",
     "tailwindcss": "^4.3.0",

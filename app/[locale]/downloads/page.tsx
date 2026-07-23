@@ -173,7 +173,7 @@ export default async function Downloads({ params }: Props) {
                         </span>
                         {head.productSlug && (
                           <Link
-                            href={`/products/${head.productSlug}`}
+                            href={`/electronics/${head.productSlug}`}
                             className="font-mono text-label text-gold-1 tracking-[.06em] hover:underline w-fit"
                           >
                             {head.model} →

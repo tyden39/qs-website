@@ -194,7 +194,7 @@ export default function SearchPanel({
               <div className="grid grid-cols-2 lg:grid-cols-6 gap-px bg-line border border-line">
 
                 {featured.map((p, i) => (
-                  <Link key={p.slug} href={`/products/${p.slug}`} onClick={close}
+                  <Link key={p.slug} href={`/electronics/${p.slug}`} onClick={close}
                         className={`bg-white p-4 hover:bg-paper transition-colors flex-col text-ink ${i >= 3 ? "hidden lg:flex" : "flex"}`}>
                     <div className="relative h-28 mb-3 border border-line overflow-hidden"
                          style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
@@ -207,7 +207,7 @@ export default function SearchPanel({
                     </div>
                   </Link>
                 ))}
-                <Link href="/products" onClick={close}
+                <Link href="/electronics" onClick={close}
                       className="bg-ink hover:bg-[#0a0a0a] p-4 flex flex-col text-white transition-colors">
                   <div className="h-20 bg-[#0a0a0a] grid place-items-center mb-3 border border-ink-3 text-gold-2">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>

@@ -152,7 +152,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
               {relatedProducts.map((p, i) => (
                 <Reveal key={p.slug} className="qs-reveal-desktop flex items-stretch w-full shrink-0 snap-start md:w-auto" delay={i * 70}>
                 <Link
-                  href={`/products/${p.slug}`}
+                  href={`/electronics/${p.slug}`}
                   className="group w-full bg-white p-6 flex flex-col hover:bg-paper transition-colors relative
                              before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold"
                 >

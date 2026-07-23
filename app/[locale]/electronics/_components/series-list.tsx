@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { getSeries, SERIES_KINDS, type SeriesCategory } from "@/lib/data/series";
 import { SeriesCard } from "@/components/products/series-card";
 import { SeriesListFilter, type SeriesFilterSection } from "./series-list-filter";
+import { SortableCardList } from "./sortable-card-list";
 import type { Locale } from "@/lib/i18n/config";
 
 /**
@@ -28,13 +29,22 @@ export async function SeriesList({
     items: series.filter((s) => s.kind === kind),
   })).filter((s) => s.items.length > 0);
 
-  if (sections.length === 0) {
+  // A single sub-type (or none) carries no kind chips — the choice would be
+  // more chrome than help. It still gets the shared toolbar frame (count + sort)
+  // so every group panel matches the controllers' bar.
+  if (sections.length <= 1) {
     return (
-      <div className="flex flex-col gap-6">
-        {series.map((s, i) => (
-          <SeriesCard key={s.slug} series={s} index={i} total={series.length} />
-        ))}
-      </div>
+      <SortableCardList
+        items={series.map((s, i) => ({
+          key: s.slug,
+          name: s.name,
+          node: <SeriesCard key={s.slug} series={s} index={i} total={series.length} />,
+        }))}
+        sortOptions={tb.raw("sortBasic") as string[]}
+        showing={tb("showing")}
+        unit={tb("ofSeries")}
+        sortLabel={tb("sortLabel")}
+      />
     );
   }
 

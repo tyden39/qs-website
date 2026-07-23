@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Reveal from "@/components/reveal";
 import CircuitTraces from "@/components/circuit-traces";
 import MachineAnnotation from "./_components/machine-annotation";
 import CncFeatureVideo from "./_components/cnc-feature-video";
-import MachineList from "./_components/machine-list";
-import { getMachines } from "@/lib/data/machines";
+import { MachineCard } from "@/components/products/machine-card";
+import { ProductCategoryTree, type CategoryTreeGroup, type CategoryTreeChild } from "../electronics/_components/product-category-tree";
+import { SortableCardList } from "../electronics/_components/sortable-card-list";
+import { getMachines, MACHINE_TYPES, type MachineView, type MachineCategory } from "@/lib/data/machines";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
@@ -24,13 +25,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates("/cnc", locale),
+    alternates: buildAlternates("/machine-building", locale),
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/cnc",
+      url: "/machine-building",
       images: [{ url: "/home/cnc-machine-hero.webp", width: 1672, height: 941, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -42,21 +43,64 @@ export async function generateMetadata({
 const MACHINE_IMG = "/home/cnc-machine-hero.webp";
 const VIDEO_ID = "kLcNpeHu-2A";
 
-// Standalone CNC page is temporarily hidden: unlinked from the nav and returns
-// 404 while the machine line-up is served from the Products page. The
-// `/cnc/[slug]` detail pages remain live. Flip to false to restore.
-const CNC_PAGE_HIDDEN: boolean = true;
-
 export default async function CncPage({ params }: { params: Promise<{ locale: Locale }> }) {
-  if (CNC_PAGE_HIDDEN) notFound();
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "cnc" });
 
   const machines = getMachines(locale);
+  const pt = await getTranslations({ locale, namespace: "product.page" });
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: t("breadcrumb.current"), path: "/cnc" },
+    { name: t("breadcrumb.current"), path: "/machine-building" },
   ]);
+
+  // Sidebar tree = machine types (CNC / Automation / Inspection); the CNC branch
+  // (the only type with several categories) expands to its categories. Each
+  // branch's right panel is a card grid with the shared count + sort toolbar,
+  // matching the /electronics catalogue.
+  const catsOf = (ms: MachineView[]): MachineCategory[] => {
+    const order: MachineCategory[] = [];
+    for (const m of ms) if (!order.includes(m.category)) order.push(m.category);
+    return order;
+  };
+  const machineGroups: CategoryTreeGroup[] = MACHINE_TYPES.map((ty) => ({
+    ty,
+    ms: machines.filter((m) => m.type === ty),
+  }))
+    .filter((g) => g.ms.length > 0)
+    .map(({ ty, ms }) => {
+      const cats = catsOf(ms);
+      const children: CategoryTreeChild[] | undefined =
+        cats.length > 1
+          ? cats.map((cat) => ({
+              id: cat,
+              label: t(`machines.categories.${cat}`),
+              count: ms.filter((m) => m.category === cat).length,
+            }))
+          : undefined;
+      return {
+        id: ty,
+        label: t(`machines.types.${ty}`),
+        count: ms.length,
+        thumb: ms[0].thumbnail,
+        children,
+        node: (
+          <SortableCardList
+            layout="grid"
+            items={ms.map((m, i) => ({
+              key: m.slug,
+              name: m.model,
+              subtype: m.category,
+              node: <MachineCard machine={m} index={i} total={ms.length} />,
+            }))}
+            sortOptions={pt.raw("toolbar.sortBasic") as string[]}
+            showing={pt("toolbar.showing")}
+            unit={pt("toolbar.ofMachines")}
+            sortLabel={pt("toolbar.sortLabel")}
+          />
+        ),
+      };
+    });
 
   return (
     <>
@@ -105,7 +149,11 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
             </div>
           </Reveal>
           <Reveal>
-            <MachineList machines={machines} />
+            <ProductCategoryTree
+              eyebrow={pt("groups.eyebrow")}
+              allLabel={pt("types.all")}
+              groups={machineGroups}
+            />
           </Reveal>
         </div>
       </section>

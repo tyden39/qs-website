@@ -38,12 +38,12 @@ export async function ProductBundleCard({
         />
         {/* controller render — real front-face photo, links to the detail page */}
         <Link
-          href={`/products/${product.slug}`}
+          href={`/electronics/${product.slug}`}
           aria-label={product.tag}
           className="relative grid place-items-center border border-line rounded-[2px] p-4 overflow-hidden min-h-[180px]"
           style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
         >
-          <span aria-hidden className="qs-scan opacity-0 group-hover:opacity-100" />
+          <span aria-hidden className="qs-scan z-10" />
           <Image
             src={product.image.src}
             alt={`${product.tag} — ${t("frontView")}`}
@@ -56,7 +56,7 @@ export async function ProductBundleCard({
 
         <h3 className="mt-5 font-display font-bold text-subhead tracking-[-.01em] m-0">
           <span className="text-muted font-medium text-body">{t("model")}</span>{" "}
-          <Link href={`/products/${product.slug}`} className="hover:text-gold-1 transition-colors">
+          <Link href={`/electronics/${product.slug}`} className="hover:text-gold-1 transition-colors">
             {product.name}
           </Link>
         </h3>
@@ -80,7 +80,7 @@ export async function ProductBundleCard({
         </ul>
 
         <Link
-          href={`/products/${product.slug}`}
+          href={`/electronics/${product.slug}`}
           className="qs-link mt-auto pt-6 self-start"
         >
           {t("viewDetails")} <span aria-hidden>→</span>

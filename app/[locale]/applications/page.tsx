@@ -4,7 +4,9 @@ import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
-import { ProductVideo } from "../products/_components/product-video";
+import { ProductVideo } from "../electronics/_components/product-video";
+import { ProductCategoryTree, type CategoryTreeGroup } from "../electronics/_components/product-category-tree";
+import { SortableCardList, type SortableCard } from "../electronics/_components/sortable-card-list";
 import type { Locale } from "@/lib/i18n/config";
 
 // Shop-floor feature clip shown below the catalog list.
@@ -74,6 +76,70 @@ export default async function Applications({ params }: { params: Promise<{ local
   };
   const groups = groupMeta.map((meta, gi) => ({ ...meta, n: String(gi + 1).padStart(2, "0"), items: appTaxonomy[gi] }));
   const caseCount = appTaxonomy.flat().filter((it) => it.kind === "case").length;
+  const pt = await getTranslations({ locale, namespace: "product.page" });
+
+  // Case-study card and "coming soon" placeholder — the right-panel cards for
+  // the material-group tree. Each carries the sub-item id as `subtype` so a tree
+  // branch narrows its group to that one card.
+  const caseCard = (slug: string): React.ReactNode => {
+    const c = caseAt(slug);
+    return (
+      <Link
+        href={`/applications/${slug}`}
+        className="group border border-line bg-white p-5 flex flex-col gap-3 hover:bg-paper transition-colors relative
+                   before:content-[''] before:absolute before:top-0 before:left-5 before:w-8 before:h-0.5 before:bg-gold"
+      >
+        <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{c.label}</div>
+        <div className="relative aspect-[4/3] border border-line overflow-hidden bg-paper">
+          <Image src={c.img} alt={c.machine} fill sizes="(max-width:768px) 50vw, 25vw"
+                 className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+          <div className="qs-scan" aria-hidden="true"></div>
+        </div>
+        <div className="flex justify-between items-center pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-gold-1">
+          <span>{t("detail")}</span>
+          <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </div>
+      </Link>
+    );
+  };
+  const soonCard = (key: string): React.ReactNode => (
+    <div className="border border-line bg-white p-5 flex flex-col gap-3">
+      <div className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">{soon.items[key]}</div>
+      <div className="relative aspect-[4/3] border border-dashed border-gold/40 overflow-hidden flex items-center justify-center px-3 text-center"
+           style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
+        <span className="font-mono text-label-xs text-muted tracking-[.14em] uppercase">{soon.imageLabel}</span>
+      </div>
+      <div className="pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-muted">{soon.label}</div>
+    </div>
+  );
+  const appGroups: CategoryTreeGroup[] = groups.map((g) => {
+    const cards: SortableCard[] = g.items.map((it) =>
+      it.kind === "case"
+        ? { key: it.slug, name: caseAt(it.slug).label, subtype: it.slug, node: caseCard(it.slug) }
+        : { key: it.key, name: soon.items[it.key], subtype: it.key, node: soonCard(it.key) },
+    );
+    const children = g.items.map((it) =>
+      it.kind === "case"
+        ? { id: it.slug, label: caseAt(it.slug).label, count: 1 }
+        : { id: it.key, label: soon.items[it.key], count: 1 },
+    );
+    return {
+      id: g.tag.toLowerCase(),
+      label: g.name,
+      count: cards.length,
+      children,
+      node: (
+        <SortableCardList
+          layout="grid"
+          items={cards}
+          sortOptions={pt.raw("toolbar.sortBasic") as string[]}
+          showing={pt("toolbar.showing")}
+          unit={pt("toolbar.ofApps")}
+          sortLabel={pt("toolbar.sortLabel")}
+        />
+      ),
+    };
+  });
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: seo("applicationsTitle"), path: "/applications" },
   ]);
@@ -127,65 +193,15 @@ export default async function Applications({ params }: { params: Promise<{ local
             </div>
             <span className="font-mono text-label text-muted tracking-[.1em] uppercase">{t("caseStudies", { count: caseCount })}</span>
           </div>
-          {/* Each material group is its own bordered block with breathing room
-              between them, so the catalog reads as distinct sections instead of
-              one continuous grid. The tinted header band + gold rail mark where a
-              group starts; existing case studies link out, new sub-types render as
-              non-clickable "coming soon" placeholders (no dead links). */}
-          <div className="space-y-6 sm:space-y-8">
-            {groups.map((g) => (
-              <div key={g.name} className="border border-line bg-white">
-                {/* header band — tinted + gold rail so the group start is unmistakable */}
-                <div className="relative flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2.5 bg-paper border-b border-line py-5 pl-7 sm:pl-8 pr-5 sm:pr-7
-                                before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-gold">
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
-                    <span className="font-mono font-bold text-subhead text-gold-1 leading-none tracking-[.02em]">{g.n}</span>
-                    <span className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">/ {String(groups.length).padStart(2, "0")}</span>
-                    <h3 className="font-display font-bold text-subhead tracking-[-.01em] m-0 ml-1">{g.name}</h3>
-                    <span className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">· {g.tag}</span>
-                    {g.axes && (
-                      <span className="font-mono text-label-xs text-gold-1 tracking-[.14em] uppercase border border-gold/40 rounded-full px-2 py-0.5">{g.axes}</span>
-                    )}
-                  </div>
-                  <p className="text-meta text-muted leading-[1.5] m-0 max-w-[54ch]">{g.desc}</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-line">
-                  {g.items.map((it) =>
-                    it.kind === "case" ? (
-                      (() => {
-                        const c = caseAt(it.slug);
-                        return (
-                          <Link key={it.slug} href={`/applications/${it.slug}`}
-                                className="group bg-white p-5 flex flex-col gap-3 hover:bg-paper transition-colors relative
-                                           before:content-[''] before:absolute before:top-0 before:left-5 before:w-8 before:h-0.5 before:bg-gold">
-                            <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{c.label}</div>
-                            <div className="relative aspect-[4/3] border border-line overflow-hidden bg-paper">
-                              <Image src={c.img} alt={c.machine} fill sizes="(max-width:768px) 50vw, 25vw"
-                                     className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                              <div className="qs-scan" aria-hidden="true"></div>
-                            </div>
-                            <div className="flex justify-between items-center pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-gold-1">
-                              <span>{t("detail")}</span>
-                              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                            </div>
-                          </Link>
-                        );
-                      })()
-                    ) : (
-                      <div key={it.key} className="bg-white p-5 flex flex-col gap-3">
-                        <div className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">{soon.items[it.key]}</div>
-                        <div className="relative aspect-[4/3] border border-dashed border-gold/40 overflow-hidden flex items-center justify-center px-3 text-center"
-                             style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
-                          <span className="font-mono text-label-xs text-muted tracking-[.14em] uppercase">{soon.imageLabel}</span>
-                        </div>
-                        <div className="pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-muted">{soon.label}</div>
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Material groups as a left tree — each group expands to its
+              sub-types (existing case studies + "coming soon" leaves); the right
+              panel shows that group's cards with the shared count + sort toolbar,
+              matching the /electronics catalogue. */}
+          <ProductCategoryTree
+            eyebrow={pt("groups.eyebrow")}
+            allLabel={pt("types.all")}
+            groups={appGroups}
+          />
         </div>
       </section>
 

@@ -26,13 +26,13 @@ export async function CatalogDetail({
 
   // The two catalogue categories live on their own list pages now; the crumb
   // walks through the right one.
-  const categoryPath = product.category === "dnc" ? "/products/dnc" : "/products/accessories";
+  const categoryPath = product.category === "dnc" ? "/electronics/dnc" : "/electronics/accessories";
   const categoryLabel = tPage(`groups.${product.category}.label`);
   const productJsonLd = buildCatalogProduct(product, locale);
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: t("breadcrumb.products"), path: "/products" },
+    { name: t("breadcrumb.products"), path: "/electronics" },
     { name: categoryLabel, path: categoryPath },
-    { name: product.name, path: `/products/${product.slug}` },
+    { name: product.name, path: `/electronics/${product.slug}` },
   ]);
 
   return (
@@ -50,7 +50,7 @@ export async function CatalogDetail({
           <div className="qs-crumb mb-8 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
-            <Link href="/products">{t("breadcrumb.products")}</Link>
+            <Link href="/electronics">{t("breadcrumb.products")}</Link>
             <span className="sep">/</span>
             <Link href={categoryPath}>{categoryLabel}</Link>
             <span className="sep">/</span>

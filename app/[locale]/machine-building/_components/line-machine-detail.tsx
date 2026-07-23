@@ -63,7 +63,7 @@ export default async function LineMachineDetail({
         <div className="relative qs-wrap-wide py-12 lg:py-16">
           <Reveal>
             <nav className="qs-crumb">
-              <Link href="/cnc" className="hover:text-ink">{d("crumb")}</Link>
+              <Link href="/machine-building" className="hover:text-ink">{d("crumb")}</Link>
               <span className="sep" aria-hidden="true">/</span>
               <span className="here">{machine.model}</span>
             </nav>
@@ -95,7 +95,7 @@ export default async function LineMachineDetail({
 
               <div className="flex flex-wrap gap-3 mt-8">
                 <Link className="qs-btn qs-btn-gold" href="/contact">{d("ctaButton")} <span className="arr">→</span></Link>
-                <Link className="qs-btn qs-btn-ghost" href="/cnc">{d("backToList")}</Link>
+                <Link className="qs-btn qs-btn-ghost" href="/machine-building">{d("backToList")}</Link>
               </div>
             </Reveal>
 
@@ -339,7 +339,7 @@ export default async function LineMachineDetail({
             <p className="qs-lede mx-auto mt-5">{d("ctaBody")}</p>
             <div className="flex flex-wrap justify-center gap-3 mt-9">
               <Link className="qs-btn qs-btn-gold" href="/contact">{d("ctaButton")} <span className="arr">→</span></Link>
-              <Link className="qs-btn qs-btn-ghost" href="/cnc">{d("backToList")}</Link>
+              <Link className="qs-btn qs-btn-ghost" href="/machine-building">{d("backToList")}</Link>
             </div>
           </Reveal>
         </div>

@@ -76,6 +76,9 @@ export default async function LocaleLayout({
     prev: t("lightbox.prev"),
     next: t("lightbox.next"),
     close: t("lightbox.close"),
+    zoomIn: t("lightbox.zoomIn"),
+    zoomOut: t("lightbox.zoomOut"),
+    zoomReset: t("lightbox.zoomReset"),
   };
 
   const products = getAllProducts(locale);

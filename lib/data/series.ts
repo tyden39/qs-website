@@ -5,6 +5,10 @@ import {
   type SeriesKind,
   type SeriesSpec,
   type SeriesDetail,
+  type SeriesFigure,
+  type SeriesPhoto,
+  type SeriesDocumentation,
+  type SeriesIntro,
 } from "@/data/series";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -20,16 +24,72 @@ export type SeriesModelTableView = {
   rows: string[][];
 };
 
+/** A datasheet plate resolved to one locale — the figure's text is baked into
+ *  the image, so the locale picks the file, not just the `alt`. */
+export type SeriesFigureView = { src: string; w: number; h: number; alt: string };
+
+/** A code chunk resolved to one locale. */
+export type SeriesCodeSegmentView = { text: string; label: string };
+
 export type SeriesDetailView = {
-  naming?: { code: string; lines: string[] };
+  naming?: {
+    code: string;
+    lines: string[];
+    figure?: SeriesFigureView;
+    segments: SeriesCodeSegmentView[];
+  };
+  /** Rebuilt introduction resolved to one locale: opening line, optional
+   *  applications line, and feature groups. */
+  intro?: {
+    lead: string;
+    applications?: string;
+    sections: { title: string; items: string[] }[];
+  };
+  /** Introduction gallery plates resolved to one locale (localized alt). */
+  introduction: SeriesFigureView[];
   tables: SeriesModelTableView[];
+  figures: SeriesFigureView[];
+  paramImages: SeriesFigureView[];
+  documentation: SeriesDocumentation[];
+  accessoryImages: SeriesFigureView[];
 };
+
+function toIntroView(intro: SeriesIntro, en: boolean) {
+  return {
+    lead: en ? intro.leadEn : intro.lead,
+    applications: en ? intro.applicationsEn : intro.applications,
+    sections: intro.sections.map((s) => ({
+      title: en ? s.titleEn : s.title,
+      items: s.items.map((it) => (en ? it.tEn : it.t)),
+    })),
+  };
+}
+
+function toFigureView(f: SeriesFigure, en: boolean): SeriesFigureView {
+  return { src: en ? f.srcEn : f.src, w: f.w, h: f.h, alt: en ? f.altEn : f.alt };
+}
+
+/** A gallery photo (single src, localized alt) resolved to a figure view so the
+ *  detail page renders every image strip through one component. */
+function photoToView(p: SeriesPhoto, en: boolean): SeriesFigureView {
+  return { src: p.src, w: p.w, h: p.h, alt: en ? p.altEn : p.alt };
+}
 
 function toDetailView(d: SeriesDetail, en: boolean): SeriesDetailView {
   return {
     naming: d.naming
-      ? { code: d.naming.code, lines: en ? d.naming.linesEn : d.naming.lines }
+      ? {
+          code: d.naming.code,
+          lines: en ? d.naming.linesEn : d.naming.lines,
+          figure: d.naming.figure ? toFigureView(d.naming.figure, en) : undefined,
+          segments: (d.naming.segments ?? []).map((s) => ({
+            text: s.text,
+            label: en ? s.labelEn : s.label,
+          })),
+        }
       : undefined,
+    intro: d.intro ? toIntroView(d.intro, en) : undefined,
+    introduction: (d.introduction ?? []).map((p) => photoToView(p, en)),
     tables: d.tables.map((t) => ({
       caption: en ? t.captionEn : t.caption,
       note: en ? t.noteEn : t.note,
@@ -37,6 +97,10 @@ function toDetailView(d: SeriesDetail, en: boolean): SeriesDetailView {
       cols: t.cols.map((c) => ({ key: c.key, label: en ? c.labelEn : c.label })),
       rows: t.rows,
     })),
+    figures: (d.figures ?? []).map((f) => toFigureView(f, en)),
+    paramImages: (d.paramImages ?? []).map((p) => photoToView(p, en)),
+    documentation: d.documentation ?? [],
+    accessoryImages: (d.accessoryImages ?? []).map((p) => photoToView(p, en)),
   };
 }
 
@@ -80,12 +144,24 @@ function toView(s: ProductSeries, locale: Locale): SeriesView {
   };
 }
 
+/** Series shown in a category listing — excludes accessory series (motor,
+ *  cables) flagged `listed: false`, which are reached from the drive detail. */
 export function getSeries(locale: Locale, category: SeriesCategory): SeriesView[] {
-  return productSeries.filter((s) => s.category === category).map((s) => toView(s, locale));
+  return productSeries
+    .filter((s) => s.category === category && s.listed !== false)
+    .map((s) => toView(s, locale));
 }
 
 export function getSeriesCount(category: SeriesCategory): number {
-  return productSeries.filter((s) => s.category === category).length;
+  return productSeries.filter((s) => s.category === category && s.listed !== false).length;
+}
+
+/** Accessory series for a category — the unlisted companion parts (motor,
+ *  cables) linked from a drive's detail page. */
+export function getSeriesAccessories(locale: Locale, category: SeriesCategory): SeriesView[] {
+  return productSeries
+    .filter((s) => s.category === category && s.listed === false)
+    .map((s) => toView(s, locale));
 }
 
 /** Every series slug — feeds `generateStaticParams` and the sitemap so each

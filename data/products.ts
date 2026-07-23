@@ -66,7 +66,7 @@ export type SpecSection = { title: string; rows: ProductSpec[] };
 export type ProductSpecSheet = { cols: SpecCol[]; sections: SpecSection[] };
 
 /**
- * Sub-type a controller is listed under on /products/controllers. The four
+ * Sub-type a controller is sold under in the catalogue. The four
  * types are the ones the catalogue sells against; a model belongs to exactly
  * one of them regardless of its hardware series (F / Astro).
  */

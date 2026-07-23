@@ -12,7 +12,7 @@ import machinesData from "./machines.json";
 export type MachineCategory = "milling" | "router" | "jewelry" | "automation" | "inspection";
 
 /**
- * Sub-type the machine is listed under on /products/machines. The five
+ * Sub-type the machine is grouped under in the catalogue. The five
  * datasheet categories are a finer cut than the catalogue sells against, so
  * every milling/router/jewelry machine collapses into one "CNC" type while
  * automation and inspection stay on their own.

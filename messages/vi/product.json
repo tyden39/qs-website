@@ -2,21 +2,16 @@
   "page": {
     "breadcrumb": {
       "home": "Trang chủ",
-      "products": "Sản phẩm",
-      "current": "Sản phẩm"
+      "products": "Thiết bị điện tử"
     },
-    "eyebrow": "QS Product Range · Máy · Điều khiển · Truyền động",
-    "heading": "Sản phẩm QS",
-    "lede": "Hệ sản phẩm khép kín từ máy CNC, bộ điều khiển đến servo và biến tần — thiết kế, sản xuất và hỗ trợ kỹ thuật bởi QS Technology.",
+    "eyebrow": "QS Electronics · Thiết bị điện tử công nghiệp",
+    "heading": "Thiết bị điện tử",
+    "headingGold": "điện tử",
+    "lede": "Từ bộ điều khiển CNC, hệ servo, biến tần đến thiết bị DNC và phụ kiện — QS thiết kế, sản xuất và phân phối trọn bộ thiết bị điện tử công nghiệp, sẵn sàng đồng bộ cho mọi hệ thống máy và dây chuyền tự động hóa.",
     "features": [
-      "07 dòng máy CNC & tự động hóa",
-      "07 bộ điều khiển đa giao thức",
-      "Servo & biến tần công nghiệp"
-    ],
-    "tiles": [
-      "Máy",
-      "Điều khiển",
-      "Truyền động"
+      "Hiệu năng vượt trội",
+      "Tính năng đa dạng",
+      "Khả năng tùy biến cao"
     ],
     "catalogBtn": "QS Products Catalog",
     "seriesTag": "[ Series 2026 · F + Astro ]",
@@ -49,6 +44,25 @@
       "ofModels": "model",
       "ofMachines": "máy",
       "ofSeries": "dòng",
+      "ofApps": "ứng dụng",
+      "filtersLabel": "Bộ lọc",
+      "interfaceLabel": "Giao thức kết nối",
+      "filters": [
+        "Tất cả",
+        "Pulse Train",
+        "EtherCat",
+        "Mechatrolink"
+      ],
+      "sortLabel": "Sắp xếp",
+      "sortOptions": [
+        "Mới nhất",
+        "Số trục ↑",
+        "Màn hình ↑"
+      ],
+      "sortBasic": [
+        "Mới nhất",
+        "Tên A→Z"
+      ],
       "empty": "Không có model nào khớp bộ lọc. Hãy thử bỏ bớt điều kiện."
     },
     "groups": {
@@ -121,14 +135,34 @@
     "namingHeading": "Cách đọc mã model",
     "tablesEyebrow": "[ Bảng chọn model ]",
     "tablesHeading": "Danh mục model & thông số",
+    "figuresEyebrow": "Tài liệu kỹ thuật",
+    "figuresHeading": "Bảng thông số motor SCH",
+    "figuresZoom": "Phóng to bảng thông số",
     "filterAll": "Tất cả",
     "filterLabel": "Lọc theo",
     "quoteBtn": "Nhận báo giá",
     "modelLine": "Dòng sản phẩm",
+    "accessoriesEyebrow": "[ Phụ kiện đồng bộ ]",
+    "accessoriesHeading": "Motor & cáp đồng bộ",
+    "accessoriesHint": "Các bộ phận ghép bộ tạo thành hệ servo hoàn chỉnh cùng driver.",
+    "accessoriesLink": "Xem chi tiết",
     "ctaHeading": "Cần chọn đúng model {name}?",
     "ctaBody": "Gửi yêu cầu về tải, điện áp và ứng dụng — kỹ thuật QS tư vấn chọn mã, cáp và phụ kiện đồng bộ.",
     "ctaBtn": "Liên hệ kỹ thuật",
-    "comingSoon": "Bảng mã chi tiết đang được cập nhật — liên hệ để tra cứu đầy đủ."
+    "comingSoon": "Bảng mã chi tiết đang được cập nhật — liên hệ để tra cứu đầy đủ.",
+    "tabs": ["Giới thiệu", "Thông số", "Tài liệu", "Phụ kiện"],
+    "introEyebrow": "[ Tổng quan ]",
+    "introHeading": "Giới thiệu sản phẩm",
+    "docsEyebrow": "[ Tải tài liệu ]",
+    "docsHeading": "Tài liệu & hướng dẫn",
+    "docsHint": "Tài liệu từ nhà sản xuất (Savch) — hướng dẫn sử dụng, bản vẽ, phần mềm, catalogue và chứng nhận.",
+    "docsTable": { "name": "Tài liệu", "category": "Loại", "size": "Dung lượng", "download": "Tải" },
+    "docsCategory": { "manual": "Hướng dẫn", "drawing": "Bản vẽ", "software": "Phần mềm", "brochure": "Catalogue", "certificate": "Chứng nhận" },
+    "accessoryImagesEyebrow": "[ Phụ kiện tùy chọn ]",
+    "accessoryImagesHeading": "Phụ kiện tùy chọn",
+    "paramImagesHeading": "Bảng thông số kỹ thuật",
+    "galleryZoom": "Phóng to ảnh",
+    "emptyTab": "Mục này đang được cập nhật — liên hệ để biết chi tiết."
   },
   "card": {
     "badge": {
@@ -150,7 +184,7 @@
   "detailPage": {
     "breadcrumb": {
       "home": "Trang chủ",
-      "products": "Sản phẩm",
+      "products": "Thiết bị điện tử",
       "category": "Bộ điều khiển"
     },
     "modelLine": "Model · {name} · Series 2026",
@@ -272,7 +306,7 @@
     "catalogCtaBody": "Kỹ sư QS hỗ trợ chọn model phù hợp, kiểm tra khả năng tương thích với máy CNC hiện có và hướng dẫn lắp đặt."
   },
   "list": {
-    "title": "Sản phẩm",
+    "title": "Thiết bị điện tử",
     "subtitle": "Khám phá các dòng sản phẩm điều khiển của QS Technology",
     "empty": "Chưa có sản phẩm nào.",
     "viewDetails": "Xem chi tiết"

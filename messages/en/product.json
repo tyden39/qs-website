@@ -2,21 +2,16 @@
   "page": {
     "breadcrumb": {
       "home": "Home",
-      "products": "Products",
-      "current": "Products"
+      "products": "Electronics"
     },
-    "eyebrow": "QS Product Range · Machines · Control · Drives",
-    "heading": "QS Products",
-    "lede": "A complete product system — from CNC machines and controllers to servos and inverters — designed, manufactured and supported by QS Technology.",
+    "eyebrow": "QS Electronics · Industrial Electronics",
+    "heading": "Electronics",
+    "headingGold": "Electronics",
+    "lede": "From CNC controllers, servo drives and inverters to DNC devices and accessories — QS designs, builds and distributes a complete line of industrial electronics, ready to integrate into any machine or automation line.",
     "features": [
-      "07 CNC & automation machine lines",
-      "07 multi-protocol controllers",
-      "Industrial servo & inverters"
-    ],
-    "tiles": [
-      "Machine",
-      "Control",
-      "Drive"
+      "Outstanding performance",
+      "Versatile features",
+      "Highly customisable"
     ],
     "catalogBtn": "QS Products Catalog",
     "seriesTag": "[ Series 2026 · F + Astro ]",
@@ -49,6 +44,25 @@
       "ofModels": "models",
       "ofMachines": "machines",
       "ofSeries": "series",
+      "ofApps": "applications",
+      "filtersLabel": "Filters",
+      "interfaceLabel": "Connection interface",
+      "filters": [
+        "All",
+        "Pulse Train",
+        "EtherCat",
+        "Mechatrolink"
+      ],
+      "sortLabel": "Sort",
+      "sortOptions": [
+        "Latest",
+        "Axes ↑",
+        "Display ↑"
+      ],
+      "sortBasic": [
+        "Latest",
+        "Name A→Z"
+      ],
       "empty": "No models match the current filters. Try clearing some."
     },
     "groups": {
@@ -121,14 +135,34 @@
     "namingHeading": "How to read the model code",
     "tablesEyebrow": "[ Model selection ]",
     "tablesHeading": "Model list & ratings",
+    "figuresEyebrow": "Datasheet",
+    "figuresHeading": "SCH motor specification sheets",
+    "figuresZoom": "Zoom specification sheet",
     "filterAll": "All",
     "filterLabel": "Filter by",
     "quoteBtn": "Request a quote",
     "modelLine": "Product series",
+    "accessoriesEyebrow": "[ Matched accessories ]",
+    "accessoriesHeading": "Matched motor & cables",
+    "accessoriesHint": "Companion parts that complete the servo system with this drive.",
+    "accessoriesLink": "View details",
     "ctaHeading": "Need the right {name} model?",
     "ctaBody": "Send us the load, voltage and application — QS engineering helps pick the model code, cable and matching accessories.",
     "ctaBtn": "Contact engineering",
-    "comingSoon": "The detailed model table is being updated — contact us for the full part list."
+    "comingSoon": "The detailed model table is being updated — contact us for the full part list.",
+    "tabs": ["Introduction", "Specifications", "Documentation", "Accessories"],
+    "introEyebrow": "[ Overview ]",
+    "introHeading": "Product introduction",
+    "docsEyebrow": "[ Downloads ]",
+    "docsHeading": "Manuals & documentation",
+    "docsHint": "Manufacturer documents (Savch) — manuals, drawings, software, brochures and certificates.",
+    "docsTable": { "name": "Document", "category": "Type", "size": "Size", "download": "Download" },
+    "docsCategory": { "manual": "Manual", "drawing": "Drawing", "software": "Software", "brochure": "Brochure", "certificate": "Certificate" },
+    "accessoryImagesEyebrow": "[ Optional accessories ]",
+    "accessoryImagesHeading": "Optional accessories",
+    "paramImagesHeading": "Specification sheets",
+    "galleryZoom": "Zoom image",
+    "emptyTab": "This section is being updated — contact us for details."
   },
   "card": {
     "badge": {
@@ -150,7 +184,7 @@
   "detailPage": {
     "breadcrumb": {
       "home": "Home",
-      "products": "Products",
+      "products": "Electronics",
       "category": "Controllers"
     },
     "modelLine": "Model · {name} · Series 2026",
@@ -272,7 +306,7 @@
     "catalogCtaBody": "QS engineers help you pick the right model, confirm compatibility with your existing CNC machine, and walk you through installation."
   },
   "list": {
-    "title": "Products",
+    "title": "Electronics",
     "subtitle": "Explore QS Technology's controller product lines",
     "empty": "No products found.",
     "viewDetails": "View details"

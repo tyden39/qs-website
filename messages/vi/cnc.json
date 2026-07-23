@@ -1,11 +1,14 @@
 {
-  "breadcrumb": { "home": "Trang chủ", "current": "Máy CNC" },
+  "breadcrumb": {
+    "home": "Trang chủ",
+    "current": "Chế tạo máy"
+  },
   "seo": {
     "title": "Máy phay CNC VMC-850 — Trung tâm gia công 3 trục",
     "description": "Trung tâm phay CNC 3 trục lắp ráp tại Việt Nam, chạy bộ điều khiển Astro 10i của QS. Hành trình 850×500×540 mm, trục chính BT40 12.000 v/ph, định vị ±0.005 mm."
   },
   "hero": {
-    "eyebrow": "Máy CNC · Lắp ráp tại Việt Nam",
+    "eyebrow": "Chế tạo máy · Lắp ráp tại Việt Nam",
     "model": "QS VMC-850",
     "heading1": "QS TECHNOLOGY",
     "heading2": "CHẾ TẠO MÁY",
@@ -182,10 +185,15 @@
   "machines": {
     "eyebrow": "Danh mục máy",
     "heading": "Máy CNC do QS chế tạo",
-    "body": "Từ phay 3 trục, router 5 trục, trung tâm kim hoàn đến thiết bị tự động hóa dây chuyền — QS thiết kế, chế tạo và tích hợp trọn gói từng máy. Di chuột vào một máy để xem thông số, bấm để xem chi tiết.",
+    "body": "Từ phay 3 trục, router 5 trục, trung tâm kim hoàn đến thiết bị tự động hóa dây chuyền — QS thiết kế, chế tạo và tích hợp trọn gói từng máy.",
     "listLabel": "Dòng máy",
     "viewDetail": "Xem chi tiết",
     "axesUnit": "trục",
+    "types": {
+      "cnc": "Máy CNC",
+      "automation": "Tự động hóa",
+      "inspection": "Cân kiểm tra"
+    },
     "categories": {
       "milling": "Phay CNC",
       "router": "Router",
@@ -240,7 +248,7 @@
     },
     "detail": {
       "backToList": "Tất cả máy CNC",
-      "crumb": "Máy CNC",
+      "crumb": "Chế tạo máy",
       "specsHeading": "Bảng thông số kỹ thuật",
       "specsNote": "Thông số cấu hình chuẩn — trục chính, ổ dao và hành trình có thể thay đổi theo yêu cầu.",
       "featuresHeading": "Điểm nổi bật",

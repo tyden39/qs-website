@@ -28,8 +28,10 @@ export async function SeriesCard({
       <div className="relative flex flex-col bg-white p-7 border-b md:border-b-0 md:border-r border-line">
         <span aria-hidden className="absolute top-0 right-0 hidden md:block w-px h-10 bg-gold" />
         {series.image ? (
-          <div
-            className="relative grid place-items-center border border-line rounded-[2px] p-4 overflow-hidden min-h-[180px]"
+          <Link
+            href={`/products/${series.slug}`}
+            aria-label={series.name}
+            className="relative grid place-items-center border border-line rounded-[2px] p-4 overflow-hidden min-h-[180px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
           >
             <span aria-hidden className="qs-scan opacity-0 group-hover:opacity-100" />
@@ -41,7 +43,7 @@ export async function SeriesCard({
               sizes="(max-width: 768px) 90vw, 240px"
               className="w-auto max-h-[200px] max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
             />
-          </div>
+          </Link>
         ) : (
           <div
             className="grid place-items-center border border-dashed border-gold rounded-[2px] p-4 min-h-[180px]"
@@ -57,7 +59,12 @@ export async function SeriesCard({
           {series.brand}
         </div>
         <h3 className="mt-1.5 font-display font-bold text-subhead tracking-[-.01em] m-0">
-          {series.name}
+          <Link
+            href={`/products/${series.slug}`}
+            className="text-ink no-underline transition-colors hover:text-gold-1 focus-visible:outline-none focus-visible:text-gold-1"
+          >
+            {series.name}
+          </Link>
         </h3>
         <p className="mt-2.5 m-0 text-meta text-[#3a3a3a] leading-[1.65]">{series.desc}</p>
 

@@ -12,5 +12,26 @@
   "menu": "Menu",
   "close": "Close",
   "login": "Login",
-  "tagline": "CNC Controllers · Servo · DNC"
+  "tagline": "CNC Controllers · Servo · DNC",
+  "submenu": {
+    "electronics": {
+      "controllers": "Controllers",
+      "servo": "Servo",
+      "inverter": "Inverters",
+      "dnc": "DNC Transfer Units",
+      "accessory": "Accessories"
+    },
+    "machineBuilding": {
+      "cnc": "CNC machines",
+      "automation": "Automation",
+      "inspection": "Checkweighing"
+    },
+    "applications": {
+      "metal": "Metal",
+      "wood": "Wood",
+      "stone": "Stone",
+      "jewelry": "Jewellery",
+      "automation": "Other automation"
+    }
+  }
 }

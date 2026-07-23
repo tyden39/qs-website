@@ -12,5 +12,26 @@
   "menu": "Menu",
   "close": "Đóng",
   "login": "Đăng nhập",
-  "tagline": "Bộ điều khiển CNC · Servo · DNC"
+  "tagline": "Bộ điều khiển CNC · Servo · DNC",
+  "submenu": {
+    "electronics": {
+      "controllers": "Bộ điều khiển",
+      "servo": "Servo",
+      "inverter": "Biến tần",
+      "dnc": "Thiết bị truyền DNC",
+      "accessory": "Phụ kiện"
+    },
+    "machineBuilding": {
+      "cnc": "Máy CNC",
+      "automation": "Tự động hóa",
+      "inspection": "Cân kiểm tra"
+    },
+    "applications": {
+      "metal": "Kim loại",
+      "wood": "Gỗ",
+      "stone": "Đá",
+      "jewelry": "Kim hoàn",
+      "automation": "Máy tự động hóa khác"
+    }
+  }
 }

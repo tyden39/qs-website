@@ -139,7 +139,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
       </section>
 
       {/* MACHINE LINE-UP — browse the CNC machines QS manufactures */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper border-t border-line overflow-hidden">
+      <section id="list" className="relative py-12 sm:py-16 lg:py-24 bg-paper border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 right-0 w-[38%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)]" />
         <div className="relative qs-wrap-wide">

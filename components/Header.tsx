@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/lib/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { setFilterParams } from "@/lib/use-filter-params";
+import { scrollToList } from "@/lib/scroll-to-list";
 
 function closeSearch(){
   document.getElementById("qs-search-panel")?.classList.remove("open");
@@ -12,6 +14,10 @@ function closeSearch(){
 
 export default function Header() {
   const t = useTranslations("nav");
+  // Sub-type labels are reused from the catalogue namespaces (not duplicated in
+  // nav.json) so the flyout wording tracks the pages one-to-one.
+  const tp = useTranslations("product");
+  const tc = useTranslations("cnc");
   // i18n-aware usePathname returns the locale-stripped path so active-state
   // matching works regardless of /en prefix.
   const path = usePathname();
@@ -49,19 +55,134 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const left = [
-    ["/electronics", t("products")],
-    ["/machine-building", t("cnc")],
-    ["/applications", t("applications")],
-    ["/services", t("services")],
-    ["/downloads", t("downloads")],
-  ] as const;
-  const right = [
-    ["/about", t("about")],
-    ["/news", t("news")],
-    ["/contact", t("contact")],
-  ] as const;
+  // Mobile-drawer accordions: at most one catalogue submenu (openSub) and one
+  // nested sub-type list (openSub2) is expanded at a time. Tracked by href so
+  // the state survives the drawer close reset.
+  const [openSub, setOpenSub] = useState<string | null>(null);
+  const [openSub2, setOpenSub2] = useState<string | null>(null);
+
+  // Catalogue dropdown children deep-link into each landing page's category
+  // tree via its `?g=<group>[&t=<type>]` filter (see lib/use-filter-params). The
+  // ids are the tree's own slugs — including the Vietnamese material tags the
+  // applications tree derives its ids from — so they are URL-encoded here. A
+  // child that carries a clean sub-type taxonomy adds a `&t=..` flyout.
+  type NavLeaf = { page: string; g: string; type?: string; label: string };
+  type NavChild = NavLeaf & { children?: NavLeaf[] };
+  type NavItem = { href: string; label: string; children?: NavChild[] };
+  // Href carries the filter + the `#list` anchor, so a cross-page click lands on
+  // the list on load; a same-page click is intercepted by onLeafClick instead.
+  const leafHref = (l: NavLeaf) =>
+    `${l.page}?g=${encodeURIComponent(l.g)}${l.type ? `&t=${encodeURIComponent(l.type)}` : ""}#list`;
+  // When already on the leaf's page, filter in place and smooth-scroll to the
+  // list instead of a full navigation (which would jump to the page top).
+  // `trailingSlash: true` makes usePathname() return "/electronics/", so compare
+  // with trailing slashes stripped or the same-page branch never matches.
+  const samePath = (a: string, b: string) =>
+    (a.replace(/\/+$/, "") || "/") === (b.replace(/\/+$/, "") || "/");
+  const onLeafClick = (e: MouseEvent, l: NavLeaf) => {
+    setOpen(false);
+    if (!samePath(path, l.page)) return; // different page → let the Link navigate
+    e.preventDefault();
+    setFilterParams({ g: l.g, t: l.type ?? null });
+    scrollToList();
+  };
+
+  const electronicsChildren: NavChild[] = [
+    {
+      page: "/electronics", g: "controllers", label: t("submenu.electronics.controllers"),
+      children: (["motion", "cnc", "robot", "cobot"] as const).map((ct) => ({
+        page: "/electronics", g: "controllers", type: ct, label: tp(`page.types.controllers.${ct}`),
+      })),
+    },
+    { page: "/electronics", g: "servo", label: t("submenu.electronics.servo") },
+    { page: "/electronics", g: "inverter", label: t("submenu.electronics.inverter") },
+    { page: "/electronics", g: "dnc", label: t("submenu.electronics.dnc") },
+    { page: "/electronics", g: "accessory", label: t("submenu.electronics.accessory") },
+  ];
+  const machineChildren: NavChild[] = [
+    {
+      page: "/machine-building", g: "cnc", label: t("submenu.machineBuilding.cnc"),
+      children: (["milling", "router", "jewelry"] as const).map((cat) => ({
+        page: "/machine-building", g: "cnc", type: cat, label: tc(`machines.categories.${cat}`),
+      })),
+    },
+    { page: "/machine-building", g: "automation", label: t("submenu.machineBuilding.automation") },
+    { page: "/machine-building", g: "inspection", label: t("submenu.machineBuilding.inspection") },
+  ];
+  const applicationsChildren: NavChild[] = ([
+    ["kim loại", "metal"],
+    ["gỗ", "wood"],
+    ["đá", "stone"],
+    ["kim hoàn", "jewelry"],
+    ["automation", "automation"],
+  ] as const).map(([id, key]) => ({
+    page: "/applications", g: id, label: t(`submenu.applications.${key}`),
+  }));
+
+  const left: NavItem[] = [
+    { href: "/electronics", label: t("products"), children: electronicsChildren },
+    { href: "/machine-building", label: t("cnc"), children: machineChildren },
+    { href: "/applications", label: t("applications"), children: applicationsChildren },
+    { href: "/services", label: t("services") },
+    { href: "/downloads", label: t("downloads") },
+  ];
+  const right: NavItem[] = [
+    { href: "/about", label: t("about") },
+    { href: "/news", label: t("news") },
+    { href: "/contact", label: t("contact") },
+  ];
   const all = [...left, ...right];
+
+  // Desktop nav item: a plain link, or a hover/focus dropdown trigger when the
+  // catalogue entry carries category children. The panel opens on hover and on
+  // keyboard focus (group-focus-within) so it is reachable without a pointer.
+  const renderDesktopItem = (item: NavItem) => {
+    const active = is(item.href);
+    if (!item.children) {
+      return (
+        <Link key={item.href} href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! ${active ? "is-active" : ""}`}>
+          {item.label}
+        </Link>
+      );
+    }
+    return (
+      <div key={item.href} className="relative group">
+        <Link href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1 ${active ? "is-active" : ""}`}>
+          {item.label}
+          <svg className="opacity-60 transition-transform duration-200 group-hover:rotate-180" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </Link>
+        {/* pt-2 bridges the hover gap so the pointer can cross into the panel */}
+        <div className="absolute left-0 top-full pt-2 z-50 hidden group-hover:block group-focus-within:block">
+          <div className="min-w-[13rem] bg-white border border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] py-1.5">
+            {item.children.map((c) =>
+              c.children ? (
+                // Nested flyout: opens to the right of the parent row on hover/focus.
+                <div key={leafHref(c)} className="relative group/sub">
+                  <Link href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className="flex items-center justify-between gap-4 px-4 py-2.5 text-meta text-ink whitespace-nowrap transition-colors hover:bg-paper hover:text-gold-1">
+                    {c.label}
+                    <svg className="opacity-50" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+                  </Link>
+                  <div className="absolute left-full top-0 pl-1 hidden group-hover/sub:block group-focus-within/sub:block">
+                    <div className="min-w-[12rem] bg-white border border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] py-1.5">
+                      {c.children.map((s) => (
+                        <Link key={leafHref(s)} href={leafHref(s)} onClick={(e) => onLeafClick(e, s)} className="block px-4 py-2.5 text-meta text-ink whitespace-nowrap transition-colors hover:bg-paper hover:text-gold-1">
+                          {s.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link key={leafHref(c)} href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className="block px-4 py-2.5 text-meta text-ink whitespace-nowrap transition-colors hover:bg-paper hover:text-gold-1">
+                  {c.label}
+                </Link>
+              ),
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -94,16 +215,12 @@ export default function Header() {
               </div>
             </Link>
             <div className="hidden lg:flex gap-0.5">
-              {left.map(([h,l]) => (
-                <Link key={h} href={h} className={`qs-menu-link p-2 lg:px-4! lg:py-2! ${is(h) ? "is-active" : ""}`}>{l}</Link>
-              ))}
+              {left.map(renderDesktopItem)}
             </div>
           </div>
           <div className="flex items-center gap-2 lg:gap-2">
             <div className="hidden lg:flex gap-0.5">
-              {right.map(([h,l]) => (
-                <Link key={h} href={h} className={`qs-menu-link p-2 lg:px-4! lg:py-2! ${is(h) ? "is-active" : ""}`}>{l}</Link>
-              ))}
+              {right.map(renderDesktopItem)}
             </div>
             <div className="flex items-center gap-1.5 pl-2 lg:border-l border-line lg:ml-1">
               <button onClick={openSearch} aria-label={t("search")} className="qs-icon-btn">
@@ -141,17 +258,105 @@ export default function Header() {
           className={`lg:hidden absolute top-full inset-x-0 z-50 origin-top bg-white border-t border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] transition-[transform,opacity] duration-200 ${open ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0 pointer-events-none"}`}
         >
           <div className="qs-wrap-wide py-4 flex flex-col max-h-[calc(100dvh-64px)] overflow-y-auto">
-            {all.map(([h, l]) => (
-              <Link
-                key={h}
-                href={h}
-                onClick={() => setOpen(false)}
-                className={`flex items-center justify-between py-3.5 border-b border-line font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
-              >
-                {l}
-                <span className={`font-mono text-meta ${is(h) ? "text-gold-1" : "text-muted"}`}>→</span>
-              </Link>
-            ))}
+            {all.map((item) => {
+              const { href: h, label: l, children } = item;
+              if (!children) {
+                return (
+                  <Link
+                    key={h}
+                    href={h}
+                    onClick={() => setOpen(false)}
+                    className={`flex items-center justify-between py-3.5 border-b border-line font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
+                  >
+                    {l}
+                    <span className={`font-mono text-meta ${is(h) ? "text-gold-1" : "text-muted"}`}>→</span>
+                  </Link>
+                );
+              }
+              // Catalogue entry: the label navigates to the landing page, while
+              // the chevron toggles the category sub-list in place.
+              const expanded = openSub === h;
+              return (
+                <div key={h} className="border-b border-line">
+                  <div className="flex items-center justify-between">
+                    <Link
+                      href={h}
+                      onClick={() => setOpen(false)}
+                      className={`flex-1 py-3.5 font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
+                    >
+                      {l}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setOpenSub((v) => (v === h ? null : h))}
+                      aria-expanded={expanded}
+                      aria-label={l}
+                      className="p-2 -mr-2 text-muted"
+                    >
+                      <svg className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                  </div>
+                  {expanded && (
+                    <div className="pb-2 pl-3 flex flex-col">
+                      {children.map((c) => {
+                        if (!c.children) {
+                          return (
+                            <Link
+                              key={leafHref(c)}
+                              href={leafHref(c)}
+                              onClick={(e) => onLeafClick(e, c)}
+                              className="py-2.5 font-display text-meta text-muted hover:text-gold-1 transition-colors"
+                            >
+                              {c.label}
+                            </Link>
+                          );
+                        }
+                        // Nested sub-type list: label links to the filtered
+                        // group, chevron expands the sub-types in place.
+                        const childKey = leafHref(c);
+                        const sub2 = openSub2 === childKey;
+                        return (
+                          <div key={childKey}>
+                            <div className="flex items-center justify-between">
+                              <Link
+                                href={childKey}
+                                onClick={(e) => onLeafClick(e, c)}
+                                className="flex-1 py-2.5 font-display text-meta text-muted hover:text-gold-1 transition-colors"
+                              >
+                                {c.label}
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={() => setOpenSub2((v) => (v === childKey ? null : childKey))}
+                                aria-expanded={sub2}
+                                aria-label={c.label}
+                                className="p-2 -mr-2 text-muted"
+                              >
+                                <svg className={`transition-transform duration-200 ${sub2 ? "rotate-180" : ""}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                              </button>
+                            </div>
+                            {sub2 && (
+                              <div className="pb-1 pl-3 flex flex-col">
+                                {c.children.map((s) => (
+                                  <Link
+                                    key={leafHref(s)}
+                                    href={leafHref(s)}
+                                    onClick={(e) => onLeafClick(e, s)}
+                                    className="py-2 font-display text-label text-muted hover:text-gold-1 transition-colors"
+                                  >
+                                    {s.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <a
               href="https://crm.qstcnc.com/login"
               onClick={() => setOpen(false)}

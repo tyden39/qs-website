@@ -4,6 +4,7 @@ import Image from "next/image";
 import { createContext, useContext, useId } from "react";
 import { Link } from "@/lib/i18n/navigation";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
+import { scrollToList } from "@/lib/scroll-to-list";
 
 /** Active group, named by id so a link survives the catalogue being reordered. */
 const GROUP_KEY = "g";
@@ -101,9 +102,17 @@ export function ProductCategoryTree({
 
   // The first group is the default view, so it stays out of the query; picking a
   // group always clears the previous group's branch.
-  const selectGroup = (i: number) =>
+  // Changing group/branch scrolls the list back to its top so the freshly
+  // filtered results read from the start (and the browser can't leave the view
+  // scroll-clamped when the new list is shorter).
+  const selectGroup = (i: number) => {
     setFilterParams({ [GROUP_KEY]: i === 0 ? null : groups[i].id, [TYPE_KEY]: null });
-  const selectChild = (id: string | null) => setFilterParams({ [TYPE_KEY]: id });
+    scrollToList();
+  };
+  const selectChild = (id: string | null) => {
+    setFilterParams({ [TYPE_KEY]: id });
+    scrollToList();
+  };
 
   return (
     <div className="lg:grid lg:grid-cols-[248px_1fr] lg:gap-12 lg:items-start">

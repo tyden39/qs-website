@@ -29,3 +29,11 @@ images-origin/
 download/
 dims-tmp.json
 .claude/
+
+# image i18n backups (working artifacts, not bundled)
+.backup-zh-detail-images/
+.image-i18n-work/
+
+# python caches from tooling scripts
+__pycache__/
+*.pyc

@@ -4,8 +4,8 @@
 # refresh> to /vi/ is the no-JS fallback.
 
 # Old un-prefixed VI routes → /vi/* (preserve SEO)
-/products                  /vi/products/              301
-/products/*                /vi/products/:splat        301
+/products                  /vi/electronics/           301
+/products/*                /vi/electronics/:splat     301
 /services                  /vi/services/              301
 /services/*                /vi/services/:splat        301
 /news                      /vi/news/                  301
@@ -19,6 +19,18 @@
 /contact                   /vi/contact/               301
 /search                    /vi/search/                301
 
-# Renamed CNC machine: QSM-125 -> QSM-215 (model and slug renamed)
-/vi/cnc/qsm-125            /vi/cnc/qsm-215            301
-/en/cnc/qsm-125            /en/cnc/qsm-215            301
+# Renamed routes: /products -> /electronics, /cnc -> /machine-building
+# (section titles changed to Electronics / Machine Building). Exact + splat
+# pairs because `/path/*` does not match `/path` itself.
+/vi/products               /vi/electronics/               301
+/vi/products/*             /vi/electronics/:splat         301
+/en/products               /en/electronics/               301
+/en/products/*             /en/electronics/:splat         301
+# Renamed CNC machine QSM-125 -> QSM-215 listed before the /cnc/* splats so the
+# old slug lands on the new page in one hop.
+/vi/cnc/qsm-125            /vi/machine-building/qsm-215   301
+/en/cnc/qsm-125            /en/machine-building/qsm-215   301
+/vi/cnc                    /vi/machine-building/          301
+/vi/cnc/*                  /vi/machine-building/:splat    301
+/en/cnc                    /en/machine-building/          301
+/en/cnc/*                  /en/machine-building/:splat    301

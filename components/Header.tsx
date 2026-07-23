@@ -4,7 +4,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/lib/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
-import { setFilterParams } from "@/lib/use-filter-params";
+import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 import { scrollToList } from "@/lib/scroll-to-list";
 
 function closeSearch(){
@@ -81,11 +81,31 @@ export default function Header() {
     (a.replace(/\/+$/, "") || "/") === (b.replace(/\/+$/, "") || "/");
   const onLeafClick = (e: MouseEvent, l: NavLeaf) => {
     setOpen(false);
+    // Release focus so the desktop flyout — kept open by group-focus-within for
+    // keyboard reach — collapses once the pointer leaves after a same-page click.
+    (e.currentTarget as HTMLElement).blur();
     if (!samePath(path, l.page)) return; // different page → let the Link navigate
     e.preventDefault();
     setFilterParams({ g: l.g, t: l.type ?? null });
     scrollToList();
   };
+
+  // A dropdown leaf is active when the current page and its filter query match
+  // the leaf's deep-link. A group leaf (no `type`) also lights up while any of
+  // its sub-types is selected, giving the open branch an ancestor highlight.
+  const params = useFilterParams();
+  const curG = params.get("g");
+  const curT = params.get("t");
+  const leafActive = (l: NavLeaf) =>
+    samePath(path, l.page) && curG === l.g && (l.type ? curT === l.type : true);
+  // Desktop leaves carry a transparent left rail so the active gold rail adds no
+  // width shift; mobile leaves promote the muted text to gold when active.
+  const leafState = (l: NavLeaf) =>
+    leafActive(l)
+      ? "border-gold-1 bg-paper text-gold-1 font-semibold"
+      : "border-transparent text-ink hover:bg-paper hover:text-gold-1";
+  const leafStateMobile = (l: NavLeaf) =>
+    leafActive(l) ? "text-gold-1 font-semibold" : "text-muted hover:text-gold-1";
 
   const electronicsChildren: NavChild[] = [
     {
@@ -158,14 +178,14 @@ export default function Header() {
               c.children ? (
                 // Nested flyout: opens to the right of the parent row on hover/focus.
                 <div key={leafHref(c)} className="relative group/sub">
-                  <Link href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className="flex items-center justify-between gap-4 px-4 py-2.5 text-meta text-ink whitespace-nowrap transition-colors hover:bg-paper hover:text-gold-1">
+                  <Link href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`flex items-center justify-between gap-4 px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(c)}`}>
                     {c.label}
                     <svg className="opacity-50" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
                   </Link>
                   <div className="absolute left-full top-0 pl-1 hidden group-hover/sub:block group-focus-within/sub:block">
                     <div className="min-w-[12rem] bg-white border border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] py-1.5">
                       {c.children.map((s) => (
-                        <Link key={leafHref(s)} href={leafHref(s)} onClick={(e) => onLeafClick(e, s)} className="block px-4 py-2.5 text-meta text-ink whitespace-nowrap transition-colors hover:bg-paper hover:text-gold-1">
+                        <Link key={leafHref(s)} href={leafHref(s)} onClick={(e) => onLeafClick(e, s)} className={`block px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(s)}`}>
                           {s.label}
                         </Link>
                       ))}
@@ -173,7 +193,7 @@ export default function Header() {
                   </div>
                 </div>
               ) : (
-                <Link key={leafHref(c)} href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className="block px-4 py-2.5 text-meta text-ink whitespace-nowrap transition-colors hover:bg-paper hover:text-gold-1">
+                <Link key={leafHref(c)} href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`block px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(c)}`}>
                   {c.label}
                 </Link>
               ),
@@ -305,7 +325,7 @@ export default function Header() {
                               key={leafHref(c)}
                               href={leafHref(c)}
                               onClick={(e) => onLeafClick(e, c)}
-                              className="py-2.5 font-display text-meta text-muted hover:text-gold-1 transition-colors"
+                              className={`py-2.5 font-display text-meta transition-colors ${leafStateMobile(c)}`}
                             >
                               {c.label}
                             </Link>
@@ -321,7 +341,7 @@ export default function Header() {
                               <Link
                                 href={childKey}
                                 onClick={(e) => onLeafClick(e, c)}
-                                className="flex-1 py-2.5 font-display text-meta text-muted hover:text-gold-1 transition-colors"
+                                className={`flex-1 py-2.5 font-display text-meta transition-colors ${leafStateMobile(c)}`}
                               >
                                 {c.label}
                               </Link>
@@ -342,7 +362,7 @@ export default function Header() {
                                     key={leafHref(s)}
                                     href={leafHref(s)}
                                     onClick={(e) => onLeafClick(e, s)}
-                                    className="py-2 font-display text-label text-muted hover:text-gold-1 transition-colors"
+                                    className={`py-2 font-display text-label transition-colors ${leafStateMobile(s)}`}
                                   >
                                     {s.label}
                                   </Link>

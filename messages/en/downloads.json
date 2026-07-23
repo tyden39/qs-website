@@ -8,7 +8,7 @@
       "eyebrow": "Document centre · 2026",
       "heading1": "Catalogue, manuals",
       "headingEm": "& software",
-      "lede": "All of QS Technology's technical documentation — product catalogues, operation and installation manuals for each controller model, plus software & data updates. Click to download directly.",
+      "lede": "All of QS Technology's technical documentation — product catalogues, operation and installation manuals for each controller model, servo & inverter documents, plus software & data updates. Click to download directly.",
       "imageAlt": "QS Technology catalogue and manuals"
     },
     "stats": {
@@ -28,23 +28,46 @@
       "vi": "Vietnamese",
       "en": "English"
     },
-    "sections": {
+    "tree": {
+      "eyebrow": "Document library",
+      "support": "Technical support",
+      "supportCta": "Contact engineering"
+    },
+    "families": {
       "catalogue": {
+        "label": "Catalogue & profile",
         "heading": "Catalogue & profile",
         "desc": "The full catalogue covering every F-series and Astro-series controller line, plus the company profile. Vietnamese and English editions."
       },
-      "operation": {
-        "heading": "Operation manuals",
-        "desc": "Manuals for operators: HMI operation, machining parameter setup, programming, and handling common alarms on each model."
+      "controllers": {
+        "label": "Controllers",
+        "heading": "Controller documents",
+        "desc": "Operation and installation manuals for each controller model: HMI operation, machining parameter setup, cabinet wiring diagrams, I/O configuration, and initial commissioning steps."
       },
-      "installation": {
-        "heading": "Installation manuals",
-        "desc": "Wiring and cabinet-installation standards: pin diagrams, servo/inverter connections, I/O configuration, and initial commissioning steps."
+      "servo": {
+        "label": "Servo",
+        "heading": "Servo drive documents",
+        "desc": "User manuals, dimension drawings, software and certificates for the servo drive & motor lines. Original manufacturer documents, opened directly from source."
+      },
+      "inverter": {
+        "label": "Inverter",
+        "heading": "Inverter documents",
+        "desc": "User manuals, dimension drawings, catalogues and certificates for the Sinus Penta and S-series inverter lines. Original manufacturer documents, opened directly from source."
       },
       "software": {
+        "label": "Software & data",
         "heading": "Software & data",
         "desc": "The QSL Editor and QS Explorer tools for editing, backing up and loading controller data, plus the data-update package for the F54 model."
       }
+    },
+    "docGroup": {
+      "operation": "Operation manuals",
+      "installation": "Installation manuals",
+      "manual": "Manuals & guides",
+      "drawing": "Technical drawings",
+      "software": "Software & tools",
+      "brochure": "Catalogue & brochure",
+      "certificate": "Certificates"
     },
     "table": {
       "name": "Document name",
@@ -53,7 +76,6 @@
       "size": "File size",
       "download": "Download"
     },
-    "count": "{count} files",
     "plc": {
       "tag": "[ PLC documents ]",
       "heading": "Advanced PLC documents",

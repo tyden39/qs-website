@@ -31,6 +31,17 @@ export default function Reveal({
     const el = ref.current;
     if (!el) return;
 
+    // Already on screen at mount (e.g. a list sitting just below the hero):
+    // reveal straight away so it animates on load instead of waiting for a
+    // scroll. `threshold: 0.15` can't be met by a tall block that's only
+    // peeking in, which otherwise leaves it stuck hidden until the user scrolls.
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.top < vh && rect.bottom > 0) {
+      el.classList.add("is-visible");
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries, obs) => {
         for (const entry of entries) {

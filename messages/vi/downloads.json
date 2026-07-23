@@ -6,9 +6,9 @@
     "breadcrumb": { "home": "Trang chủ", "current": "Tải về" },
     "hero": {
       "eyebrow": "Trung tâm tài liệu · 2026",
-      "heading1": "Catalogue, tài liệu",
-      "headingEm": "& phần mềm",
-      "lede": "Tất cả tài liệu kỹ thuật của QS Technology — catalogue sản phẩm, hướng dẫn vận hành và lắp đặt cho từng model controller, cùng phần mềm & dữ liệu cập nhật. Bấm để tải trực tiếp.",
+      "heading1": "Catalogue, tài liệu",
+      "headingEm": "& phần mềm",
+      "lede": "Tất cả tài liệu kỹ thuật của QS Technology — catalogue sản phẩm, hướng dẫn vận hành và lắp đặt cho từng model controller, tài liệu servo & biến tần, cùng phần mềm & dữ liệu cập nhật. Bấm để tải trực tiếp.",
       "imageAlt": "Catalogue và sách hướng dẫn QS Technology"
     },
     "stats": {
@@ -28,23 +28,46 @@
       "vi": "Tiếng Việt",
       "en": "English"
     },
-    "sections": {
+    "tree": {
+      "eyebrow": "Thư viện tài liệu",
+      "support": "Hỗ trợ kỹ thuật",
+      "supportCta": "Liên hệ kỹ thuật"
+    },
+    "families": {
       "catalogue": {
+        "label": "Catalogue & hồ sơ",
         "heading": "Catalogue & hồ sơ",
         "desc": "Catalogue tổng hợp toàn bộ dòng controller F-series và Astro-series, kèm hồ sơ năng lực công ty. Bản tiếng Việt và tiếng Anh."
       },
-      "operation": {
-        "heading": "Hướng dẫn vận hành",
-        "desc": "Sách hướng dẫn dành cho người vận hành: thao tác màn hình HMI, cài đặt thông số gia công, lập trình và xử lý cảnh báo thường gặp trên từng model."
+      "controllers": {
+        "label": "Bộ điều khiển",
+        "heading": "Tài liệu bộ điều khiển",
+        "desc": "Hướng dẫn vận hành và lắp đặt cho từng model controller: thao tác màn hình HMI, cài đặt thông số gia công, sơ đồ đấu nối tủ điện, cấu hình I/O và các bước căn chỉnh ban đầu."
       },
-      "installation": {
-        "heading": "Hướng dẫn lắp đặt",
-        "desc": "Quy chuẩn đấu nối và lắp đặt vào tủ điện: sơ đồ chân, kết nối servo/biến tần, cấu hình I/O và các bước căn chỉnh ban đầu."
+      "servo": {
+        "label": "Servo",
+        "heading": "Tài liệu Servo Drive",
+        "desc": "Sổ tay người dùng, bản vẽ kích thước, phần mềm và chứng nhận cho các dòng servo drive & motor. Tài liệu gốc nhà sản xuất, mở trực tiếp từ nguồn."
+      },
+      "inverter": {
+        "label": "Biến tần",
+        "heading": "Tài liệu biến tần",
+        "desc": "Sổ tay người dùng, bản vẽ kích thước, catalogue và chứng nhận cho các dòng biến tần Sinus Penta và S-series. Tài liệu gốc nhà sản xuất, mở trực tiếp từ nguồn."
       },
       "software": {
+        "label": "Phần mềm & dữ liệu",
         "heading": "Phần mềm & dữ liệu",
         "desc": "Công cụ QSL Editor và QS Explorer dùng để biên tập, sao lưu và nạp dữ liệu controller, kèm gói dữ liệu cập nhật cho model F54."
       }
+    },
+    "docGroup": {
+      "operation": "Hướng dẫn vận hành",
+      "installation": "Hướng dẫn lắp đặt",
+      "manual": "Sổ tay & hướng dẫn",
+      "drawing": "Bản vẽ kỹ thuật",
+      "software": "Phần mềm & công cụ",
+      "brochure": "Catalogue & brochure",
+      "certificate": "Chứng nhận"
     },
     "table": {
       "name": "Tên tài liệu",
@@ -53,7 +76,6 @@
       "size": "Dung lượng",
       "download": "Tải về"
     },
-    "count": "{count} tệp",
     "plc": {
       "tag": "[ Tài liệu PLC ]",
       "heading": "Tài liệu PLC chuyên sâu",

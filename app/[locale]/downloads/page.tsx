@@ -4,10 +4,17 @@ import { Link } from "@/lib/i18n/navigation";
 import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllDownloads, getDownloadGroups, groupByDocument, formatBytes } from "@/lib/data/downloads";
-import type { DownloadFile } from "@/lib/data/downloads";
+import type { DownloadDoc, DownloadFile } from "@/lib/data/downloads";
+import { getSeries } from "@/lib/data/series";
+import { DownloadsTree } from "./_components/downloads-tree";
+import type { DlGroup, DlProduct, DlRow } from "./_components/downloads-tree";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
+
+/** Doc-group order inside a drive product — mirrors the order the product
+ *  detail page groups its documentation in. */
+const DRIVE_DOC_ORDER = ["manual", "drawing", "software", "brochure", "certificate"] as const;
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -40,9 +47,10 @@ export default async function Downloads({ params }: Props) {
 
   const groups = getDownloadGroups();
   const all = getAllDownloads();
-  const modelCount = new Set(all.map((d) => d.productSlug).filter(Boolean)).size;
+  const servo = getSeries(locale, "servo");
+  const inverter = getSeries(locale, "inverter");
 
-  // Compose the display title for a file from its language-neutral data.
+  // Compose the display title for a local controller/catalogue/software file.
   const titleOf = (d: DownloadFile): string => {
     if (d.titleKey) return t(`titles.${d.titleKey}`);
     if (d.category === "operation" || d.category === "installation") {
@@ -51,10 +59,115 @@ export default async function Downloads({ params }: Props) {
     return d.model ?? "";
   };
 
+  // A local file (public/downloads) collapses its language editions into one row.
+  const localRow = (doc: DownloadDoc): DlRow => {
+    const head = doc.variants[0];
+    return {
+      key: doc.key,
+      title: titleOf(head),
+      ext: head.ext,
+      version: head.version ?? (head.date ? head.date.slice(0, 7).replace("-", "/") : "—"),
+      productHref: head.productSlug ? `/electronics/${head.productSlug}` : undefined,
+      productLabel: head.productSlug ? head.model ?? undefined : undefined,
+      variants: doc.variants.map((v) => ({
+        lang: v.lang.toUpperCase(),
+        url: v.fileUrl,
+        sizeLabel: formatBytes(v.sizeBytes),
+      })),
+    };
+  };
+  const catFiles = (category: DownloadFile["category"]): DownloadFile[] =>
+    groups.find((g) => g.category === category)?.files ?? [];
+  const localRows = (category: DownloadFile["category"]): DlRow[] =>
+    groupByDocument(catFiles(category)).map(localRow);
+
+  // Controllers: one product per model → doc groups (operation, installation),
+  // each group's manuals collapsed across languages.
+  const controllerProducts = (): DlProduct[] => {
+    const files = [...catFiles("operation"), ...catFiles("installation")];
+    const order: string[] = [];
+    const byModel = new Map<string, DownloadFile[]>();
+    for (const f of files) {
+      const id = f.productSlug ?? f.model ?? f.slug;
+      if (!byModel.has(id)) {
+        byModel.set(id, []);
+        order.push(id);
+      }
+      byModel.get(id)!.push(f);
+    }
+    return order.map((id) => {
+      const list = byModel.get(id)!;
+      const groups = (["operation", "installation"] as const)
+        .map((cat) => ({
+          id: cat,
+          label: t(`docGroup.${cat}`),
+          rows: groupByDocument(list.filter((f) => f.category === cat)).map(localRow),
+        }))
+        .filter((dg) => dg.rows.length > 0);
+      return { id, label: list[0].model ?? id, groups };
+    });
+  };
+
+  // Drive (servo/inverter) families: one product per series → doc groups
+  // (manual, drawing, software, brochure, certificate) pulled from the series
+  // data. Documents are external source PDFs, also shown on the detail page.
+  const driveProducts = (list: typeof servo): DlProduct[] =>
+    list
+      .map((s) => {
+        const docs = s.detail?.documentation ?? [];
+        const groups = DRIVE_DOC_ORDER.map((cat) => ({
+          id: cat,
+          label: t(`docGroup.${cat}`),
+          rows: docs
+            .filter((d) => d.category === cat)
+            .map((d, i) => ({
+              key: `${s.slug}-${cat}-${i}`,
+              title: d.title,
+              ext: d.format.toUpperCase(),
+              version: "—",
+              productHref: `/electronics/${s.slug}`,
+              productLabel: s.name,
+              variants: [
+                {
+                  lang: d.lang.toUpperCase(),
+                  url: d.url,
+                  sizeLabel: d.size_mb ? `${d.size_mb} MB` : "—",
+                  external: true,
+                },
+              ],
+            })),
+        })).filter((dg) => dg.rows.length > 0);
+        return { id: s.slug, label: s.name, groups };
+      })
+      .filter((p) => p.groups.length > 0);
+
+  const driveDocCount = (list: typeof servo) =>
+    list.reduce((n, s) => n + (s.detail?.documentation?.length ?? 0), 0);
+
+  const family = (id: string, extra: Partial<DlGroup>): DlGroup => ({
+    id,
+    label: t(`families.${id}.label`),
+    heading: t(`families.${id}.heading`),
+    desc: t(`families.${id}.desc`),
+    ...extra,
+  });
+
+  const tree: DlGroup[] = [
+    family("catalogue", { rows: localRows("catalogue") }),
+    family("controllers", { products: controllerProducts() }),
+    family("servo", { products: driveProducts(servo) }),
+    family("inverter", { products: driveProducts(inverter) }),
+    family("software", { rows: localRows("software") }),
+  ].filter((g) => (g.products ? g.products.length > 0 : (g.rows?.length ?? 0) > 0));
+
+  const totalDocs = all.length + driveDocCount(servo) + driveDocCount(inverter);
+  const modelCount =
+    new Set(all.map((d) => d.productSlug).filter(Boolean)).size + servo.length + inverter.length;
+
   const stats = [
-    { v: String(all.length), l: t("stats.docs") },
+    { v: String(totalDocs), l: t("stats.docs") },
     { v: String(modelCount), l: t("stats.models") },
-    { v: "VN / EN", l: t("stats.lang") },
+    { v: "VN / EN / ZH", l: t("stats.lang") },
   ];
 
   const nav = await getTranslations({ locale, namespace: "nav" });
@@ -128,88 +241,17 @@ export default async function Downloads({ params }: Props) {
         </div>
       </section>
 
-      {/* CATEGORY SECTIONS */}
-      {groups.map((group, gi) => (
-        <section
-          key={group.category}
-          className={gi % 2 === 0 ? "py-12 sm:py-16 bg-white" : "py-12 sm:py-16 bg-paper border-y border-line"}
-        >
-          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-            <div className="qs-section-head">
-              <div className="max-w-[62ch]">
-                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">
-                  [ {t("count", { count: group.files.length })} ]
-                </span>
-                <h2 className="qs-h2 mt-2">{t(`sections.${group.category}.heading`)}</h2>
-                <p className="text-meta text-muted leading-[1.7] mt-3 mb-0">
-                  {t(`sections.${group.category}.desc`)}
-                </p>
-              </div>
-            </div>
-
-            {/* file table — language variants of the same document share one row */}
-            <div className="border border-line bg-white">
-              {/* header row (hidden on mobile) */}
-              <div className="hidden md:grid grid-cols-[1fr_120px_minmax(220px,auto)] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
-                <span>{t("table.name")}</span>
-                <span>{t("table.version")}</span>
-                <span className="text-right">{t("table.download")}</span>
-              </div>
-              {groupByDocument(group.files).map((doc) => {
-                const head = doc.variants[0];
-                return (
-                  <div
-                    key={doc.key}
-                    className="grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(220px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line hover:bg-paper transition-colors"
-                  >
-                    {/* name */}
-                    <div className="flex items-center gap-4">
-                      <span className="w-10 h-[52px] flex-shrink-0 border border-line grid place-items-center font-display font-extrabold text-label-xs tracking-[-.02em] bg-white text-ink">
-                        {head.ext}
-                      </span>
-                      <div className="flex flex-col gap-0.5 min-w-0">
-                        <span className="font-semibold text-ink text-meta tracking-[-.005em]">
-                          {titleOf(head)}
-                        </span>
-                        {head.productSlug && (
-                          <Link
-                            href={`/electronics/${head.productSlug}`}
-                            className="font-mono text-label text-gold-1 tracking-[.06em] hover:underline w-fit"
-                          >
-                            {head.model} →
-                          </Link>
-                        )}
-                      </div>
-                    </div>
-                    {/* version / date */}
-                    <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
-                      {head.version ?? (head.date ? head.date.slice(0, 7).replace("-", "/") : "—")}
-                    </span>
-                    {/* download — one button per available language */}
-                    <div className="flex gap-2 md:justify-end">
-                      {doc.variants.map((v) => (
-                        <a
-                          key={v.slug}
-                          href={v.fileUrl}
-                          download
-                          className="flex-1 md:flex-initial inline-flex flex-col items-center gap-0.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors"
-                        >
-                          <span className="font-mono text-label tracking-[.14em] uppercase">
-                            {v.lang.toUpperCase()} ↓
-                          </span>
-                          <span className="font-mono text-label-xs tracking-[.06em] opacity-60">
-                            {formatBytes(v.sizeBytes)}
-                          </span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      ))}
+      {/* LIBRARY TREE */}
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+          <DownloadsTree
+            groups={tree}
+            eyebrow={t("tree.eyebrow")}
+            headers={{ name: t("table.name"), version: t("table.version"), download: t("table.download") }}
+            support={{ title: t("tree.support"), cta: t("tree.supportCta") }}
+          />
+        </div>
+      </section>
 
       {/* HELPERS */}
       <section className="py-12 sm:py-16 lg:py-24 bg-white border-t border-line">

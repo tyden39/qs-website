@@ -90,13 +90,20 @@ function buildForLocale(locale: Locale): SearchRecord[] {
     }
     return d.model ?? "";
   };
+  // Which product family each local file category is filed under in the tree.
+  const familyOf: Record<DownloadFile["category"], string> = {
+    catalogue: "catalogue",
+    operation: "controllers",
+    installation: "controllers",
+    software: "software",
+  };
   for (const d of getAllDownloads()) {
     const title = titleOf(d);
     records.push({
       id: `pdf-${d.slug}`,
       type: "pdf",
       title,
-      excerpt: clean([dl.sections[d.category].heading, dl.lang[d.lang]]).join(" · "),
+      excerpt: clean([dl.families[familyOf[d.category]].heading, dl.lang[d.lang]]).join(" · "),
       href: "/downloads",
       meta: clean([d.model, d.ext, d.version]),
       keywords: clean([title, d.model, d.category, d.productSlug, dl.lang[d.lang]]).join(" "),

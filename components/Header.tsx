@@ -67,12 +67,12 @@ export default function Header() {
   // ids are the tree's own slugs — including the Vietnamese material tags the
   // applications tree derives its ids from — so they are URL-encoded here. A
   // child that carries a clean sub-type taxonomy adds a `&t=..` flyout.
-  // `icon` is a CategoryIcon slug; present on top-level items and first-level
-  // catalogue leaves, omitted on the deepest sub-type leaves (their siblings
-  // would share one glyph, adding noise rather than meaning).
+  // `icon` is a CategoryIcon slug on first-level catalogue leaves; omitted on the
+  // deepest sub-type leaves (their siblings would share one glyph, adding noise
+  // rather than meaning) and on top-level items (no room in the desktop bar).
   type NavLeaf = { page: string; g: string; type?: string; label: string; icon?: string };
   type NavChild = NavLeaf & { children?: NavLeaf[] };
-  type NavItem = { href: string; label: string; icon?: string; children?: NavChild[] };
+  type NavItem = { href: string; label: string; children?: NavChild[] };
   // Href carries the filter + the `#list` anchor, so a cross-page click lands on
   // the list on load; a same-page click is intercepted by onLeafClick instead.
   const leafHref = (l: NavLeaf) =>
@@ -144,16 +144,16 @@ export default function Header() {
   }));
 
   const left: NavItem[] = [
-    { href: "/electronics", icon: "electronics", label: t("products"), children: electronicsChildren },
-    { href: "/machine-building", icon: "machine", label: t("cnc"), children: machineChildren },
-    { href: "/applications", icon: "applications", label: t("applications"), children: applicationsChildren },
-    { href: "/services", icon: "services", label: t("services") },
-    { href: "/downloads", icon: "downloads", label: t("downloads") },
+    { href: "/electronics", label: t("products"), children: electronicsChildren },
+    { href: "/machine-building", label: t("cnc"), children: machineChildren },
+    { href: "/applications", label: t("applications"), children: applicationsChildren },
+    { href: "/services", label: t("services") },
+    { href: "/downloads", label: t("downloads") },
   ];
   const right: NavItem[] = [
-    { href: "/about", icon: "about", label: t("about") },
-    { href: "/news", icon: "news", label: t("news") },
-    { href: "/contact", icon: "contact", label: t("contact") },
+    { href: "/about", label: t("about") },
+    { href: "/news", label: t("news") },
+    { href: "/contact", label: t("contact") },
   ];
   const all = [...left, ...right];
 
@@ -162,23 +162,16 @@ export default function Header() {
   // keyboard focus (group-focus-within) so it is reachable without a pointer.
   const renderDesktopItem = (item: NavItem) => {
     const active = is(item.href);
-    // Top-level icons appear from xl up: the lg bar is already dense, so gating
-    // them keeps that breakpoint's spacing while wide screens gain the glyphs.
-    const topIcon = item.icon ? (
-      <CategoryIcon name={item.icon} className="hidden xl:block w-4 h-4 shrink-0 opacity-55" />
-    ) : null;
     if (!item.children) {
       return (
-        <Link key={item.href} href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}>
-          {topIcon}
+        <Link key={item.href} href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! ${active ? "is-active" : ""}`}>
           {item.label}
         </Link>
       );
     }
     return (
       <div key={item.href} className="relative group">
-        <Link href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}>
-          {topIcon}
+        <Link href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1 ${active ? "is-active" : ""}`}>
           {item.label}
           <svg className="opacity-60 transition-transform duration-200 group-hover:rotate-180" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </Link>
@@ -294,20 +287,16 @@ export default function Header() {
         >
           <div className="qs-wrap-wide py-4 flex flex-col max-h-[calc(100dvh-64px)] overflow-y-auto">
             {all.map((item) => {
-              const { href: h, label: l, icon, children } = item;
-              const rowIcon = icon ? (
-                <CategoryIcon name={icon} className="w-[19px] h-[19px] shrink-0 opacity-55" />
-              ) : null;
+              const { href: h, label: l, children } = item;
               if (!children) {
                 return (
                   <Link
                     key={h}
                     href={h}
                     onClick={() => setOpen(false)}
-                    className={`flex items-center gap-3 py-3.5 border-b border-line font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
+                    className={`flex items-center justify-between py-3.5 border-b border-line font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
                   >
-                    {rowIcon}
-                    <span className="flex-1">{l}</span>
+                    {l}
                     <span className={`font-mono text-meta ${is(h) ? "text-gold-1" : "text-muted"}`}>→</span>
                   </Link>
                 );
@@ -321,9 +310,8 @@ export default function Header() {
                     <Link
                       href={h}
                       onClick={() => setOpen(false)}
-                      className={`flex-1 flex items-center gap-3 py-3.5 font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
+                      className={`flex-1 py-3.5 font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
                     >
-                      {rowIcon}
                       {l}
                     </Link>
                     <button

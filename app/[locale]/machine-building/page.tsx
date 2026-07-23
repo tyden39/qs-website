@@ -165,6 +165,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
             <ProductCategoryTree
               eyebrow={pt("groups.eyebrow")}
               allLabel={pt("types.all")}
+              support={{ title: pt("sidebar.support.title"), cta: pt("sidebar.support.cta") }}
               groups={machineGroups}
             />
           </Reveal>

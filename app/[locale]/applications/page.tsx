@@ -224,6 +224,7 @@ export default async function Applications({ params }: { params: Promise<{ local
             <ProductCategoryTree
               eyebrow={pt("groups.eyebrow")}
               allLabel={pt("types.all")}
+              support={{ title: pt("sidebar.support.title"), cta: pt("sidebar.support.cta") }}
               groups={appGroups}
             />
           </Reveal>

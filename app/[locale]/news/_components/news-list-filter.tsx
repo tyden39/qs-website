@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
+import { FilterPrePaintCleanup, setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 import type { NewsCategoryId } from "@/lib/data/news";
 
 export type NewsListItem = {
@@ -19,13 +20,20 @@ export type NewsListItem = {
 // Tab order mirrors the `news.list.tabs` label array; index 0 is "all".
 const TAB_IDS: ("all" | NewsCategoryId)[] = ["all", "products", "events", "customers", "technical", "company"];
 const PAGE_SIZE = 9;
+const CAT_KEY = "cat";
+const PAGE_KEY = "page";
 
 export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
   const t = useTranslations("news");
   const tabLabels = t.raw("list.tabs") as string[];
 
-  const [activeTab, setActiveTab] = useState<"all" | NewsCategoryId>("all");
-  const [page, setPage] = useState(1);
+  // Tab + page live in the URL so a filtered/paged view can be linked and is
+  // restored on first load. Absent = the "all" tab, page 1.
+  const params = useFilterParams();
+  const catParam = params.get(CAT_KEY);
+  const activeTab: "all" | NewsCategoryId =
+    catParam && (TAB_IDS as string[]).includes(catParam) ? (catParam as NewsCategoryId) : "all";
+  const page = Math.max(1, parseInt(params.get(PAGE_KEY) ?? "1", 10) || 1);
 
   // Counts span the whole set so each tab matches what it actually surfaces:
   // the "All" tab shows a featured banner + grid; a category tab shows its full
@@ -39,20 +47,26 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
 
   const showFeatured = activeTab === "all";
   const feat = articles[0];
-  const filtered = activeTab === "all"
-    ? articles.slice(1)
-    : articles.filter((a) => a.categoryId === activeTab);
+  // Every article is rendered into the grid (see the map below) so the pre-paint
+  // primer can reveal a category before hydration; React then hides the ones
+  // outside the active tab and page. The "all" tab drops the featured article
+  // from the grid since it already leads as the banner.
+  const inFilter = (a: NewsListItem) =>
+    activeTab === "all" ? a.slug !== feat?.slug : a.categoryId === activeTab;
+  const filtered = articles.filter(inFilter);
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
-  const pageItems = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
+  const visibleSlugs = new Set(
+    filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE).map((a) => a.slug),
+  );
 
-  function selectTab(id: "all" | NewsCategoryId) {
-    setActiveTab(id);
-    setPage(1);
-  }
+  const selectTab = (id: "all" | NewsCategoryId) =>
+    setFilterParams({ [CAT_KEY]: id === "all" ? null : id, [PAGE_KEY]: null });
+  const setPage = (p: number) => setFilterParams({ [PAGE_KEY]: p === 1 ? null : String(p) });
 
   return (
     <>
+      <FilterPrePaintCleanup />
       {/* TABS */}
       <div className="bg-white border-b border-line sticky top-18 z-30">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 flex overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
@@ -69,9 +83,10 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
         </div>
       </div>
 
-      {/* FEATURED — editorial highlight, shown only on the "All" tab */}
-      {showFeatured && feat && (
-        <section className="py-12 sm:py-16 bg-white">
+      {/* FEATURED — editorial highlight, shown only on the "All" tab. Kept in
+          the DOM (hidden off-tab) so the primer can drop it before paint. */}
+      {feat && (
+        <section className="py-12 sm:py-16 bg-white" hidden={!showFeatured} data-f-hide-when="cat">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <Link
               href={`/news/${feat.slug}`}
@@ -120,10 +135,11 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
             <span className="font-mono text-label text-muted tracking-[.1em] uppercase">{filtered.length} {t("list.articlesShort")}</span>
           </div>
 
-          {pageItems.length > 0 ? (
-            <div className="grid md:grid-cols-3 gap-6">
-              {pageItems.map(n => (
+          <div className="grid md:grid-cols-3 gap-6">
+              {articles.map(n => (
                 <Link key={n.slug} href={`/news/${n.slug}`}
+                      hidden={!visibleSlugs.has(n.slug)}
+                      data-f-cat={n.categoryId}
                       className="group relative bg-white border border-line rounded-[3px] flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:border-ink-3 hover:shadow-[0_1px_0_rgba(0,0,0,.04),0_16px_36px_-18px_rgba(0,0,0,.22)]">
                   <div className="aspect-[5/3] border-b border-line bg-paper-2 overflow-hidden relative">
                     {n.img ? (

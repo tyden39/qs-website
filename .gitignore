@@ -37,3 +37,6 @@ dims-tmp.json
 # python caches from tooling scripts
 __pycache__/
 *.pyc
+
+# playwright test artifacts
+/test-results/

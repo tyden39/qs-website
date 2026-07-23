@@ -134,6 +134,47 @@ const PATHS: Record<string, React.ReactNode> = {
       <path d="M3 9h18M9 3 6 9l6 12 6-12-3-6" />
     </>
   ),
+
+  // ── Sub-types (deepest flyout) ────────────────────────────────────────
+  motion: (
+    <>
+      <circle cx="18" cy="12" r="2.5" />
+      <path d="M3 12h9.5m0 0-3-3m3 3-3 3" />
+    </>
+  ),
+  cnc: (
+    <>
+      <path d="M5 5v14h14" />
+      <path d="m5 19 14-14M19 5v5M19 5h-5" />
+    </>
+  ),
+  robot: (
+    <>
+      <circle cx="6" cy="19" r="1.5" />
+      <path d="M6 19v-4.5l5-2.5 2.5-4" />
+      <path d="M13.5 12l3.5 1.5V17" />
+      <circle cx="11" cy="12" r="1" />
+    </>
+  ),
+  cobot: (
+    <>
+      <rect x="8" y="3" width="4" height="4" rx="2" />
+      <path d="M10 7v3l-4 3v5" />
+      <path d="M10 10l4.5 2.5V17" />
+    </>
+  ),
+  milling: (
+    <>
+      <path d="M9 3h6v9l-3 8-3-8V3Z" />
+      <path d="M9 7h6M9 10h6" />
+    </>
+  ),
+  router: (
+    <>
+      <path d="M8 3h8v7l-4 3-4-3V3Z" />
+      <path d="M12 13v8" />
+    </>
+  ),
 };
 
 /**

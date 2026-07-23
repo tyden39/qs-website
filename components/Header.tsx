@@ -67,9 +67,8 @@ export default function Header() {
   // ids are the tree's own slugs — including the Vietnamese material tags the
   // applications tree derives its ids from — so they are URL-encoded here. A
   // child that carries a clean sub-type taxonomy adds a `&t=..` flyout.
-  // `icon` is a CategoryIcon slug on first-level catalogue leaves; omitted on the
-  // deepest sub-type leaves (their siblings would share one glyph, adding noise
-  // rather than meaning) and on top-level items (no room in the desktop bar).
+  // `icon` is a CategoryIcon slug on the catalogue dropdown leaves at every
+  // depth; omitted on top-level items (no room in the desktop bar).
   type NavLeaf = { page: string; g: string; type?: string; label: string; icon?: string };
   type NavChild = NavLeaf & { children?: NavLeaf[] };
   type NavItem = { href: string; label: string; children?: NavChild[] };
@@ -115,7 +114,7 @@ export default function Header() {
     {
       page: "/electronics", g: "controllers", icon: "controllers", label: t("submenu.electronics.controllers"),
       children: (["motion", "cnc", "robot", "cobot"] as const).map((ct) => ({
-        page: "/electronics", g: "controllers", type: ct, label: tp(`page.types.controllers.${ct}`),
+        page: "/electronics", g: "controllers", type: ct, icon: ct, label: tp(`page.types.controllers.${ct}`),
       })),
     },
     { page: "/electronics", g: "servo", icon: "servo", label: t("submenu.electronics.servo") },
@@ -127,7 +126,7 @@ export default function Header() {
     {
       page: "/machine-building", g: "cnc", icon: "machine", label: t("submenu.machineBuilding.cnc"),
       children: (["milling", "router", "jewelry"] as const).map((cat) => ({
-        page: "/machine-building", g: "cnc", type: cat, label: tc(`machines.categories.${cat}`),
+        page: "/machine-building", g: "cnc", type: cat, icon: cat, label: tc(`machines.categories.${cat}`),
       })),
     },
     { page: "/machine-building", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
@@ -192,7 +191,8 @@ export default function Header() {
                   <div className="absolute left-full top-0 pl-1 hidden group-hover/sub:block group-focus-within/sub:block">
                     <div className="min-w-[12rem] bg-white border border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] py-1.5">
                       {c.children.map((s) => (
-                        <Link key={leafHref(s)} href={leafHref(s)} onClick={(e) => onLeafClick(e, s)} className={`block px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(s)}`}>
+                        <Link key={leafHref(s)} href={leafHref(s)} onClick={(e) => onLeafClick(e, s)} className={`flex items-center gap-2.5 px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(s)}`}>
+                          {s.icon ? <CategoryIcon name={s.icon} className="w-4 h-4 shrink-0 opacity-75" /> : null}
                           {s.label}
                         </Link>
                       ))}
@@ -372,8 +372,9 @@ export default function Header() {
                                     key={leafHref(s)}
                                     href={leafHref(s)}
                                     onClick={(e) => onLeafClick(e, s)}
-                                    className={`py-2 font-display text-label transition-colors ${leafStateMobile(s)}`}
+                                    className={`flex items-center gap-2.5 py-2 font-display text-label transition-colors ${leafStateMobile(s)}`}
                                   >
+                                    {s.icon ? <CategoryIcon name={s.icon} className="w-3.5 h-3.5 shrink-0 opacity-70" /> : null}
                                     {s.label}
                                   </Link>
                                 ))}

@@ -326,6 +326,20 @@ export default async function LineMachineDetail({
                 </div>
               </Reveal>
             )}
+
+            <Reveal delay={220}>
+              <div className="border border-line bg-white p-7">
+                <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase">{d("supportHeading")}</span>
+                <p className="m-0 mt-4 text-meta text-muted leading-[1.7]">
+                  <a href="tel:+84909663350" className="hover:text-ink">(+84) 909.663.350</a>
+                  <br />
+                  <a href="tel:+84922322338" className="hover:text-ink">(+84) 922.322.338</a>
+                  <br />
+                  <a href="mailto:support@qstcnc.com" className="hover:text-ink">support@qstcnc.com</a>
+                </p>
+                <Link className="qs-btn qs-btn-sm mt-5" href="/contact">{d("supportCta")}</Link>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>

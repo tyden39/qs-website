@@ -85,7 +85,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const typeCount = (type: string) => products.filter((p) => p.type === type).length;
   const controllerChildren: CategoryTreeChild[] = CONTROLLER_TYPES.filter(
     (ct) => typeCount(ct) > 0,
-  ).map((ct) => ({ id: ct, label: t(`types.controllers.${ct}`), count: typeCount(ct) }));
+  ).map((ct) => ({ id: ct, icon: ct, label: t(`types.controllers.${ct}`), count: typeCount(ct) }));
   // Each tab is illustrated by the first product in its group, so the thumbnails
   // follow the catalogue instead of hardcoding a path that can go stale.
   const dncProducts = getCatalogProducts(locale, "dnc");

@@ -76,6 +76,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         cats.length > 1
           ? cats.map((cat) => ({
               id: cat,
+              icon: cat,
               label: t(`machines.categories.${cat}`),
               count: ms.filter((m) => m.category === cat).length,
             }))

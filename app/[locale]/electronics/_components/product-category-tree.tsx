@@ -22,8 +22,10 @@ export function useCategorySubfilter(): string | null {
   return useContext(CategoryFilterContext);
 }
 
-/** A subcategory branch under a group (e.g. a controller `type`). */
-export type CategoryTreeChild = { id: string; label: string; count: number };
+/** A subcategory branch under a group (e.g. a controller `type`). `icon` is a
+ *  CategoryIcon slug shown before the label, mirroring the header's sub-type
+ *  leaves; omit for a branch that has no matching glyph. */
+export type CategoryTreeChild = { id: string; label: string; count: number; icon?: string };
 
 /**
  * A top-level catalogue group. `node` is the pre-rendered (async server) list
@@ -237,7 +239,10 @@ export function ProductCategoryTree({
                                 on ? "text-gold-1 font-medium" : "text-muted hover:text-ink"
                               }`}
                             >
-                              <span className="min-w-0">{c.label}</span>
+                              <span className="flex items-center gap-2 min-w-0">
+                                {c.icon ? <CategoryIcon name={c.icon} className="w-4 h-4 shrink-0 opacity-75" /> : null}
+                                <span className="truncate">{c.label}</span>
+                              </span>
                               <span
                                 className={`font-mono text-label-xs tabular-nums ${
                                   on ? "text-gold-2" : "text-line-2"

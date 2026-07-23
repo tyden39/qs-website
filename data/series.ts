@@ -101,6 +101,116 @@ export type SeriesIntro = {
   sections: SeriesIntroSection[];
 };
 
+/**
+ * ── Spec-sheet blocks ──────────────────────────────────────────────────────
+ * The manufacturer's 产品参数 / 可选配件 plates are flat images with baked-in
+ * Chinese text. Rather than overlay-translate the whole plate, the text-and-
+ * table plates are re-authored as an ordered list of native, bilingual blocks
+ * (`specSheet` / `accessorySheet`); genuine artwork — dimension drawings, cable
+ * illustrations — is cropped out of the plate and carried through as an `image`
+ * block so the drawing itself is never redrawn. A series with a sheet renders it
+ * in place of the corresponding image strip; a series without one falls back to
+ * the plate images.
+ *
+ * Localized strings inside blocks carry both languages as a `{ vi, en }` pair:
+ * the block data nests deep enough that parallel `*_En` fields would read far
+ * worse than one pair per string. The view layer resolves each pair to the
+ * active locale.
+ */
+export type Loc = { vi: string; en: string };
+
+/** One body cell of a parameter table. A bare string fills a single model
+ *  column; the object form spans `cs` columns — the manufacturer merges shared
+ *  ratings (insulation class, brake voltage) across every model of a frame. */
+export type SheetCell =
+  | string
+  | { v: string; cs?: number }
+  /** A value that reads differently per locale (e.g. a cooling method). Resolved
+   *  to a plain `{ v, cs }` cell at the view layer. */
+  | { vi: string; en: string; cs?: number };
+
+/** A body row of a transposed parameter table: a localized row label, an
+ *  optional unit printed beneath it, then one cell per model column. */
+export type SheetParamRow = { label: Loc; unit?: string; cells: SheetCell[] };
+
+/** A run of parameter rows sharing an optional vertical group label on the far
+ *  left — the manufacturer's rotated spanning cells (位置控制, 永磁抱闸…). */
+export type SheetParamGroup = { vlabel?: Loc; rows: SheetParamRow[] };
+
+/** A row of the item/value spec list (the general-spec plate): a localized item
+ *  label and its value as one or more localized lines. */
+export type SheetSpecRow = { item: Loc; lines: Loc[] };
+
+/** A run of spec rows sharing an optional vertical group label on the far left. */
+export type SheetSpecGroup = { vlabel?: Loc; rows: SheetSpecRow[] };
+
+/** One branch of a model-code decode diagram: the code chunk it points at, the
+ *  meaning of that position, and any enumerated values under it. */
+export type SheetNamingBranch = { seg: string; label: Loc; options?: Loc[] };
+
+/** One row of the cable reference table: the cable model code, an optional
+ *  bracket sub-label (with/without brake), the cropped illustration(s) of the
+ *  cable, and the motor range it fits (which spans several rows via `fitRows`). */
+export type SheetCableRow = {
+  model: string;
+  bracket?: Loc;
+  images: { src: string; w: number; h: number }[];
+  /** Compatible motor range, printed once and spanning `fitRows` rows. Present
+   *  only on the first row of each span. */
+  fit?: Loc;
+  fitRows?: number;
+};
+
+export type SheetBlock =
+  | { kind: "heading"; text: Loc; sub?: Loc }
+  | { kind: "note"; text: Loc }
+  | { kind: "image"; src: string; w: number; h: number; alt: Loc; caption?: Loc }
+  | { kind: "naming"; code: string; branches: SheetNamingBranch[] }
+  | {
+      kind: "specList";
+      itemHeader: Loc;
+      valueHeader: Loc;
+      groups: SheetSpecGroup[];
+    }
+  | {
+      kind: "paramTable";
+      itemHeader?: Loc;
+      /** Spanning header over the model columns (产品参数 tables). Omit for the
+       *  dimension L-tables, whose model codes are the only header row. */
+      modelHeader?: Loc;
+      models: string[];
+      groups: SheetParamGroup[];
+    }
+  | {
+      kind: "cableTable";
+      cols: { model: Loc; style: Loc; fit: Loc };
+      rows: SheetCableRow[];
+    }
+  /** A generic multi-column text table (fault-code lists, parameter-function
+   *  grids) that is neither an item/value spec list nor a transposed parameter
+   *  grid. `cols` are the header labels; each row is one localized cell per
+   *  column. A row cell may span columns via `{ c, cs }`. */
+  | {
+      kind: "dataTable";
+      title?: Loc;
+      cols: Loc[];
+      rows: { cells: (Loc | { c: Loc; cs?: number })[] }[];
+    }
+  /** A responsive grid of product cards — an option-board / accessory catalogue
+   *  where each item is a cropped thumbnail plus a localized name, description,
+   *  and language-neutral tags (part number, mounting slot). */
+  | {
+      kind: "cardGrid";
+      items: {
+        src: string;
+        w: number;
+        h: number;
+        title: Loc;
+        desc?: Loc;
+        tags?: string[];
+      }[];
+    };
+
 /** Datasheet body of a series detail page. `naming` decodes the model code;
  *  `tables` are the selection/compatibility grids; `figures` are the scanned
  *  datasheet plates that carry no machine-readable equivalent. Absent where a
@@ -140,10 +250,16 @@ export type SeriesDetail = {
   /** 产品参数 gallery — spec sheets published as images, shown under the
    *  Specifications tab below the machine-readable series specs. */
   paramImages?: SeriesPhoto[];
+  /** Re-authored 产品参数 sheet: text/table plates rebuilt as native bilingual
+   *  blocks. When present it renders in place of `paramImages`; cropped drawings
+   *  ride along as `image` blocks. */
+  specSheet?: SheetBlock[];
   /** 资料下载 — downloadable documents (URL catalogue only). */
   documentation?: SeriesDocumentation[];
   /** 可选配件 gallery — the manufacturer's optional-accessory strip. */
   accessoryImages?: SeriesPhoto[];
+  /** Re-authored 可选配件 sheet: renders in place of `accessoryImages`. */
+  accessorySheet?: SheetBlock[];
 };
 
 export type ProductSeries = {

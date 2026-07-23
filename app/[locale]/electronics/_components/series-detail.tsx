@@ -7,6 +7,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { SeriesModelTable } from "./series-model-table";
 import { SeriesFigures, SeriesNamingFigure, SeriesImageStrip } from "./series-figures";
 import { SeriesNamingCode } from "./series-naming-code";
+import { SeriesSpecSheet } from "./series-spec-sheet";
 import { ProductDetailTabs, type ProductDetailTab } from "./product-detail-tabs";
 
 /**
@@ -138,7 +139,9 @@ export async function SeriesDetail({
   const specsPanel = (
     <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
       <div className="qs-wrap-wide">
-        {detail && detail.paramImages.length > 0 ? (
+        {detail && detail.specSheet.length > 0 ? (
+          <SeriesSpecSheet blocks={detail.specSheet} zoomLabel={t("galleryZoom")} />
+        ) : detail && detail.paramImages.length > 0 ? (
           <SeriesImageStrip images={detail.paramImages} zoomLabel={t("galleryZoom")} />
         ) : detail ? (
           <div className="flex flex-col gap-14">
@@ -274,7 +277,9 @@ export async function SeriesDetail({
   // ── Tab 4: Accessories — QS companion series (driver pages) + the 可选配件
   //    manufacturer gallery. ──
   const accessoryImages = detail?.accessoryImages ?? [];
-  const hasAccessories = accessories.length > 0 || accessoryImages.length > 0;
+  const accessorySheet = detail?.accessorySheet ?? [];
+  const hasAccessories =
+    accessories.length > 0 || accessorySheet.length > 0 || accessoryImages.length > 0;
   const accessoriesPanel = hasAccessories && (
     <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
       <div className="qs-wrap-wide flex flex-col gap-14">
@@ -310,11 +315,15 @@ export async function SeriesDetail({
           </div>
         )}
 
-        {accessoryImages.length > 0 && (
+        {(accessorySheet.length > 0 || accessoryImages.length > 0) && (
           <div>
             <div className="qs-eyebrow mb-2">{t("accessoryImagesEyebrow")}</div>
             <h2 className="qs-h2 mb-8">{t("accessoryImagesHeading")}</h2>
-            <SeriesImageStrip images={accessoryImages} zoomLabel={t("galleryZoom")} />
+            {accessorySheet.length > 0 ? (
+              <SeriesSpecSheet blocks={accessorySheet} zoomLabel={t("galleryZoom")} />
+            ) : (
+              <SeriesImageStrip images={accessoryImages} zoomLabel={t("galleryZoom")} />
+            )}
           </div>
         )}
       </div>

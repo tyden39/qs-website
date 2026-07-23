@@ -9,6 +9,11 @@ import {
   type SeriesPhoto,
   type SeriesDocumentation,
   type SeriesIntro,
+  type Loc,
+  type SheetBlock,
+  type SheetParamGroup,
+  type SheetSpecGroup,
+  type SheetCableRow,
 } from "@/data/series";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -30,6 +35,59 @@ export type SeriesFigureView = { src: string; w: number; h: number; alt: string 
 
 /** A code chunk resolved to one locale. */
 export type SeriesCodeSegmentView = { text: string; label: string };
+
+/** Spec-sheet blocks resolved to one locale — every `{ vi, en }` pair collapses
+ *  to a string, everything else (model codes, image geometry, cell spans) is
+ *  locale-neutral and passes through. */
+export type SheetCableRowView = Omit<SheetCableRow, "bracket" | "fit"> & {
+  bracket?: string;
+  fit?: string;
+};
+
+/** A resolved parameter-table cell: a bare value or a value spanning `cs` model
+ *  columns. Locale-specific source cells are collapsed to this at build time. */
+export type ViewSheetCell = string | { v: string; cs?: number };
+
+export type SheetBlockView =
+  | { kind: "heading"; text: string; sub?: string }
+  | { kind: "note"; text: string }
+  | { kind: "image"; src: string; w: number; h: number; alt: string; caption?: string }
+  | {
+      kind: "naming";
+      code: string;
+      branches: { seg: string; label: string; options?: string[] }[];
+    }
+  | {
+      kind: "specList";
+      itemHeader: string;
+      valueHeader: string;
+      groups: { vlabel?: string; rows: { item: string; lines: string[] }[] }[];
+    }
+  | {
+      kind: "paramTable";
+      itemHeader?: string;
+      modelHeader?: string;
+      models: string[];
+      groups: {
+        vlabel?: string;
+        rows: { label: string; unit?: string; cells: ViewSheetCell[] }[];
+      }[];
+    }
+  | {
+      kind: "cableTable";
+      cols: { model: string; style: string; fit: string };
+      rows: SheetCableRowView[];
+    }
+  | {
+      kind: "dataTable";
+      title?: string;
+      cols: string[];
+      rows: { cells: { text: string; cs?: number }[] }[];
+    }
+  | {
+      kind: "cardGrid";
+      items: { src: string; w: number; h: number; title: string; desc?: string; tags?: string[] }[];
+    };
 
 /** A downloadable document resolved to one locale: `title` picks the language,
  *  everything else (category/url/format/size) is locale-neutral. `lang` stays —
@@ -55,9 +113,115 @@ export type SeriesDetailView = {
   tables: SeriesModelTableView[];
   figures: SeriesFigureView[];
   paramImages: SeriesFigureView[];
+  specSheet: SheetBlockView[];
   documentation: SeriesDocumentationView[];
   accessoryImages: SeriesFigureView[];
+  accessorySheet: SheetBlockView[];
 };
+
+/** Resolve one `{ vi, en }` pair to the active locale. */
+function L(x: Loc, en: boolean): string {
+  return en ? x.en : x.vi;
+}
+
+function sheetGroupParam(g: SheetParamGroup, en: boolean) {
+  return {
+    vlabel: g.vlabel ? L(g.vlabel, en) : undefined,
+    rows: g.rows.map((r) => ({
+      label: L(r.label, en),
+      unit: r.unit,
+      // Collapse any locale-specific cell (`{ vi, en }`) to its active-locale value.
+      cells: r.cells.map((c): ViewSheetCell =>
+        typeof c === "object" && "vi" in c ? { v: L(c, en), cs: c.cs } : c,
+      ),
+    })),
+  };
+}
+
+function sheetGroupSpec(g: SheetSpecGroup, en: boolean) {
+  return {
+    vlabel: g.vlabel ? L(g.vlabel, en) : undefined,
+    rows: g.rows.map((r) => ({ item: L(r.item, en), lines: r.lines.map((l) => L(l, en)) })),
+  };
+}
+
+function toSheetBlockView(b: SheetBlock, en: boolean): SheetBlockView {
+  switch (b.kind) {
+    case "heading":
+      return { kind: "heading", text: L(b.text, en), sub: b.sub ? L(b.sub, en) : undefined };
+    case "note":
+      return { kind: "note", text: L(b.text, en) };
+    case "image":
+      return {
+        kind: "image",
+        src: b.src,
+        w: b.w,
+        h: b.h,
+        alt: L(b.alt, en),
+        caption: b.caption ? L(b.caption, en) : undefined,
+      };
+    case "naming":
+      return {
+        kind: "naming",
+        code: b.code,
+        branches: b.branches.map((br) => ({
+          seg: br.seg,
+          label: L(br.label, en),
+          options: br.options?.map((o) => L(o, en)),
+        })),
+      };
+    case "specList":
+      return {
+        kind: "specList",
+        itemHeader: L(b.itemHeader, en),
+        valueHeader: L(b.valueHeader, en),
+        groups: b.groups.map((g) => sheetGroupSpec(g, en)),
+      };
+    case "paramTable":
+      return {
+        kind: "paramTable",
+        itemHeader: b.itemHeader ? L(b.itemHeader, en) : undefined,
+        modelHeader: b.modelHeader ? L(b.modelHeader, en) : undefined,
+        models: b.models,
+        groups: b.groups.map((g) => sheetGroupParam(g, en)),
+      };
+    case "cableTable":
+      return {
+        kind: "cableTable",
+        cols: { model: L(b.cols.model, en), style: L(b.cols.style, en), fit: L(b.cols.fit, en) },
+        rows: b.rows.map((r) => ({
+          model: r.model,
+          bracket: r.bracket ? L(r.bracket, en) : undefined,
+          images: r.images,
+          fit: r.fit ? L(r.fit, en) : undefined,
+          fitRows: r.fitRows,
+        })),
+      };
+    case "dataTable":
+      return {
+        kind: "dataTable",
+        title: b.title ? L(b.title, en) : undefined,
+        cols: b.cols.map((c) => L(c, en)),
+        rows: b.rows.map((r) => ({
+          cells: r.cells.map((c) =>
+            "c" in c ? { text: L(c.c, en), cs: c.cs } : { text: L(c, en) },
+          ),
+        })),
+      };
+    case "cardGrid":
+      return {
+        kind: "cardGrid",
+        items: b.items.map((it) => ({
+          src: it.src,
+          w: it.w,
+          h: it.h,
+          title: L(it.title, en),
+          desc: it.desc ? L(it.desc, en) : undefined,
+          tags: it.tags,
+        })),
+      };
+  }
+}
 
 function toIntroView(intro: SeriesIntro, en: boolean) {
   return {
@@ -104,11 +268,13 @@ function toDetailView(d: SeriesDetail, en: boolean): SeriesDetailView {
     })),
     figures: (d.figures ?? []).map((f) => toFigureView(f, en)),
     paramImages: (d.paramImages ?? []).map((p) => photoToView(p, en)),
+    specSheet: (d.specSheet ?? []).map((b) => toSheetBlockView(b, en)),
     documentation: (d.documentation ?? []).map(({ titleEn, ...doc }) => ({
       ...doc,
       title: en ? titleEn : doc.title,
     })),
     accessoryImages: (d.accessoryImages ?? []).map((p) => photoToView(p, en)),
+    accessorySheet: (d.accessorySheet ?? []).map((b) => toSheetBlockView(b, en)),
   };
 }
 

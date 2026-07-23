@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllNews } from "@/lib/data/news";
 import { NewsListFilter, type NewsListItem } from "./_components/news-list-filter";
+import { FilterPrePaint } from "@/lib/filter-prepaint";
 import CircuitTraces from "@/components/circuit-traces";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
@@ -77,6 +78,9 @@ export default async function News({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
+      {/* Reveals the category from the URL before paint, so a shared
+          `?cat=…` link doesn't flash the "all" tab first. */}
+      <FilterPrePaint keys={[{ key: "cat" }]} />
       <NewsListFilter articles={articles} />
     </>
   );

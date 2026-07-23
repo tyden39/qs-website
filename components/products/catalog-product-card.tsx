@@ -24,7 +24,7 @@ export async function CatalogProductCard({
   return (
     <Link
       href={`/electronics/${product.slug}`}
-      className="qs-card group flex flex-col bg-white border border-line
+      className="qs-card group flex flex-col h-full bg-white border border-line
                  shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)] transition-colors hover:border-ink"
     >
       <div className="relative p-5">
@@ -53,7 +53,7 @@ export async function CatalogProductCard({
         <h3 className="mt-2 font-display font-bold text-subhead tracking-[-.01em] m-0 group-hover:text-gold-1 transition-colors">
           {product.name}
         </h3>
-        <p className="mt-2 m-0 text-meta text-muted leading-[1.65]">{product.desc}</p>
+        <p className="mt-2 m-0 text-meta text-muted leading-[1.65] line-clamp-2">{product.desc}</p>
         <span className="qs-link mt-auto pt-5 self-start">
           {t("viewDetails")} <span aria-hidden>→</span>
         </span>

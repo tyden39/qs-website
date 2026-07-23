@@ -7,6 +7,9 @@ import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import { ProductVideo } from "../electronics/_components/product-video";
 import { ProductCategoryTree, type CategoryTreeGroup } from "../electronics/_components/product-category-tree";
 import { SortableCardList, type SortableCard } from "../electronics/_components/sortable-card-list";
+import Reveal from "@/components/reveal";
+import { FilterPrePaint } from "@/lib/filter-prepaint";
+import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import type { Locale } from "@/lib/i18n/config";
 
 // Shop-floor feature clip shown below the catalog list.
@@ -197,11 +200,23 @@ export default async function Applications({ params }: { params: Promise<{ local
               sub-types (existing case studies + "coming soon" leaves); the right
               panel shows that group's cards with the shared count + sort toolbar,
               matching the /electronics catalogue. */}
-          <ProductCategoryTree
-            eyebrow={pt("groups.eyebrow")}
-            allLabel={pt("types.all")}
-            groups={appGroups}
+          {/* Applies the URL filter (material group / sub-type) before paint,
+              so a shared application link doesn't flash the default group. */}
+          <FilterPrePaint
+            keys={[
+              { key: "g", def: appGroups[0]?.id, unhide: true },
+              { key: "t" },
+            ]}
           />
+          <FilterPrePaintCleanup />
+          {/* Catalogue fades up on load, matching the machine-building page. */}
+          <Reveal>
+            <ProductCategoryTree
+              eyebrow={pt("groups.eyebrow")}
+              allLabel={pt("types.all")}
+              groups={appGroups}
+            />
+          </Reveal>
         </div>
       </section>
 

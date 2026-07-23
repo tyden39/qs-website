@@ -10,6 +10,7 @@ import { SeriesList } from "./_components/series-list";
 import { getCatalogProducts } from "@/lib/data/catalog";
 import { getSeries, type SeriesCategory } from "@/lib/data/series";
 import CircuitTraces from "@/components/circuit-traces";
+import Reveal from "@/components/reveal";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -163,6 +164,8 @@ export default async function Products({ params }: { params: Promise<{ locale: L
             ]}
           />
           <FilterPrePaintCleanup />
+          {/* Catalogue fades up on load, matching the machine-building page. */}
+          <Reveal>
           <ProductCategoryTree
             eyebrow={t("groups.eyebrow")}
             allLabel={t("types.all")}
@@ -220,6 +223,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
               },
             ]}
           />
+          </Reveal>
         </div>
       </section>
     </>

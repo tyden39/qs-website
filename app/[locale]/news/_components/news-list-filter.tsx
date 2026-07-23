@@ -162,8 +162,8 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
                   </div>
                 </Link>
               ))}
-            </div>
-          ) : (
+          </div>
+          {visibleSlugs.size === 0 && (
             <p className="text-body text-[#3a3a3a] leading-[1.7] m-0 py-12 text-center">{t("list.empty")}</p>
           )}
 

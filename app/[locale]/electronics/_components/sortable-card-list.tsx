@@ -81,7 +81,9 @@ export function SortableCardList({
       </div>
       <div className={wrap}>
         {visible.map((it) => (
-          <div key={it.key}>{it.node}</div>
+          // `data-f-t` lets the pre-paint primer narrow to a sidebar subcategory
+          // before hydration; absent when the card has no subtype.
+          <div key={it.key} data-f-t={it.subtype}>{it.node}</div>
         ))}
       </div>
     </>

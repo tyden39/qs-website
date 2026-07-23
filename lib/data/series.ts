@@ -31,6 +31,11 @@ export type SeriesFigureView = { src: string; w: number; h: number; alt: string 
 /** A code chunk resolved to one locale. */
 export type SeriesCodeSegmentView = { text: string; label: string };
 
+/** A downloadable document resolved to one locale: `title` picks the language,
+ *  everything else (category/url/format/size) is locale-neutral. `lang` stays —
+ *  it describes the file's own language, which the UI may badge. */
+export type SeriesDocumentationView = Omit<SeriesDocumentation, "titleEn">;
+
 export type SeriesDetailView = {
   naming?: {
     code: string;
@@ -50,7 +55,7 @@ export type SeriesDetailView = {
   tables: SeriesModelTableView[];
   figures: SeriesFigureView[];
   paramImages: SeriesFigureView[];
-  documentation: SeriesDocumentation[];
+  documentation: SeriesDocumentationView[];
   accessoryImages: SeriesFigureView[];
 };
 
@@ -99,7 +104,10 @@ function toDetailView(d: SeriesDetail, en: boolean): SeriesDetailView {
     })),
     figures: (d.figures ?? []).map((f) => toFigureView(f, en)),
     paramImages: (d.paramImages ?? []).map((p) => photoToView(p, en)),
-    documentation: d.documentation ?? [],
+    documentation: (d.documentation ?? []).map(({ titleEn, ...doc }) => ({
+      ...doc,
+      title: en ? titleEn : doc.title,
+    })),
     accessoryImages: (d.accessoryImages ?? []).map((p) => photoToView(p, en)),
   };
 }

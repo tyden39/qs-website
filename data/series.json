@@ -304,7 +304,8 @@
       ],
       "documentation": [
         {
-          "title": "SDV3通用型用户手册",
+          "title": "SDV3 — Sổ tay người dùng (bản phổ thông)",
+          "titleEn": "SDV3 General-Purpose User Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250605/e3df5284d5136ad42d86aec33e3bfea1.pdf",
@@ -312,7 +313,8 @@
           "size_mb": 6.9
         },
         {
-          "title": "SDV3通用型EtherCAT应用手册",
+          "title": "SDV3 — Sổ tay ứng dụng EtherCAT (bản phổ thông)",
+          "titleEn": "SDV3 General-Purpose EtherCAT Application Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250422/5eaf7cff9da0a2d82dfb4de8f510561c.pdf",
@@ -320,7 +322,8 @@
           "size_mb": 1.7
         },
         {
-          "title": "SDV3通用型EtherCAT快速手册",
+          "title": "SDV3 — Sổ tay EtherCAT rút gọn (bản phổ thông)",
+          "titleEn": "SDV3 General-Purpose EtherCAT Quick Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250422/23381d2913433e254a3ad55caf7d3ac2.pdf",
@@ -328,7 +331,8 @@
           "size_mb": 1.4
         },
         {
-          "title": "SDV3脚本功能详细说明",
+          "title": "SDV3 — Hướng dẫn chi tiết chức năng script",
+          "titleEn": "SDV3 Script Function Detailed Guide",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250422/602450012c174bf0116dcf58bfe237f6.pdf",
@@ -336,7 +340,8 @@
           "size_mb": 1.1
         },
         {
-          "title": "SDV3 CANopen应用手册",
+          "title": "SDV3 — Sổ tay ứng dụng CANopen",
+          "titleEn": "SDV3 CANopen Application Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250422/6d3785bdc348568bf463953dac291e08.pdf",
@@ -344,7 +349,8 @@
           "size_mb": 1.9
         },
         {
-          "title": "SDV3伺服上位机软件使用说明书",
+          "title": "SDV3 — Hướng dẫn phần mềm cấu hình servo (PC)",
+          "titleEn": "SDV3 Servo PC Software User Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250324/30da3ebb2659b473cb2eb80b3a899208.pdf",
@@ -352,7 +358,8 @@
           "size_mb": 3.8
         },
         {
-          "title": "SDV3外形尺寸图",
+          "title": "SDV3 — Bản vẽ kích thước ngoài",
+          "titleEn": "SDV3 Outline Dimension Drawing",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250228/d88bcb9cc67f35174c65308684fbac70.pdf",
@@ -360,7 +367,8 @@
           "size_mb": 0.19
         },
         {
-          "title": "SDV3控制接线图",
+          "title": "SDV3 — Sơ đồ đấu dây điều khiển",
+          "titleEn": "SDV3 Control Wiring Diagram",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250228/c2e9c1848be194e6bea1f69c83a46ae9.pdf",
@@ -368,7 +376,8 @@
           "size_mb": 0.4
         },
         {
-          "title": "SDV3基本配线图",
+          "title": "SDV3 — Sơ đồ đấu dây cơ bản",
+          "titleEn": "SDV3 Basic Wiring Diagram",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250605/97322a772b37d0a4ba72078a3d4c1fa4.pdf",
@@ -376,7 +385,8 @@
           "size_mb": 0.7
         },
         {
-          "title": "SDV3故障指示及对策",
+          "title": "SDV3 — Chỉ báo lỗi & cách khắc phục",
+          "titleEn": "SDV3 Fault Indication & Countermeasures",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250228/5abba93cd5c73f7a758846337a31796d.pdf",
@@ -384,7 +394,8 @@
           "size_mb": 0.2
         },
         {
-          "title": "SDV3_3D安装尺寸图",
+          "title": "SDV3 — Bản vẽ lắp đặt 3D",
+          "titleEn": "SDV3 3D Installation Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/cf08ecdba254d84476dfdd2ff8d31912.rar",
@@ -392,7 +403,8 @@
           "size_mb": 8.3
         },
         {
-          "title": "SDV3_2D尺寸图",
+          "title": "SDV3 — Bản vẽ kích thước 2D",
+          "titleEn": "SDV3 2D Dimension Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/81b3f4a9718ab015b1793c74ecf1a25b.rar",
@@ -400,7 +412,8 @@
           "size_mb": 0.4
         },
         {
-          "title": "伺服上位机USB驱动",
+          "title": "Driver USB cho phần mềm servo (PC)",
+          "titleEn": "Servo PC Software USB Driver",
           "category": "software",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250306/c6f11e9d9d574171e188a7f49ee26f2a.zip",
@@ -408,7 +421,8 @@
           "size_mb": 24.7
         },
         {
-          "title": "SavchSoft_SRV_Install",
+          "title": "SavchSoft SRV — Phần mềm cài đặt",
+          "titleEn": "SavchSoft SRV Installer",
           "category": "software",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260710/296bce01a3d9c027f6588e2154aac50c.rar",
@@ -416,7 +430,8 @@
           "size_mb": 10.9
         },
         {
-          "title": "Savch_SDV3-E Servo Drive ESI File",
+          "title": "Savch SDV3-E — Tệp ESI (EtherCAT)",
+          "titleEn": "Savch SDV3-E Servo Drive ESI File",
           "category": "software",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250606/356257483493b813ccdecbeea9a197be.rar",
@@ -424,7 +439,8 @@
           "size_mb": 0.07
         },
         {
-          "title": "SDV3通用型彩页",
+          "title": "SDV3 — Catalogue (bản phổ thông)",
+          "titleEn": "SDV3 General-Purpose Brochure",
           "category": "brochure",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260427/ab81e1dfb54604b0184e63ac723a192c.pdf",
@@ -432,7 +448,8 @@
           "size_mb": 4.5
         },
         {
-          "title": "CE证书",
+          "title": "Chứng nhận CE",
+          "titleEn": "CE Certificate",
           "category": "certificate",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/efba5ad8ee538702ac4b7910548d20ad.pdf",
@@ -954,7 +971,8 @@
       ],
       "documentation": [
         {
-          "title": "SDA2高性能型手册",
+          "title": "SDA2 — Sổ tay người dùng (bản hiệu năng cao)",
+          "titleEn": "SDA2 High-Performance User Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250710/9e8b965095603eb6a1ac59379ebf03ef.pdf",
@@ -962,7 +980,8 @@
           "size_mb": 7.2
         },
         {
-          "title": "SDA2高性能通用型EtherCAT应用手册",
+          "title": "SDA2 — Sổ tay ứng dụng EtherCAT (bản hiệu năng cao)",
+          "titleEn": "SDA2 High-Performance EtherCAT Application Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250422/8dd88ecb7397f5a36a4d7a580ad3ef10.pdf",
@@ -970,7 +989,8 @@
           "size_mb": 1.6
         },
         {
-          "title": "SDA2高性能通用型CANopen应用手册",
+          "title": "SDA2 — Sổ tay ứng dụng CANopen (bản hiệu năng cao)",
+          "titleEn": "SDA2 High-Performance CANopen Application Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250422/c595ad22c0230bc55892a525676a30b5.pdf",
@@ -978,7 +998,8 @@
           "size_mb": 2.1
         },
         {
-          "title": "SDA2伺服上位机软件使用说明书",
+          "title": "SDA2 — Hướng dẫn phần mềm cấu hình servo (PC)",
+          "titleEn": "SDA2 Servo PC Software User Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250324/30da3ebb2659b473cb2eb80b3a899208.pdf",
@@ -986,7 +1007,8 @@
           "size_mb": 3.8
         },
         {
-          "title": "SDA2外形尺寸图",
+          "title": "SDA2 — Bản vẽ kích thước ngoài",
+          "titleEn": "SDA2 Outline Dimension Drawing",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250228/16eff4dd00c9c8e2b1230b2a0312da29.pdf",
@@ -994,7 +1016,8 @@
           "size_mb": 0.6
         },
         {
-          "title": "SDA2控制接线图",
+          "title": "SDA2 — Sơ đồ đấu dây điều khiển",
+          "titleEn": "SDA2 Control Wiring Diagram",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250228/66a020a7fb17164519293b15c9e048aa.pdf",
@@ -1002,7 +1025,8 @@
           "size_mb": 0.8
         },
         {
-          "title": "SDA2基本配线图",
+          "title": "SDA2 — Sơ đồ đấu dây cơ bản",
+          "titleEn": "SDA2 Basic Wiring Diagram",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250605/5ed62d06c4d42bc875359e5e1ff316fd.pdf",
@@ -1010,7 +1034,8 @@
           "size_mb": 0.37
         },
         {
-          "title": "SDA2故障指示及对策",
+          "title": "SDA2 — Chỉ báo lỗi & cách khắc phục",
+          "titleEn": "SDA2 Fault Indication & Countermeasures",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250228/e6b383b9d88c375acc8adfd1d876c303.pdf",
@@ -1018,7 +1043,8 @@
           "size_mb": 0.2
         },
         {
-          "title": "SDA2_3D安装尺寸图",
+          "title": "SDA2 — Bản vẽ lắp đặt 3D",
+          "titleEn": "SDA2 3D Installation Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/2be475e951c26de81fb488d7d637d457.rar",
@@ -1026,7 +1052,8 @@
           "size_mb": 7.8
         },
         {
-          "title": "SDA2_2D尺寸图",
+          "title": "SDA2 — Bản vẽ kích thước 2D",
+          "titleEn": "SDA2 2D Dimension Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/dd453842fea55d874a17b88e5c4640d5.rar",
@@ -1034,7 +1061,8 @@
           "size_mb": 8.6
         },
         {
-          "title": "SavchSoft_SRV_Install",
+          "title": "SavchSoft SRV — Phần mềm cài đặt",
+          "titleEn": "SavchSoft SRV Installer",
           "category": "software",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260710/296bce01a3d9c027f6588e2154aac50c.rar",
@@ -1042,7 +1070,8 @@
           "size_mb": 10.9
         },
         {
-          "title": "Savch_SDA2-E Servo Drive ESI File",
+          "title": "Savch SDA2-E — Tệp ESI (EtherCAT)",
+          "titleEn": "Savch SDA2-E Servo Drive ESI File",
           "category": "software",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250606/3a26e54a98935b3dd4993587ef0598ad.rar",
@@ -1050,7 +1079,8 @@
           "size_mb": 0.07
         },
         {
-          "title": "伺服上位机USB驱动",
+          "title": "Driver USB cho phần mềm servo (PC)",
+          "titleEn": "Servo PC Software USB Driver",
           "category": "software",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250306/c6f11e9d9d574171e188a7f49ee26f2a.zip",
@@ -1058,7 +1088,8 @@
           "size_mb": 24.7
         },
         {
-          "title": "Savch_SDA2-E Servo Drive ESI File",
+          "title": "Savch SDA2-E — Tệp ESI (EtherCAT)",
+          "titleEn": "Savch SDA2-E Servo Drive ESI File",
           "category": "software",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250307/baa4252543dc3b7e1c63e922b6afbb8a.rar",
@@ -1066,7 +1097,8 @@
           "size_mb": 0.01
         },
         {
-          "title": "SDA2高性能型彩页",
+          "title": "SDA2 — Catalogue (bản hiệu năng cao)",
+          "titleEn": "SDA2 High-Performance Brochure",
           "category": "brochure",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260427/05e5f2e13a0fd1fb64897f106a2956b4.pdf",
@@ -1074,7 +1106,8 @@
           "size_mb": 4.5
         },
         {
-          "title": "SDA2-CE证书",
+          "title": "SDA2 — Chứng nhận CE",
+          "titleEn": "SDA2 CE Certificate",
           "category": "certificate",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/552c56b1de3af05d9ebc9fddc43cbed7.pdf",
@@ -2645,7 +2678,8 @@
       ],
       "documentation": [
         {
-          "title": "S600E开环矢量迷你型(PM)手册",
+          "title": "S600E — Sổ tay biến tần vector vòng hở mini (PM)",
+          "titleEn": "S600E Open-Loop Vector Mini (PM) Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260120/7f4bc00ab1e38bff3bc55f4d0ab2fa34.pdf",
@@ -2653,7 +2687,8 @@
           "size_mb": 4.4
         },
         {
-          "title": "EL-OP-A2外延面板用户手册",
+          "title": "EL-OP-A2 — Sổ tay bảng điều khiển mở rộng",
+          "titleEn": "EL-OP-A2 Extension Panel User Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/8f19f9cfbb3bcb7261a58a2003c8dbbc.pdf",
@@ -2661,7 +2696,8 @@
           "size_mb": 0.1
         },
         {
-          "title": "EL-OP-B2外延面板用户手册",
+          "title": "EL-OP-B2 — Sổ tay bảng điều khiển mở rộng",
+          "titleEn": "EL-OP-B2 Extension Panel User Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/70fbe73c434dca69115a54220220a503.pdf",
@@ -2669,7 +2705,8 @@
           "size_mb": 0.3
         },
         {
-          "title": "S600E基本接线图",
+          "title": "S600E — Sơ đồ đấu dây cơ bản",
+          "titleEn": "S600E Basic Wiring Diagram",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/54ef67695eab4c7dff64ffacca16445d.pdf",
@@ -2677,7 +2714,8 @@
           "size_mb": 0.4
         },
         {
-          "title": "S600E外形尺寸图",
+          "title": "S600E — Bản vẽ kích thước ngoài",
+          "titleEn": "S600E Outline Dimension Drawing",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/44e9bd8fdd3602a5d57663138713f30a.pdf",
@@ -2685,7 +2723,8 @@
           "size_mb": 0.4
         },
         {
-          "title": "S600E故障指示及对策",
+          "title": "S600E — Chỉ báo lỗi & cách khắc phục",
+          "titleEn": "S600E Fault Indication & Countermeasures",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/aa09ae431adbe12d50165aac643e2479.pdf",
@@ -2693,7 +2732,8 @@
           "size_mb": 0.1
         },
         {
-          "title": "S600E 3D尺寸图",
+          "title": "S600E — Bản vẽ kích thước 3D",
+          "titleEn": "S600E 3D Dimension Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/e8c906e9fb951f9dc1f4cdf37974b6f9.rar",
@@ -2701,7 +2741,8 @@
           "size_mb": 6.8
         },
         {
-          "title": "S600E 2D尺寸图",
+          "title": "S600E — Bản vẽ kích thước 2D",
+          "titleEn": "S600E 2D Dimension Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/fe3888d72e12ae8e048ab4dd7449fca1.rar",
@@ -2709,7 +2750,8 @@
           "size_mb": 2
         },
         {
-          "title": "S600(S600E)开环矢量迷你型彩页",
+          "title": "S600/S600E — Catalogue vector vòng hở mini",
+          "titleEn": "S600/S600E Open-Loop Vector Mini Brochure",
           "category": "brochure",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260427/f9059d31c773769ebf34d015b8c5c342.pdf",
@@ -2717,7 +2759,8 @@
           "size_mb": 5.9
         },
         {
-          "title": "S600E-CE",
+          "title": "S600E — Chứng nhận CE",
+          "titleEn": "S600E CE Certificate",
           "category": "certificate",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/bb7e7a0362ebb043ad70eb9fa0a6560c.pdf",
@@ -3151,7 +3194,8 @@
       ],
       "documentation": [
         {
-          "title": "S600E开环矢量迷你型(PM)手册",
+          "title": "S600E — Sổ tay biến tần vector vòng hở mini (PM)",
+          "titleEn": "S600E Open-Loop Vector Mini (PM) Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260120/7f4bc00ab1e38bff3bc55f4d0ab2fa34.pdf",
@@ -3159,7 +3203,8 @@
           "size_mb": 4.4
         },
         {
-          "title": "EL-OP-A2外延面板用户手册",
+          "title": "EL-OP-A2 — Sổ tay bảng điều khiển mở rộng",
+          "titleEn": "EL-OP-A2 Extension Panel User Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/8f19f9cfbb3bcb7261a58a2003c8dbbc.pdf",
@@ -3167,7 +3212,8 @@
           "size_mb": 0.1
         },
         {
-          "title": "EL-OP-B2外延面板用户手册",
+          "title": "EL-OP-B2 — Sổ tay bảng điều khiển mở rộng",
+          "titleEn": "EL-OP-B2 Extension Panel User Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/70fbe73c434dca69115a54220220a503.pdf",
@@ -3175,7 +3221,8 @@
           "size_mb": 0.3
         },
         {
-          "title": "S600E基本接线图",
+          "title": "S600E — Sơ đồ đấu dây cơ bản",
+          "titleEn": "S600E Basic Wiring Diagram",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/54ef67695eab4c7dff64ffacca16445d.pdf",
@@ -3183,7 +3230,8 @@
           "size_mb": 0.4
         },
         {
-          "title": "S600E外形尺寸图",
+          "title": "S600E — Bản vẽ kích thước ngoài",
+          "titleEn": "S600E Outline Dimension Drawing",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/44e9bd8fdd3602a5d57663138713f30a.pdf",
@@ -3191,7 +3239,8 @@
           "size_mb": 0.4
         },
         {
-          "title": "S600E故障指示及对策",
+          "title": "S600E — Chỉ báo lỗi & cách khắc phục",
+          "titleEn": "S600E Fault Indication & Countermeasures",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/aa09ae431adbe12d50165aac643e2479.pdf",
@@ -3199,7 +3248,8 @@
           "size_mb": 0.1
         },
         {
-          "title": "S600E 3D尺寸图",
+          "title": "S600E — Bản vẽ kích thước 3D",
+          "titleEn": "S600E 3D Dimension Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/e8c906e9fb951f9dc1f4cdf37974b6f9.rar",
@@ -3207,7 +3257,8 @@
           "size_mb": 6.8
         },
         {
-          "title": "S600E 2D尺寸图",
+          "title": "S600E — Bản vẽ kích thước 2D",
+          "titleEn": "S600E 2D Dimension Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250213/fe3888d72e12ae8e048ab4dd7449fca1.rar",
@@ -3215,7 +3266,8 @@
           "size_mb": 2
         },
         {
-          "title": "S600(S600E)开环矢量迷你型彩页",
+          "title": "S600/S600E — Catalogue vector vòng hở mini",
+          "titleEn": "S600/S600E Open-Loop Vector Mini Brochure",
           "category": "brochure",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260427/f9059d31c773769ebf34d015b8c5c342.pdf",
@@ -3223,7 +3275,8 @@
           "size_mb": 5.9
         },
         {
-          "title": "S600E-CE",
+          "title": "S600E — Chứng nhận CE",
+          "titleEn": "S600E CE Certificate",
           "category": "certificate",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/bb7e7a0362ebb043ad70eb9fa0a6560c.pdf",
@@ -3947,7 +4000,8 @@
       ],
       "documentation": [
         {
-          "title": "S3100A基本接线图",
+          "title": "S3100A — Sơ đồ đấu dây cơ bản",
+          "titleEn": "S3100A Basic Wiring Diagram",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260618/96450b41f0feafcde4f655e229dfb4bd.pdf",
@@ -3955,7 +4009,8 @@
           "size_mb": 0.35
         },
         {
-          "title": "S3100A通用矢量型(IM)手册",
+          "title": "S3100A — Sổ tay biến tần vector đa dụng (IM)",
+          "titleEn": "S3100A General Vector (IM) Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260618/6be8c6b66fd03a5a32f7a373bb750d02.pdf",
@@ -3963,7 +4018,8 @@
           "size_mb": 7.5
         },
         {
-          "title": "S3100A故障指示及对策",
+          "title": "S3100A — Chỉ báo lỗi & cách khắc phục",
+          "titleEn": "S3100A Fault Indication & Countermeasures",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260109/a80198bf1558ac5f72f69d55972af7ec.pdf",
@@ -3971,7 +4027,8 @@
           "size_mb": 0.17
         },
         {
-          "title": "S3100A纺织超启专用手册",
+          "title": "S3100A — Sổ tay chuyên dụng ngành dệt",
+          "titleEn": "S3100A Textile-Industry Dedicated Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250924/dcf5402bb8000af6c3da211fe14a21c7.pdf",
@@ -3979,7 +4036,8 @@
           "size_mb": 3.2
         },
         {
-          "title": "HCA-B ETIO-AOMC1选配卡手册",
+          "title": "HCA-B ETIO-AOMC1 — Sổ tay card mở rộng tùy chọn",
+          "titleEn": "HCA-B ETIO-AOMC1 Optional Card Manual",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250311/5af323da88db77aeeb7ee79989e2ebc9.pdf",
@@ -3987,7 +4045,8 @@
           "size_mb": 1.7
         },
         {
-          "title": "S3100A外形与安装尺寸图",
+          "title": "S3100A — Bản vẽ kích thước ngoài & lắp đặt",
+          "titleEn": "S3100A Outline & Installation Drawing",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250801/17c7b3cbb39a7da12d78626ab58f36f6.pdf",
@@ -3995,7 +4054,8 @@
           "size_mb": 2.2
         },
         {
-          "title": "HCA-OP-B2操作面板安装尺寸",
+          "title": "HCA-OP-B2 — Kích thước lắp đặt bảng điều khiển",
+          "titleEn": "HCA-OP-B2 Operation Panel Mounting Dimensions",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250220/295cc775bfafab8f713fda40e6638b7a.pdf",
@@ -4003,7 +4063,8 @@
           "size_mb": 0.33
         },
         {
-          "title": "HCA-OP-A2操作面板安装尺寸",
+          "title": "HCA-OP-A2 — Kích thước lắp đặt bảng điều khiển",
+          "titleEn": "HCA-OP-A2 Operation Panel Mounting Dimensions",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250220/ddc364f12e1e09f152cf85fbc5e41bff.pdf",
@@ -4011,7 +4072,8 @@
           "size_mb": 0.29
         },
         {
-          "title": "HCA-A ETIO-AOMC1选配卡手册1.0",
+          "title": "HCA-A ETIO-AOMC1 — Sổ tay card mở rộng tùy chọn (v1.0)",
+          "titleEn": "HCA-A ETIO-AOMC1 Optional Card Manual v1.0",
           "category": "manual",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/61d63b8359319ed3b172fd6e3ff931cc.pdf",
@@ -4019,7 +4081,8 @@
           "size_mb": 0.29
         },
         {
-          "title": "S3100A 3D安装尺寸图",
+          "title": "S3100A — Bản vẽ lắp đặt 3D",
+          "titleEn": "S3100A 3D Installation Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250801/882f9d94276c5b3753fc668a6c30eb71.rar",
@@ -4027,7 +4090,8 @@
           "size_mb": 37.5
         },
         {
-          "title": "S3100A 2D尺寸图",
+          "title": "S3100A — Bản vẽ kích thước 2D",
+          "titleEn": "S3100A 2D Dimension Drawing",
           "category": "drawing",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250801/4d00a725eb8b3c4a3af498d183694c29.rar",
@@ -4035,7 +4099,8 @@
           "size_mb": 5.9
         },
         {
-          "title": "S3100A/E通用矢量型彩页",
+          "title": "S3100A/E — Catalogue vector đa dụng",
+          "titleEn": "S3100A/E General Vector Brochure",
           "category": "brochure",
           "lang": "zh",
           "url": "https://savch.net/uploads/20260427/772b369bc2bd2fe378940d2c04dfaf0b.pdf",
@@ -4043,7 +4108,8 @@
           "size_mb": 5.9
         },
         {
-          "title": "S3100A-CE证书",
+          "title": "S3100A — Chứng nhận CE",
+          "titleEn": "S3100A CE Certificate",
           "category": "certificate",
           "lang": "zh",
           "url": "https://savch.net/uploads/20250206/29c4eb06dff1a56ff878c508f8f6b55c.pdf",

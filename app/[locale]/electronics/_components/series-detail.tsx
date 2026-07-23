@@ -27,6 +27,11 @@ const CATEGORY_PATH: Record<SeriesView["category"], string> = {
   inverter: "/electronics/inverters",
 };
 
+/** Order the Documentation tab groups its downloads in — manuals first, then
+ *  drawings, tooling, marketing, compliance. Categories with no items are
+ *  skipped at render time. */
+const DOC_CATEGORY_ORDER = ["manual", "drawing", "software", "brochure", "certificate"] as const;
+
 export async function SeriesDetail({
   series,
   locale,
@@ -203,44 +208,61 @@ export async function SeriesDetail({
     </section>
   );
 
-  // ── Tab 3: Documentation — the 资料下载 download list (URLs kept as-is). ──
+  // ── Tab 3: Documentation — the 资料下载 download list (URLs kept as-is),
+  //    grouped by document type so a long list stays browsable. Each present
+  //    category renders its own table; the category badge becomes the group
+  //    heading, so the per-row type column is dropped. ──
   const docs = detail?.documentation ?? [];
+  const docGroups = DOC_CATEGORY_ORDER.map((category) => ({
+    category,
+    items: docs.filter((d) => d.category === category),
+  })).filter((g) => g.items.length > 0);
   const docsPanel = docs.length > 0 && (
     <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
       <div className="qs-wrap-wide">
         <div className="qs-eyebrow mb-2">{t("docsEyebrow")}</div>
         <h2 className="qs-h2 mb-3">{t("docsHeading")}</h2>
-        <p className="text-meta text-muted leading-[1.7] max-w-[62ch] mb-8">{t("docsHint")}</p>
-        <div className="border border-line bg-white">
-          <div className="hidden md:grid grid-cols-[110px_1fr_90px_120px] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
-            <span>{t("docsTable.category")}</span>
-            <span>{t("docsTable.name")}</span>
-            <span>{t("docsTable.size")}</span>
-            <span className="text-right">{t("docsTable.download")}</span>
-          </div>
-          {docs.map((d, i) => (
-            <div
-              key={`${d.url}-${i}`}
-              className="grid grid-cols-1 md:grid-cols-[110px_1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 py-4 border-t border-line hover:bg-paper transition-colors"
-            >
-              <span className="inline-flex w-fit items-center font-mono text-label-xs tracking-[.12em] uppercase text-gold-1 border border-gold-1/40 px-2 py-0.5">
-                {t(`docsCategory.${d.category}`)}
-              </span>
-              <span className="font-semibold text-ink text-meta tracking-[-.005em] min-w-0">
-                {d.title}
-              </span>
-              <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
-                {d.size_mb ? `${d.size_mb} MB` : "—"}
-              </span>
-              <div className="flex md:justify-end">
-                <a
-                  href={d.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors font-mono text-label tracking-[.14em] uppercase"
-                >
-                  {d.format.toUpperCase()} ↓
-                </a>
+        <p className="text-meta text-muted leading-[1.7] max-w-[62ch] mb-10">{t("docsHint")}</p>
+        <div className="flex flex-col gap-10">
+          {docGroups.map((group) => (
+            <div key={group.category}>
+              <div className="flex items-baseline gap-3 pb-3 mb-4 border-b border-line">
+                <h3 className="font-display text-title font-bold tracking-[-.02em] text-ink m-0">
+                  {t(`docsCategory.${group.category}`)}
+                </h3>
+                <span className="font-mono text-label-xs tracking-[.14em] text-muted tabular-nums">
+                  {group.items.length}
+                </span>
+              </div>
+              <div className="border border-line bg-white">
+                <div className="hidden md:grid grid-cols-[1fr_90px_120px] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
+                  <span>{t("docsTable.name")}</span>
+                  <span>{t("docsTable.size")}</span>
+                  <span className="text-right">{t("docsTable.download")}</span>
+                </div>
+                {group.items.map((d, i) => (
+                  <div
+                    key={`${d.url}-${i}`}
+                    className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 py-4 border-t border-line hover:bg-paper transition-colors"
+                  >
+                    <span className="font-semibold text-ink text-meta tracking-[-.005em] min-w-0">
+                      {d.title}
+                    </span>
+                    <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
+                      {d.size_mb ? `${d.size_mb} MB` : "—"}
+                    </span>
+                    <div className="flex md:justify-end">
+                      <a
+                        href={d.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors font-mono text-label tracking-[.14em] uppercase"
+                      >
+                        {d.format.toUpperCase()} ↓
+                      </a>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ))}

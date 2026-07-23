@@ -8,6 +8,8 @@ import CncFeatureVideo from "./_components/cnc-feature-video";
 import { MachineCard } from "@/components/products/machine-card";
 import { ProductCategoryTree, type CategoryTreeGroup, type CategoryTreeChild } from "../electronics/_components/product-category-tree";
 import { SortableCardList } from "../electronics/_components/sortable-card-list";
+import { FilterPrePaint } from "@/lib/filter-prepaint";
+import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import { getMachines, MACHINE_TYPES, type MachineView, type MachineCategory } from "@/lib/data/machines";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
@@ -148,6 +150,16 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
               <p className="text-body leading-[1.7] text-muted mt-4 m-0">{t("machines.body")}</p>
             </div>
           </Reveal>
+          {/* Applies the URL filter (machine type / sub-category) before paint,
+              so a shared machine link doesn't flash the default group first.
+              The first machine type is the no-param default. */}
+          <FilterPrePaint
+            keys={[
+              { key: "g", def: machineGroups[0]?.id, unhide: true },
+              { key: "t" },
+            ]}
+          />
+          <FilterPrePaintCleanup />
           <Reveal>
             <ProductCategoryTree
               eyebrow={pt("groups.eyebrow")}

@@ -67,9 +67,11 @@ export type SeriesCodeSegment = { text: string; label: string; labelEn: string }
 
 /** A downloadable document catalogued from the manufacturer's 资料下载 tab.
  *  We store the source URL only (files stay hosted on savch.net); `lang` is the
- *  document's own language, not the site locale. */
+ *  document's own language (the file itself), independent of the display `title`
+ *  which is localized (`title` Vietnamese, `titleEn` English). */
 export type SeriesDocumentation = {
   title: string;
+  titleEn: string;
   category: "manual" | "drawing" | "software" | "brochure" | "certificate";
   lang: "zh" | "en" | "vi" | "id";
   url: string;

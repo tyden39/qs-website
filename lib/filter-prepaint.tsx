@@ -41,6 +41,5 @@ export function FilterPrePaint({ keys }: { keys: PrePaintKey[] }) {
   const code = `(function(){try{var p=new URLSearchParams(location.search),K=${JSON.stringify(
     keys,
   )},c="";for(var i=0;i<K.length;i++){var k=K[i],v=(p.get(k.key)||k.def||"").replace(/[^a-z0-9-]/gi,"");if(!v)continue;var a="data-f-"+k.key;c+="["+a+']:not(['+a+'~="'+v+'"]){display:none!important}';if(k.unhide)c+="["+a+'~="'+v+'"]{display:block!important}';c+='[data-f-hide-when~="'+k.key+'"]{display:none!important}'}if(c){var s=document.createElement("style");s.id="qs-prefilter";s.textContent=c;document.head.appendChild(s)}}catch(e){}})();`;
-  // eslint-disable-next-line react/no-danger
   return <script dangerouslySetInnerHTML={{ __html: code }} />;
 }

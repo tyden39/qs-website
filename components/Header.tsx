@@ -4,6 +4,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/lib/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { CategoryIcon } from "@/components/category-icon";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 import { scrollToList } from "@/lib/scroll-to-list";
 
@@ -66,9 +67,12 @@ export default function Header() {
   // ids are the tree's own slugs — including the Vietnamese material tags the
   // applications tree derives its ids from — so they are URL-encoded here. A
   // child that carries a clean sub-type taxonomy adds a `&t=..` flyout.
-  type NavLeaf = { page: string; g: string; type?: string; label: string };
+  // `icon` is a CategoryIcon slug; present on top-level items and first-level
+  // catalogue leaves, omitted on the deepest sub-type leaves (their siblings
+  // would share one glyph, adding noise rather than meaning).
+  type NavLeaf = { page: string; g: string; type?: string; label: string; icon?: string };
   type NavChild = NavLeaf & { children?: NavLeaf[] };
-  type NavItem = { href: string; label: string; children?: NavChild[] };
+  type NavItem = { href: string; label: string; icon?: string; children?: NavChild[] };
   // Href carries the filter + the `#list` anchor, so a cross-page click lands on
   // the list on load; a same-page click is intercepted by onLeafClick instead.
   const leafHref = (l: NavLeaf) =>
@@ -109,25 +113,25 @@ export default function Header() {
 
   const electronicsChildren: NavChild[] = [
     {
-      page: "/electronics", g: "controllers", label: t("submenu.electronics.controllers"),
+      page: "/electronics", g: "controllers", icon: "controllers", label: t("submenu.electronics.controllers"),
       children: (["motion", "cnc", "robot", "cobot"] as const).map((ct) => ({
         page: "/electronics", g: "controllers", type: ct, label: tp(`page.types.controllers.${ct}`),
       })),
     },
-    { page: "/electronics", g: "servo", label: t("submenu.electronics.servo") },
-    { page: "/electronics", g: "inverter", label: t("submenu.electronics.inverter") },
-    { page: "/electronics", g: "dnc", label: t("submenu.electronics.dnc") },
-    { page: "/electronics", g: "accessory", label: t("submenu.electronics.accessory") },
+    { page: "/electronics", g: "servo", icon: "servo", label: t("submenu.electronics.servo") },
+    { page: "/electronics", g: "inverter", icon: "inverter", label: t("submenu.electronics.inverter") },
+    { page: "/electronics", g: "dnc", icon: "dnc", label: t("submenu.electronics.dnc") },
+    { page: "/electronics", g: "accessory", icon: "accessory", label: t("submenu.electronics.accessory") },
   ];
   const machineChildren: NavChild[] = [
     {
-      page: "/machine-building", g: "cnc", label: t("submenu.machineBuilding.cnc"),
+      page: "/machine-building", g: "cnc", icon: "machine", label: t("submenu.machineBuilding.cnc"),
       children: (["milling", "router", "jewelry"] as const).map((cat) => ({
         page: "/machine-building", g: "cnc", type: cat, label: tc(`machines.categories.${cat}`),
       })),
     },
-    { page: "/machine-building", g: "automation", label: t("submenu.machineBuilding.automation") },
-    { page: "/machine-building", g: "inspection", label: t("submenu.machineBuilding.inspection") },
+    { page: "/machine-building", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
+    { page: "/machine-building", g: "inspection", icon: "inspection", label: t("submenu.machineBuilding.inspection") },
   ];
   const applicationsChildren: NavChild[] = ([
     ["kim loại", "metal"],
@@ -136,20 +140,20 @@ export default function Header() {
     ["kim hoàn", "jewelry"],
     ["automation", "automation"],
   ] as const).map(([id, key]) => ({
-    page: "/applications", g: id, label: t(`submenu.applications.${key}`),
+    page: "/applications", g: id, icon: key, label: t(`submenu.applications.${key}`),
   }));
 
   const left: NavItem[] = [
-    { href: "/electronics", label: t("products"), children: electronicsChildren },
-    { href: "/machine-building", label: t("cnc"), children: machineChildren },
-    { href: "/applications", label: t("applications"), children: applicationsChildren },
-    { href: "/services", label: t("services") },
-    { href: "/downloads", label: t("downloads") },
+    { href: "/electronics", icon: "electronics", label: t("products"), children: electronicsChildren },
+    { href: "/machine-building", icon: "machine", label: t("cnc"), children: machineChildren },
+    { href: "/applications", icon: "applications", label: t("applications"), children: applicationsChildren },
+    { href: "/services", icon: "services", label: t("services") },
+    { href: "/downloads", icon: "downloads", label: t("downloads") },
   ];
   const right: NavItem[] = [
-    { href: "/about", label: t("about") },
-    { href: "/news", label: t("news") },
-    { href: "/contact", label: t("contact") },
+    { href: "/about", icon: "about", label: t("about") },
+    { href: "/news", icon: "news", label: t("news") },
+    { href: "/contact", icon: "contact", label: t("contact") },
   ];
   const all = [...left, ...right];
 
@@ -158,16 +162,23 @@ export default function Header() {
   // keyboard focus (group-focus-within) so it is reachable without a pointer.
   const renderDesktopItem = (item: NavItem) => {
     const active = is(item.href);
+    // Top-level icons appear from xl up: the lg bar is already dense, so gating
+    // them keeps that breakpoint's spacing while wide screens gain the glyphs.
+    const topIcon = item.icon ? (
+      <CategoryIcon name={item.icon} className="hidden xl:block w-4 h-4 shrink-0 opacity-55" />
+    ) : null;
     if (!item.children) {
       return (
-        <Link key={item.href} href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! ${active ? "is-active" : ""}`}>
+        <Link key={item.href} href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}>
+          {topIcon}
           {item.label}
         </Link>
       );
     }
     return (
       <div key={item.href} className="relative group">
-        <Link href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1 ${active ? "is-active" : ""}`}>
+        <Link href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}>
+          {topIcon}
           {item.label}
           <svg className="opacity-60 transition-transform duration-200 group-hover:rotate-180" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </Link>
@@ -179,7 +190,10 @@ export default function Header() {
                 // Nested flyout: opens to the right of the parent row on hover/focus.
                 <div key={leafHref(c)} className="relative group/sub">
                   <Link href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`flex items-center justify-between gap-4 px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(c)}`}>
-                    {c.label}
+                    <span className="flex items-center gap-2.5 min-w-0">
+                      {c.icon ? <CategoryIcon name={c.icon} className="w-[18px] h-[18px] shrink-0 opacity-75" /> : null}
+                      {c.label}
+                    </span>
                     <svg className="opacity-50" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
                   </Link>
                   <div className="absolute left-full top-0 pl-1 hidden group-hover/sub:block group-focus-within/sub:block">
@@ -193,7 +207,8 @@ export default function Header() {
                   </div>
                 </div>
               ) : (
-                <Link key={leafHref(c)} href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`block px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(c)}`}>
+                <Link key={leafHref(c)} href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`flex items-center gap-2.5 px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(c)}`}>
+                  {c.icon ? <CategoryIcon name={c.icon} className="w-[18px] h-[18px] shrink-0 opacity-75" /> : null}
                   {c.label}
                 </Link>
               ),
@@ -279,16 +294,20 @@ export default function Header() {
         >
           <div className="qs-wrap-wide py-4 flex flex-col max-h-[calc(100dvh-64px)] overflow-y-auto">
             {all.map((item) => {
-              const { href: h, label: l, children } = item;
+              const { href: h, label: l, icon, children } = item;
+              const rowIcon = icon ? (
+                <CategoryIcon name={icon} className="w-[19px] h-[19px] shrink-0 opacity-55" />
+              ) : null;
               if (!children) {
                 return (
                   <Link
                     key={h}
                     href={h}
                     onClick={() => setOpen(false)}
-                    className={`flex items-center justify-between py-3.5 border-b border-line font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
+                    className={`flex items-center gap-3 py-3.5 border-b border-line font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
                   >
-                    {l}
+                    {rowIcon}
+                    <span className="flex-1">{l}</span>
                     <span className={`font-mono text-meta ${is(h) ? "text-gold-1" : "text-muted"}`}>→</span>
                   </Link>
                 );
@@ -302,8 +321,9 @@ export default function Header() {
                     <Link
                       href={h}
                       onClick={() => setOpen(false)}
-                      className={`flex-1 py-3.5 font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
+                      className={`flex-1 flex items-center gap-3 py-3.5 font-display font-medium text-lede tracking-[-.005em] transition-colors ${is(h) ? "text-gold-1" : "text-ink hover:text-gold-1"}`}
                     >
+                      {rowIcon}
                       {l}
                     </Link>
                     <button
@@ -325,8 +345,9 @@ export default function Header() {
                               key={leafHref(c)}
                               href={leafHref(c)}
                               onClick={(e) => onLeafClick(e, c)}
-                              className={`py-2.5 font-display text-meta transition-colors ${leafStateMobile(c)}`}
+                              className={`flex items-center gap-2.5 py-2.5 font-display text-meta transition-colors ${leafStateMobile(c)}`}
                             >
+                              {c.icon ? <CategoryIcon name={c.icon} className="w-4 h-4 shrink-0 opacity-70" /> : null}
                               {c.label}
                             </Link>
                           );
@@ -341,8 +362,9 @@ export default function Header() {
                               <Link
                                 href={childKey}
                                 onClick={(e) => onLeafClick(e, c)}
-                                className={`flex-1 py-2.5 font-display text-meta transition-colors ${leafStateMobile(c)}`}
+                                className={`flex-1 flex items-center gap-2.5 py-2.5 font-display text-meta transition-colors ${leafStateMobile(c)}`}
                               >
+                                {c.icon ? <CategoryIcon name={c.icon} className="w-4 h-4 shrink-0 opacity-70" /> : null}
                                 {c.label}
                               </Link>
                               <button

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { createContext, useContext, useId } from "react";
 import { Link } from "@/lib/i18n/navigation";
+import { CategoryIcon } from "@/components/category-icon";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 import { scrollToList } from "@/lib/scroll-to-list";
 
@@ -35,15 +36,20 @@ export type CategoryTreeGroup = {
   label: string;
   count: number;
   /** Representative product render shown as the branch's thumbnail. Omit for a
-   *  text-only branch (e.g. material categories that have no single render). */
+   *  branch with no single render (e.g. material categories); such a branch
+   *  falls back to `icon`. */
   thumb?: { src: string; w: number; h: number };
+  /** CategoryIcon slug drawn in the thumbnail tile when `thumb` is absent, so a
+   *  render-less group (materials) still reads as a labelled branch. */
+  icon?: string;
   children?: CategoryTreeChild[];
   node: React.ReactNode;
 };
 
 type SupportLabels = { title: string; cta: string };
 
-function Thumb({ src, w, h, active }: { src: string; w: number; h: number; active: boolean }) {
+/** The 28px light tile shared by the render thumbnail and the icon fallback. */
+function TileFrame({ active, children }: { active: boolean; children: React.ReactNode }) {
   return (
     <span
       className={`grid place-items-center w-7 h-7 shrink-0 rounded-[2px] border transition-colors ${
@@ -51,6 +57,14 @@ function Thumb({ src, w, h, active }: { src: string; w: number; h: number; activ
       }`}
       style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
     >
+      {children}
+    </span>
+  );
+}
+
+function Thumb({ src, w, h, active }: { src: string; w: number; h: number; active: boolean }) {
+  return (
+    <TileFrame active={active}>
       <Image
         src={src}
         alt=""
@@ -60,7 +74,15 @@ function Thumb({ src, w, h, active }: { src: string; w: number; h: number; activ
         sizes="28px"
         className="max-w-[22px] max-h-[22px] w-auto h-auto object-contain"
       />
-    </span>
+    </TileFrame>
+  );
+}
+
+function IconTile({ name, active }: { name: string; active: boolean }) {
+  return (
+    <TileFrame active={active}>
+      <CategoryIcon name={name} className={`w-4 h-4 ${active ? "text-gold-1" : "text-muted"}`} />
+    </TileFrame>
   );
 }
 
@@ -177,6 +199,8 @@ export function ProductCategoryTree({
                   >
                     {g.thumb ? (
                       <Thumb src={g.thumb.src} w={g.thumb.w} h={g.thumb.h} active={isActive} />
+                    ) : g.icon ? (
+                      <IconTile name={g.icon} active={isActive} />
                     ) : null}
                     <span className={`flex-1 min-w-0 ${isActive ? "text-gold-1" : ""}`}>{g.label}</span>
                     <span

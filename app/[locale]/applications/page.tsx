@@ -115,6 +115,15 @@ export default async function Applications({ params }: { params: Promise<{ local
       <div className="pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-muted">{soon.label}</div>
     </div>
   );
+  // Material groups have no single product render, so the sidebar tile falls
+  // back to a CategoryIcon keyed off the group's tag.
+  const APP_ICON: Record<string, string> = {
+    "kim loại": "metal",
+    "gỗ": "wood",
+    "đá": "stone",
+    "kim hoàn": "jewelry",
+    automation: "automation",
+  };
   const appGroups: CategoryTreeGroup[] = groups.map((g) => {
     const cards: SortableCard[] = g.items.map((it) =>
       it.kind === "case"
@@ -130,6 +139,7 @@ export default async function Applications({ params }: { params: Promise<{ local
       id: g.tag.toLowerCase(),
       label: g.name,
       count: cards.length,
+      icon: APP_ICON[g.tag.toLowerCase()],
       children,
       node: (
         <SortableCardList

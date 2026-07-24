@@ -1347,7 +1347,7 @@
   {
     "slug": "cwm-050",
     "model": "CWM-050",
-    "category": "inspection",
+    "category": "automation",
     "axes": 0,
     "tagline": "Kiểm tra trọng lượng sản phẩm và thùng hàng khối lượng lớn, phát hiện thiếu hoặc thừa cân; ứng dụng rộng rãi trong thực phẩm, dược phẩm, hóa chất và công nghiệp.",
     "taglineEn": "Weighs large products and cartons, detecting underweight and overweight items — widely used across food, pharmaceutical, chemical, agricultural and industrial lines.",

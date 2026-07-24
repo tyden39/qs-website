@@ -151,7 +151,11 @@ function FamilyBody({
   headers: { name: string; version: string; download: string };
 }) {
   if (!group.products) return <DocTable rows={group.rows ?? []} headers={headers} />;
-  if (!product) return null;
+  // Family itself active (no product picked): show every document it holds.
+  if (!product) {
+    const allRows = group.products.flatMap((p) => p.groups.flatMap((dg) => dg.rows));
+    return <DocTable rows={allRows} headers={headers} />;
+  }
   const docGroups = product.groups;
   const current = docGroups.find((dg) => dg.id === activeDocId) ?? docGroups[0];
   return (
@@ -210,11 +214,14 @@ function FamilyBody({
 export function DownloadsTree({
   groups,
   eyebrow,
+  allLabel,
   headers,
   support,
 }: {
   groups: DlGroup[];
   eyebrow: string;
+  /** "All documents" label for a family's reset row (shows every file it holds). */
+  allLabel: string;
   headers: { name: string; version: string; download: string };
   support: SupportLabels;
 }) {
@@ -225,13 +232,18 @@ export function DownloadsTree({
   const activeGroup = groups[active];
 
   const products = activeGroup.products ?? [];
-  const activeProductId = resolveId(products, params.get(PRODUCT_KEY));
+  // No product param means the family itself is active — the right panel shows
+  // all of its documents, and no product is highlighted (matching the catalogue
+  // tree, where selecting a group shows "all" rather than its first sub-branch).
+  const productParam = params.get(PRODUCT_KEY);
+  const activeProductId = products.some((p) => p.id === productParam) ? productParam : null;
   const activeProduct = products.find((p) => p.id === activeProductId);
   const docGroups = activeProduct?.groups ?? [];
   const activeDocId = resolveId(docGroups, params.get(DOC_KEY));
 
-  // Each level defaults to its first item, kept out of the URL so a family's own
-  // link stays short; picking a level clears the selections below it.
+  // Selecting a family activates the family itself; product/doc selections are
+  // kept out of the URL default so a family's own link stays short, and picking
+  // a level clears the selections below it.
   const selectGroup = (i: number) => {
     const groupId = groups[i].id;
     const kids = groups[i].products ?? [];
@@ -245,8 +257,9 @@ export function DownloadsTree({
       setExpandedGroupId(groupId);
     }
   };
+  // An empty id resets to "all documents"; a real id narrows to that product.
   const selectProduct = (id: string) =>
-    setFilterParams({ [PRODUCT_KEY]: id === products[0]?.id ? null : id, [DOC_KEY]: null });
+    setFilterParams({ [PRODUCT_KEY]: id || null, [DOC_KEY]: null });
   const selectDoc = (id: string) =>
     setFilterParams({ [DOC_KEY]: id === docGroups[0]?.id ? null : id });
 
@@ -275,6 +288,7 @@ export function DownloadsTree({
               onChange={(e) => selectProduct(e.target.value)}
               className="qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border border-line py-2 px-3 bg-white cursor-pointer"
             >
+              <option value="">{allLabel}</option>
               {products.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.label} ({pad(productCount(p))})
@@ -328,6 +342,25 @@ export function DownloadsTree({
 
                   {isActive && isExpanded && kids.length > 0 ? (
                     <ul className="list-none p-0 m-0 pb-2 pl-3">
+                      <li>
+                        <button
+                          type="button"
+                          aria-pressed={activeProductId === null}
+                          onClick={() => selectProduct("")}
+                          className={`w-full flex justify-between items-center gap-3 py-1.5 text-meta text-left cursor-pointer bg-transparent border-0 ${
+                            activeProductId === null ? "text-gold-1 font-medium" : "text-muted hover:text-ink"
+                          }`}
+                        >
+                          <span className="min-w-0">{allLabel}</span>
+                          <span
+                            className={`font-mono text-label-xs tabular-nums ${
+                              activeProductId === null ? "text-gold-2" : "text-line-2"
+                            }`}
+                          >
+                            {pad(familyCount(g))}
+                          </span>
+                        </button>
+                      </li>
                       {kids.map((p) => {
                         const on = p.id === activeProductId;
                         return (
@@ -376,13 +409,13 @@ export function DownloadsTree({
       </div>
 
       {/* RIGHT — the active family's panel; all mounted, inactive hidden. Each
-          branched family falls back to its first product so every panel
+          branched family defaults to its full document set so every panel
           prerenders populated. */}
       <div className="min-w-0">
         {groups.map((g, i) => {
           const isActive = i === active;
-          const product = isActive ? activeProduct : g.products?.[0];
-          const docId = isActive ? activeDocId : (product?.groups[0]?.id ?? null);
+          const product = isActive ? activeProduct : undefined;
+          const docId = isActive ? activeDocId : null;
           return (
             <div key={g.id} role="region" aria-label={g.label} hidden={!isActive}>
               <div className="mb-8 max-w-[62ch]">
@@ -391,11 +424,11 @@ export function DownloadsTree({
                 </span>
                 <h2 className="qs-h2 mt-2">{g.heading}</h2>
                 <p className="text-meta text-muted leading-[1.7] mt-3 mb-0">{g.desc}</p>
-                {g.products && product ? (
+                {g.products ? (
                   <div className="mt-5 inline-flex items-center gap-2.5 border border-line bg-white pl-2.5 pr-3.5 py-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-gold-grad" aria-hidden="true" />
                     <span className="font-mono text-label tracking-[.12em] uppercase text-ink">
-                      {product.label}
+                      {product ? product.label : allLabel}
                     </span>
                   </div>
                 ) : null}

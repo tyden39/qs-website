@@ -247,6 +247,7 @@ export default async function Downloads({ params }: Props) {
           <DownloadsTree
             groups={tree}
             eyebrow={t("tree.eyebrow")}
+            allLabel={t("tree.all")}
             headers={{ name: t("table.name"), version: t("table.version"), download: t("table.download") }}
             support={{ title: t("tree.support"), cta: t("tree.supportCta") }}
           />

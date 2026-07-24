@@ -30,6 +30,7 @@
     },
     "tree": {
       "eyebrow": "Document library",
+      "all": "All documents",
       "support": "Technical support",
       "supportCta": "Contact engineering"
     },

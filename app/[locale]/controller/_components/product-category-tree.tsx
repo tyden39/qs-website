@@ -182,8 +182,16 @@ export function CategoryTreeHero({
     const groupId = groups[i].id;
     const kids = groups[i].children ?? [];
     if (i === active && kids.length > 0) {
-      // Toggle expansion when re-clicking an already-active group with children.
-      setExpandedGroupId(expandedGroupId === groupId ? null : groupId);
+      if (child) {
+        // A sub-branch is selected — re-clicking the parent resets the group to
+        // its "all" view and keeps the branch revealed, so the parent can always
+        // be reactivated from a narrowed child.
+        setFilterParams({ [TYPE_KEY]: null });
+        setExpandedGroupId(groupId);
+      } else {
+        // No sub-branch selected — toggle the dropdown.
+        setExpandedGroupId(expandedGroupId === groupId ? null : groupId);
+      }
     } else {
       setFilterParams({ [GROUP_KEY]: i === 0 ? null : groupId, [TYPE_KEY]: null });
       setExpandedGroupId(groupId);
@@ -199,7 +207,7 @@ export function CategoryTreeHero({
     <div className="lg:grid lg:grid-cols-[248px_1fr] lg:gap-12 lg:items-stretch">
       {/* LEFT — tree (desktop) / stacked selects (mobile+tablet); the desktop card
           stretches to the full height of the intro column. */}
-      <div className="mb-8 lg:mb-0 flex flex-col gap-6 lg:h-full">
+      <div className="mb-8 lg:mb-0 flex flex-col gap-6">
         {/* mobile/tablet: the tree collapses to a group select, plus a
             subcategory select when the active group has branches. */}
         <div className="lg:hidden flex flex-col gap-3">
@@ -232,10 +240,11 @@ export function CategoryTreeHero({
           ) : null}
         </div>
 
-        {/* desktop: the hierarchical tree, filling the column height */}
+        {/* desktop: the hierarchical tree in a fixed-height card (400px) that
+            scrolls internally when the tree is taller than the box. */}
         <nav
           aria-label={eyebrow ?? groups.map((g) => g.label).join(" / ")}
-          className="hidden lg:block border border-line bg-white p-5 lg:flex-1"
+          className="hidden lg:block lg:h-[400px] lg:overflow-y-auto border border-line bg-white p-5"
         >
           {eyebrow ? (
             <div className="pb-3.5 border-b border-ink font-mono text-label tracking-[.16em] uppercase text-ink">
@@ -320,7 +329,6 @@ export function CategoryTreeHero({
             })}
           </ul>
         </nav>
-
       </div>
 
       {/* RIGHT — the active group's figure on top, intro copy below; all mounted,

@@ -5,8 +5,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import { ProductVideo } from "../controller/_components/product-video";
-import { ProductCategoryTree, type CategoryTreeGroup } from "../controller/_components/product-category-tree";
+import { CategoryTreeHero, CategoryTreePanels, type CategoryTreeGroup } from "../controller/_components/product-category-tree";
 import { SortableCardList, type SortableCard } from "../controller/_components/sortable-card-list";
+import { CategoryIcon } from "@/components/category-icon";
 import Reveal from "@/components/reveal";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
@@ -78,7 +79,6 @@ export default async function Applications({ params }: { params: Promise<{ local
     return { img: appAssets[i].img, label: appText[i].t, machine: appText[i].machine };
   };
   const groups = groupMeta.map((meta, gi) => ({ ...meta, n: String(gi + 1).padStart(2, "0"), items: appTaxonomy[gi] }));
-  const caseCount = appTaxonomy.flat().filter((it) => it.kind === "case").length;
   const pt = await getTranslations({ locale, namespace: "product.page" });
 
   // Case-study card and "coming soon" placeholder — the right-panel cards for
@@ -132,6 +132,18 @@ export default async function Applications({ params }: { params: Promise<{ local
     "dan-keo": "dispensing",
     "uon-lo-xo": "bending",
   };
+  // Hero figure for the active material group — leads with that group's first
+  // case-study photo, or the material glyph when it has no case yet. Fills the
+  // shared HERO_IMAGE_SLOT (standard size lives in the tree component).
+  const appFigure = (src: string | null, alt: string, icon: string, priority = false) =>
+    src ? (
+      <Image src={src} alt={alt} fill priority={priority} sizes="(max-width:768px) 55vw, 300px"
+             className="object-cover" />
+    ) : (
+      <div className="absolute inset-0 grid place-items-center">
+        <CategoryIcon name={icon} className="w-16 h-16 text-gold-1/60" />
+      </div>
+    );
   const appGroups: CategoryTreeGroup[] = groups.map((g, gi) => {
     const cards: SortableCard[] = g.items.map((it) =>
       it.kind === "case"
@@ -143,11 +155,17 @@ export default async function Applications({ params }: { params: Promise<{ local
         ? { id: it.slug, icon: APP_SUB_ICON[it.slug], label: caseAt(it.slug).label, count: 1 }
         : { id: it.key, icon: APP_SUB_ICON[it.key], label: soon.items[it.key], count: 1 },
     );
+    // First case study in the group provides the hero photo; groups that are all
+    // "coming soon" (e.g. stone) fall back to the material glyph.
+    const lead = g.items.find((it) => it.kind === "case");
+    const heroSrc = lead && lead.kind === "case" ? caseAt(lead.slug).img : null;
     return {
       id: g.tag.toLowerCase(),
       label: g.name,
       count: cards.length,
       icon: APP_ICON[gi],
+      blurb: g.desc,
+      heroImage: appFigure(heroSrc, g.name, APP_ICON[gi], gi === 0),
       children,
       node: (
         <SortableCardList
@@ -167,77 +185,47 @@ export default async function Applications({ params }: { params: Promise<{ local
   return (
     <>
       <JsonLd data={breadcrumb} />
-      {/* HERO */}
+      {/* HERO — sidebar of material groups + the active group's intro/figure */}
       <section className="relative overflow-hidden border-b border-line"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         {/* breathing gold atmosphere behind the board panel */}
         <div className="qs-glow hidden sm:block right-[8%] top-[-30%] w-[36%] h-[150%]" aria-hidden="true"></div>
-        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-12 pb-14">
-          <div className="qs-crumb mb-6">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 py-12 lg:py-16">
+          <div className="qs-crumb mb-7">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.current")}</span>
           </div>
-          <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-16 items-center">
-            <div className="order-2 lg:order-none">
-              <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("eyebrow")}</div>
-              <h1 className="qs-h1 mt-3.5 qs-rise" style={{ animationDelay: "90ms" }}>
-                <em className="not-italic qs-gold-shimmer">{t("heading")}</em>
-              </h1>
-              <p className="qs-lede mt-5 qs-rise" style={{ animationDelay: "190ms" }}>
-                {t("lede")}
-              </p>
-            </div>
-            {/* Controller family montage — the full QS lineup on the dark board panel */}
-            <div className="order-1 lg:order-none qs-rise relative aspect-[4/3] border overflow-hidden"
-                 style={{ background:"linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)", borderColor:"#2a2a2a", animationDelay: "260ms" }}>
-              <div className="absolute inset-0 qs-grid-bg opacity-20" aria-hidden="true"></div>
-              <Image src="/home/app-hero-controllers.webp" alt={t("heading")} fill priority
-                     sizes="(max-width:768px) 100vw, 58vw"
-                     className="object-contain p-6" />
-              {/* gold blueprint scan sweeping the panel */}
-              <div className="qs-scan" aria-hidden="true"></div>
-              <div className="absolute top-3.5 right-3.5 w-16 h-px bg-gold"></div>
-              <div className="absolute bottom-3.5 left-3.5 font-mono text-label-xs text-gold-2 tracking-[.18em] uppercase">QS TECHNOLOGY · CONTROLLERS · v2026</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* GROUPED BY MATERIAL */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white" id="list">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="qs-section-head">
-            <div>
-              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("catalogEyebrow")}</span>
-              <h2 className="qs-h2 mt-2">{t("catalogHeading")}</h2>
-            </div>
-            <span className="font-mono text-label text-muted tracking-[.1em] uppercase">{t("caseStudies", { count: caseCount })}</span>
-          </div>
-          {/* Material groups as a left tree — each group expands to its
-              sub-types (existing case studies + "coming soon" leaves); the right
-              panel shows that group's cards with the shared count + sort toolbar,
-              matching the /controller catalogue. */}
-          {/* Applies the URL filter (material group / sub-type) before paint,
-              so a shared application link doesn't flash the default group. */}
+          {/* Applies the URL filter (material group / sub-type) before paint, so a
+              shared application link doesn't flash the default group. Rendered
+              before the tagged intro/list panels so its style is in place as they
+              parse. */}
           <FilterPrePaint
             keys={[
               { key: "g", def: appGroups[0]?.id, unhide: true },
               { key: "t" },
             ]}
           />
-          <FilterPrePaintCleanup />
-          {/* Catalogue fades up on load, matching the machine-building page. */}
-          <Reveal>
-            <ProductCategoryTree
+          <Reveal eager>
+            <CategoryTreeHero
               eyebrow={pt("groups.eyebrow")}
               allLabel={pt("types.all")}
-              support={{ title: pt("sidebar.support.title"), cta: pt("sidebar.support.cta") }}
+              viewListLabel={pt("groups.viewList")}
               groups={appGroups}
             />
           </Reveal>
         </div>
       </section>
+
+      {/* GROUPED BY MATERIAL — the active group's cases, full width below the hero */}
+      <section className="py-12 sm:py-16 lg:py-24 bg-white" id="list">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+          <Reveal eager>
+            <CategoryTreePanels groups={appGroups} />
+          </Reveal>
+        </div>
+      </section>
+      <FilterPrePaintCleanup />
 
       {/* VIDEO — centered feature clip below the catalog */}
       <section className="py-12 sm:py-16 lg:py-24 bg-paper border-t border-line">

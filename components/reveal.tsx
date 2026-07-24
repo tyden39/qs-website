@@ -9,6 +9,13 @@ type RevealProps = {
   className?: string;
   /** Stagger delay in milliseconds before the reveal transition runs. */
   delay?: number;
+  /**
+   * Reveal as soon as the top edge enters the viewport instead of waiting for
+   * 15% of the block to show. Use for tall blocks (e.g. a full catalogue list)
+   * where 15% of the element's own height only intersects after a deep scroll,
+   * leaving the block hidden long enough to read as empty.
+   */
+  eager?: boolean;
 };
 
 /**
@@ -23,6 +30,7 @@ export default function Reveal({
   as,
   className,
   delay = 0,
+  eager = false,
 }: RevealProps) {
   const Tag = (as ?? "div") as ElementType;
   const ref = useRef<HTMLElement | null>(null);
@@ -51,7 +59,11 @@ export default function Reveal({
           }
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+      // Eager blocks fire the moment their top edge crosses into view; the
+      // default nudges reveal to when ~15% of a normal-height block shows.
+      eager
+        ? { threshold: 0, rootMargin: "0px" }
+        : { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
     );
 
     observer.observe(el);

@@ -6,7 +6,6 @@ import { Link, usePathname } from "@/lib/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { CategoryIcon } from "@/components/category-icon";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
-import { scrollToList } from "@/lib/scroll-to-list";
 
 function closeSearch(){
   document.getElementById("qs-search-panel")?.classList.remove("open");
@@ -72,12 +71,14 @@ export default function Header() {
   type NavLeaf = { page: string; g: string; type?: string; label: string; icon?: string };
   type NavChild = NavLeaf & { children?: NavLeaf[] };
   type NavItem = { href: string; label: string; children?: NavChild[] };
-  // Href carries the filter + the `#list` anchor, so a cross-page click lands on
-  // the list on load; a same-page click is intercepted by onLeafClick instead.
+  // Href carries only the filter query — no `#list` anchor — so a cross-page
+  // click lands at the page top with the filter applied rather than scrolling
+  // down to the list; a same-page click is intercepted by onLeafClick instead.
   const leafHref = (l: NavLeaf) =>
-    `${l.page}?g=${encodeURIComponent(l.g)}${l.type ? `&t=${encodeURIComponent(l.type)}` : ""}#list`;
-  // When already on the leaf's page, filter in place and smooth-scroll to the
-  // list instead of a full navigation (which would jump to the page top).
+    `${l.page}?g=${encodeURIComponent(l.g)}${l.type ? `&t=${encodeURIComponent(l.type)}` : ""}`;
+  // When already on the leaf's page, filter in place instead of a full
+  // navigation (which would jump to the page top), keeping the current scroll
+  // position rather than scrolling to the list.
   // `trailingSlash: true` makes usePathname() return "/controller/", so compare
   // with trailing slashes stripped or the same-page branch never matches.
   const samePath = (a: string, b: string) =>
@@ -90,7 +91,6 @@ export default function Header() {
     if (!samePath(path, l.page)) return; // different page → let the Link navigate
     e.preventDefault();
     setFilterParams({ g: l.g, t: l.type ?? null });
-    scrollToList();
   };
 
   // A dropdown leaf is active when the current page and its filter query match

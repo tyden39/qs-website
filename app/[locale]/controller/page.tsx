@@ -4,7 +4,7 @@ import { Link } from "@/lib/i18n/navigation";
 import { getAllProducts, CONTROLLER_TYPES } from "@/lib/data/products";
 import { ProductBundleCard } from "@/components/products/product-bundle-card";
 import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";
-import { ProductCategoryTree, type CategoryTreeChild } from "./_components/product-category-tree";
+import { CategoryTreeHero, CategoryTreePanels, type CategoryTreeChild, type CategoryTreeGroup } from "./_components/product-category-tree";
 import { CatalogList } from "./_components/catalog-list";
 import { SeriesList } from "./_components/series-list";
 import { getCatalogProducts } from "@/lib/data/catalog";
@@ -57,16 +57,6 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const t = await getTranslations({ locale, namespace: "product.page" });
   const seo = await getTranslations({ locale, namespace: "seo" });
   const products = await getAllProducts(locale);
-  const features = t.raw("features") as string[];
-  // Only the distinctive product-type term shimmers gold; the generic prefix
-  // ("Bộ", …) stays ink. `headingGold` names that term and is matched as a
-  // contiguous slice of `heading`. Falls back to the whole heading.
-  const heading = t("heading");
-  const goldTerm = t("headingGold");
-  const goldAt = heading.indexOf(goldTerm);
-  const headingLead = goldAt >= 0 ? heading.slice(0, goldAt) : "";
-  const headingGold = goldAt >= 0 ? heading.slice(goldAt, goldAt + goldTerm.length) : heading;
-  const headingTail = goldAt >= 0 ? heading.slice(goldAt + goldTerm.length) : "";
   // Filter metadata derived from product data; the async card is pre-rendered
   // on the server and handed to the client filter as an opaque node.
   const items: ProductFilterItem[] = products.map((p, i) => ({
@@ -97,10 +87,86 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: seo("productsTitle"), path: "/controller" },
   ]);
+
+  // The hero figure for the active group — a bare render that fills the shared
+  // HERO_IMAGE_SLOT (standard size lives in the tree component).
+  const heroFigure = (img: { src: string }, alt: string, priority = false) => (
+    <Image src={img.src} alt={alt} fill priority={priority}
+           sizes="(max-width: 768px) 55vw, 300px" className="object-contain" />
+  );
+  // Distinct family render for the controllers intro (the servo/inverter/DNC/
+  // accessory groups reuse their own catalogue art).
+  const controllersHero = { src: "/img/products/products-hero-controllers.webp", w: 1600, h: 1609 };
+
+  // One group array feeds both halves of the split catalogue: the hero reads
+  // heroTitle/blurb/heroImage + the tree, the panels below read `node`.
+  const groups: CategoryTreeGroup[] = [
+    {
+      id: "controllers",
+      label: t("groups.controllers.label"),
+      count: products.length,
+      thumb: products[0].image,
+      blurb: t("groups.controllers.blurb"),
+      heroImage: heroFigure(controllersHero, t("groups.controllers.label"), true),
+      children: controllerChildren,
+      node: (
+        <ProductListFilter
+          items={items}
+          labels={{
+            filters: t.raw("toolbar.filters") as string[],
+            sortOptions: t.raw("toolbar.sortOptions") as string[],
+            showing: t("toolbar.showing"),
+            ofModels: t("toolbar.ofModels"),
+            filtersLabel: t("toolbar.filtersLabel"),
+            interfaceLabel: t("toolbar.interfaceLabel"),
+            sortLabel: t("toolbar.sortLabel"),
+            emptyState: t("toolbar.empty"),
+          }}
+        />
+      ),
+    },
+    {
+      id: "servo",
+      label: t("groups.servo.label"),
+      count: servoSeries.length,
+      thumb: seriesThumb("servo"),
+      blurb: t("groups.servo.blurb"),
+      heroImage: heroFigure(seriesThumb("servo"), t("groups.servo.label")),
+      node: <SeriesList locale={locale} category="servo" />,
+    },
+    {
+      id: "inverter",
+      label: t("groups.inverter.label"),
+      count: inverterSeries.length,
+      thumb: seriesThumb("inverter"),
+      blurb: t("groups.inverter.blurb"),
+      heroImage: heroFigure(seriesThumb("inverter"), t("groups.inverter.label")),
+      node: <SeriesList locale={locale} category="inverter" />,
+    },
+    {
+      id: "dnc",
+      label: t("groups.dnc.label"),
+      count: dncProducts.length,
+      thumb: dncProducts[0].image,
+      blurb: t("groups.dnc.blurb"),
+      heroImage: heroFigure(dncProducts[0].image, t("groups.dnc.label")),
+      node: <CatalogList locale={locale} category="dnc" />,
+    },
+    {
+      id: "accessory",
+      label: t("groups.accessory.label"),
+      count: accessoryProducts.length,
+      thumb: accessoryProducts[0].image,
+      blurb: t("groups.accessory.blurb"),
+      heroImage: heroFigure(accessoryProducts[0].image, t("groups.accessory.label")),
+      node: <CatalogList locale={locale} category="accessory" />,
+    },
+  ];
+
   return (
     <>
       <JsonLd data={breadcrumb} />
-      {/* HERO */}
+      {/* HERO — sidebar tree + the active group's intro/figure */}
       <section className="relative overflow-hidden border-b border-line"
         style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
@@ -111,51 +177,15 @@ export default async function Products({ params }: { params: Promise<{ locale: L
           variant="light"
           className="hidden lg:block absolute top-0 right-0 w-[42%] h-full opacity-[.4] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
         />
-        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-10 pb-12 lg:pt-12 lg:pb-14">
-          <div className="qs-crumb mb-8">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 py-12 lg:py-16">
+          <div className="qs-crumb mb-7">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here">{t("breadcrumb.products")}</span>
           </div>
-          <div className="grid lg:grid-cols-[1fr_1.4fr] gap-8 lg:gap-12 items-center">
-            <div className="order-2 lg:order-none">
-              <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("eyebrow")}</div>
-              <h1 className="qs-h1 mt-3.5 qs-rise" style={{ animationDelay: "90ms" }}>
-                {headingLead}
-                <em className="not-italic qs-gold-shimmer">{headingGold}</em>
-                {headingTail}
-              </h1>
-              <p className="qs-lede mt-4 qs-rise" style={{ animationDelay: "190ms" }}>{t("lede")}</p>
-              <div className="mt-7 flex flex-col gap-2.5 qs-rise" style={{ animationDelay: "290ms" }}>
-                {features.map(f => (
-                  <div key={f} className="flex items-center gap-3.5 text-meta
-                                          before:content-[''] before:block before:w-6 before:h-px before:bg-gold">{f}</div>
-                ))}
-              </div>
-            </div>
-            <div className="order-1 lg:order-none relative aspect-16/10 bg-white border border-line p-6 overflow-hidden">
-              <div className="absolute inset-3 border border-dashed border-gold opacity-30 pointer-events-none"></div>
-              {/* gold blueprint scan sweeping the controller render */}
-              <div className="qs-scan" aria-hidden="true"></div>
-              <Image
-                src="/img/products/products-hero-controllers.webp"
-                alt={seo("productsTitle")}
-                width={1600}
-                height={1609}
-                priority
-                sizes="(max-width: 768px) 90vw, 640px"
-                className="qs-kenburns w-full h-full object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BODY */}
-      <section className="py-12 lg:py-16" id="list">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           {/* Applies the URL filter (group / sub-type / interface) before paint,
               so a shared catalogue link doesn't flash the default view first.
-              First group ("controllers") is the no-param default. */}
+              First group ("controllers") is the no-param default. Rendered before
+              the tagged intro/list panels so its style is in place as they parse. */}
           <FilterPrePaint
             keys={[
               { key: "g", def: "controllers", unhide: true },
@@ -163,69 +193,26 @@ export default async function Products({ params }: { params: Promise<{ locale: L
               { key: "iface" },
             ]}
           />
-          <FilterPrePaintCleanup />
-          {/* Catalogue fades up on load, matching the machine-building page. */}
-          <Reveal>
-          <ProductCategoryTree
-            eyebrow={t("groups.eyebrow")}
-            allLabel={t("types.all")}
-            support={{ title: t("sidebar.support.title"), cta: t("sidebar.support.cta") }}
-            groups={[
-              {
-                id: "controllers",
-                label: t("groups.controllers.label"),
-                count: products.length,
-                thumb: products[0].image,
-                children: controllerChildren,
-                node: (
-                  <ProductListFilter
-                    items={items}
-                    labels={{
-                      filters: t.raw("toolbar.filters") as string[],
-                      sortOptions: t.raw("toolbar.sortOptions") as string[],
-                      showing: t("toolbar.showing"),
-                      ofModels: t("toolbar.ofModels"),
-                      filtersLabel: t("toolbar.filtersLabel"),
-                      interfaceLabel: t("toolbar.interfaceLabel"),
-                      sortLabel: t("toolbar.sortLabel"),
-                      emptyState: t("toolbar.empty"),
-                    }}
-                  />
-                ),
-              },
-              {
-                id: "servo",
-                label: t("groups.servo.label"),
-                count: servoSeries.length,
-                thumb: seriesThumb("servo"),
-                node: <SeriesList locale={locale} category="servo" />,
-              },
-              {
-                id: "inverter",
-                label: t("groups.inverter.label"),
-                count: inverterSeries.length,
-                thumb: seriesThumb("inverter"),
-                node: <SeriesList locale={locale} category="inverter" />,
-              },
-              {
-                id: "dnc",
-                label: t("groups.dnc.label"),
-                count: dncProducts.length,
-                thumb: dncProducts[0].image,
-                node: <CatalogList locale={locale} category="dnc" />,
-              },
-              {
-                id: "accessory",
-                label: t("groups.accessory.label"),
-                count: accessoryProducts.length,
-                thumb: accessoryProducts[0].image,
-                node: <CatalogList locale={locale} category="accessory" />,
-              },
-            ]}
-          />
+          <Reveal eager>
+            <CategoryTreeHero
+              eyebrow={t("groups.eyebrow")}
+              allLabel={t("types.all")}
+              viewListLabel={t("groups.viewList")}
+              groups={groups}
+            />
           </Reveal>
         </div>
       </section>
+
+      {/* LIST — the active group's catalogue, full width below the hero */}
+      <section className="py-12 lg:py-16" id="list">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+          <Reveal>
+            <CategoryTreePanels groups={groups} />
+          </Reveal>
+        </div>
+      </section>
+      <FilterPrePaintCleanup />
     </>
   );
 }

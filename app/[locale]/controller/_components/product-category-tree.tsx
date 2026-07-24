@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { createContext, useContext, useId, useState } from "react";
-import { Link } from "@/lib/i18n/navigation";
+import { createContext, useContext, useEffect, useId, useState } from "react";
 import { CategoryIcon } from "@/components/category-icon";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 import { scrollToList } from "@/lib/scroll-to-list";
@@ -11,6 +10,16 @@ import { scrollToList } from "@/lib/scroll-to-list";
 const GROUP_KEY = "g";
 /** Sub-type branch selected inside the active group. */
 const TYPE_KEY = "t";
+
+/**
+ * The one standard hero-image slot shared by every catalogue page — a fixed
+ * aspect box the figure fills (`object-contain` for product renders,
+ * `object-cover` for photos). It floats inside the intro so the blurb wraps
+ * beside it and runs full-width below it. Its column width is set by the float
+ * wrapper (see `CategoryTreeHero`); keeping the aspect here is the single source
+ * of truth, so pages must not set their own box.
+ */
+export const HERO_IMAGE_SLOT = "relative w-full aspect-[4/3]";
 
 /**
  * The subcategory chosen inside the currently active group, or null for "all".
@@ -45,10 +54,16 @@ export type CategoryTreeGroup = {
    *  render-less group (materials) still reads as a labelled branch. */
   icon?: string;
   children?: CategoryTreeChild[];
+  /** Hero intro heading for this group (defaults to `label`). Shown beside the
+   *  sidebar when the group is active. */
+  heroTitle?: string;
+  /** One- or two-sentence intro shown under the hero heading for this group. */
+  blurb?: string;
+  /** Pre-rendered (server) hero figure for this group — the illustration shown
+   *  opposite the sidebar when the group is active. */
+  heroImage?: React.ReactNode;
   node: React.ReactNode;
 };
-
-type SupportLabels = { title: string; cta: string };
 
 /** The 28px light tile shared by the render thumbnail and the icon fallback. */
 function TileFrame({ active, children }: { active: boolean; children: React.ReactNode }) {
@@ -88,71 +103,103 @@ function IconTile({ name, active }: { name: string; active: boolean }) {
   );
 }
 
+/** Tone the hero intro adopts from the page it sits in — dark heroes need light
+ *  copy, light heroes need ink copy. */
+export type CategoryHeroTone = "light" | "dark";
+
 /**
- * Top-level catalogue navigation as a hierarchical tree in a left sidebar:
- * each group is a branch that, when active, expands to its subcategory
- * branches. Selecting a group shows all of it; selecting a subcategory narrows
- * the group's list through `CategoryFilterContext`. Replaces the horizontal tab
- * strip so the whole catalogue reads as one browsable tree.
+ * Reads the active group + selected sub-branch from the shared URL filter store.
+ * Both halves of the split catalogue — the hero (sidebar + intro) and the list
+ * panels below — call this so they render the same selection without threading
+ * state between the two sections; the store's module-level listeners keep them
+ * in sync when either half writes a new selection.
  *
- * Inactive panels stay mounted but hidden so a group's own filter state (the
- * controllers' sort/interface chips) survives a round trip to another group.
- * Their context value is forced to null so a hidden list never mis-filters.
+ * An absent or unknown group id resolves to the first group, so a hand-edited or
+ * stale link still lands on a valid view. A sub-branch id only counts for the
+ * group that declares it, so a leftover `t` never narrows a foreign group to
+ * nothing.
  */
-export function ProductCategoryTree({
+function useCategoryState(groups: CategoryTreeGroup[]) {
+  const params = useFilterParams();
+  const named = groups.findIndex((g) => g.id === params.get(GROUP_KEY));
+  const active = named === -1 ? 0 : named;
+  const activeGroup = groups[active];
+  const branch = params.get(TYPE_KEY);
+  const child = activeGroup.children?.some((c) => c.id === branch) ? branch : null;
+  return { active, activeGroup, child };
+}
+
+/**
+ * The catalogue hero: a hierarchical group tree in a left sidebar paired with
+ * the active group's intro (heading + blurb + figure) on the right. Selecting a
+ * group swaps the intro in place; selecting a sub-branch narrows the list below.
+ * The matching list lives in `CategoryTreePanels`, rendered under the hero — the
+ * two share selection through the URL store, so this half owns navigation while
+ * that half owns the results.
+ *
+ * Intro panels stay mounted; the inactive ones are `hidden` and carry `data-f-g`
+ * so the pre-paint primer can reveal the right one before hydration (matching
+ * the list panels). Picking a group does not scroll — the reader stays on the
+ * freshly-swapped intro; the "view list" affordance and sub-branch picks are the
+ * deliberate jumps down to the results.
+ */
+export function CategoryTreeHero({
   groups,
   eyebrow,
   allLabel,
-  support,
+  tone = "light",
+  viewListLabel,
 }: {
   groups: CategoryTreeGroup[];
   /** Mono kicker above the tree that primes it as page-level navigation. */
   eyebrow?: string;
   /** "All" label for a group's reset branch (shows every item in the group). */
   allLabel: string;
-  support?: SupportLabels;
+  /** Page background the hero sits on, so the intro copy stays legible. */
+  tone?: CategoryHeroTone;
+  /** Label for the affordance that scrolls down to the list; omit to hide it. */
+  viewListLabel?: string;
 }) {
-  const params = useFilterParams();
-  const base = useId();
+  const { active, activeGroup, child } = useCategoryState(groups);
   const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
-  // An absent or unknown group id opens the first group, so a hand-edited or
-  // stale link still lands on a valid catalogue view.
-  const named = groups.findIndex((g) => g.id === params.get(GROUP_KEY));
-  const active = named === -1 ? 0 : named;
-  const activeGroup = groups[active];
-  // A branch id only means anything to the group that declares it — ignoring a
-  // foreign one keeps a leftover `t` from narrowing this group to nothing.
-  const branch = params.get(TYPE_KEY);
-  const child = activeGroup.children?.some((c) => c.id === branch) ? branch : null;
+  const dark = tone === "dark";
+
+  // Keep the tree's expansion in sync with the URL selection so the active
+  // group's branch is revealed — and its selected sub-branch highlighted — even
+  // when the selection was made from the header menu rather than clicked here.
+  // Runs on group/sub-branch change; a manual collapse (which leaves the URL
+  // untouched) therefore persists until the next selection.
+  useEffect(() => {
+    const kids = activeGroup.children ?? [];
+    setExpandedGroupId(kids.length > 0 ? activeGroup.id : null);
+  }, [active, child, activeGroup]);
 
   // The first group is the default view, so it stays out of the query; picking a
-  // group always clears the previous group's branch.
-  // Changing group/branch scrolls the list back to its top so the freshly
-  // filtered results read from the start (and the browser can't leave the view
-  // scroll-clamped when the new list is shorter).
+  // group always clears the previous group's branch. Unlike the sub-branch pick,
+  // switching group deliberately does not scroll — the reader stays on the intro
+  // that just swapped in.
   const selectGroup = (i: number) => {
     const groupId = groups[i].id;
     const kids = groups[i].children ?? [];
-
     if (i === active && kids.length > 0) {
-      // Toggle expansion if clicking an already-active group with children
+      // Toggle expansion when re-clicking an already-active group with children.
       setExpandedGroupId(expandedGroupId === groupId ? null : groupId);
     } else {
-      // Switch to a different group
       setFilterParams({ [GROUP_KEY]: i === 0 ? null : groupId, [TYPE_KEY]: null });
       setExpandedGroupId(groupId);
-      scrollToList();
     }
   };
+  // Narrowing to a sub-branch filters in place, keeping the current scroll
+  // position instead of jumping to the list.
   const selectChild = (id: string | null) => {
     setFilterParams({ [TYPE_KEY]: id });
-    scrollToList();
   };
 
   return (
-    <div className="lg:grid lg:grid-cols-[248px_1fr] lg:gap-12 lg:items-start">
-      {/* LEFT — tree (desktop) / stacked selects (mobile+tablet), plus support */}
-      <div className="mb-6 lg:mb-0 lg:sticky lg:top-24 flex flex-col gap-6">
+    <div className="lg:grid lg:grid-cols-[248px_1fr] lg:gap-12 lg:items-stretch">
+      {/* LEFT — tree (desktop) / stacked selects (mobile+tablet); the desktop card
+          stretches to the full height of the intro column. */}
+      <div className="mb-8 lg:mb-0 flex flex-col gap-6 lg:h-full">
         {/* mobile/tablet: the tree collapses to a group select, plus a
             subcategory select when the active group has branches. */}
         <div className="lg:hidden flex flex-col gap-3">
@@ -185,10 +232,10 @@ export function ProductCategoryTree({
           ) : null}
         </div>
 
-        {/* desktop: the hierarchical tree */}
+        {/* desktop: the hierarchical tree, filling the column height */}
         <nav
           aria-label={eyebrow ?? groups.map((g) => g.label).join(" / ")}
-          className="hidden lg:block border border-line bg-white p-5"
+          className="hidden lg:block border border-line bg-white p-5 lg:flex-1"
         >
           {eyebrow ? (
             <div className="pb-3.5 border-b border-ink font-mono text-label tracking-[.16em] uppercase text-ink">
@@ -274,42 +321,90 @@ export function ProductCategoryTree({
           </ul>
         </nav>
 
-        {support ? (
-          <aside className="hidden lg:block border border-line bg-white p-5">
-            <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase mb-2">
-              {support.title}
-            </div>
-            <p className="m-0 text-meta text-muted leading-[1.6]">
-              <a href="tel:+84909663350" className="hover:text-ink">(+84) 909.663.350</a>
-              <br />
-              <a href="tel:+84922322338" className="hover:text-ink">(+84) 922.322.338</a>
-              <br />
-              <a href="mailto:support@qstcnc.com" className="hover:text-ink">support@qstcnc.com</a>
-            </p>
-            <Link className="qs-btn qs-btn-sm mt-3.5" href="/contact">{support.cta}</Link>
-          </aside>
-        ) : null}
       </div>
 
-      {/* RIGHT — the active group's list; all mounted, inactive hidden. */}
+      {/* RIGHT — the active group's figure on top, intro copy below; all mounted,
+          inactive hidden. */}
       <div className="min-w-0">
         {groups.map((g, i) => (
           <div
             key={g.id}
             role="region"
             aria-label={g.label}
-            id={`${base}-panel-${g.id}`}
             hidden={i !== active}
-            // Pre-paint hook: lets the primer show this group's panel (overriding
-            // the server `hidden`) and hide the rest before hydration.
+            // Pre-paint hook: lets the primer reveal this group's intro (overriding
+            // the server `hidden`) and hide the rest before hydration, matching the
+            // list panels below.
             data-f-g={g.id}
           >
-            <CategoryFilterContext.Provider value={i === active ? child : null}>
-              {g.node}
-            </CategoryFilterContext.Provider>
+            <div>
+              {/* Title spans the full width on top. */}
+              <h2 className={`qs-h2 ${dark ? "text-white" : "text-ink"}`}>
+                {g.heroTitle ?? g.label}
+              </h2>
+              {/* Below: the figure floats to one side (narrower) and the copy
+                  wraps beside it, then runs full-width under the image. `flow-root`
+                  contains the float so the block sizes to its content. */}
+              <div className="mt-5 flow-root">
+                {g.heroImage ? (
+                  <div className="float-right w-2/5 max-w-[260px] ml-6 mb-3">
+                    <div className={HERO_IMAGE_SLOT}>{g.heroImage}</div>
+                  </div>
+                ) : null}
+                {g.blurb ? (
+                  <p className={`text-body leading-[1.7] ${dark ? "text-[#a8a499]" : "text-muted"}`}>
+                    {g.blurb}
+                  </p>
+                ) : null}
+                {viewListLabel ? (
+                  <button
+                    type="button"
+                    onClick={() => scrollToList()}
+                    className={`mt-6 inline-flex items-center gap-2 font-mono text-label tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 p-0 ${
+                      dark ? "text-gold-2 hover:text-white" : "text-gold-1 hover:text-ink"
+                    }`}
+                  >
+                    {viewListLabel}
+                    <span aria-hidden="true">↓</span>
+                  </button>
+                ) : null}
+              </div>
+            </div>
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+/**
+ * The list half of the split catalogue, rendered below `CategoryTreeHero`. Shows
+ * the active group's list full-width; every group stays mounted so a group's own
+ * filter state (the controllers' sort/interface chips) survives a round trip to
+ * another group, with inactive panels `hidden` and their context forced to null
+ * so a hidden list never mis-filters. Reads the same URL selection as the hero.
+ */
+export function CategoryTreePanels({ groups }: { groups: CategoryTreeGroup[] }) {
+  const { active, child } = useCategoryState(groups);
+  const base = useId();
+  return (
+    <div className="min-w-0">
+      {groups.map((g, i) => (
+        <div
+          key={g.id}
+          role="region"
+          aria-label={g.label}
+          id={`${base}-panel-${g.id}`}
+          hidden={i !== active}
+          // Pre-paint hook: lets the primer show this group's panel (overriding
+          // the server `hidden`) and hide the rest before hydration.
+          data-f-g={g.id}
+        >
+          <CategoryFilterContext.Provider value={i === active ? child : null}>
+            {g.node}
+          </CategoryFilterContext.Provider>
+        </div>
+      ))}
     </div>
   );
 }

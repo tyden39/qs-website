@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Reveal from "@/components/reveal";
 import CircuitTraces from "@/components/circuit-traces";
-import MachineAnnotation from "./_components/machine-annotation";
 import CncFeatureVideo from "./_components/cnc-feature-video";
 import { MachineCard } from "@/components/products/machine-card";
-import { ProductCategoryTree, type CategoryTreeGroup, type CategoryTreeChild } from "../controller/_components/product-category-tree";
+import { CategoryTreeHero, CategoryTreePanels, type CategoryTreeGroup, type CategoryTreeChild } from "../controller/_components/product-category-tree";
 import { SortableCardList } from "../controller/_components/sortable-card-list";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
@@ -42,7 +42,7 @@ export async function generateMetadata({
 
 // Static, non-translated fields (assets, numbers, routing) — localized text is
 // merged in from the `cnc` namespace by position, mirroring the home page.
-const MACHINE_IMG = "/home/cnc-machine-hero.webp";
+const MACHINE_IMG = { src: "/home/cnc-machine-hero.webp", w: 1672, h: 941 };
 const VIDEO_ID = "kLcNpeHu-2A";
 
 export default async function CncPage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -65,12 +65,18 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
     for (const m of ms) if (!order.includes(m.category)) order.push(m.category);
     return order;
   };
+  // Hero figure for the active machine type — a bare machine render that fills the
+  // shared HERO_IMAGE_SLOT (standard size lives in the tree component).
+  const machineFigure = (img: { src: string }, alt: string, priority = false) => (
+    <Image src={img.src} alt={alt} fill priority={priority}
+           sizes="(max-width:768px) 55vw, 300px" className="object-contain" />
+  );
   const machineGroups: CategoryTreeGroup[] = MACHINE_TYPES.map((ty) => ({
     ty,
     ms: machines.filter((m) => m.type === ty),
   }))
     .filter((g) => g.ms.length > 0)
-    .map(({ ty, ms }) => {
+    .map(({ ty, ms }, gi) => {
       const cats = catsOf(ms);
       const children: CategoryTreeChild[] | undefined =
         cats.length > 1
@@ -81,11 +87,16 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
               count: ms.filter((m) => m.category === cat).length,
             }))
           : undefined;
+      // The CNC branch leads with the polished machine-hall render; the other
+      // types use their first machine's thumbnail.
+      const heroImg = ty === "cnc" ? MACHINE_IMG : ms[0].thumbnail;
       return {
         id: ty,
         label: t(`machines.types.${ty}`),
         count: ms.length,
         thumb: ms[0].thumbnail,
+        blurb: t(`machines.typeBlurb.${ty}`),
+        heroImage: machineFigure(heroImg, t(`machines.types.${ty}`), gi === 0),
         children,
         node: (
           <SortableCardList
@@ -107,65 +118,45 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
   return (
     <>
       <JsonLd data={breadcrumb} />
-      {/* HERO — dark machine hall: thesis copy + annotated machine figure (the page signature) */}
+      {/* HERO — dark machine hall: sidebar tree + the active type's intro/figure */}
       <section className="relative bg-ink text-[#cfc9b8] overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
         <CircuitTraces variant="dark" className="absolute inset-y-0 left-[-8%] w-[46%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)]" />
         <div className="qs-glow" style={{ top: "-140px", right: "18%", width: "420px", height: "420px" }} aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide py-12 sm:py-16 lg:py-24">
-          <nav className="qs-crumb mb-8 text-[#8f8878]">
+        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 py-12 lg:py-16">
+          <nav className="qs-crumb mb-7 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here text-[#eee9d7]">{t("breadcrumb.current")}</span>
           </nav>
-          <div className="grid lg:grid-cols-[minmax(400px,1fr)_1.35fr] gap-12 lg:gap-16 items-center">
-          <Reveal>
-            <h1 className="qs-h1 text-white">
-              <span className="block">
-                {t("hero.heading2")} <em className="not-italic font-semibold qs-gold-shimmer">{t("hero.heading2Em")}</em>
-              </span>
-            </h1>
-            <p className="text-[#a8a499] text-body leading-[1.7] mt-6 max-w-[54ch]">{t("hero.lede")}</p>
-          </Reveal>
-          <Reveal delay={120} className="order-first lg:order-none">
-            <MachineAnnotation
-              img={MACHINE_IMG}
-              alt={t("hero.imgAlt")}
-              zoomLabel={t("machines.detail.galleryZoom")}
-            />
-          </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* MACHINE LINE-UP — browse the CNC machines QS manufactures */}
-      <section id="list" className="relative py-12 sm:py-16 lg:py-24 bg-paper border-t border-line overflow-hidden">
-        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
-        <CircuitTraces variant="light" className="hidden md:block absolute top-0 right-0 w-[38%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)]" />
-        <div className="relative qs-wrap-wide">
-          <Reveal>
-            <div className="pb-7 border-b border-line mb-12 max-w-[70ch]">
-              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("machines.eyebrow")}</span>
-              <h2 className="qs-h2 mt-3">{t("machines.heading")}</h2>
-              <p className="text-body leading-[1.7] text-muted mt-4 m-0">{t("machines.body")}</p>
-            </div>
-          </Reveal>
           {/* Applies the URL filter (machine type / sub-category) before paint,
               so a shared machine link doesn't flash the default group first.
-              The first machine type is the no-param default. */}
+              The first machine type is the no-param default. Rendered before the
+              tagged intro/list panels so its style is in place as they parse. */}
           <FilterPrePaint
             keys={[
               { key: "g", def: machineGroups[0]?.id, unhide: true },
               { key: "t" },
             ]}
           />
-          <FilterPrePaintCleanup />
-          <Reveal>
-            <ProductCategoryTree
+          <Reveal eager>
+            <CategoryTreeHero
               eyebrow={pt("groups.eyebrow")}
               allLabel={pt("types.all")}
-              support={{ title: pt("sidebar.support.title"), cta: pt("sidebar.support.cta") }}
+              viewListLabel={t("machines.viewList")}
+              tone="dark"
               groups={machineGroups}
             />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* MACHINE LINE-UP — the active type's machines, full width below the hero */}
+      <section id="list" className="relative py-12 sm:py-16 lg:py-24 bg-paper border-t border-line overflow-hidden">
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
+        <CircuitTraces variant="light" className="hidden md:block absolute top-0 right-0 w-[38%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)]" />
+        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+          <Reveal eager>
+            <CategoryTreePanels groups={machineGroups} />
           </Reveal>
         </div>
       </section>
@@ -175,7 +166,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
         <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-8%] w-[48%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_66%)]" />
         <div className="qs-glow" style={{ bottom: "-160px", left: "20%", width: "440px", height: "440px" }} aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide">
+        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-[#2a2620] mb-12">
               <div>
@@ -198,7 +189,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
       <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 left-0 w-[36%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)]" />
-        <div className="relative qs-wrap-wide max-w-[880px] text-center">
+        <div className="relative mx-auto px-5 sm:px-8 lg:px-12 max-w-[880px] text-center">
           <Reveal>
             <h2 className="qs-h2">{t("cta.heading")}</h2>
             <p className="qs-lede mx-auto mt-5">{t("cta.body")}</p>
@@ -208,6 +199,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
           </Reveal>
         </div>
       </section>
+      <FilterPrePaintCleanup />
     </>
   );
 }

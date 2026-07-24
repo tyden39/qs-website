@@ -135,6 +135,47 @@ const PATHS: Record<string, React.ReactNode> = {
     </>
   ),
 
+  // ── Applications: processes ───────────────────────────────────────────
+  carving: (
+    <>
+      <path d="M18 3 21 6 10 17H7v-3L18 3Z" />
+      <path d="M3 21h18" />
+    </>
+  ),
+  sawing: (
+    <>
+      <rect x="3" y="15" width="18" height="5" rx="1" />
+      <path d="M13 3v12" />
+      <path d="m13 4-2.5 1.5L13 7l-2.5 1.5L13 10l-2.5 1.5L13 13" />
+    </>
+  ),
+  joinery: (
+    <>
+      <path d="M11 4H4v16h7" />
+      <path d="M13 4h7v16h-7" />
+      <path d="M11 4v4h2v4h-2v4h2v4" />
+    </>
+  ),
+  cutting: (
+    <>
+      <circle cx="12" cy="9" r="6" />
+      <path d="M12 3v3M12 12v3M6 9h3M15 9h3" />
+      <path d="M3 19h18" />
+    </>
+  ),
+  dispensing: (
+    <>
+      <path d="M9 3h6v5l-2 3h-2L9 8V3Z" />
+      <path d="M12 13.5c-1.3 1.6-2 2.5-2 3.2a2 2 0 0 0 4 0c0-.7-.7-1.6-2-3.2Z" />
+      <path d="M4 21h16" />
+    </>
+  ),
+  bending: (
+    <>
+      <path d="M6 5h9a3.5 3.5 0 0 1 0 7H9a3.5 3.5 0 0 0 0 7h9" />
+    </>
+  ),
+
   // ── Sub-types (deepest flyout) ────────────────────────────────────────
   motion: (
     <>

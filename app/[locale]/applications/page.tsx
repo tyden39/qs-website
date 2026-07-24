@@ -116,15 +116,23 @@ export default async function Applications({ params }: { params: Promise<{ local
     </div>
   );
   // Material groups have no single product render, so the sidebar tile falls
-  // back to a CategoryIcon keyed off the group's tag.
-  const APP_ICON: Record<string, string> = {
-    "kim loại": "metal",
-    "gỗ": "wood",
-    "đá": "stone",
-    "kim hoàn": "jewelry",
-    automation: "automation",
+  // back to a CategoryIcon. Keyed by position — the group's `tag` is the label in
+  // the other language, so it can't identify the material across locales.
+  const APP_ICON = ["metal", "wood", "stone", "jewelry", "automation"];
+  // Sub-branch glyphs, keyed by case-study slug / "coming soon" key. Each maps to
+  // the machining process behind the card so the branch reads at a glance.
+  const APP_SUB_ICON: Record<string, string> = {
+    "phay-cnc": "milling",
+    "dieu-khac-go": "carving",
+    "cua-long": "sawing",
+    "mong-go": "joinery",
+    "dieu-khac-da": "carving",
+    "cat-da": "cutting",
+    "kim-hoan": "milling",
+    "dan-keo": "dispensing",
+    "uon-lo-xo": "bending",
   };
-  const appGroups: CategoryTreeGroup[] = groups.map((g) => {
+  const appGroups: CategoryTreeGroup[] = groups.map((g, gi) => {
     const cards: SortableCard[] = g.items.map((it) =>
       it.kind === "case"
         ? { key: it.slug, name: caseAt(it.slug).label, subtype: it.slug, node: caseCard(it.slug) }
@@ -132,14 +140,14 @@ export default async function Applications({ params }: { params: Promise<{ local
     );
     const children = g.items.map((it) =>
       it.kind === "case"
-        ? { id: it.slug, label: caseAt(it.slug).label, count: 1 }
-        : { id: it.key, label: soon.items[it.key], count: 1 },
+        ? { id: it.slug, icon: APP_SUB_ICON[it.slug], label: caseAt(it.slug).label, count: 1 }
+        : { id: it.key, icon: APP_SUB_ICON[it.key], label: soon.items[it.key], count: 1 },
     );
     return {
       id: g.tag.toLowerCase(),
       label: g.name,
       count: cards.length,
-      icon: APP_ICON[g.tag.toLowerCase()],
+      icon: APP_ICON[gi],
       children,
       node: (
         <SortableCardList

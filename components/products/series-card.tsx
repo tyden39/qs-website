@@ -29,7 +29,7 @@ export async function SeriesCard({
         <span aria-hidden className="absolute top-0 right-0 hidden md:block w-px h-10 bg-gold" />
         {series.image ? (
           <Link
-            href={`/electronics/${series.slug}`}
+            href={`/controller/${series.slug}`}
             aria-label={series.name}
             className="relative grid place-items-center border border-line rounded-[2px] p-4 overflow-hidden min-h-[180px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
@@ -60,7 +60,7 @@ export async function SeriesCard({
         </div>
         <h3 className="mt-1.5 font-display font-bold text-subhead tracking-[-.01em] m-0">
           <Link
-            href={`/electronics/${series.slug}`}
+            href={`/controller/${series.slug}`}
             className="text-ink no-underline transition-colors hover:text-gold-1 focus-visible:outline-none focus-visible:text-gold-1"
           >
             {series.name}
@@ -68,7 +68,7 @@ export async function SeriesCard({
         </h3>
         <p className="mt-2.5 m-0 text-meta text-[#3a3a3a] leading-[1.65]">{series.desc}</p>
 
-        <Link href={`/electronics/${series.slug}`} className="qs-link mt-auto pt-6 self-start">
+        <Link href={`/controller/${series.slug}`} className="qs-link mt-auto pt-6 self-start">
           {t("details")} <span aria-hidden>→</span>
         </Link>
       </div>

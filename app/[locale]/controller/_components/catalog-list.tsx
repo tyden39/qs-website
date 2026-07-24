@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/i18n/config";
 /**
  * List panel for a catalogue group (DNC units or accessories). These are
  * simple items — a board, a cable, a power supply — so they browse best as a
- * compact card grid matching the /electronics landing rhythm; the full spec
+ * compact card grid matching the /controller landing rhythm; the full spec
  * table lives on each detail page. Group blurb and support live in the
  * CategoryShell.
  */

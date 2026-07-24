@@ -241,7 +241,7 @@ export default async function MachineDatasheet({
         />
         <div className="relative z-10 qs-wrap-wide py-12 lg:py-16">
           <nav className="qs-crumb mb-6">
-            <Link href="/machine-building">{d("crumb")}</Link>
+            <Link href="/mechatronics">{d("crumb")}</Link>
             <span className="sep">/</span>
             <span className="here">{machine.model}</span>
           </nav>
@@ -622,7 +622,7 @@ export default async function MachineDatasheet({
                   </div>
                   <Link
                     className="qs-btn qs-btn-ghost inline-flex items-center gap-2 mt-6"
-                    href={`/electronics/${controller.slug}`}
+                    href={`/controller/${controller.slug}`}
                   >
                     {d("controllerLink")} <span className="arr">→</span>
                   </Link>

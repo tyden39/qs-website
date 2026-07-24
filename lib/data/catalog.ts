@@ -106,7 +106,7 @@ export function getCatalogSlugs(): string[] {
   return catalogProducts.map((p) => p.slug);
 }
 
-/** True when a `/electronics/[slug]` route should render the catalogue template. */
+/** True when a `/controller/[slug]` route should render the catalogue template. */
 export function isCatalogSlug(slug: string): boolean {
   return catalogProducts.some((p) => p.slug === slug);
 }

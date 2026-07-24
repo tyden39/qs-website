@@ -38,7 +38,7 @@ export async function ProductBundleCard({
         />
         {/* controller render — real front-face photo, links to the detail page */}
         <Link
-          href={`/electronics/${product.slug}`}
+          href={`/controller/${product.slug}`}
           aria-label={product.tag}
           className="relative grid place-items-center border border-line rounded-[2px] p-4 overflow-hidden min-h-[180px]"
           style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
@@ -56,7 +56,7 @@ export async function ProductBundleCard({
 
         <h3 className="mt-5 font-display font-bold text-subhead tracking-[-.01em] m-0">
           <span className="text-muted font-medium text-body">{t("model")}</span>{" "}
-          <Link href={`/electronics/${product.slug}`} className="hover:text-gold-1 transition-colors">
+          <Link href={`/controller/${product.slug}`} className="hover:text-gold-1 transition-colors">
             {product.name}
           </Link>
         </h3>
@@ -80,7 +80,7 @@ export async function ProductBundleCard({
         </ul>
 
         <Link
-          href={`/electronics/${product.slug}`}
+          href={`/controller/${product.slug}`}
           className="qs-link mt-auto pt-6 self-start"
         >
           {t("viewDetails")} <span aria-hidden>→</span>

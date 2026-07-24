@@ -67,7 +67,7 @@ export default async function Downloads({ params }: Props) {
       title: titleOf(head),
       ext: head.ext,
       version: head.version ?? (head.date ? head.date.slice(0, 7).replace("-", "/") : "—"),
-      productHref: head.productSlug ? `/electronics/${head.productSlug}` : undefined,
+      productHref: head.productSlug ? `/controller/${head.productSlug}` : undefined,
       productLabel: head.productSlug ? head.model ?? undefined : undefined,
       variants: doc.variants.map((v) => ({
         lang: v.lang.toUpperCase(),
@@ -125,7 +125,7 @@ export default async function Downloads({ params }: Props) {
               title: d.title,
               ext: d.format.toUpperCase(),
               version: "—",
-              productHref: `/electronics/${s.slug}`,
+              productHref: `/controller/${s.slug}`,
               productLabel: s.name,
               variants: [
                 {

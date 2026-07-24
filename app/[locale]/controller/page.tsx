@@ -30,13 +30,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates("/electronics", locale),
+    alternates: buildAlternates("/controller", locale),
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/electronics",
+      url: "/controller",
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -95,7 +95,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const seriesThumb = (category: SeriesCategory) =>
     getSeries(locale, category).find((s) => s.image)?.image ?? SERIES_THUMB_FALLBACK[category];
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: seo("productsTitle"), path: "/electronics" },
+    { name: seo("productsTitle"), path: "/controller" },
   ]);
   return (
     <>

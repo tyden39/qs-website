@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "@/lib/i18n/navigation";
 import CircuitTraces from "@/components/circuit-traces";
-import WorkpieceCompare from "@/app/[locale]/machine-building/_components/workpiece-compare";
+import WorkpieceCompare from "@/app/[locale]/mechatronics/_components/workpiece-compare";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";

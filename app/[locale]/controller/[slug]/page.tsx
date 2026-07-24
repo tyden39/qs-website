@@ -34,13 +34,13 @@ export async function generateMetadata({
     return {
       title: c.name,
       description: c.desc.slice(0, 160),
-      alternates: buildAlternates(`/electronics/${slug}`, locale),
+      alternates: buildAlternates(`/controller/${slug}`, locale),
       openGraph: {
         title: c.name,
         description: c.desc,
         type: "website",
         locale: locale === "en" ? "en_US" : "vi_VN",
-        url: `/electronics/${slug}`,
+        url: `/controller/${slug}`,
         images: [{ url: c.image.src, width: c.image.w, height: c.image.h, alt: c.image.alt }],
       },
       twitter: { card: "summary_large_image", title: c.name, description: c.desc },
@@ -52,13 +52,13 @@ export async function generateMetadata({
     return {
       title: `${s.name} — ${s.brand}`,
       description: desc,
-      alternates: buildAlternates(`/electronics/${slug}`, locale),
+      alternates: buildAlternates(`/controller/${slug}`, locale),
       openGraph: {
         title: `${s.name} — ${s.brand}`,
         description: s.desc,
         type: "website",
         locale: locale === "en" ? "en_US" : "vi_VN",
-        url: `/electronics/${slug}`,
+        url: `/controller/${slug}`,
         images: s.image
           ? [{ url: s.image.src, width: s.image.w, height: s.image.h, alt: s.image.alt }]
           : undefined,
@@ -71,13 +71,13 @@ export async function generateMetadata({
   return {
     title: p.name,
     description: p.desc?.slice(0, 160),
-    alternates: buildAlternates(`/electronics/${slug}`, locale),
+    alternates: buildAlternates(`/controller/${slug}`, locale),
     openGraph: {
       title: p.name,
       description: p.desc,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: `/electronics/${slug}`,
+      url: `/controller/${slug}`,
       images: [
         {
           url: p.images?.[0]?.url ?? "/og-default.png",
@@ -291,8 +291,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
   const productJsonLd = buildProduct(p, locale);
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: t("breadcrumb.products"), path: "/electronics" },
-    { name: p.name, path: `/electronics/${slug}` },
+    { name: t("breadcrumb.products"), path: "/controller" },
+    { name: p.name, path: `/controller/${slug}` },
   ]);
   const tabLabels = t.raw("tabs") as string[];
   // Pinned `place: "hero"` photos take over the gallery when present; otherwise
@@ -628,7 +628,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         <div className="relative qs-wrap-wide pt-8 pb-14 lg:pt-10 lg:pb-16">
           <div className="qs-crumb mb-8 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
-            <Link href="/electronics">{t("breadcrumb.products")}</Link><span className="sep">/</span>
+            <Link href="/controller">{t("breadcrumb.products")}</Link><span className="sep">/</span>
             <span className="here text-[#eee9d7]">{p.name}</span>
           </div>
 

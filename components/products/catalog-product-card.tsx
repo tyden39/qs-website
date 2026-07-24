@@ -7,7 +7,7 @@ import type { CatalogProductView } from "@/lib/data/catalog";
  * Compact grid card for DNC units and accessories. These are simple items — a
  * board, a cable, a power supply — so the card carries render, name and a
  * one-line description only; the spec table lives on the detail page. The
- * whole card is the link, mirroring the /electronics landing group cards.
+ * whole card is the link, mirroring the /controller landing group cards.
  */
 export async function CatalogProductCard({
   product,
@@ -23,7 +23,7 @@ export async function CatalogProductCard({
 
   return (
     <Link
-      href={`/electronics/${product.slug}`}
+      href={`/controller/${product.slug}`}
       className="qs-card group flex flex-col h-full bg-white border border-line
                  shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)] transition-colors hover:border-ink"
     >

@@ -6,8 +6,8 @@ import CircuitTraces from "@/components/circuit-traces";
 import MachineAnnotation from "./_components/machine-annotation";
 import CncFeatureVideo from "./_components/cnc-feature-video";
 import { MachineCard } from "@/components/products/machine-card";
-import { ProductCategoryTree, type CategoryTreeGroup, type CategoryTreeChild } from "../electronics/_components/product-category-tree";
-import { SortableCardList } from "../electronics/_components/sortable-card-list";
+import { ProductCategoryTree, type CategoryTreeGroup, type CategoryTreeChild } from "../controller/_components/product-category-tree";
+import { SortableCardList } from "../controller/_components/sortable-card-list";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import { getMachines, MACHINE_TYPES, type MachineView, type MachineCategory } from "@/lib/data/machines";
@@ -27,13 +27,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates("/machine-building", locale),
+    alternates: buildAlternates("/mechatronics", locale),
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/machine-building",
+      url: "/mechatronics",
       images: [{ url: "/home/cnc-machine-hero.webp", width: 1672, height: 941, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -53,13 +53,13 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
   const machines = getMachines(locale);
   const pt = await getTranslations({ locale, namespace: "product.page" });
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: t("breadcrumb.current"), path: "/machine-building" },
+    { name: t("breadcrumb.current"), path: "/mechatronics" },
   ]);
 
   // Sidebar tree = machine types (CNC / Automation / Inspection); the CNC branch
   // (the only type with several categories) expands to its categories. Each
-  // branch's right panel is a card grid with the shared count + sort toolbar,
-  // matching the /electronics catalogue.
+  // branch's right panel is a stacked card list with the shared count + sort
+  // toolbar, matching the /controller catalogue.
   const catsOf = (ms: MachineView[]): MachineCategory[] => {
     const order: MachineCategory[] = [];
     for (const m of ms) if (!order.includes(m.category)) order.push(m.category);
@@ -89,7 +89,6 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         children,
         node: (
           <SortableCardList
-            layout="grid"
             items={ms.map((m, i) => ({
               key: m.slug,
               name: m.model,
@@ -122,9 +121,8 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
           <Reveal>
             <h1 className="qs-h1 text-white">
               <span className="block">
-                <em className="not-italic font-semibold qs-gold-shimmer">{t("hero.heading1")}</em>
+                {t("hero.heading2")} <em className="not-italic font-semibold qs-gold-shimmer">{t("hero.heading2Em")}</em>
               </span>
-              <span className="block">{t("hero.heading2")}</span>
             </h1>
             <p className="text-[#a8a499] text-body leading-[1.7] mt-6 max-w-[54ch]">{t("hero.lede")}</p>
           </Reveal>

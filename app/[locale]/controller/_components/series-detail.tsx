@@ -24,8 +24,8 @@ import { ProductDetailTabs, type ProductDetailTab } from "./product-detail-tabs"
 
 /** Which list page each category's crumb walks back through. */
 const CATEGORY_PATH: Record<SeriesView["category"], string> = {
-  servo: "/electronics/servo",
-  inverter: "/electronics/inverters",
+  servo: "/controller/servo",
+  inverter: "/controller/inverters",
 };
 
 /** Order the Documentation tab groups its downloads in — manuals first, then
@@ -52,9 +52,9 @@ export async function SeriesDetail({
   const categoryLabel = tGroups(`${series.category}.label`);
   const productJsonLd = buildSeriesProduct(series, locale);
   const breadcrumb = buildTrail(locale, tCrumb("home"), [
-    { name: tCrumb("products"), path: "/electronics" },
+    { name: tCrumb("products"), path: "/controller" },
     { name: categoryLabel, path: categoryPath },
-    { name: series.name, path: `/electronics/${series.slug}` },
+    { name: series.name, path: `/controller/${series.slug}` },
   ]);
 
   const detail = series.detail;
@@ -294,7 +294,7 @@ export async function SeriesDetail({
               {accessories.map((a) => (
                 <Link
                   key={a.slug}
-                  href={`/electronics/${a.slug}`}
+                  href={`/controller/${a.slug}`}
                   className="group bg-white p-6 flex flex-col gap-2 hover:bg-white/60 transition-colors"
                 >
                   <span className="font-mono text-label-xs tracking-[.16em] uppercase text-gold-1">
@@ -354,7 +354,7 @@ export async function SeriesDetail({
           <div className="qs-crumb mb-8 text-[#8f8878]">
             <Link href="/">{tCrumb("home")}</Link>
             <span className="sep">/</span>
-            <Link href="/electronics">{tCrumb("products")}</Link>
+            <Link href="/controller">{tCrumb("products")}</Link>
             <span className="sep">/</span>
             <Link href={categoryPath}>{categoryLabel}</Link>
             <span className="sep">/</span>

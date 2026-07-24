@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { createContext, useContext, useId } from "react";
+import { createContext, useContext, useId, useState } from "react";
 import { Link } from "@/lib/i18n/navigation";
 import { CategoryIcon } from "@/components/category-icon";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
@@ -114,6 +114,7 @@ export function ProductCategoryTree({
 }) {
   const params = useFilterParams();
   const base = useId();
+  const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
   // An absent or unknown group id opens the first group, so a hand-edited or
   // stale link still lands on a valid catalogue view.
   const named = groups.findIndex((g) => g.id === params.get(GROUP_KEY));
@@ -130,8 +131,18 @@ export function ProductCategoryTree({
   // filtered results read from the start (and the browser can't leave the view
   // scroll-clamped when the new list is shorter).
   const selectGroup = (i: number) => {
-    setFilterParams({ [GROUP_KEY]: i === 0 ? null : groups[i].id, [TYPE_KEY]: null });
-    scrollToList();
+    const groupId = groups[i].id;
+    const kids = groups[i].children ?? [];
+
+    if (i === active && kids.length > 0) {
+      // Toggle expansion if clicking an already-active group with children
+      setExpandedGroupId(expandedGroupId === groupId ? null : groupId);
+    } else {
+      // Switch to a different group
+      setFilterParams({ [GROUP_KEY]: i === 0 ? null : groupId, [TYPE_KEY]: null });
+      setExpandedGroupId(groupId);
+      scrollToList();
+    }
   };
   const selectChild = (id: string | null) => {
     setFilterParams({ [TYPE_KEY]: id });
@@ -187,13 +198,14 @@ export function ProductCategoryTree({
           <ul className="list-none p-0 m-0">
             {groups.map((g, i) => {
               const isActive = i === active;
+              const isExpanded = expandedGroupId === g.id;
               const kids = g.children ?? [];
               return (
                 <li key={g.id} className="border-b border-line last:border-b-0">
                   <button
                     type="button"
                     aria-pressed={isActive}
-                    aria-expanded={kids.length > 0 ? isActive : undefined}
+                    aria-expanded={kids.length > 0 ? isExpanded : undefined}
                     onClick={() => selectGroup(i)}
                     className={`w-full flex items-center gap-3 py-3 text-meta font-medium text-left cursor-pointer bg-transparent border-0 ${
                       isActive ? "text-ink" : "text-ink/85 hover:text-ink"
@@ -218,14 +230,14 @@ export function ProductCategoryTree({
                         height="10"
                         viewBox="0 0 10 10"
                         aria-hidden="true"
-                        className={`shrink-0 transition-transform ${isActive ? "rotate-180" : ""}`}
+                        className={`shrink-0 transition-transform ${isExpanded ? "rotate-180" : ""}`}
                       >
                         <path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" />
                       </svg>
                     ) : null}
                   </button>
 
-                  {isActive && kids.length > 0 ? (
+                  {isActive && isExpanded && kids.length > 0 ? (
                     <ul className="list-none p-0 m-0 pb-2 pl-10">
                       {kids.map((c) => {
                         const on = child === c.id;

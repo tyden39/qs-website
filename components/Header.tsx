@@ -78,7 +78,7 @@ export default function Header() {
     `${l.page}?g=${encodeURIComponent(l.g)}${l.type ? `&t=${encodeURIComponent(l.type)}` : ""}#list`;
   // When already on the leaf's page, filter in place and smooth-scroll to the
   // list instead of a full navigation (which would jump to the page top).
-  // `trailingSlash: true` makes usePathname() return "/electronics/", so compare
+  // `trailingSlash: true` makes usePathname() return "/controller/", so compare
   // with trailing slashes stripped or the same-page branch never matches.
   const samePath = (a: string, b: string) =>
     (a.replace(/\/+$/, "") || "/") === (b.replace(/\/+$/, "") || "/");
@@ -112,25 +112,25 @@ export default function Header() {
 
   const electronicsChildren: NavChild[] = [
     {
-      page: "/electronics", g: "controllers", icon: "controllers", label: t("submenu.electronics.controllers"),
+      page: "/controller", g: "controllers", icon: "controllers", label: t("submenu.electronics.controllers"),
       children: (["motion", "cnc", "robot", "cobot"] as const).map((ct) => ({
-        page: "/electronics", g: "controllers", type: ct, icon: ct, label: tp(`page.types.controllers.${ct}`),
+        page: "/controller", g: "controllers", type: ct, icon: ct, label: tp(`page.types.controllers.${ct}`),
       })),
     },
-    { page: "/electronics", g: "servo", icon: "servo", label: t("submenu.electronics.servo") },
-    { page: "/electronics", g: "inverter", icon: "inverter", label: t("submenu.electronics.inverter") },
-    { page: "/electronics", g: "dnc", icon: "dnc", label: t("submenu.electronics.dnc") },
-    { page: "/electronics", g: "accessory", icon: "accessory", label: t("submenu.electronics.accessory") },
+    { page: "/controller", g: "servo", icon: "servo", label: t("submenu.electronics.servo") },
+    { page: "/controller", g: "inverter", icon: "inverter", label: t("submenu.electronics.inverter") },
+    { page: "/controller", g: "dnc", icon: "dnc", label: t("submenu.electronics.dnc") },
+    { page: "/controller", g: "accessory", icon: "accessory", label: t("submenu.electronics.accessory") },
   ];
   const machineChildren: NavChild[] = [
     {
-      page: "/machine-building", g: "cnc", icon: "machine", label: t("submenu.machineBuilding.cnc"),
+      page: "/mechatronics", g: "cnc", icon: "machine", label: t("submenu.machineBuilding.cnc"),
       children: (["milling", "router", "jewelry"] as const).map((cat) => ({
-        page: "/machine-building", g: "cnc", type: cat, icon: cat, label: tc(`machines.categories.${cat}`),
+        page: "/mechatronics", g: "cnc", type: cat, icon: cat, label: tc(`machines.categories.${cat}`),
       })),
     },
-    { page: "/machine-building", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
-    { page: "/machine-building", g: "inspection", icon: "inspection", label: t("submenu.machineBuilding.inspection") },
+    { page: "/mechatronics", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
+    { page: "/mechatronics", g: "inspection", icon: "inspection", label: t("submenu.machineBuilding.inspection") },
   ];
   const applicationsChildren: NavChild[] = ([
     ["kim loại", "metal"],
@@ -143,8 +143,8 @@ export default function Header() {
   }));
 
   const left: NavItem[] = [
-    { href: "/electronics", label: t("products"), children: electronicsChildren },
-    { href: "/machine-building", label: t("cnc"), children: machineChildren },
+    { href: "/controller", label: t("products"), children: electronicsChildren },
+    { href: "/mechatronics", label: t("cnc"), children: machineChildren },
     { href: "/applications", label: t("applications"), children: applicationsChildren },
     { href: "/services", label: t("services") },
     { href: "/downloads", label: t("downloads") },
@@ -170,7 +170,13 @@ export default function Header() {
     }
     return (
       <div key={item.href} className="relative group">
-        <Link href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1 ${active ? "is-active" : ""}`}>
+        {/* Blur on click: the trigger would otherwise keep focus after navigating
+            and group-focus-within would hold the panel open past the hover out. */}
+        <Link
+          href={item.href}
+          onClick={(e) => (e.currentTarget as HTMLElement).blur()}
+          className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1 ${active ? "is-active" : ""}`}
+        >
           {item.label}
           <svg className="opacity-60 transition-transform duration-200 group-hover:rotate-180" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </Link>

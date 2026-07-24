@@ -21,7 +21,7 @@ export type AlternatesResult = {
  * so canonical/hreflang/sitemap URLs all resolve without an extra 308 redirect.
  */
 export function buildAlternates(path: string, locale: Locale): AlternatesResult {
-  // Root ("/") becomes "/vi/"; "/electronics" becomes "/vi/electronics/".
+  // Root ("/") becomes "/vi/"; "/controller" becomes "/vi/controller/".
   const viUrl = localeUrl(path, "vi");
   const enUrl = localeUrl(path, "en");
   return {

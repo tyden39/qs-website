@@ -22,13 +22,13 @@ export async function generateMetadata({
   return {
     title,
     description: m.tagline,
-    alternates: buildAlternates(`/machine-building/${slug}`, locale),
+    alternates: buildAlternates(`/mechatronics/${slug}`, locale),
     openGraph: {
       title,
       description: m.tagline,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: `/machine-building/${slug}`,
+      url: `/mechatronics/${slug}`,
       images: [{ url: m.image.src, width: m.image.w, height: m.image.h, alt: m.model }],
     },
     twitter: { card: "summary_large_image", title, description: m.tagline },
@@ -54,8 +54,8 @@ export default async function MachineDetailPage({
   const t = await getTranslations({ locale, namespace: "cnc" });
   const categoryLabel = t(`machines.categories.${machine.category}`);
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: t("breadcrumb.current"), path: "/machine-building" },
-    { name: machine.model, path: `/machine-building/${slug}` },
+    { name: t("breadcrumb.current"), path: "/mechatronics" },
+    { name: machine.model, path: `/mechatronics/${slug}` },
   ]);
 
   // Line-integrated machines (bottle rotator, checkweigher...) ship process-flow

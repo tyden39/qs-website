@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Link } from "@/lib/i18n/navigation";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 
@@ -218,6 +219,7 @@ export function DownloadsTree({
   support: SupportLabels;
 }) {
   const params = useFilterParams();
+  const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
   const named = groups.findIndex((g) => g.id === params.get(GROUP_KEY));
   const active = named === -1 ? 0 : named;
   const activeGroup = groups[active];
@@ -230,8 +232,19 @@ export function DownloadsTree({
 
   // Each level defaults to its first item, kept out of the URL so a family's own
   // link stays short; picking a level clears the selections below it.
-  const selectGroup = (i: number) =>
-    setFilterParams({ [GROUP_KEY]: i === 0 ? null : groups[i].id, [PRODUCT_KEY]: null, [DOC_KEY]: null });
+  const selectGroup = (i: number) => {
+    const groupId = groups[i].id;
+    const kids = groups[i].products ?? [];
+
+    if (i === active && kids.length > 0) {
+      // Toggle expansion if clicking an already-active group with products
+      setExpandedGroupId(expandedGroupId === groupId ? null : groupId);
+    } else {
+      // Switch to a different group
+      setFilterParams({ [GROUP_KEY]: i === 0 ? null : groupId, [PRODUCT_KEY]: null, [DOC_KEY]: null });
+      setExpandedGroupId(groupId);
+    }
+  };
   const selectProduct = (id: string) =>
     setFilterParams({ [PRODUCT_KEY]: id === products[0]?.id ? null : id, [DOC_KEY]: null });
   const selectDoc = (id: string) =>
@@ -279,13 +292,14 @@ export function DownloadsTree({
           <ul className="list-none p-0 m-0">
             {groups.map((g, i) => {
               const isActive = i === active;
+              const isExpanded = expandedGroupId === g.id;
               const kids = g.products ?? [];
               return (
                 <li key={g.id} className="border-b border-line last:border-b-0">
                   <button
                     type="button"
                     aria-pressed={isActive}
-                    aria-expanded={kids.length > 0 ? isActive : undefined}
+                    aria-expanded={kids.length > 0 ? isExpanded : undefined}
                     onClick={() => selectGroup(i)}
                     className={`w-full flex items-center gap-3 py-3 text-meta font-medium text-left cursor-pointer bg-transparent border-0 ${
                       isActive ? "text-ink" : "text-ink/85 hover:text-ink"
@@ -305,14 +319,14 @@ export function DownloadsTree({
                         height="10"
                         viewBox="0 0 10 10"
                         aria-hidden="true"
-                        className={`shrink-0 transition-transform ${isActive ? "rotate-180" : ""}`}
+                        className={`shrink-0 transition-transform ${isExpanded ? "rotate-180" : ""}`}
                       >
                         <path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" />
                       </svg>
                     ) : null}
                   </button>
 
-                  {isActive && kids.length > 0 ? (
+                  {isActive && isExpanded && kids.length > 0 ? (
                     <ul className="list-none p-0 m-0 pb-2 pl-3">
                       {kids.map((p) => {
                         const on = p.id === activeProductId;

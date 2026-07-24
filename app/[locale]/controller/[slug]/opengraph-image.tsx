@@ -30,7 +30,7 @@ export default async function Image({
           title={c.name}
           subtitle={c.desc.slice(0, 120)}
           tag={c.category === "dnc" ? "DNC Transfer Unit" : "CNC Accessory"}
-          meta="qstcnc.com/electronics"
+          meta="qstcnc.com/controller"
         />
       ),
       { width: 1200, height: 630 },
@@ -45,7 +45,7 @@ export default async function Image({
         title={p?.name ?? slug}
         subtitle={p?.desc?.slice(0, 120)}
         tag={p ? `Controller · ${p.axes} · ${p.display}` : "CNC Controller"}
-        meta="qstcnc.com/electronics"
+        meta="qstcnc.com/controller"
       />
     ),
     { width: 1200, height: 630 },

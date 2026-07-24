@@ -1,17 +1,17 @@
 {
   "breadcrumb": {
     "home": "Home",
-    "current": "Machine Building"
+    "current": "QS mechatronics"
   },
   "seo": {
-    "title": "VMC-850 CNC Milling Machine — 3-Axis Machining Center",
+    "title": "QS mechatronics",
     "description": "3-axis CNC machining center assembled in Vietnam, running QS's Astro 10i controller. 850×500×540 mm travel, BT40 spindle at 12,000 rpm, ±0.005 mm positioning."
   },
   "hero": {
     "eyebrow": "Machine Building · Assembled in Vietnam",
     "model": "QS VMC-850",
-    "heading1": "QS TECHNOLOGY",
-    "heading2": "MACHINE BUILDING SOLUTIONS",
+    "heading2": "QS",
+    "heading2Em": "mechatronics",
     "lede": "QS Technology delivers CNC machine building solutions, from consulting and design through to manufacturing and installation. With full command of the technology and years of CNC experience, we build CNC systems that hold high accuracy, run reliably and maximise throughput.",
     "ctaQuote": "Request a quote",
     "ctaSpecs": "View specifications",
@@ -184,9 +184,10 @@
   },
   "machines": {
     "eyebrow": "Machine line-up",
-    "heading": "CNC machines built by QS",
+    "heading": "Machines built by QS",
     "body": "From 3-axis milling and 5-axis routers to jewelry centers and packaging-line automation — QS designs, builds and integrates each machine end to end.",
     "listLabel": "Machine",
+    "specsTitle": "[ Key specifications ]",
     "viewDetail": "View details",
     "axesUnit": "axes",
     "types": {
@@ -248,7 +249,7 @@
     },
     "detail": {
       "backToList": "All CNC machines",
-      "crumb": "Machine building",
+      "crumb": "QS mechatronics",
       "specsHeading": "Technical specifications",
       "specsNote": "Standard configuration — spindle, tool magazine and travel can be tailored on request.",
       "featuresHeading": "Highlights",

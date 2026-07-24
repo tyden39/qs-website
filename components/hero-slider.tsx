@@ -138,7 +138,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           </p>
           <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-8 lg:mt-9 qs-sweep-in" style={sweep(500)}>
             <Link className="qs-btn qs-btn-gold" href={s.href}>{t("hero.detailCta")} <span className="arr">→</span></Link>
-            <Link className="qs-btn bg-transparent border border-[#3a352c] text-[#e8e6df] hover:bg-white hover:text-ink hover:border-white" href="/electronics">{t("hero.allCta")}</Link>
+            <Link className="qs-btn bg-transparent border border-[#3a352c] text-[#e8e6df] hover:bg-white hover:text-ink hover:border-white" href="/controller">{t("hero.allCta")}</Link>
           </div>
         </div>
 

@@ -87,7 +87,7 @@ export function buildProduct(p: ProductView, locale: Locale): WithContext<Produc
       name: "QS Technology",
     },
     image: images.length > 0 ? images : [`${APP_URL}/og-default.png`],
-    url: localeUrl(`/electronics/${p.slug}`, locale),
+    url: localeUrl(`/controller/${p.slug}`, locale),
     // No `offers`: the site publishes no prices, and an Offer without `price` is
     // invalid — Google rejects the whole Product node rather than ignoring the
     // Offer. Quote-only products are better served by a valid priceless Product.
@@ -112,7 +112,7 @@ export function buildCatalogProduct(p: CatalogProductView, locale: Locale): With
       name: "QS Technology",
     },
     image: p.image.src.startsWith("http") ? p.image.src : `${APP_URL}${p.image.src}`,
-    url: localeUrl(`/electronics/${p.slug}`, locale),
+    url: localeUrl(`/controller/${p.slug}`, locale),
     // No `offers`: quote-only catalogue, same rationale as buildProduct.
   };
 }
@@ -138,7 +138,7 @@ export function buildSeriesProduct(s: SeriesView, locale: Locale): WithContext<P
     image: s.image
       ? (s.image.src.startsWith("http") ? s.image.src : `${APP_URL}${s.image.src}`)
       : `${APP_URL}/og-default.png`,
-    url: localeUrl(`/electronics/${s.slug}`, locale),
+    url: localeUrl(`/controller/${s.slug}`, locale),
     // No `offers`: quote-only catalogue, same rationale as buildProduct.
   };
 }
@@ -162,7 +162,7 @@ export function buildMachine(m: MachineView, categoryLabel: string, locale: Loca
       name: "QS Technology",
     },
     image: m.image.src.startsWith("http") ? m.image.src : `${APP_URL}${m.image.src}`,
-    url: localeUrl(`/machine-building/${m.slug}`, locale),
+    url: localeUrl(`/mechatronics/${m.slug}`, locale),
   };
 }
 
@@ -273,7 +273,7 @@ export function buildBreadcrumbList(
 /**
  * Breadcrumb trail from locale-relative paths, resolving each crumb through
  * `localeUrl` so every `item` equals that page's canonical. Callers pass paths
- * ("/electronics"), never absolute URLs — hand-built URLs are how the trail drifts
+ * ("/controller"), never absolute URLs — hand-built URLs are how the trail drifts
  * out of sync with the canonical. The home crumb is prepended automatically.
  */
 export function buildTrail(

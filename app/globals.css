@@ -409,6 +409,12 @@ body {
   background-size: 220% auto;
   -webkit-background-clip: text; background-clip: text;
   color: transparent;
+  /* Vertical padding extends the background paint area so stacked Vietnamese
+     diacritics (ử, ữ…) stay inside the clipped gradient under tight heading
+     line-height; the negative margin cancels the extra box height when the
+     element is inline-block (inline boxes ignore both anyway). */
+  padding-block: 0.2em;
+  margin-block: -0.2em;
   animation: qs-shimmer 7s linear infinite;
 }
 @keyframes qs-shimmer { to { background-position: -220% center; } }

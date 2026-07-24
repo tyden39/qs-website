@@ -8,8 +8,8 @@ import type { Locale } from "@/lib/i18n/config";
 
 /**
  * The six catalogue groups. `id` doubles as the i18n key under
- * `product.page.groups.*`; `segment` is the URL path piece under /electronics.
- * Static segments win over the `/electronics/[slug]` dynamic route, so these
+ * `product.page.groups.*`; `segment` is the URL path piece under /controller.
+ * Static segments win over the `/controller/[slug]` dynamic route, so these
  * names must never collide with a product or catalogue slug.
  */
 export const PRODUCT_GROUPS = {
@@ -47,7 +47,7 @@ export async function categoryMetadata(
   const group = PRODUCT_GROUPS[id];
   const title = t(`${group.seoKey}Title`);
   const description = t(`${group.seoKey}Description`);
-  const path = `/electronics/${group.segment}`;
+  const path = `/controller/${group.segment}`;
   return {
     title,
     description,
@@ -93,8 +93,8 @@ export async function CategoryShell({
   const after = goldAt >= 0 ? label.slice(goldAt + goldTerm.length) : "";
   const hero = GROUP_HERO[id];
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: t("breadcrumb.products"), path: "/electronics" },
-    { name: label, path: `/electronics/${PRODUCT_GROUPS[id].segment}` },
+    { name: t("breadcrumb.products"), path: "/controller" },
+    { name: label, path: `/controller/${PRODUCT_GROUPS[id].segment}` },
   ]);
 
   return (
@@ -111,7 +111,7 @@ export async function CategoryShell({
           <div className="qs-crumb">
             <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
-            <Link href="/electronics">{t("breadcrumb.products")}</Link>
+            <Link href="/controller">{t("breadcrumb.products")}</Link>
             <span className="sep">/</span>
             <span className="here">{label}</span>
           </div>

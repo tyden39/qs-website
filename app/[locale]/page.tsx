@@ -42,9 +42,9 @@ export async function generateMetadata({
 // Static, non-translated fields (assets + routing). Localized text is merged in
 // from the `home` namespace inside the component below, keeping copy out of code.
 const heroAssets: Pick<HeroSlide, "href" | "img">[] = [
-  { href: "/electronics/astro-10i", img: "/home/hero-astro10i.webp" },
-  { href: "/electronics/astro-6ah", img: "/home/product-astro-6ah.webp" },
-  { href: "/electronics/f86", img: "/home/product-f86.webp" },
+  { href: "/controller/astro-10i", img: "/home/hero-astro10i.webp" },
+  { href: "/controller/astro-6ah", img: "/home/product-astro-6ah.webp" },
+  { href: "/controller/f86", img: "/home/product-f86.webp" },
 ];
 
 // Running marquee phrases — repeated so each track spans wider than the viewport for a seamless loop.
@@ -140,7 +140,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 dropped at md+ so the hover lift still reveals the divider grid behind the card. */}
             {homeProducts.map((item, i) => (
               <Reveal key={`${item.slug}-${i}`} className="qs-reveal-desktop flex items-stretch w-full shrink-0 snap-start bg-white md:w-auto md:bg-transparent" delay={i * 80}>
-                <Link href={`/electronics/${item.slug}`}
+                <Link href={`/controller/${item.slug}`}
                       className="group w-full bg-white p-5 sm:p-8 flex flex-col gap-4 relative transition-all duration-300
                                  hover:-translate-y-2 hover:z-10 hover:shadow-[0_30px_60px_-22px_rgba(20,16,8,.45)]
                                  hover:ring-1 hover:ring-gold-2/70
@@ -195,7 +195,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
           <RailNudge targetId="home-product-rail" label={t("products.swipeHint")} className="md:hidden" />
           <Reveal className="flex justify-center mt-7 sm:mt-9 lg:mt-12">
-            <Link className="qs-btn qs-btn-gold" href="/electronics">{t("products.viewAll")} <span className="arr">→</span></Link>
+            <Link className="qs-btn qs-btn-gold" href="/controller">{t("products.viewAll")} <span className="arr">→</span></Link>
           </Reveal>
         </div>
       </section>

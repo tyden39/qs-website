@@ -2,11 +2,11 @@
   "page": {
     "breadcrumb": {
       "home": "Home",
-      "products": "Electronics"
+      "products": "QS controller"
     },
     "eyebrow": "QS Electronics · Industrial Electronics",
-    "heading": "Electronics",
-    "headingGold": "Electronics",
+    "heading": "QS controller",
+    "headingGold": "controller",
     "lede": "From CNC controllers, servo drives and inverters to DNC devices and accessories — QS designs, builds and distributes a complete line of industrial electronics, ready to integrate into any machine or automation line.",
     "features": [
       "Outstanding performance",
@@ -184,7 +184,7 @@
   "detailPage": {
     "breadcrumb": {
       "home": "Home",
-      "products": "Electronics",
+      "products": "QS controller",
       "category": "Controllers"
     },
     "modelLine": "Model · {name} · Series 2026",

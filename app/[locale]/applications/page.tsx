@@ -4,9 +4,9 @@ import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
-import { ProductVideo } from "../electronics/_components/product-video";
-import { ProductCategoryTree, type CategoryTreeGroup } from "../electronics/_components/product-category-tree";
-import { SortableCardList, type SortableCard } from "../electronics/_components/sortable-card-list";
+import { ProductVideo } from "../controller/_components/product-video";
+import { ProductCategoryTree, type CategoryTreeGroup } from "../controller/_components/product-category-tree";
+import { SortableCardList, type SortableCard } from "../controller/_components/sortable-card-list";
 import Reveal from "@/components/reveal";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
@@ -217,7 +217,7 @@ export default async function Applications({ params }: { params: Promise<{ local
           {/* Material groups as a left tree — each group expands to its
               sub-types (existing case studies + "coming soon" leaves); the right
               panel shows that group's cards with the shared count + sort toolbar,
-              matching the /electronics catalogue. */}
+              matching the /controller catalogue. */}
           {/* Applies the URL filter (material group / sub-type) before paint,
               so a shared application link doesn't flash the default group. */}
           <FilterPrePaint

@@ -29,7 +29,7 @@
       { "name": "Gỗ", "tag": "Wood", "desc": "Điêu khắc, cưa lọng và làm mộng cho ngành nội thất, mỹ nghệ." },
       { "name": "Đá", "tag": "Stone", "desc": "Điêu khắc và cắt đá tự nhiên, đá nhân tạo với độ nét cao." },
       { "name": "Kim hoàn", "tag": "Jewelry", "desc": "Chạm khắc, phay tinh xảo trên vàng, bạc và hợp kim quý." },
-      { "name": "Máy tự động hóa khác", "tag": "Automation", "desc": "Các dòng máy chuyên dụng khác dùng bộ điều khiển QS — bồi keo, uốn lò xo." }
+      { "name": "Máy tự động hóa khác", "nameGold": "khác", "tag": "Automation", "desc": "Các dòng máy chuyên dụng khác dùng bộ điều khiển QS — bồi keo, uốn lò xo." }
     ],
     "soon": {
       "label": "Đang cập nhật",

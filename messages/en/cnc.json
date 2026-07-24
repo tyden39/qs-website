@@ -195,6 +195,9 @@
       "automation": "Automation",
       "inspection": "Checkweighing"
     },
+    "typesGold": {
+      "cnc": "machines"
+    },
     "typeBlurb": {
       "cnc": "CNC machines designed and assembled by QS — milling, routing and precision machining for metal, wood and stone.",
       "automation": "Automation lines and machines built on QS controllers — dispensing, spring forming and other dedicated stations.",

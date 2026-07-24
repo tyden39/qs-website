@@ -71,7 +71,7 @@ export default async function Applications({ params }: { params: Promise<{ local
   const t = await getTranslations({ locale, namespace: "application.index" });
   const seo = await getTranslations({ locale, namespace: "seo" });
   const appText = t.raw("items") as { t: string; machine: string }[];
-  const groupMeta = t.raw("groups") as { name: string; tag: string; desc: string; axes?: string }[];
+  const groupMeta = t.raw("groups") as { name: string; nameGold?: string; tag: string; desc: string; axes?: string }[];
   const soon = t.raw("soon") as { label: string; imageLabel: string; items: Record<string, string> };
   // Resolve a case sub-item to its shop-floor image + labels from the shared rows.
   const caseAt = (slug: string) => {
@@ -162,6 +162,7 @@ export default async function Applications({ params }: { params: Promise<{ local
     return {
       id: g.tag.toLowerCase(),
       label: g.name,
+      labelGold: g.nameGold,
       count: cards.length,
       icon: APP_ICON[gi],
       blurb: g.desc,

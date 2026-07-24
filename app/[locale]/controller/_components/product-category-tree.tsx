@@ -57,6 +57,10 @@ export type CategoryTreeGroup = {
   /** Hero intro heading for this group (defaults to `label`). Shown beside the
    *  sidebar when the group is active. */
   heroTitle?: string;
+  /** Trailing portion of the hero heading to gild with the gold sheen; defaults
+   *  to the whole title. Defined per-locale so a compound last word (e.g. "điều
+   *  khiển") gilds as a unit rather than splitting on an inner space. */
+  labelGold?: string;
   /** One- or two-sentence intro shown under the hero heading for this group. */
   blurb?: string;
   /** Pre-rendered (server) hero figure for this group — the illustration shown
@@ -346,10 +350,21 @@ export function CategoryTreeHero({
             data-f-g={g.id}
           >
             <div>
-              {/* Title spans the full width on top. */}
-              <h2 className={`qs-h2 ${dark ? "text-white" : "text-ink"}`}>
-                {g.heroTitle ?? g.label}
-              </h2>
+              {/* Title spans the full width on top; only the trailing `labelGold`
+                  portion gets the gold sheen (the whole title when unset), so a
+                  compound last word gilds as one unit. */}
+              {(() => {
+                const title = g.heroTitle ?? g.label;
+                const at = g.labelGold ? title.lastIndexOf(g.labelGold) : -1;
+                const head = at > 0 ? title.slice(0, at) : "";
+                const tail = at >= 0 ? title.slice(at) : title;
+                return (
+                  <h2 className={`qs-h2 ${dark ? "text-white" : "text-ink"}`}>
+                    {head}
+                    <span className="qs-gold-shimmer inline-block">{tail}</span>
+                  </h2>
+                );
+              })()}
               {/* Below: the figure floats to one side (narrower) and the copy
                   wraps beside it, then runs full-width under the image. `flow-root`
                   contains the float so the block sizes to its content. */}

@@ -93,6 +93,11 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
       return {
         id: ty,
         label: t(`machines.types.${ty}`),
+        // Only the trailing word gilds; the gold tail is defined per type/locale
+        // where it differs from the whole title (else the whole title gilds).
+        labelGold: t.has(`machines.typesGold.${ty}`)
+          ? t(`machines.typesGold.${ty}`)
+          : undefined,
         count: ms.length,
         thumb: ms[0].thumbnail,
         blurb: t(`machines.typeBlurb.${ty}`),

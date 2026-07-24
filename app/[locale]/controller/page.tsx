@@ -104,6 +104,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     {
       id: "controllers",
       label: t("groups.controllers.label"),
+      labelGold: t("groups.controllers.labelGold"),
       count: products.length,
       thumb: products[0].image,
       blurb: t("groups.controllers.blurb"),
@@ -128,6 +129,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     {
       id: "servo",
       label: t("groups.servo.label"),
+      labelGold: t("groups.servo.labelGold"),
       count: servoSeries.length,
       thumb: seriesThumb("servo"),
       blurb: t("groups.servo.blurb"),
@@ -137,6 +139,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     {
       id: "inverter",
       label: t("groups.inverter.label"),
+      labelGold: t("groups.inverter.labelGold"),
       count: inverterSeries.length,
       thumb: seriesThumb("inverter"),
       blurb: t("groups.inverter.blurb"),
@@ -146,6 +149,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     {
       id: "dnc",
       label: t("groups.dnc.label"),
+      labelGold: t("groups.dnc.labelGold"),
       count: dncProducts.length,
       thumb: dncProducts[0].image,
       blurb: t("groups.dnc.blurb"),
@@ -155,6 +159,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     {
       id: "accessory",
       label: t("groups.accessory.label"),
+      labelGold: t("groups.accessory.labelGold"),
       count: accessoryProducts.length,
       thumb: accessoryProducts[0].image,
       blurb: t("groups.accessory.blurb"),

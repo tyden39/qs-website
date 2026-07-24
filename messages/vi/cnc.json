@@ -195,6 +195,10 @@
       "automation": "Tự động hóa",
       "inspection": "Cân kiểm tra"
     },
+    "typesGold": {
+      "cnc": "CNC",
+      "inspection": "kiểm tra"
+    },
     "typeBlurb": {
       "cnc": "Máy CNC do QS thiết kế và lắp ráp — phay, router và gia công chính xác cho kim loại, gỗ và đá.",
       "automation": "Dây chuyền và máy tự động hóa chạy trên bộ điều khiển QS — bồi keo, uốn lò xo và các công đoạn chuyên dụng.",

@@ -29,7 +29,7 @@
       { "name": "Wood", "tag": "Gỗ", "desc": "Carving, jigsaw, and joinery for furniture and woodcraft." },
       { "name": "Stone", "tag": "Đá", "desc": "Carving and cutting for natural and engineered stone." },
       { "name": "Jewellery", "tag": "Kim hoàn", "desc": "Fine engraving and milling on gold, silver, and precious alloys." },
-      { "name": "Other automation", "tag": "Automation", "desc": "Other dedicated machines running QS controllers — gluing, spring bending." }
+      { "name": "Other automation", "nameGold": "automation", "tag": "Automation", "desc": "Other dedicated machines running QS controllers — gluing, spring bending." }
     ],
     "soon": {
       "label": "Coming soon",

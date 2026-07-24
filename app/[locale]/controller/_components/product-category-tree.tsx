@@ -355,7 +355,7 @@ export function CategoryTreeHero({
                   contains the float so the block sizes to its content. */}
               <div className="mt-5 flow-root">
                 {g.heroImage ? (
-                  <div className="float-right w-2/5 max-w-[260px] ml-6 mb-3">
+                  <div className="float-right w-1/2 max-w-[320px] ml-6 mb-3">
                     <div className={HERO_IMAGE_SLOT}>{g.heroImage}</div>
                   </div>
                 ) : null}

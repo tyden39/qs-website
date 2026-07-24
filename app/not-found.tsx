@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import NotFoundContent from "@/components/not-found-content";
@@ -60,7 +61,9 @@ export default function RootNotFound() {
           homeHref="/vi/"
           contactHref="/vi/contact/"
         />
-        <script dangerouslySetInnerHTML={{ __html: LOCALIZE }} />
+        <Script id="localize-error" strategy="beforeInteractive">
+          {LOCALIZE}
+        </Script>
       </body>
     </html>
   );

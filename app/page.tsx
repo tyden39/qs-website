@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 // Static export has no server redirect. Cloudflare `_redirects` maps `/` → `/vi/`
 // at the edge; this prerendered page is the fallback for direct origin hits and
@@ -24,7 +25,9 @@ export default function RootRedirect() {
     <html lang="vi">
       <head>
         <meta httpEquiv="refresh" content="0; url=/vi/" />
-        <script dangerouslySetInnerHTML={{ __html: DETECT_AND_REDIRECT }} />
+        <Script id="detect-redirect" strategy="beforeInteractive">
+          {DETECT_AND_REDIRECT}
+        </Script>
       </head>
       <body>
         <p style={{ fontFamily: "sans-serif", padding: "2rem" }}>

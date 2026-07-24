@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 /**
- * Crawl savch.net series detail pages and merge their tab galleries + document
- * lists into data/series.json.
+ * Crawl savch's English (en.savch.net) series detail pages and replace their
+ * tab galleries + document lists in data/series.json.
  *
- * Each savch detail page exposes five tabs (产品介绍 / 产品参数 / 视频 / 资料下载 /
- * 可选配件). The video tab is always empty; the other four are:
- *   - 产品介绍  → detail.introduction    (image strip)
- *   - 产品参数  → detail.paramImages     (spec-sheet images, shown under Specs tab)
- *   - 资料下载  → detail.documentation   (download links; URLs kept, files not mirrored)
- *   - 可选配件  → detail.accessoryImages (image strip)
+ * Each detail page exposes five tabs (Overview / Parameters / Video / Download /
+ * Options). The video tab is always empty; the other four are:
+ *   - Overview    → detail.introduction    (image strip)
+ *   - Parameters  → detail.paramImages     (spec-sheet images, shown under Specs tab)
+ *   - Download    → detail.documentation   (download links; URLs kept, files not mirrored)
+ *   - Options     → detail.accessoryImages (image strip)
  *
- * Gallery images are downloaded and re-hosted locally as WebP under
- * public/img/products/series/{slug}/{section}/NN.webp. Documents keep their
- * savch.net URL (per project decision: catalogue only, no mirroring).
+ * The English plates are used for both locales (vi/en) — the src is the same
+ * file, only the alt text differs. Gallery images are downloaded and re-hosted
+ * locally as WebP under public/img/products/series/{slug}/{section}/NN.webp.
+ * Documents keep their en.savch.net URL (catalogue only, no mirroring).
  *
  * Usage: node scripts/crawl-series-detail-tabs.mjs
  */
@@ -26,22 +27,18 @@ import sharp from "sharp";
 const PROJECT_ROOT = path.resolve(".");
 const SERIES_JSON = path.join(PROJECT_ROOT, "data", "series.json");
 const IMG_ROOT = path.join(PROJECT_ROOT, "public", "img", "products", "series");
-const ORIGIN = "https://savch.net";
+const ORIGIN = "https://en.savch.net";
 
-// One detail URL per series entry. Inverters are split to match the manufacturer
-// lineup: S600 (IM, /8) and S600E (PM, /328) are distinct models; Sinus Penta
-// (400 V, /313) and Penta 12T (1140 V, /314) are distinct models. Re-running
-// overwrites a series' galleries + documentation from its source — filter
-// TARGETS before a run so hand-tuned galleries are not clobbered.
+// One detail URL per series entry, taken from savch's English site so the
+// mirrored plates read in English for both locales. Re-running does a full
+// replace of a series' detail from its source (galleries + documentation),
+// dropping any earlier hand-authored blocks — filter TARGETS before a run so
+// only the intended series are rebuilt.
 const TARGETS = [
-  { slug: "sdv3", url: "https://savch.net/sdv3home/55.html", name: "SDV3" },
-  { slug: "sda2", url: "https://savch.net/sda2home/57.html", name: "SDA2" },
-  { slug: "s600", url: "https://savch.net/minixilieS600E/8.html", name: "S600" },
-  { slug: "s600e", url: "https://savch.net/minixilieS600E/328.html", name: "S600E" },
-  { slug: "s3100", url: "https://savch.net/tongyongxilieS3100AE/53.html", name: "S3100A/E" },
-  { slug: "penta", url: "https://savch.net/gongcheng/313.html", name: "Sinus Penta" },
-  { slug: "penta-12t", url: "https://savch.net/gongcheng/314.html", name: "Sinus Penta 12T" },
-  { slug: "uhs-bldc", url: "https://savch.net/chaogaosubianpinqi.html", name: "Ultra High-Speed BLDC" },
+  { slug: "sdv3", url: "https://en.savch.net/SDV3Economicservo/55.html", name: "SDV3" },
+  { slug: "sda2", url: "https://en.savch.net/SDA2Generalservo/57.html", name: "SDA2" },
+  { slug: "s600", url: "https://en.savch.net/S600EConpactdrive/8.html", name: "S600/E" },
+  { slug: "s3100", url: "https://en.savch.net/S3100AEGeneraldrive/53.html", name: "S3100A/E" },
 ];
 
 // Restrict this run to a subset of slugs via CRAWL_ONLY="slug1,slug2".
@@ -135,11 +132,11 @@ function extractDocs(box) {
     const header = section.querySelector("h4.sol-title");
     let category = "manual";
     if (header) {
-      const t = header.textContent;
-      if (t.includes("图纸")) category = "drawing";
-      else if (t.includes("软件")) category = "software";
-      else if (t.includes("彩页")) category = "brochure";
-      else if (t.includes("证书")) category = "certificate";
+      const t = header.textContent.toLowerCase();
+      if (t.includes("drawing")) category = "drawing";
+      else if (t.includes("soft")) category = "software";
+      else if (t.includes("color")) category = "brochure";
+      else if (t.includes("certificate")) category = "certificate";
     }
     for (const li of section.querySelectorAll("li.li2")) {
       const link = li.querySelector("a.file-name");
@@ -154,7 +151,7 @@ function extractDocs(box) {
       docs.push({
         title,
         category,
-        lang: "zh",
+        lang: "en",
         url: absUrl(href),
         format,
         ...(m ? { size_mb: parseFloat(m[1]) } : {}),
@@ -202,15 +199,18 @@ async function main() {
     const paramImages = await saveGallery(paramUrls, target.slug, "params", target.name);
     const accessoryImages = await saveGallery(accUrls, target.slug, "accessories", target.name);
 
-    // Merge into the series' detail block (create one if the series had none).
-    const detail = series.detail ?? { tables: [] };
+    // Full replace: the series detail becomes only the English source galleries
+    // + download list, dropping any earlier hand-authored blocks (naming/intro/
+    // tables/figures/spec sheets). `tables` stays required-but-empty.
+    const detail = { tables: [] };
     if (introduction.length) detail.introduction = introduction;
     if (paramImages.length) detail.paramImages = paramImages;
     if (accessoryImages.length) detail.accessoryImages = accessoryImages;
     if (docs.length) detail.documentation = docs;
     series.detail = detail;
+    series.sourceUrl = target.url;
 
-    log(`  ✓ merged: intro ${introduction.length} · params ${paramImages.length} · accessories ${accessoryImages.length} · docs ${docs.length}`);
+    log(`  ✓ replaced: intro ${introduction.length} · params ${paramImages.length} · accessories ${accessoryImages.length} · docs ${docs.length}`);
   }
 
   await fs.writeFile(SERIES_JSON, JSON.stringify(raw, null, 2) + "\n", "utf-8");

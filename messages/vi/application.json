@@ -70,6 +70,10 @@
     "productsLede": "Các dòng bộ điều khiển QS phù hợp để tự động hóa loại máy này. Chọn model theo số trục, kiểu điều khiển và nhu cầu giao tiếp của máy.",
     "productsViewDetail": "Xem chi tiết",
     "productsModel": "Model",
+    "capabilityEyebrow": "[ Capability ]",
+    "capabilityHeading": "Khả năng ứng dụng vượt trội",
+    "compatEyebrow": "[ Compatibility ]",
+    "compatHeading": "Tối ưu cho mọi nhu cầu gia công",
     "workflowEyebrow": "[ Workflow · 4 steps ]",
     "workflowHeading": "Quy trình vận hành",
     "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi từ nhập file CAD/CAM đến điều khiển servo và giám sát chu trình. Bốn bước dưới đây mô tả luồng dữ liệu và tín hiệu điển hình của một máy phay 3 trục.",
@@ -109,6 +113,31 @@
     "ctaBody": "Kỹ sư QS hỗ trợ chọn cấu hình I/O, sơ đồ đấu nối và driver phù hợp với dòng máy này.",
     "ctaBtn": "Liên hệ kỹ thuật →",
     "machines": {
+      "phay-cnc": {
+        "heroLede": "QS Controller được thiết kế chuyên biệt cho máy phay CNC, mang đến khả năng điều khiển chính xác, vận hành ổn định và tối ưu hiệu suất gia công. Từ phay mặt, phay rãnh, khoan đến gia công biên dạng 3D phức tạp — tất cả đều được thực hiện mượt mà và tin cậy.",
+        "strengths": [
+          { "t": "Độ chính xác cao", "d": "Điều khiển chuyển động đồng bộ, sai số thấp." },
+          { "t": "Vận hành ổn định", "d": "Hệ thống tối ưu giúp máy hoạt động bền bỉ, liên tục." },
+          { "t": "Hiệu suất vượt trội", "d": "Xử lý tốc độ cao, rút ngắn thời gian chu kỳ gia công." },
+          { "t": "Dễ dàng sử dụng", "d": "Giao diện thân thiện, dễ học, dễ vận hành." }
+        ],
+        "capabilities": [
+          { "t": "Phay mặt", "d": "Gia công bề mặt phẳng chất lượng cao." },
+          { "t": "Phay rãnh", "d": "Phay rãnh, bậc, rãnh chữ T chính xác." },
+          { "t": "Khoan – Taro", "d": "Khoan, taro cứng, đảm bảo độ chính xác và độ bền dao." },
+          { "t": "Phay biên dạng 3D", "d": "Gia công bề mặt 3D phức tạp, khuôn mẫu, chi tiết tự do." },
+          { "t": "Đo kiểm trên máy", "d": "Tích hợp chức năng đo dao, đo phôi, nâng cao độ chính xác." }
+        ],
+        "compat": {
+          "lede": "QS Controller phù hợp với đa dạng máy phay CNC: 3 trục, 4 trục, 5 trục đồng thời. Hỗ trợ nhiều chuẩn G-code, tương thích tốt với các phần mềm CAM phổ biến. Là lựa chọn tin cậy cho các xưởng gia công, nhà máy sản xuất khuôn mẫu, cơ khí chính xác và các nhà chế tạo máy.",
+          "items": [
+            { "t": "Hỗ trợ đa trục", "d": "3 / 4 / 5 trục đồng thời" },
+            { "t": "Hỗ trợ đa dạng", "d": "Nhiều chuẩn G-code" },
+            { "t": "Tương thích CAM", "d": "Các phần mềm CAM phổ biến" },
+            { "t": "Tùy biến linh hoạt", "d": "Dễ dàng tích hợp theo nhu cầu" }
+          ]
+        }
+      },
       "cua-long": {
         "heroLede": "Máy cưa lọng công nghiệp được sử dụng để cắt các biên dạng cong phức tạp trên gỗ, nhựa hoặc vật liệu mỏng với tốc độ cao và đường cắt mượt mà. Hệ thống điều khiển QS giúp duy trì độ ổn định liên tục cho xưởng sản xuất.",
         "heroStats": [["2–3", "Số trục"], ["±0.1", "Độ chính xác (mm)"], ["30 m/p", "Tốc độ cắt"]],

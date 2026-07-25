@@ -70,6 +70,10 @@
     "productsLede": "QS controller lines suited to automating this machine type. Pick a model by axis count, control mode, and the interfaces your machine needs.",
     "productsViewDetail": "View details",
     "productsModel": "Model",
+    "capabilityEyebrow": "[ Capability ]",
+    "capabilityHeading": "Outstanding machining capabilities",
+    "compatEyebrow": "[ Compatibility ]",
+    "compatHeading": "Optimised for every machining need",
     "workflowEyebrow": "[ Workflow · 4 steps ]",
     "workflowHeading": "Operation workflow",
     "workflowLede": "The QS controller handles the entire chain from CAD/CAM file import to servo control and cycle monitoring. The four steps below describe the typical data and signal flow of a 3-axis milling machine.",
@@ -109,6 +113,31 @@
     "ctaBody": "QS engineers help choose the I/O configuration, wiring diagram, and driver suited to this machine type.",
     "ctaBtn": "Contact engineering →",
     "machines": {
+      "phay-cnc": {
+        "heroLede": "The QS Controller is purpose-built for CNC milling machines, delivering precise motion control, stable operation, and optimised machining performance. From face milling and slot milling to drilling and complex 3D contour work — every job runs smoothly and reliably.",
+        "strengths": [
+          { "t": "High precision", "d": "Synchronised motion control with low following error." },
+          { "t": "Stable operation", "d": "An optimised system keeps the machine running continuously." },
+          { "t": "Outstanding performance", "d": "High-speed processing that shortens the machining cycle." },
+          { "t": "Easy to use", "d": "A friendly interface that is quick to learn and operate." }
+        ],
+        "capabilities": [
+          { "t": "Face milling", "d": "High-quality flat surface machining." },
+          { "t": "Slot milling", "d": "Accurate slots, steps, and T-slots." },
+          { "t": "Drilling – tapping", "d": "Drilling and rigid tapping with accuracy and tool life in mind." },
+          { "t": "3D contour milling", "d": "Complex 3D surfaces, moulds, and free-form parts." },
+          { "t": "On-machine probing", "d": "Built-in tool and workpiece measurement for higher accuracy." }
+        ],
+        "compat": {
+          "lede": "The QS Controller suits a wide range of CNC milling machines: 3-axis, 4-axis, and simultaneous 5-axis. It supports common G-code dialects and works well with mainstream CAM software — a dependable choice for machine shops, mould makers, precision engineering plants, and machine builders.",
+          "items": [
+            { "t": "Multi-axis support", "d": "3 / 4 / 5 simultaneous axes" },
+            { "t": "Broad G-code support", "d": "Common G-code dialects" },
+            { "t": "CAM compatible", "d": "Mainstream CAM software" },
+            { "t": "Flexible configuration", "d": "Easy to adapt and integrate" }
+          ]
+        }
+      },
       "cua-long": {
         "heroLede": "Industrial jigsaw machines cut complex curved profiles in wood, plastic, or thin materials at high speed with a smooth cut line. The QS control system keeps the shop floor running with continuous stability.",
         "heroStats": [["2–3", "Axes"], ["±0.1", "Precision (mm)"], ["30 m/min", "Cutting speed"]],

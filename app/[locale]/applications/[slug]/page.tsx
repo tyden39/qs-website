@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import Reveal from "@/components/reveal";
 import RailNudge from "@/components/rail-nudge";
+import { CategoryIcon } from "@/components/category-icon";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getApplicationBySlug, getApplicationProducts, getApplicationSlugs } from "@/lib/data/applications";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -57,6 +58,23 @@ const relatedAppsMeta = [
   { slug: "uon-lo-xo", n: "04" },
 ];
 
+// Glyphs for the copy blocks below, keyed by position — the item titles are
+// translated, so they can't identify an icon across locales. Strengths and
+// compatibility read the same four traits on every machine; the capability row
+// is machine-specific and falls back to no glyph for machines not listed.
+const STRENGTH_ICON = ["precision", "stability", "performance", "usability"];
+const COMPAT_ICON = ["multi-axis", "gcode", "cam", "flexible-config"];
+// Capability cards lead with a shop photo when one exists and fall back to the
+// glyph, so a machine can gain photos later without touching the markup.
+const CAPABILITY_MEDIA: Record<string, { icon: string; image?: string }[]> = {
+  "phay-cnc": ["face-milling", "slot-milling", "drill-tap", "surface-3d", "probing"].map((name) => ({
+    icon: name,
+    image: `/img/applications/phay-cnc/${name}.webp`,
+  })),
+};
+
+type CopyItem = { t: string; d: string };
+
 export default async function ApplicationDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
@@ -72,10 +90,21 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
   // Per-machine content overrides the shared defaults; unknown slugs fall back to the defaults.
   const machines = t.raw("machines") as Record<
     string,
-    { heroLede: string; workflowLede: string; workflow: { l: string; t: string; d: string }[] }
+    {
+      heroLede: string;
+      workflowLede: string;
+      workflow: { l: string; t: string; d: string }[];
+      strengths?: CopyItem[];
+      capabilities?: CopyItem[];
+      compat?: { lede: string; items: CopyItem[] };
+    }
   >;
   const machine_ = machines?.[slug];
   const heroLede = machine_?.heroLede ?? t("heroLede");
+  const strengths = machine_?.strengths ?? [];
+  const capabilities = machine_?.capabilities ?? [];
+  const capabilityMedia = CAPABILITY_MEDIA[slug] ?? [];
+  const compat = machine_?.compat;
   const specs = t.raw("specs") as [string, string][];
   const deployments = t.raw("deployments") as { name: string; loc: string }[];
   const relatedApps = relatedAppsMeta.map((r) => ({ ...r, t: machineFor(r.slug) }));
@@ -129,6 +158,84 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
           </div>
         </div>
       </section>
+
+      {/* CONTROLLER STRENGTHS — reads straight off the hero lede, so it stays
+          headingless and acts as the band between hero and the detail sections. */}
+      {strengths.length > 0 && (
+        <section className="bg-paper border-b border-line py-10 sm:py-12">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+              {strengths.map((s, i) => (
+                <Reveal key={s.t} delay={i * 70}>
+                  <CategoryIcon name={STRENGTH_ICON[i]} className="w-9 h-9 text-gold-1" />
+                  <h3 className="font-display font-bold text-title tracking-[-.01em] mt-4 mb-1.5 m-0">{s.t}</h3>
+                  <p className="text-meta text-muted leading-[1.6] m-0">{s.d}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CAPABILITIES */}
+      {capabilities.length > 0 && (
+        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+            <div className="mb-10 pb-4 border-b border-line">
+              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("capabilityEyebrow")}</span>
+              <h2 className="qs-h2 mt-1.5">{t("capabilityHeading")}</h2>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-px bg-line border border-line">
+              {capabilities.map((c, i) => (
+                /* An odd item count would leave a filled gap in the two-column
+                   layout, so the trailing card stretches across the row. */
+                <Reveal key={c.t}
+                        className="flex [&:nth-last-child(1):nth-child(odd)]:col-span-2 lg:[&:nth-last-child(1):nth-child(odd)]:col-span-1"
+                        delay={i * 70}>
+                  <div className="w-full bg-white p-6 flex flex-col relative
+                                  before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold">
+                    {/* 10:9 matches the source frame, so the photo shows whole */}
+                    {capabilityMedia[i]?.image ? (
+                      <div className="relative aspect-10/9 mt-2 border border-line overflow-hidden bg-paper-2">
+                        <Image src={capabilityMedia[i].image} alt={c.t} fill
+                               sizes="(max-width:1024px) 45vw, 20vw" className="object-cover" />
+                      </div>
+                    ) : (
+                      <CategoryIcon name={capabilityMedia[i]?.icon ?? ""} className="w-8 h-8 text-gold-1 mt-2" />
+                    )}
+                    <h3 className="font-display font-bold text-title tracking-[-.01em] mt-4 m-0 leading-[1.2]">{c.t}</h3>
+                    <p className="text-meta text-muted leading-[1.6] mt-2 m-0">{c.d}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* MACHINING COMPATIBILITY */}
+      {compat && (
+        <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.1fr] gap-10 sm:gap-16 items-start">
+            <div>
+              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("compatEyebrow")}</span>
+              <h2 className="qs-h2 mt-1.5 max-w-[20ch]">{t("compatHeading")}</h2>
+              <p className="text-body leading-[1.75] text-[#3a3a3a] mt-5 m-0">{compat.lede}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-px bg-line border border-line">
+              {compat.items.map((c, i) => (
+                <Reveal key={c.t} className="flex" delay={i * 70}>
+                  <div className="w-full bg-white px-6 py-7 flex flex-col items-start gap-3">
+                    <CategoryIcon name={COMPAT_ICON[i]} className="w-8 h-8 text-gold-1" />
+                    <h3 className="font-display font-bold text-body tracking-[-.01em] m-0 leading-[1.25]">{c.t}</h3>
+                    <p className="font-mono text-label-xs text-muted tracking-[.08em] uppercase m-0 leading-[1.5]">{c.d}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* MATCHING PRODUCTS */}
       {relatedProducts.length > 0 && (

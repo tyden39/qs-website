@@ -176,6 +176,102 @@ const PATHS: Record<string, React.ReactNode> = {
     </>
   ),
 
+  // ── Application detail: controller strengths ──────────────────────────
+  precision: (
+    <>
+      <circle cx="12" cy="12" r="7" />
+      <circle cx="12" cy="12" r="2.2" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+    </>
+  ),
+  stability: (
+    <>
+      <path d="M12 3 5 6v5.5c0 4.3 2.9 7.7 7 9.5 4.1-1.8 7-5.2 7-9.5V6l-7-3Z" />
+      <path d="m9 12 2 2 4-4" />
+    </>
+  ),
+  performance: (
+    <>
+      <path d="M4 17a8 8 0 1 1 16 0" />
+      <path d="M12 17l4.2-5" />
+      <path d="M4 20h16" />
+    </>
+  ),
+  usability: (
+    <>
+      <path d="M9 11.5V5.6a1.6 1.6 0 0 1 3.2 0v5m0-1.4a1.6 1.6 0 0 1 3.2 0v1.4m0-.9a1.6 1.6 0 0 1 3.2 0V15a5.5 5.5 0 0 1-5.5 5.5h-1a4 4 0 0 1-3.1-1.5l-3.1-3.8a1.7 1.7 0 0 1 2.5-2.2L9 14.5" />
+    </>
+  ),
+
+  // ── Application detail: milling capabilities ──────────────────────────
+  "face-milling": (
+    <>
+      <path d="M9 3h6v5H9z" />
+      <path d="m10 8-1 3h6l-1-3" />
+      <path d="M3 15h18M3 19h18" />
+    </>
+  ),
+  "slot-milling": (
+    <>
+      <path d="M3 9h18v10H3z" />
+      <path d="M9 9v6h3V9" />
+      <path d="M12 3v4" />
+    </>
+  ),
+  "drill-tap": (
+    <>
+      <path d="M10 3h4v8l-2 3-2-3V3Z" />
+      <path d="M10 5.5h4M10 8h4" />
+      <path d="M4 20h16" />
+    </>
+  ),
+  "surface-3d": (
+    <>
+      <path d="M3 11c3-4.5 6-4.5 9 0s6 4.5 9 0" />
+      <path d="M3 16c3-4.5 6-4.5 9 0s6 4.5 9 0" />
+      <path d="M12 3v3" />
+    </>
+  ),
+  probing: (
+    <>
+      <path d="M9 3h6v6h-6z" />
+      <path d="M12 9v6" />
+      <circle cx="12" cy="17" r="2" />
+      <path d="M4 21h16" />
+    </>
+  ),
+
+  // ── Application detail: machining compatibility ───────────────────────
+  "multi-axis": (
+    <>
+      <path d="M5 19V5m0 14h14" />
+      <path d="M5 5 3.5 7.5M5 5l1.5 2.5M19 19l-2.5-1.5M19 19l-2.5 1.5" />
+      <path d="M5 19 15 9m0 0h-4m4 0v4" />
+    </>
+  ),
+  gcode: (
+    <>
+      <path d="M6 3h8l4 4v14H6z" />
+      <path d="M14 3v4h4" />
+      <path d="m11 12-2 2 2 2M14 12l2 2-2 2" />
+    </>
+  ),
+  cam: (
+    <>
+      <rect x="3" y="4" width="18" height="12" rx="1" />
+      <path d="M8 20h8M12 16v4" />
+      <path d="m8 12 2.5-3 2 2.2L15 8" />
+    </>
+  ),
+  "flexible-config": (
+    <>
+      <circle cx="10" cy="10" r="3.2" />
+      <path d="M10 3.6v1.8M10 14.6v1.8M3.6 10h1.8M14.6 10h1.8M5.5 5.5l1.3 1.3M13.2 13.2l1.3 1.3M14.5 5.5l-1.3 1.3M6.8 13.2l-1.3 1.3" />
+      <circle cx="17.5" cy="17.5" r="2" />
+      <path d="M17.5 14.6v.9M17.5 19.5v.9M14.6 17.5h.9M19.5 17.5h.9" />
+    </>
+  ),
+
   // ── Sub-types (deepest flyout) ────────────────────────────────────────
   motion: (
     <>

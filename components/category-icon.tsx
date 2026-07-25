@@ -197,6 +197,13 @@ const PATHS: Record<string, React.ReactNode> = {
       <path d="M4 20h16" />
     </>
   ),
+  productivity: (
+    <>
+      <path d="M4 20h16" />
+      <path d="M7 20v-5M12 20v-8M17 20v-11" />
+      <path d="m13 6 5-1.5M18 4.5 19.5 9" />
+    </>
+  ),
   usability: (
     <>
       <path d="M9 11.5V5.6a1.6 1.6 0 0 1 3.2 0v5m0-1.4a1.6 1.6 0 0 1 3.2 0v1.4m0-.9a1.6 1.6 0 0 1 3.2 0V15a5.5 5.5 0 0 1-5.5 5.5h-1a4 4 0 0 1-3.1-1.5l-3.1-3.8a1.7 1.7 0 0 1 2.5-2.2L9 14.5" />

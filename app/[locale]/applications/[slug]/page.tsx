@@ -58,22 +58,41 @@ const relatedAppsMeta = [
   { slug: "uon-lo-xo", n: "04" },
 ];
 
-// Glyphs for the copy blocks below, keyed by position — the item titles are
-// translated, so they can't identify an icon across locales. Strengths and
-// compatibility read the same four traits on every machine; the capability row
-// is machine-specific and falls back to no glyph for machines not listed.
-const STRENGTH_ICON = ["precision", "stability", "performance", "usability"];
-const COMPAT_ICON = ["multi-axis", "gcode", "cam", "flexible-config"];
-// Capability cards lead with a shop photo when one exists and fall back to the
-// glyph, so a machine can gain photos later without touching the markup.
-const CAPABILITY_MEDIA: Record<string, { icon: string; image?: string }[]> = {
-  "phay-cnc": ["face-milling", "slot-milling", "drill-tap", "surface-3d", "probing"].map((name) => ({
-    icon: name,
-    image: `/img/applications/phay-cnc/${name}.webp`,
-  })),
+type CopyItem = { t: string; d?: string };
+/** Visual for one copy item: a photo when the reference sheet has one, else a glyph.
+ *  `contain` keeps line-art drawings whole instead of cropping them like a photo. */
+type Media = { icon?: string; image?: string; contain?: boolean };
+
+/** Photos cropped from the machine's reference sheet, in the order the copy lists them. */
+const photos = (slug: string, names: string[], contain = false): Media[] =>
+  names.map((name) => ({ image: `/img/applications/${slug}/${name}.webp`, contain }));
+
+// Media for the copy blocks below, keyed by position — the item titles are
+// translated, so they can't identify an image or glyph across locales. Machines
+// missing from a map render their copy without a visual.
+const STRENGTH_MEDIA: Record<string, Media[]> = {
+  "phay-cnc": [{ icon: "precision" }, { icon: "stability" }, { icon: "performance" }, { icon: "usability" }],
+  "cua-long": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
+  "mong-go": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
+};
+const CAPABILITY_MEDIA: Record<string, Media[]> = {
+  "phay-cnc": photos("phay-cnc", ["face-milling", "slot-milling", "drill-tap", "surface-3d", "probing"]),
+  "cua-long": photos("cua-long",
+    ["straight-cut", "curve-cut", "arc-cut", "contour-2d", "logo-text", "ornament", "nesting"], true),
+  "mong-go": photos("mong-go",
+    ["square-tenon", "straight-tenon", "angled-tenon", "mortise", "dowel-hole", "groove", "custom-profile"]),
+};
+const COMPAT_MEDIA: Record<string, Media[]> = {
+  "phay-cnc": [{ icon: "multi-axis" }, { icon: "gcode" }, { icon: "cam" }, { icon: "flexible-config" }],
+  "cua-long": photos("cua-long",
+    ["natural-wood", "mdf", "plywood", "engineering-plastic", "mica", "composite", "insulation-panel", "non-metal-sheet"]),
+  "mong-go": photos("mong-go", ["natural-wood", "hardwood", "softwood", "engineered-wood"]),
 };
 
-type CopyItem = { t: string; d: string };
+/** Five capabilities fill one row; every other count reads best in fours. Cards
+ *  carry their own rules rather than showing through a gap, so a part-filled last
+ *  row ends in blank space instead of an empty tinted cell. */
+const capabilityColumns = (count: number) => (count === 5 ? "lg:grid-cols-5" : "lg:grid-cols-4");
 
 export default async function ApplicationDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
@@ -95,16 +114,20 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       workflowLede: string;
       workflow: { l: string; t: string; d: string }[];
       strengths?: CopyItem[];
+      capabilityHeading?: string;
       capabilities?: CopyItem[];
-      compat?: { lede: string; items: CopyItem[] };
+      compat?: { heading?: string; lede: string; items: CopyItem[] };
     }
   >;
   const machine_ = machines?.[slug];
   const heroLede = machine_?.heroLede ?? t("heroLede");
   const strengths = machine_?.strengths ?? [];
+  const strengthMedia = STRENGTH_MEDIA[slug] ?? [];
   const capabilities = machine_?.capabilities ?? [];
   const capabilityMedia = CAPABILITY_MEDIA[slug] ?? [];
+  const capColumns = capabilityColumns(capabilities.length);
   const compat = machine_?.compat;
+  const compatMedia = COMPAT_MEDIA[slug] ?? [];
   const specs = t.raw("specs") as [string, string][];
   const deployments = t.raw("deployments") as { name: string; loc: string }[];
   const relatedApps = relatedAppsMeta.map((r) => ({ ...r, t: machineFor(r.slug) }));
@@ -167,7 +190,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
               {strengths.map((s, i) => (
                 <Reveal key={s.t} delay={i * 70}>
-                  <CategoryIcon name={STRENGTH_ICON[i]} className="w-9 h-9 text-gold-1" />
+                  <CategoryIcon name={strengthMedia[i]?.icon ?? ""} className="w-9 h-9 text-gold-1" />
                   <h3 className="font-display font-bold text-title tracking-[-.01em] mt-4 mb-1.5 m-0">{s.t}</h3>
                   <p className="text-meta text-muted leading-[1.6] m-0">{s.d}</p>
                 </Reveal>
@@ -183,28 +206,25 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <div className="mb-10 pb-4 border-b border-line">
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("capabilityEyebrow")}</span>
-              <h2 className="qs-h2 mt-1.5">{t("capabilityHeading")}</h2>
+              <h2 className="qs-h2 mt-1.5">{machine_?.capabilityHeading ?? t("capabilityHeading")}</h2>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-px bg-line border border-line">
+            <div className={`grid grid-cols-2 ${capColumns} border-t border-l border-line`}>
               {capabilities.map((c, i) => (
-                /* An odd item count would leave a filled gap in the two-column
-                   layout, so the trailing card stretches across the row. */
-                <Reveal key={c.t}
-                        className="flex [&:nth-last-child(1):nth-child(odd)]:col-span-2 lg:[&:nth-last-child(1):nth-child(odd)]:col-span-1"
-                        delay={i * 70}>
-                  <div className="w-full bg-white p-6 flex flex-col relative
+                <Reveal key={c.t} className="flex" delay={i * 70}>
+                  <div className="w-full bg-white p-6 flex flex-col relative border-r border-b border-line
                                   before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold">
                     {/* 10:9 matches the source frame, so the photo shows whole */}
                     {capabilityMedia[i]?.image ? (
-                      <div className="relative aspect-10/9 mt-2 border border-line overflow-hidden bg-paper-2">
-                        <Image src={capabilityMedia[i].image} alt={c.t} fill
-                               sizes="(max-width:1024px) 45vw, 20vw" className="object-cover" />
+                      <div className="relative aspect-10/9 mt-2 border border-line overflow-hidden bg-white">
+                        <Image src={capabilityMedia[i].image!} alt={c.t} fill
+                               sizes="(max-width:1024px) 45vw, 20vw"
+                               className={capabilityMedia[i].contain ? "object-contain p-2" : "object-cover"} />
                       </div>
                     ) : (
                       <CategoryIcon name={capabilityMedia[i]?.icon ?? ""} className="w-8 h-8 text-gold-1 mt-2" />
                     )}
                     <h3 className="font-display font-bold text-title tracking-[-.01em] mt-4 m-0 leading-[1.2]">{c.t}</h3>
-                    <p className="text-meta text-muted leading-[1.6] mt-2 m-0">{c.d}</p>
+                    {c.d && <p className="text-meta text-muted leading-[1.6] mt-2 m-0">{c.d}</p>}
                   </div>
                 </Reveal>
               ))}
@@ -219,16 +239,23 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.1fr] gap-10 sm:gap-16 items-start">
             <div>
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("compatEyebrow")}</span>
-              <h2 className="qs-h2 mt-1.5 max-w-[20ch]">{t("compatHeading")}</h2>
+              <h2 className="qs-h2 mt-1.5 max-w-[20ch]">{compat.heading ?? t("compatHeading")}</h2>
               <p className="text-body leading-[1.75] text-[#3a3a3a] mt-5 m-0">{compat.lede}</p>
             </div>
             <div className="grid grid-cols-2 gap-px bg-line border border-line">
               {compat.items.map((c, i) => (
                 <Reveal key={c.t} className="flex" delay={i * 70}>
                   <div className="w-full bg-white px-6 py-7 flex flex-col items-start gap-3">
-                    <CategoryIcon name={COMPAT_ICON[i]} className="w-8 h-8 text-gold-1" />
+                    {compatMedia[i]?.image ? (
+                      /* Material swatch: sized like the glyph it replaces so both
+                         variants of this block keep the same rhythm. */
+                      <Image src={compatMedia[i].image!} alt={c.t} width={80} height={80}
+                             className="w-20 h-20 object-contain" />
+                    ) : (
+                      <CategoryIcon name={compatMedia[i]?.icon ?? ""} className="w-8 h-8 text-gold-1" />
+                    )}
                     <h3 className="font-display font-bold text-body tracking-[-.01em] m-0 leading-[1.25]">{c.t}</h3>
-                    <p className="font-mono text-label-xs text-muted tracking-[.08em] uppercase m-0 leading-[1.5]">{c.d}</p>
+                    {c.d && <p className="font-mono text-label-xs text-muted tracking-[.08em] uppercase m-0 leading-[1.5]">{c.d}</p>}
                   </div>
                 </Reveal>
               ))}

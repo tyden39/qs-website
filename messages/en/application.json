@@ -139,7 +139,37 @@
         }
       },
       "cua-long": {
-        "heroLede": "Industrial jigsaw machines cut complex curved profiles in wood, plastic, or thin materials at high speed with a smooth cut line. The QS control system keeps the shop floor running with continuous stability.",
+        "heroLede": "The QS Controller delivers optimal control for CNC jigsaw machines: the blade follows the program precisely, producing smooth cut lines and complex profiles across a wide range of materials.",
+        "strengths": [
+          { "t": "High precision", "d": "Motion follows the program exactly, for smooth and crisp cut lines." },
+          { "t": "Stable operation", "d": "A robust, noise-immune control system that runs steadily over long shifts." },
+          { "t": "Flexible applications", "d": "Programs are easy to adjust for different materials and machining needs." },
+          { "t": "Higher productivity", "d": "Cutting is automated, cutting production time and running cost." }
+        ],
+        "capabilityHeading": "Versatile cutting capabilities",
+        "capabilities": [
+          { "t": "Straight cuts" },
+          { "t": "Curved cuts" },
+          { "t": "Circular arcs" },
+          { "t": "2D contours" },
+          { "t": "Logos and lettering" },
+          { "t": "Decorative patterns" },
+          { "t": "Multiple parts per sheet" }
+        ],
+        "compat": {
+          "heading": "Cutting a wide range of materials",
+          "lede": "The QS controller serves wood and furniture production, signage and lettering, moulds, jigs and fixtures, decorative and handicraft items, composite and engineering-material parts, as well as new builds and retrofits of CNC jigsaw machines.",
+          "items": [
+            { "t": "Natural wood" },
+            { "t": "MDF" },
+            { "t": "Plywood" },
+            { "t": "Engineering plastic" },
+            { "t": "Mica" },
+            { "t": "Composite" },
+            { "t": "Insulation panel" },
+            { "t": "Non-metal sheet" }
+          ]
+        },
         "heroStats": [["2–3", "Axes"], ["±0.1", "Precision (mm)"], ["30 m/min", "Cutting speed"]],
         "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a jigsaw machine.",
         "workflow": [
@@ -172,7 +202,33 @@
         ]
       },
       "mong-go": {
-        "heroLede": "A high-precision mortise-and-tenon machining solution for the furniture industry. It shortens workpiece setup time, diversifies joint styles, and speeds up mass production for industrial woodworking shops.",
+        "heroLede": "The QS Controller is a dedicated CNC control solution for wood joinery machines, cutting tenons, drilling, and grooving precisely to the stored program. It runs stably, is easy to use, and covers production needs from simple to complex.",
+        "strengths": [
+          { "t": "High precision", "d": "Motion follows the program exactly: even, tight, clean joints." },
+          { "t": "Stable operation", "d": "An optimised system that runs smoothly with little vibration and long service life." },
+          { "t": "Flexible applications", "d": "Square, straight, angled and blind tenons, dowel holes, and grooving." },
+          { "t": "Higher productivity", "d": "Fast cycles and high automation cut labour and raise output." }
+        ],
+        "capabilityHeading": "A full range of joint types",
+        "capabilities": [
+          { "t": "Square tenon" },
+          { "t": "Straight tenon" },
+          { "t": "Angled tenon" },
+          { "t": "Blind mortise" },
+          { "t": "Dowel holes" },
+          { "t": "Grooving" },
+          { "t": "Special profiles" }
+        ],
+        "compat": {
+          "heading": "Machining many kinds of wood",
+          "lede": "Joinery machines running the QS controller serve wood furniture, doors and door frames, tables, chairs, cabinets and beds, glued panels and pallets, both domestic and industrial joinery shops, plus made-to-order and export work.",
+          "items": [
+            { "t": "Natural wood" },
+            { "t": "Hardwood" },
+            { "t": "Softwood" },
+            { "t": "Engineered wood" }
+          ]
+        },
         "heroStats": [["3–5", "Axes"], ["±0.05", "Joint tolerance (mm)"], ["18k", "Spindle speed (RPM)"]],
         "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a tenoning machine.",
         "workflow": [

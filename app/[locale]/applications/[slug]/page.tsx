@@ -64,8 +64,12 @@ type CopyItem = { t: string; d?: string };
 type Media = { icon?: string; image?: string; contain?: boolean };
 
 /** Photos cropped from the machine's reference sheet, in the order the copy lists them. */
-const photos = (slug: string, names: string[], contain = false): Media[] =>
-  names.map((name) => ({ image: `/img/applications/${slug}/${name}.webp`, contain }));
+const photos = (slug: string, names: string[]): Media[] =>
+  names.map((name) => ({ image: `/img/applications/${slug}/${name}.webp` }));
+
+/** Line drawings from a reference sheet, traced to SVG so they stay sharp at any size. */
+const drawings = (slug: string, names: string[]): Media[] =>
+  names.map((name) => ({ image: `/img/applications/${slug}/${name}.svg`, contain: true }));
 
 // Media for the copy blocks below, keyed by position — the item titles are
 // translated, so they can't identify an image or glyph across locales. Machines
@@ -77,8 +81,8 @@ const STRENGTH_MEDIA: Record<string, Media[]> = {
 };
 const CAPABILITY_MEDIA: Record<string, Media[]> = {
   "phay-cnc": photos("phay-cnc", ["face-milling", "slot-milling", "drill-tap", "surface-3d", "probing"]),
-  "cua-long": photos("cua-long",
-    ["straight-cut", "curve-cut", "arc-cut", "contour-2d", "logo-text", "ornament", "nesting"], true),
+  "cua-long": drawings("cua-long",
+    ["straight-cut", "curve-cut", "arc-cut", "contour-2d", "logo-text", "ornament", "nesting"]),
   "mong-go": photos("mong-go",
     ["square-tenon", "straight-tenon", "angled-tenon", "mortise", "dowel-hole", "groove", "custom-profile"]),
 };
@@ -87,6 +91,24 @@ const COMPAT_MEDIA: Record<string, Media[]> = {
   "cua-long": photos("cua-long",
     ["natural-wood", "mdf", "plywood", "engineering-plastic", "mica", "composite", "insulation-panel", "non-metal-sheet"]),
   "mong-go": photos("mong-go", ["natural-wood", "hardwood", "softwood", "engineered-wood"]),
+};
+const CONTROL_MEDIA: Record<string, Media[]> = {
+  "cua-long": [{ icon: "motion" }, { icon: "cutting" }, { icon: "performance" }, { icon: "gcode" }, { icon: "io" }],
+  "mong-go": [{ icon: "multi-axis" }, { icon: "gcode" }, { icon: "productivity" }, { icon: "io" }, { icon: "stability" }],
+};
+const MACHINE_PART_MEDIA: Record<string, Media[]> = {
+  "cua-long": [{ icon: "motion" }, { icon: "cutting" }],
+  "mong-go": [{ icon: "drill-tap" }, { icon: "milling" }, { icon: "motion" }, { icon: "controllers" }],
+};
+const BENEFIT_MEDIA: Record<string, Media[]> = {
+  "cua-long": [{ icon: "precision" }, { icon: "usability" }, { icon: "productivity" }, { icon: "gcode" }, { icon: "flexible-config" }],
+  "mong-go": [{ icon: "precision" }, { icon: "productivity" }, { icon: "usability" }, { icon: "cost" },
+              { icon: "flexible-config" }, { icon: "stability" }],
+};
+/** Finished parts photographed on the reference sheet — decoration, so no captions. */
+const GALLERY_IMAGES: Record<string, string[]> = {
+  "cua-long": ["horse", "mandala", "lettering", "flower-panel", "gears", "dino"]
+    .map((name) => `/img/applications/cua-long/product-${name}.webp`),
 };
 
 /** Five capabilities fill one row; every other count reads best in fours. Cards
@@ -113,10 +135,16 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       heroLede: string;
       workflowLede: string;
       workflow: { l: string; t: string; d: string }[];
+      tagline?: string;
       strengths?: CopyItem[];
+      control?: { heading?: string; items: CopyItem[] };
+      machineParts?: { heading?: string; items: CopyItem[] };
       capabilityHeading?: string;
       capabilities?: CopyItem[];
-      compat?: { heading?: string; lede: string; items: CopyItem[] };
+      industries?: { heading?: string; items: string[] };
+      compat?: { heading?: string; lede?: string; items: CopyItem[] };
+      benefits?: { heading?: string; items: CopyItem[] };
+      closing?: string;
     }
   >;
   const machine_ = machines?.[slug];
@@ -126,8 +154,14 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
   const capabilities = machine_?.capabilities ?? [];
   const capabilityMedia = CAPABILITY_MEDIA[slug] ?? [];
   const capColumns = capabilityColumns(capabilities.length);
+  const control = machine_?.control;
+  const machineParts = machine_?.machineParts;
+  const industries = machine_?.industries;
   const compat = machine_?.compat;
   const compatMedia = COMPAT_MEDIA[slug] ?? [];
+  const benefits = machine_?.benefits;
+  const benefitMedia = BENEFIT_MEDIA[slug] ?? [];
+  const gallery = GALLERY_IMAGES[slug] ?? [];
   const specs = t.raw("specs") as [string, string][];
   const deployments = t.raw("deployments") as { name: string; loc: string }[];
   const relatedApps = relatedAppsMeta.map((r) => ({ ...r, t: machineFor(r.slug) }));
@@ -161,6 +195,12 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                   style={{fontSize:"clamp(40px,9vw,72px)", lineHeight:".95", animationDelay: "80ms"}}>
                 {t("heroLine1")}<br/>{t("heroForPrefix")} {machine.toLowerCase()}
               </h1>
+              {machine_?.tagline && (
+                <p className="qs-rise mt-5 inline-block border-l-2 border-gold pl-3 font-display font-semibold text-body text-gold-2 m-0"
+                   style={{ animationDelay: "140ms" }}>
+                  {machine_.tagline}
+                </p>
+              )}
               <p className="qs-rise mt-6 text-lede leading-[1.6] text-[#a8a499] max-w-[55ch]" style={{ animationDelay: "180ms" }}>
                 {heroLede}
               </p>
@@ -200,6 +240,48 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         </section>
       )}
 
+      {/* CONTROL CENTRE — what the controller drives, and the machine it drives */}
+      {control && (
+        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+            <div className="mb-10 pb-4 border-b border-line">
+              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("controlEyebrow")}</span>
+              <h2 className="qs-h2 mt-1.5">{control.heading ?? t("controlHeading")}</h2>
+            </div>
+            <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-start">
+              <div className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
+                {control.items.map((c, i) => (
+                  <Reveal key={c.t} delay={i * 70}>
+                    <CategoryIcon name={CONTROL_MEDIA[slug]?.[i]?.icon ?? ""} className="w-8 h-8 text-gold-1" />
+                    <h3 className="font-display font-bold text-title tracking-[-.01em] mt-3 mb-1.5 m-0">{c.t}</h3>
+                    <p className="text-meta text-muted leading-[1.6] m-0">{c.d}</p>
+                  </Reveal>
+                ))}
+              </div>
+              {machineParts && (
+                <div className="bg-paper border border-line p-7">
+                  <h3 className="font-mono text-label text-gold-1 tracking-[.14em] uppercase m-0">
+                    {machineParts.heading}
+                  </h3>
+                  <dl className="mt-5 m-0">
+                    {machineParts.items.map((p, i) => (
+                      <div key={p.t} className={`flex gap-3.5 py-3.5 ${i > 0 ? "border-t border-line" : ""}`}>
+                        <CategoryIcon name={MACHINE_PART_MEDIA[slug]?.[i]?.icon ?? ""}
+                                      className="w-5 h-5 text-gold-1 shrink-0 mt-0.5" />
+                        <div>
+                          <dt className="font-display font-semibold text-body leading-[1.3]">{p.t}</dt>
+                          <dd className="text-meta text-muted leading-[1.55] m-0 mt-1">{p.d}</dd>
+                        </div>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CAPABILITIES */}
       {capabilities.length > 0 && (
         <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
@@ -208,10 +290,12 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("capabilityEyebrow")}</span>
               <h2 className="qs-h2 mt-1.5">{machine_?.capabilityHeading ?? t("capabilityHeading")}</h2>
             </div>
-            <div className={`grid grid-cols-2 ${capColumns} border-t border-l border-line`}>
+            <div className={`grid grid-cols-2 ${capColumns}`}>
               {capabilities.map((c, i) => (
-                <Reveal key={c.t} className="flex" delay={i * 70}>
-                  <div className="w-full bg-white p-6 flex flex-col relative border-r border-b border-line
+                /* Cards own a full rule and overlap by a pixel, so a part-filled
+                   last row ends in blank space instead of a dangling line. */
+                <Reveal key={c.t} className="flex -ml-px -mt-px" delay={i * 70}>
+                  <div className="w-full bg-white p-6 flex flex-col relative border border-line
                                   before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold">
                     {/* 10:9 matches the source frame, so the photo shows whole */}
                     {capabilityMedia[i]?.image ? (
@@ -240,7 +324,21 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
             <div>
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("compatEyebrow")}</span>
               <h2 className="qs-h2 mt-1.5 max-w-[20ch]">{compat.heading ?? t("compatHeading")}</h2>
-              <p className="text-body leading-[1.75] text-[#3a3a3a] mt-5 m-0">{compat.lede}</p>
+              {compat.lede && <p className="text-body leading-[1.75] text-[#3a3a3a] mt-5 m-0">{compat.lede}</p>}
+              {industries && (
+                <div className="mt-7">
+                  <h3 className="font-mono text-label text-gold-1 tracking-[.14em] uppercase m-0">
+                    {industries.heading ?? t("industriesHeading")}
+                  </h3>
+                  <ul className="mt-4 m-0 p-0 list-none grid gap-2.5">
+                    {industries.items.map((item) => (
+                      <li key={item} className="flex gap-3 text-body leading-[1.5] text-[#3a3a3a]">
+                        <span aria-hidden className="text-gold-1 font-mono">+</span>{item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <div className="grid grid-cols-2 gap-px bg-line border border-line">
               {compat.items.map((c, i) => (
@@ -256,6 +354,48 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                     )}
                     <h3 className="font-display font-bold text-body tracking-[-.01em] m-0 leading-[1.25]">{c.t}</h3>
                     {c.d && <p className="font-mono text-label-xs text-muted tracking-[.08em] uppercase m-0 leading-[1.5]">{c.d}</p>}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* BENEFITS */}
+      {benefits && (
+        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+            <div className="mb-10 pb-4 border-b border-line">
+              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("benefitEyebrow")}</span>
+              <h2 className="qs-h2 mt-1.5">{benefits.heading ?? t("benefitHeading")}</h2>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-9">
+              {benefits.items.map((b, i) => (
+                <Reveal key={b.t} delay={i * 70}>
+                  <CategoryIcon name={benefitMedia[i]?.icon ?? ""} className="w-8 h-8 text-gold-1" />
+                  <h3 className="font-display font-bold text-title tracking-[-.01em] mt-3 mb-1.5 m-0">{b.t}</h3>
+                  <p className="text-meta text-muted leading-[1.6] m-0">{b.d}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* FINISHED PARTS */}
+      {gallery.length > 0 && (
+        <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+            <div className="mb-10 pb-4 border-b border-line">
+              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("galleryEyebrow")}</span>
+              <h2 className="qs-h2 mt-1.5">{t("galleryHeading")}</h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+              {gallery.map((src, i) => (
+                <Reveal key={src} delay={i * 60}>
+                  <div className="relative aspect-square border border-line overflow-hidden bg-white">
+                    <Image src={src} alt="" fill sizes="(max-width:1024px) 45vw, 16vw" className="object-cover" />
                   </div>
                 </Reveal>
               ))}
@@ -281,13 +421,13 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                 below); from md up the same cards lay out as the 3/4-up grid. */}
             <div id="application-products-rail"
                  className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                            md:grid md:grid-cols-3 lg:grid-cols-4 md:overflow-visible
-                            gap-px bg-line border border-line">
+                            md:grid md:grid-cols-3 lg:grid-cols-4 md:overflow-visible">
               {relatedProducts.map((p, i) => (
-                <Reveal key={p.slug} className="qs-reveal-desktop flex items-stretch w-full shrink-0 snap-start md:w-auto" delay={i * 70}>
+                <Reveal key={p.slug} className="qs-reveal-desktop flex items-stretch w-full shrink-0 snap-start md:w-auto -ml-px -mt-px" delay={i * 70}>
                 <Link
                   href={`/controller/${p.slug}`}
                   className="group w-full bg-white p-6 flex flex-col hover:bg-paper transition-colors relative
+                             border border-line
                              before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold"
                 >
                   <div className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">{t("productsModel")}</div>
@@ -315,6 +455,9 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
             <div>
+              {machine_?.closing && (
+                <p className="font-mono text-label text-gold-2 tracking-[.14em] uppercase m-0 mb-3">{machine_.closing}</p>
+              )}
               <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">{t("ctaHeading", { machine })}</h3>
               <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-body leading-relaxed">{t("ctaBody")}</p>
             </div>

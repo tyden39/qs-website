@@ -70,10 +70,17 @@
     "productsLede": "Các dòng bộ điều khiển QS phù hợp để tự động hóa loại máy này. Chọn model theo số trục, kiểu điều khiển và nhu cầu giao tiếp của máy.",
     "productsViewDetail": "Xem chi tiết",
     "productsModel": "Model",
+    "controlEyebrow": "[ Control ]",
+    "controlHeading": "QS Controller — trung tâm điều khiển",
     "capabilityEyebrow": "[ Capability ]",
     "capabilityHeading": "Khả năng ứng dụng vượt trội",
     "compatEyebrow": "[ Compatibility ]",
     "compatHeading": "Tối ưu cho mọi nhu cầu gia công",
+    "industriesHeading": "Ứng dụng trong nhiều lĩnh vực",
+    "benefitEyebrow": "[ Benefit ]",
+    "benefitHeading": "Lợi ích khi sử dụng QS Controller",
+    "galleryEyebrow": "[ Gallery ]",
+    "galleryHeading": "Một số sản phẩm sau gia công",
     "workflowEyebrow": "[ Workflow · 4 steps ]",
     "workflowHeading": "Quy trình vận hành",
     "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi từ nhập file CAD/CAM đến điều khiển servo và giám sát chu trình. Bốn bước dưới đây mô tả luồng dữ liệu và tín hiệu điển hình của một máy phay 3 trục.",
@@ -136,9 +143,11 @@
             { "t": "Tương thích CAM", "d": "Các phần mềm CAM phổ biến" },
             { "t": "Tùy biến linh hoạt", "d": "Dễ dàng tích hợp theo nhu cầu" }
           ]
-        }
+        },
+        "closing": "Nâng tầm khả năng gia công của máy phay CNC — chính xác hơn, nhanh hơn, hiệu quả hơn."
       },
       "cua-long": {
+        "tagline": "Cắt chính xác — Biên dạng linh hoạt — Năng suất vượt trội",
         "heroLede": "QS Controller mang đến giải pháp điều khiển tối ưu cho máy cưa lọng CNC, giúp lưỡi cưa di chuyển chính xác theo chương trình, tạo ra những đường cắt mượt mà và các biên dạng phức tạp trên nhiều loại vật liệu.",
         "heroStats": [["2–3", "Số trục"], ["±0.1", "Độ chính xác (mm)"], ["30 m/p", "Tốc độ cắt"]],
         "strengths": [
@@ -147,6 +156,23 @@
           { "t": "Linh hoạt ứng dụng", "d": "Dễ dàng tùy chỉnh chương trình, phù hợp với nhiều loại vật liệu và yêu cầu gia công." },
           { "t": "Nâng cao năng suất", "d": "Tự động hóa quá trình cắt, giảm thời gian sản xuất và chi phí vận hành." }
         ],
+        "control": {
+          "heading": "Điều khiển đồng bộ — gia công hiệu quả",
+          "items": [
+            { "t": "Điều khiển chuyển động bàn máy", "d": "Điều phối chính xác các trục để bàn máy di chuyển theo biên dạng cần cắt." },
+            { "t": "Điều khiển hướng lưỡi cưa", "d": "Phối hợp trục xoay để điều chỉnh hướng lưỡi cưa, tạo ra các đường cong mượt và chính xác." },
+            { "t": "Điều chỉnh tốc độ gia công", "d": "Tùy chỉnh tốc độ cắt phù hợp với từng vật liệu, độ dày và biên dạng gia công." },
+            { "t": "Quản lý chương trình CNC", "d": "Lưu trữ, chỉnh sửa, chạy chương trình trực tiếp trên bộ điều khiển. Dễ dàng sao lưu và sử dụng lại." },
+            { "t": "Quản lý tín hiệu I/O", "d": "Kết nối và điều khiển các thiết bị ngoại vi như kẹp phôi, hút bụi, bôi trơn, cảm biến, công tắc..." }
+          ]
+        },
+        "machineParts": {
+          "heading": "Máy cưa lọng CNC dùng QS Controller",
+          "items": [
+            { "t": "Bàn máy di chuyển", "d": "Phôi di chuyển theo trục X, Y (hoặc X, Y, Z)." },
+            { "t": "Lưỡi cưa đứng yên và chỉ xoay", "d": "Lưỡi cưa xoay theo hướng cần thiết." }
+          ]
+        },
         "capabilityHeading": "Khả năng gia công đa dạng",
         "capabilities": [
           { "t": "Cắt đường thẳng" },
@@ -157,9 +183,19 @@
           { "t": "Cắt hoa văn" },
           { "t": "Nhiều chi tiết trên 1 tấm" }
         ],
+        "industries": {
+          "items": [
+            "Sản xuất đồ gỗ, nội thất",
+            "Gia công bảng hiệu, chữ quảng cáo",
+            "Cắt khuôn mẫu, jig, đồ gá",
+            "Sản xuất đồ trang trí, thủ công mỹ nghệ",
+            "Cắt chi tiết composite, vật liệu kỹ thuật",
+            "Sản xuất chi tiết kỹ thuật từ tấm vật liệu",
+            "Chế tạo mới hoặc nâng cấp máy cưa lọng CNC"
+          ]
+        },
         "compat": {
           "heading": "Gia công trên nhiều loại vật liệu",
-          "lede": "Bộ điều khiển QS phục vụ sản xuất đồ gỗ và nội thất, bảng hiệu — chữ quảng cáo, khuôn mẫu — jig — đồ gá, đồ trang trí và thủ công mỹ nghệ, chi tiết composite cùng vật liệu kỹ thuật, cho tới việc chế tạo mới hoặc nâng cấp máy cưa lọng CNC.",
           "items": [
             { "t": "Gỗ tự nhiên" },
             { "t": "MDF" },
@@ -171,6 +207,16 @@
             { "t": "Vật liệu phi kim dạng tấm" }
           ]
         },
+        "benefits": {
+          "items": [
+            { "t": "Gia công chính xác", "d": "Đường cắt bám sát biên dạng thiết kế, đạt độ chính xác cao và đồng đều." },
+            { "t": "Giảm phụ thuộc thao tác thủ công", "d": "Tự động hóa quá trình cắt, giảm sai sót do con người." },
+            { "t": "Nâng cao năng suất", "d": "Gia công liên tục, rút ngắn thời gian sản xuất." },
+            { "t": "Dễ dàng thay đổi sản phẩm", "d": "Chỉ cần thay đổi chương trình và thông số, không cần thay đổi cơ khí." },
+            { "t": "Linh hoạt tích hợp", "d": "Dễ dàng tích hợp vào nhiều cấu hình máy khác nhau, đáp ứng nhu cầu đa dạng." }
+          ]
+        },
+        "closing": "Giải pháp điều khiển CNC toàn diện — nâng tầm hiệu suất cho mọi ứng dụng gia công.",
         "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy cưa lọng.",
         "workflow": [
           { "l": "Input · G-code/DXF", "t": "Nhập bản vẽ biên dạng", "d": "Hệ thống tiếp nhận trực tiếp các định dạng file thiết kế (CAD/DXF). Bộ điều khiển sẽ tự động nhận diện và thiết lập đường biên cắt ban đầu." },
@@ -202,6 +248,7 @@
         ]
       },
       "mong-go": {
+        "tagline": "Điều khiển chính xác — Mộng đẹp đồng đều — Năng suất vượt trội",
         "heroLede": "QS Controller là giải pháp điều khiển CNC chuyên dụng cho máy làm mộng gỗ, giúp gia công mộng, khoan, xẻ rãnh chính xác theo chương trình đã thiết lập. Hệ thống vận hành ổn định, dễ sử dụng, đáp ứng đa dạng yêu cầu sản xuất từ đơn giản đến phức tạp.",
         "heroStats": [["3–5", "Số trục"], ["±0.05", "Sai số mộng (mm)"], ["18k", "Tốc độ spindle (RPM)"]],
         "strengths": [
@@ -210,6 +257,24 @@
           { "t": "Linh hoạt ứng dụng", "d": "Gia công nhiều loại mộng: mộng vuông, mộng thẳng, mộng nghiêng, mộng âm, khoan lỗ, xẻ rãnh." },
           { "t": "Nâng cao năng suất", "d": "Chu trình gia công nhanh, tự động hóa cao, giảm nhân công, tăng hiệu quả sản xuất." }
         ],
+        "control": {
+          "items": [
+            { "t": "Điều khiển đa trục", "d": "Hỗ trợ nhiều trục X/Y/Z/A/B/C tùy cấu hình máy." },
+            { "t": "Lập trình dễ dàng", "d": "Nhập chương trình trực tiếp, hỗ trợ G-code chuẩn và macro." },
+            { "t": "Quản lý chu trình gia công", "d": "Tối ưu đường chạy dao, rút ngắn thời gian, giảm hao mòn dao." },
+            { "t": "Điều khiển I/O linh hoạt", "d": "Quản lý kẹp phôi, xy lanh kẹp, đầu khoan, trục cưa, băng tải..." },
+            { "t": "An toàn & bảo vệ", "d": "Giám sát hành trình, cảnh báo lỗi, dừng khẩn cấp, bảo vệ máy và người." }
+          ]
+        },
+        "machineParts": {
+          "heading": "Máy làm mộng gỗ CNC dùng QS Controller",
+          "items": [
+            { "t": "Cụm khoan", "d": "Khoan lỗ chốt, lỗ dẫn hướng." },
+            { "t": "Cụm phay mộng", "d": "Phay mộng vuông, mộng nghiêng, mộng âm..." },
+            { "t": "Bàn làm việc", "d": "Dịch chuyển chính xác theo trục X, Y." },
+            { "t": "Bộ điều khiển", "d": "QS Controller điều phối toàn bộ chu trình." }
+          ]
+        },
         "capabilityHeading": "Gia công đa dạng các loại mộng",
         "capabilities": [
           { "t": "Mộng vuông" },
@@ -220,9 +285,18 @@
           { "t": "Xẻ rãnh" },
           { "t": "Phay hình đặc biệt" }
         ],
+        "industries": {
+          "items": [
+            "Sản xuất nội thất gỗ",
+            "Sản xuất cửa gỗ, khung cửa",
+            "Sản xuất bàn ghế, tủ, giường",
+            "Sản xuất ván ghép, pallet gỗ",
+            "Xưởng mộc dân dụng và công nghiệp",
+            "Gia công theo yêu cầu, đơn hàng xuất khẩu"
+          ]
+        },
         "compat": {
           "heading": "Gia công trên nhiều loại gỗ",
-          "lede": "Máy làm mộng dùng bộ điều khiển QS phục vụ sản xuất nội thất gỗ, cửa gỗ và khung cửa, bàn ghế — tủ — giường, ván ghép và pallet gỗ, xưởng mộc dân dụng lẫn công nghiệp, cùng các đơn hàng gia công theo yêu cầu và hàng xuất khẩu.",
           "items": [
             { "t": "Gỗ tự nhiên" },
             { "t": "Gỗ cứng" },
@@ -230,6 +304,17 @@
             { "t": "Gỗ công nghiệp" }
           ]
         },
+        "benefits": {
+          "items": [
+            { "t": "Độ chính xác cao", "d": "Mộng đồng đều, kích thước chuẩn xác, hạn chế sai số." },
+            { "t": "Tăng năng suất", "d": "Gia công nhanh, chu trình tối ưu, sản xuất liên tục." },
+            { "t": "Dễ sử dụng", "d": "Giao diện trực quan, dễ học, dễ vận hành, hỗ trợ tiếng Việt." },
+            { "t": "Tiết kiệm chi phí", "d": "Giảm nhân công, giảm phế phẩm, tối ưu chi phí sản xuất." },
+            { "t": "Linh hoạt & mở rộng", "d": "Dễ dàng tùy biến, nâng cấp, tích hợp theo nhu cầu." },
+            { "t": "Độ bền & tin cậy", "d": "Thiết kế công nghiệp, ổn định, hoạt động bền bỉ theo thời gian." }
+          ]
+        },
+        "closing": "Giải pháp điều khiển CNC tối ưu cho máy làm mộng gỗ — nâng tầm chất lượng sản phẩm gỗ Việt.",
         "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy làm mộng gỗ.",
         "workflow": [
           { "l": "Input · Macro", "t": "Gọi chương trình mộng", "d": "Hỗ trợ thư viện Macro các kiểu mộng gỗ thông dụng. Kỹ thuật viên chỉ cần điền kích thước (dài, rộng, sâu) thay vì phải lập trình G-Code phức tạp." },

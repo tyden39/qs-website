@@ -70,10 +70,17 @@
     "productsLede": "QS controller lines suited to automating this machine type. Pick a model by axis count, control mode, and the interfaces your machine needs.",
     "productsViewDetail": "View details",
     "productsModel": "Model",
+    "controlEyebrow": "[ Control ]",
+    "controlHeading": "QS Controller — the control centre",
     "capabilityEyebrow": "[ Capability ]",
     "capabilityHeading": "Outstanding machining capabilities",
     "compatEyebrow": "[ Compatibility ]",
     "compatHeading": "Optimised for every machining need",
+    "industriesHeading": "Used across many industries",
+    "benefitEyebrow": "[ Benefit ]",
+    "benefitHeading": "What the QS Controller brings",
+    "galleryEyebrow": "[ Gallery ]",
+    "galleryHeading": "Parts made on these machines",
     "workflowEyebrow": "[ Workflow · 4 steps ]",
     "workflowHeading": "Operation workflow",
     "workflowLede": "The QS controller handles the entire chain from CAD/CAM file import to servo control and cycle monitoring. The four steps below describe the typical data and signal flow of a 3-axis milling machine.",
@@ -136,9 +143,11 @@
             { "t": "CAM compatible", "d": "Mainstream CAM software" },
             { "t": "Flexible configuration", "d": "Easy to adapt and integrate" }
           ]
-        }
+        },
+        "closing": "Raising what a CNC milling machine can do — more accurate, faster, more efficient."
       },
       "cua-long": {
+        "tagline": "Precise cuts — Flexible profiles — Outstanding output",
         "heroLede": "The QS Controller delivers optimal control for CNC jigsaw machines: the blade follows the program precisely, producing smooth cut lines and complex profiles across a wide range of materials.",
         "strengths": [
           { "t": "High precision", "d": "Motion follows the program exactly, for smooth and crisp cut lines." },
@@ -146,6 +155,23 @@
           { "t": "Flexible applications", "d": "Programs are easy to adjust for different materials and machining needs." },
           { "t": "Higher productivity", "d": "Cutting is automated, cutting production time and running cost." }
         ],
+        "control": {
+          "heading": "Synchronised control — efficient machining",
+          "items": [
+            { "t": "Table motion control", "d": "Coordinates the axes precisely so the table follows the profile being cut." },
+            { "t": "Blade orientation control", "d": "Works the rotary axis to steer the blade, producing smooth and accurate curves." },
+            { "t": "Cutting speed control", "d": "Tunes the feed to suit each material, thickness, and profile." },
+            { "t": "CNC program management", "d": "Store, edit, and run programs on the controller itself, with easy backup and reuse." },
+            { "t": "I/O signal management", "d": "Connects and drives peripherals: clamps, dust extraction, lubrication, sensors, switches." }
+          ]
+        },
+        "machineParts": {
+          "heading": "A CNC jigsaw running the QS Controller",
+          "items": [
+            { "t": "Moving table", "d": "The workpiece travels along X and Y (or X, Y, Z)." },
+            { "t": "Fixed blade that only rotates", "d": "The blade turns to whatever heading the cut needs." }
+          ]
+        },
         "capabilityHeading": "Versatile cutting capabilities",
         "capabilities": [
           { "t": "Straight cuts" },
@@ -156,9 +182,19 @@
           { "t": "Decorative patterns" },
           { "t": "Multiple parts per sheet" }
         ],
+        "industries": {
+          "items": [
+            "Wood products and furniture",
+            "Signage and advertising lettering",
+            "Moulds, jigs, and fixtures",
+            "Decorative items and handicrafts",
+            "Composite and engineering-material parts",
+            "Technical parts cut from sheet stock",
+            "New builds and retrofits of CNC jigsaw machines"
+          ]
+        },
         "compat": {
           "heading": "Cutting a wide range of materials",
-          "lede": "The QS controller serves wood and furniture production, signage and lettering, moulds, jigs and fixtures, decorative and handicraft items, composite and engineering-material parts, as well as new builds and retrofits of CNC jigsaw machines.",
           "items": [
             { "t": "Natural wood" },
             { "t": "MDF" },
@@ -170,6 +206,16 @@
             { "t": "Non-metal sheet" }
           ]
         },
+        "benefits": {
+          "items": [
+            { "t": "Accurate machining", "d": "Cut lines hug the designed profile, evenly and to close tolerance." },
+            { "t": "Less manual handling", "d": "Automating the cut removes the errors that come with hand work." },
+            { "t": "Higher productivity", "d": "Continuous machining shortens production time." },
+            { "t": "Quick product changes", "d": "Change the program and parameters — no mechanical rework needed." },
+            { "t": "Flexible integration", "d": "Fits many machine configurations and a wide spread of requirements." }
+          ]
+        },
+        "closing": "A complete CNC control solution — raising performance across every machining application.",
         "heroStats": [["2–3", "Axes"], ["±0.1", "Precision (mm)"], ["30 m/min", "Cutting speed"]],
         "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a jigsaw machine.",
         "workflow": [
@@ -202,6 +248,7 @@
         ]
       },
       "mong-go": {
+        "tagline": "Precise control — Even, clean joints — Outstanding output",
         "heroLede": "The QS Controller is a dedicated CNC control solution for wood joinery machines, cutting tenons, drilling, and grooving precisely to the stored program. It runs stably, is easy to use, and covers production needs from simple to complex.",
         "strengths": [
           { "t": "High precision", "d": "Motion follows the program exactly: even, tight, clean joints." },
@@ -209,6 +256,24 @@
           { "t": "Flexible applications", "d": "Square, straight, angled and blind tenons, dowel holes, and grooving." },
           { "t": "Higher productivity", "d": "Fast cycles and high automation cut labour and raise output." }
         ],
+        "control": {
+          "items": [
+            { "t": "Multi-axis control", "d": "Supports X/Y/Z/A/B/C as the machine configuration requires." },
+            { "t": "Easy programming", "d": "Enter programs directly; standard G-code and macros are supported." },
+            { "t": "Cycle management", "d": "Optimises the toolpath, shortens cycles, and reduces tool wear." },
+            { "t": "Flexible I/O control", "d": "Drives clamps, clamping cylinders, drill heads, saw spindles, conveyors." },
+            { "t": "Safety and protection", "d": "Travel monitoring, fault alarms, emergency stop — protecting machine and operator." }
+          ]
+        },
+        "machineParts": {
+          "heading": "A CNC joinery machine running the QS Controller",
+          "items": [
+            { "t": "Drilling head", "d": "Dowel holes and guide holes." },
+            { "t": "Tenon milling head", "d": "Square, angled, and blind tenons." },
+            { "t": "Work table", "d": "Precise travel along X and Y." },
+            { "t": "Controller", "d": "The QS Controller coordinates the whole cycle." }
+          ]
+        },
         "capabilityHeading": "A full range of joint types",
         "capabilities": [
           { "t": "Square tenon" },
@@ -219,9 +284,18 @@
           { "t": "Grooving" },
           { "t": "Special profiles" }
         ],
+        "industries": {
+          "items": [
+            "Wood furniture production",
+            "Doors and door frames",
+            "Tables, chairs, cabinets, and beds",
+            "Glued panels and wooden pallets",
+            "Domestic and industrial joinery shops",
+            "Made-to-order and export work"
+          ]
+        },
         "compat": {
           "heading": "Machining many kinds of wood",
-          "lede": "Joinery machines running the QS controller serve wood furniture, doors and door frames, tables, chairs, cabinets and beds, glued panels and pallets, both domestic and industrial joinery shops, plus made-to-order and export work.",
           "items": [
             { "t": "Natural wood" },
             { "t": "Hardwood" },
@@ -229,6 +303,17 @@
             { "t": "Engineered wood" }
           ]
         },
+        "benefits": {
+          "items": [
+            { "t": "High precision", "d": "Even joints, true dimensions, minimal deviation." },
+            { "t": "Higher output", "d": "Fast machining, optimised cycles, continuous production." },
+            { "t": "Easy to use", "d": "A clear interface that is quick to learn and operate." },
+            { "t": "Lower cost", "d": "Less labour, fewer rejects, leaner production cost." },
+            { "t": "Flexible and expandable", "d": "Easy to customise, upgrade, and integrate as needs change." },
+            { "t": "Durable and dependable", "d": "Industrial design that stays stable over years of use." }
+          ]
+        },
+        "closing": "The CNC control solution for wood joinery machines — raising the quality of Vietnamese woodwork.",
         "heroStats": [["3–5", "Axes"], ["±0.05", "Joint tolerance (mm)"], ["18k", "Spindle speed (RPM)"]],
         "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a tenoning machine.",
         "workflow": [

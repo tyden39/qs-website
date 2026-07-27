@@ -132,10 +132,20 @@ export default function Header() {
     { page: "/machine-building", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
     { page: "/machine-building", g: "inspection", icon: "inspection", label: t("submenu.machineBuilding.inspection") },
   ];
+  const applicationsChildren: NavChild[] = ([
+    ["kim loại", "metal"],
+    ["gỗ", "wood"],
+    ["đá", "stone"],
+    ["kim hoàn", "jewelry"],
+    ["automation", "automation"],
+  ] as const).map(([id, key]) => ({
+    page: "/applications", g: id, icon: key, label: t(`submenu.applications.${key}`),
+  }));
+
   const left: NavItem[] = [
     { href: "/electronics", label: t("products"), children: electronicsChildren },
     { href: "/machine-building", label: t("cnc"), children: machineChildren },
-    { href: "/applications", label: t("applications") },
+    { href: "/applications", label: t("applications"), children: applicationsChildren },
     { href: "/services", label: t("services") },
     { href: "/downloads", label: t("downloads") },
   ];

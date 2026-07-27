@@ -25,13 +25,6 @@
       "cnc": "CNC machines",
       "automation": "Automation",
       "inspection": "Checkweighing"
-    },
-    "applications": {
-      "metal": "Metal",
-      "wood": "Wood",
-      "stone": "Stone",
-      "jewelry": "Jewellery",
-      "automation": "Other automation"
     }
   }
 }

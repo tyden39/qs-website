@@ -18,6 +18,7 @@ export default function Header() {
   // nav.json) so the flyout wording tracks the pages one-to-one.
   const tp = useTranslations("product");
   const tc = useTranslations("cnc");
+  const ta = useTranslations("application.index");
   // i18n-aware usePathname returns the locale-stripped path so active-state
   // matching works regardless of /en prefix.
   const path = usePathname();
@@ -132,14 +133,15 @@ export default function Header() {
     { page: "/machine-building", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
     { page: "/machine-building", g: "inspection", icon: "inspection", label: t("submenu.machineBuilding.inspection") },
   ];
-  const applicationsChildren: NavChild[] = ([
-    ["kim loại", "metal"],
-    ["gỗ", "wood"],
-    ["đá", "stone"],
-    ["kim hoàn", "jewelry"],
-    ["automation", "automation"],
-  ] as const).map(([id, key]) => ({
-    page: "/applications", g: id, icon: key, label: t(`submenu.applications.${key}`),
+  // Material groups come straight from the applications page's own copy, so the
+  // dropdown wording and the sidebar rail always read the same. The page derives
+  // each group's filter id from its `tag`, so the ids are rebuilt the same way
+  // here (and URL-encoded, since a tag can carry Vietnamese words and spaces).
+  const APP_ICONS = ["metal", "wood", "stone", "jewelry", "automation"];
+  const applicationsChildren: NavChild[] = (
+    ta.raw("groups") as { name: string; tag: string }[]
+  ).map((g, i) => ({
+    page: "/applications", g: g.tag.toLowerCase(), icon: APP_ICONS[i], label: g.name,
   }));
 
   const left: NavItem[] = [

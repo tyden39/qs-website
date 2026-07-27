@@ -25,13 +25,6 @@
       "cnc": "Máy CNC",
       "automation": "Tự động hóa",
       "inspection": "Cân kiểm tra"
-    },
-    "applications": {
-      "metal": "Kim loại",
-      "wood": "Gỗ",
-      "stone": "Đá",
-      "jewelry": "Kim hoàn",
-      "automation": "Máy tự động hóa khác"
     }
   }
 }

@@ -135,19 +135,6 @@ export default async function Applications({ params }: { params: Promise<{ local
   // back to a CategoryIcon. Keyed by position — the group's `tag` is the label in
   // the other language, so it can't identify the material across locales.
   const APP_ICON = ["metal", "wood", "stone", "jewelry", "automation"];
-  // Sub-branch glyphs, keyed by case-study slug / "coming soon" key. Each maps to
-  // the machining process behind the card so the branch reads at a glance.
-  const APP_SUB_ICON: Record<string, string> = {
-    "phay-cnc": "milling",
-    "dieu-khac-go": "carving",
-    "cua-long": "sawing",
-    "mong-go": "joinery",
-    "dieu-khac-da": "carving",
-    "cat-da": "cutting",
-    "kim-hoan": "milling",
-    "dan-keo": "dispensing",
-    "uon-lo-xo": "bending",
-  };
   // Hero figure for the active material group — leads with that group's first
   // case-study photo, or the material glyph when it has no case yet. Fills the
   // shared HERO_IMAGE_SLOT (standard size lives in the tree component).
@@ -166,11 +153,6 @@ export default async function Applications({ params }: { params: Promise<{ local
         ? { key: it.slug, name: caseAt(it.slug).label, subtype: it.slug, node: caseCard(it.slug) }
         : { key: it.key, name: soon.items[it.key], subtype: it.key, node: soonCard(it.key) },
     );
-    const children = g.items.map((it) =>
-      it.kind === "case"
-        ? { id: it.slug, icon: APP_SUB_ICON[it.slug], label: caseAt(it.slug).label, count: 1 }
-        : { id: it.key, icon: APP_SUB_ICON[it.key], label: soon.items[it.key], count: 1 },
-    );
     // First case study in the group provides the hero photo; groups that are all
     // "coming soon" (e.g. stone) fall back to the material glyph.
     const lead = g.items.find((it) => it.kind === "case");
@@ -183,7 +165,6 @@ export default async function Applications({ params }: { params: Promise<{ local
       icon: APP_ICON[gi],
       blurb: g.desc,
       heroImage: appFigure(heroSrc, g.name, APP_ICON[gi], gi === 0),
-      children,
       node: (
         <SortableCardList
           layout="grid"

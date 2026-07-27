@@ -402,6 +402,23 @@ body {
   .qs-shot { filter: none !important; }
 }
 
+/* ─── Catalogue hero bleed ───
+   From lg up the hero figure runs off the right edge of the viewport instead of
+   sitting in a column, so the copy beside it has to stop before the figure
+   reaches into the centred container. `--qs-bleed` is the figure's width; the
+   copy's padding is however far that figure overlaps the container's content
+   box (nothing until the container hits its max width, then half the overflow),
+   plus the page gutter and a breathing gap. */
+:root { --qs-bleed: 38vw; --qs-bleed-gap: 40px; }
+@media (min-width: 1024px) {
+  .qs-hero-figure { width: var(--qs-bleed); }
+  .qs-hero-copy {
+    padding-right: calc(
+      var(--qs-bleed) - max(0px, (100vw - var(--max-width-wrap)) / 2) - var(--pad) + var(--qs-bleed-gap)
+    );
+  }
+}
+
 /* ─── Perpetual gold sheen (keeps key type alive after reveal) ─── */
 .qs-gold-shimmer {
   background: linear-gradient(100deg,

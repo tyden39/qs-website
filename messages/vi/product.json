@@ -2,11 +2,11 @@
   "page": {
     "breadcrumb": {
       "home": "Trang chủ",
-      "products": "QS điều khiển"
+      "products": "Sản phẩm điện tử"
     },
     "eyebrow": "QS Electronics · Thiết bị điều khiển công nghiệp",
-    "heading": "QS điều khiển",
-    "headingGold": "điều khiển",
+    "heading": "Sản phẩm điện tử",
+    "headingGold": "điện tử",
     "lede": "Từ bộ điều khiển CNC, hệ servo, biến tần đến thiết bị DNC và phụ kiện — QS thiết kế, sản xuất và phân phối trọn bộ thiết bị điều khiển công nghiệp, sẵn sàng đồng bộ cho mọi hệ thống máy và dây chuyền tự động hóa.",
     "features": [
       "Hiệu năng vượt trội",
@@ -184,7 +184,7 @@
   "detailPage": {
     "breadcrumb": {
       "home": "Trang chủ",
-      "products": "QS điều khiển",
+      "products": "Sản phẩm điện tử",
       "category": "Bộ điều khiển"
     },
     "modelLine": "Model · {name} · Series 2026",

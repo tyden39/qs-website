@@ -6,8 +6,8 @@ import Reveal from "@/components/reveal";
 import CircuitTraces from "@/components/circuit-traces";
 import CncFeatureVideo from "./_components/cnc-feature-video";
 import { MachineCard } from "@/components/products/machine-card";
-import { CategoryTreeHero, CategoryTreePanels, type CategoryTreeGroup, type CategoryTreeChild } from "../controller/_components/product-category-tree";
-import { SortableCardList } from "../controller/_components/sortable-card-list";
+import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, type CategoryTreeGroup, type CategoryTreeChild } from "../electronics/_components/product-category-tree";
+import { SortableCardList } from "../electronics/_components/sortable-card-list";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import { getMachines, MACHINE_TYPES, type MachineView, type MachineCategory } from "@/lib/data/machines";
@@ -27,13 +27,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates("/mechatronics", locale),
+    alternates: buildAlternates("/machine-building", locale),
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/mechatronics",
+      url: "/machine-building",
       images: [{ url: "/home/cnc-machine-hero.webp", width: 1672, height: 941, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -53,13 +53,13 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
   const machines = getMachines(locale);
   const pt = await getTranslations({ locale, namespace: "product.page" });
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: t("breadcrumb.current"), path: "/mechatronics" },
+    { name: t("breadcrumb.current"), path: "/machine-building" },
   ]);
 
   // Sidebar tree = machine types (CNC / Automation / Inspection); the CNC branch
   // (the only type with several categories) expands to its categories. Each
   // branch's right panel is a stacked card list with the shared count + sort
-  // toolbar, matching the /controller catalogue.
+  // toolbar, matching the /electronics catalogue.
   const catsOf = (ms: MachineView[]): MachineCategory[] => {
     const order: MachineCategory[] = [];
     for (const m of ms) if (!order.includes(m.category)) order.push(m.category);
@@ -69,7 +69,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
   // shared HERO_IMAGE_SLOT (standard size lives in the tree component).
   const machineFigure = (img: { src: string }, alt: string, priority = false) => (
     <Image src={img.src} alt={alt} fill priority={priority}
-           sizes="(max-width:768px) 55vw, 300px" className="object-contain" />
+           sizes="(max-width:1023px) 92vw, 38vw" className="object-contain" />
   );
   const machineGroups: CategoryTreeGroup[] = MACHINE_TYPES.map((ty) => ({
     ty,
@@ -128,7 +128,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
         <CircuitTraces variant="dark" className="absolute inset-y-0 left-[-8%] w-[46%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)]" />
         <div className="qs-glow" style={{ top: "-140px", right: "18%", width: "420px", height: "420px" }} aria-hidden="true"></div>
-        <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 py-12 lg:py-16">
+        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 py-12 lg:py-16">
           <nav className="qs-crumb mb-7 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here text-[#eee9d7]">{t("breadcrumb.current")}</span>
@@ -153,6 +153,10 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
             />
           </Reveal>
         </div>
+        {/* The active type's machine render, bleeding off the right edge of the
+            hero. Sits after the wrapper so the pre-paint primer above still
+            governs it, and under the wrapper's z-10 so the copy stays on top. */}
+        <CategoryHeroFigure groups={machineGroups} tone="dark" />
       </section>
 
       {/* MACHINE LINE-UP — the active type's machines, full width below the hero */}

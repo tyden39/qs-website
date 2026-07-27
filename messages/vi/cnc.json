@@ -1,17 +1,17 @@
 {
   "breadcrumb": {
     "home": "Trang chủ",
-    "current": "QS Máy cơ"
+    "current": "Chế tạo máy"
   },
   "seo": {
-    "title": "QS Máy cơ",
+    "title": "Chế tạo máy",
     "description": "Trung tâm phay CNC 3 trục lắp ráp tại Việt Nam, chạy bộ điều khiển Astro 10i của QS. Hành trình 850×500×540 mm, trục chính BT40 12.000 v/ph, định vị ±0.005 mm."
   },
   "hero": {
     "eyebrow": "Chế tạo máy · Lắp ráp tại Việt Nam",
     "model": "QS VMC-850",
-    "heading2": "QS",
-    "heading2Em": "Máy cơ",
+    "heading2": "Chế tạo",
+    "heading2Em": "máy",
     "lede": "QS Technology cung cấp giải pháp chế tạo máy CNC, từ khâu tư vấn, thiết kế đến chế tạo và lắp đặt. Với năng lực làm chủ công nghệ và kinh nghiệm trong lĩnh vực CNC, chúng tôi tự tin mang đến các hệ thống CNC có độ chính xác cao, vận hành ổn định và tối ưu hiệu suất.",
     "ctaQuote": "Nhận báo giá",
     "ctaSpecs": "Xem thông số",
@@ -259,7 +259,7 @@
     },
     "detail": {
       "backToList": "Tất cả máy CNC",
-      "crumb": "QS Máy cơ",
+      "crumb": "Chế tạo máy",
       "specsHeading": "Bảng thông số kỹ thuật",
       "specsNote": "Thông số cấu hình chuẩn — trục chính, ổ dao và hành trình có thể thay đổi theo yêu cầu.",
       "featuresHeading": "Điểm nổi bật",

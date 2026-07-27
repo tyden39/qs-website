@@ -26,13 +26,16 @@ export async function CatalogDetail({
 
   // The two catalogue categories live on their own list pages now; the crumb
   // walks through the right one.
-  const categoryPath = product.category === "dnc" ? "/controller/dnc" : "/controller/accessories";
+  const categoryPath = product.category === "dnc" ? "/electronics/dnc" : "/electronics/accessories";
   const categoryLabel = tPage(`groups.${product.category}.label`);
   const productJsonLd = buildCatalogProduct(product, locale);
+  // A newly listed accessory can go up before its spec sheet arrives; the table
+  // and the link that jumps to it appear only once there are rows to show.
+  const hasSpecs = product.specs.length > 0;
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: t("breadcrumb.products"), path: "/controller" },
+    { name: t("breadcrumb.products"), path: "/electronics" },
     { name: categoryLabel, path: categoryPath },
-    { name: product.name, path: `/controller/${product.slug}` },
+    { name: product.name, path: `/electronics/${product.slug}` },
   ]);
 
   return (
@@ -50,7 +53,7 @@ export async function CatalogDetail({
           <div className="qs-crumb mb-8 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
-            <Link href="/controller">{t("breadcrumb.products")}</Link>
+            <Link href="/electronics">{t("breadcrumb.products")}</Link>
             <span className="sep">/</span>
             <Link href={categoryPath}>{categoryLabel}</Link>
             <span className="sep">/</span>
@@ -73,12 +76,14 @@ export async function CatalogDetail({
                 <Link className="qs-btn qs-btn-gold" href="/contact">
                   {t("quoteBtn")}
                 </Link>
-                <a
-                  className="qs-btn border border-white/25 bg-transparent text-white hover:bg-white hover:text-ink"
-                  href="#specs"
-                >
-                  {t("specsLink")}
-                </a>
+                {hasSpecs && (
+                  <a
+                    className="qs-btn border border-white/25 bg-transparent text-white hover:bg-white hover:text-ink"
+                    href="#specs"
+                  >
+                    {t("specsLink")}
+                  </a>
+                )}
               </div>
             </div>
 
@@ -105,34 +110,39 @@ export async function CatalogDetail({
       </section>
 
       {/* ── Specifications ── */}
-      <section id="specs" className="relative overflow-hidden bg-paper border-b border-line py-12 sm:py-16 lg:py-24">
-        <CircuitTraces
-          variant="light"
-          className="hidden md:block absolute inset-y-0 right-0 w-[34%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)]"
-        />
-        <div className="relative qs-wrap-wide">
-          <div className="qs-eyebrow mb-5">{t("specsEyebrow")}</div>
-          <div className="border border-line">
-            <div className="bg-[#11120f] px-4 py-3.5">
-              <span className="font-display text-body font-bold tracking-[-.01em] text-white">
-                {product.name}
-              </span>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-px bg-line border-t border-line">
-              {product.specs.map((s) => (
-                <div key={s.l} className="bg-white px-4 py-3.5 flex flex-col gap-1">
-                  <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
-                    {s.l}
-                  </span>
-                  <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
-                    {s.v}
-                  </span>
-                </div>
-              ))}
+      {hasSpecs && (
+        <section
+          id="specs"
+          className="relative overflow-hidden bg-paper border-b border-line py-12 sm:py-16 lg:py-24"
+        >
+          <CircuitTraces
+            variant="light"
+            className="hidden md:block absolute inset-y-0 right-0 w-[34%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)]"
+          />
+          <div className="relative qs-wrap-wide">
+            <div className="qs-eyebrow mb-5">{t("specsEyebrow")}</div>
+            <div className="border border-line">
+              <div className="bg-[#11120f] px-4 py-3.5">
+                <span className="font-display text-body font-bold tracking-[-.01em] text-white">
+                  {product.name}
+                </span>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-px bg-line border-t border-line">
+                {product.specs.map((s) => (
+                  <div key={s.l} className="bg-white px-4 py-3.5 flex flex-col gap-1">
+                    <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
+                      {s.l}
+                    </span>
+                    <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
+                      {s.v}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── Features (only where the catalogue documents them) ── */}
       {product.features.length > 0 && (

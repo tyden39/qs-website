@@ -4,7 +4,7 @@ import { Link } from "@/lib/i18n/navigation";
 import { getAllProducts, CONTROLLER_TYPES } from "@/lib/data/products";
 import { ProductBundleCard } from "@/components/products/product-bundle-card";
 import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";
-import { CategoryTreeHero, CategoryTreePanels, type CategoryTreeChild, type CategoryTreeGroup } from "./_components/product-category-tree";
+import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, type CategoryTreeChild, type CategoryTreeGroup } from "./_components/product-category-tree";
 import { CatalogList } from "./_components/catalog-list";
 import { SeriesList } from "./_components/series-list";
 import { getCatalogProducts } from "@/lib/data/catalog";
@@ -30,13 +30,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates("/controller", locale),
+    alternates: buildAlternates("/electronics", locale),
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/controller",
+      url: "/electronics",
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -85,14 +85,14 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const seriesThumb = (category: SeriesCategory) =>
     getSeries(locale, category).find((s) => s.image)?.image ?? SERIES_THUMB_FALLBACK[category];
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
-    { name: seo("productsTitle"), path: "/controller" },
+    { name: seo("productsTitle"), path: "/electronics" },
   ]);
 
   // The hero figure for the active group — a bare render that fills the shared
   // HERO_IMAGE_SLOT (standard size lives in the tree component).
   const heroFigure = (img: { src: string }, alt: string, priority = false) => (
     <Image src={img.src} alt={alt} fill priority={priority}
-           sizes="(max-width: 768px) 55vw, 300px" className="object-contain" />
+           sizes="(max-width: 1023px) 92vw, 38vw" className="object-contain" />
   );
   // Distinct family render for the controllers intro (the servo/inverter/DNC/
   // accessory groups reuse their own catalogue art).
@@ -207,6 +207,10 @@ export default async function Products({ params }: { params: Promise<{ locale: L
             />
           </Reveal>
         </div>
+        {/* The active group's render, bleeding off the right edge of the hero.
+            Sits after the wrapper so the pre-paint primer above still governs
+            it, and under the wrapper's z-10 so the copy stays on top. */}
+        <CategoryHeroFigure groups={groups} />
       </section>
 
       {/* LIST — the active group's catalogue, full width below the hero */}

@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import type { MachineView } from "@/lib/data/machines";
 
 /**
- * List card for a CNC / automation machine. Same spread as the /controller
+ * List card for a CNC / automation machine. Same spread as the /electronics
  * series cards — machine render, category and tagline on the left, the
  * highlight spec matrix on the right — so both catalogues read as one system.
  * The full spec table lives on the datasheet page.
@@ -20,7 +20,7 @@ export async function MachineCard({
 }) {
   const t = await getTranslations("cnc.machines");
   const idx = String(index + 1).padStart(2, "0");
-  const href = `/mechatronics/${machine.slug}`;
+  const href = `/machine-building/${machine.slug}`;
 
   return (
     <article className="qs-card grid md:grid-cols-[minmax(0,300px)_1fr] group shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)]">

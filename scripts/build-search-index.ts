@@ -35,7 +35,7 @@ function buildForLocale(locale: Locale): SearchRecord[] {
       type: "product",
       title: p.name,
       excerpt: p.desc,
-      href: `/products/${p.slug}`,
+      href: `/electronics/${p.slug}`,
       meta: clean([p.series, p.axes, p.display]),
       keywords: clean([
         p.name,
@@ -55,7 +55,7 @@ function buildForLocale(locale: Locale): SearchRecord[] {
       type: "product",
       title: c.name,
       excerpt: c.desc,
-      href: `/products/${c.slug}`,
+      href: `/electronics/${c.slug}`,
       meta: clean([c.tag]),
       keywords: clean([
         c.name,

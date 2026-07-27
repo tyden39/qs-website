@@ -12,12 +12,12 @@ const GROUP_KEY = "g";
 const TYPE_KEY = "t";
 
 /**
- * The one standard hero-image slot shared by every catalogue page — a fixed
- * aspect box the figure fills (`object-contain` for product renders,
- * `object-cover` for photos). It floats inside the intro so the blurb wraps
- * beside it and runs full-width below it. Its column width is set by the float
- * wrapper (see `CategoryTreeHero`); keeping the aspect here is the single source
- * of truth, so pages must not set their own box.
+ * The one standard hero-image slot shared by every catalogue page — the box a
+ * group's figure fills (`object-contain` for product renders, `object-cover`
+ * for photos). Below `lg` that box is a 4:3 card stacked under the heading;
+ * from `lg` up `CategoryHeroFigure` re-uses the same node full-height against
+ * the right edge of the viewport. Keeping the box here is the single source of
+ * truth, so pages must not set their own.
  */
 export const HERO_IMAGE_SLOT = "relative w-full aspect-[4/3]";
 
@@ -69,23 +69,80 @@ export type CategoryTreeGroup = {
   node: React.ReactNode;
 };
 
-/** The 28px light tile shared by the render thumbnail and the icon fallback. */
-function TileFrame({ active, children }: { active: boolean; children: React.ReactNode }) {
+/** Tone the hero adopts from the page it sits in — dark heroes need light copy
+ *  and dark chrome, light heroes need ink copy on paper chrome. */
+export type CategoryHeroTone = "light" | "dark";
+
+/**
+ * Every tone-dependent surface in the hero, resolved once per render. Keeping
+ * them in one table is what lets the same sidebar/figure/intro markup sit on the
+ * paper catalogue heroes and on the ink machine-hall hero without either page
+ * restating colours.
+ */
+const TONE = {
+  light: {
+    rail: "border-line bg-white",
+    railHead: "border-ink text-ink",
+    row: "border-line",
+    label: "text-ink/85 hover:text-ink",
+    labelOn: "text-gold-1",
+    count: "text-line-2",
+    countOn: "text-gold-2",
+    child: "text-muted hover:text-ink",
+    childOn: "text-gold-1",
+    select: "border-line bg-white text-ink",
+    title: "text-ink",
+    blurb: "text-muted",
+    cta: "text-gold-1 hover:text-ink",
+    frame: "border-line",
+    frameBg: "radial-gradient(circle at 50% 34%, #ffffff, #eceae4)",
+    tile: "border-line",
+    tileOn: "border-line-2",
+    tileBg: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)",
+    glyph: "text-muted",
+  },
+  dark: {
+    rail: "border-[#2a2620] bg-[#141510]",
+    railHead: "border-[#4a453a] text-[#eee9d7]",
+    row: "border-[#26241e]",
+    label: "text-[#bdb7a8] hover:text-white",
+    labelOn: "text-gold-2",
+    count: "text-[#5a5449]",
+    countOn: "text-gold-2",
+    child: "text-[#8f8878] hover:text-[#eee9d7]",
+    childOn: "text-gold-2",
+    select: "border-[#2a2620] bg-[#141510] text-[#eee9d7]",
+    title: "text-white",
+    blurb: "text-[#a8a499]",
+    cta: "text-gold-2 hover:text-white",
+    frame: "border-[#2a2620]",
+    frameBg: "radial-gradient(circle at 50% 34%, #24251f, #121310)",
+    tile: "border-[#2a2620]",
+    tileOn: "border-[#4a453a]",
+    tileBg: "radial-gradient(circle at 50% 38%, #24251f, #16170f)",
+    glyph: "text-[#8f8878]",
+  },
+} as const;
+
+type ToneSkin = (typeof TONE)[CategoryHeroTone];
+
+/** The 28px tile shared by the render thumbnail and the icon fallback. */
+function TileFrame({ active, skin, children }: { active: boolean; skin: ToneSkin; children: React.ReactNode }) {
   return (
     <span
       className={`grid place-items-center w-7 h-7 shrink-0 rounded-[2px] border transition-colors ${
-        active ? "border-line-2" : "border-line"
+        active ? skin.tileOn : skin.tile
       }`}
-      style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
+      style={{ background: skin.tileBg }}
     >
       {children}
     </span>
   );
 }
 
-function Thumb({ src, w, h, active }: { src: string; w: number; h: number; active: boolean }) {
+function Thumb({ src, w, h, active, skin }: { src: string; w: number; h: number; active: boolean; skin: ToneSkin }) {
   return (
-    <TileFrame active={active}>
+    <TileFrame active={active} skin={skin}>
       <Image
         src={src}
         alt=""
@@ -99,17 +156,13 @@ function Thumb({ src, w, h, active }: { src: string; w: number; h: number; activ
   );
 }
 
-function IconTile({ name, active }: { name: string; active: boolean }) {
+function IconTile({ name, active, skin }: { name: string; active: boolean; skin: ToneSkin }) {
   return (
-    <TileFrame active={active}>
-      <CategoryIcon name={name} className={`w-4 h-4 ${active ? "text-gold-1" : "text-muted"}`} />
+    <TileFrame active={active} skin={skin}>
+      <CategoryIcon name={name} className={`w-4 h-4 ${active ? "text-gold-1" : skin.glyph}`} />
     </TileFrame>
   );
 }
-
-/** Tone the hero intro adopts from the page it sits in — dark heroes need light
- *  copy, light heroes need ink copy. */
-export type CategoryHeroTone = "light" | "dark";
 
 /**
  * Reads the active group + selected sub-branch from the shared URL filter store.
@@ -134,9 +187,14 @@ function useCategoryState(groups: CategoryTreeGroup[]) {
 }
 
 /**
- * The catalogue hero: a hierarchical group tree in a left sidebar paired with
- * the active group's intro (heading + blurb + figure) on the right. Selecting a
- * group swaps the intro in place; selecting a sub-branch narrows the list below.
+ * The catalogue hero, laid out as three bands on desktop: the group tree in a
+ * left rail, the active group's heading + blurb in the middle, and that group's
+ * figure framed on the right. The rail stretches to the band's height so the
+ * three read as one plate. Below `lg` it stacks — selects, heading, figure, then
+ * the blurb — so the picture still lands high on a phone.
+ *
+ * Selecting a group swaps the intro in place; selecting a sub-branch narrows the
+ * list below.
  * The matching list lives in `CategoryTreePanels`, rendered under the hero — the
  * two share selection through the URL store, so this half owns navigation while
  * that half owns the results.
@@ -166,7 +224,7 @@ export function CategoryTreeHero({
 }) {
   const { active, activeGroup, child } = useCategoryState(groups);
   const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
-  const dark = tone === "dark";
+  const skin = TONE[tone];
 
   // Keep the tree's expansion in sync with the URL selection so the active
   // group's branch is revealed — and its selected sub-branch highlighted — even
@@ -208,10 +266,13 @@ export function CategoryTreeHero({
   };
 
   return (
-    <div className="lg:grid lg:grid-cols-[248px_1fr] lg:gap-12 lg:items-stretch">
-      {/* LEFT — tree (desktop) / stacked selects (mobile+tablet); the desktop card
-          stretches to the full height of the intro column. */}
-      <div className="mb-8 lg:mb-0 flex flex-col gap-6">
+    // `qs-hero-copy` holds the copy clear of the figure bleeding in from the
+    // right; `lg:min-h` keeps the band tall enough to carry that figure now that
+    // the copy alone no longer sets the hero's height.
+    <div className="qs-hero-copy lg:grid lg:grid-cols-[252px_minmax(0,1fr)] lg:gap-10 xl:gap-12 lg:items-stretch lg:min-h-[340px]">
+      {/* LEFT — tree (desktop) / stacked selects (mobile+tablet); the desktop rail
+          stretches to the full height of the intro band beside it. */}
+      <div className="mb-8 lg:mb-0">
         {/* mobile/tablet: the tree collapses to a group select, plus a
             subcategory select when the active group has branches. */}
         <div className="lg:hidden flex flex-col gap-3">
@@ -219,7 +280,7 @@ export function CategoryTreeHero({
             aria-label={eyebrow ?? groups.map((g) => g.label).join(" / ")}
             value={active}
             onChange={(e) => selectGroup(Number(e.target.value))}
-            className="qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border border-line py-2 px-3 bg-white cursor-pointer"
+            className={`qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border py-2.5 px-3 cursor-pointer ${skin.select}`}
           >
             {groups.map((g, i) => (
               <option key={g.id} value={i}>
@@ -232,7 +293,7 @@ export function CategoryTreeHero({
               aria-label={activeGroup.label}
               value={child ?? ""}
               onChange={(e) => selectChild(e.target.value || null)}
-              className="qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border border-line py-2 px-3 bg-white cursor-pointer"
+              className={`qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border py-2.5 px-3 cursor-pointer ${skin.select}`}
             >
               <option value="">{allLabel}</option>
               {activeGroup.children.map((c) => (
@@ -244,43 +305,46 @@ export function CategoryTreeHero({
           ) : null}
         </div>
 
-        {/* desktop: the hierarchical tree in a fixed-height card (400px) that
-            scrolls internally when the tree is taller than the box. */}
+        {/* desktop: the hierarchical tree, filling the band's height and
+            scrolling internally when the tree is taller than the band. */}
         <nav
           aria-label={eyebrow ?? groups.map((g) => g.label).join(" / ")}
-          className="hidden lg:block lg:h-[400px] lg:overflow-y-auto border border-line bg-white p-5"
+          className={`hidden lg:flex lg:flex-col lg:h-full lg:max-h-[540px] border p-5 ${skin.rail}`}
         >
           {eyebrow ? (
-            <div className="pb-3.5 border-b border-ink font-mono text-label tracking-[.16em] uppercase text-ink">
+            <div className={`pb-3.5 mb-1 border-b font-mono text-label tracking-[.16em] uppercase ${skin.railHead}`}>
               {eyebrow}
             </div>
           ) : null}
-          <ul className="list-none p-0 m-0">
+          <ul className="list-none p-0 m-0 min-h-0 overflow-y-auto">
             {groups.map((g, i) => {
               const isActive = i === active;
               const isExpanded = expandedGroupId === g.id;
               const kids = g.children ?? [];
               return (
-                <li key={g.id} className="border-b border-line last:border-b-0">
+                <li key={g.id} className={`border-b last:border-b-0 ${skin.row}`}>
                   <button
                     type="button"
                     aria-pressed={isActive}
                     aria-expanded={kids.length > 0 ? isExpanded : undefined}
                     onClick={() => selectGroup(i)}
-                    className={`w-full flex items-center gap-3 py-3 text-meta font-medium text-left cursor-pointer bg-transparent border-0 ${
-                      isActive ? "text-ink" : "text-ink/85 hover:text-ink"
-                    }`}
+                    // The gold rule on the active row runs in the rail's padding
+                    // (-left-5), reading as a tab marker on the panel edge rather
+                    // than an indent inside the list.
+                    className={`relative w-full flex items-center gap-3 py-3 text-meta font-medium text-left cursor-pointer bg-transparent border-0 transition-colors
+                                before:absolute before:-left-5 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:h-0
+                                before:bg-gold before:transition-[height] before:duration-300 ${
+                                  isActive ? "before:h-[62%]" : ""
+                                } ${isActive ? skin.labelOn : skin.label}`}
                   >
                     {g.thumb ? (
-                      <Thumb src={g.thumb.src} w={g.thumb.w} h={g.thumb.h} active={isActive} />
+                      <Thumb src={g.thumb.src} w={g.thumb.w} h={g.thumb.h} active={isActive} skin={skin} />
                     ) : g.icon ? (
-                      <IconTile name={g.icon} active={isActive} />
+                      <IconTile name={g.icon} active={isActive} skin={skin} />
                     ) : null}
-                    <span className={`flex-1 min-w-0 ${isActive ? "text-gold-1" : ""}`}>{g.label}</span>
+                    <span className="flex-1 min-w-0 text-balance">{g.label}</span>
                     <span
-                      className={`font-mono text-label-xs tabular-nums ${
-                        isActive ? "text-gold-2" : "text-line-2"
-                      }`}
+                      className={`font-mono text-label-xs tabular-nums ${isActive ? skin.countOn : skin.count}`}
                     >
                       {String(g.count).padStart(2, "0")}
                     </span>
@@ -298,7 +362,9 @@ export function CategoryTreeHero({
                   </button>
 
                   {isActive && isExpanded && kids.length > 0 ? (
-                    <ul className="list-none p-0 m-0 pb-2 pl-10">
+                    // Branches hang off a hairline stem so they read as children of
+                    // the row above rather than a second flat list.
+                    <ul className={`list-none p-0 m-0 pb-2 ml-[13px] pl-6 border-l ${skin.row}`}>
                       {kids.map((c) => {
                         const on = child === c.id;
                         return (
@@ -307,8 +373,8 @@ export function CategoryTreeHero({
                               type="button"
                               aria-pressed={on}
                               onClick={() => selectChild(c.id)}
-                              className={`w-full flex justify-between items-center gap-3 py-1.5 text-meta text-left cursor-pointer bg-transparent border-0 ${
-                                on ? "text-gold-1 font-medium" : "text-muted hover:text-ink"
+                              className={`w-full flex justify-between items-center gap-3 py-1.5 text-meta text-left cursor-pointer bg-transparent border-0 transition-colors ${
+                                on ? `${skin.childOn} font-medium` : skin.child
                               }`}
                             >
                               <span className="flex items-center gap-2 min-w-0">
@@ -316,9 +382,7 @@ export function CategoryTreeHero({
                                 <span className="truncate">{c.label}</span>
                               </span>
                               <span
-                                className={`font-mono text-label-xs tabular-nums ${
-                                  on ? "text-gold-2" : "text-line-2"
-                                }`}
+                                className={`font-mono text-label-xs tabular-nums ${on ? skin.countOn : skin.count}`}
                               >
                                 {String(c.count).padStart(2, "0")}
                               </span>
@@ -335,8 +399,8 @@ export function CategoryTreeHero({
         </nav>
       </div>
 
-      {/* RIGHT — the active group's figure on top, intro copy below; all mounted,
-          inactive hidden. */}
+      {/* RIGHT — the active group's heading over a copy/figure pair; all groups
+          stay mounted, inactive ones hidden. */}
       <div className="min-w-0">
         {groups.map((g, i) => (
           <div
@@ -348,54 +412,111 @@ export function CategoryTreeHero({
             // the server `hidden`) and hide the rest before hydration, matching the
             // list panels below.
             data-f-g={g.id}
+            className="lg:h-full lg:flex lg:flex-col"
           >
-            <div>
-              {/* Title spans the full width on top; only the trailing `labelGold`
-                  portion gets the gold sheen (the whole title when unset), so a
-                  compound last word gilds as one unit. */}
-              {(() => {
-                const title = g.heroTitle ?? g.label;
-                const at = g.labelGold ? title.lastIndexOf(g.labelGold) : -1;
-                const head = at > 0 ? title.slice(0, at) : "";
-                const tail = at >= 0 ? title.slice(at) : title;
-                return (
-                  <h2 className={`qs-h2 ${dark ? "text-white" : "text-ink"}`}>
-                    {head}
-                    <span className="qs-gold-shimmer inline-block">{tail}</span>
-                  </h2>
-                );
-              })()}
-              {/* Below: the figure floats to one side (narrower) and the copy
-                  wraps beside it, then runs full-width under the image. `flow-root`
-                  contains the float so the block sizes to its content. */}
-              <div className="mt-5 flow-root">
-                {g.heroImage ? (
-                  <div className="float-right w-1/2 max-w-[320px] ml-6 mb-3">
-                    <div className={HERO_IMAGE_SLOT}>{g.heroImage}</div>
-                  </div>
-                ) : null}
-                {g.blurb ? (
-                  <p className={`text-body leading-[1.7] ${dark ? "text-[#a8a499]" : "text-muted"}`}>
-                    {g.blurb}
-                  </p>
-                ) : null}
-                {viewListLabel ? (
-                  <button
-                    type="button"
-                    onClick={() => scrollToList()}
-                    className={`mt-6 inline-flex items-center gap-2 font-mono text-label tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 p-0 ${
-                      dark ? "text-gold-2 hover:text-white" : "text-gold-1 hover:text-ink"
-                    }`}
-                  >
-                    {viewListLabel}
-                    <span aria-hidden="true">↓</span>
-                  </button>
-                ) : null}
-              </div>
+            {/* Heading spans the band; only the trailing `labelGold` portion gets
+                the gold sheen (the whole title when unset), so a compound last
+                word gilds as one unit. */}
+            {(() => {
+              const title = g.heroTitle ?? g.label;
+              const at = g.labelGold ? title.lastIndexOf(g.labelGold) : -1;
+              const head = at > 0 ? title.slice(0, at) : "";
+              const tail = at >= 0 ? title.slice(at) : title;
+              return (
+                <h2 className={`qs-h2 text-balance ${skin.title}`}>
+                  {head}
+                  <span className="qs-gold-shimmer inline-block">{tail}</span>
+                </h2>
+              );
+            })()}
+            {/* Below lg the figure is a framed card between the heading and the
+                blurb, so the picture still lands high on a phone. From lg up it
+                is dropped here and drawn full-height by `CategoryHeroFigure`
+                against the right edge of the viewport instead. */}
+            <div className="mt-6 lg:mt-7">
+              {g.heroImage ? (
+                <figure
+                  className={`lg:hidden relative m-0 mb-7 border overflow-hidden ${HERO_IMAGE_SLOT} ${skin.frame}`}
+                  style={{ background: skin.frameBg }}
+                >
+                  {g.heroImage}
+                  {/* Slow gold sweep — the same instrument-panel cue the product
+                      cards use, marking the figure as a live readout. */}
+                  <div className="qs-scan" aria-hidden="true"></div>
+                  {/* Corner ticks: registration marks that frame the render without
+                      boxing it in a heavier border. */}
+                  <span aria-hidden="true" className="absolute top-0 left-0 w-3 h-px bg-gold/70"></span>
+                  <span aria-hidden="true" className="absolute top-0 left-0 w-px h-3 bg-gold/70"></span>
+                  <span aria-hidden="true" className="absolute bottom-0 right-0 w-3 h-px bg-gold/70"></span>
+                  <span aria-hidden="true" className="absolute bottom-0 right-0 w-px h-3 bg-gold/70"></span>
+                </figure>
+              ) : null}
+              {g.blurb ? (
+                <p className={`text-body leading-[1.75] max-w-[52ch] m-0 ${skin.blurb}`}>{g.blurb}</p>
+              ) : null}
+              {viewListLabel ? (
+                <button
+                  type="button"
+                  onClick={() => scrollToList()}
+                  className={`mt-7 group inline-flex items-center gap-2 font-mono text-label tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 p-0 transition-colors ${skin.cta}`}
+                >
+                  {viewListLabel}
+                  <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-y-0.5">
+                    ↓
+                  </span>
+                </button>
+              ) : null}
             </div>
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+/**
+ * The active group's figure, run full-height off the right edge of the viewport
+ * — the hero's anchor from `lg` up. It is a sibling of the hero's content
+ * wrapper rather than a column inside it, because a column can only ever be as
+ * wide as the centred container; bleeding past that edge is what buys the
+ * figure its size. Pages render it as a direct child of a `relative
+ * overflow-hidden` hero section, *after* the content wrapper so the pre-paint
+ * primer (which must precede any `data-f-g` markup) still governs it, and below
+ * that wrapper's `z-10` so the copy always wins the overlap.
+ *
+ * Its left edge dissolves into the page instead of butting against the copy, so
+ * the bleed reads as one continuous plate rather than a pasted-on panel. Below
+ * `lg` it draws nothing — `CategoryTreeHero` carries the framed card there.
+ */
+export function CategoryHeroFigure({
+  groups,
+  tone = "light",
+}: {
+  groups: CategoryTreeGroup[];
+  tone?: CategoryHeroTone;
+}) {
+  const { active } = useCategoryState(groups);
+  const skin = TONE[tone];
+  return (
+    // Held to 85% of the hero and centred, so a band of the page shows above and
+    // below it and the bleed reads as inset rather than edge-to-edge.
+    <div className="hidden lg:block absolute top-[7.5%] h-[85%] right-0 z-[1] qs-hero-figure">
+      {groups.map((g, i) =>
+        g.heroImage ? (
+          <div
+            key={g.id}
+            hidden={i !== active}
+            // Same pre-paint hook as the intro and list panels, so a shared
+            // link's figure is the right one before hydration.
+            data-f-g={g.id}
+            className="absolute inset-0 overflow-hidden [mask-image:linear-gradient(90deg,transparent_0%,#000_16%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,#000_16%)]"
+            style={{ background: skin.frameBg }}
+          >
+            {g.heroImage}
+            <div className="qs-scan" aria-hidden="true"></div>
+          </div>
+        ) : null,
+      )}
     </div>
   );
 }

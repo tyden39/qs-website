@@ -79,7 +79,7 @@ export default function Header() {
   // When already on the leaf's page, filter in place instead of a full
   // navigation (which would jump to the page top), keeping the current scroll
   // position rather than scrolling to the list.
-  // `trailingSlash: true` makes usePathname() return "/controller/", so compare
+  // `trailingSlash: true` makes usePathname() return "/electronics/", so compare
   // with trailing slashes stripped or the same-page branch never matches.
   const samePath = (a: string, b: string) =>
     (a.replace(/\/+$/, "") || "/") === (b.replace(/\/+$/, "") || "/");
@@ -112,25 +112,25 @@ export default function Header() {
 
   const electronicsChildren: NavChild[] = [
     {
-      page: "/controller", g: "controllers", icon: "controllers", label: t("submenu.electronics.controllers"),
+      page: "/electronics", g: "controllers", icon: "controllers", label: t("submenu.electronics.controllers"),
       children: (["motion", "cnc", "robot", "cobot"] as const).map((ct) => ({
-        page: "/controller", g: "controllers", type: ct, icon: ct, label: tp(`page.types.controllers.${ct}`),
+        page: "/electronics", g: "controllers", type: ct, icon: ct, label: tp(`page.types.controllers.${ct}`),
       })),
     },
-    { page: "/controller", g: "servo", icon: "servo", label: t("submenu.electronics.servo") },
-    { page: "/controller", g: "inverter", icon: "inverter", label: t("submenu.electronics.inverter") },
-    { page: "/controller", g: "dnc", icon: "dnc", label: t("submenu.electronics.dnc") },
-    { page: "/controller", g: "accessory", icon: "accessory", label: t("submenu.electronics.accessory") },
+    { page: "/electronics", g: "servo", icon: "servo", label: t("submenu.electronics.servo") },
+    { page: "/electronics", g: "inverter", icon: "inverter", label: t("submenu.electronics.inverter") },
+    { page: "/electronics", g: "dnc", icon: "dnc", label: t("submenu.electronics.dnc") },
+    { page: "/electronics", g: "accessory", icon: "accessory", label: t("submenu.electronics.accessory") },
   ];
   const machineChildren: NavChild[] = [
     {
-      page: "/mechatronics", g: "cnc", icon: "machine", label: t("submenu.machineBuilding.cnc"),
+      page: "/machine-building", g: "cnc", icon: "machine", label: t("submenu.machineBuilding.cnc"),
       children: (["milling", "router", "jewelry"] as const).map((cat) => ({
-        page: "/mechatronics", g: "cnc", type: cat, icon: cat, label: tc(`machines.categories.${cat}`),
+        page: "/machine-building", g: "cnc", type: cat, icon: cat, label: tc(`machines.categories.${cat}`),
       })),
     },
-    { page: "/mechatronics", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
-    { page: "/mechatronics", g: "inspection", icon: "inspection", label: t("submenu.machineBuilding.inspection") },
+    { page: "/machine-building", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
+    { page: "/machine-building", g: "inspection", icon: "inspection", label: t("submenu.machineBuilding.inspection") },
   ];
   const applicationsChildren: NavChild[] = ([
     ["kim loại", "metal"],
@@ -143,8 +143,8 @@ export default function Header() {
   }));
 
   const left: NavItem[] = [
-    { href: "/controller", label: t("products"), children: electronicsChildren },
-    { href: "/mechatronics", label: t("cnc"), children: machineChildren },
+    { href: "/electronics", label: t("products"), children: electronicsChildren },
+    { href: "/machine-building", label: t("cnc"), children: machineChildren },
     { href: "/applications", label: t("applications"), children: applicationsChildren },
     { href: "/services", label: t("services") },
     { href: "/downloads", label: t("downloads") },

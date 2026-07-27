@@ -293,6 +293,46 @@ const PATHS: Record<string, React.ReactNode> = {
     </>
   ),
 
+  // ── Application detail: glue and spring machine parts ─────────────────
+  pump: (
+    <>
+      <path d="M7 21V9l2.5-3h5L17 9v12" />
+      <path d="M9.5 6V3h5v3" />
+      <path d="M7 13h10" />
+    </>
+  ),
+  coil: (
+    <>
+      <path d="M7 5h10L7 9h10L7 13h10L7 17h10" />
+    </>
+  ),
+
+  // ── Application detail: wire stock a spring coiler accepts ────────────
+  "wire-round": (
+    <>
+      <circle cx="12" cy="12" r="6.5" />
+      <path d="M5.5 12h13" />
+    </>
+  ),
+  "wire-square": (
+    <>
+      <rect x="5.5" y="5.5" width="13" height="13" rx="1" />
+      <path d="M5.5 12h13" />
+    </>
+  ),
+  "wire-flat": (
+    <>
+      <rect x="3" y="9.5" width="18" height="5" rx="1" />
+      <path d="M3 12h18" />
+    </>
+  ),
+  "wire-length": (
+    <>
+      <path d="M4 8v8M20 8v8" />
+      <path d="M4 12h16m0 0-3-3m3 3-3 3" />
+    </>
+  ),
+
   // ── Sub-types (deepest flyout) ────────────────────────────────────────
   motion: (
     <>

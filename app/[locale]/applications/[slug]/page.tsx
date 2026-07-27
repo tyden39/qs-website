@@ -67,9 +67,10 @@ type Media = { icon?: string; image?: string; contain?: boolean };
 const photos = (slug: string, names: string[]): Media[] =>
   names.map((name) => ({ image: `/img/applications/${slug}/${name}.webp` }));
 
-/** Line drawings from a reference sheet, traced to SVG so they stay sharp at any size. */
-const drawings = (slug: string, names: string[]): Media[] =>
-  names.map((name) => ({ image: `/img/applications/${slug}/${name}.svg`, contain: true }));
+/** Line drawings from a reference sheet — centred on a square frame, so they show
+ *  whole at a common scale instead of being cropped like a photo. */
+const drawings = (slug: string, files: string[]): Media[] =>
+  files.map((file) => ({ image: `/img/applications/${slug}/${file}`, contain: true }));
 
 // Media for the copy blocks below, keyed by position — the item titles are
 // translated, so they can't identify an image or glyph across locales. Machines
@@ -78,43 +79,74 @@ const STRENGTH_MEDIA: Record<string, Media[]> = {
   "phay-cnc": [{ icon: "precision" }, { icon: "stability" }, { icon: "performance" }, { icon: "usability" }],
   "cua-long": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
   "mong-go": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
+  "dan-keo": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
+  "uon-lo-xo": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
+  "kim-hoan": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
 };
 const CAPABILITY_MEDIA: Record<string, Media[]> = {
   "phay-cnc": photos("phay-cnc", ["face-milling", "slot-milling", "drill-tap", "surface-3d", "probing"]),
   "cua-long": drawings("cua-long",
-    ["straight-cut", "curve-cut", "arc-cut", "contour-2d", "logo-text", "ornament", "nesting"]),
+    ["straight-cut.webp", "curve-cut.webp", "arc-cut.webp", "contour-2d.webp", "logo-text.webp",
+     "ornament.webp", "nesting.webp"]),
   "mong-go": photos("mong-go",
     ["square-tenon", "straight-tenon", "angled-tenon", "mortise", "dowel-hole", "groove", "custom-profile"]),
+  "dan-keo": photos("dan-keo",
+    ["line-straight", "line-rect", "line-circle", "line-curve", "dot", "bead", "line-3d"]),
+  "uon-lo-xo": photos("uon-lo-xo",
+    ["compression", "extension", "torsion", "formed", "non-standard", "double-torsion", "flat-wire", "complex"]),
+  "kim-hoan": photos("kim-hoan",
+    ["engraving", "surface-3d", "micro-drill", "lettering", "sculpt-3d", "polishing"]),
 };
 const COMPAT_MEDIA: Record<string, Media[]> = {
   "phay-cnc": [{ icon: "multi-axis" }, { icon: "gcode" }, { icon: "cam" }, { icon: "flexible-config" }],
   "cua-long": photos("cua-long",
     ["natural-wood", "mdf", "plywood", "engineering-plastic", "mica", "composite", "insulation-panel", "non-metal-sheet"]),
   "mong-go": photos("mong-go", ["natural-wood", "hardwood", "softwood", "engineered-wood"]),
+  "dan-keo": photos("dan-keo",
+    ["silicone", "epoxy", "uv", "ab-glue", "hot-melt", "anaerobic", "thermal", "nano-bead"]),
+  "uon-lo-xo": [{ icon: "wire-round" }, { icon: "wire-square" }, { icon: "wire-flat" }, { icon: "wire-length" }],
+  "kim-hoan": photos("kim-hoan", ["gold", "silver", "platinum", "copper", "gemstone", "wax"]),
 };
 const CONTROL_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "motion" }, { icon: "cutting" }, { icon: "performance" }, { icon: "gcode" }, { icon: "io" }],
   "mong-go": [{ icon: "multi-axis" }, { icon: "gcode" }, { icon: "productivity" }, { icon: "io" }, { icon: "stability" }],
+  "dan-keo": [{ icon: "multi-axis" }, { icon: "dispensing" }, { icon: "gcode" }, { icon: "dnc" }, { icon: "io" },
+              { icon: "stability" }],
+  "uon-lo-xo": [{ icon: "multi-axis" }, { icon: "gcode" }, { icon: "coil" }, { icon: "io" }, { icon: "stability" }],
+  "kim-hoan": [{ icon: "multi-axis" }, { icon: "surface-3d" }, { icon: "milling" }, { icon: "dnc" }, { icon: "stability" }],
 };
 const MACHINE_PART_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "motion" }, { icon: "cutting" }],
   "mong-go": [{ icon: "drill-tap" }, { icon: "milling" }, { icon: "motion" }, { icon: "controllers" }],
+  "dan-keo": [{ icon: "dispensing" }, { icon: "pump" }, { icon: "motion" }, { icon: "controllers" }],
+  "uon-lo-xo": [{ icon: "bending" }, { icon: "motion" }, { icon: "cutting" }, { icon: "machine" }, { icon: "controllers" }],
+  "kim-hoan": [{ icon: "router" }, { icon: "multi-axis" }, { icon: "motion" }, { icon: "controllers" }],
 };
 const BENEFIT_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "precision" }, { icon: "usability" }, { icon: "productivity" }, { icon: "gcode" }, { icon: "flexible-config" }],
   "mong-go": [{ icon: "precision" }, { icon: "productivity" }, { icon: "usability" }, { icon: "cost" },
               { icon: "flexible-config" }, { icon: "stability" }],
+  "dan-keo": [{ icon: "precision" }, { icon: "productivity" }, { icon: "cost" }, { icon: "usability" },
+              { icon: "flexible-config" }, { icon: "stability" }],
+  "uon-lo-xo": [{ icon: "precision" }, { icon: "productivity" }, { icon: "cost" }, { icon: "usability" },
+                { icon: "flexible-config" }, { icon: "stability" }],
+  "kim-hoan": [{ icon: "precision" }, { icon: "jewelry" }, { icon: "productivity" }, { icon: "usability" },
+               { icon: "flexible-config" }, { icon: "stability" }],
 };
 /** Finished parts photographed on the reference sheet — decoration, so no captions. */
 const GALLERY_IMAGES: Record<string, string[]> = {
   "cua-long": ["horse", "mandala", "lettering", "flower-panel", "gears", "dino"]
     .map((name) => `/img/applications/cua-long/product-${name}.webp`),
+  "kim-hoan": ["ring-solitaire", "pendant-wheel", "band", "buddha", "earrings"]
+    .map((name) => `/img/applications/kim-hoan/product-${name}.webp`),
 };
 
-/** Five capabilities fill one row; every other count reads best in fours. Cards
- *  carry their own rules rather than showing through a gap, so a part-filled last
- *  row ends in blank space instead of an empty tinted cell. */
-const capabilityColumns = (count: number) => (count === 5 ? "lg:grid-cols-5" : "lg:grid-cols-4");
+/** Five capabilities fill one row and six split evenly in threes; every other
+ *  count reads best in fours. Cards carry their own rules rather than showing
+ *  through a gap, so a part-filled last row ends in blank space instead of an
+ *  empty tinted cell. */
+const capabilityColumns = (count: number) =>
+  count === 5 ? "lg:grid-cols-5" : count === 6 ? "lg:grid-cols-3" : "lg:grid-cols-4";
 
 export default async function ApplicationDetail({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug } = await params;
@@ -143,6 +175,9 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       capabilities?: CopyItem[];
       industries?: { heading?: string; items: string[] };
       compat?: { heading?: string; lede?: string; items: CopyItem[] };
+      /** The third checklist some sheets print beside the compatibility grid —
+       *  machine types for one machine, controller advantages for another. */
+      highlights?: { heading: string; items: string[] };
       benefits?: { heading?: string; items: CopyItem[] };
       closing?: string;
     }
@@ -159,6 +194,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
   const industries = machine_?.industries;
   const compat = machine_?.compat;
   const compatMedia = COMPAT_MEDIA[slug] ?? [];
+  const highlights = machine_?.highlights;
   const benefits = machine_?.benefits;
   const benefitMedia = BENEFIT_MEDIA[slug] ?? [];
   const gallery = GALLERY_IMAGES[slug] ?? [];
@@ -340,23 +376,37 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                 </div>
               )}
             </div>
-            <div className="grid grid-cols-2 gap-px bg-line border border-line">
-              {compat.items.map((c, i) => (
-                <Reveal key={c.t} className="flex" delay={i * 70}>
-                  <div className="w-full bg-white px-6 py-7 flex flex-col items-start gap-3">
-                    {compatMedia[i]?.image ? (
-                      /* Material swatch: sized like the glyph it replaces so both
-                         variants of this block keep the same rhythm. */
-                      <Image src={compatMedia[i].image!} alt={c.t} width={80} height={80}
-                             className="w-20 h-20 object-contain" />
-                    ) : (
-                      <CategoryIcon name={compatMedia[i]?.icon ?? ""} className="w-8 h-8 text-gold-1" />
-                    )}
-                    <h3 className="font-display font-bold text-body tracking-[-.01em] m-0 leading-[1.25]">{c.t}</h3>
-                    {c.d && <p className="font-mono text-label-xs text-muted tracking-[.08em] uppercase m-0 leading-[1.5]">{c.d}</p>}
-                  </div>
-                </Reveal>
-              ))}
+            <div>
+              <div className="grid grid-cols-2 gap-px bg-line border border-line">
+                {compat.items.map((c, i) => (
+                  <Reveal key={c.t} className="flex" delay={i * 70}>
+                    <div className="w-full bg-white px-6 py-7 flex flex-col items-start gap-3">
+                      {compatMedia[i]?.image ? (
+                        /* Material swatch: sized like the glyph it replaces so both
+                           variants of this block keep the same rhythm. */
+                        <Image src={compatMedia[i].image!} alt={c.t} width={80} height={80}
+                               className="w-20 h-20 object-contain" />
+                      ) : (
+                        <CategoryIcon name={compatMedia[i]?.icon ?? ""} className="w-8 h-8 text-gold-1" />
+                      )}
+                      <h3 className="font-display font-bold text-body tracking-[-.01em] m-0 leading-[1.25]">{c.t}</h3>
+                      {c.d && <p className="font-mono text-label-xs text-muted tracking-[.08em] uppercase m-0 leading-[1.5]">{c.d}</p>}
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+              {highlights && (
+                <div className="mt-6 bg-white border border-line p-7">
+                  <h3 className="font-mono text-label text-gold-1 tracking-[.14em] uppercase m-0">{highlights.heading}</h3>
+                  <ul className="mt-4 m-0 p-0 list-none grid sm:grid-cols-2 gap-x-7 gap-y-2.5">
+                    {highlights.items.map((item) => (
+                      <li key={item} className="flex gap-3 text-meta leading-[1.55] text-[#3a3a3a]">
+                        <span aria-hidden className="text-gold-1 font-mono">✓</span>{item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -391,7 +441,9 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("galleryEyebrow")}</span>
               <h2 className="qs-h2 mt-1.5">{t("galleryHeading")}</h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+            {/* One row wide, however many parts the sheet photographed. */}
+            <div className={`grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 ${
+              gallery.length === 5 ? "lg:grid-cols-5" : "lg:grid-cols-6"}`}>
               {gallery.map((src, i) => (
                 <Reveal key={src} delay={i * 60}>
                   <div className="relative aspect-square border border-line overflow-hidden bg-white">
@@ -425,7 +477,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
               {relatedProducts.map((p, i) => (
                 <Reveal key={p.slug} className="qs-reveal-desktop flex items-stretch w-full shrink-0 snap-start md:w-auto -ml-px -mt-px" delay={i * 70}>
                 <Link
-                  href={`/controller/${p.slug}`}
+                  href={`/electronics/${p.slug}`}
                   className="group w-full bg-white p-6 flex flex-col hover:bg-paper transition-colors relative
                              border border-line
                              before:content-[''] before:absolute before:top-0 before:left-6 before:w-8 before:h-0.5 before:bg-gold"

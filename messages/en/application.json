@@ -25,10 +25,10 @@
     "caseStudies": "{count} case studies",
     "groupsCount": "{count} groups",
     "groups": [
-      { "name": "Metal", "tag": "Kim loại", "desc": "CNC milling for metal — molds, mechanical parts, medical devices.", "axes": "3 · 4 · 5 axis" },
-      { "name": "Wood", "tag": "Gỗ", "desc": "Carving, jigsaw, and joinery for furniture and woodcraft." },
-      { "name": "Stone", "tag": "Đá", "desc": "Carving and cutting for natural and engineered stone." },
-      { "name": "Jewellery", "tag": "Kim hoàn", "desc": "Fine engraving and milling on gold, silver, and precious alloys." },
+      { "name": "Metal machining", "nameGold": "machining", "tag": "Kim loại", "desc": "CNC milling for metal — molds, mechanical parts, medical devices.", "axes": "3 · 4 · 5 axis" },
+      { "name": "Wood machining", "nameGold": "machining", "tag": "Gỗ", "desc": "Carving, jigsaw, and joinery for furniture and woodcraft." },
+      { "name": "Stone machining", "nameGold": "machining", "tag": "Đá", "desc": "Carving and cutting for natural and engineered stone." },
+      { "name": "Jewellery machining", "nameGold": "machining", "tag": "Kim hoàn", "desc": "Fine engraving and milling on gold, silver, and precious alloys." },
       { "name": "Other automation", "nameGold": "automation", "tag": "Automation", "desc": "Other dedicated machines running QS controllers — gluing, spring bending." }
     ],
     "soon": {
@@ -226,8 +226,91 @@
         ]
       },
       "dan-keo": {
+        "tagline": "Precise glue — Even beads — Automatic — Higher productivity",
         "heroLede": "An automatic glue-dispensing solution that tracks the profile contour precisely, with strong applications in footwear, packaging, and electronic components. It ensures an even glue volume, saves material, and boosts productivity.",
         "heroStats": [["3–4", "Axes"], ["Configurable", "Flow rate"], ["500 mm/s", "Run speed"]],
+        "strengths": [
+          { "t": "High precision", "d": "Precise motion and glue metering control, for a clean and perfectly even bead." },
+          { "t": "Stable operation", "d": "A robust control system that suits many glue types and runs continuously, year after year." },
+          { "t": "Flexible applications", "d": "Supports many bead shapes: straight lines, curves, circles, multi-point, 2D, 3D, dots, lines, and continuous beads." },
+          { "t": "Higher productivity", "d": "Automates the gluing process, cutting labour, defects, production time, and cost." }
+        ],
+        "control": {
+          "items": [
+            { "t": "Multi-axis control", "d": "Supports 3 to 6 axes (XYZ/ABC) to move the glue head freely." },
+            { "t": "Glue metering control", "d": "Drives the pump, valve opening, dispense time, and cut-off precisely." },
+            { "t": "Easy programming", "d": "Enter programs directly, with G-code, macros, and point teaching." },
+            { "t": "Program management", "d": "Store, edit, and copy programs over USB, LAN, or DNC." },
+            { "t": "Flexible I/O", "d": "Drives peripherals: sensors, glue pumps, valves, indicator lamps, and more." },
+            { "t": "Safety & protection", "d": "Travel monitoring, fault alarms, and collision avoidance keep the machine and operator safe." }
+          ]
+        },
+        "machineParts": {
+          "heading": "A CNC glue-dispensing machine running QS Controller",
+          "items": [
+            { "t": "Glue head", "d": "Controlled up and down (Z), rotated (A/C), and oriented to the path." },
+            { "t": "Pump & glue valve", "d": "Opens, meters, and cuts off the glue exactly as the program calls for." },
+            { "t": "Machine table", "d": "Moves in 2D/3D under program control." },
+            { "t": "Controller", "d": "QS Controller coordinates the whole dispensing cycle." }
+          ]
+        },
+        "capabilityHeading": "Bead shapes it can lay down",
+        "capabilities": [
+          { "t": "Straight line" },
+          { "t": "Square/rectangle" },
+          { "t": "Circle" },
+          { "t": "Complex curve" },
+          { "t": "Dots" },
+          { "t": "Continuous bead" },
+          { "t": "3D path in space" }
+        ],
+        "industries": {
+          "items": [
+            "Electronics: component bonding, potting, circuit protection",
+            "Automotive and motorcycle: gaskets, anti-vibration glue, bonding",
+            "Home appliances: assembly glue, thermal insulation, sound damping",
+            "Furniture and construction: edge banding, structural adhesive, silicone",
+            "Packaging and labelling: label glue, carton glue, moisture barrier",
+            "Medical: glue in medical devices, tubing, precision components",
+            "Energy: glue in batteries, modules, and solar panels"
+          ]
+        },
+        "compat": {
+          "heading": "Materials and glue types it suits",
+          "items": [
+            { "t": "Silicone" },
+            { "t": "Epoxy" },
+            { "t": "UV" },
+            { "t": "AB glue" },
+            { "t": "Hot melt" },
+            { "t": "Anaerobic" },
+            { "t": "Thermal glue" },
+            { "t": "Nano/bead glue" }
+          ]
+        },
+        "highlights": {
+          "heading": "Compatible with many machine types",
+          "items": [
+            "3-axis dispensers (XYZ)",
+            "4-axis dispensers (plus A rotation)",
+            "5-axis dispensers (XYZAB)",
+            "6-axis dispensers (XYZABC)",
+            "Dispensers with a metering pump",
+            "Pneumatic, screw, and piston dispensers",
+            "Benchtop units and large gantry frames"
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "High precision", "d": "An even, clean bead in the right place, with fewer defective parts." },
+            { "t": "Higher productivity", "d": "Fast cycles and continuous running lift output." },
+            { "t": "Lower cost", "d": "Less glue waste, less labour, lower running cost." },
+            { "t": "Easy to use", "d": "A friendly interface, simple programming, quick to train on." },
+            { "t": "Flexible integration", "d": "Fits many machine types and makes it easy to add devices and expand." },
+            { "t": "Durable operation", "d": "A stable system with equipment protection that runs reliably." }
+          ]
+        },
+        "closing": "The optimal CNC control solution for automatic glue dispensing — high quality, a real edge for your business.",
         "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a gluing machine.",
         "workflow": [
           { "l": "Input · Teaching", "t": "Program the glue path", "d": "Supports programming via G-code or an intuitive point-teaching mode right on the handheld pendant or the HMI." },
@@ -237,8 +320,90 @@
         ]
       },
       "uon-lo-xo": {
+        "tagline": "Precise bending — High speed — Automatic — Outstanding output",
         "heroLede": "A dedicated controller that automates the whole process of wire feeding, coiling, bending, and cutting. It produces compression, extension, and multi-amplitude torsion springs with perfect uniformity and the lowest tolerance.",
         "heroStats": [["4–8", "Axes"], ["±0.01", "Precision (mm)"], ["120 m/min", "Wire feed speed"]],
+        "strengths": [
+          { "t": "High precision", "d": "Precise multi-axis control under program, with low tolerance and uniform parts." },
+          { "t": "Stable operation", "d": "An optimised system keeps the machine running quietly and continuously, with little maintenance and a long life." },
+          { "t": "Flexible applications", "d": "Coils many spring types: compression, extension, torsion, formed, and non-standard springs." },
+          { "t": "Higher productivity", "d": "Fast coiling and short cycles raise output while cutting production cost." }
+        ],
+        "control": {
+          "items": [
+            { "t": "Multi-axis control", "d": "Supports 2 to 12 axes (X/Y/Z/A/B/C/U/V…) driven in sync along the programmed path." },
+            { "t": "Easy programming", "d": "Enter programs directly, with G-code, macros, and a built-in spring library." },
+            { "t": "Smart spring library", "d": "Create and store many spring shapes, then recall and edit them in seconds." },
+            { "t": "Flexible I/O", "d": "Drives peripherals: wire clamps, cutters, lubrication, sensors, and more." },
+            { "t": "Safety & protection", "d": "Travel monitoring, fault alarms, and overload protection keep operation safe." }
+          ]
+        },
+        "machineParts": {
+          "heading": "A CNC spring coiler running QS Controller",
+          "items": [
+            { "t": "Bending axes", "d": "Several servo axes bend the wire to the programmed profile." },
+            { "t": "Wire feed unit", "d": "Feeds wire automatically, accurately, and without interruption." },
+            { "t": "Wire cutter", "d": "Cuts the wire automatically at the end of each cycle." },
+            { "t": "Rigid machine bed", "d": "A solid structure damps vibration and holds accuracy." },
+            { "t": "Controller", "d": "QS Controller coordinates the whole coiling cycle." }
+          ]
+        },
+        "capabilityHeading": "Spring types it can produce",
+        "capabilities": [
+          { "t": "Compression spring" },
+          { "t": "Extension spring" },
+          { "t": "Torsion spring" },
+          { "t": "Formed spring" },
+          { "t": "Non-standard spring" },
+          { "t": "Double torsion spring" },
+          { "t": "Flat-wire spring" },
+          { "t": "Complex assemblies" }
+        ],
+        "industries": {
+          "items": [
+            "Industrial spring manufacturing",
+            "Automotive, motorcycle, and bicycle",
+            "Electrical and electronic equipment",
+            "Home appliances",
+            "Precision mechanical engineering",
+            "Medical devices",
+            "Toys and stationery",
+            "And many more applications"
+          ]
+        },
+        "compat": {
+          "heading": "Coiling a wide range of wire sizes",
+          "lede": "It suits many wire sizes, from fine round wire to wide flat stock. Feed length depends on the machine configuration.",
+          "items": [
+            { "t": "Round wire", "d": "Ø0.2 ~ Ø12 mm" },
+            { "t": "Square wire", "d": "□0.2 ~ □8 mm" },
+            { "t": "Flat wire", "d": "0.1 ~ 5 mm thick" },
+            { "t": "Feed length", "d": "Per machine configuration" }
+          ]
+        },
+        "highlights": {
+          "heading": "What QS Controller brings to the machine",
+          "items": [
+            "Accurate coiling and uniform parts",
+            "Fast bending and short cycles",
+            "Quick to program, easy to run",
+            "Handles complex spring shapes",
+            "Fewer rejects, less wasted wire",
+            "Higher output, lower labour cost",
+            "Easy to upgrade and maintain"
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "High precision", "d": "Holds spring dimensions and bend angles with low tolerance." },
+            { "t": "Higher output", "d": "Short cycle times and continuous production." },
+            { "t": "Lower cost", "d": "Fewer rejects, less wasted wire, lower production cost." },
+            { "t": "Easy to use", "d": "A friendly interface, simple operation, quick to train on." },
+            { "t": "Flexible", "d": "Switch products quickly to meet changing demand." },
+            { "t": "Durable operation", "d": "Runs steadily with few faults and a long service life." }
+          ]
+        },
+        "closing": "The optimal CNC control solution for spring coilers — better parts, better production.",
         "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a spring bending machine.",
         "workflow": [
           { "l": "Input · Parameters", "t": "Enter geometric parameters", "d": "Enter the spring specifications directly — wire diameter, pitch, bend angle, and number of coils — on the control screen." },
@@ -324,8 +489,66 @@
         ]
       },
       "kim-hoan": {
+        "tagline": "Micro precision — Refined detail — Perfect value",
         "heroLede": "Smooth interpolation control power combined with ultra-fine micro-step resolution. It delivers extremely refined engraving and milling on gold, silver, and jewellery, meeting the strictest standards of the jewellery industry.",
         "heroStats": [["4–5", "Axes"], ["1µm", "Resolution"], ["60k", "Spindle speed (RPM)"]],
+        "strengths": [
+          { "t": "High precision", "d": "Resolution down to 0.001 mm keeps every engraved line crisp." },
+          { "t": "Stable operation", "d": "A robust control system runs smoothly and continuously on the finest detail work." },
+          { "t": "Flexible applications", "d": "Handles 2D, 2.5D, and 3D work — lettering, ornament, and intricate patterns on precious materials." },
+          { "t": "Higher productivity", "d": "Optimised cutting speed protects quality while lifting output and the value of each piece." }
+        ],
+        "control": {
+          "heading": "QS Controller — the precision control centre",
+          "items": [
+            { "t": "Multi-axis control", "d": "Supports 3 to 5 axes (X/Y/Z/A/B) for complex profiles." },
+            { "t": "Advanced interpolation", "d": "Fine, fast interpolation gives a smooth toolpath and a beautiful finish." },
+            { "t": "Dedicated functions", "d": "Macros, tool compensation, error compensation, spindle-speed control, and flexible I/O." },
+            { "t": "Program management", "d": "Store, edit, and copy programs on the controller itself, over USB, LAN, or DNC." },
+            { "t": "Safety & protection", "d": "Travel monitoring, collision alarms, and overload protection keep the machine and operator safe." }
+          ]
+        },
+        "machineParts": {
+          "heading": "A CNC jewellery machine running QS Controller",
+          "items": [
+            { "t": "High-speed spindle", "d": "Up to 60,000 rpm for small detail and a fine surface." },
+            { "t": "Rotary axes (A/B)", "d": "Multi-directional work, 3D engraving, intricate ornament." },
+            { "t": "Precision table", "d": "Flat and firmly clamped, so accuracy holds absolutely." },
+            { "t": "Controller", "d": "QS Controller coordinates the whole machining cycle." }
+          ]
+        },
+        "capabilityHeading": "What the jewellery machine can do",
+        "capabilities": [
+          { "t": "Ornament engraving", "d": "Fine engraved patterns with sharp, confident lines." },
+          { "t": "3D profile milling", "d": "3D profiles on rings, bracelets, and pendants." },
+          { "t": "Micro drilling", "d": "Accurate holes for gemstones, pins, and tiny screws." },
+          { "t": "Lettering and logos", "d": "Text, logos, and serial numbers on the part surface." },
+          { "t": "3D sculpting", "d": "3D statues, Buddha faces, and zodiac figures." },
+          { "t": "Surface polishing", "d": "Pairs with a polishing head for a premium finish." }
+        ],
+        "compat": {
+          "heading": "Materials it machines",
+          "lede": "QS Controller handles every material group the jewellery trade works in — from soft metals that load the tool to brittle gemstone and casting wax — with the spindle speed and feed each group needs.",
+          "items": [
+            { "t": "Gold" },
+            { "t": "Silver" },
+            { "t": "Platinum" },
+            { "t": "Copper" },
+            { "t": "Gemstone" },
+            { "t": "Casting wax" }
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Absolute precision", "d": "Machines the smallest details accurately." },
+            { "t": "More valuable pieces", "d": "Refined lines and a beautiful surface raise what each piece is worth." },
+            { "t": "Higher output", "d": "Fast, steady machining shortens production time." },
+            { "t": "Easy to use", "d": "A friendly interface that is quick to learn and run." },
+            { "t": "Flexible integration", "d": "Fits many machine types and peripheral devices." },
+            { "t": "Durable operation", "d": "A stable system that runs for long stretches." }
+          ]
+        },
+        "closing": "The optimal CNC control solution for jewellery — precise, refined, and lasting in value.",
         "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a jewellery machine.",
         "workflow": [
           { "l": "Input · Jewelry CAD", "t": "Receive the 3D design", "d": "Handles extremely large G-code files exported from dedicated jewellery design software (such as Matrix, Rhino)." },

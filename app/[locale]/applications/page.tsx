@@ -4,9 +4,9 @@ import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
-import { ProductVideo } from "../controller/_components/product-video";
-import { CategoryTreeHero, CategoryTreePanels, type CategoryTreeGroup } from "../controller/_components/product-category-tree";
-import { SortableCardList, type SortableCard } from "../controller/_components/sortable-card-list";
+import { ProductVideo } from "../electronics/_components/product-video";
+import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, type CategoryTreeGroup } from "../electronics/_components/product-category-tree";
+import { SortableCardList, type SortableCard } from "../electronics/_components/sortable-card-list";
 import { CategoryIcon } from "@/components/category-icon";
 import Reveal from "@/components/reveal";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
@@ -51,6 +51,12 @@ const appAssets = [
   { slug: "mong-go", img: "/home/app-mong-go.webp" },
   { slug: "kim-hoan", img: "/home/app-kim-hoan.webp" },
 ];
+
+// Shop-floor stills for sub-types that have no case study yet — the card still
+// shows the real process photo instead of the dashed placeholder.
+const soonAssets: Record<string, string> = {
+  "dieu-khac-go": "/home/app-dieu-khac-go.webp",
+};
 
 type AppSubItem = { kind: "case"; slug: string } | { kind: "soon"; key: string };
 
@@ -105,16 +111,26 @@ export default async function Applications({ params }: { params: Promise<{ local
       </Link>
     );
   };
-  const soonCard = (key: string): React.ReactNode => (
-    <div className="border border-line bg-white p-5 flex flex-col gap-3">
-      <div className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">{soon.items[key]}</div>
-      <div className="relative aspect-[4/3] border border-dashed border-gold/40 overflow-hidden flex items-center justify-center px-3 text-center"
-           style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
-        <span className="font-mono text-label-xs text-muted tracking-[.14em] uppercase">{soon.imageLabel}</span>
+  const soonCard = (key: string): React.ReactNode => {
+    const img = soonAssets[key];
+    return (
+      <div className="border border-line bg-white p-5 flex flex-col gap-3">
+        <div className="font-mono text-label-xs text-muted tracking-[.16em] uppercase">{soon.items[key]}</div>
+        {img ? (
+          <div className="relative aspect-[4/3] border border-line overflow-hidden bg-paper">
+            <Image src={img} alt={soon.items[key]} fill sizes="(max-width:768px) 50vw, 25vw" className="object-cover" />
+            <div className="qs-scan" aria-hidden="true"></div>
+          </div>
+        ) : (
+          <div className="relative aspect-[4/3] border border-dashed border-gold/40 overflow-hidden flex items-center justify-center px-3 text-center"
+               style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}>
+            <span className="font-mono text-label-xs text-muted tracking-[.14em] uppercase">{soon.imageLabel}</span>
+          </div>
+        )}
+        <div className="pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-muted">{soon.label}</div>
       </div>
-      <div className="pt-2 mt-auto font-mono text-label-xs tracking-[.12em] uppercase text-muted">{soon.label}</div>
-    </div>
-  );
+    );
+  };
   // Material groups have no single product render, so the sidebar tile falls
   // back to a CategoryIcon. Keyed by position — the group's `tag` is the label in
   // the other language, so it can't identify the material across locales.
@@ -137,7 +153,7 @@ export default async function Applications({ params }: { params: Promise<{ local
   // shared HERO_IMAGE_SLOT (standard size lives in the tree component).
   const appFigure = (src: string | null, alt: string, icon: string, priority = false) =>
     src ? (
-      <Image src={src} alt={alt} fill priority={priority} sizes="(max-width:768px) 55vw, 300px"
+      <Image src={src} alt={alt} fill priority={priority} sizes="(max-width:1023px) 92vw, 38vw"
              className="object-cover" />
     ) : (
       <div className="absolute inset-0 grid place-items-center">
@@ -209,13 +225,20 @@ export default async function Applications({ params }: { params: Promise<{ local
           />
           <Reveal eager>
             <CategoryTreeHero
-              eyebrow={pt("groups.eyebrow")}
+              // The rail groups industries, not a product catalogue, so it takes
+              // the page's own "by industry" heading rather than the shared
+              // catalogue eyebrow.
+              eyebrow={t("catalogHeading")}
               allLabel={pt("types.all")}
               viewListLabel={pt("groups.viewList")}
               groups={appGroups}
             />
           </Reveal>
         </div>
+        {/* The active industry's shop-floor photo, bleeding off the right edge of
+            the hero. Sits after the wrapper so the pre-paint primer above still
+            governs it, and under the wrapper's z-10 so the copy stays on top. */}
+        <CategoryHeroFigure groups={appGroups} />
       </section>
 
       {/* GROUPED BY MATERIAL — the active group's cases, full width below the hero */}

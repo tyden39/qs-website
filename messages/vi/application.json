@@ -25,10 +25,10 @@
     "caseStudies": "{count} nghiên cứu ứng dụng",
     "groupsCount": "{count} nhóm",
     "groups": [
-      { "name": "Kim loại", "tag": "Metal", "desc": "Phay CNC gia công kim loại — khuôn mẫu, linh kiện cơ khí, thiết bị y tế.", "axes": "3 · 4 · 5 trục" },
-      { "name": "Gỗ", "tag": "Wood", "desc": "Điêu khắc, cưa lọng và làm mộng cho ngành nội thất, mỹ nghệ." },
-      { "name": "Đá", "tag": "Stone", "desc": "Điêu khắc và cắt đá tự nhiên, đá nhân tạo với độ nét cao." },
-      { "name": "Kim hoàn", "tag": "Jewelry", "desc": "Chạm khắc, phay tinh xảo trên vàng, bạc và hợp kim quý." },
+      { "name": "Gia công kim loại", "nameGold": "kim loại", "tag": "Metal", "desc": "Phay CNC gia công kim loại — khuôn mẫu, linh kiện cơ khí, thiết bị y tế.", "axes": "3 · 4 · 5 trục" },
+      { "name": "Gia công gỗ", "nameGold": "gỗ", "tag": "Wood", "desc": "Điêu khắc, cưa lọng và làm mộng cho ngành nội thất, mỹ nghệ." },
+      { "name": "Gia công đá", "nameGold": "đá", "tag": "Stone", "desc": "Điêu khắc và cắt đá tự nhiên, đá nhân tạo với độ nét cao." },
+      { "name": "Gia công kim hoàn", "nameGold": "kim hoàn", "tag": "Jewelry", "desc": "Chạm khắc, phay tinh xảo trên vàng, bạc và hợp kim quý." },
       { "name": "Máy tự động hóa khác", "nameGold": "khác", "tag": "Automation", "desc": "Các dòng máy chuyên dụng khác dùng bộ điều khiển QS — bồi keo, uốn lò xo." }
     ],
     "soon": {
@@ -226,8 +226,91 @@
         ]
       },
       "dan-keo": {
-        "heroLede": "Giải pháp rải keo tự động bám sát đường viền biên dạng, ứng dụng mạnh mẽ trong sản xuất giày da, bao bì và linh kiện điện tử. Đảm bảo lượng keo đồng đều, tiết kiệm nguyên liệu và nâng cao năng suất.",
+        "tagline": "Bôi keo chính xác — Đồng đều — Tự động — Nâng cao năng suất",
+        "heroLede": "QS Controller là giải pháp điều khiển CNC chuyên dụng cho máy tự động hóa bôi keo, giúp định lượng, định vị và di chuyển đầu bôi keo chính xác theo chương trình. Hệ thống vận hành ổn định, dễ sử dụng, phù hợp với nhiều loại keo và nhiều yêu cầu sản xuất.",
         "heroStats": [["3–4", "Số trục"], ["Tùy chỉnh", "Lưu lượng"], ["500 mm/s", "Tốc độ chạy"]],
+        "strengths": [
+          { "t": "Độ chính xác cao", "d": "Điều khiển chuyển động và định lượng keo chính xác, đảm bảo đường keo đẹp và đồng đều." },
+          { "t": "Vận hành ổn định", "d": "Hệ thống điều khiển mạnh mẽ, tương thích với nhiều loại keo, hoạt động liên tục, bền bỉ theo thời gian." },
+          { "t": "Linh hoạt ứng dụng", "d": "Hỗ trợ nhiều dạng đường keo: đường thẳng, đường cong, vòng tròn, đa điểm, 2D, 3D, keo hạt, keo line, keo dạng bead..." },
+          { "t": "Nâng cao năng suất", "d": "Tự động hóa quá trình bôi keo, giảm nhân công, giảm sai lỗi, tối ưu thời gian sản xuất và chi phí." }
+        ],
+        "control": {
+          "items": [
+            { "t": "Điều khiển đa trục", "d": "Hỗ trợ từ 3 đến 6 trục (XYZ/ABC) để di chuyển đầu bôi keo linh hoạt." },
+            { "t": "Điều khiển định lượng keo", "d": "Điều khiển bơm keo, van đóng mở, thời gian ra keo, ngắt keo chính xác." },
+            { "t": "Lập trình dễ dàng", "d": "Nhập chương trình trực tiếp, hỗ trợ G-code, macro, dạy điểm." },
+            { "t": "Quản lý chương trình", "d": "Lưu trữ, chỉnh sửa, sao chép chương trình qua USB, LAN hoặc DNC." },
+            { "t": "I/O linh hoạt", "d": "Điều khiển các thiết bị ngoại vi: cảm biến, bơm keo, van, đèn báo..." },
+            { "t": "An toàn & bảo vệ", "d": "Giám sát hành trình, cảnh báo lỗi, chống va chạm, đảm bảo an toàn thiết bị và người vận hành." }
+          ]
+        },
+        "machineParts": {
+          "heading": "Máy tự động hóa bôi keo CNC dùng QS Controller",
+          "items": [
+            { "t": "Đầu bôi keo", "d": "Điều khiển lên xuống (Z), xoay (A/C) và định hướng đầu keo." },
+            { "t": "Bơm & van keo", "d": "Điều khiển đóng mở, định lượng và ngắt keo theo chương trình." },
+            { "t": "Bàn máy", "d": "Di chuyển theo 2D/3D theo chương trình." },
+            { "t": "Bộ điều khiển", "d": "QS Controller điều phối toàn bộ chu trình bôi keo." }
+          ]
+        },
+        "capabilityHeading": "Các dạng đường keo ứng dụng",
+        "capabilities": [
+          { "t": "Đường thẳng" },
+          { "t": "Đường vuông/chữ nhật" },
+          { "t": "Đường tròn" },
+          { "t": "Đường cong phức tạp" },
+          { "t": "Keo hạt (dot)" },
+          { "t": "Keo liên tục (bead)" },
+          { "t": "Đường 3D theo không gian" }
+        ],
+        "industries": {
+          "items": [
+            "Điện tử: bôi keo cố định linh kiện, chống thấm, bảo vệ mạch",
+            "Ô tô – xe máy: bôi keo gioăng, keo chống rung, keo cố định",
+            "Thiết bị gia dụng: bôi keo lắp ráp, keo cách nhiệt, chống ồn",
+            "Nội thất & xây dựng: bôi keo dán cạnh, keo kết cấu, silicon",
+            "Bao bì – nhãn mác: bôi keo dán nhãn, keo hộp giấy, keo chống ẩm",
+            "Y tế: bôi keo trong thiết bị y tế, ống dẫn, linh kiện chính xác",
+            "Năng lượng: bôi keo trong pin, module, tấm pin mặt trời..."
+          ]
+        },
+        "compat": {
+          "heading": "Vật liệu và loại keo phù hợp",
+          "items": [
+            { "t": "Silicone" },
+            { "t": "Epoxy" },
+            { "t": "UV" },
+            { "t": "AB Glue" },
+            { "t": "Keo nhiệt" },
+            { "t": "Keo anaerobic" },
+            { "t": "Keo dẫn nhiệt" },
+            { "t": "Keo hạt/nano" }
+          ]
+        },
+        "highlights": {
+          "heading": "Tương thích với nhiều loại máy",
+          "items": [
+            "Máy bôi keo 3 trục (XYZ)",
+            "Máy bôi keo 4 trục (thêm xoay A)",
+            "Máy bôi keo 5 trục (XYZAB)",
+            "Máy bôi keo 6 trục (XYZABC)",
+            "Máy bôi keo gắn bơm định lượng",
+            "Máy bôi keo khí nén, trục vít, piston",
+            "Máy bôi keo để bàn, khung gantry lớn"
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Độ chính xác cao", "d": "Đường keo đều, đẹp, đúng vị trí, hạn chế sai lỗi sản phẩm." },
+            { "t": "Nâng cao năng suất", "d": "Gia công nhanh, hoạt động liên tục, tăng sản lượng." },
+            { "t": "Tiết kiệm chi phí", "d": "Giảm keo hao hụt, giảm nhân công, tối ưu chi phí vận hành." },
+            { "t": "Dễ sử dụng", "d": "Giao diện thân thiện, lập trình đơn giản, dễ đào tạo vận hành." },
+            { "t": "Linh hoạt tích hợp", "d": "Tương thích nhiều loại máy, dễ dàng tích hợp thiết bị và mở rộng hệ thống." },
+            { "t": "Vận hành bền bỉ", "d": "Hệ thống ổn định, bảo vệ an toàn thiết bị, hoạt động tin cậy." }
+          ]
+        },
+        "closing": "Giải pháp điều khiển CNC tối ưu cho máy tự động hóa bôi keo — chất lượng cao, khác biệt cho doanh nghiệp.",
         "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy dán keo.",
         "workflow": [
           { "l": "Input · Teaching", "t": "Lập trình quỹ đạo dán", "d": "Hỗ trợ lập trình bằng G-Code hoặc chế độ Dạy điểm (Teaching) trực quan ngay trên màn hình cầm tay (pendant) hoặc HMI." },
@@ -237,8 +320,90 @@
         ]
       },
       "uon-lo-xo": {
-        "heroLede": "Bộ điều khiển chuyên dụng tự động hóa toàn bộ quá trình cấp dây, cuốn, uốn và cắt. Tạo ra các loại lò xo nén, kéo, và lò xo xoắn đa biên độ với độ đồng đều tuyệt đối và sai số thấp nhất.",
+        "tagline": "Uốn chính xác — Tốc độ cao — Tự động — Năng suất vượt trội",
+        "heroLede": "QS Controller là giải pháp điều khiển CNC chuyên dụng cho máy tự động hóa uốn lò xo, giúp gia công lò xo chính xác theo chương trình, đồng bộ nhiều trục chuyển động. Hệ thống vận hành ổn định, dễ sử dụng, đáp ứng đa dạng chủng loại lò xo với hiệu suất cao và chất lượng đồng đều.",
         "heroStats": [["4–8", "Số trục"], ["±0.01", "Độ chính xác (mm)"], ["120 m/p", "Tốc độ cấp dây"]],
+        "strengths": [
+          { "t": "Độ chính xác cao", "d": "Điều khiển đa trục chính xác theo chương trình, sai số thấp, đảm bảo độ đồng đều của từng sản phẩm." },
+          { "t": "Vận hành ổn định", "d": "Hệ thống tối ưu giúp máy hoạt động êm ái, liên tục, ít bảo trì và tuổi thọ cao." },
+          { "t": "Linh hoạt ứng dụng", "d": "Gia công nhiều loại lò xo: nén, kéo, xoắn, định hình, lò xo phi tiêu chuẩn..." },
+          { "t": "Nâng cao năng suất", "d": "Tốc độ uốn nhanh, chu kỳ ngắn, tăng năng suất và giảm chi phí sản xuất." }
+        ],
+        "control": {
+          "items": [
+            { "t": "Điều khiển đa trục", "d": "Hỗ trợ 2 đến 12 trục (X/Y/Z/A/B/C/U/V...) điều khiển đồng bộ theo quỹ đạo chương trình." },
+            { "t": "Lập trình dễ dàng", "d": "Nhập chương trình trực tiếp, hỗ trợ G-code, macro, thư viện lò xo có sẵn." },
+            { "t": "Thư viện lò xo thông minh", "d": "Hỗ trợ tạo và lưu nhiều dạng lò xo, dễ dàng gọi lại và chỉnh sửa." },
+            { "t": "I/O linh hoạt", "d": "Điều khiển các thiết bị ngoại vi: kẹp dây, cắt dây, bôi trơn, cảm biến..." },
+            { "t": "An toàn & bảo vệ", "d": "Giám sát hành trình, cảnh báo lỗi, bảo vệ quá tải, đảm bảo an toàn vận hành." }
+          ]
+        },
+        "machineParts": {
+          "heading": "Máy tự động hóa uốn lò xo CNC dùng QS Controller",
+          "items": [
+            { "t": "Cụm trục uốn", "d": "Điều khiển nhiều trục servo, uốn dây theo biên dạng lập trình." },
+            { "t": "Cụm cấp dây", "d": "Đưa dây tự động, chính xác, ổn định và liên tục." },
+            { "t": "Cụm cắt dây", "d": "Cắt dây tự động sau khi hoàn thành một chu kỳ." },
+            { "t": "Bàn máy chắc chắn", "d": "Kết cấu vững chắc, giảm rung, đảm bảo độ chính xác cao." },
+            { "t": "Bộ điều khiển", "d": "QS Controller điều phối toàn bộ chu trình uốn lò xo." }
+          ]
+        },
+        "capabilityHeading": "Các loại lò xo gia công được",
+        "capabilities": [
+          { "t": "Lò xo nén" },
+          { "t": "Lò xo kéo" },
+          { "t": "Lò xo xoắn" },
+          { "t": "Lò xo định hình" },
+          { "t": "Lò xo phi tiêu chuẩn" },
+          { "t": "Lò xo double torsion" },
+          { "t": "Lò xo dây dẹp" },
+          { "t": "Sản phẩm phức tạp" }
+        ],
+        "industries": {
+          "items": [
+            "Sản xuất lò xo công nghiệp",
+            "Ngành ô tô, xe máy, xe đạp",
+            "Thiết bị điện – điện tử",
+            "Thiết bị gia dụng",
+            "Ngành cơ khí chính xác",
+            "Thiết bị y tế",
+            "Đồ chơi, văn phòng phẩm",
+            "Và nhiều ứng dụng khác"
+          ]
+        },
+        "compat": {
+          "heading": "Gia công dây với đường kính đa dạng",
+          "lede": "Phù hợp nhiều kích thước dây, từ dây tròn cỡ nhỏ đến dây dẹp bản rộng. Chiều dài cấp dây tùy theo cấu hình máy.",
+          "items": [
+            { "t": "Dây tròn", "d": "Ø0.2 ~ Ø12 mm" },
+            { "t": "Dây vuông", "d": "□0.2 ~ □8 mm" },
+            { "t": "Dây dẹp", "d": "Dày 0.1 ~ 5 mm" },
+            { "t": "Chiều dài cấp dây", "d": "Tùy cấu hình máy" }
+          ]
+        },
+        "highlights": {
+          "heading": "Ưu điểm khi sử dụng QS Controller",
+          "items": [
+            "Gia công chính xác, sản phẩm đồng đều",
+            "Tốc độ uốn nhanh, chu kỳ ngắn",
+            "Lập trình nhanh chóng, dễ sử dụng",
+            "Hỗ trợ nhiều dạng lò xo phức tạp",
+            "Giảm phế phẩm, tiết kiệm vật liệu",
+            "Tăng năng suất, giảm chi phí nhân công",
+            "Dễ dàng nâng cấp và bảo trì"
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Độ chính xác cao", "d": "Đảm bảo kích thước và góc uốn chính xác, sai số thấp." },
+            { "t": "Tăng năng suất", "d": "Thời gian chu kỳ ngắn, sản xuất liên tục, năng suất cao." },
+            { "t": "Tiết kiệm chi phí", "d": "Giảm phế phẩm, tiết kiệm vật liệu, giảm chi phí sản xuất." },
+            { "t": "Dễ sử dụng", "d": "Giao diện thân thiện, vận hành đơn giản, dễ đào tạo." },
+            { "t": "Linh hoạt", "d": "Dễ dàng thay đổi sản phẩm, đáp ứng nhanh nhu cầu thị trường." },
+            { "t": "Vận hành bền bỉ", "d": "Hoạt động ổn định, ít hỏng hóc, tuổi thọ cao." }
+          ]
+        },
+        "closing": "Giải pháp điều khiển CNC tối ưu cho máy uốn lò xo — nâng tầm chất lượng sản phẩm và hiệu quả sản xuất.",
         "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy uốn lò xo.",
         "workflow": [
           { "l": "Input · Parameters", "t": "Nhập thông số hình học", "d": "Nhập trực tiếp các thông số kỹ thuật của lò xo như: đường kính dây, bước xoắn, góc uốn và số vòng trên màn hình điều khiển." },
@@ -324,8 +489,66 @@
         ]
       },
       "kim-hoan": {
-        "heroLede": "Sức mạnh điều khiển nội suy mượt mà kết hợp với độ phân giải vi bước siêu nhỏ. Mang lại những đường chạm khắc, phay cắt cực kỳ tinh xảo trên vàng, bạc và trang sức, đáp ứng tiêu chuẩn khắt khe nhất của ngành kim hoàn.",
+        "tagline": "Độ chính xác siêu nhỏ — Đường nét tinh xảo — Giá trị hoàn hảo",
+        "heroLede": "QS Controller là giải pháp điều khiển CNC chuyên dụng cho máy gia công kim hoàn, đáp ứng nhu cầu gia công các chi tiết siêu nhỏ với độ chính xác cao và bề mặt hoàn thiện tinh xảo. Hệ thống hỗ trợ đa dạng chức năng, tối ưu cho các công đoạn phay, khắc, đục, khoan và đánh bóng trên nhiều loại vật liệu quý.",
         "heroStats": [["4–5", "Số trục"], ["1µm", "Độ phân giải"], ["60k", "Tốc độ spindle (RPM)"]],
+        "strengths": [
+          { "t": "Độ chính xác cao", "d": "Điều khiển độ phân giải cao đến 0.001 mm, đảm bảo chi tiết gia công sắc nét từng đường nét." },
+          { "t": "Vận hành ổn định", "d": "Hệ thống điều khiển mạnh mẽ, chạy mượt mà, liên tục, đáp ứng gia công chi tiết siêu nhỏ." },
+          { "t": "Linh hoạt ứng dụng", "d": "Hỗ trợ gia công 2D, 2.5D, 3D, khắc chữ, hoa văn, họa tiết phức tạp trên nhiều vật liệu quý." },
+          { "t": "Nâng cao năng suất", "d": "Tối ưu tốc độ gia công, đảm bảo chất lượng, gia tăng hiệu quả sản xuất và giá trị sản phẩm." }
+        ],
+        "control": {
+          "heading": "QS Controller — trung tâm điều khiển chính xác",
+          "items": [
+            { "t": "Điều khiển đa trục", "d": "Hỗ trợ từ 3 đến 5 trục (X/Y/Z/A/B) để gia công các biên dạng phức tạp." },
+            { "t": "Nội suy cao cấp", "d": "Nội suy mịn, tốc độ cao, đường chạy mượt mà, bề mặt hoàn thiện đẹp." },
+            { "t": "Chức năng chuyên dụng", "d": "Hỗ trợ macro, bù dao, bù sai số, điều khiển tốc độ trục chính, điều khiển I/O linh hoạt." },
+            { "t": "Quản lý chương trình", "d": "Lưu trữ, chỉnh sửa, sao chép chương trình trực tiếp trên bộ điều khiển. Hỗ trợ USB, mạng LAN, DNC." },
+            { "t": "An toàn & bảo vệ", "d": "Giám sát hành trình, cảnh báo va chạm, bảo vệ quá tải, đảm bảo an toàn thiết bị và người vận hành." }
+          ]
+        },
+        "machineParts": {
+          "heading": "Máy CNC gia công kim hoàn dùng QS Controller",
+          "items": [
+            { "t": "Trục chính tốc độ cao", "d": "Tốc độ lên đến 60.000 rpm, phù hợp gia công chi tiết nhỏ, bề mặt mịn." },
+            { "t": "Trục xoay (A/B)", "d": "Gia công đa hướng, khắc 3D, hoa văn phức tạp." },
+            { "t": "Bàn máy chính xác", "d": "Độ phẳng cao, kẹp chắc chắn, đảm bảo độ chính xác tuyệt đối." },
+            { "t": "Bộ điều khiển", "d": "QS Controller điều phối toàn bộ chu trình gia công." }
+          ]
+        },
+        "capabilityHeading": "Ứng dụng gia công trên máy kim hoàn",
+        "capabilities": [
+          { "t": "Khắc hoa văn trang sức", "d": "Khắc tinh xảo các họa tiết hoa văn, đường nét sắc sảo." },
+          { "t": "Phay biên dạng 3D", "d": "Gia công biên dạng 3D trên nhẫn, lắc, mặt dây chuyền." },
+          { "t": "Khoan lỗ siêu nhỏ", "d": "Khoan lỗ chính xác cho đá quý, chốt, ốc siêu nhỏ." },
+          { "t": "Khắc chữ, logo", "d": "Khắc chữ, logo, số seri trên bề mặt sản phẩm." },
+          { "t": "Điêu khắc 3D", "d": "Điêu khắc 3D tượng, mặt Phật, hình linh vật." },
+          { "t": "Đánh bóng bề mặt", "d": "Kết hợp đầu đánh bóng, hoàn thiện bề mặt cao cấp." }
+        ],
+        "compat": {
+          "heading": "Vật liệu gia công",
+          "lede": "QS Controller làm chủ các nhóm vật liệu quý của ngành kim hoàn — từ kim loại mềm dễ bám dao đến đá quý giòn và sáp mẫu đúc — với tốc độ trục chính và lượng ăn dao phù hợp cho từng nhóm.",
+          "items": [
+            { "t": "Vàng" },
+            { "t": "Bạc" },
+            { "t": "Bạch kim" },
+            { "t": "Đồng" },
+            { "t": "Đá quý" },
+            { "t": "Sáp mẫu" }
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Độ chính xác tuyệt đối", "d": "Gia công chi tiết siêu nhỏ với độ chính xác cao." },
+            { "t": "Nâng cao giá trị sản phẩm", "d": "Đường nét tinh xảo, bề mặt đẹp, gia tăng giá trị cạnh tranh." },
+            { "t": "Tăng năng suất", "d": "Gia công nhanh, ổn định, giảm thời gian sản xuất." },
+            { "t": "Dễ sử dụng", "d": "Giao diện thân thiện, dễ học, dễ vận hành." },
+            { "t": "Linh hoạt tích hợp", "d": "Dễ dàng tích hợp với nhiều loại máy và thiết bị ngoại vi." },
+            { "t": "Vận hành bền bỉ", "d": "Hệ thống ổn định, hoạt động liên tục trong thời gian dài." }
+          ]
+        },
+        "closing": "Giải pháp điều khiển CNC tối ưu cho ngành kim hoàn — chính xác, tinh xảo, giá trị bền vững.",
         "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy kim hoàn.",
         "workflow": [
           { "l": "Input · Jewelry CAD", "t": "Tiếp nhận thiết kế 3D", "d": "Xử lý các file G-Code dung lượng cực lớn xuất ra từ các phần mềm thiết kế trang sức chuyên dụng (như Matrix, Rhino)." },

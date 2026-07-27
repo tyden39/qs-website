@@ -444,5 +444,110 @@
     },
     "features": [],
     "sourceUrl": "https://qstcnc.com/san-pham/12-voltage-power-adapter-1a"
+  },
+  {
+    "slug": "wireless-3d-touch-probe",
+    "category": "accessory",
+    "name": "Đầu dò 3D không dây",
+    "nameEn": "Wireless 3D Touch Probe",
+    "tag": "Đầu dò 3D · Truyền tín hiệu không dây",
+    "tagEn": "3D touch probe · Wireless signal link",
+    "desc": "Bộ đầu dò 3D gá trên trục chính máy CNC dùng để rà cạnh, tìm tâm lỗ và thiết lập gốc phôi. Tín hiệu được truyền không dây về bộ thu gắn trên máy nên không vướng dây trong quá trình gia công.",
+    "descEn": "A 3D touch probe held in the CNC spindle for edge finding, hole centring and workpiece zero setting. It reports over a wireless link to a receiver mounted on the machine, so no cable runs to the spindle.",
+    "specs": [
+      {
+        "l": "Model",
+        "v": "JS-TP3D"
+      },
+      {
+        "l": "Loại đầu dò",
+        "v": "Đầu dò kích hoạt tiếp xúc 3D"
+      },
+      {
+        "l": "Độ chính xác",
+        "v": "≤ 2 µm"
+      },
+      {
+        "l": "Hướng kích hoạt",
+        "v": "±X, ±Y, ±Z"
+      },
+      {
+        "l": "Quá hành tối đa X–Y",
+        "v": "±15°"
+      },
+      {
+        "l": "Quá hành tối đa Z",
+        "v": "+5 mm"
+      },
+      {
+        "l": "Lực kích hoạt phương Z",
+        "v": "1.000 gf (xấp xỉ 9,81 N)"
+      },
+      {
+        "l": "Lực kích hoạt mặt phẳng X–Y",
+        "v": "65–130 gf (xấp xỉ 0,64–1,28 N)"
+      },
+      {
+        "l": "Kim đo tiêu chuẩn",
+        "v": "TS50-RB5"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "24 VDC ±10%"
+      },
+      {
+        "l": "Dòng tải đầu ra tối đa",
+        "v": "50 mA"
+      },
+      {
+        "l": "Cấp bảo vệ",
+        "v": "IP68"
+      },
+      {
+        "l": "Chiều dài tổng thể",
+        "v": "147,3 mm"
+      },
+      {
+        "l": "Đường kính thân",
+        "v": "Ø25 mm"
+      },
+      {
+        "l": "Đường kính lớn nhất",
+        "v": "Ø30 mm"
+      },
+      {
+        "l": "Đường kính cán lắp",
+        "v": "Ø16 mm"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/wireless-3d-touch-probe.webp",
+      "w": 679,
+      "h": 706,
+      "alt": "Đầu dò 3D không dây kèm bộ thu tín hiệu",
+      "altEn": "Wireless 3D touch probe with its signal receiver"
+    },
+    "features": [],
+    "sourceUrl": ""
+  },
+  {
+    "slug": "cnc-tool-setter",
+    "category": "accessory",
+    "name": "Bộ đo dao máy CNC",
+    "nameEn": "CNC Tool Setter",
+    "tag": "Bộ đo dao · Xác định gốc dao trục Z",
+    "tagEn": "Tool setter · Z-axis tool zero",
+    "desc": "Thiết bị đặt trên bàn máy CNC để đo chiều dài dao và xác định gốc dao theo trục Z sau mỗi lần thay dao, thay cho thao tác rà dao thủ công.",
+    "descEn": "A bench-mounted unit that measures tool length and sets the Z-axis tool zero after each tool change, replacing manual touch-off.",
+    "specs": [],
+    "image": {
+      "src": "/img/products/catalog/cnc-tool-setter.webp",
+      "w": 550,
+      "h": 550,
+      "alt": "Bộ đo dao dùng cho máy CNC",
+      "altEn": "Tool setter for CNC machines"
+    },
+    "features": [],
+    "sourceUrl": ""
   }
 ]

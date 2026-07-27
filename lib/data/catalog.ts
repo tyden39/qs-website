@@ -53,11 +53,30 @@ const SPEC_LABEL_EN: Record<string, string> = {
   "Khối lượng": "Weight",
   "Đầu nối": "Connector",
   Model: "Model",
+  "Loại đầu dò": "Probe type",
+  "Độ chính xác": "Accuracy",
+  "Hướng kích hoạt": "Trigger directions",
+  "Quá hành tối đa X–Y": "Max overtravel, X–Y",
+  "Quá hành tối đa Z": "Max overtravel, Z",
+  "Lực kích hoạt phương Z": "Trigger force, Z",
+  "Lực kích hoạt mặt phẳng X–Y": "Trigger force, X–Y plane",
+  "Kim đo tiêu chuẩn": "Standard stylus",
+  "Dòng tải đầu ra tối đa": "Max output load current",
+  "Cấp bảo vệ": "Protection rating",
+  "Chiều dài tổng thể": "Overall length",
+  "Đường kính thân": "Body diameter",
+  "Đường kính lớn nhất": "Max diameter",
+  "Đường kính cán lắp": "Shank diameter",
 };
 
 const SPEC_VALUE_EN: Record<string, string> = {
   Có: "Yes",
   "Nhựa ABS": "ABS plastic",
+  "Đầu dò kích hoạt tiếp xúc 3D": "3D touch-trigger probe",
+  // Vietnamese writes the decimal separator as a comma, English as a point.
+  "1.000 gf (xấp xỉ 9,81 N)": "1,000 gf (approx. 9.81 N)",
+  "65–130 gf (xấp xỉ 0,64–1,28 N)": "65–130 gf (approx. 0.64–1.28 N)",
+  "147,3 mm": "147.3 mm",
 };
 
 function localizeSpec(row: CatalogSpec): CatalogSpec {
@@ -106,7 +125,7 @@ export function getCatalogSlugs(): string[] {
   return catalogProducts.map((p) => p.slug);
 }
 
-/** True when a `/controller/[slug]` route should render the catalogue template. */
+/** True when a `/electronics/[slug]` route should render the catalogue template. */
 export function isCatalogSlug(slug: string): boolean {
   return catalogProducts.some((p) => p.slug === slug);
 }

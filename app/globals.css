@@ -34,13 +34,18 @@
 
   /* ─── Type scale ─── single source of truth for text sizing.
      Every size in the app maps to one of these steps (utilities: text-<name>).
-     Mono labels 10–11 · body 13–17 · display 20 → subhead 24 → h2/h1 clamps.
-     Decorative one-offs (giant stat/watermark numerals) stay as arbitrary values. */
-  --text-label-xs: 10px;   /* mono tags, chips, micro crumbs */
-  --text-label: 11px;      /* mono eyebrows, panel labels */
-  --text-meta: 13px;       /* captions, meta, buttons, small UI */
-  --text-body: 15px;       /* default paragraph / body copy */
-  --text-lede: 17px;       /* intro / lede paragraphs */
+     Mono labels 11–12 · body 14–18 · display 20 → subhead 24 → h2/h1 clamps.
+     Decorative one-offs (giant stat/watermark numerals) stay as arbitrary values.
+
+     The two label steps are reserved for uppercase mono decoration (eyebrows,
+     crumbs, tags) where the wide tracking carries the reading; anything a
+     visitor actually reads as a sentence, a spec value or a caption starts at
+     `meta` and up. */
+  --text-label-xs: 11px;   /* mono tags, chips, micro crumbs */
+  --text-label: 12px;      /* mono eyebrows, panel labels */
+  --text-meta: 14px;       /* captions, meta, buttons, small UI */
+  --text-body: 16px;       /* default paragraph / body copy */
+  --text-lede: 18px;       /* intro / lede paragraphs */
   --text-title: 20px;      /* card titles, small headings */
   --text-subhead: 24px;    /* sub-heads, stat values */
   --text-h2: clamp(26px, 2.4vw, 36px); /* section headings */
@@ -61,15 +66,13 @@
 html, body { background: #f5f3ee; color: #1a1a1a; margin: 0; padding: 0; }
 body {
   font-family: var(--font-sans);
-  /* 16px on touch-first viewports (readability floor); 15px from lg up where
-     the denser editorial scale is intentional. */
+  /* 16px on every viewport. Desktop used to step down to 15px for a denser
+     editorial feel, but that shrank the long datasheet and description copy on
+     the detail pages exactly where it is read most closely. */
   font-size: 16px;
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "ss01","cv11";
-}
-@media (min-width: 1024px) {
-  body { font-size: 15px; }
 }
 /* img { display: block; max-width: 100%; } */
 /* a { color: inherit; text-decoration: none; } */

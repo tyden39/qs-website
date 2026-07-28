@@ -531,7 +531,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                 </span>
                 <span className="font-semibold text-ink text-meta tracking-[-.005em] min-w-0">{downloadTitle(head)}</span>
               </div>
-              <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
+              <span className="font-mono text-meta text-muted md:text-[#3a3a3a]">
                 {/* the column header is hidden below md, so label the value inline there */}
                 <span className="md:hidden text-label-xs tracking-[.12em] uppercase text-muted/70">{tDl("table.version")}: </span>
                 {head.version ?? (head.date ? head.date.slice(0, 7).replace("-", "/") : "—")}
@@ -702,7 +702,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                   ) : (
                     <span className="grid h-[52px] w-full place-items-center">{image}</span>
                   )}
-                  <span className="line-clamp-2 text-center text-label leading-[1.3] text-muted transition-colors group-hover:text-ink">{c.label}</span>
+                  <span className="line-clamp-2 text-center text-meta leading-[1.35] text-muted transition-colors group-hover:text-ink">{c.label}</span>
                 </div>
               );
             })}

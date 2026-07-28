@@ -476,7 +476,7 @@ export default async function MachineDatasheet({
                         </>
                       )}
                     </div>
-                    <p className="font-mono text-label tracking-[.06em] text-center text-muted px-2 py-2.5 border-t border-line m-0">
+                    <p className="font-mono text-meta tracking-[.04em] leading-[1.5] text-center text-muted px-2 py-2.5 border-t border-line m-0">
                       {c.caption}
                     </p>
                   </div>
@@ -662,7 +662,7 @@ export default async function MachineDatasheet({
                       <dl className="m-0 px-4 py-1">
                         {g.rows.map((r) => (
                           <div key={r.k} className="py-2.5 border-b border-line/70 last:border-b-0">
-                            <dt className="text-label leading-tight text-muted m-0">{label(r.k)}</dt>
+                            <dt className="text-meta leading-tight text-muted m-0">{label(r.k)}</dt>
                             <dd className="font-mono text-meta text-ink mt-1 m-0">{r.v}</dd>
                           </div>
                         ))}

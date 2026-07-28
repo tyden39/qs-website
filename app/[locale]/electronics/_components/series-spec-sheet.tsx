@@ -260,7 +260,7 @@ function SheetNaming({ block }: { block: Extract<SheetBlockView, { kind: "naming
             {br.options && br.options.length > 0 && (
               <ul className="mt-1 flex flex-col gap-1 m-0 p-0 list-none">
                 {br.options.map((o, oi) => (
-                  <li key={oi} className="flex gap-2 text-label leading-[1.5] text-muted">
+                  <li key={oi} className="flex gap-2 text-meta leading-[1.55] text-muted">
                     <span aria-hidden className="text-gold-1 shrink-0">
                       ·
                     </span>
@@ -451,7 +451,7 @@ function SheetCardGrid({ block }: { block: Extract<SheetBlockView, { kind: "card
             <h4 className="m-0 font-display text-meta font-bold tracking-[-.01em] text-ink">
               {it.title}
             </h4>
-            {it.desc && <p className="m-0 text-label leading-[1.55] text-muted">{it.desc}</p>}
+            {it.desc && <p className="m-0 text-meta leading-[1.6] text-muted">{it.desc}</p>}
             {it.tags && it.tags.length > 0 && (
               <div className="mt-1 flex flex-wrap gap-1.5">
                 {it.tags.map((t, ti) => (

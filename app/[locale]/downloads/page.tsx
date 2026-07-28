@@ -190,7 +190,7 @@ export default async function Downloads({ params }: Props) {
   const stats = [
     { v: String(totalDocs), l: t("stats.docs") },
     { v: String(modelCount), l: t("stats.models") },
-    { v: "VN / EN / ZH", l: t("stats.lang") },
+    { v: "VN / EN", l: t("stats.lang") },
   ];
 
   const nav = await getTranslations({ locale, namespace: "nav" });

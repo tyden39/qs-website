@@ -267,11 +267,11 @@ export async function SeriesDetail({
                           <span className="font-semibold text-ink text-meta tracking-[-.005em]">
                             {d.title}
                           </span>
-                          <span className="block text-label text-muted mt-0.5">
+                          <span className="block text-meta text-muted mt-0.5">
                             {t("docsTable.partsHint")}
                           </span>
                         </span>
-                        <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
+                        <span className="font-mono text-meta text-muted md:text-[#3a3a3a]">
                           {d.size_mb ? `${d.size_mb} MB` : "—"}
                         </span>
                         <div className="flex md:justify-end">
@@ -288,7 +288,7 @@ export async function SeriesDetail({
                             className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 md:pl-10 py-3 border-t border-line/60 first:border-t-0"
                           >
                             <span className="text-meta text-[#3a3a3a] min-w-0">{p.label}</span>
-                            <span className="font-mono text-label text-muted">
+                            <span className="font-mono text-meta text-muted">
                               {p.size_mb ? `${p.size_mb} MB` : "—"}
                             </span>
                             <div className="flex md:justify-end">
@@ -312,7 +312,7 @@ export async function SeriesDetail({
                       <span className="font-semibold text-ink text-meta tracking-[-.005em] min-w-0">
                         {d.title}
                       </span>
-                      <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
+                      <span className="font-mono text-meta text-muted md:text-[#3a3a3a]">
                         {d.size_mb ? `${d.size_mb} MB` : "—"}
                       </span>
                       <div className="flex md:justify-end">

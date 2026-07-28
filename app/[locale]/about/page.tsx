@@ -59,7 +59,7 @@ export default async function About({ params }: Props) {
       <JsonLd data={breadcrumb} />
       {/* HERO — kinetic typographic headline; the brand PCB signature replaces the old figure,
           carrying the "we engineer the path" journey metaphor with live gold current. */}
-      <section className="relative overflow-hidden border-b border-line pt-14 pb-16 sm:pt-20 sm:pb-24 min-h-[clamp(420px,52vw,620px)]"
+      <section className="relative overflow-hidden border-b border-line pt-14 pb-16 sm:pt-20 sm:pb-24 min-h-[clamp(420px,52vw,620px)] flex flex-col"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         {/* breathing gold atmosphere anchored toward the signature */}
@@ -69,7 +69,8 @@ export default async function About({ params }: Props) {
           variant="light"
           className="hidden lg:block absolute bottom-0 right-0 w-[48%] h-[86%] opacity-[.6] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_24%,transparent_74%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_24%,transparent_74%)]"
         />
-        <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid lg:grid-cols-[1.05fr_1fr] gap-10 sm:gap-16 items-end">
+        {/* the grid stretches to the hero's min-height so the right column can bottom-anchor */}
+        <div className="relative z-10 w-full lg:flex-1 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid lg:grid-cols-[1.05fr_1fr] gap-10 sm:gap-16">
           <div>
             <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("hero.eyebrow")}</div>
             <h1 className="font-display font-bold tracking-tight leading-[.95] mt-3.5"
@@ -88,7 +89,7 @@ export default async function About({ params }: Props) {
               </span>
             </h1>
           </div>
-          <div className="lg:pb-2 qs-rise" style={{ animationDelay: "440ms" }}>
+          <div className="lg:pb-2 qs-rise flex flex-col lg:justify-end" style={{ animationDelay: "440ms" }}>
             <p className="text-title leading-[1.7] text-[#3a3a3a] m-0 max-w-[480px]">
               {t("hero.lede")}
             </p>

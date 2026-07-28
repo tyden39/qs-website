@@ -14,7 +14,7 @@ const DOC_KEY = "d";
 /** One downloadable variant of a document (a language edition, or a single
  *  external source file). */
 export type DlVariant = {
-  /** Badge/button label for the edition, e.g. "VI", "EN", "ZH". */
+  /** Badge/button label for the edition, e.g. "VI", "EN". */
   lang: string;
   url: string;
   sizeLabel: string;

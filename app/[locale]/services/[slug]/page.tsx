@@ -190,7 +190,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
                 </div>
                 <div className="font-display font-semibold text-body">
                   {item.name}
-                  <small className="block font-mono text-label text-muted font-normal mt-1 normal-case tracking-[.06em]">{item.note}</small>
+                  <small className="block font-mono text-meta leading-[1.5] text-muted font-normal mt-1 normal-case tracking-[.04em]">{item.note}</small>
                 </div>
                 <div className="font-mono text-label-xs text-gold-1 tracking-[.14em] uppercase bg-paper px-2 py-1 border border-line">
                   {item.tag}

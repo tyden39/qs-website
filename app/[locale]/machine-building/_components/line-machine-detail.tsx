@@ -215,7 +215,7 @@ export default async function LineMachineDetail({
                         className="absolute inset-0 z-[6]"
                       />
                     </div>
-                    <figcaption className="px-4 py-3 border-t border-line font-mono text-label leading-[1.5] text-muted">
+                    <figcaption className="px-4 py-3 border-t border-line font-mono text-meta leading-[1.5] text-muted">
                       <span className="text-steelblue mr-1.5">{String(i + 1).padStart(2, "0")}</span>{shot.caption}
                     </figcaption>
                   </figure>

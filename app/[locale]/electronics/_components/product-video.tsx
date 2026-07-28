@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { useYoutubePoster } from "@/lib/youtube-poster";
+
 /**
  * Lazy YouTube player for the product overview. Renders a poster + play button
  * (a "facade") and only injects the YouTube iframe after the first click, so the
@@ -18,6 +20,7 @@ export function ProductVideo({
   playLabel: string;
 }) {
   const [playing, setPlaying] = useState(false);
+  const posterProps = useYoutubePoster(youtubeId);
 
   if (playing) {
     return (
@@ -40,9 +43,8 @@ export function ProductVideo({
       aria-label={playLabel}
       className="group relative aspect-video w-full overflow-hidden bg-black border border-line cursor-pointer"
     >
-      {/* Poster: `hqdefault` always exists for any public video. */}
       <img
-        src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
+        {...posterProps}
         alt={title}
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover opacity-90 transition-opacity group-hover:opacity-100"

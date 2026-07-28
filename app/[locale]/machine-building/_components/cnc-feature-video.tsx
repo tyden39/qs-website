@@ -4,17 +4,17 @@ import Image from "next/image";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
+import { useYoutubePoster } from "@/lib/youtube-poster";
+
 /**
  * Single feature video with a YouTube facade: the poster still renders immediately
  * and the iframe only loads on play (same pattern as the home VideoReel feature
- * screen, without the playlist). Uses the always-present hqdefault poster — this
- * feature video has no maxresdefault, so probing it only 404s.
+ * screen, without the playlist).
  */
 export default function CncFeatureVideo({ youtubeId }: { youtubeId: string }) {
   const t = useTranslations("cnc.video");
   const [playing, setPlaying] = useState(false);
-
-  const poster = `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
+  const posterProps = useYoutubePoster(youtubeId);
 
   return (
     <div className="group relative aspect-video overflow-hidden rounded-[6px] bg-ink-2 border border-[#2a2620] shadow-[0_28px_70px_-30px_rgba(0,0,0,.7)]">
@@ -39,7 +39,7 @@ export default function CncFeatureVideo({ youtubeId }: { youtubeId: string }) {
       ) : (
         <>
           <Image
-            src={poster}
+            {...posterProps}
             alt={t("title")}
             fill
             sizes="(max-width:1024px) 100vw, 960px"

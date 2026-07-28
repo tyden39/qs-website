@@ -30,11 +30,18 @@ const CategoryFilterContext = createContext<string | null>(null);
 export function useCategorySubfilter(): string | null {
   return useContext(CategoryFilterContext);
 }
+/** Widens a group's list back to "all", for a list that offers its own way out of
+ *  a narrowed branch. Lives here so `TYPE_KEY` stays this module's business. */
+export function clearCategorySubfilter(): void {
+  setFilterParams({ [TYPE_KEY]: null });
+}
 
 /** A subcategory branch under a group (e.g. a controller `type`). `icon` is a
  *  CategoryIcon slug shown before the label, mirroring the header's sub-type
- *  leaves; omit for a branch that has no matching glyph. */
-export type CategoryTreeChild = { id: string; label: string; count: number; icon?: string };
+ *  leaves; omit for a branch that has no matching glyph. `soon` marks a branch
+ *  the taxonomy announces but the catalogue has yet to fill: its text replaces
+ *  the count so the row never reads as a broken "00". */
+export type CategoryTreeChild = { id: string; label: string; count: number; icon?: string; soon?: string };
 
 /**
  * A top-level catalogue group. `node` is the pre-rendered (async server) list
@@ -298,7 +305,7 @@ export function CategoryTreeHero({
               <option value="">{allLabel}</option>
               {activeGroup.children.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.label} ({String(c.count).padStart(2, "0")})
+                  {c.label} ({c.soon ?? String(c.count).padStart(2, "0")})
                 </option>
               ))}
             </select>
@@ -381,12 +388,15 @@ export function CategoryTreeHero({
                             >
                               <span className="flex items-center gap-2 min-w-0">
                                 {c.icon ? <CategoryIcon name={c.icon} className="w-4 h-4 shrink-0 opacity-75" /> : null}
-                                <span className="truncate">{c.label}</span>
+                                {/* Wraps rather than truncates: a "soon" marker takes
+                                    the room a two-digit count would, and a clipped
+                                    branch name is worse than a two-line row. */}
+                                <span className="min-w-0 text-balance">{c.label}</span>
                               </span>
                               <span
-                                className={`font-mono text-label-xs tabular-nums ${on ? skin.countOn : skin.count}`}
+                                className={`shrink-0 font-mono text-label-xs ${c.soon ? "tracking-[.1em] uppercase" : "tabular-nums"} ${on ? skin.countOn : skin.count}`}
                               >
-                                {String(c.count).padStart(2, "0")}
+                                {c.soon ?? String(c.count).padStart(2, "0")}
                               </span>
                             </button>
                           </li>

@@ -114,7 +114,10 @@ export default function Header() {
   const electronicsChildren: NavChild[] = [
     {
       page: "/electronics", g: "controllers", icon: "controllers", label: t("submenu.electronics.controllers"),
-      children: (["motion", "cnc", "robot", "cobot"] as const).map((ct) => ({
+      // Same order as the catalogue's CONTROLLER_TYPES (CNC leads, the three
+      // placeholder sub-types follow). Spelled out rather than imported so the
+      // nav does not pull the product catalogue into the client bundle.
+      children: (["cnc", "motion", "robot", "cobot"] as const).map((ct) => ({
         page: "/electronics", g: "controllers", type: ct, icon: ct, label: tp(`page.types.controllers.${ct}`),
       })),
     },
@@ -188,12 +191,12 @@ export default function Header() {
         </Link>
         {/* pt-2 bridges the hover gap so the pointer can cross into the panel */}
         <div className="absolute left-0 top-full pt-2 z-50 hidden group-hover:block group-focus-within:block">
-          <div className="min-w-[13rem] bg-white border border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] py-1.5">
+          <div className="min-w-[14rem] bg-white border border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] py-1.5">
             {item.children.map((c) =>
               c.children ? (
                 // Nested flyout: opens to the right of the parent row on hover/focus.
                 <div key={leafHref(c)} className="relative group/sub">
-                  <Link href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`flex items-center justify-between gap-4 px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(c)}`}>
+                  <Link href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`flex items-center justify-between gap-4 px-4 py-2.5 border-l-2 text-body whitespace-nowrap transition-colors ${leafState(c)}`}>
                     <span className="flex items-center gap-2.5 min-w-0">
                       {c.icon ? <CategoryIcon name={c.icon} className="w-[18px] h-[18px] shrink-0 opacity-75" /> : null}
                       {c.label}
@@ -201,9 +204,9 @@ export default function Header() {
                     <svg className="opacity-50" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
                   </Link>
                   <div className="absolute left-full top-0 pl-1 hidden group-hover/sub:block group-focus-within/sub:block">
-                    <div className="min-w-[12rem] bg-white border border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] py-1.5">
+                    <div className="min-w-[13rem] bg-white border border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] py-1.5">
                       {c.children.map((s) => (
-                        <Link key={leafHref(s)} href={leafHref(s)} onClick={(e) => onLeafClick(e, s)} className={`flex items-center gap-2.5 px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(s)}`}>
+                        <Link key={leafHref(s)} href={leafHref(s)} onClick={(e) => onLeafClick(e, s)} className={`flex items-center gap-2.5 px-4 py-2.5 border-l-2 text-body whitespace-nowrap transition-colors ${leafState(s)}`}>
                           {s.icon ? <CategoryIcon name={s.icon} className="w-4 h-4 shrink-0 opacity-75" /> : null}
                           {s.label}
                         </Link>
@@ -212,7 +215,7 @@ export default function Header() {
                   </div>
                 </div>
               ) : (
-                <Link key={leafHref(c)} href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`flex items-center gap-2.5 px-4 py-2.5 border-l-2 text-meta whitespace-nowrap transition-colors ${leafState(c)}`}>
+                <Link key={leafHref(c)} href={leafHref(c)} onClick={(e) => onLeafClick(e, c)} className={`flex items-center gap-2.5 px-4 py-2.5 border-l-2 text-body whitespace-nowrap transition-colors ${leafState(c)}`}>
                   {c.icon ? <CategoryIcon name={c.icon} className="w-[18px] h-[18px] shrink-0 opacity-75" /> : null}
                   {c.label}
                 </Link>
@@ -345,7 +348,7 @@ export default function Header() {
                               key={leafHref(c)}
                               href={leafHref(c)}
                               onClick={(e) => onLeafClick(e, c)}
-                              className={`flex items-center gap-2.5 py-2.5 font-display text-meta transition-colors ${leafStateMobile(c)}`}
+                              className={`flex items-center gap-2.5 py-2.5 font-display text-body transition-colors ${leafStateMobile(c)}`}
                             >
                               {c.icon ? <CategoryIcon name={c.icon} className="w-4 h-4 shrink-0 opacity-70" /> : null}
                               {c.label}
@@ -362,7 +365,7 @@ export default function Header() {
                               <Link
                                 href={childKey}
                                 onClick={(e) => onLeafClick(e, c)}
-                                className={`flex-1 flex items-center gap-2.5 py-2.5 font-display text-meta transition-colors ${leafStateMobile(c)}`}
+                                className={`flex-1 flex items-center gap-2.5 py-2.5 font-display text-body transition-colors ${leafStateMobile(c)}`}
                               >
                                 {c.icon ? <CategoryIcon name={c.icon} className="w-4 h-4 shrink-0 opacity-70" /> : null}
                                 {c.label}
@@ -384,9 +387,9 @@ export default function Header() {
                                     key={leafHref(s)}
                                     href={leafHref(s)}
                                     onClick={(e) => onLeafClick(e, s)}
-                                    className={`flex items-center gap-2.5 py-2 font-display text-label transition-colors ${leafStateMobile(s)}`}
+                                    className={`flex items-center gap-2.5 py-2 font-display text-meta transition-colors ${leafStateMobile(s)}`}
                                   >
-                                    {s.icon ? <CategoryIcon name={s.icon} className="w-3.5 h-3.5 shrink-0 opacity-70" /> : null}
+                                    {s.icon ? <CategoryIcon name={s.icon} className="w-4 h-4 shrink-0 opacity-70" /> : null}
                                     {s.label}
                                   </Link>
                                 ))}

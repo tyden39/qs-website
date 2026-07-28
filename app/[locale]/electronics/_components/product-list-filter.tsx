@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useCategorySubfilter } from "./product-category-tree";
+import { clearCategorySubfilter, useCategorySubfilter } from "./product-category-tree";
+import { ControllerSoonPanel, type ControllerSoonCopy } from "./controller-soon-panel";
 import { setFilterParams, slugIndex, useFilterParams } from "@/lib/use-filter-params";
 
 // Query slug per chip/option, indexed to match the localized label arrays.
@@ -41,6 +42,13 @@ type Labels = {
   interfaceLabel: string;
   sortLabel: string;
   emptyState: string;
+  /** Copy for the placeholder panel shown instead of `emptyState` when the chosen
+   *  sub-type carries no model at all — an announced branch of the taxonomy the
+   *  catalogue has yet to fill, which is not the same thing as a filter
+   *  combination matching nothing. */
+  soon: ControllerSoonCopy;
+  /** Sub-type name per catalogue type id, for the placeholder's heading. */
+  typeLabels: Record<string, string>;
 };
 
 // Interface slugs a product carries, for the pre-paint `data-f-iface` hook.
@@ -97,6 +105,9 @@ export function ProductListFilter({ items, labels }: { items: ProductFilterItem[
     return sorted;
   }, [items, chip, sort, type]);
 
+  // An unpublished sub-type: nothing to narrow, so the empty list is the branch
+  // being prepared rather than the interface chips excluding everything.
+  const typeUnpublished = type !== null && !items.some((it) => it.type === type);
   const count = String(visible.length).padStart(2, "0");
   const total = String(items.length).padStart(2, "0");
   // Only surface the "/ total" fragment once a filter is actually narrowing the
@@ -176,6 +187,13 @@ export function ProductListFilter({ items, labels }: { items: ProductFilterItem[
             </div>
           ))}
         </div>
+      ) : typeUnpublished && type ? (
+        <ControllerSoonPanel
+          label={labels.typeLabels[type] ?? type}
+          icon={type}
+          copy={labels.soon}
+          onBrowseAll={clearCategorySubfilter}
+        />
       ) : (
         <p className="text-body text-[#3a3a3a] leading-[1.7] m-0 py-12 text-center">{labels.emptyState}</p>
       )}

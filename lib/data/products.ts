@@ -26,8 +26,12 @@ export type ProductGalleryImage = ProductGalleryPhoto & { kind: ShotKind };
 
 export type { ControllerType };
 
-/** Section order on the controllers list page, general motion first. */
-export const CONTROLLER_TYPES: ControllerType[] = ["motion", "cnc", "robot", "cobot"];
+/**
+ * Branch order on the controllers list page. CNC leads because it is the only
+ * sub-type the catalogue publishes today; the other three stay in the taxonomy
+ * as placeholders and render as "being prepared" until they carry a model.
+ */
+export const CONTROLLER_TYPES: ControllerType[] = ["cnc", "motion", "robot", "cobot"];
 
 export type ProductView = {
   slug: string;

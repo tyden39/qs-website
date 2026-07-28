@@ -70,13 +70,19 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     controlInterface: p.interfaces.map((c) => c.name).join(" ").toLowerCase(),
     node: <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />,
   }));
-  // Controllers' subcategory branches = catalogue types (motion / cnc / robot /
-  // cobot), each labelled from i18n and counted from the product data. Types
-  // with no product are dropped so the tree never shows an empty branch.
+  // Controllers' subcategory branches = catalogue types (cnc / motion / robot /
+  // cobot), each labelled from i18n and counted from the product data. Every
+  // type stays in the tree: the ones the catalogue has not filled yet keep their
+  // place as announced-but-empty branches, marked "soon" instead of a count, and
+  // their panel shows the same notice in place of the filter's empty state.
   const typeCount = (type: string) => products.filter((p) => p.type === type).length;
-  const controllerChildren: CategoryTreeChild[] = CONTROLLER_TYPES.filter(
-    (ct) => typeCount(ct) > 0,
-  ).map((ct) => ({ id: ct, icon: ct, label: t(`types.controllers.${ct}`), count: typeCount(ct) }));
+  const controllerChildren: CategoryTreeChild[] = CONTROLLER_TYPES.map((ct) => ({
+    id: ct,
+    icon: ct,
+    label: t(`types.controllers.${ct}`),
+    count: typeCount(ct),
+    soon: typeCount(ct) === 0 ? t("types.soon") : undefined,
+  }));
   // Each tab is illustrated by the first product in its group, so the thumbnails
   // follow the catalogue instead of hardcoding a path that can go stale.
   const dncProducts = getCatalogProducts(locale, "dnc");
@@ -135,6 +141,17 @@ export default async function Products({ params }: { params: Promise<{ locale: L
             interfaceLabel: t("toolbar.interfaceLabel"),
             sortLabel: t("toolbar.sortLabel"),
             emptyState: t("toolbar.empty"),
+            soon: {
+              eyebrow: t("soon.eyebrow"),
+              body: t("soon.body"),
+              // Zero-padded like every other count in the catalogue chrome.
+              available: t("soon.available", { count: String(products.length).padStart(2, "0") }),
+              contact: t("soon.contact"),
+              browse: t("soon.browse"),
+            },
+            typeLabels: Object.fromEntries(
+              CONTROLLER_TYPES.map((ct) => [ct, t(`types.controllers.${ct}`)]),
+            ),
           }}
         />
       ),

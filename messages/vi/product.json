@@ -100,9 +100,17 @@
         "blurb": "Board mở rộng I/O, board chuyển đổi tín hiệu, PLC nhỏ gọn, cáp kết nối và nguồn cho hệ thống CNC."
       }
     },
+    "soon": {
+      "eyebrow": "Đang phát triển",
+      "body": "Dòng bộ điều khiển này đang được QS hoàn thiện. Liên hệ để nhận lộ trình ra mắt, hoặc xem các bộ điều khiển đang bán để tìm giải pháp tương đương ngay hôm nay.",
+      "available": "Hiện có {count} model đang bán",
+      "contact": "Liên hệ QS",
+      "browse": "Xem tất cả bộ điều khiển"
+    },
     "types": {
       "navLabel": "Loại sản phẩm",
       "all": "Tất cả",
+      "soon": "Sắp có",
       "machines": {
         "cnc": "Máy CNC",
         "automation": "Máy tự động hóa",

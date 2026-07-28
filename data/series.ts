@@ -178,8 +178,16 @@ export type SheetBlock =
   | { kind: "note"; text: Loc }
   /** A bullet list — the manufacturer's feature plates state each capability as
    *  its own line, so they read as a list rather than a paragraph. */
-  | { kind: "bullets"; items: Loc[] }
-  | { kind: "image"; src: string; w: number; h: number; alt: Loc; caption?: Loc }
+  | { kind: "bullets"; title?: Loc; items: Loc[] }
+  /** The manufacturer's feature plate: a run of capability groups, each a
+   *  full-width titled band over its own bullet list. Kept as one block because
+   *  the bands read as a single stacked unit — unlike `intro.sections`, which
+   *  summarises a series in a card row. */
+  | { kind: "featureGroups"; groups: { title: Loc; items: Loc[] }[] }
+  /** `note` is a remark about this drawing specifically (a fitting constraint, a
+   *  cable requirement); it prints inside the figure's frame so it cannot be
+   *  read as belonging to whatever block follows. */
+  | { kind: "image"; src: string; w: number; h: number; alt: Loc; caption?: Loc; note?: Loc }
   /** Two or three drawings that belong side by side — the manufacturer prints
    *  the front views of several frame sizes on one line to be compared. */
   | {
@@ -195,10 +203,18 @@ export type SheetBlock =
     }
   | {
       kind: "paramTable";
+      /** Label above the table, where a heading covers several tables at once
+       *  (the inverter's per-supply rating tables). */
+      title?: Loc;
       itemHeader?: Loc;
       /** Spanning header over the model columns (产品参数 tables). Omit for the
        *  dimension L-tables, whose model codes are the only header row. */
       modelHeader?: Loc;
+      /** The family's part-number pattern ("S600/E-2T***G"), printed as the row
+       *  that heads the model columns — the manufacturer names the family once
+       *  and lets each column carry only the part of the code that varies. Where
+       *  it is absent the model columns head themselves. */
+      modelPattern?: string;
       models: string[];
       groups: SheetParamGroup[];
     }

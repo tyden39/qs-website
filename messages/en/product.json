@@ -100,9 +100,17 @@
         "blurb": "I/O expansion boards, signal converter boards, compact PLCs, connection cables and power supplies for CNC systems."
       }
     },
+    "soon": {
+      "eyebrow": "In development",
+      "body": "QS is still finishing this controller line. Get in touch for the release roadmap, or browse the controllers on sale today to find an equivalent solution right now.",
+      "available": "{count} models on sale today",
+      "contact": "Contact QS",
+      "browse": "Browse all controllers"
+    },
     "types": {
       "navLabel": "Product types",
       "all": "All",
+      "soon": "Soon",
       "machines": {
         "cnc": "CNC machines",
         "automation": "Automation machines",

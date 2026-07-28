@@ -52,7 +52,7 @@ export function SeriesSpecSheet({
                   {block.text}
                 </h3>
                 {block.sub && (
-                  <p className="mt-1.5 m-0 font-mono text-label tracking-[.1em] uppercase text-gold-1">
+                  <p className="mt-1.5 m-0 font-mono text-meta tracking-[.1em] uppercase text-gold-1">
                     {block.sub}
                   </p>
                 )}
@@ -66,17 +66,26 @@ export function SeriesSpecSheet({
             );
           case "bullets":
             return (
-              <ul key={i} className="flex flex-col gap-2.5 m-0 p-0 list-none max-w-[86ch]">
-                {block.items.map((item, bi) => (
-                  <li key={bi} className="flex gap-2.5 text-meta leading-[1.7] text-[#3a3a3a]">
-                    <span aria-hidden className="text-gold-1 shrink-0">
-                      ▸
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <div key={i} className="flex flex-col gap-3">
+                {block.title && (
+                  <p className="m-0 font-mono text-label tracking-[.1em] uppercase text-gold-1">
+                    {block.title}
+                  </p>
+                )}
+                <ul className="flex flex-col gap-2.5 m-0 p-0 list-none max-w-[86ch]">
+                  {block.items.map((item, bi) => (
+                    <li key={bi} className="flex gap-2.5 text-meta leading-[1.7] text-[#3a3a3a]">
+                      <span aria-hidden className="text-gold-1 shrink-0">
+                        ▸
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             );
+          case "featureGroups":
+            return <SheetFeatureGroups key={i} block={block} />;
           case "image":
             return (
               <SheetImage
@@ -127,6 +136,43 @@ export function SeriesSpecSheet({
   );
 }
 
+/**
+ * The manufacturer's feature plate: each capability group is a full-width band
+ * — a solid title bar over its own bullet list — stacked down the page, the way
+ * the printed plate reads. Bands are tighter to each other than the surrounding
+ * sheet blocks so the run holds together as one plate.
+ */
+function SheetFeatureGroups({
+  block,
+}: {
+  block: Extract<SheetBlockView, { kind: "featureGroups" }>;
+}) {
+  return (
+    <div className="flex flex-col gap-3">
+      {block.groups.map((g, i) => (
+        <section key={i} className="border border-line bg-white">
+          <h3 className="m-0 flex items-center gap-2.5 bg-[#11120f] px-4 py-3 sm:px-5">
+            <span aria-hidden className="h-3.5 w-[3px] shrink-0 bg-gold-2" />
+            <span className="font-display text-meta sm:text-title font-bold tracking-[-.01em] text-white">
+              {g.title}
+            </span>
+          </h3>
+          <ul className="m-0 flex flex-col gap-2.5 list-none px-4 py-4 sm:px-5">
+            {g.items.map((item, ii) => (
+              <li key={ii} className="flex gap-2.5 text-meta leading-[1.7] text-[#3a3a3a]">
+                <span aria-hidden className="text-gold-1 shrink-0">
+                  ▸
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 function SheetImage({
   block,
   shots,
@@ -162,6 +208,11 @@ function SheetImage({
           className="w-full h-auto"
         />
       </LightboxTrigger>
+      {block.note && (
+        <p className="m-0 border-t border-line bg-paper px-4 py-2.5 text-meta leading-[1.7] text-muted">
+          {block.note}
+        </p>
+      )}
     </figure>
   );
 }
@@ -281,6 +332,7 @@ function SheetSpecList({ block }: { block: Extract<SheetBlockView, { kind: "spec
 function SheetParamTable({ block }: { block: Extract<SheetBlockView, { kind: "paramTable" }> }) {
   const hasV = block.groups.some((g) => g.vlabel);
   const modelCount = block.models.length;
+  const itemCols = hasV ? 2 : 1;
   const modelTh = block.models.map((m) => (
     <th
       key={m}
@@ -290,24 +342,46 @@ function SheetParamTable({ block }: { block: Extract<SheetBlockView, { kind: "pa
     </th>
   ));
   return (
-    <div className="overflow-x-auto border border-line">
-      <table className="w-full border-collapse">
+    <div className="flex flex-col gap-3">
+      {block.title && (
+        <p className="m-0 font-mono text-label tracking-[.1em] uppercase text-gold-1">
+          {block.title}
+        </p>
+      )}
+      <div className="overflow-x-auto border border-line">
+        <table className="w-full border-collapse">
         <thead>
           {block.modelHeader ? (
             <>
               <tr>
-                <th className={TH_CLASS} colSpan={hasV ? 2 : 1} rowSpan={2}>
+                {/* The part-number pattern takes the second header row's item
+                    cell, so the item label only spans both rows without it. */}
+                <th
+                  className={TH_CLASS}
+                  colSpan={itemCols}
+                  rowSpan={block.modelPattern ? undefined : 2}
+                >
                   {block.itemHeader ?? ""}
                 </th>
                 <th className={TH_CLASS} colSpan={modelCount}>
                   {block.modelHeader}
                 </th>
               </tr>
-              <tr>{modelTh}</tr>
+              <tr>
+                {block.modelPattern && (
+                  <th
+                    className="bg-[#1b1c17] px-4 py-2.5 text-left font-display text-meta font-bold tracking-[-.01em] text-white whitespace-nowrap"
+                    colSpan={itemCols}
+                  >
+                    {block.modelPattern}
+                  </th>
+                )}
+                {modelTh}
+              </tr>
             </>
           ) : (
             <tr>
-              <th className={TH_CLASS} colSpan={hasV ? 2 : 1}>
+              <th className={TH_CLASS} colSpan={itemCols}>
                 {block.itemHeader ?? ""}
               </th>
               {modelTh}
@@ -349,7 +423,8 @@ function SheetParamTable({ block }: { block: Extract<SheetBlockView, { kind: "pa
             )),
           )}
         </tbody>
-      </table>
+        </table>
+      </div>
     </div>
   );
 }

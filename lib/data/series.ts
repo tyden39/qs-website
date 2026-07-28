@@ -51,8 +51,17 @@ export type ViewSheetCell = string | { v: string; cs?: number };
 export type SheetBlockView =
   | { kind: "heading"; text: string; sub?: string }
   | { kind: "note"; text: string }
-  | { kind: "bullets"; items: string[] }
-  | { kind: "image"; src: string; w: number; h: number; alt: string; caption?: string }
+  | { kind: "bullets"; title?: string; items: string[] }
+  | { kind: "featureGroups"; groups: { title: string; items: string[] }[] }
+  | {
+      kind: "image";
+      src: string;
+      w: number;
+      h: number;
+      alt: string;
+      caption?: string;
+      note?: string;
+    }
   | {
       kind: "imageRow";
       images: { src: string; w: number; h: number; alt: string; caption?: string }[];
@@ -70,8 +79,10 @@ export type SheetBlockView =
     }
   | {
       kind: "paramTable";
+      title?: string;
       itemHeader?: string;
       modelHeader?: string;
+      modelPattern?: string;
       models: string[];
       groups: {
         vlabel?: string;
@@ -222,7 +233,19 @@ function toSheetBlockView(b: SheetBlock, en: boolean): SheetBlockView {
     case "note":
       return { kind: "note", text: L(b.text, en) };
     case "bullets":
-      return { kind: "bullets", items: b.items.map((i) => L(i, en)) };
+      return {
+        kind: "bullets",
+        title: b.title ? L(b.title, en) : undefined,
+        items: b.items.map((i) => L(i, en)),
+      };
+    case "featureGroups":
+      return {
+        kind: "featureGroups",
+        groups: b.groups.map((g) => ({
+          title: L(g.title, en),
+          items: g.items.map((i) => L(i, en)),
+        })),
+      };
     case "image":
       return {
         kind: "image",
@@ -231,6 +254,7 @@ function toSheetBlockView(b: SheetBlock, en: boolean): SheetBlockView {
         h: b.h,
         alt: L(b.alt, en),
         caption: b.caption ? L(b.caption, en) : undefined,
+        note: b.note ? L(b.note, en) : undefined,
       };
     case "imageRow":
       return {
@@ -263,8 +287,10 @@ function toSheetBlockView(b: SheetBlock, en: boolean): SheetBlockView {
     case "paramTable":
       return {
         kind: "paramTable",
+        title: b.title ? L(b.title, en) : undefined,
         itemHeader: b.itemHeader ? L(b.itemHeader, en) : undefined,
         modelHeader: b.modelHeader ? L(b.modelHeader, en) : undefined,
+        modelPattern: b.modelPattern,
         models: b.models,
         groups: b.groups.map((g) => sheetGroupParam(g, en)),
       };

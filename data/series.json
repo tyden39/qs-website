@@ -4149,73 +4149,1730 @@
       "altEn": "Savch S600 inverter"
     },
     "detail": {
-      "introduction": [
+      "intro": {
+        "lead": "S600/S600E là dòng biến tần mini điều khiển vector vòng hở — bản nâng cấp của thế hệ trước với nhiều chức năng chuyên biệt hơn. Cách vận hành được tinh chỉnh giúp người dùng cài đặt và khai thác thiết bị thuận tiện hơn.",
+        "leadEn": "S600/S600E is a mini-type open-loop vector inverter — the upgrade of the previous generation, with more specific functions. The considerate operation methods offer great convenience to the user.",
+        "sections": []
+      },
+      "introSheet": [
         {
-          "src": "/img/products/series/s600/intro/01.webp",
-          "w": 822,
-          "h": 979,
-          "alt": "S600/E — giới thiệu 01",
-          "altEn": "S600/E — introduction 01"
+          "kind": "image",
+          "src": "/img/products/series/s600/intro/panel-callout.webp",
+          "w": 1400,
+          "h": 933,
+          "alt": {
+            "vi": "S600 — sơ đồ chú thích mặt trước: vùng hiển thị LED, phím thao tác, chiết áp, công tắc chọn chế độ, cổng RS485 và hàng terminal",
+            "en": "S600 — front panel callout: LED display area, operation keys, potentiometer, mode dip switches, RS485 port and terminal row"
+          },
+          "caption": {
+            "vi": "Bố trí mặt trước",
+            "en": "Panel layout"
+          }
         },
         {
-          "src": "/img/products/series/s600/intro/02.webp",
-          "w": 821,
-          "h": 552,
-          "alt": "S600/E — giới thiệu 02",
-          "altEn": "S600/E — introduction 02"
+          "kind": "dataTable",
+          "cols": [
+            {
+              "vi": "Nhãn trên hình",
+              "en": "Callout"
+            },
+            {
+              "vi": "Bộ phận",
+              "en": "Part"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "LED display area",
+                  "en": "LED display area"
+                },
+                {
+                  "vi": "Vùng hiển thị LED",
+                  "en": "LED display area"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Current running parameter unit indication",
+                  "en": "Current running parameter unit indication"
+                },
+                {
+                  "vi": "Đèn báo đơn vị tham số đang chạy",
+                  "en": "Current running parameter unit indication"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Program key",
+                  "en": "Program key"
+                },
+                {
+                  "vi": "Phím PROG — lập trình tham số",
+                  "en": "Program key"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Enter key / Shift right key",
+                  "en": "Enter key / Shift right key"
+                },
+                {
+                  "vi": "Phím DATA — xác nhận / dịch phải",
+                  "en": "Enter key / Shift right key"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Motor capacity and input power",
+                  "en": "Motor capacity and input power"
+                },
+                {
+                  "vi": "Nhãn công suất motor và nguồn vào",
+                  "en": "Motor capacity and input power"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "AVI/ACI mode dip switch",
+                  "en": "AVI/ACI mode dip switch"
+                },
+                {
+                  "vi": "Công tắc chọn chế độ AVI / ACI",
+                  "en": "AVI/ACI mode dip switch"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "NPN/PNP mode dip switch",
+                  "en": "NPN/PNP mode dip switch"
+                },
+                {
+                  "vi": "Công tắc chọn chế độ NPN / PNP",
+                  "en": "NPN/PNP mode dip switch"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Panel potentiometer",
+                  "en": "Panel potentiometer"
+                },
+                {
+                  "vi": "Chiết áp trên mặt máy",
+                  "en": "Panel potentiometer"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Up/Down key",
+                  "en": "Up/Down key"
+                },
+                {
+                  "vi": "Phím lên / xuống",
+                  "en": "Up/Down key"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Stop/Reset key",
+                  "en": "Stop/Reset key"
+                },
+                {
+                  "vi": "Phím STOP / RESET",
+                  "en": "Stop/Reset key"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Running key",
+                  "en": "Running key"
+                },
+                {
+                  "vi": "Phím RUN",
+                  "en": "Running key"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "RS485 network interface",
+                  "en": "RS485 network interface"
+                },
+                {
+                  "vi": "Cổng mạng RS485",
+                  "en": "RS485 network interface"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "External terminals",
+                  "en": "External terminals"
+                },
+                {
+                  "vi": "Hàng terminal ngoài",
+                  "en": "External terminals"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "featureGroups",
+          "groups": [
+            {
+              "title": {
+                "vi": "Thuật toán điều khiển motor tối ưu hơn",
+                "en": "More optimized motor control algorithm"
+              },
+              "items": [
+                {
+                  "vi": "Thuật toán vector vòng hở được tối ưu; moment khởi động 150 % tại 1 Hz, khả năng quá tải 150 % trong 60 giây.",
+                  "en": "Optimized open-loop vector control algorithm; starting torque 150 % at 1 Hz, overload capacity 150 % for 60 seconds."
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Phát nhiệt thấp hơn",
+                "en": "Lower heat generation"
+              },
+              "items": [
+                {
+                  "vi": "Công nghệ dịch pha 3 pha sang 2 pha, giảm 33,3 % lượng nhiệt sinh ra.",
+                  "en": "Advanced 3-phase to 2-phase shift technology reduces heat generation by 33.3 %."
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Tốc độ tính toán nhanh hơn",
+                "en": "Faster calculation speed"
+              },
+              "items": [
+                {
+                  "vi": "Chip chế tạo trên tiến trình nanomet, CPU hai nhân tích hợp nâng đáng kể tốc độ tính toán.",
+                  "en": "Nanometre production techniques and a built-in dual-core CPU improve the calculation speed greatly."
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Mở rộng linh hoạt",
+                "en": "Flexible combination"
+              },
+              "items": [
+                {
+                  "vi": "Hỗ trợ card mở rộng, tùy chọn: 1 ngõ ra xung tốc độ cao, 2 ngõ ra analog, thêm 1 ngõ ra relay (tổng cộng 2 kênh).",
+                  "en": "Supports an extension module; optional functions: 1 high-speed pulse output, 2 analog outputs, 1 extra relay output (2 channels in total)."
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Độ tin cậy",
+                "en": "Reliability"
+              },
+              "items": [
+                {
+                  "vi": "Bảo vệ quá áp (OU), thấp áp (LU), quá dòng (OC1 / OC2 / OC3), quá nhiệt (OH), quá tải (OL)…",
+                  "en": "Protection: over voltage (OU), low voltage (LU), over current (OC1 / OC2 / OC3), over heat (OH), over load (OL), etc."
+                },
+                {
+                  "vi": "Chống thất tốc khi quá áp / quá dòng.",
+                  "en": "Over voltage / over current stall prevention."
+                },
+                {
+                  "vi": "Hai vùng tần số cấm giúp tránh cộng hưởng cơ khí hiệu quả.",
+                  "en": "2 sections of prohibited frequency avoid resonance effectively."
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Hiệu năng vận hành",
+                "en": "Great performance"
+              },
+              "items": [
+                {
+                  "vi": "Bù moment tự động — đạt tới 150 % khi moment khởi động ở 1 Hz.",
+                  "en": "Auto torque compensation — available to reach 150 % when the start torque is at 1 Hz."
+                },
+                {
+                  "vi": "Bù trượt tự động — tốc độ chính xác hơn.",
+                  "en": "Auto slip compensation — more accurate speed."
+                },
+                {
+                  "vi": "Độ ồn thấp, motor chạy êm hơn.",
+                  "en": "Low noise — the motor runs more stably."
+                },
+                {
+                  "vi": "Chịu quá tải tốt — chạy được 60 giây ở 150 % moment định mức.",
+                  "en": "Great overload performance — able to run 60 s at 150 % of rated torque."
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Chức năng điều khiển",
+                "en": "Functions description"
+              },
+              "items": [
+                {
+                  "vi": "Điều khiển cộng tần số chính / phụ.",
+                  "en": "Main / auxiliary frequency superimposed control."
+                },
+                {
+                  "vi": "Điều khiển tần số bằng ngõ vào xung (tích hợp).",
+                  "en": "Pulse input frequency control (built-in)."
+                },
+                {
+                  "vi": "Nhiều kiểu dừng (phím STOP, dừng về 0 theo AVI).",
+                  "en": "Many stop methods (STOP key, AVI zeroing stop)."
+                },
+                {
+                  "vi": "Hiển thị điện áp, dòng điện, tần số đặt và tần số thực, chiều quay (người dùng tự định nghĩa).",
+                  "en": "Display: voltage, current, set frequency and actual frequency, rotation (user defines)."
+                },
+                {
+                  "vi": "Đường cong V/f 3 điểm, điều khiển V/f tách rời.",
+                  "en": "3-point V/f curve setting, V/f separation control."
+                },
+                {
+                  "vi": "PLC tích hợp chạy chương trình 16 đoạn.",
+                  "en": "16 sections of program running with the built-in PLC."
+                },
+                {
+                  "vi": "Chức năng khác: nhớ khi mất điện, cấm chạy nghịch, AVR, hãm DC, tự chỉnh thời gian tăng/giảm tốc, khóa tham số bằng mật khẩu.",
+                  "en": "Other functions: power-lost memory, reverse running prohibition, AVR, DC braking, acceleration and deceleration auto adjustment, password protection on parameters."
+                },
+                {
+                  "vi": "Bàn phím mở rộng cho phép sao chép tham số.",
+                  "en": "The extended keypad can copy parameters."
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Ngõ vào / ngõ ra",
+                "en": "Input & output"
+              },
+              "items": [
+                {
+                  "vi": "Ngõ vào: điều khiển 2 dây / 3 dây, EF ngoài, UP / DOWN, chạy chương trình tự động, đếm, ngõ vào xung; đảo chiều bằng FWD / REV.",
+                  "en": "Input: 2-line / 3-line control, external EF, UP / DOWN, program running auto control, counting, pulse input; running direction by FWD / REV triggering."
+                },
+                {
+                  "vi": "Ngõ ra: báo chạy FWD / REV, báo đủ số đếm, báo chạy chương trình, báo đạt tần số, báo quá moment, báo thấp áp.",
+                  "en": "Output: FWD / REV running indication, counting arrival indication, program running indication, frequency arrival indication, over torque indication, low voltage indication."
+                }
+              ]
+            }
+          ]
         }
       ],
-      "paramImages": [
+      "specSheet": [
         {
-          "src": "/img/products/series/s600/params/01.webp",
-          "w": 822,
-          "h": 1382,
-          "alt": "S600/E — thông số 01",
-          "altEn": "S600/E — specification 01"
+          "kind": "heading",
+          "text": {
+            "vi": "Thông số sản phẩm",
+            "en": "Product specification"
+          },
+          "sub": {
+            "vi": "Thông số chung",
+            "en": "Common specification"
+          }
         },
         {
-          "src": "/img/products/series/s600/params/02.webp",
-          "w": 822,
-          "h": 1101,
-          "alt": "S600/E — thông số 02",
-          "altEn": "S600/E — specification 02"
+          "kind": "specList",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "valueHeader": {
+            "vi": "Diễn giải",
+            "en": "Explanation"
+          },
+          "groups": [
+            {
+              "vlabel": {
+                "vi": "Đặc tính điều khiển",
+                "en": "Control characteristic"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Chế độ điều khiển",
+                    "en": "Control mode"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Điều khiển V/f, điều khiển vector vòng hở",
+                      "en": "V/f control, open loop vector control"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Dải tần số ra",
+                    "en": "Range of output frequency"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0 ~ 500.00 Hz",
+                      "en": "0 ~ 500.00 Hz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ phân giải tần số đặt",
+                    "en": "Frequency setting resolution"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0.01 Hz",
+                      "en": "0.01 Hz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ phân giải tần số ra",
+                    "en": "Output frequency resolution"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0.01 Hz",
+                      "en": "0.01 Hz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tần số sóng mang PWM",
+                    "en": "PWM carrier frequency"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Chỉnh được từ 0.5 kHz đến 12 kHz",
+                      "en": "Adjustable from 0.5 kHz to 12 kHz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tăng moment",
+                    "en": "Torque boost"
+                  },
+                  "lines": [
+                    {
+                      "vi": "1 Hz / 150 %",
+                      "en": "1 Hz / 150 %"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Đường cong V/f",
+                    "en": "V/f curve"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Ba kiểu: tuyến tính, đa điểm, lũy thừa bậc N",
+                      "en": "Three types: line, multi-point, Nth power V/f curve"
+                    },
+                    {
+                      "vi": "(lũy thừa 1.2 · 1.4 · 1.6 · 1.8 · 2)",
+                      "en": "(1.2th, 1.4th, 1.6th, 1.8th, 2th power)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tách rời V/f",
+                    "en": "V/f separation"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Hai kiểu: tách hoàn toàn, tách một phần",
+                      "en": "Two types: full separation, semi-separation"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tần số cấm",
+                    "en": "Jump frequency"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Chỉnh được từ 0.1 Hz đến 500.00 Hz",
+                      "en": "Adjustable from 0.1 Hz to 500.00 Hz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Thời gian tăng / giảm tốc",
+                    "en": "Acceleration / deceleration time"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0.00 đến 65000 giây (4 cấp thời gian tăng/giảm tốc đặt độc lập)",
+                      "en": "0.00 to 65000 seconds (4-stage acceleration/deceleration time set independently)"
+                    },
+                    {
+                      "vi": "Kiểu tăng/giảm tốc tuyến tính hoặc đường cong S",
+                      "en": "Linear or S-curve acceleration/deceleration mode"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Mức chống thất tốc quá dòng",
+                    "en": "Over current stall prevention level"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt theo đặc tính tải của motor, trong khoảng 100 ~ 200 % dòng định mức của biến tần",
+                      "en": "Set according to the motor load characteristics, within 100 ~ 200 % of the rated current of the drive"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Hãm DC",
+                    "en": "DC brake"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Khi dừng, hoạt động từ 0.00 Hz đến tần số vận hành lớn nhất; dòng hãm 0 ~ 100 % dòng định mức",
+                      "en": "When stopping, operates from 0.00 Hz to the maximum operating frequency; braking current 0 ~ 100 % of the rated current"
+                    },
+                    {
+                      "vi": "Thời gian bắt đầu 0 ~ 100.0 giây, thời gian dừng 0 ~ 100.0 giây",
+                      "en": "Start time 0 ~ 100.0 seconds, stop time 0 ~ 100.0 seconds"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Moment hãm",
+                    "en": "Brake torque"
+                  },
+                  "lines": [
+                    {
+                      "vi": "20 % (điện trở hãm ngoài tùy chọn đạt tới 125 %)",
+                      "en": "20 % (an external optional brake resistor reaches 125 %)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Dải điều tốc",
+                    "en": "Speed ratio"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Vector vòng hở: 1 : 100",
+                      "en": "Open loop vector control: 1 : 100"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Đặc tính vận hành",
+                "en": "Operation characteristic"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Đặt tần số — bàn phím",
+                    "en": "Frequency setting — keypad"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt bằng phím ▲ / ▼",
+                      "en": "Set by the ▲ / ▼ keys"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Đặt tần số — terminal ngoài",
+                    "en": "Frequency setting — external terminal"
+                  },
+                  "lines": [
+                    {
+                      "vi": "DC 0–10 V, DC 4 ~ 20 mA, truyền thông nối tiếp (RS485)",
+                      "en": "DC 0–10 V, DC 4 ~ 20 mA, serial communication (RS485)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Lệnh chạy — bàn phím",
+                    "en": "Operation signal — keypad"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Vận hành bằng phím RUN, STOP",
+                      "en": "Operated by the RUN and STOP keys"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Lệnh chạy — terminal ngoài",
+                    "en": "Operation signal — external terminal"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Điều khiển 2 dây / 3 dây, chạy jog, truyền thông nối tiếp (RS485)",
+                      "en": "2-wire / 3-wire operation, jog operation, serial communication (RS485)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Terminal vào đa chức năng",
+                    "en": "Input terminal of multi-function"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Chạy thuận / nghịch, điều khiển 3 dây, jog thuận / nghịch, dừng tự do, reset lỗi, tạm dừng, báo lỗi ngoài, tăng/giảm tần số bằng terminal, chuyển 16 cấp tốc độ đặt trước, chuyển thời gian tăng/giảm tốc, chuyển nguồn đặt tần số, chuyển lệnh chạy, điều khiển PID, reset trạng thái PLC, cấm tăng/giảm tốc, đếm chiều dài, ngõ vào xung tốc độ cao, dừng hãm DC, xóa thời gian chạy.",
+                      "en": "Forward and reverse running, three-wire operation control, forward and reverse jog running, free stop, reset fault, running pause, external fault input, increment/decrement frequency terminal setting, 16-segment preset speed switching, acceleration/deceleration time switching, frequency source switching, running command switching, PID control, PLC status reset, prohibit acceleration and deceleration, length count, high-speed pulse frequency, stop DC braking, clear the running time."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Terminal ra đa chức năng",
+                    "en": "Output terminal of multi-function"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Biến tần đang chạy, báo lỗi, phát hiện mức tần số FDT, đạt tần số, chạy tốc độ 0, cảnh báo trước quá tải, đủ số đếm, đủ chiều dài, hoàn tất chu trình PLC, đạt thời gian chạy tích lũy, giới hạn tần số, giới hạn moment, sẵn sàng chạy, đạt giới hạn tần số trên / dưới, báo trạng thái thấp áp, cài đặt truyền thông, đạt thời gian cấp nguồn tích lũy, ngõ ra tần số, đạt thời gian hẹn giờ, mất tải, đảo chiều, trạng thái dòng bằng 0, nhiệt độ module đạt ngưỡng, dòng ra vượt giới hạn, đạt giới hạn tần số dưới (kể cả khi dừng), ngõ ra cảnh báo (vẫn chạy tiếp), đạt thời gian chạy.",
+                      "en": "Inverter operation, fault output, frequency level detection FDT output, frequency arrival, zero speed operation, overload pre-alarm, count value arrival, length arrival, PLC cycle completion, cumulative running time arrival, frequency limitation, torque limit, ready to run, upper limit frequency arrival, lower limit frequency arrival, undervoltage status output, communication setting, cumulative power-on time arrival, frequency arrival output, timing arrival output, offload, reverse in operation, zero current state, module temperature reached, output current exceeds the limit, lower limit frequency arrival (also when stopped), alarm output (keeps running), running time arrival."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Ngõ ra tín hiệu analog",
+                    "en": "Analog signal output"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Tương ứng tần số ra, dòng ra, điện áp ra… thực tế",
+                      "en": "Corresponds to the actual output frequency, output current, output voltage, etc."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tiếp điểm báo lỗi",
+                    "en": "Fault signal contact"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Tiếp điểm \"ON\" (relay hoặc hai ngõ ra collector hở khi biến tần lỗi)",
+                      "en": "Contact \"ON\" (relay or two open collector outputs when the AC drive fails)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Chức năng tích hợp",
+                    "en": "Inner function"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt giới hạn tần số trên / dưới, khởi động lại tức thời sau mất điện, khởi động lại sau lỗi, dò tốc độ, PLC đơn giản, đa cấp tốc độ, điều khiển PID, điều khiển hẹn giờ, tự động điều chỉnh điện áp ra, ghi nhận bất thường, khóa tham số, khôi phục cài đặt gốc, cấm quay nghịch, chống thất tốc quá dòng, chống thất tốc quá áp, rơ-le nhiệt điện tử.",
+                      "en": "Output frequency upper and lower limit setting, instantaneous power failure restart, abnormal fault restart, speed tracking, simple PLC, multi-speed operation, PID control, timing control, automatically regulated output, abnormal record, parameter lock, parameter factory reset, reverse rotation prohibited, over current stall prevention, over voltage stall prevention, electronic thermal relay."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Chức năng bảo vệ",
+                    "en": "Protection function"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Ngắn mạch, quá dòng khi tăng tốc / giảm tốc / chạy đều, quá áp khi tăng tốc / giảm tốc / chạy đều, thấp áp bus, quá tải motor, quá tải biến tần, bảo vệ quá moment, mất pha ngõ ra, quá nhiệt module, lỗi ngoài, lỗi truyền thông, lỗi mạch đo dòng, lỗi đọc/ghi tham số, lỗi phần cứng biến tần, chạm đất motor, đạt thời gian chạy, đạt thời gian cấp nguồn, mất tải, đứt phản hồi PID, hết thời gian giới hạn dòng nhanh.",
+                      "en": "Short circuit protection, acceleration over current, deceleration over current, constant speed over current, acceleration over voltage, deceleration over voltage, constant speed over voltage, bus undervoltage fault, motor overload, inverter overload, over torque protection, loss phase on the output, module overheating, external fault, communication fault, current detection fault, parameter read and write abnormality, inverter hardware abnormality, motor short circuit to ground, running time arrival, power-on time arrival, the load dropped, the PID feedback disconnected, fast current limit timeout."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Bàn phím",
+                    "en": "Keypad"
+                  },
+                  "lines": [
+                    {
+                      "vi": "LED 5 chữ số 8 đoạn và 7 đèn trạng thái; đặt tần số, hiển thị tần số ra thực tế, dòng ra, đơn vị người dùng tự định nghĩa; duyệt và sửa tham số, khóa tham số, hiển thị lỗi; chạy, dừng, reset, thuận/nghịch, jog.",
+                      "en": "Contains a 5-digit 8-segment LED display and 7 status indicator LEDs; sets the frequency, displays the actual output frequency, output current and a user-defined unit; parameter browsing and modification, parameter locking, abnormal fault display; run, stop, reset, forward/reverse, jogging."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Môi trường",
+                "en": "Environment"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Nhiệt độ làm việc",
+                    "en": "Operation temperature"
+                  },
+                  "lines": [
+                    {
+                      "vi": "−10 ℃ ~ +40 ℃",
+                      "en": "−10 ℃ ~ +40 ℃"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Nhiệt độ lưu kho",
+                    "en": "Temperature of stock"
+                  },
+                  "lines": [
+                    {
+                      "vi": "−20 ℃ ~ +60 ℃",
+                      "en": "−20 ℃ ~ +60 ℃"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ ẩm môi trường làm việc",
+                    "en": "Humidity of operation environment"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Dưới 90 % RH, không đọng sương",
+                      "en": "Below 90 % RH, no condensation"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ cao lắp đặt",
+                    "en": "Height of installation"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Không quá 1000 m, không khí không ăn mòn, không dầu, không bụi",
+                      "en": "No more than 1000 m in height, no corrosive gas, liquid or dust"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Rung động",
+                    "en": "Vibration"
+                  },
+                  "lines": [
+                    {
+                      "vi": "< 20 Hz: 9.80665 m/s² (1G) · 20 ~ 50 Hz: 5.88 m/s² (0.6G)",
+                      "en": "< 20 Hz: 9.80665 m/s² (1G) · 20 ~ 50 Hz: 5.88 m/s² (0.6G)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Cấp bảo vệ",
+                    "en": "Enclosure"
+                  },
+                  "lines": [
+                    {
+                      "vi": "IP20 (tùy môi trường lắp đặt của khách hàng)",
+                      "en": "IP20 (depending on the end customer's installation environment)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/s600/params/03.webp",
-          "w": 823,
-          "h": 517,
-          "alt": "S600/E — thông số 03",
-          "altEn": "S600/E — specification 03"
+          "kind": "heading",
+          "text": {
+            "vi": "Thông số theo model",
+            "en": "Standard specification"
+          }
         },
         {
-          "src": "/img/products/series/s600/params/04.webp",
-          "w": 822,
-          "h": 1428,
-          "alt": "S600/E — thông số 04",
-          "altEn": "S600/E — specification 04"
-        }
-      ],
-      "accessoryImages": [
-        {
-          "src": "/img/products/series/s600/accessories/01.webp",
-          "w": 822,
-          "h": 1322,
-          "alt": "S600/E — phụ kiện 01",
-          "altEn": "S600/E — accessory 01"
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Thông số kỹ thuật",
+            "en": "Specification"
+          },
+          "models": [
+            "0.4",
+            "0.75",
+            "1.5",
+            "2.2",
+            "4.0"
+          ],
+          "groups": [
+            {
+              "vlabel": {
+                "vi": "Ngõ ra",
+                "en": "Output"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất motor lớn nhất",
+                    "en": "Max. motor output power"
+                  },
+                  "unit": "kW",
+                  "cells": [
+                    "0.4",
+                    "0.75",
+                    "1.5",
+                    "2.2",
+                    "4.0"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất motor lớn nhất",
+                    "en": "Max. motor output power"
+                  },
+                  "unit": "HP",
+                  "cells": [
+                    "0.5",
+                    "1",
+                    "2",
+                    "3",
+                    "5.4"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất biểu kiến định mức",
+                    "en": "Output rated capacity"
+                  },
+                  "unit": "kVA",
+                  "cells": [
+                    "1.1",
+                    "1.5",
+                    "2.7",
+                    "3.7",
+                    "6.5"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng ra định mức",
+                    "en": "Output rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "2.3",
+                    "4.0",
+                    "7.0",
+                    "9.6",
+                    "17.0"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dải tần số ra",
+                    "en": "Output frequency range"
+                  },
+                  "cells": [
+                    {
+                      "v": "0 ~ 500 Hz",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khả năng quá tải",
+                    "en": "Overload capacity"
+                  },
+                  "cells": [
+                    {
+                      "v": "150 % — 60 s",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Điện áp ra lớn nhất",
+                    "en": "Max output voltage"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Bằng điện áp vào",
+                      "en": "Same as input voltage",
+                      "cs": 5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Ngõ vào",
+                "en": "Input"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Số pha, điện áp, tần số",
+                    "en": "Phase, voltage, frequency"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Một pha / ba pha 200 ~ 240 V  50/60 Hz",
+                      "en": "Single phase / three phase 200 ~ 240 V  50/60 Hz",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dao động điện áp, tần số",
+                    "en": "Voltage & frequency variations"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Điện áp ±15 %, tần số ±5 %",
+                      "en": "Voltage ±15 %, frequency ±5 %",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng vào — một pha",
+                    "en": "Input current — single phase"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "5.4",
+                    "8.2",
+                    "14.2",
+                    "23",
+                    "✕"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng vào — ba pha",
+                    "en": "Input current — three phase"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "3.1",
+                    "5.0",
+                    "7.7",
+                    "11.1",
+                    "22.2"
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Làm mát",
+                    "en": "Cooling method"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Quạt",
+                      "en": "Fan cooling",
+                      "cs": 5
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "title": {
+            "vi": "Dòng 220 V một pha / ba pha",
+            "en": "220 V single phase / three phase series"
+          },
+          "modelPattern": "S600/E-2T***G"
         },
         {
-          "src": "/img/products/series/s600/accessories/02.webp",
-          "w": 800,
-          "h": 1492,
-          "alt": "S600/E — phụ kiện 02",
-          "altEn": "S600/E — accessory 02"
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Thông số kỹ thuật",
+            "en": "Specification"
+          },
+          "models": [
+            "0.75",
+            "1.5",
+            "2.2",
+            "4.0",
+            "5.5"
+          ],
+          "groups": [
+            {
+              "vlabel": {
+                "vi": "Ngõ ra",
+                "en": "Output"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất motor lớn nhất",
+                    "en": "Max. motor output power"
+                  },
+                  "unit": "kW",
+                  "cells": [
+                    "0.75",
+                    "1.5",
+                    "2.2",
+                    "4.0",
+                    "5.5"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất motor lớn nhất",
+                    "en": "Max. motor output power"
+                  },
+                  "unit": "HP",
+                  "cells": [
+                    "1",
+                    "2",
+                    "3",
+                    "5.4",
+                    "7.4"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất biểu kiến định mức",
+                    "en": "Output rated capacity"
+                  },
+                  "unit": "kVA",
+                  "cells": [
+                    "1.9",
+                    "2.9",
+                    "3.9",
+                    "6.9",
+                    "9.9"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng ra định mức",
+                    "en": "Output rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "2.5",
+                    "3.8",
+                    "5.1",
+                    "9",
+                    "13"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dải tần số ra",
+                    "en": "Output frequency range"
+                  },
+                  "cells": [
+                    {
+                      "v": "0 ~ 500 Hz",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khả năng quá tải",
+                    "en": "Overload capacity"
+                  },
+                  "cells": [
+                    {
+                      "v": "150 % — 60 s",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Điện áp ra lớn nhất",
+                    "en": "Max output voltage"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Bằng điện áp vào",
+                      "en": "Same as input voltage",
+                      "cs": 5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Ngõ vào",
+                "en": "Input"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Số pha, điện áp, tần số",
+                    "en": "Phase, voltage, frequency"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Ba pha 380 ~ 460 V  50/60 Hz",
+                      "en": "Three phase 380 ~ 460 V  50/60 Hz",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dao động điện áp, tần số",
+                    "en": "Voltage & frequency variations"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Điện áp ±15 %, tần số ±5 %",
+                      "en": "Voltage ±15 %, frequency ±5 %",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng vào",
+                    "en": "Input current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "3.4",
+                    "5.0",
+                    "5.8",
+                    "10.5",
+                    "15"
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Làm mát",
+                    "en": "Cooling method"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Quạt",
+                      "en": "Fan cooling",
+                      "cs": 5
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "title": {
+            "vi": "Dòng 440 V ba pha",
+            "en": "Three phase 440 V series"
+          },
+          "modelPattern": "S600/E-4T***G"
         },
         {
-          "src": "/img/products/series/s600/accessories/03.webp",
-          "w": 821,
-          "h": 1051,
-          "alt": "S600/E — phụ kiện 03",
-          "altEn": "S600/E — accessory 03"
+          "kind": "heading",
+          "text": {
+            "vi": "Kích thước ngoài",
+            "en": "External dimensions"
+          },
+          "sub": {
+            "vi": "Đơn vị: mm",
+            "en": "Unit: mm"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "Kích thước biến tần",
+            "en": "Inverter size"
+          },
+          "cols": [
+            {
+              "vi": "Model",
+              "en": "Type"
+            },
+            {
+              "vi": "W",
+              "en": "W"
+            },
+            {
+              "vi": "W1",
+              "en": "W1"
+            },
+            {
+              "vi": "W2",
+              "en": "W2"
+            },
+            {
+              "vi": "H",
+              "en": "H"
+            },
+            {
+              "vi": "H1",
+              "en": "H1"
+            },
+            {
+              "vi": "D",
+              "en": "D"
+            },
+            {
+              "vi": "M",
+              "en": "M"
+            },
+            {
+              "vi": "Hình",
+              "en": "Fig."
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-2T0.4G",
+                  "en": "S600/E-2T0.4G"
+                },
+                {
+                  "vi": "68",
+                  "en": "68"
+                },
+                {
+                  "vi": "56",
+                  "en": "56"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "141",
+                  "en": "141"
+                },
+                {
+                  "vi": "120",
+                  "en": "120"
+                },
+                {
+                  "vi": "132.2",
+                  "en": "132.2"
+                },
+                {
+                  "vi": "5",
+                  "en": "5"
+                },
+                {
+                  "vi": "Size 1",
+                  "en": "Size 1"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-2T0.75G",
+                  "en": "S600/E-2T0.75G"
+                },
+                {
+                  "vi": "68",
+                  "en": "68"
+                },
+                {
+                  "vi": "56",
+                  "en": "56"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "141",
+                  "en": "141"
+                },
+                {
+                  "vi": "120",
+                  "en": "120"
+                },
+                {
+                  "vi": "132.2",
+                  "en": "132.2"
+                },
+                {
+                  "vi": "5",
+                  "en": "5"
+                },
+                {
+                  "vi": "Size 1",
+                  "en": "Size 1"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-4T0.75G",
+                  "en": "S600/E-4T0.75G"
+                },
+                {
+                  "vi": "68",
+                  "en": "68"
+                },
+                {
+                  "vi": "56",
+                  "en": "56"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "141",
+                  "en": "141"
+                },
+                {
+                  "vi": "120",
+                  "en": "120"
+                },
+                {
+                  "vi": "132.2",
+                  "en": "132.2"
+                },
+                {
+                  "vi": "5",
+                  "en": "5"
+                },
+                {
+                  "vi": "Size 1",
+                  "en": "Size 1"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-4T1.5G",
+                  "en": "S600/E-4T1.5G"
+                },
+                {
+                  "vi": "68",
+                  "en": "68"
+                },
+                {
+                  "vi": "56",
+                  "en": "56"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "141",
+                  "en": "141"
+                },
+                {
+                  "vi": "120",
+                  "en": "120"
+                },
+                {
+                  "vi": "132.2",
+                  "en": "132.2"
+                },
+                {
+                  "vi": "5",
+                  "en": "5"
+                },
+                {
+                  "vi": "Size 1",
+                  "en": "Size 1"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-2T1.5G",
+                  "en": "S600/E-2T1.5G"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "146.5",
+                  "en": "146.5"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "130.9",
+                  "en": "130.9"
+                },
+                {
+                  "vi": "5.3",
+                  "en": "5.3"
+                },
+                {
+                  "vi": "Size 2",
+                  "en": "Size 2"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-2T2.2G",
+                  "en": "S600/E-2T2.2G"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "146.5",
+                  "en": "146.5"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "130.9",
+                  "en": "130.9"
+                },
+                {
+                  "vi": "5.3",
+                  "en": "5.3"
+                },
+                {
+                  "vi": "Size 2",
+                  "en": "Size 2"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-2T4.0G",
+                  "en": "S600/E-2T4.0G"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "146.5",
+                  "en": "146.5"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "130.9",
+                  "en": "130.9"
+                },
+                {
+                  "vi": "5.3",
+                  "en": "5.3"
+                },
+                {
+                  "vi": "Size 2",
+                  "en": "Size 2"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-4T2.2G",
+                  "en": "S600/E-4T2.2G"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "146.5",
+                  "en": "146.5"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "130.9",
+                  "en": "130.9"
+                },
+                {
+                  "vi": "5.3",
+                  "en": "5.3"
+                },
+                {
+                  "vi": "Size 2",
+                  "en": "Size 2"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-4T4.0G",
+                  "en": "S600/E-4T4.0G"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "146.5",
+                  "en": "146.5"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "130.9",
+                  "en": "130.9"
+                },
+                {
+                  "vi": "5.3",
+                  "en": "5.3"
+                },
+                {
+                  "vi": "Size 2",
+                  "en": "Size 2"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-4T5.5G",
+                  "en": "S600/E-4T5.5G"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "124.5",
+                  "en": "124.5"
+                },
+                {
+                  "vi": "146.5",
+                  "en": "146.5"
+                },
+                {
+                  "vi": "135.5",
+                  "en": "135.5"
+                },
+                {
+                  "vi": "130.9",
+                  "en": "130.9"
+                },
+                {
+                  "vi": "5.3",
+                  "en": "5.3"
+                },
+                {
+                  "vi": "Size 2",
+                  "en": "Size 2"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "S600/E-4T2.2G",
+                  "en": "S600/E-4T2.2G"
+                },
+                {
+                  "vi": "78",
+                  "en": "78"
+                },
+                {
+                  "vi": "66",
+                  "en": "66"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "132",
+                  "en": "132"
+                },
+                {
+                  "vi": "122",
+                  "en": "122"
+                },
+                {
+                  "vi": "135.7",
+                  "en": "135.7"
+                },
+                {
+                  "vi": "5.2",
+                  "en": "5.2"
+                },
+                {
+                  "vi": "Size 3",
+                  "en": "Size 3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s600/params/dimension-size1.webp",
+          "w": 1400,
+          "h": 542,
+          "alt": {
+            "vi": "S600 Size 1 — bản vẽ kích thước mặt trước, mặt bên, mặt sau và mặt đáy",
+            "en": "S600 Size 1 — front, side, rear and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 1 · 2T 0.4G ~ 0.75G · 4T 0.75G ~ 1.5G",
+            "en": "Size 1 · 2T 0.4G ~ 0.75G · 4T 0.75G ~ 1.5G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s600/params/dimension-size2.webp",
+          "w": 1400,
+          "h": 881,
+          "alt": {
+            "vi": "S600 Size 2 — bản vẽ kích thước mặt trước, mặt bên, mặt sau và mặt đáy",
+            "en": "S600 Size 2 — front, side, rear and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 2 · 2T 1.5G ~ 4.0G · 4T 2.2G ~ 5.5G",
+            "en": "Size 2 · 2T 1.5G ~ 4.0G · 4T 2.2G ~ 5.5G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s600/params/dimension-size3.webp",
+          "w": 1400,
+          "h": 516,
+          "alt": {
+            "vi": "S600 Size 3 — bản vẽ kích thước mặt trước, mặt bên, mặt sau và mặt đáy có quạt",
+            "en": "S600 Size 3 — front, side, rear and fan-side dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 3 · 4T 2.2G",
+            "en": "Size 3 · 4T 2.2G"
+          }
         }
       ],
       "documentation": [
@@ -4298,6 +5955,527 @@
           "url": "/downloads/series/s600/s600a-ce.pdf",
           "format": "pdf",
           "size_mb": 0.04
+        }
+      ],
+      "accessorySheet": [
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Bàn phím điều khiển từ xa",
+            "en": "Remote operation keypad"
+          },
+          "sub": {
+            "vi": "EL-OP-A2",
+            "en": "EL-OP-A2"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s600/accessories/keypad-a2-dimensions.webp",
+          "w": 1400,
+          "h": 457,
+          "alt": {
+            "vi": "EL-OP-A2 — bản vẽ kích thước mặt trước, mặt bên, mặt sau và kích thước khoét lắp",
+            "en": "EL-OP-A2 — front, side and rear dimension drawing with the panel cut-out size"
+          },
+          "caption": {
+            "vi": "Kích thước ngoài và kích thước khoét lắp (mm)",
+            "en": "External and installation dimensions (mm)"
+          },
+          "note": {
+            "vi": "Bàn phím nối dài được bằng cáp mạng thông thường (8 lõi).",
+            "en": "This keypad can be extended with an ordinary network cable (8 cores)."
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s600/accessories/keypad-a2-mounting-box.webp",
+          "w": 1400,
+          "h": 449,
+          "alt": {
+            "vi": "EL-OP-A2 — bản vẽ kích thước hộp đế lắp nổi và kích thước khoét lắp",
+            "en": "EL-OP-A2 — supporting box dimension drawing with the cut-out size"
+          },
+          "caption": {
+            "vi": "Kích thước hộp đế lắp nổi (mm)",
+            "en": "Dimensions of the epitaxial supporting box (mm)"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "Mô tả chức năng tham số",
+            "en": "Parameter function description"
+          },
+          "cols": [
+            {
+              "vi": "Tham số",
+              "en": "Parameter"
+            },
+            {
+              "vi": "Chức năng",
+              "en": "Parameter function"
+            },
+            {
+              "vi": "Dải cài đặt",
+              "en": "Setting range"
+            },
+            {
+              "vi": "Giá trị cài",
+              "en": "Setup parameter"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "00-02",
+                  "en": "00-02"
+                },
+                {
+                  "vi": "Chọn nguồn đặt tần số chính",
+                  "en": "Main frequency source selection"
+                },
+                {
+                  "vi": "0 ~ 5 · 6: đặt qua truyền thông (bàn phím từ xa) · 7 ~ 9",
+                  "en": "0 ~ 5 · 6: communication setting (remote keypad) · 7 ~ 9"
+                },
+                {
+                  "vi": "6",
+                  "en": "6"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "00-11",
+                  "en": "00-11"
+                },
+                {
+                  "vi": "Khởi tạo tham số",
+                  "en": "Parameter initialization"
+                },
+                {
+                  "vi": "0 ~ 2 · 3: chép tham số biến tần sang bàn phím · 4: chép tham số bàn phím sang biến tần",
+                  "en": "0 ~ 2 · 3: copy inverter parameters to keypad · 4: copy keypad parameters to inverter"
+                },
+                {
+                  "vi": "3 hoặc 4",
+                  "en": "3 or 4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "Mã lỗi bàn phím từ xa",
+            "en": "Remote keypad failure code description"
+          },
+          "cols": [
+            {
+              "vi": "Mã lỗi",
+              "en": "Failure code"
+            },
+            {
+              "vi": "Mô tả",
+              "en": "Description"
+            },
+            {
+              "vi": "Nguyên nhân có thể",
+              "en": "Possible reason"
+            },
+            {
+              "vi": "Cách khắc phục",
+              "en": "Corrective measures"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "CErr",
+                  "en": "CErr"
+                },
+                {
+                  "vi": "Lỗi truyền thông",
+                  "en": "Communication error"
+                },
+                {
+                  "vi": "Truyền thông bị ngắt hai lần",
+                  "en": "Communication interrupted twice"
+                },
+                {
+                  "vi": "1. Kiểm tra đứt dây hoặc thiết bị lân cận gây nhiễu mạnh. 2. Gửi về nhà máy.",
+                  "en": "1. Check whether a broken line occurs, or whether the peripheral equipment has a strong interference source. 2. Return to the factory."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "EErr",
+                  "en": "EErr"
+                },
+                {
+                  "vi": "Lỗi truyền thông I2C",
+                  "en": "I2C communication error"
+                },
+                {
+                  "vi": "Lỗi truyền thông I2C với MCU",
+                  "en": "I2C communication error with the MCU"
+                },
+                {
+                  "vi": "Gửi về nhà máy.",
+                  "en": "Return to the factory."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "uErr",
+                  "en": "uErr"
+                },
+                {
+                  "vi": "Sai loại biến tần",
+                  "en": "Inverter type no match"
+                },
+                {
+                  "vi": "Loại biến tần không khớp",
+                  "en": "Inverter type does not match"
+                },
+                {
+                  "vi": "Dùng đúng loại biến tần.",
+                  "en": "Use the correct inverter type."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "dErr",
+                  "en": "dErr"
+                },
+                {
+                  "vi": "Dữ liệu không hợp lệ",
+                  "en": "Data invalid"
+                },
+                {
+                  "vi": "Dữ liệu không hợp lệ",
+                  "en": "Data invalid"
+                },
+                {
+                  "vi": "Chép tham số biến tần sang bàn phím trước.",
+                  "en": "Copy the inverter parameters to the keypad first."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "nErr",
+                  "en": "nErr"
+                },
+                {
+                  "vi": "Lỗi thao tác",
+                  "en": "Operation error"
+                },
+                {
+                  "vi": "Lỗi thao tác",
+                  "en": "Operation error"
+                },
+                {
+                  "vi": "Gửi về nhà máy.",
+                  "en": "Return to the factory."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Bàn phím điều khiển từ xa",
+            "en": "Remote operation keypad"
+          },
+          "sub": {
+            "vi": "EL-OP-B2",
+            "en": "EL-OP-B2"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s600/accessories/keypad-b2-dimensions.webp",
+          "w": 1400,
+          "h": 964,
+          "alt": {
+            "vi": "EL-OP-B2 — bản vẽ kích thước mặt trước, mặt bên, mặt sau và kích thước khoét lắp",
+            "en": "EL-OP-B2 — front, side and rear dimension drawing with the panel cut-out size"
+          },
+          "caption": {
+            "vi": "Kích thước ngoài và kích thước khoét lắp (mm)",
+            "en": "External and installation dimensions (mm)"
+          },
+          "note": {
+            "vi": "Bàn phím nối dài được bằng cáp mạng thông thường (8 lõi).",
+            "en": "This keypad can be extended with an ordinary network cable (8 cores)."
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s600/accessories/keypad-b2-installation.webp",
+          "w": 1400,
+          "h": 711,
+          "alt": {
+            "vi": "EL-OP-B2 — hình lắp đặt: đưa bàn phím qua lỗ khoét và bắt vít giữ từ mặt sau",
+            "en": "EL-OP-B2 — installation drawing: the keypad through the cut-out and the retaining screws fitted from the rear"
+          },
+          "caption": {
+            "vi": "Cách lắp bàn phím vào tủ điện",
+            "en": "Keypad installation"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "Mô tả chức năng tham số",
+            "en": "Parameter function description"
+          },
+          "cols": [
+            {
+              "vi": "Tham số",
+              "en": "Parameter"
+            },
+            {
+              "vi": "Chức năng",
+              "en": "Parameter function"
+            },
+            {
+              "vi": "Dải cài đặt",
+              "en": "Setting range"
+            },
+            {
+              "vi": "Giá trị cài",
+              "en": "Setup parameter"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "00-02",
+                  "en": "00-02"
+                },
+                {
+                  "vi": "Chọn nguồn đặt tần số chính",
+                  "en": "Main frequency source selection"
+                },
+                {
+                  "vi": "0 ~ 5 · 6: đặt qua truyền thông (bàn phím từ xa) · 7 ~ 9",
+                  "en": "0 ~ 5 · 6: communication setting (remote keypad) · 7 ~ 9"
+                },
+                {
+                  "vi": "6",
+                  "en": "6"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "00-11",
+                  "en": "00-11"
+                },
+                {
+                  "vi": "Khởi tạo tham số",
+                  "en": "Parameter initialization"
+                },
+                {
+                  "vi": "0 ~ 2 · 3: chép tham số biến tần sang bàn phím · 4: chép tham số bàn phím sang biến tần",
+                  "en": "0 ~ 2 · 3: copy inverter parameters to keypad · 4: copy keypad parameters to inverter"
+                },
+                {
+                  "vi": "3 hoặc 4",
+                  "en": "3 or 4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "Mã lỗi bàn phím từ xa",
+            "en": "Remote keypad failure code description"
+          },
+          "cols": [
+            {
+              "vi": "Mã lỗi",
+              "en": "Failure code"
+            },
+            {
+              "vi": "Mô tả",
+              "en": "Description"
+            },
+            {
+              "vi": "Nguyên nhân có thể",
+              "en": "Possible reason"
+            },
+            {
+              "vi": "Cách khắc phục",
+              "en": "Corrective measures"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "CErr",
+                  "en": "CErr"
+                },
+                {
+                  "vi": "Lỗi truyền thông",
+                  "en": "Communication error"
+                },
+                {
+                  "vi": "Truyền thông bị ngắt hai lần",
+                  "en": "Communication interrupted twice"
+                },
+                {
+                  "vi": "1. Kiểm tra đứt dây hoặc thiết bị lân cận gây nhiễu mạnh. 2. Gửi về nhà máy.",
+                  "en": "1. Check whether a broken line occurs, or whether the peripheral equipment has a strong interference source. 2. Return to the factory."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "EErr",
+                  "en": "EErr"
+                },
+                {
+                  "vi": "Lỗi truyền thông I2C",
+                  "en": "I2C communication error"
+                },
+                {
+                  "vi": "Lỗi truyền thông I2C với MCU",
+                  "en": "I2C communication error with the MCU"
+                },
+                {
+                  "vi": "Gửi về nhà máy.",
+                  "en": "Return to the factory."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "uErr",
+                  "en": "uErr"
+                },
+                {
+                  "vi": "Sai loại biến tần",
+                  "en": "Inverter type no match"
+                },
+                {
+                  "vi": "Loại biến tần không khớp",
+                  "en": "Inverter type does not match"
+                },
+                {
+                  "vi": "Dùng đúng loại biến tần.",
+                  "en": "Use the correct inverter type."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "dErr",
+                  "en": "dErr"
+                },
+                {
+                  "vi": "Dữ liệu không hợp lệ",
+                  "en": "Data invalid"
+                },
+                {
+                  "vi": "Dữ liệu không hợp lệ",
+                  "en": "Data invalid"
+                },
+                {
+                  "vi": "Chép tham số biến tần sang bàn phím trước.",
+                  "en": "Copy the inverter parameters to the keypad first."
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "nErr",
+                  "en": "nErr"
+                },
+                {
+                  "vi": "Lỗi thao tác",
+                  "en": "Operation error"
+                },
+                {
+                  "vi": "Lỗi thao tác",
+                  "en": "Operation error"
+                },
+                {
+                  "vi": "Gửi về nhà máy.",
+                  "en": "Return to the factory."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Sơ đồ đấu dây cơ bản",
+            "en": "Basic wiring diagram"
+          }
+        },
+        {
+          "kind": "note",
+          "text": {
+            "vi": "Đấu dây biến tần chia làm hai phần — mạch động lực và mạch điều khiển. Đấu các terminal đúng như sơ đồ.",
+            "en": "Wiring of the AC motor drive is divided into two parts, the main circuit and the control circuit. Terminals must be connected as the diagram shows."
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s600/accessories/wiring-diagram.webp",
+          "w": 1500,
+          "h": 1460,
+          "alt": {
+            "vi": "S600 — sơ đồ đấu dây cơ bản: mạch động lực R-S-T, điện trở hãm P/DB, ngõ ra U-V-W, terminal điều khiển MI1–MI5, AVI/ACI, AFM, relay RA/RC và cổng RS485",
+            "en": "S600 — basic wiring diagram: R-S-T main circuit, P/DB braking resistor, U-V-W output, MI1–MI5 control terminals, AVI/ACI, AFM, the RA/RC relay and the RS485 port"
+          }
+        },
+        {
+          "kind": "bullets",
+          "title": {
+            "vi": "Ghi chú:",
+            "en": "Remarks:"
+          },
+          "items": [
+            {
+              "vi": "Terminal vào đa chức năng MI1 ~ MI3 chuyển được giữa chế độ NPN và PNP bằng SW1; MI5 chỉ chạy chế độ NPN.",
+              "en": "Multi-function input terminals MI1 ~ MI3 switch between NPN and PNP mode via SW1; MI5 works in NPN mode only."
+            },
+            {
+              "vi": "Lệnh tần số analog AVI: chuyển giữa 4 ~ 20 mA và 0 ~ +10 V bằng SW2.",
+              "en": "Analog frequency command AVI: switches between 4 ~ 20 mA and 0 ~ +10 V via SW2."
+            },
+            {
+              "vi": "Khi dùng bàn phím từ xa, truyền thông nối tiếp RS485 trên SG+/SG− bị vô hiệu.",
+              "en": "When the remote keypad is used, the SG+/SG− RS485 serial communication function is disabled."
+            }
+          ]
         }
       ]
     },

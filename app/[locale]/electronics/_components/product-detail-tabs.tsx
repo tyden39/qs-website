@@ -1,6 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useState, useEffect, useRef, useCallback, type ReactNode } from "react";
+
+/** Sticky site header height — 72px on desktop, 64px on mobile. */
+const headerOffset = () => (window.innerWidth >= 1024 ? 72 : 64);
 
 export type ProductDetailTab = {
   /** Stable key + used for aria wiring and the URL hash (e.g. `#resources`). */
@@ -22,19 +25,26 @@ export type ProductDetailTab = {
  */
 export function ProductDetailTabs({ tabs }: { tabs: ProductDetailTab[] }) {
   const [active, setActive] = useState(tabs[0]?.id ?? "");
-  const stripRef = useRef<HTMLDivElement>(null);
+  // Zero-height marker rendered just above the strip. The strip itself is
+  // `sticky`, so once pinned its own rect reports the pinned position, not the
+  // one it occupies in the document — the marker is what stays put.
+  const anchorRef = useRef<HTMLDivElement>(null);
   const idsKey = tabs.map((t) => t.id).join(",");
+
+  /** Document scroll position that parks the strip right under the header. */
+  const stripScrollTop = useCallback(() => {
+    const el = anchorRef.current;
+    if (!el) return null;
+    return el.getBoundingClientRect().top + window.scrollY - headerOffset();
+  }, []);
+
+  const scrollToStrip = useCallback(() => {
+    const top = stripScrollTop();
+    if (top !== null) window.scrollTo({ top, behavior: "smooth" });
+  }, [stripScrollTop]);
 
   useEffect(() => {
     const ids = new Set(idsKey.split(","));
-    const scrollToStrip = () => {
-      const el = stripRef.current;
-      if (!el) return;
-      // Sticky site header is 72px on desktop / 64px on mobile — clear it.
-      const offset = window.innerWidth >= 1024 ? 72 : 64;
-      const top = el.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
-    };
     const applyHash = (scroll: boolean) => {
       const hash = window.location.hash.slice(1);
       if (ids.has(hash)) {
@@ -48,10 +58,17 @@ export function ProductDetailTabs({ tabs }: { tabs: ProductDetailTab[] }) {
     const onHashChange = () => applyHash(true);
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
-  }, [idsKey]);
+  }, [idsKey, scrollToStrip]);
 
   const selectTab = (id: string) => {
     setActive(id);
+    // Re-anchor only when the page is scrolled past the strip's own position —
+    // i.e. the strip is pinned and the reader is down inside the panel. Above
+    // that point the panel top is already in view, so a scroll would just yank.
+    const top = stripScrollTop();
+    if (top !== null && window.scrollY > top) {
+      window.scrollTo({ top, behavior: "smooth" });
+    }
     // Keep the URL shareable without a scroll jump (replaceState won't fire
     // hashchange, so this stays a manual, in-place tab switch).
     if (window.location.hash.slice(1) !== id) {
@@ -61,8 +78,9 @@ export function ProductDetailTabs({ tabs }: { tabs: ProductDetailTab[] }) {
 
   return (
     <>
+      <div ref={anchorRef} aria-hidden className="h-0" />
       <section className="bg-[#f7f5ef]/95 border-b border-line sticky top-16 lg:top-[72px] z-30 backdrop-blur-md">
-        <div ref={stripRef} className="qs-wrap-detail py-3 overflow-x-auto">
+        <div className="qs-wrap-detail py-3 overflow-x-auto">
           <div role="tablist" className="inline-flex bg-white border border-line shadow-[0_12px_34px_-28px_rgba(20,17,10,.45)]">
             {tabs.map((tab, i) => {
               const isActive = active === tab.id;

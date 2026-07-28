@@ -148,7 +148,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                                  before:transition-all before:duration-300 group-hover:before:w-20 group-hover:before:bg-gold-2">
                   <div className="font-mono text-label text-gold-1 tracking-[.16em]">{item.lbl}</div>
                   <h3 className="font-display font-semibold text-subhead tracking-[-.01em] m-0 transition-colors group-hover:text-gold-1">{item.name}</h3>
-                  <p className="text-meta text-muted leading-[1.55] m-0">{item.desc}</p>
+                  <p className="text-[17px] text-muted leading-[1.55] m-0">{item.desc}</p>
                   {/* product stage — shared showroom: blueprint grid + gold pedestal,
                       products centred in the frame so the lineup reads as a set.
                       On the rail the stage grows into whatever height the tallest card forces,
@@ -185,7 +185,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                     <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[900ms] ease-out"
                          style={{ background: "linear-gradient(115deg, transparent 38%, rgba(255,255,255,.5) 50%, transparent 62%)" }} aria-hidden="true"></div>
                   </div>
-                  <div className="flex justify-between items-center pt-4 border-t border-line font-mono text-label tracking-[.12em] uppercase text-muted">
+                  <div className="flex justify-between items-center pt-4 border-t border-line font-mono text-[15px] font-bold tracking-[.12em] uppercase text-muted">
                     <span className="leading-[1.5]">{item.meta[0]}<br />{item.meta[1]}</span>
                     <span className="text-ink transition-transform group-hover:translate-x-1">→</span>
                   </div>
@@ -217,8 +217,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line">
               <div>
-                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("applications.eyebrow")}</span>
-                <h2 className="qs-h2 mt-3">{t("applications.heading")}</h2>
+                <h2 className="qs-h2">{t("applications.heading")}</h2>
               </div>
             </div>
           </Reveal>

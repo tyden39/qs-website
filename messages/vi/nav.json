@@ -16,7 +16,7 @@
   "submenu": {
     "electronics": {
       "controllers": "Bộ điều khiển",
-      "servo": "Servo",
+      "servo": "QS servo",
       "inverter": "Biến tần",
       "dnc": "Thiết bị truyền DNC",
       "accessory": "Phụ kiện"

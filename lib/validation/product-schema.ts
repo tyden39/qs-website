@@ -35,7 +35,6 @@ export const productSchema = z.object({
   series: z.string().min(1, "Series is required"),
   axes: z.string().min(1, "Axes is required"),
   display: z.string().min(1, "Display is required"),
-  badge: z.string().optional(),
   tag: i18nText,
   name: i18nText,
   desc: i18nText,

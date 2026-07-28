@@ -26,6 +26,7 @@ const heroImages: Record<string, string> = {
   "kim-hoan": "/home/app-kim-hoan.webp",
   "dieu-khac-da": "/home/app-dieu-khac-da.webp",
   "cat-da": "/home/app-cat-da.webp",
+  "dieu-khac-go": "/home/app-dieu-khac-go.webp",
 };
 
 // Vietnamese is the primary copy; `machineEn` / `summaryEn` serve the `en`

@@ -184,7 +184,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
               className="qs-spec flex items-baseline justify-between gap-4 py-3.5 border-t border-[#2a2620] qs-sweep-in"
               style={sweep(420 + i * 90)}
             >
-              <span className="qs-spec-k font-mono text-label-xs tracking-[.18em] uppercase text-[#8a8676]">{k}</span>
+              <span className="qs-spec-k font-mono font-bold text-label tracking-[.18em] uppercase text-gold-1">{k}</span>
               <span className="qs-spec-v font-display text-body font-medium text-white text-right">{v}</span>
             </li>
           ))}

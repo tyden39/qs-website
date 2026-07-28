@@ -333,15 +333,6 @@
     "program": "Chương trình",
     "parts": "Chi tiết hôm nay"
   },
-  "video": {
-    "eyebrow": "Máy chạy thực tế",
-    "heading": "Xem máy vận hành",
-    "body": "Chu trình gia công do bộ điều khiển QS vận hành — quay trực tiếp tại xưởng, không dàn dựng.",
-    "title": "Máy gia công 5 trục chạy bộ điều khiển QS Astro 6AV",
-    "play": "Phát video",
-    "close": "Đóng video",
-    "youtube": "Kênh YouTube"
-  },
   "cta": {
     "heading": "Cần cấu hình máy theo sản phẩm của bạn?",
     "body": "Gửi bản vẽ hoặc mẫu phôi — kỹ sư QS tư vấn cấu hình trục chính, đồ gá và chu trình gia công trong 48 giờ.",

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Link } from "@/lib/i18n/navigation";
+import CountBadge from "@/components/count-badge";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 
 /** Active family branch, named by id so a link survives reordering. */
@@ -261,7 +262,7 @@ function FamilyBody({
                   role="tab"
                   aria-selected={on}
                   onClick={() => onSelectDoc(dg.id)}
-                  className={`group/tab -mb-px inline-flex items-baseline gap-2 px-4 sm:px-5 pb-3 pt-2 rounded-t-[3px] text-meta font-semibold tracking-[-.005em] whitespace-nowrap border-b-[3px] transition-colors cursor-pointer
+                  className={`group/tab -mb-px inline-flex items-center gap-2 px-4 sm:px-5 pb-3 pt-2 rounded-t-[3px] text-meta font-semibold tracking-[-.005em] whitespace-nowrap border-b-[3px] transition-colors cursor-pointer
                     focus-visible:outline-none focus-visible:text-ink ${
                     on
                       ? "text-ink border-gold-2 bg-[linear-gradient(180deg,transparent,rgba(201,163,90,.13))]"
@@ -269,13 +270,7 @@ function FamilyBody({
                   }`}
                 >
                   {dg.label}
-                  <span
-                    className={`font-mono text-label-xs tabular-nums transition-colors ${
-                      on ? "text-gold-1" : "text-line-2 group-hover/tab:text-muted"
-                    }`}
-                  >
-                    {pad(dg.rows.length)}
-                  </span>
+                  <CountBadge active={on}>{pad(dg.rows.length)}</CountBadge>
                 </button>
               );
             })}
@@ -358,7 +353,7 @@ export function DownloadsTree({
             aria-label={eyebrow}
             value={active}
             onChange={(e) => selectGroup(Number(e.target.value))}
-            className="qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border border-line py-2 px-3 bg-white cursor-pointer"
+            className="qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border border-line py-2.5 px-3 bg-white text-ink cursor-pointer"
           >
             {groups.map((g, i) => (
               <option key={g.id} value={i}>
@@ -371,7 +366,7 @@ export function DownloadsTree({
               aria-label={activeGroup.label}
               value={activeProductId ?? ""}
               onChange={(e) => selectProduct(e.target.value)}
-              className="qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border border-line py-2 px-3 bg-white cursor-pointer"
+              className="qs-select w-full font-mono text-[16px] tracking-[.08em] uppercase border border-line py-2.5 px-3 bg-white text-ink cursor-pointer"
             >
               <option value="">{allLabel}</option>
               {products.map((p) => (
@@ -383,67 +378,80 @@ export function DownloadsTree({
           ) : null}
         </div>
 
-        {/* desktop: the hierarchical tree */}
-        <nav aria-label={eyebrow} className="hidden lg:block border border-line bg-white p-5">
-          <div className="pb-3.5 border-b border-ink font-mono text-label tracking-[.16em] uppercase text-ink">
+        {/* desktop: the hierarchical tree, carrying the hero slide selector's
+            layout — numbered rows, gold seam on the active one — on the light
+            paper surface the rest of the page uses */}
+        <nav
+          aria-label={eyebrow}
+          className="hidden lg:block relative overflow-hidden rounded-[3px] border border-line bg-gradient-to-b from-white to-paper shadow-[0_18px_40px_-30px_rgba(0,0,0,.45)]"
+        >
+          {/* gold seam along the top edge */}
+          <div
+            className="pointer-events-none absolute top-0 inset-x-0 h-px"
+            style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,90,.75),transparent)" }}
+            aria-hidden="true"
+          />
+          <div className="px-5 py-3.5 border-b border-line font-mono text-label tracking-[.16em] uppercase text-muted">
             {eyebrow}
           </div>
-          <ul className="list-none p-0 m-0">
+          <ul className="list-none p-0 m-0 divide-y divide-line">
             {groups.map((g, i) => {
               const isActive = i === active;
               const isExpanded = expandedGroupId === g.id;
               const kids = g.products ?? [];
               return (
-                <li key={g.id} className="border-b border-line last:border-b-0">
+                <li key={g.id}>
                   <button
                     type="button"
                     aria-pressed={isActive}
                     aria-expanded={kids.length > 0 ? isExpanded : undefined}
+                    data-active={isActive ? "true" : undefined}
                     onClick={() => selectGroup(i)}
-                    className={`w-full flex items-center gap-3 py-3 text-meta font-medium text-left cursor-pointer bg-transparent border-0 ${
-                      isActive ? "text-ink" : "text-ink/85 hover:text-ink"
-                    }`}
+                    className="qs-hero-tab group relative w-full overflow-hidden flex items-center gap-3.5 px-5 py-3.5 text-left cursor-pointer bg-transparent border-0 transition-colors duration-300 hover:bg-paper-2/70 data-[active=true]:bg-gold-2/[.14]"
                   >
-                    <span className={`flex-1 min-w-0 ${isActive ? "text-gold-1" : ""}`}>{g.label}</span>
-                    <span
-                      className={`font-mono text-label-xs tabular-nums ${
-                        isActive ? "text-gold-2" : "text-line-2"
-                      }`}
-                    >
-                      {pad(familyCount(g))}
+                    <span className="font-mono text-label tabular-nums text-line-2 group-data-[active=true]:text-gold-1 transition-colors">
+                      {pad(i + 1)}
                     </span>
+                    <span className="flex-1 min-w-0 truncate font-display text-meta font-semibold tracking-[-.01em] text-muted group-data-[active=true]:text-ink transition-colors">
+                      {g.label}
+                    </span>
+                    <CountBadge active={isActive}>{pad(familyCount(g))}</CountBadge>
                     {kids.length > 0 ? (
                       <svg
                         width="10"
                         height="10"
                         viewBox="0 0 10 10"
                         aria-hidden="true"
-                        className={`shrink-0 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                        className={`shrink-0 text-line-2 group-data-[active=true]:text-gold-1 transition-transform ${
+                          isExpanded ? "rotate-180" : ""
+                        }`}
                       >
                         <path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" />
                       </svg>
-                    ) : null}
+                    ) : (
+                      <span className="font-mono text-meta text-line-2 group-data-[active=true]:text-gold-1 group-hover:translate-x-0.5 transition-all">
+                        →
+                      </span>
+                    )}
                   </button>
 
                   {isActive && isExpanded && kids.length > 0 ? (
-                    <ul className="list-none p-0 m-0 pb-2 pl-3">
+                    <ul className="list-none p-0 m-0 pb-3 pl-12 pr-5 bg-gold-2/[.07]">
                       <li>
                         <button
                           type="button"
                           aria-pressed={activeProductId === null}
                           onClick={() => selectProduct("")}
-                          className={`w-full flex justify-between items-center gap-3 py-1.5 text-meta text-left cursor-pointer bg-transparent border-0 ${
-                            activeProductId === null ? "text-gold-1 font-medium" : "text-muted hover:text-ink"
+                          className={`w-full flex justify-between items-center gap-3 py-1.5 text-meta text-left cursor-pointer bg-transparent border-0 transition-colors ${
+                            activeProductId === null
+                              ? "text-gold-1 font-medium"
+                              : "text-muted hover:text-ink"
                           }`}
                         >
-                          <span className="min-w-0">{allLabel}</span>
-                          <span
-                            className={`font-mono text-label-xs tabular-nums ${
-                              activeProductId === null ? "text-gold-2" : "text-line-2"
-                            }`}
-                          >
+                          <span className="min-w-0 truncate">{allLabel}</span>
+                          <CountBadge active={activeProductId === null}>
                             {pad(familyCount(g))}
-                          </span>
+                          </CountBadge>
                         </button>
                       </li>
                       {kids.map((p) => {
@@ -454,18 +462,12 @@ export function DownloadsTree({
                               type="button"
                               aria-pressed={on}
                               onClick={() => selectProduct(p.id)}
-                              className={`w-full flex justify-between items-center gap-3 py-1.5 text-meta text-left cursor-pointer bg-transparent border-0 ${
+                              className={`w-full flex justify-between items-center gap-3 py-1.5 text-meta text-left cursor-pointer bg-transparent border-0 transition-colors ${
                                 on ? "text-gold-1 font-medium" : "text-muted hover:text-ink"
                               }`}
                             >
-                              <span className="min-w-0">{p.label}</span>
-                              <span
-                                className={`font-mono text-label-xs tabular-nums ${
-                                  on ? "text-gold-2" : "text-line-2"
-                                }`}
-                              >
-                                {pad(productCount(p))}
-                              </span>
+                              <span className="min-w-0 truncate">{p.label}</span>
+                              <CountBadge active={on}>{pad(productCount(p))}</CountBadge>
                             </button>
                           </li>
                         );

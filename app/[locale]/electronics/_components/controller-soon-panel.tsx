@@ -3,12 +3,15 @@ import { CategoryIcon } from "@/components/category-icon";
 import CircuitTraces from "@/components/circuit-traces";
 
 /** Copy for the placeholder panel, resolved by the page (the list is a client
- *  component and cannot reach the server translator itself). `available` arrives
- *  already interpolated with the published model count. */
+ *  component and cannot reach the server translator itself). */
 export type ControllerSoonCopy = {
   eyebrow: string;
+  /** Label set inside the glyph plate itself. Without it the plate is wordless
+   *  and duplicates the "photo pending" placeholder on a series card, which
+   *  means the opposite thing — there the model exists and only its render is
+   *  missing. Naming the plate is what keeps the two apart. */
+  plate: string;
   body: string;
-  available: string;
   contact: string;
   browse: string;
 };
@@ -65,12 +68,19 @@ export function ControllerSoonPanel({
           style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
         >
           <span aria-hidden className="qs-scan z-10" />
-          <CategoryIcon name={icon} className="w-[112px] h-[112px] text-gold-1/55" />
+          {/* Glyph over its own caption: the caption states what is missing (a
+              model, not a photograph) in the gold register, so the plate reads
+              correctly on its own before the copy beside it is reached. */}
+          <div className="flex flex-col items-center gap-3.5">
+            <CategoryIcon name={icon} className="w-[112px] h-[112px] text-gold-1/55" />
+            <span className="font-mono text-label-xs font-semibold tracking-[.16em] uppercase text-gold-1/75">
+              {copy.plate}
+            </span>
+          </div>
           {CORNERS.map((pos) => (
             <span key={pos} aria-hidden className={`absolute w-3.5 h-3.5 border-gold-1/50 ${pos}`} />
           ))}
         </div>
-        <p className="mt-5 mb-0 font-mono text-label-xs tracking-[.16em] uppercase text-muted">{copy.available}</p>
       </div>
 
       {/* ── Status, name and the way out ── */}

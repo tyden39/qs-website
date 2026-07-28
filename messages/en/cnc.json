@@ -332,15 +332,6 @@
     "program": "Program",
     "parts": "Parts today"
   },
-  "video": {
-    "eyebrow": "Machine in action",
-    "heading": "Watch it run",
-    "body": "A machining cycle driven by a QS controller — filmed live at the workshop, no staging.",
-    "title": "5-axis machining center running the QS Astro 6AV controller",
-    "play": "Play video",
-    "close": "Close video",
-    "youtube": "YouTube channel"
-  },
   "cta": {
     "heading": "Need the machine configured for your parts?",
     "body": "Send us a drawing or a sample workpiece — QS engineers propose the spindle, workholding and machining cycle within 48 hours.",

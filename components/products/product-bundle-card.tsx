@@ -21,11 +21,6 @@ export async function ProductBundleCard({
   const t = await getTranslations("product.card");
   const idx = String(index + 1).padStart(2, "0");
   const count = String(product.bundle.length).padStart(2, "0");
-  const badge = product.badge
-    ? t.has(`badge.${product.badge}`)
-      ? t(`badge.${product.badge}`)
-      : product.badge
-    : null;
 
   return (
     <article className="qs-card grid md:grid-cols-[minmax(0,300px)_1fr] group shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)]">
@@ -143,12 +138,12 @@ export async function ProductBundleCard({
                       width={photo.w}
                       height={photo.h}
                       sizes="120px"
-                      className="max-h-[84px] w-auto max-w-full object-contain transition-transform duration-200 group-hover/tile:-translate-y-0.5"
+                      className="max-h-[84px] w-auto max-w-full object-contain"
                     />
                   ) : (
                     <KitComponentIcon
                       type={c.icon}
-                      className="h-full w-auto transition-transform duration-200 group-hover/tile:-translate-y-0.5"
+                      className="h-full w-auto"
                     />
                   );
                 })()}
@@ -159,15 +154,6 @@ export async function ProductBundleCard({
             </div>
           ))}
           </div>
-
-          {badge && (
-            <div className="mt-4 flex items-center gap-2.5">
-              <span className="qs-live-dot" aria-hidden />
-              <span className="font-mono text-label-xs tracking-[.16em] uppercase text-gold-1">
-                {badge}
-              </span>
-            </div>
-          )}
         </div>
       </details>
     </article>

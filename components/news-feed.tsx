@@ -127,8 +127,8 @@ export default function NewsFeed({ items }: { items: NewsItem[] }) {
               <span className="absolute inset-0 bg-ink/25 transition-opacity duration-300 group-hover:opacity-0 group-data-[active=true]:opacity-0" />
             </span>
             <div className="min-w-0">
-              <span className="font-mono text-label-xs text-muted tracking-[.16em] uppercase block mb-1">{n.cat} · {n.date}</span>
-              <h4 className="font-display font-semibold text-meta leading-[1.35] m-0 tracking-[-.005em] text-ink line-clamp-2 transition-colors group-hover:text-gold-1 group-data-[active=true]:text-gold-1">{n.title}</h4>
+              <span className="font-mono text-[15px] text-muted tracking-[.16em] uppercase block mb-1">{n.cat} · {n.date}</span>
+              <h4 className="font-display font-semibold text-[22px] leading-[1.35] m-0 tracking-[-.005em] text-ink line-clamp-2 transition-colors group-hover:text-gold-1 group-data-[active=true]:text-gold-1">{n.title}</h4>
             </div>
             <span className="font-mono text-gold-1 text-meta opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
             {/* autoplay progress seam — only under the active row, restarts on advance */}

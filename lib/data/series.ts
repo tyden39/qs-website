@@ -391,10 +391,6 @@ function toDetailView(d: SeriesDetail, en: boolean): SeriesDetailView {
   };
 }
 
-/** Section order on the servo list page: what drives the motion, what moves,
- *  what connects the two. */
-export const SERIES_KINDS: SeriesKind[] = ["driver", "motor", "cable"];
-
 /** A photo resolved to one locale — `alt` already carries the right language. */
 export type SeriesImage = { src: string; w: number; h: number; alt: string };
 

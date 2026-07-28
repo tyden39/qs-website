@@ -13,10 +13,10 @@ import seriesData from "./series.json";
 export type SeriesCategory = "servo" | "inverter";
 
 /**
- * Sub-type inside a category. The servo set is browsed by part role — drive,
- * motor, cable (connectors ship with the cable sets, so they are listed there
- * rather than as a role of their own). Inverters are sold as one flat family
- * and carry no kind.
+ * Part role a series plays — drive, motor, cable (connectors ship with the
+ * cable sets, so they are not a role of their own). Kept as data only: the
+ * catalogue lists every series of a category in one flat list, so the role no
+ * longer splits the listing into sections.
  */
 export type SeriesKind = "driver" | "motor" | "cable";
 

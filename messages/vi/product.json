@@ -15,6 +15,9 @@
     ],
     "catalogBtn": "QS Products Catalog",
     "seriesTag": "[ Series 2026 · F + Astro ]",
+    "ctaHeading": "Chưa rõ thiết bị nào hợp với hệ thống của bạn?",
+    "ctaBody": "Gửi loại máy, số trục và giao thức kết nối — kỹ thuật QS tư vấn bộ điều khiển, servo, biến tần và phụ kiện đồng bộ.",
+    "ctaBtn": "Liên hệ kỹ thuật →",
     "sidebar": {
       "heading": "Bộ điều khiển",
       "allMachines": "Tất cả loại máy",
@@ -80,9 +83,9 @@
         "blurb": "Bộ điều khiển đa giao thức cho máy CNC, robot và tự động hóa — Pulse Train, EtherCAT, Mechatrolink."
       },
       "servo": {
-        "label": "Servo",
-        "labelGold": "Servo",
-        "blurb": "Hệ truyền động servo QS: driver SDV3 từ 0.4 đến 4 kW, cùng motor, cáp và đầu nối đồng bộ."
+        "label": "QS servo",
+        "labelGold": "servo",
+        "blurb": "Hệ truyền động servo QS: QS servo drive 0.4 – 4 kW cùng QS servo motor, cáp và đầu nối đồng bộ."
       },
       "inverter": {
         "label": "Biến tần",
@@ -102,8 +105,8 @@
     },
     "soon": {
       "eyebrow": "Đang phát triển",
+      "plate": "Chưa có model",
       "body": "Dòng bộ điều khiển này đang được QS hoàn thiện. Liên hệ để nhận lộ trình ra mắt, hoặc xem các bộ điều khiển đang bán để tìm giải pháp tương đương ngay hôm nay.",
-      "available": "Hiện có {count} model đang bán",
       "contact": "Liên hệ QS",
       "browse": "Xem tất cả bộ điều khiển"
     },
@@ -121,11 +124,6 @@
         "cnc": "Điều khiển CNC",
         "robot": "Điều khiển robot",
         "cobot": "Điều khiển cobot"
-      },
-      "servo": {
-        "driver": "Driver servo",
-        "motor": "Motor servo",
-        "cable": "Cáp & đầu nối"
       }
     }
   },
@@ -144,7 +142,7 @@
     "tablesEyebrow": "[ Bảng chọn model ]",
     "tablesHeading": "Danh mục model & thông số",
     "figuresEyebrow": "Tài liệu kỹ thuật",
-    "figuresHeading": "Bảng thông số motor SCH",
+    "figuresHeading": "Bảng thông số QS servo motor",
     "figuresZoom": "Phóng to bảng thông số",
     "filterAll": "Tất cả",
     "filterLabel": "Lọc theo",
@@ -187,11 +185,6 @@
     "emptyTab": "Mục này đang được cập nhật — liên hệ để biết chi tiết."
   },
   "card": {
-    "badge": {
-      "Recommended": "Khuyến nghị",
-      "Touch": "Cảm ứng",
-      "Flagship": "Cao cấp"
-    },
     "bundleFor": "Bộ sản phẩm cho",
     "machine": "Máy",
     "model": "Model:",

@@ -70,7 +70,7 @@ export default async function About({ params }: Props) {
           className="hidden lg:block absolute bottom-0 right-0 w-[48%] h-[86%] opacity-[.6] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_24%,transparent_74%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_24%,transparent_74%)]"
         />
         {/* the grid stretches to the hero's min-height so the right column can bottom-anchor */}
-        <div className="relative z-10 w-full lg:flex-1 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid lg:grid-cols-[1.05fr_1fr] gap-10 sm:gap-16">
+        <div className="relative z-10 w-full lg:flex-1 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16">
           <div>
             <div className="qs-eyebrow qs-rise" style={{ animationDelay: "0ms" }}>{t("hero.eyebrow")}</div>
             <h1 className="font-display font-bold tracking-tight leading-[.95] mt-3.5"
@@ -102,7 +102,7 @@ export default async function About({ params }: Props) {
 
       {/* STORY — the QS-made board sits beside the company narrative */}
       <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-2 gap-10 sm:gap-16 items-center">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <Reveal className="relative border border-line bg-ink overflow-hidden order-1 group">
             <Image
               src="/home/about-qs.webp"
@@ -214,7 +214,7 @@ export default async function About({ params }: Props) {
                   <Icon aria-hidden="true" strokeWidth={0.9}
                         className="pointer-events-none absolute -right-5 -bottom-5 w-28 h-28 text-gold-1/[.06] transition-all duration-500 group-hover:scale-110 group-hover:text-gold-1/[.1]" />
                   <div className="relative flex items-center justify-between">
-                    <div className="font-display font-bold text-[40px] leading-none text-gold-1/90 tracking-[-.02em] transition-transform duration-300 group-hover:-translate-y-0.5">{String(idx + 1).padStart(2, "0")}</div>
+                    <div className="font-display font-bold text-[40px] leading-none text-gold-1/90 tracking-[-.02em]">{String(idx + 1).padStart(2, "0")}</div>
                     <span className="grid place-items-center w-9 h-9 border border-line bg-white text-gold-1 shrink-0
                                      transition-colors duration-300 group-hover:border-gold/60">
                       <Icon aria-hidden="true" className="w-[18px] h-[18px]" strokeWidth={1.6} />

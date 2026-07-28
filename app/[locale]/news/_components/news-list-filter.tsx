@@ -140,7 +140,7 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
                 <Link key={n.slug} href={`/news/${n.slug}`}
                       hidden={!visibleSlugs.has(n.slug)}
                       data-f-cat={n.categoryId}
-                      className="group relative bg-white border border-line rounded-[3px] flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:border-ink-3 hover:shadow-[0_1px_0_rgba(0,0,0,.04),0_16px_36px_-18px_rgba(0,0,0,.22)]">
+                      className="group relative bg-white border border-line rounded-[3px] flex flex-col overflow-hidden transition-all duration-200 hover:border-ink-3 hover:shadow-[0_1px_0_rgba(0,0,0,.04),0_16px_36px_-18px_rgba(0,0,0,.22)]">
                   <div className="aspect-[5/3] border-b border-line bg-paper-2 overflow-hidden relative">
                     {n.img ? (
                       <>

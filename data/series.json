@@ -3,8 +3,8 @@
     "slug": "sdv3",
     "category": "servo",
     "kind": "driver",
-    "brand": "QS Servo",
-    "name": "SDV3",
+    "brand": "QS servo",
+    "name": "QS servo drive",
     "tag": "Dòng nhỏ gọn",
     "tagEn": "Compact series",
     "desc": "AC servo driver nhỏ gọn 0.4 – 4 kW cho máy công cụ và thiết bị tự động hóa — điều khiển vị trí, tốc độ và moment qua các bus công nghiệp phổ biến.",
@@ -49,14 +49,14 @@
       "src": "/img/products/series/sdv3.webp",
       "w": 300,
       "h": 225,
-      "alt": "Driver servo SDV3 các cỡ công suất",
-      "altEn": "SDV3 servo drives across the power range"
+      "alt": "QS servo drive các cỡ công suất",
+      "altEn": "QS servo drive units across the power range"
     },
     "sourceUrl": "https://en.savch.net/SDV3Economicservo/55.html",
     "detail": {
       "intro": {
-        "lead": "Dòng SDV3 là hệ servo trọn bộ (motor và driver) tối ưu chi phí, dùng được trên dải thiết bị công nghiệp rất rộng.",
-        "leadEn": "The SDV3 series is a cost-effective servo system (motor and drive) that suits a very wide range of industrial equipment.",
+        "lead": "Dòng QS servo drive là hệ servo trọn bộ (motor và driver) tối ưu chi phí, dùng được trên dải thiết bị công nghiệp rất rộng.",
+        "leadEn": "The QS servo drive series is a cost-effective servo system (motor and drive) that suits a very wide range of industrial equipment.",
         "applications": "Máy khắc laser, robot khớp, tay máy tuyến tính, máy chế biến gỗ, máy kính, máy ép nhựa, thiết bị hàn và cắt, thiết bị gốm sứ, máy dệt, thiết bị kiểm tra, thiết bị sản xuất cáp, thiết bị pin lithium, thiết bị điện tử, máy phay, máy mài, máy tiện CNC, dây chuyền thực phẩm, dây chuyền đóng gói, máy khắc – phay, máy khắc, máy đánh bóng high-light, máy quấn, máy dệt kim sợi dọc, máy dán nhãn, máy lạng gỗ…",
         "applicationsEn": "Laser marking machines, joint robots, linear mechanical hands, wood machinery, glass machinery, injection moulding machinery, welding and cutting equipment, ceramic equipment, textile equipment, testing equipment, cable equipment, lithium battery equipment, electronic manufacturing equipment, milling machines, grinding machines, CNC lathes, food production lines, packaging production lines, engraving and milling machines, engraving machines, high-light machines, around-line machines, warp knitting machines, labelling machines, veneer machines and more.",
         "sections": [
@@ -175,8 +175,8 @@
           "w": 1536,
           "h": 1024,
           "alt": {
-            "vi": "SDV3 — điểm cộng hưởng cơ khí, đặc tuyến bộ lọc notch và dạng rung khi bật/tắt notch tự động",
-            "en": "SDV3 — mechanical resonance points, notch filter response and the vibration trace with the auto-notch filter off and on"
+            "vi": "QS servo drive — điểm cộng hưởng cơ khí, đặc tuyến bộ lọc notch và dạng rung khi bật/tắt notch tự động",
+            "en": "QS servo drive — mechanical resonance points, notch filter response and the vibration trace with the auto-notch filter off and on"
           }
         },
         {
@@ -205,8 +205,8 @@
           "w": 1600,
           "h": 746,
           "alt": {
-            "vi": "SDV3 — tay gắp rung khi không có bộ lọc triệt rung so với tay gắp ổn định khi bật bộ lọc",
-            "en": "SDV3 — arm jitter without the vibration filter compared with manipulator stability when the filter is on"
+            "vi": "QS servo drive — tay gắp rung khi không có bộ lọc triệt rung so với tay gắp ổn định khi bật bộ lọc",
+            "en": "QS servo drive — arm jitter without the vibration filter compared with manipulator stability when the filter is on"
           }
         },
         {
@@ -220,8 +220,8 @@
           "kind": "bullets",
           "items": [
             {
-              "vi": "Hàm auto-tuning thiết kế lại nâng rõ khả năng tự thích nghi của SDV3; kể cả máy có độ cứng vững thấp vẫn chỉnh được về mức phù hợp nhất.",
-              "en": "The newly designed auto-tuning function greatly improves the SDV3's self-adaptive performance. Even a machine with low rigidity is tuned to the most appropriate setting."
+              "vi": "Hàm auto-tuning thiết kế lại nâng rõ khả năng tự thích nghi của QS servo drive; kể cả máy có độ cứng vững thấp vẫn chỉnh được về mức phù hợp nhất.",
+              "en": "The newly designed auto-tuning function greatly improves the QS servo drive's self-adaptive performance. Even a machine with low rigidity is tuned to the most appropriate setting."
             }
           ]
         },
@@ -231,15 +231,15 @@
           "w": 1530,
           "h": 1028,
           "alt": {
-            "vi": "SDV3 — tốc độ lệnh, tốc độ phản hồi và moment khi chưa có và khi có hàm auto-tuning mới",
-            "en": "SDV3 — reference speed, feedback speed and torque without and with the new auto-tuning function"
+            "vi": "QS servo drive — tốc độ lệnh, tốc độ phản hồi và moment khi chưa có và khi có hàm auto-tuning mới",
+            "en": "QS servo drive — reference speed, feedback speed and torque without and with the new auto-tuning function"
           }
         },
         {
           "kind": "note",
           "text": {
-            "vi": "Trước đây, khi độ cứng vững của máy thấp thì máy dễ cộng hưởng nên không nâng được đáp ứng. SDV3 với hàm auto-tuning mới ít cộng hưởng hơn, nhờ đó nâng được đáp ứng và tăng khả năng chịu tải va đập.",
-            "en": "Previously, when rigidity was low the machine tended to resonate, so responsiveness could not be improved. The SDV3's new auto-tuning function makes resonance far less likely even on a low-rigidity machine, which raises responsiveness and strengthens resistance to impact loads."
+            "vi": "Trước đây, khi độ cứng vững của máy thấp thì máy dễ cộng hưởng nên không nâng được đáp ứng. QS servo drive với hàm auto-tuning mới ít cộng hưởng hơn, nhờ đó nâng được đáp ứng và tăng khả năng chịu tải va đập.",
+            "en": "Previously, when rigidity was low the machine tended to resonate, so responsiveness could not be improved. The QS servo drive's new auto-tuning function makes resonance far less likely even on a low-rigidity machine, which raises responsiveness and strengthens resistance to impact loads."
           }
         },
         {
@@ -826,8 +826,8 @@
               "w": 1429,
               "h": 1101,
               "alt": {
-                "vi": "SDV3 — mặt trước bản AC 220 V 400 W và 1.5 kW: cổng USB, cổng I/O, cổng encoder, cầu đấu nguồn vào và ra motor",
-                "en": "SDV3 — front view of the AC220V 400 W and 1.5 kW drives: USB terminal, I/O terminal, encoder terminal, power input/output terminal"
+                "vi": "QS servo drive — mặt trước bản AC 220 V 400 W và 1.5 kW: cổng USB, cổng I/O, cổng encoder, cầu đấu nguồn vào và ra motor",
+                "en": "QS servo drive — front view of the AC220V 400 W and 1.5 kW drives: USB terminal, I/O terminal, encoder terminal, power input/output terminal"
               }
             },
             {
@@ -835,8 +835,8 @@
               "w": 1316,
               "h": 1195,
               "alt": {
-                "vi": "SDV3 — mặt trước bản AC 220 V 3.0 kW: cổng USB, cổng I/O, cổng encoder, cầu đấu nguồn vào và ra motor",
-                "en": "SDV3 — front view of the AC220V 3.0 kW drive: USB terminal, I/O terminal, encoder terminal, power input/output terminal"
+                "vi": "QS servo drive — mặt trước bản AC 220 V 3.0 kW: cổng USB, cổng I/O, cổng encoder, cầu đấu nguồn vào và ra motor",
+                "en": "QS servo drive — front view of the AC220V 3.0 kW drive: USB terminal, I/O terminal, encoder terminal, power input/output terminal"
               }
             }
           ]
@@ -858,8 +858,8 @@
           "w": 1600,
           "h": 793,
           "alt": {
-            "vi": "SDV3 — kích thước lắp đặt Size 1: rộng 40, cao 170, sâu 150 mm",
-            "en": "SDV3 — Size 1 mounting dimensions: 40 wide, 170 high, 150 deep (mm)"
+            "vi": "QS servo drive — kích thước lắp đặt Size 1: rộng 40, cao 170, sâu 150 mm",
+            "en": "QS servo drive — Size 1 mounting dimensions: 40 wide, 170 high, 150 deep (mm)"
           },
           "caption": {
             "vi": "Size 1 — 2S 0.4G ~ 0.75G",
@@ -872,8 +872,8 @@
           "w": 1600,
           "h": 755,
           "alt": {
-            "vi": "SDV3 — kích thước lắp đặt Size 2: rộng 55, cao 170, sâu 163 mm",
-            "en": "SDV3 — Size 2 mounting dimensions: 55 wide, 170 high, 163 deep (mm)"
+            "vi": "QS servo drive — kích thước lắp đặt Size 2: rộng 55, cao 170, sâu 163 mm",
+            "en": "QS servo drive — Size 2 mounting dimensions: 55 wide, 170 high, 163 deep (mm)"
           },
           "caption": {
             "vi": "Size 2 — 2S 1.0G ~ 1.5G · 4T 0.75G ~ 2.0G",
@@ -886,8 +886,8 @@
           "w": 1600,
           "h": 685,
           "alt": {
-            "vi": "SDV3 — kích thước lắp đặt Size 3: rộng 80, cao 190, sâu 204 mm",
-            "en": "SDV3 — Size 3 mounting dimensions: 80 wide, 190 high, 204 deep (mm)"
+            "vi": "QS servo drive — kích thước lắp đặt Size 3: rộng 80, cao 190, sâu 204 mm",
+            "en": "QS servo drive — Size 3 mounting dimensions: 80 wide, 190 high, 204 deep (mm)"
           },
           "caption": {
             "vi": "Size 3 — 2T 2.0G ~ 3.0G · 4T 3.0G ~ 4.0G",
@@ -1289,12 +1289,12 @@
     "slug": "sch-motor",
     "category": "servo",
     "kind": "motor",
-    "brand": "QS Servo",
-    "name": "SCH",
+    "brand": "QS servo",
+    "name": "QS servo motor",
     "tag": "Motor servo AC",
     "tagEn": "AC servo motor",
-    "desc": "Motor servo AC dòng SCH ghép bộ với driver SDV3 — frame 60 đến 180 mm, 0.2 đến 4.3 kW, encoder tăng dần hoặc tuyệt đối, phanh DC 24 V tuỳ chọn. Mã motor gọi theo frame và công suất (ví dụ SCH130152E = frame 130, 1.5 kW).",
-    "descEn": "SCH-series AC servo motors matched to the SDV3 drive — frame 60 to 180 mm, 0.2 to 4.3 kW, incremental or absolute encoder, optional DC 24 V brake. Part numbers encode frame and power (e.g. SCH130152E = frame 130, 1.5 kW).",
+    "desc": "Motor servo AC ghép bộ với QS servo drive — frame 60 đến 180 mm, 0.2 đến 4.3 kW, encoder tăng dần hoặc tuyệt đối, phanh DC 24 V tuỳ chọn. Mã motor gọi theo frame và công suất (ví dụ SCH130152E = frame 130, 1.5 kW).",
+    "descEn": "AC servo motors matched to the QS servo drive — frame 60 to 180 mm, 0.2 to 4.3 kW, incremental or absolute encoder, optional DC 24 V brake. Part numbers encode frame and power (e.g. SCH130152E = frame 130, 1.5 kW).",
     "specs": [
       {
         "l": "Công suất",
@@ -1351,8 +1351,8 @@
       "src": "/img/products/series/servo-motor-sch.webp",
       "w": 412,
       "h": 335,
-      "alt": "Motor servo dòng SCH với cáp động lực và cáp encoder",
-      "altEn": "SCH-series servo motor with power and encoder cables"
+      "alt": "QS servo motor với cáp động lực và cáp encoder",
+      "altEn": "QS servo motor with power and encoder cables"
     },
     "sourceUrl": "https://savch.net/uploads/20260427/05e5f2e13a0fd1fb64897f106a2956b4.pdf",
     "detail": {
@@ -3567,8 +3567,8 @@
           "w": 1600,
           "h": 873,
           "alt": {
-            "vi": "SCH frame 60 mm — mặt bích 60.2 × 60.2 mm, trục Ø14, 4 lỗ Ø5.5, then M4×L22",
-            "en": "SCH 60 mm frame — 60.2 × 60.2 mm flange, Ø14 shaft, 4-Ø5.5 holes, M4×L22 tapped end"
+            "vi": "QS servo motor frame 60 mm — mặt bích 60.2 × 60.2 mm, trục Ø14, 4 lỗ Ø5.5, then M4×L22",
+            "en": "QS servo motor 60 mm frame — 60.2 × 60.2 mm flange, Ø14 shaft, 4-Ø5.5 holes, M4×L22 tapped end"
           }
         },
         {
@@ -3639,8 +3639,8 @@
           "w": 1600,
           "h": 704,
           "alt": {
-            "vi": "SCH frame 80 mm — mặt bích 80.4 × 80.4 mm, trục Ø19, 4 lỗ Ø6, then M5×L22",
-            "en": "SCH 80 mm frame — 80.4 × 80.4 mm flange, Ø19 shaft, 4-Ø6 holes, M5×L22 tapped end"
+            "vi": "QS servo motor frame 80 mm — mặt bích 80.4 × 80.4 mm, trục Ø19, 4 lỗ Ø6, then M5×L22",
+            "en": "QS servo motor 80 mm frame — 80.4 × 80.4 mm flange, Ø19 shaft, 4-Ø6 holes, M5×L22 tapped end"
           }
         },
         {
@@ -3723,8 +3723,8 @@
           "w": 1600,
           "h": 950,
           "alt": {
-            "vi": "SCH frame 110 mm — mặt bích 110 × 110 mm, trục Ø19, 4 lỗ Ø9, then M6×L25",
-            "en": "SCH 110 mm frame — 110 × 110 mm flange, Ø19 shaft, 4-Ø9 holes, M6×L25 tapped end"
+            "vi": "QS servo motor frame 110 mm — mặt bích 110 × 110 mm, trục Ø19, 4 lỗ Ø9, then M6×L25",
+            "en": "QS servo motor 110 mm frame — 110 × 110 mm flange, Ø19 shaft, 4-Ø9 holes, M6×L25 tapped end"
           }
         },
         {
@@ -3819,8 +3819,8 @@
           "w": 1600,
           "h": 893,
           "alt": {
-            "vi": "SCH frame 130 mm — mặt bích 130 × 130 mm, trục Ø22, 4 lỗ Ø9, then M6×L22",
-            "en": "SCH 130 mm frame — 130 × 130 mm flange, Ø22 shaft, 4-Ø9 holes, M6×L22 tapped end"
+            "vi": "QS servo motor frame 130 mm — mặt bích 130 × 130 mm, trục Ø22, 4 lỗ Ø9, then M6×L22",
+            "en": "QS servo motor 130 mm frame — 130 × 130 mm flange, Ø22 shaft, 4-Ø9 holes, M6×L22 tapped end"
           }
         },
         {
@@ -4006,8 +4006,8 @@
           "w": 1600,
           "h": 803,
           "alt": {
-            "vi": "SCH frame 180 mm — mặt bích 180.5 × 180.5 mm, trục Ø35, 4 lỗ Ø13.5, then M8×L30",
-            "en": "SCH 180 mm frame — 180.5 × 180.5 mm flange, Ø35 shaft, 4-Ø13.5 holes, M8×L30 tapped end"
+            "vi": "QS servo motor frame 180 mm — mặt bích 180.5 × 180.5 mm, trục Ø35, 4 lỗ Ø13.5, then M8×L30",
+            "en": "QS servo motor 180 mm frame — 180.5 × 180.5 mm flange, Ø35 shaft, 4-Ø13.5 holes, M8×L30 tapped end"
           }
         },
         {

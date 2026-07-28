@@ -16,7 +16,7 @@
   "submenu": {
     "electronics": {
       "controllers": "Controllers",
-      "servo": "Servo",
+      "servo": "QS servo",
       "inverter": "Inverters",
       "dnc": "DNC Transfer Units",
       "accessory": "Accessories"

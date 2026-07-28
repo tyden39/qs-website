@@ -160,9 +160,6 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
       {/* LIÊN HỆ */}
       <section className="relative overflow-hidden border-t border-line py-12 sm:py-16 lg:py-24" id="contact"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
-        <div className="absolute inset-0 qs-grid-bg opacity-40" aria-hidden="true"></div>
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold-grad" aria-hidden="true"></div>
-        <div className="qs-glow hidden sm:block right-[6%] top-[-30%] w-[30%] h-[140%]" aria-hidden="true"></div>
 
         <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="mx-auto max-w-[64ch] text-center flex flex-col items-center">

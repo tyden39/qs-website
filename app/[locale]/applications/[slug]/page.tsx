@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
+import ContactCta from "@/components/contact-cta";
 import Reveal from "@/components/reveal";
 import RailNudge from "@/components/rail-nudge";
 import { CategoryIcon } from "@/components/category-icon";
@@ -52,7 +53,7 @@ export async function generateMetadata({
 
 // Slug order drives the machine-name lookup and the application index.
 const appSlugs = ["phay-cnc", "cua-long", "dan-keo", "uon-lo-xo", "mong-go", "kim-hoan",
-                  "dieu-khac-da", "cat-da"];
+                  "dieu-khac-da", "cat-da", "dieu-khac-go"];
 const relatedAppsMeta = [
   { slug: "cua-long", n: "02" },
   { slug: "dan-keo", n: "03" },
@@ -85,6 +86,7 @@ const STRENGTH_MEDIA: Record<string, Media[]> = {
   "kim-hoan": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
   "dieu-khac-da": [{ icon: "precision" }, { icon: "stability" }, { icon: "carving" }, { icon: "productivity" }],
   "cat-da": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
+  "dieu-khac-go": [{ icon: "precision" }, { icon: "stability" }, { icon: "carving" }, { icon: "productivity" }],
 };
 const CAPABILITY_MEDIA: Record<string, Media[]> = {
   "phay-cnc": photos("phay-cnc", ["face-milling", "slot-milling", "drill-tap", "surface-3d", "probing"]),
@@ -103,6 +105,8 @@ const CAPABILITY_MEDIA: Record<string, Media[]> = {
     ["statue-3d", "relief", "ornament", "portrait", "architectural", "art-piece", "hand-carving"]),
   "cat-da": photos("cat-da",
     ["straight-cut", "contour-2d", "arc-cut", "logo-text", "cladding", "decorative-detail", "pattern-copy"]),
+  "dieu-khac-go": photos("dieu-khac-go",
+    ["statue-3d", "relief", "ornament", "portrait", "furniture-detail", "hand-carving", "art-piece"]),
 };
 const COMPAT_MEDIA: Record<string, Media[]> = {
   "phay-cnc": [{ icon: "multi-axis" }, { icon: "gcode" }, { icon: "cam" }, { icon: "flexible-config" }],
@@ -117,6 +121,8 @@ const COMPAT_MEDIA: Record<string, Media[]> = {
     ["natural-stone", "marble", "granite", "artificial-stone", "stone-composite"]),
   "cat-da": photos("cat-da",
     ["natural-stone", "granite", "marble", "artificial-stone", "stone-composite"]),
+  "dieu-khac-go": photos("dieu-khac-go",
+    ["natural-wood", "hardwood", "softwood", "engineered-wood", "industrial-wood"]),
 };
 const CONTROL_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "motion" }, { icon: "cutting" }, { icon: "performance" }, { icon: "gcode" }, { icon: "io" }],
@@ -129,6 +135,8 @@ const CONTROL_MEDIA: Record<string, Media[]> = {
                    { icon: "io" }, { icon: "stability" }],
   "cat-da": [{ icon: "multi-axis" }, { icon: "motion" }, { icon: "gcode" }, { icon: "performance" },
              { icon: "io" }, { icon: "stability" }],
+  "dieu-khac-go": [{ icon: "multi-axis" }, { icon: "surface-3d" }, { icon: "gcode" }, { icon: "performance" },
+                   { icon: "io" }, { icon: "stability" }],
 };
 const MACHINE_PART_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "motion" }, { icon: "cutting" }],
@@ -140,6 +148,8 @@ const MACHINE_PART_MEDIA: Record<string, Media[]> = {
                    { icon: "controllers" }],
   "cat-da": [{ icon: "router" }, { icon: "cutting" }, { icon: "machine" }, { icon: "motion" }, { icon: "pump" },
              { icon: "controllers" }],
+  "dieu-khac-go": [{ icon: "router" }, { icon: "carving" }, { icon: "machine" }, { icon: "motion" },
+                   { icon: "controllers" }],
 };
 const BENEFIT_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "precision" }, { icon: "usability" }, { icon: "productivity" }, { icon: "gcode" }, { icon: "flexible-config" }],
@@ -155,6 +165,8 @@ const BENEFIT_MEDIA: Record<string, Media[]> = {
                    { icon: "flexible-config" }, { icon: "stability" }],
   "cat-da": [{ icon: "precision" }, { icon: "cutting" }, { icon: "usability" }, { icon: "productivity" },
              { icon: "flexible-config" }, { icon: "stability" }],
+  "dieu-khac-go": [{ icon: "precision" }, { icon: "carving" }, { icon: "usability" }, { icon: "productivity" },
+                   { icon: "flexible-config" }, { icon: "stability" }],
 };
 /** Finished parts photographed on the reference sheet — decoration, so no captions. */
 const GALLERY_IMAGES: Record<string, string[]> = {
@@ -247,7 +259,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
             <Link href="/applications" className="text-[#a8a499]!">{t("breadcrumb.applications")}</Link><span className="sep text-[#a8a499]!">/</span>
             <span className="here text-gold-2! capitalize">{machine}</span>
           </div>
-          <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 sm:gap-16 items-end">
+          <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-end">
             <div className="order-2 md:order-1">
               <span className="inline-block qs-rise font-mono text-label text-gold-2 tracking-[.16em] uppercase" style={{ animationDelay: "0ms" }}>{t("appLabel", { idx: String(idx).padStart(2, "0") })}</span>
               <h1 className="qs-rise font-display font-bold tracking-[-.02em] text-white mt-3.5"
@@ -286,7 +298,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       {strengths.length > 0 && (
         <section className="bg-paper border-b border-line py-10 sm:py-12">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {strengths.map((s, i) => (
                 <Reveal key={s.t} delay={i * 70}>
                   <CategoryIcon name={strengthMedia[i]?.icon ?? ""} className="w-9 h-9 text-gold-1" />
@@ -379,7 +391,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       {/* MACHINING COMPATIBILITY */}
       {compat && (
         <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
-          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.1fr] gap-10 sm:gap-16 items-start">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.1fr] gap-10 md:gap-16 items-start">
             <div>
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("compatEyebrow")}</span>
               <h2 className="qs-h2 mt-1.5 max-w-[20ch]">{compat.heading ?? t("compatHeading")}</h2>
@@ -526,20 +538,13 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       )}
 
       {/* CONTACT CTA */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white border-t border-line">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
-            <div>
-              {machine_?.closing && (
-                <p className="font-mono text-label text-gold-2 tracking-[.14em] uppercase m-0 mb-3">{machine_.closing}</p>
-              )}
-              <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">{t("ctaHeading", { machine })}</h3>
-              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-body leading-relaxed">{t("ctaBody")}</p>
-            </div>
-            <Link className="qs-btn qs-btn-gold" href="/contact">{t("ctaBtn")}</Link>
-          </div>
-        </div>
-      </section>
+      <ContactCta
+        bordered
+        eyebrow={machine_?.closing}
+        heading={t("ctaHeading", { machine })}
+        body={t("ctaBody")}
+        ctaLabel={t("ctaBtn")}
+      />
     </>
   );
 }

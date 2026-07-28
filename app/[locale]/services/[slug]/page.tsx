@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/lib/i18n/navigation";
+import ContactCta from "@/components/contact-cta";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { services, type Service } from "@/data/services";
 import { getServiceBySlug, getServiceSlugs } from "@/lib/data/services";
@@ -85,7 +86,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
             <Link href="/services">{t("breadcrumb.services")}</Link><span className="sep">/</span>
             <span className="here">{s.name}</span>
           </nav>
-          <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 sm:gap-16 items-start">
+          <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-start">
             <div className="order-2 md:order-1">
               <div className="qs-eyebrow">Service · {s.number}</div>
               <h1 className="font-display font-bold mt-4 leading-[.98] tracking-[-.025em]"
@@ -170,7 +171,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
 
       {/* INCLUDES */}
       <section className="py-12 sm:py-16 lg:py-24 bg-paper border-t border-line">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.2fr] gap-10 sm:gap-16 items-start">
+        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-start">
           <div>
             <span className="qs-eyebrow">{t("includesEyebrow")}</span>
             <h2 className="font-display text-h2 font-bold tracking-[-.015em] mt-2 mb-4 leading-[1.1]">
@@ -237,18 +238,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="bg-ink text-[#cfc9b8] p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center">
-            <div>
-              <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">{s.cta.title}</h3>
-              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-meta">{s.cta.desc}</p>
-            </div>
-            <Link className="qs-btn qs-btn-gold" href="/contact">{t("ctaBtn")}</Link>
-          </div>
-        </div>
-      </section>
+      <ContactCta heading={s.cta.title} body={s.cta.desc} ctaLabel={t("ctaBtn")} />
     </>
   );
 }

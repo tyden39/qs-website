@@ -82,7 +82,6 @@ export type Product = {
   tag: string;
   series: "F" | "Astro";
   type: ControllerType;
-  badge?: string;
   desc: string;
   bullets: string[];
   /** English copy, served on the `en` locale (Vietnamese fields stay primary). */

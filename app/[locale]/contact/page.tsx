@@ -76,10 +76,6 @@ export default async function Contact({ params }: Props) {
       <section id="contact-form" className="relative overflow-hidden py-12 sm:py-16 lg:py-24 scroll-mt-24"
                style={{ background: "linear-gradient(180deg, #f0eee8 0%, #fafaf7 100%)" }}>
         {/* Blueprint grid + decorative accents so the lone form panel doesn't sit on a bare canvas. */}
-        <div className="absolute inset-0 qs-grid-bg opacity-40"></div>
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold-grad"></div>
-        <div aria-hidden className="absolute -left-10 top-24 w-40 h-40 border border-line rotate-45 opacity-40 hidden md:block"></div>
-        <div aria-hidden className="absolute -right-14 bottom-16 w-56 h-56 border border-line rounded-full opacity-30 hidden md:block"></div>
         <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-12 font-mono text-label text-gold-1 tracking-[.2em] uppercase opacity-60 hidden lg:block">[ {t("hero.eyebrow")} ]</div>
 
         <div className="relative max-w-[640px] mx-auto px-5 sm:px-8">

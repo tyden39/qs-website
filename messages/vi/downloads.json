@@ -46,9 +46,9 @@
         "desc": "Hướng dẫn vận hành và lắp đặt cho từng model controller: thao tác màn hình HMI, cài đặt thông số gia công, sơ đồ đấu nối tủ điện, cấu hình I/O và các bước căn chỉnh ban đầu."
       },
       "servo": {
-        "label": "Servo",
-        "heading": "Tài liệu Servo Drive",
-        "desc": "Sổ tay người dùng, bản vẽ kích thước, phần mềm và chứng nhận cho các dòng servo drive & motor. Tài liệu gốc nhà sản xuất, mở trực tiếp từ nguồn."
+        "label": "QS servo",
+        "heading": "Tài liệu QS servo",
+        "desc": "Sổ tay người dùng, bản vẽ kích thước, phần mềm và chứng nhận cho QS servo drive và QS servo motor. Tài liệu gốc nhà sản xuất, mở trực tiếp từ nguồn."
       },
       "inverter": {
         "label": "Biến tần",

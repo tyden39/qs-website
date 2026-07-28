@@ -231,7 +231,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
             {others.map(o => (
               <Link key={o.slug} href={`/news/${o.slug}`}
                     className="w-full shrink-0 snap-start bg-white border border-line flex flex-col
-                               hover:-translate-y-0.5 hover:border-ink transition-[transform,border-color]
+                               hover:border-ink transition-[border-color]
                                md:w-auto">
                 {o.coverImage && (
                   <div className="aspect-[5/3] border-b border-line overflow-hidden relative">

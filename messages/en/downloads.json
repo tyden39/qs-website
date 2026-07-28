@@ -46,9 +46,9 @@
         "desc": "Operation and installation manuals for each controller model: HMI operation, machining parameter setup, cabinet wiring diagrams, I/O configuration, and initial commissioning steps."
       },
       "servo": {
-        "label": "Servo",
-        "heading": "Servo drive documents",
-        "desc": "User manuals, dimension drawings, software and certificates for the servo drive & motor lines. Original manufacturer documents, opened directly from source."
+        "label": "QS servo",
+        "heading": "QS servo documents",
+        "desc": "User manuals, dimension drawings, software and certificates for the QS servo drive and QS servo motor lines. Original manufacturer documents, opened directly from source."
       },
       "inverter": {
         "label": "Inverter",

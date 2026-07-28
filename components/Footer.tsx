@@ -12,8 +12,11 @@ const mail = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
 
 export default async function Footer() {
   const t = await getTranslations("footer");
+  // The gap above the footer scales with the viewport: the last section's own bottom
+  // padding and .qs-foot-inner's padding-top already stack on top of it, so a flat
+  // 96px read as dead space on a phone.
   return (
-    <footer className="qs-foot mt-24 relative overflow-hidden">
+    <footer className="qs-foot mt-10 sm:mt-14 lg:mt-20 relative overflow-hidden">
       {/* PCB traces concentrated in top-right & lower-left — mirrored opposite to the hero's corners.
           The lower-left block is lifted above the copyright/separator bar (bottom-[18%]) and its mask
           is centred on the left edge so the traces never clutter the gold separator line. */}

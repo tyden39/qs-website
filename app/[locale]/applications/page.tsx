@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
+import ContactCta from "@/components/contact-cta";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
@@ -52,13 +53,12 @@ const appAssets = [
   { slug: "kim-hoan", img: "/home/app-kim-hoan.webp" },
   { slug: "dieu-khac-da", img: "/home/app-dieu-khac-da.webp" },
   { slug: "cat-da", img: "/home/app-cat-da.webp" },
+  { slug: "dieu-khac-go", img: "/home/app-dieu-khac-go.webp" },
 ];
 
 // Shop-floor stills for sub-types that have no case study yet — the card still
 // shows the real process photo instead of the dashed placeholder.
-const soonAssets: Record<string, string> = {
-  "dieu-khac-go": "/home/app-dieu-khac-go.webp",
-};
+const soonAssets: Record<string, string> = {};
 
 type AppSubItem = { kind: "case"; slug: string } | { kind: "soon"; key: string };
 
@@ -67,7 +67,7 @@ type AppSubItem = { kind: "case"; slug: string } | { kind: "soon"; key: string }
 // page; sub-types without content yet render as "coming soon" placeholders.
 const appTaxonomy: AppSubItem[][] = [
   [{ kind: "case", slug: "phay-cnc" }],
-  [{ kind: "soon", key: "dieu-khac-go" }, { kind: "case", slug: "cua-long" }, { kind: "case", slug: "mong-go" }],
+  [{ kind: "case", slug: "dieu-khac-go" }, { kind: "case", slug: "cua-long" }, { kind: "case", slug: "mong-go" }],
   [{ kind: "case", slug: "dieu-khac-da" }, { kind: "case", slug: "cat-da" }],
   [{ kind: "case", slug: "kim-hoan" }],
   [{ kind: "case", slug: "dan-keo" }, { kind: "case", slug: "uon-lo-xo" }],
@@ -250,17 +250,7 @@ export default async function Applications({ params }: { params: Promise<{ local
       </section>
 
       {/* CONTACT CTA */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white border-t border-line">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
-            <div>
-              <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">{t("ctaHeading")}</h3>
-              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-body leading-relaxed">{t("ctaBody")}</p>
-            </div>
-            <Link className="qs-btn qs-btn-gold" href="/contact">{t("ctaBtn")}</Link>
-          </div>
-        </div>
-      </section>
+      <ContactCta bordered heading={t("ctaHeading")} body={t("ctaBody")} ctaLabel={t("ctaBtn")} />
     </>
   );
 }

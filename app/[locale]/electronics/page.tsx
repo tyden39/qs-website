@@ -9,8 +9,9 @@ import { CatalogList } from "./_components/catalog-list";
 import { GROUP_HERO } from "./_components/category-page";
 import { SeriesList } from "./_components/series-list";
 import { getCatalogProducts } from "@/lib/data/catalog";
-import { getSeries, SERIES_KINDS, type SeriesCategory } from "@/lib/data/series";
+import { getSeries, type SeriesCategory } from "@/lib/data/series";
 import CircuitTraces from "@/components/circuit-traces";
+import ContactCta from "@/components/contact-cta";
 import Reveal from "@/components/reveal";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
@@ -89,14 +90,6 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const accessoryProducts = getCatalogProducts(locale, "accessory");
   const servoSeries = getSeries(locale, "servo");
   const inverterSeries = getSeries(locale, "inverter");
-  // Servo's subcategory branches = the part roles it is browsed by (drive,
-  // motor). A role with no listed series is dropped, as with the controllers.
-  const servoChildren: CategoryTreeChild[] = SERIES_KINDS.map((kind) => ({
-    id: kind,
-    icon: kind,
-    label: t(`types.servo.${kind}`),
-    count: servoSeries.filter((s) => s.kind === kind).length,
-  })).filter((c) => c.count > 0);
   const seriesThumb = (category: SeriesCategory) =>
     getSeries(locale, category).find((s) => s.image)?.image ?? SERIES_THUMB_FALLBACK[category];
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
@@ -143,9 +136,8 @@ export default async function Products({ params }: { params: Promise<{ locale: L
             emptyState: t("toolbar.empty"),
             soon: {
               eyebrow: t("soon.eyebrow"),
+              plate: t("soon.plate"),
               body: t("soon.body"),
-              // Zero-padded like every other count in the catalogue chrome.
-              available: t("soon.available", { count: String(products.length).padStart(2, "0") }),
               contact: t("soon.contact"),
               browse: t("soon.browse"),
             },
@@ -164,8 +156,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       thumb: seriesThumb("servo"),
       blurb: t("groups.servo.blurb"),
       heroImage: heroFigure(GROUP_HERO.servo, t("groups.servo.label")),
-      children: servoChildren,
-      node: <SeriesList locale={locale} category="servo" filterKey="t" />,
+      node: <SeriesList locale={locale} category="servo" />,
     },
     {
       id: "inverter",
@@ -252,6 +243,14 @@ export default async function Products({ params }: { params: Promise<{ locale: L
           </Reveal>
         </div>
       </section>
+
+      {/* CTA — bordered because the list section above carries no hairline */}
+      <ContactCta
+        bordered
+        heading={t("ctaHeading")}
+        body={t("ctaBody")}
+        ctaLabel={t("ctaBtn")}
+      />
       <FilterPrePaintCleanup />
     </>
   );

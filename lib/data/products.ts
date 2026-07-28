@@ -40,7 +40,6 @@ export type ProductView = {
   type: ControllerType;
   axes: string;
   display: string;
-  badge: string | null;
   tag: string;
   name: string;
   desc: string;
@@ -206,7 +205,6 @@ function toView(p: Product, index: number, locale: Locale): ProductView {
     type: p.type,
     axes: en ? localizeAxes(p.axes) : p.axes,
     display: p.display,
-    badge: p.badge ?? null,
     tag: en ? p.tagEn : p.tag,
     name: p.name,
     desc: en ? p.descEn : p.desc,

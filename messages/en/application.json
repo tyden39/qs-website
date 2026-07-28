@@ -34,9 +34,7 @@
     "soon": {
       "label": "Coming soon",
       "imageLabel": "Image coming soon",
-      "items": {
-        "dieu-khac-go": "Wood carving"
-      }
+      "items": {}
     },
     "controllerFor": "Controller for",
     "detail": "Details",
@@ -55,7 +53,8 @@
       { "t": "Tenon", "machine": "Tenoning Machine" },
       { "t": "Jewellery", "machine": "Jewellery Machine" },
       { "t": "Stone Carving", "machine": "Stone Carving CNC Machine" },
-      { "t": "Stone Cutting", "machine": "Stone Cutting CNC Machine" }
+      { "t": "Stone Cutting", "machine": "Stone Cutting CNC Machine" },
+      { "t": "Wood Carving", "machine": "Wood Carving CNC Machine" }
     ]
   },
   "detailPage": {
@@ -703,6 +702,79 @@
           ]
         },
         "closing": "An effective CNC control solution for stone cutting machines, raising both quality and throughput."
+      },
+      "dieu-khac-go": {
+        "tagline": "Precise carving — Fine 3D detail — Stable operation",
+        "heroLede": "The QS Controller is a CNC control solution for wood carving machines: it governs multi-axis motion precisely, optimises the toolpath, and raises surface quality. The system handles fine 3D forms across many kinds of wood for fine-art, furniture, and premium handcrafted work.",
+        "strengths": [
+          { "t": "High precision", "d": "Steady multi-axis motion that tracks the 3D profile closely." },
+          { "t": "Stable operation", "d": "Tuned for continuous machining, smooth run after run." },
+          { "t": "Fine detail", "d": "Reproduces ornament, facial features, and intricate line work." },
+          { "t": "Higher productivity", "d": "Shorter machining time with more consistent results." }
+        ],
+        "control": {
+          "heading": "QS Controller — the control centre",
+          "items": [
+            { "t": "Multi-axis control", "d": "Supports X/Y/Z/A/B/C as the machine configuration requires." },
+            { "t": "Smooth interpolation", "d": "Keeps the toolpath steady across complex 3D surfaces." },
+            { "t": "CNC program management", "d": "Programs are easy to load, edit, and run." },
+            { "t": "Spindle control", "d": "Speed set to match each type of wood and each cutter." },
+            { "t": "Flexible I/O control", "d": "Integrates sensors, switches, workholding, and peripherals." },
+            { "t": "Safety and protection", "d": "Machine status monitoring, emergency stop, and alarms." }
+          ]
+        },
+        "machineParts": {
+          "heading": "A CNC wood carving machine running the QS Controller",
+          "items": [
+            { "t": "Spindle assembly", "d": "Carries the carving tool, with speed set for the wood." },
+            { "t": "Carving tool", "d": "Detail cutter for ornament and 3D profiles." },
+            { "t": "Work table", "d": "Locates and clamps the wood blank through the cycle." },
+            { "t": "Motion axes", "d": "Drive the axes along the programmed path." },
+            { "t": "Controller", "d": "The QS Controller coordinates the whole cycle." }
+          ]
+        },
+        "capabilityHeading": "A full range of carving work",
+        "capabilities": [
+          { "t": "3D wood statues" },
+          { "t": "Relief panels" },
+          { "t": "Decorative ornament" },
+          { "t": "Portrait busts" },
+          { "t": "Furniture details" },
+          { "t": "Fine-art hand carving" },
+          { "t": "Art prototypes" }
+        ],
+        "industries": {
+          "items": [
+            "Fine-art wood statuary",
+            "Decorative interior carving",
+            "Relief panels and ornamental work",
+            "Gifts and souvenirs",
+            "Premium handcrafted products",
+            "Display and art prototypes"
+          ]
+        },
+        "compat": {
+          "heading": "Machining many kinds of wood",
+          "lede": "The QS Controller works in natural, laminated, and engineered wood — spindle speed and feed are set per material group so lines stay crisp without burning or tearing the grain.",
+          "items": [
+            { "t": "Natural wood" },
+            { "t": "Hardwood" },
+            { "t": "Softwood" },
+            { "t": "Laminated wood" },
+            { "t": "Engineered wood panel" }
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Accurate forms", "d": "Complex 3D detail comes out true to the design." },
+            { "t": "Fine finish", "d": "A smooth toolpath that cuts down on rework." },
+            { "t": "Easy to use", "d": "A clear interface that is convenient to operate." },
+            { "t": "Higher output", "d": "Fast machining, suited to repeat production." },
+            { "t": "Flexible integration", "d": "Fits both new builds and machine retrofits." },
+            { "t": "High stability", "d": "A system that runs reliably in a production environment." }
+          ]
+        },
+        "closing": "An optimal CNC control solution for wood carving machines, raising the quality of fine wooden work."
       }
     }
   }

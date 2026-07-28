@@ -34,9 +34,7 @@
     "soon": {
       "label": "Đang cập nhật",
       "imageLabel": "Hình ảnh đang cập nhật",
-      "items": {
-        "dieu-khac-go": "Điêu khắc gỗ"
-      }
+      "items": {}
     },
     "controllerFor": "Bộ điều khiển cho",
     "detail": "Chi tiết",
@@ -55,7 +53,8 @@
       { "t": "Mộng Gỗ", "machine": "Máy Làm Mộng" },
       { "t": "Kim Hoàn", "machine": "Máy Kim Hoàn" },
       { "t": "Điêu Khắc Đá", "machine": "Máy CNC Điêu Khắc Đá" },
-      { "t": "Cắt Đá", "machine": "Máy CNC Cắt Đá" }
+      { "t": "Cắt Đá", "machine": "Máy CNC Cắt Đá" },
+      { "t": "Điêu Khắc Gỗ", "machine": "Máy CNC Điêu Khắc Gỗ" }
     ]
   },
   "detailPage": {
@@ -703,6 +702,79 @@
           ]
         },
         "closing": "Giải pháp điều khiển CNC hiệu quả cho máy cắt đá, nâng cao chất lượng và hiệu suất gia công."
+      },
+      "dieu-khac-go": {
+        "tagline": "Điêu khắc chính xác — Biên dạng 3D tinh xảo — Vận hành ổn định",
+        "heroLede": "QS Controller là giải pháp điều khiển CNC phù hợp cho máy điêu khắc tượng gỗ, giúp kiểm soát chính xác chuyển động nhiều trục, tối ưu đường chạy dao và nâng cao chất lượng bề mặt gia công. Hệ thống hỗ trợ tạo hình 3D tinh xảo trên nhiều loại gỗ, phù hợp cho các ứng dụng mỹ thuật, nội thất và sản xuất thủ công cao cấp.",
+        "strengths": [
+          { "t": "Độ chính xác cao", "d": "Điều khiển đa trục ổn định, bám sát biên dạng 3D." },
+          { "t": "Vận hành ổn định", "d": "Hệ thống tối ưu cho gia công liên tục, mượt mà." },
+          { "t": "Chi tiết tinh xảo", "d": "Tái hiện hoa văn, khuôn mặt và đường nét phức tạp." },
+          { "t": "Nâng cao năng suất", "d": "Rút ngắn thời gian gia công, tăng tính đồng đều." }
+        ],
+        "control": {
+          "heading": "QS Controller — trung tâm điều khiển",
+          "items": [
+            { "t": "Điều khiển đa trục", "d": "Hỗ trợ các trục X/Y/Z/A/B/C tùy cấu hình máy." },
+            { "t": "Nội suy mượt", "d": "Giúp đường chạy dao ổn định trên bề mặt 3D phức tạp." },
+            { "t": "Quản lý chương trình CNC", "d": "Dễ dàng nạp, chỉnh sửa và chạy chương trình gia công." },
+            { "t": "Điều khiển trục chính", "d": "Thiết lập tốc độ phù hợp với từng loại gỗ và dao." },
+            { "t": "Quản lý I/O linh hoạt", "d": "Tích hợp cảm biến, công tắc, kẹp phôi và thiết bị ngoại vi." },
+            { "t": "An toàn & bảo vệ", "d": "Giám sát trạng thái máy, hỗ trợ dừng khẩn và cảnh báo." }
+          ]
+        },
+        "machineParts": {
+          "heading": "Máy điêu khắc tượng gỗ CNC dùng QS Controller",
+          "items": [
+            { "t": "Cụm trục chính", "d": "Mang dao khắc, điều tốc theo loại gỗ." },
+            { "t": "Dao khắc", "d": "Đầu khắc chi tiết cho hoa văn và biên dạng 3D." },
+            { "t": "Bàn làm việc", "d": "Định vị và kẹp giữ phôi gỗ trong suốt chu trình." },
+            { "t": "Hệ trục chuyển động", "d": "Dẫn động các trục theo quỹ đạo chương trình." },
+            { "t": "Bộ điều khiển", "d": "QS Controller điều phối toàn bộ chu trình gia công." }
+          ]
+        },
+        "capabilityHeading": "Khả năng gia công đa dạng",
+        "capabilities": [
+          { "t": "Tượng gỗ 3D" },
+          { "t": "Phù điêu" },
+          { "t": "Hoa văn trang trí" },
+          { "t": "Tượng chân dung" },
+          { "t": "Chi tiết nội thất" },
+          { "t": "Điêu khắc thủ công mỹ nghệ" },
+          { "t": "Mẫu thử nghệ thuật" }
+        ],
+        "industries": {
+          "items": [
+            "Sản xuất tượng gỗ mỹ nghệ",
+            "Điêu khắc trang trí nội thất",
+            "Chế tác phù điêu và hoa văn",
+            "Sản xuất quà tặng, đồ lưu niệm",
+            "Gia công sản phẩm thủ công cao cấp",
+            "Chế tạo mẫu trưng bày và nghệ thuật"
+          ]
+        },
+        "compat": {
+          "heading": "Gia công trên nhiều loại gỗ",
+          "lede": "QS Controller làm việc trên cả gỗ tự nhiên, gỗ ghép và vật liệu gỗ công nghiệp — tốc độ trục chính và lượng ăn dao được đặt riêng cho từng nhóm vật liệu để giữ đường nét sắc nét mà không cháy hay xơ mặt gỗ.",
+          "items": [
+            { "t": "Gỗ tự nhiên" },
+            { "t": "Gỗ cứng" },
+            { "t": "Gỗ mềm" },
+            { "t": "Gỗ ghép" },
+            { "t": "Vật liệu gỗ công nghiệp" }
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Tạo hình chính xác", "d": "Tái hiện tốt các chi tiết 3D phức tạp." },
+            { "t": "Bề mặt đẹp", "d": "Đường chạy dao mượt, giảm công đoạn xử lý lại." },
+            { "t": "Dễ sử dụng", "d": "Giao diện trực quan, thuận tiện cho vận hành." },
+            { "t": "Tăng năng suất", "d": "Gia công nhanh, phù hợp sản xuất lặp lại." },
+            { "t": "Linh hoạt tích hợp", "d": "Phù hợp cho chế tạo mới hoặc nâng cấp máy." },
+            { "t": "Độ ổn định cao", "d": "Hệ thống làm việc bền bỉ trong môi trường sản xuất." }
+          ]
+        },
+        "closing": "Giải pháp điều khiển CNC tối ưu cho máy điêu khắc tượng gỗ, nâng tầm chất lượng sản phẩm gỗ mỹ nghệ."
       }
     }
   }

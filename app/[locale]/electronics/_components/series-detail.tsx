@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
+import ContactCta from "@/components/contact-cta";
 import { getTranslations } from "next-intl/server";
 import { buildSeriesProduct, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import { toDocumentRows, type SeriesView } from "@/lib/data/series";
@@ -438,23 +439,12 @@ export async function SeriesDetail({
       <ProductDetailTabs tabs={tabs} />
 
       {/* ── CTA ── */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white">
-        <div className="qs-wrap-detail">
-          <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
-            <div>
-              <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">
-                {t("ctaHeading", { name: series.name })}
-              </h3>
-              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-body leading-relaxed">
-                {t("ctaBody")}
-              </p>
-            </div>
-            <Link className="qs-btn qs-btn-gold" href="/contact">
-              {t("ctaBtn")}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <ContactCta
+        wrap="detail"
+        heading={t("ctaHeading", { name: series.name })}
+        body={t("ctaBody")}
+        ctaLabel={t("ctaBtn")}
+      />
     </>
   );
 }

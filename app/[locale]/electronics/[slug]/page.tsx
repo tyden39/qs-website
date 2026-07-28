@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 import { Link } from "@/lib/i18n/navigation";
+import ContactCta from "@/components/contact-cta";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getProductBySlug, getProductSlugs, type ProductView } from "@/lib/data/products";
 import { getCatalogProductBySlug, getCatalogSlugs } from "@/lib/data/catalog";
@@ -721,17 +722,13 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
       <ProductDetailTabs tabs={tabs} />
 
-      <section className="py-12 sm:py-16 lg:py-24 bg-white border-t border-line">
-        <div className="qs-wrap-detail">
-          <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
-            <div>
-              <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">{t("ctaHeading", { name: p.name })}</h3>
-              <p className="text-[#a8a499] mt-2 max-w-[60ch] m-0 text-body leading-relaxed">{t("ctaBody")}</p>
-            </div>
-            <Link className="qs-btn qs-btn-gold" href="/contact">{t("ctaBtn")}</Link>
-          </div>
-        </div>
-      </section>
+      <ContactCta
+        bordered
+        wrap="detail"
+        heading={t("ctaHeading", { name: p.name })}
+        body={t("ctaBody")}
+        ctaLabel={t("ctaBtn")}
+      />
     </>
   );
 }

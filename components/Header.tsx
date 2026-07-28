@@ -121,12 +121,7 @@ export default function Header() {
         page: "/electronics", g: "controllers", type: ct, icon: ct, label: tp(`page.types.controllers.${ct}`),
       })),
     },
-    {
-      page: "/electronics", g: "servo", icon: "servo", label: t("submenu.electronics.servo"),
-      children: (["driver", "motor"] as const).map((sk) => ({
-        page: "/electronics", g: "servo", type: sk, icon: sk, label: tp(`page.types.servo.${sk}`),
-      })),
-    },
+    { page: "/electronics", g: "servo", icon: "servo", label: t("submenu.electronics.servo") },
     { page: "/electronics", g: "inverter", icon: "inverter", label: t("submenu.electronics.inverter") },
     { page: "/electronics", g: "dnc", icon: "dnc", label: t("submenu.electronics.dnc") },
     { page: "/electronics", g: "accessory", icon: "accessory", label: t("submenu.electronics.accessory") },
@@ -172,7 +167,7 @@ export default function Header() {
     const active = is(item.href);
     if (!item.children) {
       return (
-        <Link key={item.href} href={item.href} className={`qs-menu-link p-2 lg:px-4! lg:py-2! ${active ? "is-active" : ""}`}>
+        <Link key={item.href} href={item.href} className={`qs-menu-link ${active ? "is-active" : ""}`}>
           {item.label}
         </Link>
       );
@@ -184,7 +179,7 @@ export default function Header() {
         <Link
           href={item.href}
           onClick={(e) => (e.currentTarget as HTMLElement).blur()}
-          className={`qs-menu-link p-2 lg:px-4! lg:py-2! inline-flex items-center gap-1 ${active ? "is-active" : ""}`}
+          className={`qs-menu-link inline-flex items-center gap-1 ${active ? "is-active" : ""}`}
         >
           {item.label}
           <svg className="opacity-60 transition-transform duration-200 group-hover:rotate-180" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
@@ -246,35 +241,39 @@ export default function Header() {
       </div>
 
       <nav className="qs-nav relative">
-        <div className="qs-wrap-wide flex items-center justify-between gap-4 lg:gap-0 h-[64px] lg:h-[72px]">
+        {/* The nav row reclaims part of the container gutter until the 1680px
+            cap: that band is where the Vietnamese labels are tightest. */}
+        <div className="qs-wrap-wide min-[1366px]:max-[1679px]:px-8 flex items-center justify-between gap-4 min-[1366px]:gap-0 h-[64px] min-[1366px]:h-[72px]">
           <div className="flex items-center gap-2 min-w-0">
             <Link href="/" className="flex items-center gap-3 shrink-0">
-              <span className="grid place-items-center h-[38px] lg:h-[42px]">
-                <Image src="/logo-st.webp" alt="ST" width={320} height={164} priority className="h-[38px] lg:h-[42px] w-auto block" />
+              <span className="grid place-items-center h-[38px] min-[1366px]:h-[42px]">
+                <Image src="/logo-st.webp" alt="ST" width={320} height={164} priority className="h-[38px] min-[1366px]:h-[42px] w-auto block" />
               </span>
               <div className="flex flex-col leading-[1.1]">
-                <b className="font-display font-bold text-meta tracking-[.04em] whitespace-nowrap">QS TECHNOLOGY</b>
+                {/* 22px from sm up; phones keep the small size — at this size the
+                    wordmark runs under the search/menu icons below ~640px. */}
+                <b className="font-display font-bold text-meta sm:text-[22px] tracking-[.04em] whitespace-nowrap">QS TECHNOLOGY</b>
                 <small className="hidden sm:block font-mono text-label-xs text-muted tracking-[.18em] uppercase whitespace-nowrap">CNC · Automation · Vietnam</small>
               </div>
             </Link>
-            <div className="hidden lg:flex gap-0.5">
+            <div className="hidden min-[1366px]:flex gap-0.5">
               {left.map(renderDesktopItem)}
             </div>
           </div>
-          <div className="flex items-center gap-2 lg:gap-2">
-            <div className="hidden lg:flex gap-0.5">
+          <div className="flex items-center gap-2">
+            <div className="hidden min-[1366px]:flex gap-0.5">
               {right.map(renderDesktopItem)}
             </div>
-            <div className="flex items-center gap-1.5 pl-2 lg:border-l border-line lg:ml-1">
+            <div className="flex items-center gap-1.5 pl-2 min-[1366px]:border-l border-line min-[1366px]:ml-1">
               <button onClick={openSearch} aria-label={t("search")} className="qs-icon-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
               </button>
               <div className="hidden sm:block"><LocaleSwitcher /></div>
-              <a href="https://crm.qstcnc.com/login" className="hidden lg:inline-flex items-center rounded bg-ink px-3 py-1 text-label font-mono font-semibold uppercase tracking-widest text-white transition-colors hover:bg-black">{t("login")}</a>
+              <a href="https://crm.qstcnc.com/login" className="hidden min-[1366px]:inline-flex items-center whitespace-nowrap rounded bg-ink px-3 py-1 text-label font-mono font-semibold uppercase tracking-widest text-white transition-colors hover:bg-black">{t("login")}</a>
               {/* hamburger — only below the desktop nav breakpoint. Wrapped in a
-                  plain div so `lg:hidden` wins: `.qs-icon-btn` is an unlayered
+                  plain div so `min-[1366px]:hidden` wins: `.qs-icon-btn` is an unlayered
                   rule and would otherwise beat the layered utility on the button. */}
-              <div className="lg:hidden flex">
+              <div className="min-[1366px]:hidden flex">
                 <button
                   onClick={toggleMenu}
                   aria-label={open ? t("close") : t("menu")}
@@ -293,12 +292,12 @@ export default function Header() {
           </div>
         </div>
 
-        {/* MOBILE DRAWER — slide-down anchored to the sticky bar (below lg).
+        {/* MOBILE DRAWER — slide-down anchored to the sticky bar (below xl).
             Absolute `top-full` keeps it glued under the bar whether or not the
             topstrip has scrolled away. */}
         <div
           id="qs-mobile-menu"
-          className={`lg:hidden absolute top-full inset-x-0 z-50 origin-top bg-white border-t border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] transition-[transform,opacity] duration-200 ${open ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0 pointer-events-none"}`}
+          className={`min-[1366px]:hidden absolute top-full inset-x-0 z-50 origin-top bg-white border-t border-line shadow-[0_24px_40px_-20px_rgba(20,18,14,.28)] transition-[transform,opacity] duration-200 ${open ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0 pointer-events-none"}`}
         >
           <div className="qs-wrap-wide py-4 flex flex-col max-h-[calc(100dvh-64px)] overflow-y-auto">
             {all.map((item) => {
@@ -425,7 +424,7 @@ export default function Header() {
       {/* Backdrop — dims the page behind the open drawer (sits below the z-50 nav
           bar so the close button stays live). */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-[rgba(10,8,6,.45)] transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        className={`min-[1366px]:hidden fixed inset-0 z-40 bg-[rgba(10,8,6,.45)] transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         aria-hidden="true"
         onClick={() => setOpen(false)}
       />

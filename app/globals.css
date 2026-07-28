@@ -137,7 +137,7 @@ body {
     @apply inline-flex items-center justify-center gap-2.5
            text-meta font-semibold tracking-[.01em] rounded-[3px]
            bg-ink text-white transition-all duration-150
-           hover:bg-black hover:-translate-y-px
+           hover:bg-black
            min-h-[44px] px-5 py-3
            lg:min-h-0 lg:px-[18px] lg:py-[11px];
   }
@@ -159,7 +159,7 @@ body {
   .qs-card {
     @apply bg-white border border-line rounded-[3px] relative overflow-hidden
            transition-all duration-150
-           hover:border-ink-3 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(0,0,0,.04),0_8px_24px_-12px_rgba(0,0,0,.12)];
+           hover:border-ink-3 hover:shadow-[0_1px_0_rgba(0,0,0,.04),0_8px_24px_-12px_rgba(0,0,0,.12)];
   }
 
   /* section header */
@@ -272,6 +272,26 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .qs-kenburns { animation: none; transform: scale(1.06); }
+}
+
+/* ─── Thin, tone-matched scrollbar for panels that scroll inside themselves (the
+   catalogue rail). The thumb colour comes from `--qs-scroll-thumb` so a dark skin
+   can restate it inline rather than needing a second utility; the track stays
+   transparent so the panel's own rules keep reading through it. ─── */
+/* The paper default lives in the `var()` fallback, not as a declaration here: this
+   block is unlayered and would otherwise outrank the layered Tailwind utility a
+   dark skin sets `--qs-scroll-thumb` with, leaving the ink rail a pale thumb. */
+.qs-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--qs-scroll-thumb, var(--color-line-2)) transparent;
+}
+/* Safari implements neither standard property; the legacy pseudo-elements give it
+   the same thin thumb. Browsers honouring the properties above ignore these. */
+.qs-scroll::-webkit-scrollbar { width: 6px; }
+.qs-scroll::-webkit-scrollbar-track { background: transparent; }
+.qs-scroll::-webkit-scrollbar-thumb {
+  background: var(--qs-scroll-thumb, var(--color-line-2));
+  border-radius: 3px;
 }
 
 /* ─── Floating product render ─── */
@@ -591,23 +611,65 @@ body {
 .qs-topstrip-link:hover { color: #e8c878; }
 .qs-topstrip-link:hover::after { transform: scaleX(1); }
 
+/* ─── Sections stacked on one surface ───
+   Where two full-padding sections meet, their facing paddings add up: 96px + 96px
+   on desktop. Across a change of background that void reads as a chapter break, but
+   when both sit on the same surface the only boundary is a 1px hairline, so the same
+   gap just reads as the page coming apart. Halve the second section's top padding
+   there.
+
+   Matching happens here rather than on the pages because most of these sections are
+   conditional — an application without a control-system block, for instance, leaves
+   its neighbour following a different surface entirely. The adjacent-sibling selector
+   sees whatever actually rendered; a class baked into the page could not. It keys off
+   sm:py-16, the padding step every section in this group shares, so a section that
+   opts out of that scale also opts out of this rule. */
+:root { --qs-stack-pt: 1.5rem; }
+@media (min-width: 640px)  { :root { --qs-stack-pt: 2rem; } }
+@media (min-width: 1024px) { :root { --qs-stack-pt: 3rem; } }
+
+section.sm\:py-16.bg-white       + section.sm\:py-16.bg-white,
+section.sm\:py-16.bg-paper       + section.sm\:py-16.bg-paper,
+section.sm\:py-16.bg-paper-2     + section.sm\:py-16.bg-paper-2,
+section.sm\:py-16.bg-ink         + section.sm\:py-16.bg-ink,
+section.sm\:py-16.bg-\[\#f7f5ef\] + section.sm\:py-16.bg-\[\#f7f5ef\] {
+  padding-top: var(--qs-stack-pt);
+}
+
 .qs-nav { background: #fff; border-bottom: 1px solid #d8d6cf; position: sticky; top: 0; z-index: 50; }
 
-/* Catalogue list anchor: keep its top clear of the sticky nav (64px, 72px from
-   lg) plus a small gap, for both scrollToList() and native #list hash landings. */
+/* Catalogue list anchor: keep its top clear of the sticky nav (64px, 72px once
+   the desktop bar appears) plus a small gap, for both scrollToList() and native
+   #list hash landings. */
 #list { scroll-margin-top: 36px; }
-@media (min-width: 1024px) { #list { scroll-margin-top: 44px; } }
+@media (min-width: 1366px) { #list { scroll-margin-top: 44px; } }
 
+/* Labels must never wrap: the nav row has a fixed height, so a two-line label
+   breaks the bar. The horizontal padding is a variable because the gold active
+   underline has to span exactly the text box at every density. */
 .qs-menu-link {
-  position: relative; padding: 10px 16px;
+  --qs-link-px: 16px;
+  position: relative; padding: 8px var(--qs-link-px);
+  white-space: nowrap;
   font-size: 16px; font-weight: 500; letter-spacing: .01em;
   color: #1a1a1a; border-radius: 3px; transition: background .15s;
+}
+/* Compact window: the full bar is shown from 1366, but the Vietnamese labels
+   (~1.6x the English ones) only fit at their full size once the row reaches the
+   1680px container cap. Two steps, both measured against the VI labels — the
+   longest ones ("Sản phẩm điện tử", "Chế tạo máy") set the floor, alongside the
+   25px wordmark and its subline that share the row. */
+@media (min-width: 1366px) and (max-width: 1679px) {
+  .qs-menu-link { --qs-link-px: 10px; font-size: 15px; }
+}
+@media (min-width: 1366px) and (max-width: 1535px) {
+  .qs-menu-link { --qs-link-px: 8px; font-size: 14px; }
 }
 .qs-menu-link:hover { background: #ecebe5; }
 .qs-menu-link.is-active { color: #0a0a0a; }
 .qs-menu-link.is-active::after {
-  content: ""; position: absolute; left: 16px; right: 16px; bottom: -1px;
-  height: 2px; background: var(--gold-grad);
+  content: ""; position: absolute; left: var(--qs-link-px); right: var(--qs-link-px);
+  bottom: -1px; height: 2px; background: var(--gold-grad);
 }
 
 .qs-icon-btn {

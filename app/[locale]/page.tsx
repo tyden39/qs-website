@@ -118,7 +118,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <CircuitTraces variant="light" className="hidden md:block absolute bottom-0 right-0 w-[44%] h-[72%] opacity-[.55] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_26%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_26%,transparent_72%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
+            {/* relative anchors the qs-trace hairline; the rest is the shared header token */}
+            <div className="relative qs-section-head">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
                 <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("products.eyebrow")}</span>
@@ -137,12 +138,12 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                 them out of stretching and a short card leaves the container's bg-line showing as
                 a grey band. Stretch fills the row in both the flex rail and the md+ grid.
                 bg-white sits on the wrapper too, since that is the element being stretched;
-                dropped at md+ so the hover lift still reveals the divider grid behind the card. */}
+                dropped at md+ so the hover shadow still falls on the divider grid behind the card. */}
             {homeProducts.map((item, i) => (
               <Reveal key={`${item.slug}-${i}`} className="qs-reveal-desktop flex items-stretch w-full shrink-0 snap-start bg-white md:w-auto md:bg-transparent" delay={i * 80}>
                 <Link href={`/electronics/${item.slug}`}
                       className="group w-full bg-white p-5 sm:p-8 flex flex-col gap-4 relative transition-all duration-300
-                                 hover:-translate-y-2 hover:z-10 hover:shadow-[0_30px_60px_-22px_rgba(20,16,8,.45)]
+                                 hover:z-10 hover:shadow-[0_30px_60px_-22px_rgba(20,16,8,.45)]
                                  hover:ring-1 hover:ring-gold-2/70
                                  before:content-[''] before:absolute before:top-0 before:left-5 sm:before:left-8 before:w-8 before:h-0.5 before:bg-gold
                                  before:transition-all before:duration-300 group-hover:before:w-20 group-hover:before:bg-gold-2">
@@ -215,7 +216,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-7 border-b border-line">
+            <div className="qs-section-head">
               <div>
                 <h2 className="qs-h2">{t("applications.heading")}</h2>
               </div>
@@ -223,7 +224,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </Reveal>
 
           {/* desktop: chồng xéo top-left → bottom-right, thẻ active mở rộng sẵn, lia tới đâu active tới đó */}
-          <Reveal className="mt-7 sm:mt-9 lg:mt-12">
+          {/* no top margin: qs-section-head above already carries the gap */}
+          <Reveal>
             <AppDeck items={apps} />
           </Reveal>
 
@@ -293,7 +295,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <span className="qs-live-dot" aria-hidden="true"></span>{t("about.caption")}
           </div>
         </Reveal>
-        <div className="relative py-12 sm:py-16 lg:py-28 px-5 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
+        <div className="relative py-12 sm:py-16 lg:py-24 px-5 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
           <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)]" />
           <Reveal className="relative max-w-[640px]">
@@ -316,7 +318,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 left-0 w-[40%] h-[64%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
+            {/* relative anchors the qs-trace hairline; the rest is the shared header token */}
+            <div className="relative qs-section-head">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
                 <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("showreel.eyebrow")}</span>
@@ -364,7 +367,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <CircuitTraces variant="light" className="hidden md:block absolute bottom-0 left-0 w-[42%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_bottom_left,#000_26%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_left,#000_26%,transparent_72%)]" />
         <div className="relative qs-wrap-wide">
           <Reveal>
-            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pb-5 sm:pb-7 border-b border-line mb-7 sm:mb-9 lg:mb-12">
+            {/* relative anchors the qs-trace hairline; the rest is the shared header token */}
+            <div className="relative qs-section-head">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
                 <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("news.eyebrow")}</span>

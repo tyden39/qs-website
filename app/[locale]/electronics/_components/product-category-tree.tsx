@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { createContext, useContext, useEffect, useId, useState } from "react";
 import { CategoryIcon } from "@/components/category-icon";
+import CountBadge from "@/components/count-badge";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 import { scrollToList } from "@/lib/scroll-to-list";
 
@@ -93,8 +94,6 @@ const TONE = {
     row: "border-line",
     label: "text-ink/85 hover:text-ink",
     labelOn: "text-gold-1",
-    count: "text-line-2",
-    countOn: "text-gold-2",
     child: "text-muted hover:text-ink",
     childOn: "text-gold-1",
     select: "border-line bg-white text-ink",
@@ -107,6 +106,7 @@ const TONE = {
     tileOn: "border-line-2",
     tileBg: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)",
     glyph: "text-muted",
+    scroll: "[--qs-scroll-thumb:var(--color-line-2)]",
   },
   dark: {
     rail: "border-[#2a2620] bg-[#141510]",
@@ -114,8 +114,6 @@ const TONE = {
     row: "border-[#26241e]",
     label: "text-[#bdb7a8] hover:text-white",
     labelOn: "text-gold-2",
-    count: "text-[#5a5449]",
-    countOn: "text-gold-2",
     child: "text-[#8f8878] hover:text-[#eee9d7]",
     childOn: "text-gold-2",
     select: "border-[#2a2620] bg-[#141510] text-[#eee9d7]",
@@ -128,6 +126,7 @@ const TONE = {
     tileOn: "border-[#4a453a]",
     tileBg: "radial-gradient(circle at 50% 38%, #24251f, #16170f)",
     glyph: "text-[#8f8878]",
+    scroll: "[--qs-scroll-thumb:#4a453a]",
   },
 } as const;
 
@@ -325,7 +324,14 @@ export function CategoryTreeHero({
               {eyebrow}
             </div>
           ) : null}
-          <ul className="list-none p-0 m-0 min-h-0 overflow-y-auto">
+          {/* `-mr-2.5 pr-2.5` runs the list 10px into the rail's right padding and
+              pads the content back, so a scrollbar (only when the catalogue outgrows
+              the band) rides in that gutter instead of crossing the row rules — the
+              rules stop where they always did. Both classes are inert when nothing
+              overflows. */}
+          <ul
+            className={`list-none p-0 m-0 min-h-0 overflow-y-auto overscroll-contain qs-scroll -mr-2.5 pr-2.5 ${skin.scroll}`}
+          >
             {groups.map((g, i) => {
               const isActive = i === active;
               const isExpanded = expandedGroupId === g.id;
@@ -337,6 +343,7 @@ export function CategoryTreeHero({
                     aria-pressed={isActive}
                     aria-expanded={kids.length > 0 ? isExpanded : undefined}
                     onClick={() => selectGroup(i)}
+                    title={g.label}
                     // The gold rule on the active row runs in the rail's padding
                     // (-left-5), reading as a tab marker on the panel edge rather
                     // than an indent inside the list.
@@ -351,12 +358,15 @@ export function CategoryTreeHero({
                     ) : g.icon ? (
                       <IconTile name={g.icon} active={isActive} skin={skin} />
                     ) : null}
-                    <span className="flex-1 min-w-0 text-balance">{g.label}</span>
-                    <span
-                      className={`font-mono text-label-xs tabular-nums ${isActive ? skin.countOn : skin.count}`}
-                    >
+                    {/* One row, one line: a label too long for the 300px rail is
+                        clipped with an ellipsis rather than wrapped, so the tree keeps
+                        an even rhythm. The full text stays reachable as the row's
+                        `title` (and is never the only copy of it — the intro heading
+                        beside the rail spells the active group out in full). */}
+                    <span className="flex-1 min-w-0 truncate">{g.label}</span>
+                    <CountBadge active={isActive} tone={tone}>
                       {String(g.count).padStart(2, "0")}
-                    </span>
+                    </CountBadge>
                     {kids.length > 0 ? (
                       <svg
                         width="10"
@@ -382,22 +392,38 @@ export function CategoryTreeHero({
                               type="button"
                               aria-pressed={on}
                               onClick={() => selectChild(c.id)}
-                              className={`w-full flex justify-between items-center gap-3 py-1.5 text-[15px] text-left cursor-pointer bg-transparent border-0 transition-colors ${
+                              title={c.soon ? `${c.label} — ${c.soon}` : c.label}
+                              className={`w-full flex justify-between items-center gap-2 py-1.5 text-[15px] text-left cursor-pointer bg-transparent border-0 transition-colors ${
                                 on ? `${skin.childOn} font-medium` : skin.child
                               }`}
                             >
-                              <span className="flex items-center gap-2 min-w-0">
+                              <span className={`flex items-center gap-2 min-w-0 ${c.soon && !on ? "opacity-70" : ""}`}>
                                 {c.icon ? <CategoryIcon name={c.icon} className="w-4 h-4 shrink-0 opacity-75" /> : null}
-                                {/* Wraps rather than truncates: a "soon" marker takes
-                                    the room a two-digit count would, and a clipped
-                                    branch name is worse than a two-line row. */}
-                                <span className="min-w-0 text-balance">{c.label}</span>
+                                {/* Clipped rather than wrapped, matching the group rows:
+                                    the longest Vietnamese branch names ("Điều khiển
+                                    chuyển động") outrun the rail even with the compact
+                                    dot marker, and a ragged mix of one- and two-line rows
+                                    reads worse than an ellipsis. Full text lives in the
+                                    row's `title`. */}
+                                <span className="min-w-0 truncate">{c.label}</span>
                               </span>
-                              <span
-                                className={`shrink-0 font-mono text-label-xs ${c.soon ? "tracking-[.1em] uppercase" : "tabular-nums"} ${on ? skin.countOn : skin.count}`}
-                              >
-                                {c.soon ?? String(c.count).padStart(2, "0")}
-                              </span>
+                              <CountBadge active={on} tone={tone}>
+                                {c.soon ? (
+                                  <>
+                                    {/* An announced-but-empty branch shows a plain zero
+                                        count, so every row in the rail carries the same
+                                        numeral shape. Spelling it out ("Sắp có"/"Soon")
+                                        made a chip ~2.7x the width of a two-digit count,
+                                        which wrapped every such row onto two lines in the
+                                        300px rail; the words survive for screen readers
+                                        and as the row's hover title. */}
+                                    <span aria-hidden="true">00</span>
+                                    <span className="sr-only">{c.soon}</span>
+                                  </>
+                                ) : (
+                                  String(c.count).padStart(2, "0")
+                                )}
+                              </CountBadge>
                             </button>
                           </li>
                         );

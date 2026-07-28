@@ -40,9 +40,9 @@ function Controller({ id }: { id: string }) {
       <Defs id={id} />
       <rect x="10" y="12" width="100" height="60" rx="4" fill={`url(#${id}-case)`} stroke={STROKE} />
       <rect x="17" y="19" width="52" height="40" rx="2" fill={`url(#${id}-steel)`} />
-      <text x="22" y="30" fontFamily="JetBrains Mono, monospace" fontSize="5.5" fill={GOLD}>QS COORD</text>
-      <text x="22" y="40" fontFamily="JetBrains Mono, monospace" fontSize="6.5" fill="#fff">X 279.030</text>
-      <text x="22" y="49" fontFamily="JetBrains Mono, monospace" fontSize="6.5" fill="#fff">Y 235.003</text>
+      <text x="22" y="30" fontFamily="inherit" fontSize="5.5" fill={GOLD}>QS COORD</text>
+      <text x="22" y="40" fontFamily="inherit" fontSize="6.5" fill="#fff">X 279.030</text>
+      <text x="22" y="49" fontFamily="inherit" fontSize="6.5" fill="#fff">Y 235.003</text>
       <g fill="#7d7a70">
         {[0, 1, 2, 3].map((c) =>
           [0, 1, 2, 3].map((r) => (
@@ -101,7 +101,7 @@ function Psu({ id }: { id: string }) {
         ))}
       </g>
       <rect x="70" y="24" width="28" height="20" rx="1.5" fill="#f3e6b6" stroke="#caa84e" />
-      <text x="84" y="37" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="5" fill="#7a6324">24V</text>
+      <text x="84" y="37" textAnchor="middle" fontFamily="inherit" fontSize="5" fill="#7a6324">24V</text>
       <g fill="#11283b">
         {[0, 1, 2, 3, 4].map((i) => (
           <rect key={i} x={72 + i * 6} y="52" width="3" height="10" rx="0.5" />
@@ -135,7 +135,7 @@ function IoBoard({ id }: { id: string }) {
       <rect x="12" y="12" width="96" height="60" rx="3" fill="#1f5a3a" stroke="#123a25" />
       <rect x="12" y="12" width="96" height="60" rx="3" fill="none" stroke="#2f7a4f" strokeWidth="0.6" />
       <rect x="20" y="22" width="26" height="20" rx="1.5" fill="#0c1f14" />
-      <text x="33" y="34" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="5" fill={GOLD}>I/O</text>
+      <text x="33" y="34" textAnchor="middle" fontFamily="inherit" fontSize="5" fill={GOLD}>I/O</text>
       <rect x="54" y="22" width="16" height="16" rx="1" fill="#11281a" stroke="#2f7a4f" strokeWidth="0.6" />
       <g fill="#caa84e">
         {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (

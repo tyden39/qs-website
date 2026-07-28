@@ -16,15 +16,20 @@ export function TypeSection({
   id,
   label,
   count,
+  branch,
   children,
 }: {
   id: string;
   label: string;
   count: number;
+  /** Sub-type value for the pre-paint primer (`data-f-t`), so a shared filter
+   *  link hides the other sections before first paint. Omit where the page runs
+   *  no primer. */
+  branch?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-24">
+    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-24" data-f-t={branch}>
       <div className="flex items-baseline gap-3 pb-2.5 mb-5 border-b border-line">
         <h2
           id={`${id}-heading`}

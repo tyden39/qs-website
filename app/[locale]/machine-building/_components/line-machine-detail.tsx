@@ -60,7 +60,7 @@ export default async function LineMachineDetail({
       {/* HERO — light line station: model, andon readout, key specs + machine figure */}
       <section className="relative bg-paper overflow-hidden border-b border-line">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide py-12 lg:py-16">
+        <div className="relative qs-wrap-detail py-12 lg:py-16">
           <Reveal>
             <nav className="qs-crumb">
               <Link href="/machine-building" className="hover:text-ink">{d("crumb")}</Link>
@@ -137,7 +137,7 @@ export default async function LineMachineDetail({
       {/* PROCESS FLOW — infeed → cycle → discharge, on an animated conveyor */}
       {machine.line.length > 0 && (
         <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-b border-line overflow-hidden">
-          <div className="relative qs-wrap-wide">
+          <div className="relative qs-wrap-detail">
             <Reveal>
               <div className="pb-6 border-b border-line mb-12 max-w-[70ch]">
                 <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
@@ -188,7 +188,7 @@ export default async function LineMachineDetail({
       {machine.gallery.length > 0 && (
         <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
-          <div className="relative qs-wrap-wide">
+          <div className="relative qs-wrap-detail">
             <Reveal>
               <div className="pb-6 border-b border-line mb-10">
                 <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
@@ -228,7 +228,7 @@ export default async function LineMachineDetail({
 
       {/* FEATURES — icon callouts on hairline dividers */}
       <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-y border-line">
-        <div className="relative qs-wrap-wide">
+        <div className="relative qs-wrap-detail">
           <Reveal>
             <div className="pb-6 border-b border-line mb-10">
               <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
@@ -260,7 +260,7 @@ export default async function LineMachineDetail({
       {/* SPECS + CONTROL + APPLICATIONS */}
       <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide grid gap-12 lg:gap-16 items-start lg:grid-cols-[1.15fr_.85fr]">
+        <div className="relative qs-wrap-detail grid gap-12 lg:gap-16 items-start lg:grid-cols-[1.15fr_.85fr]">
           <Reveal>
             <div className="pb-6 border-b border-line mb-8">
               <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
@@ -347,7 +347,7 @@ export default async function LineMachineDetail({
       {/* CTA — closing consultation band */}
       <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
-        <div className="relative qs-wrap-wide max-w-[880px] text-center">
+        <div className="relative qs-wrap-detail max-w-[880px] text-center">
           <Reveal>
             <h2 className="qs-h2">{d("ctaHeading")}</h2>
             <p className="qs-lede mx-auto mt-5">{d("ctaBody")}</p>

@@ -66,7 +66,7 @@ export default async function Contact({ params }: Props) {
               </span>
             </h1>
           </div>
-          <p className="text-body leading-[1.7] text-[#3a3a3a] max-w-[55ch] qs-rise" style={{ animationDelay: "260ms" }}>
+          <p className="text-title leading-[1.7] text-[#3a3a3a] max-w-[55ch] qs-rise" style={{ animationDelay: "260ms" }}>
             {t("hero.body")}
           </p>
         </div>

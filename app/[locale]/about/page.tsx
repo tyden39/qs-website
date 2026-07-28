@@ -89,7 +89,7 @@ export default async function About({ params }: Props) {
             </h1>
           </div>
           <div className="lg:pb-2 qs-rise" style={{ animationDelay: "440ms" }}>
-            <p className="text-lede leading-[1.7] text-[#3a3a3a] m-0 max-w-[480px]">
+            <p className="text-title leading-[1.7] text-[#3a3a3a] m-0 max-w-[480px]">
               {t("hero.lede")}
             </p>
             <div className="font-mono text-label-xs text-muted tracking-[.18em] uppercase pt-4.5 border-t border-line mt-8 max-w-[480px]">

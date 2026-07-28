@@ -17,9 +17,14 @@ import type { Locale } from "@/lib/i18n/config";
 export async function SeriesList({
   locale,
   category,
+  filterKey,
 }: {
   locale: Locale;
   category: SeriesCategory;
+  /** Query key the kind chips drive. Pass the catalogue tree's branch key (`t`)
+   *  when the list renders inside the tree, so sidebar branch and chips stay one
+   *  selection; omit on a standalone category page. */
+  filterKey?: string;
 }) {
   const t = await getTranslations({ locale, namespace: "product.page.types" });
   const tb = await getTranslations({ locale, namespace: "product.page.toolbar" });
@@ -65,6 +70,7 @@ export async function SeriesList({
       totalCount={series.length}
       showingLabel={tb("showing")}
       unitLabel={tb("ofSeries")}
+      filterKey={filterKey}
     />
   );
 }

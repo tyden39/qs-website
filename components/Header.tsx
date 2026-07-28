@@ -118,7 +118,12 @@ export default function Header() {
         page: "/electronics", g: "controllers", type: ct, icon: ct, label: tp(`page.types.controllers.${ct}`),
       })),
     },
-    { page: "/electronics", g: "servo", icon: "servo", label: t("submenu.electronics.servo") },
+    {
+      page: "/electronics", g: "servo", icon: "servo", label: t("submenu.electronics.servo"),
+      children: (["driver", "motor"] as const).map((sk) => ({
+        page: "/electronics", g: "servo", type: sk, icon: sk, label: tp(`page.types.servo.${sk}`),
+      })),
+    },
     { page: "/electronics", g: "inverter", icon: "inverter", label: t("submenu.electronics.inverter") },
     { page: "/electronics", g: "dnc", icon: "dnc", label: t("submenu.electronics.dnc") },
     { page: "/electronics", g: "accessory", icon: "accessory", label: t("submenu.electronics.accessory") },
@@ -131,7 +136,6 @@ export default function Header() {
       })),
     },
     { page: "/machine-building", g: "automation", icon: "automation", label: t("submenu.machineBuilding.automation") },
-    { page: "/machine-building", g: "inspection", icon: "inspection", label: t("submenu.machineBuilding.inspection") },
   ];
   // Material groups come straight from the applications page's own copy, so the
   // dropdown wording and the sidebar rail always read the same. The page derives

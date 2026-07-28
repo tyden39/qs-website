@@ -17,20 +17,37 @@ export function SeriesSpecSheet({
   blocks: SheetBlockView[];
   zoomLabel: string;
 }) {
-  // One lightbox group for every image in the sheet, in document order.
-  const shots: LightboxShot[] = blocks
-    .filter((b): b is Extract<SheetBlockView, { kind: "image" }> => b.kind === "image")
-    .map((b) => ({ src: b.src, w: b.w, h: b.h, alt: b.alt }));
+  // One lightbox group for every image the sheet renders, in document order —
+  // standalone plates, side-by-side rows and the cable-table drawings alike, so
+  // zooming any one of them steps through the whole sheet.
+  const shots: LightboxShot[] = blocks.flatMap((b) => {
+    switch (b.kind) {
+      case "image":
+        return [{ src: b.src, w: b.w, h: b.h, alt: b.alt }];
+      case "imageRow":
+        return b.images.map((im) => ({ src: im.src, w: im.w, h: im.h, alt: im.alt }));
+      case "cableTable":
+        return b.rows.flatMap((r) =>
+          r.images.map((im) => ({ src: im.src, w: im.w, h: im.h, alt: r.model })),
+        );
+      default:
+        return [];
+    }
+  });
 
-  let imgIndex = -1;
+  // Sheet images are distinct files, so the src identifies the shot; this keeps
+  // the index lookup a pure read rather than a counter mutated during render.
+  const indexOf = (src: string) => shots.findIndex((s) => s.src === src);
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-10">
+    <div className="flex flex-col gap-6 sm:gap-7">
       {blocks.map((block, i) => {
         switch (block.kind) {
           case "heading":
+            // Headings open a section, so they sit further from what precedes
+            // them than the blocks inside the section sit from each other.
             return (
-              <div key={i} className={i === 0 ? "" : "mt-2"}>
+              <div key={i} className={i === 0 ? "" : "mt-5 sm:mt-7"}>
                 <h3 className="font-display text-subhead font-bold tracking-[-.02em] text-ink m-0">
                   {block.text}
                 </h3>
@@ -47,18 +64,43 @@ export function SeriesSpecSheet({
                 {block.text}
               </p>
             );
-          case "image": {
-            imgIndex += 1;
+          case "bullets":
+            return (
+              <ul key={i} className="flex flex-col gap-2.5 m-0 p-0 list-none max-w-[86ch]">
+                {block.items.map((item, bi) => (
+                  <li key={bi} className="flex gap-2.5 text-meta leading-[1.7] text-[#3a3a3a]">
+                    <span aria-hidden className="text-gold-1 shrink-0">
+                      ▸
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            );
+          case "image":
             return (
               <SheetImage
                 key={i}
                 block={block}
                 shots={shots}
-                index={imgIndex}
+                index={indexOf(block.src)}
                 zoomLabel={zoomLabel}
               />
             );
-          }
+          case "imageRow":
+            return (
+              <div key={i} className="grid gap-4 sm:gap-6 md:grid-cols-2">
+                {block.images.map((im) => (
+                  <SheetImage
+                    key={im.src}
+                    block={{ kind: "image", ...im }}
+                    shots={shots}
+                    index={indexOf(im.src)}
+                    zoomLabel={zoomLabel}
+                  />
+                ))}
+              </div>
+            );
           case "naming":
             return <SheetNaming key={i} block={block} />;
           case "specList":
@@ -72,7 +114,7 @@ export function SeriesSpecSheet({
                 block={block}
                 shots={shots}
                 zoomLabel={zoomLabel}
-                imageIndexOf={(src) => shots.findIndex((s) => s.src === src)}
+                imageIndexOf={indexOf}
               />
             );
           case "dataTable":
@@ -133,7 +175,7 @@ function SheetImage({
 function SheetNaming({ block }: { block: Extract<SheetBlockView, { kind: "naming" }> }) {
   return (
     <div className="border border-line bg-paper p-6 lg:p-8">
-      <div className="flex flex-wrap items-end gap-x-1.5 gap-y-4">
+      <div className="flex flex-wrap items-end justify-center gap-x-1.5 gap-y-4">
         {block.branches.map((br, i) => (
           <div key={i} className="flex flex-col items-center gap-1.5">
             <span className="font-display text-title sm:text-subhead font-bold tracking-[-.01em] text-ink whitespace-nowrap">
@@ -152,7 +194,7 @@ function SheetNaming({ block }: { block: Extract<SheetBlockView, { kind: "naming
 
       <span className="sr-only">{block.code}</span>
 
-      <div className="mt-7 grid gap-px bg-line border border-line sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-7 grid gap-px bg-line border border-line sm:grid-cols-2 lg:grid-cols-4">
         {block.branches.map((br, i) => (
           <div key={i} className="bg-paper p-4 flex flex-col gap-1.5">
             <div className="flex items-center gap-2">
@@ -427,8 +469,10 @@ function SheetCableTable({
         <tbody>
           {block.rows.map((row, ri) => (
             <tr key={ri} className="border-t border-line align-middle">
-              <td className="px-4 py-3 bg-[#f3f6f8] align-middle whitespace-nowrap">
-                <span className="font-display text-meta font-bold tracking-[-.01em] text-ink">
+              <td className="px-4 py-3 bg-[#f3f6f8] align-middle">
+                {/* A row may cover several part numbers sharing one drawing;
+                    they are listed one per line rather than wrapped mid-code. */}
+                <span className="font-display text-meta font-bold tracking-[-.01em] text-ink whitespace-pre-line">
                   {row.model}
                 </span>
                 {row.bracket && (
@@ -438,7 +482,7 @@ function SheetCableTable({
                 )}
               </td>
               <td className="px-4 py-3 align-middle">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col items-center gap-2">
                   {row.images.map((im) => {
                     const idx = imageIndexOf(im.src);
                     return (
@@ -465,7 +509,7 @@ function SheetCableTable({
               {row.fit && (
                 <td
                   rowSpan={row.fitRows ?? 1}
-                  className="px-4 py-3 text-center align-middle font-display text-meta font-semibold tracking-[-.01em] text-ink whitespace-pre-line"
+                  className="px-4 py-3 bg-[#f3f6f8] text-center align-middle font-display text-meta font-semibold tracking-[-.01em] text-ink whitespace-pre-line"
                 >
                   {row.fit}
                 </td>

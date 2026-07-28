@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -15,12 +15,14 @@ import type { Locale } from "@/lib/i18n/config";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildOrganization, buildWebSite, JsonLd } from "@/lib/seo/jsonld";
 
-const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-sans" });
-const display = Inter_Tight({ subsets: ["latin", "vietnamese"], variable: "--font-display" });
-// Mono is only used for small labels (eyebrows, spec keys, meta) — never an LCP
-// candidate — so it is not preloaded and does not compete with the hero image
-// for bandwidth during the LCP window.
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", preload: false });
+// The loaded families expose their own variables (`--font-inter*`); globals.css
+// maps the role tokens (--font-sans / --font-display / --font-mono) onto them.
+// Keeping the two names apart is deliberate: a role token whose value referenced
+// a variable of the same name would be a self-referencing custom property, which
+// the cascade discards. The label/spec styling that used to be monospaced now
+// resolves to Inter as well, so no monospace family is loaded at all.
+const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-inter" });
+const display = Inter_Tight({ subsets: ["latin", "vietnamese"], variable: "--font-inter-tight" });
 
 // This layout owns <html>/<body> so `lang` reflects the active locale (the
 // root app/layout.tsx is a pass-through). The `/` path is redirected to `/vi/`
@@ -91,7 +93,7 @@ export default async function LocaleLayout({
   }));
 
   return (
-    <html lang={locale} className={`${sans.variable} ${display.variable} ${mono.variable}`}>
+    <html lang={locale} className={`${sans.variable} ${display.variable}`}>
       <head>
         <noscript>
           {/* Keep scroll-reveal content visible when JS is disabled. */}

@@ -269,7 +269,7 @@ export function CategoryTreeHero({
     // `qs-hero-copy` holds the copy clear of the figure bleeding in from the
     // right; `lg:min-h` keeps the band tall enough to carry that figure now that
     // the copy alone no longer sets the hero's height.
-    <div className="qs-hero-copy lg:grid lg:grid-cols-[252px_minmax(0,1fr)] lg:gap-10 xl:gap-12 lg:items-stretch lg:min-h-[340px]">
+    <div className="qs-hero-copy lg:grid lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-10 xl:gap-12 lg:items-stretch lg:min-h-[340px]">
       {/* LEFT — tree (desktop) / stacked selects (mobile+tablet); the desktop rail
           stretches to the full height of the intro band beside it. */}
       <div className="mb-8 lg:mb-0">
@@ -312,7 +312,9 @@ export function CategoryTreeHero({
           className={`hidden lg:flex lg:flex-col lg:h-full lg:max-h-[540px] border p-5 ${skin.rail}`}
         >
           {eyebrow ? (
-            <div className={`pb-3.5 mb-1 border-b font-mono text-label tracking-[.16em] uppercase ${skin.railHead}`}>
+            <div
+              className={`pb-3.5 mb-1 border-b font-mono text-[19px] font-semibold tracking-[.16em] uppercase ${skin.railHead}`}
+            >
               {eyebrow}
             </div>
           ) : null}
@@ -331,7 +333,7 @@ export function CategoryTreeHero({
                     // The gold rule on the active row runs in the rail's padding
                     // (-left-5), reading as a tab marker on the panel edge rather
                     // than an indent inside the list.
-                    className={`relative w-full flex items-center gap-3 py-3 text-meta font-medium text-left cursor-pointer bg-transparent border-0 transition-colors
+                    className={`relative w-full flex items-center gap-3 py-3 text-[18px] font-medium text-left cursor-pointer bg-transparent border-0 transition-colors
                                 before:absolute before:-left-5 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:h-0
                                 before:bg-gold before:transition-[height] before:duration-300 ${
                                   isActive ? "before:h-[62%]" : ""
@@ -373,7 +375,7 @@ export function CategoryTreeHero({
                               type="button"
                               aria-pressed={on}
                               onClick={() => selectChild(c.id)}
-                              className={`w-full flex justify-between items-center gap-3 py-1.5 text-meta text-left cursor-pointer bg-transparent border-0 transition-colors ${
+                              className={`w-full flex justify-between items-center gap-3 py-1.5 text-[15px] text-left cursor-pointer bg-transparent border-0 transition-colors ${
                                 on ? `${skin.childOn} font-medium` : skin.child
                               }`}
                             >
@@ -423,7 +425,7 @@ export function CategoryTreeHero({
               const head = at > 0 ? title.slice(0, at) : "";
               const tail = at >= 0 ? title.slice(at) : title;
               return (
-                <h2 className={`qs-h2 text-balance ${skin.title}`}>
+                <h2 className={`qs-h1 text-balance ${skin.title}`}>
                   {head}
                   <span className="qs-gold-shimmer inline-block">{tail}</span>
                 </h2>
@@ -452,13 +454,14 @@ export function CategoryTreeHero({
                 </figure>
               ) : null}
               {g.blurb ? (
-                <p className={`text-body leading-[1.75] max-w-[52ch] m-0 ${skin.blurb}`}>{g.blurb}</p>
+                // 20px, matching the hero description size used site-wide (`qs-lede`).
+                <p className={`text-title leading-[1.6] max-w-[52ch] m-0 ${skin.blurb}`}>{g.blurb}</p>
               ) : null}
               {viewListLabel ? (
                 <button
                   type="button"
                   onClick={() => scrollToList()}
-                  className={`mt-7 group inline-flex items-center gap-2 font-mono text-label tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 p-0 transition-colors ${skin.cta}`}
+                  className={`mt-7 group inline-flex items-center gap-2 font-mono text-[16px] tracking-[.14em] uppercase cursor-pointer bg-transparent border-0 p-0 transition-colors ${skin.cta}`}
                 >
                   {viewListLabel}
                   <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-y-0.5">
@@ -498,9 +501,10 @@ export function CategoryHeroFigure({
   const { active } = useCategoryState(groups);
   const skin = TONE[tone];
   return (
-    // Held to 85% of the hero and centred, so a band of the page shows above and
-    // below it and the bleed reads as inset rather than edge-to-edge.
-    <div className="hidden lg:block absolute top-[7.5%] h-[85%] right-0 z-[1] qs-hero-figure">
+    // Held to 70% of the hero's height and centred on it vertically, so equal
+    // bands of the page show above and below and the bleed reads as inset rather
+    // than edge-to-edge. Width comes from `--qs-bleed` (`qs-hero-figure`).
+    <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 h-[70%] right-0 z-[1] qs-hero-figure">
       {groups.map((g, i) =>
         g.heroImage ? (
           <div

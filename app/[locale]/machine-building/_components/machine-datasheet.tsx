@@ -239,7 +239,7 @@ export default async function MachineDatasheet({
           variant="light"
           className="hidden lg:block absolute bottom-0 right-0 w-[40%] h-[86%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_bottom_right,#000_22%,transparent_72%)]"
         />
-        <div className="relative z-10 qs-wrap-wide py-12 lg:py-16">
+        <div className="relative z-10 qs-wrap-detail py-12 lg:py-16">
           <nav className="qs-crumb mb-6">
             <Link href="/machine-building">{d("crumb")}</Link>
             <span className="sep">/</span>
@@ -347,7 +347,7 @@ export default async function MachineDatasheet({
       {/* ── SUITABLE APPLICATIONS ── */}
       <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide">
+        <div className="relative qs-wrap-detail">
           <Reveal>
             <PanelTitle>{d("useCasesHeading")}</PanelTitle>
           </Reveal>
@@ -381,7 +381,7 @@ export default async function MachineDatasheet({
           variant="light"
           className="hidden lg:block absolute top-0 left-0 w-[34%] h-full opacity-[.35] [mask-image:radial-gradient(ellipse_at_left,#000_18%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_18%,transparent_68%)]"
         />
-        <div className="relative qs-wrap-wide">
+        <div className="relative qs-wrap-detail">
           <Reveal>
             <PanelTitle>{d("featuresHeading")}</PanelTitle>
           </Reveal>
@@ -449,7 +449,7 @@ export default async function MachineDatasheet({
       {/* ── MACHINING CAPABILITIES + WORKING SPACE ── */}
       <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+        <div className="relative qs-wrap-detail grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
           <Reveal>
             <PanelTitle>{d("capabilitiesHeading")}</PanelTitle>
             {machine.capabilities.length > 0 ? (
@@ -550,7 +550,7 @@ export default async function MachineDatasheet({
       {/* ── PERFORMANCE + CNC CONTROLLER ── */}
       <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide grid lg:grid-cols-2 gap-10 lg:gap-12 items-stretch">
+        <div className="relative qs-wrap-detail grid lg:grid-cols-2 gap-10 lg:gap-12 items-stretch">
           <Reveal className="flex flex-col">
             <PanelTitle>{d("performanceHeading")}</PanelTitle>
             <div className="grid grid-cols-2 gap-px bg-line border border-line flex-1">
@@ -638,7 +638,7 @@ export default async function MachineDatasheet({
       {/* ── TECHNICAL SPECIFICATIONS ── */}
       <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide">
+        <div className="relative qs-wrap-detail">
           <Reveal>
             <PanelTitle>{d("specsHeading")}</PanelTitle>
           </Reveal>
@@ -684,7 +684,7 @@ export default async function MachineDatasheet({
       {/* ── STANDARD & OPTIONAL CONFIGURATION ── */}
       <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide">
+        <div className="relative qs-wrap-detail">
           <Reveal>
             <PanelTitle>{d("configHeading")}</PanelTitle>
           </Reveal>
@@ -726,7 +726,7 @@ export default async function MachineDatasheet({
       {/* ── DOWNLOADS ── */}
       <section className="relative py-10 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
-        <div className="relative qs-wrap-wide">
+        <div className="relative qs-wrap-detail">
           <Reveal>
             <PanelTitle>{d("downloadsHeading")}</PanelTitle>
           </Reveal>
@@ -830,7 +830,7 @@ export default async function MachineDatasheet({
           variant="dark"
           className="absolute inset-y-0 right-[-8%] w-[48%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_66%)]"
         />
-        <div className="relative qs-wrap-wide grid lg:grid-cols-[1.3fr_1fr] gap-10 items-center">
+        <div className="relative qs-wrap-detail grid lg:grid-cols-[1.3fr_1fr] gap-10 items-center">
           <Reveal>
             <h2 className="qs-h2 text-white max-w-[24ch]">{d("ctaHeading")}</h2>
             <p className="text-body leading-[1.7] text-[#a8a499] mt-4 max-w-[54ch]">{d("ctaBody")}</p>

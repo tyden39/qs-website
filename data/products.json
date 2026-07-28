@@ -1293,6 +1293,321 @@
     ]
   },
   {
+    "slug": "astro-10s",
+    "name": "Astro 10S",
+    "axes": "16 trục",
+    "display": "10.4\"",
+    "series": "Astro",
+    "type": "cnc",
+    "tag": "Bộ điều khiển Astro 10S",
+    "desc": "Bộ điều khiển 16 trục dạng vòng hở, hỗ trợ Pulse Train và EtherCAT. Giải pháp điều khiển nhiều trục cho dây chuyền phức tạp, đi kèm servo drive/motor, nguồn và board I/O Link 1616.",
+    "bullets": [
+      "Số trục điều khiển: 16 trục",
+      "Kiểu điều khiển: Vòng hở (Open-loop)",
+      "Giao tiếp: Pulse Train · EtherCAT"
+    ],
+    "tagEn": "Astro 10S Controller",
+    "descEn": "16-axis open-loop controller supporting Pulse Train and EtherCAT. A multi-axis control solution for complex production lines, shipped with servo drive/motor, power supply and I/O Link 1616 board.",
+    "bulletsEn": [
+      "Control axes: 16 axes",
+      "Control mode: Open-loop",
+      "Interface: Pulse Train · EtherCAT"
+    ],
+    "interfaces": [
+      {
+        "name": "Pulse Train",
+        "note": "Standard"
+      },
+      {
+        "name": "EtherCAT",
+        "note": "Optional"
+      }
+    ],
+    "specs": [
+      {
+        "l": "Control axes",
+        "v": "16 axes"
+      },
+      {
+        "l": "Dimensions",
+        "v": "254 × 210 × 40 mm"
+      },
+      {
+        "l": "Display",
+        "v": "10.4 inches (touch screen)"
+      },
+      {
+        "l": "I/O ports",
+        "v": [
+          "16 / 16",
+          "16 / 16"
+        ]
+      },
+      {
+        "l": "PLC",
+        "v": "Integrated Ladder"
+      },
+      {
+        "l": "Encoder",
+        "v": [
+          "Index feedback",
+          "All axes"
+        ]
+      },
+      {
+        "l": "Input voltage",
+        "v": "24VDC, 1.5A"
+      },
+      {
+        "l": "Control mode",
+        "v": "Open loop"
+      }
+    ],
+    "image": {
+      "src": "/img/products/astro-10s-front.webp",
+      "w": 900,
+      "h": 733
+    },
+    "bundle": [
+      {
+        "label": "Bộ điều khiển Astro 10S",
+        "icon": "controller"
+      },
+      {
+        "label": "Servo Drive",
+        "icon": "drive",
+        "photo": {
+          "src": "/img/products/components/servo-drive.webp",
+          "w": 508,
+          "h": 461
+        }
+      },
+      {
+        "label": "Servo Motor",
+        "icon": "motor",
+        "photo": {
+          "src": "/img/products/components/servo-motor.webp",
+          "w": 600,
+          "h": 434
+        }
+      },
+      {
+        "label": "Bộ nguồn 24V",
+        "icon": "psu",
+        "photo": {
+          "src": "/img/products/components/psu-meanwell.webp",
+          "w": 600,
+          "h": 471
+        }
+      },
+      {
+        "label": "Tay quay MPG 4 trục",
+        "icon": "mpg",
+        "photo": {
+          "src": "/img/products/components/mpg-pendant.webp",
+          "w": 450,
+          "h": 504
+        }
+      },
+      {
+        "label": "Board I/O Link 1616",
+        "icon": "ioboard",
+        "photo": {
+          "src": "/img/products/components/ioboard-1616.webp",
+          "w": 600,
+          "h": 508
+        }
+      }
+    ],
+    "gallery": [
+      {
+        "src": "/img/products/crawled/astro-10s/gallery-front.webp",
+        "w": 1600,
+        "h": 1304,
+        "alt": "Bộ điều khiển 16 trục Astro 10S",
+        "place": "tour"
+      },
+      {
+        "src": "/img/products/crawled/astro-10s/gallery-rear.webp",
+        "w": 1400,
+        "h": 1123,
+        "alt": "Mặt sau Bộ điều khiển 16 trục Astro 10S",
+        "place": "tour"
+      },
+      {
+        "src": "/img/products/crawled/astro-10s/gallery-ui-1.webp",
+        "w": 800,
+        "h": 600,
+        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
+        "place": "tour"
+      },
+      {
+        "src": "/img/products/crawled/astro-10s/gallery-ui-2.webp",
+        "w": 800,
+        "h": 600,
+        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
+        "place": "tour"
+      },
+      {
+        "src": "/img/products/crawled/astro-10s/gallery-ui-3.webp",
+        "w": 800,
+        "h": 600,
+        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
+        "place": "tour"
+      },
+      {
+        "src": "/img/products/crawled/astro-10s/gallery-machine.webp",
+        "w": 1600,
+        "h": 900,
+        "alt": "Ứng dụng thực tế Bộ điều khiển 16 trục Astro 10S trên máy CNC",
+        "place": "tour"
+      }
+    ],
+    "specSheet": {
+      "cols": [
+        {
+          "name": "Pulse Train",
+          "loop": "Open loop"
+        },
+        {
+          "name": "EtherCAT",
+          "loop": "Open loop"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Thông số chung",
+          "rows": [
+            {
+              "l": "Kích thước",
+              "v": "254 × 210 × 40 mm"
+            },
+            {
+              "l": "Vật liệu vỏ",
+              "v": "Aluminum"
+            },
+            {
+              "l": "Số trục điều khiển",
+              "v": [
+                "6 trục",
+                "14 trục"
+              ]
+            },
+            {
+              "l": "Số trục điều khiển bằng PLC",
+              "v": [
+                "—",
+                "14 trục"
+              ]
+            },
+            {
+              "l": "Số trục chính điều khiển đồng thời",
+              "v": "4 trục"
+            },
+            {
+              "l": "Số lượng dao có thể quản lý",
+              "v": "40"
+            },
+            {
+              "l": "Look-Ahead",
+              "v": "500 dòng"
+            },
+            {
+              "l": "Block Processing Time",
+              "v": "500 µs"
+            },
+            {
+              "l": "Min. Control Unit",
+              "v": "0.0001"
+            }
+          ]
+        },
+        {
+          "title": "Thông số phần cứng",
+          "rows": [
+            {
+              "l": "Số cổng I/O tích hợp",
+              "v": [
+                "24/16",
+                "16/16"
+              ]
+            },
+            {
+              "l": "Số cổng I/O mở rộng tối đa",
+              "v": "256/256"
+            },
+            {
+              "l": "Màn hình",
+              "v": "10.4 inches (Touch screen)"
+            },
+            {
+              "l": "RS485",
+              "v": "1"
+            },
+            {
+              "l": "USB port",
+              "v": "1"
+            },
+            {
+              "l": "DA",
+              "v": "1"
+            }
+          ]
+        },
+        {
+          "title": "Thông số phần mềm",
+          "rows": [
+            {
+              "l": "Encoder feedback",
+              "v": [
+                "Index Z",
+                "All axes"
+              ]
+            },
+            {
+              "l": "Torque feedback",
+              "v": [
+                "—",
+                "Có hỗ trợ"
+              ]
+            },
+            {
+              "l": "Quản lý parameter Servo",
+              "v": [
+                "—",
+                "Có hỗ trợ"
+              ]
+            },
+            {
+              "l": "PLC",
+              "v": "PLC Ladder tích hợp"
+            },
+            {
+              "l": "Bù sai số hành trình (Backlash)",
+              "v": "Có hỗ trợ"
+            },
+            {
+              "l": "MPG Simulation",
+              "v": "Có hỗ trợ"
+            },
+            {
+              "l": "MPG Offset",
+              "v": "Có hỗ trợ"
+            },
+            {
+              "l": "Restart at feedhold",
+              "v": "Có hỗ trợ"
+            },
+            {
+              "l": "Thay dao tự động (ATC)",
+              "v": "Có hỗ trợ"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
     "slug": "astro-6ah",
     "name": "Astro 6AH",
     "axes": "6 trục",
@@ -2212,321 +2527,6 @@
       "G98",
       "G99"
     ]
-  },
-  {
-    "slug": "astro-10s",
-    "name": "Astro 10S",
-    "axes": "16 trục",
-    "display": "10.4\"",
-    "series": "Astro",
-    "type": "cnc",
-    "tag": "Bộ điều khiển Astro 10S",
-    "desc": "Bộ điều khiển 16 trục dạng vòng hở, hỗ trợ Pulse Train và EtherCAT. Giải pháp điều khiển nhiều trục cho dây chuyền phức tạp, đi kèm servo drive/motor, nguồn và board I/O Link 1616.",
-    "bullets": [
-      "Số trục điều khiển: 16 trục",
-      "Kiểu điều khiển: Vòng hở (Open-loop)",
-      "Giao tiếp: Pulse Train · EtherCAT"
-    ],
-    "tagEn": "Astro 10S Controller",
-    "descEn": "16-axis open-loop controller supporting Pulse Train and EtherCAT. A multi-axis control solution for complex production lines, shipped with servo drive/motor, power supply and I/O Link 1616 board.",
-    "bulletsEn": [
-      "Control axes: 16 axes",
-      "Control mode: Open-loop",
-      "Interface: Pulse Train · EtherCAT"
-    ],
-    "interfaces": [
-      {
-        "name": "Pulse Train",
-        "note": "Standard"
-      },
-      {
-        "name": "EtherCAT",
-        "note": "Optional"
-      }
-    ],
-    "specs": [
-      {
-        "l": "Control axes",
-        "v": "16 axes"
-      },
-      {
-        "l": "Dimensions",
-        "v": "254 × 210 × 40 mm"
-      },
-      {
-        "l": "Display",
-        "v": "10.4 inches (touch screen)"
-      },
-      {
-        "l": "I/O ports",
-        "v": [
-          "16 / 16",
-          "16 / 16"
-        ]
-      },
-      {
-        "l": "PLC",
-        "v": "Integrated Ladder"
-      },
-      {
-        "l": "Encoder",
-        "v": [
-          "Index feedback",
-          "All axes"
-        ]
-      },
-      {
-        "l": "Input voltage",
-        "v": "24VDC, 1.5A"
-      },
-      {
-        "l": "Control mode",
-        "v": "Open loop"
-      }
-    ],
-    "image": {
-      "src": "/img/products/astro-10s-front.webp",
-      "w": 900,
-      "h": 733
-    },
-    "bundle": [
-      {
-        "label": "Bộ điều khiển Astro 10S",
-        "icon": "controller"
-      },
-      {
-        "label": "Servo Drive",
-        "icon": "drive",
-        "photo": {
-          "src": "/img/products/components/servo-drive.webp",
-          "w": 508,
-          "h": 461
-        }
-      },
-      {
-        "label": "Servo Motor",
-        "icon": "motor",
-        "photo": {
-          "src": "/img/products/components/servo-motor.webp",
-          "w": 600,
-          "h": 434
-        }
-      },
-      {
-        "label": "Bộ nguồn 24V",
-        "icon": "psu",
-        "photo": {
-          "src": "/img/products/components/psu-meanwell.webp",
-          "w": 600,
-          "h": 471
-        }
-      },
-      {
-        "label": "Tay quay MPG 4 trục",
-        "icon": "mpg",
-        "photo": {
-          "src": "/img/products/components/mpg-pendant.webp",
-          "w": 450,
-          "h": 504
-        }
-      },
-      {
-        "label": "Board I/O Link 1616",
-        "icon": "ioboard",
-        "photo": {
-          "src": "/img/products/components/ioboard-1616.webp",
-          "w": 600,
-          "h": 508
-        }
-      }
-    ],
-    "gallery": [
-      {
-        "src": "/img/products/crawled/astro-10s/gallery-front.webp",
-        "w": 1600,
-        "h": 1304,
-        "alt": "Bộ điều khiển 16 trục Astro 10S",
-        "place": "tour"
-      },
-      {
-        "src": "/img/products/crawled/astro-10s/gallery-rear.webp",
-        "w": 1400,
-        "h": 1123,
-        "alt": "Mặt sau Bộ điều khiển 16 trục Astro 10S",
-        "place": "tour"
-      },
-      {
-        "src": "/img/products/crawled/astro-10s/gallery-ui-1.webp",
-        "w": 800,
-        "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
-        "place": "tour"
-      },
-      {
-        "src": "/img/products/crawled/astro-10s/gallery-ui-2.webp",
-        "w": 800,
-        "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
-        "place": "tour"
-      },
-      {
-        "src": "/img/products/crawled/astro-10s/gallery-ui-3.webp",
-        "w": 800,
-        "h": 600,
-        "alt": "Giao diện vận hành trên Bộ điều khiển 16 trục Astro 10S",
-        "place": "tour"
-      },
-      {
-        "src": "/img/products/crawled/astro-10s/gallery-machine.webp",
-        "w": 1600,
-        "h": 900,
-        "alt": "Ứng dụng thực tế Bộ điều khiển 16 trục Astro 10S trên máy CNC",
-        "place": "tour"
-      }
-    ],
-    "specSheet": {
-      "cols": [
-        {
-          "name": "Pulse Train",
-          "loop": "Open loop"
-        },
-        {
-          "name": "EtherCAT",
-          "loop": "Open loop"
-        }
-      ],
-      "sections": [
-        {
-          "title": "Thông số chung",
-          "rows": [
-            {
-              "l": "Kích thước",
-              "v": "254 × 210 × 40 mm"
-            },
-            {
-              "l": "Vật liệu vỏ",
-              "v": "Aluminum"
-            },
-            {
-              "l": "Số trục điều khiển",
-              "v": [
-                "6 trục",
-                "14 trục"
-              ]
-            },
-            {
-              "l": "Số trục điều khiển bằng PLC",
-              "v": [
-                "—",
-                "14 trục"
-              ]
-            },
-            {
-              "l": "Số trục chính điều khiển đồng thời",
-              "v": "4 trục"
-            },
-            {
-              "l": "Số lượng dao có thể quản lý",
-              "v": "40"
-            },
-            {
-              "l": "Look-Ahead",
-              "v": "500 dòng"
-            },
-            {
-              "l": "Block Processing Time",
-              "v": "500 µs"
-            },
-            {
-              "l": "Min. Control Unit",
-              "v": "0.0001"
-            }
-          ]
-        },
-        {
-          "title": "Thông số phần cứng",
-          "rows": [
-            {
-              "l": "Số cổng I/O tích hợp",
-              "v": [
-                "24/16",
-                "16/16"
-              ]
-            },
-            {
-              "l": "Số cổng I/O mở rộng tối đa",
-              "v": "256/256"
-            },
-            {
-              "l": "Màn hình",
-              "v": "10.4 inches (Touch screen)"
-            },
-            {
-              "l": "RS485",
-              "v": "1"
-            },
-            {
-              "l": "USB port",
-              "v": "1"
-            },
-            {
-              "l": "DA",
-              "v": "1"
-            }
-          ]
-        },
-        {
-          "title": "Thông số phần mềm",
-          "rows": [
-            {
-              "l": "Encoder feedback",
-              "v": [
-                "Index Z",
-                "All axes"
-              ]
-            },
-            {
-              "l": "Torque feedback",
-              "v": [
-                "—",
-                "Có hỗ trợ"
-              ]
-            },
-            {
-              "l": "Quản lý parameter Servo",
-              "v": [
-                "—",
-                "Có hỗ trợ"
-              ]
-            },
-            {
-              "l": "PLC",
-              "v": "PLC Ladder tích hợp"
-            },
-            {
-              "l": "Bù sai số hành trình (Backlash)",
-              "v": "Có hỗ trợ"
-            },
-            {
-              "l": "MPG Simulation",
-              "v": "Có hỗ trợ"
-            },
-            {
-              "l": "MPG Offset",
-              "v": "Có hỗ trợ"
-            },
-            {
-              "l": "Restart at feedhold",
-              "v": "Có hỗ trợ"
-            },
-            {
-              "l": "Thay dao tự động (ATC)",
-              "v": "Có hỗ trợ"
-            }
-          ]
-        }
-      ]
-    }
   },
   {
     "slug": "astro-10i",

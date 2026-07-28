@@ -23,9 +23,37 @@ function notify() {
   for (const listener of listeners) listener();
 }
 
+/**
+ * The App Router performs client-side navigation by writing the new URL through
+ * the native History API, which — unlike back/forward — fires no event. Without
+ * this patch a link that changes only the query of the page already on screen
+ * (the header's "Products" entry pointing at the unfiltered catalogue, while a
+ * narrowed `?g=…` view is mounted) would move the URL but leave the store, and
+ * therefore the visible filter, on the old selection.
+ *
+ * Patched once per page load, on the first subscriber. The re-read is deferred a
+ * microtask so the store never re-renders subscribers from inside the router's
+ * own update.
+ */
+let historyPatched = false;
+function patchHistory() {
+  if (historyPatched) return;
+  historyPatched = true;
+  for (const method of ["pushState", "replaceState"] as const) {
+    const original = history[method];
+    history[method] = function patched(this: History, ...args: Parameters<History["pushState"]>) {
+      original.apply(this, args);
+      queueMicrotask(notify);
+    };
+  }
+}
+
 function subscribe(listener: () => void) {
   // Back/forward moves between filter states, so the store follows popstate.
-  if (listeners.size === 0) window.addEventListener("popstate", notify);
+  if (listeners.size === 0) {
+    window.addEventListener("popstate", notify);
+    patchHistory();
+  }
   listeners.add(listener);
   return () => {
     listeners.delete(listener);

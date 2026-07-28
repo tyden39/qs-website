@@ -3,16 +3,30 @@ import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import CircuitTraces from "@/components/circuit-traces";
 import { buildCatalogProduct, buildTrail, JsonLd } from "@/lib/seo/jsonld";
+import { ProductHeroGallery, type HeroShot } from "./product-hero-gallery";
+import { ProductVideo } from "./product-video";
 import type { CatalogProductView } from "@/lib/data/catalog";
 import type { Locale } from "@/lib/i18n/config";
+
+// How many spec rows the hero lifts into its facts strip. Catalogue order is the
+// authoring order, so the leading rows are the ones worth reading first.
+const HERO_FACTS = 4;
 
 /**
  * Detail page for DNC units and accessories.
  *
  * Deliberately simpler than the controller template: there is no protocol
  * datasheet, kit grid or G-code list to show, so the page is hero → spec table
- * → feature walkthrough → quote CTA. Products whose source page carried no
- * feature copy (most boards) simply drop that band.
+ * → feature walkthrough → video → quote CTA. Each band after the hero drops out
+ * on products the catalogue never documented that way — most boards ship spec
+ * rows only.
+ *
+ * Because the catalogue ranges from a fully photographed DNC unit down to an
+ * accessory with a single spec row, every band is laid out to look deliberate
+ * when it is nearly empty. Two rules carry that: each band opens with the same
+ * full-width rule under its heading, so the frame is drawn even when little
+ * hangs off it, and the content below spreads across that full width in columns
+ * rather than running one narrow measure down a 1680px page.
  */
 export async function CatalogDetail({
   product,
@@ -32,11 +46,62 @@ export async function CatalogDetail({
   // A newly listed accessory can go up before its spec sheet arrives; the table
   // and the link that jumps to it appear only once there are rows to show.
   const hasSpecs = product.specs.length > 0;
+  // The catalogue photo leads, then the extra hardware shots (port sides, rear
+  // face). Products with no extra shots fall back to a one-slide hero, which the
+  // gallery renders as a plain frame — no thumbnails, no autoplay.
+  const heroShots: HeroShot[] = [product.image, ...product.gallery].map((im) => ({
+    src: im.src,
+    w: im.w,
+    h: im.h,
+    alt: im.alt,
+  }));
+  // The hero facts strip only pays for itself when it fills its own row, so it
+  // waits for a product documented with at least that many rows.
+  const heroFacts = product.specs.length >= HERO_FACTS ? product.specs.slice(0, HERO_FACTS) : [];
+  // Some catalogue entries illustrate a feature with a shot the hero gallery
+  // already carries. Showing it twice on one page reads as padding, so the hero
+  // keeps it and the feature falls back to its text-only row.
+  const heroSrcs = new Set(heroShots.map((s) => s.src));
+  const features = product.features.map((f) => ({
+    ...f,
+    photo: f.photo && !heroSrcs.has(f.photo.src) ? f.photo : null,
+  }));
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
     { name: t("breadcrumb.products"), path: "/electronics" },
     { name: categoryLabel, path: categoryPath },
     { name: product.name, path: `/electronics/${product.slug}` },
   ]);
+
+  // The band has two shapes, picked by whether the catalogue illustrated this
+  // product. Photographed features keep the walkthrough rows — body text with
+  // its shot alongside. Features documented in words only would leave that photo
+  // column empty on every row, so they read as a table instead: number, title,
+  // description, all on one axis across the full frame.
+  const anyFeaturePhoto = features.some((f) => f.photo);
+
+  const featureIndex = (i: number) => (
+    <div className="font-mono text-label-xs tracking-[.18em] text-gold-1 tabular-nums md:pt-1.5">
+      {String(i + 1).padStart(2, "0")}
+    </div>
+  );
+
+  // Every band opens the same way: eyebrow + heading on the left, an optional
+  // count on the right, and one hairline ruled across the full frame.
+  const bandHead = (eyebrow: string, heading: string, count?: number) => (
+    <div className="qs-section-head">
+      <div>
+        <span className="qs-eyebrow">{eyebrow}</span>
+        <h2 className="qs-h2 mt-2.5 text-ink">{heading}</h2>
+      </div>
+      {/* The tally is a drawing-sheet flourish, not information — below md the
+          head stacks and it would orphan onto its own line under the title. */}
+      {count !== undefined && (
+        <span className="hidden md:inline font-mono text-label-xs text-muted tracking-[.16em] uppercase shrink-0">
+          {String(count).padStart(2, "0")}
+        </span>
+      )}
+    </div>
+  );
 
   return (
     <>
@@ -49,7 +114,7 @@ export async function CatalogDetail({
           className="absolute -right-20 top-0 h-[420px] w-[420px] rounded-full bg-gold-2/10 blur-3xl"
           aria-hidden="true"
         />
-        <div className="relative qs-wrap-wide pt-8 pb-14 lg:pt-10 lg:pb-16">
+        <div className="relative qs-wrap-detail pt-8 pb-12 lg:pt-10 lg:pb-14">
           <div className="qs-crumb mb-8 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
@@ -68,7 +133,7 @@ export async function CatalogDetail({
               <h1 className="font-display font-bold tracking-[-.035em] leading-[1.02] text-balance m-0 text-[clamp(32px,5.5vw,64px)]">
                 {product.tag}
               </h1>
-              <p className="mt-6 text-lede leading-[1.75] text-[#c9c2b3] max-w-[68ch]">
+              <p className="mt-6 text-lede leading-[1.75] text-[#c9c2b3] max-w-[62ch]">
                 {product.desc}
               </p>
 
@@ -87,25 +152,32 @@ export async function CatalogDetail({
               </div>
             </div>
 
-            <div
-              className="relative order-1 grid place-items-center border border-white/10 p-6 md:order-2 lg:p-8 overflow-hidden"
-              style={{ background: "radial-gradient(circle at 50% 38%, #1b1c17, #101109)" }}
-            >
-              <div
-                className="absolute inset-3 border border-dashed border-gold opacity-25 pointer-events-none"
-                aria-hidden="true"
-              />
-              <Image
-                src={product.image.src}
-                alt={product.image.alt}
-                width={product.image.w}
-                height={product.image.h}
-                priority
-                sizes="(max-width: 768px) 90vw, 520px"
-                className="w-auto max-h-[380px] max-w-full object-contain"
+            <div className="order-1 md:order-2">
+              <ProductHeroGallery
+                shots={heroShots}
+                name={product.name}
+                calibrationLabel={t("calibrationLabel")}
+                zoomLabel={t("lightbox.zoom")}
               />
             </div>
           </div>
+
+          {/* Facts strip: squares off the hero and puts the numbers a buyer
+              scans for above the fold, ahead of the full table below. */}
+          {heroFacts.length > 0 && (
+            <dl className="mt-10 lg:mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
+              {heroFacts.map((s) => (
+                <div key={s.l} className="bg-[#141510] px-4 py-3.5 sm:px-5 sm:py-4">
+                  <dt className="font-mono text-label-xs tracking-[.16em] uppercase text-[#837b6c]">
+                    {s.l}
+                  </dt>
+                  <dd className="m-0 mt-1.5 font-display text-title font-semibold tracking-[-.02em] text-white tabular-nums">
+                    {s.v}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </div>
       </section>
 
@@ -113,24 +185,36 @@ export async function CatalogDetail({
       {hasSpecs && (
         <section
           id="specs"
-          className="relative overflow-hidden bg-paper border-b border-line py-12 sm:py-16 lg:py-24"
+          className="relative overflow-hidden scroll-mt-24 bg-paper border-b border-line py-12 sm:py-16 lg:py-24"
         >
           <CircuitTraces
             variant="light"
             className="hidden md:block absolute inset-y-0 right-0 w-[34%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)]"
           />
-          <div className="relative qs-wrap-wide">
-            <div className="qs-eyebrow mb-5">{t("specsEyebrow")}</div>
-            <div className="border border-line">
-              <div className="bg-[#11120f] px-4 py-3.5">
+          <div className="relative qs-wrap-detail">
+            {bandHead(t("specsEyebrow"), t("catalogSpecsHeading"), product.specs.length)}
+
+            {/*
+              Hairlines live on the cells, not on a `gap-px` sheet behind them: a
+              spec count that does not fill its last row would otherwise leave
+              the backing colour showing as a grey block. Each cell draws its own
+              right and bottom rule and the grid hangs 1px past the frame, so the
+              trailing rules are clipped instead of doubling the frame — the
+              table closes cleanly at any column count and any row count.
+            */}
+            <div className="overflow-hidden border border-line bg-white">
+              <div className="border-b border-line bg-[#11120f] px-5 py-3.5">
                 <span className="font-display text-body font-bold tracking-[-.01em] text-white">
                   {product.name}
                 </span>
               </div>
-              <div className="grid sm:grid-cols-2 gap-px bg-line border-t border-line">
+              <div className="-mr-px -mb-px grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {product.specs.map((s) => (
-                  <div key={s.l} className="bg-white px-4 py-3.5 flex flex-col gap-1">
-                    <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
+                  <div
+                    key={s.l}
+                    className="flex flex-col gap-1.5 border-r border-b border-line px-5 py-4"
+                  >
+                    <span className="font-mono text-label-xs leading-snug tracking-[.08em] uppercase text-muted">
                       {s.l}
                     </span>
                     <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
@@ -145,48 +229,88 @@ export async function CatalogDetail({
       )}
 
       {/* ── Features (only where the catalogue documents them) ── */}
-      {product.features.length > 0 && (
+      {features.length > 0 && (
         <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
-          <div className="qs-wrap-wide">
-            <div className="qs-eyebrow mb-8">{t("featuresHeading")}</div>
-            <div className="flex flex-col gap-12 lg:gap-16">
-              {product.features.map((f, i) => (
-                <div
-                  key={f.title}
-                  className={`grid gap-8 lg:gap-12 items-center ${
-                    f.photo ? "md:grid-cols-2" : ""
-                  }`}
-                >
-                  <div className={f.photo && i % 2 === 1 ? "md:order-2" : ""}>
-                    <div className="font-mono text-label-xs tracking-[.18em] text-gold-1">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                    <h2 className="mt-2.5 font-display font-bold text-subhead tracking-[-.02em] m-0">
-                      {f.title}
-                    </h2>
-                    <p className="mt-3.5 m-0 text-body leading-[1.75] text-[#3a3a3a] max-w-[62ch]">
-                      {f.body}
-                    </p>
-                  </div>
-                  {f.photo && (
-                    <div
-                      className={`relative grid place-items-center border border-line p-5 overflow-hidden ${
-                        i % 2 === 1 ? "md:order-1" : ""
-                      }`}
-                      style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
+          <div className="qs-wrap-detail">
+            {bandHead(t("featuresHeading"), t("catalogFeaturesHeading"), features.length)}
+
+            {/* The band head already rules a line across the frame, so the rows
+                below only carry their own bottom divider. */}
+            <div>
+              {anyFeaturePhoto
+                ? features.map((f, i) => (
+                    <article
+                      key={f.title}
+                      className="grid gap-x-8 gap-y-4 border-b border-line py-8 sm:py-10 lg:py-12 md:grid-cols-[3rem_minmax(0,1fr)]"
                     >
-                      <Image
-                        src={f.photo.src}
-                        alt={f.photo.alt}
-                        width={f.photo.w}
-                        height={f.photo.h}
-                        sizes="(max-width: 768px) 90vw, 560px"
-                        className="w-auto max-h-[320px] max-w-full object-contain"
-                      />
-                    </div>
-                  )}
-                </div>
-              ))}
+                      {featureIndex(i)}
+                      <div
+                        className={`grid gap-6 lg:gap-12 items-start ${
+                          f.photo ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]" : ""
+                        }`}
+                      >
+                        <div>
+                          <h3 className="font-display font-bold text-subhead tracking-[-.02em] m-0">
+                            {f.title}
+                          </h3>
+                          <p className="mt-3.5 m-0 text-body leading-[1.75] text-[#3a3a3a] max-w-[58ch]">
+                            {f.body}
+                          </p>
+                        </div>
+                        {f.photo && (
+                          <figure
+                            className="m-0 relative overflow-hidden border border-line p-4"
+                            style={{
+                              background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)",
+                            }}
+                          >
+                            <Image
+                              src={f.photo.src}
+                              alt={f.photo.alt}
+                              width={f.photo.w}
+                              height={f.photo.h}
+                              sizes="(max-width: 1024px) 90vw, 416px"
+                              className="w-full h-auto object-contain"
+                            />
+                          </figure>
+                        )}
+                      </div>
+                    </article>
+                  ))
+                : features.map((f, i) => (
+                    <article
+                      key={f.title}
+                      className="grid items-start gap-x-8 gap-y-4 border-b border-line py-8 sm:py-10 md:grid-cols-[3rem_minmax(0,24rem)_minmax(0,1fr)]"
+                    >
+                      {featureIndex(i)}
+                      <h3 className="font-display font-bold text-subhead tracking-[-.02em] m-0 text-balance">
+                        {f.title}
+                      </h3>
+                      <p className="m-0 text-body leading-[1.75] text-[#3a3a3a] max-w-[68ch]">
+                        {f.body}
+                      </p>
+                    </article>
+                  ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Video (lazy YouTube facade — no embed weight until played) ── */}
+      {product.video && (
+        <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
+          <div className="qs-wrap-detail">
+            {bandHead(t("videoEyebrow"), t("videoHeading"))}
+
+            {/* A 16:9 frame across the full 1680px frame would tower over the
+                page, so the player keeps its original width, centred under the
+                rule rather than hugging one edge of it. */}
+            <div className="mx-auto max-w-[960px]">
+              <ProductVideo
+                youtubeId={product.video.youtubeId}
+                title={product.video.title}
+                playLabel={t("videoPlay")}
+              />
             </div>
           </div>
         </section>
@@ -194,7 +318,7 @@ export async function CatalogDetail({
 
       {/* ── CTA ── */}
       <section className="py-12 sm:py-16 lg:py-24 bg-white">
-        <div className="qs-wrap-wide">
+        <div className="qs-wrap-detail">
           <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
             <div>
               <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">

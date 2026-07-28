@@ -97,10 +97,11 @@ export function buildProduct(p: ProductView, locale: Locale): WithContext<Produc
 /**
  * Catalogue items (DNC units, accessories) render through a lighter template
  * than the controllers but are still physical goods, so they carry the same
- * priceless `Product` node. Their single catalogue photo may be a site-relative
- * path, so it is resolved to an absolute URL the same way machines are.
+ * priceless `Product` node. Catalogue photos may be site-relative paths, so they
+ * are resolved to absolute URLs the same way machines are.
  */
 export function buildCatalogProduct(p: CatalogProductView, locale: Locale): WithContext<Product> {
+  const abs = (src: string) => (src.startsWith("http") ? src : `${APP_URL}${src}`);
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -111,7 +112,7 @@ export function buildCatalogProduct(p: CatalogProductView, locale: Locale): With
       "@type": "Brand",
       name: "QS Technology",
     },
-    image: p.image.src.startsWith("http") ? p.image.src : `${APP_URL}${p.image.src}`,
+    image: [p.image, ...p.gallery].map((im) => abs(im.src)),
     url: localeUrl(`/electronics/${p.slug}`, locale),
     // No `offers`: quote-only catalogue, same rationale as buildProduct.
   };

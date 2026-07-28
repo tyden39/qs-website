@@ -6,9 +6,10 @@ import { ProductBundleCard } from "@/components/products/product-bundle-card";
 import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";
 import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, type CategoryTreeChild, type CategoryTreeGroup } from "./_components/product-category-tree";
 import { CatalogList } from "./_components/catalog-list";
+import { GROUP_HERO } from "./_components/category-page";
 import { SeriesList } from "./_components/series-list";
 import { getCatalogProducts } from "@/lib/data/catalog";
-import { getSeries, type SeriesCategory } from "@/lib/data/series";
+import { getSeries, SERIES_KINDS, type SeriesCategory } from "@/lib/data/series";
 import CircuitTraces from "@/components/circuit-traces";
 import Reveal from "@/components/reveal";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
@@ -82,6 +83,14 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const accessoryProducts = getCatalogProducts(locale, "accessory");
   const servoSeries = getSeries(locale, "servo");
   const inverterSeries = getSeries(locale, "inverter");
+  // Servo's subcategory branches = the part roles it is browsed by (drive,
+  // motor). A role with no listed series is dropped, as with the controllers.
+  const servoChildren: CategoryTreeChild[] = SERIES_KINDS.map((kind) => ({
+    id: kind,
+    icon: kind,
+    label: t(`types.servo.${kind}`),
+    count: servoSeries.filter((s) => s.kind === kind).length,
+  })).filter((c) => c.count > 0);
   const seriesThumb = (category: SeriesCategory) =>
     getSeries(locale, category).find((s) => s.image)?.image ?? SERIES_THUMB_FALLBACK[category];
   const breadcrumb = buildTrail(locale, t("breadcrumb.home"), [
@@ -90,9 +99,13 @@ export default async function Products({ params }: { params: Promise<{ locale: L
 
   // The hero figure for the active group — a bare render that fills the shared
   // HERO_IMAGE_SLOT (standard size lives in the tree component).
-  const heroFigure = (img: { src: string }, alt: string, priority = false) => (
-    <Image src={img.src} alt={alt} fill priority={priority}
-           sizes="(max-width: 1023px) 92vw, 38vw" className="object-contain" />
+  // `img.scale` shrinks a crowded render inside the slot (see GROUP_HERO).
+  const heroFigure = (img: { src: string; scale?: number }, alt: string, priority = false) => (
+    // Keyed: the figure crosses the RSC boundary and is reconciled from a lazy
+    // reference inside the tree's group list, which React reads as an array child.
+    <Image key={img.src} src={img.src} alt={alt} fill priority={priority}
+           sizes="(max-width: 1023px) 92vw, 38vw" className="object-contain"
+           style={img.scale ? { transform: `scale(${img.scale})` } : undefined} />
   );
   // Distinct family render for the controllers intro (the servo/inverter/DNC/
   // accessory groups reuse their own catalogue art).
@@ -133,8 +146,9 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       count: servoSeries.length,
       thumb: seriesThumb("servo"),
       blurb: t("groups.servo.blurb"),
-      heroImage: heroFigure(seriesThumb("servo"), t("groups.servo.label")),
-      node: <SeriesList locale={locale} category="servo" />,
+      heroImage: heroFigure(GROUP_HERO.servo, t("groups.servo.label")),
+      children: servoChildren,
+      node: <SeriesList locale={locale} category="servo" filterKey="t" />,
     },
     {
       id: "inverter",
@@ -143,7 +157,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       count: inverterSeries.length,
       thumb: seriesThumb("inverter"),
       blurb: t("groups.inverter.blurb"),
-      heroImage: heroFigure(seriesThumb("inverter"), t("groups.inverter.label")),
+      heroImage: heroFigure(GROUP_HERO.inverter, t("groups.inverter.label")),
       node: <SeriesList locale={locale} category="inverter" />,
     },
     {
@@ -153,7 +167,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       count: dncProducts.length,
       thumb: dncProducts[0].image,
       blurb: t("groups.dnc.blurb"),
-      heroImage: heroFigure(dncProducts[0].image, t("groups.dnc.label")),
+      heroImage: heroFigure({ ...dncProducts[0].image, scale: GROUP_HERO.dnc.scale }, t("groups.dnc.label")),
       node: <CatalogList locale={locale} category="dnc" />,
     },
     {
@@ -198,7 +212,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
               { key: "iface" },
             ]}
           />
-          <Reveal eager>
+          <Reveal>
             <CategoryTreeHero
               eyebrow={t("groups.eyebrow")}
               allLabel={t("types.all")}

@@ -68,7 +68,9 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
   // Hero figure for the active machine type — a bare machine render that fills the
   // shared HERO_IMAGE_SLOT (standard size lives in the tree component).
   const machineFigure = (img: { src: string }, alt: string, priority = false) => (
-    <Image src={img.src} alt={alt} fill priority={priority}
+    // Keyed: the figure crosses the RSC boundary and is reconciled from a lazy
+    // reference inside the tree's group list, which React reads as an array child.
+    <Image key={img.src} src={img.src} alt={alt} fill priority={priority}
            sizes="(max-width:1023px) 92vw, 38vw" className="object-contain" />
   );
   const machineGroups: CategoryTreeGroup[] = MACHINE_TYPES.map((ty) => ({
@@ -143,7 +145,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
               { key: "t" },
             ]}
           />
-          <Reveal eager>
+          <Reveal>
             <CategoryTreeHero
               eyebrow={pt("groups.eyebrow")}
               allLabel={pt("types.all")}
@@ -164,7 +166,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 right-0 w-[38%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)]" />
         <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <Reveal eager>
+          <Reveal>
             <CategoryTreePanels groups={machineGroups} />
           </Reveal>
         </div>

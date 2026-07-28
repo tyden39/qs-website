@@ -44,6 +44,29 @@
       "alt": "Thiết bị truyền DNC Micro DNC 2D",
       "altEn": "Micro DNC 2D DNC transfer unit"
     },
+    "gallery": [
+      {
+        "src": "/img/products/catalog/micro-dnc-2d-app.webp",
+        "w": 1400,
+        "h": 664,
+        "alt": "Cạnh bên Micro DNC 2D với hai cổng USB và đầu nối anten Wi-Fi",
+        "altEn": "Side of the Micro DNC 2D with two USB ports and the Wi-Fi antenna connector"
+      },
+      {
+        "src": "/img/products/catalog/micro-dnc-2d-io.webp",
+        "w": 1400,
+        "h": 782,
+        "alt": "Cạnh Micro DNC 2D với cổng RS232 DB9, jack nguồn 12 VDC và nút nguồn",
+        "altEn": "Side of the Micro DNC 2D with the DB9 RS232 port, 12 VDC power jack and power button"
+      },
+      {
+        "src": "/img/products/catalog/micro-dnc-2d-back.webp",
+        "w": 1400,
+        "h": 792,
+        "alt": "Mặt lưng Micro DNC 2D với ba đế gắn tròn và vỏ nhôm",
+        "altEn": "Rear of the Micro DNC 2D with its three round mounting pads and aluminium housing"
+      }
+    ],
     "features": [
       {
         "title": "Truyền DNC",
@@ -98,6 +121,11 @@
         }
       }
     ],
+    "video": {
+      "youtubeId": "Du2Dj0vL94o",
+      "title": "Video mở hộp Micro DNC 2D",
+      "titleEn": "Micro DNC 2D unboxing video"
+    },
     "sourceUrl": "https://qstcnc.com/san-pham/thiet-bi-truyen-dnc-micro-dnc-2d"
   },
   {
@@ -145,26 +173,47 @@
       "alt": "Thiết bị truyền DNC Micro DNC 3A",
       "altEn": "Micro DNC 3A DNC transfer unit"
     },
+    "gallery": [
+      {
+        "src": "/img/products/catalog/micro-dnc-3a-dnc.webp",
+        "w": 746,
+        "h": 400,
+        "alt": "Micro DNC 3A lắp trên máy Mazak, màn hình hiển thị menu DNC Transfer",
+        "altEn": "Micro DNC 3A mounted on a Mazak machine, its screen showing the DNC Transfer menu"
+      }
+    ],
     "features": [
       {
         "title": "Truyền DNC",
         "titleEn": "DNC transfer",
-        "body": "Truyền chương trình gia công qua 3 bước: cài baudrate, lựa chọn chương trình, bắt đầu chạy.",
-        "bodyEn": "Transfer a machining program in three steps: set the baud rate, select the program, start the run."
+        "body": "Chức năng này giúp người vận hành truyền chương trình gia công vào máy CNC với 3 bước: cài đặt tốc độ truyền (baudrate), lựa chọn chương trình, bắt đầu chạy máy.",
+        "bodyEn": "Lets the operator load a machining program into the CNC machine in three steps: set the baud rate, select the program, then start the machine.",
+        "photo": {
+          "src": "/img/products/catalog/micro-dnc-3a-dnc.webp",
+          "w": 746,
+          "h": 400,
+          "alt": "Micro DNC 3A lắp trên máy Mazak, màn hình hiển thị menu DNC Transfer",
+          "altEn": "Micro DNC 3A mounted on a Mazak machine, its screen showing the DNC Transfer menu"
+        }
       },
       {
-        "title": "Read from CNC",
+        "title": "Đọc dữ liệu từ máy CNC",
         "titleEn": "Read from CNC",
-        "body": "Lấy chương trình gia công và thông số máy, lưu trữ trên thiết bị.",
-        "bodyEn": "Pull machining programs and machine parameters off the control and store them on the unit."
+        "body": "Chức năng này giúp người vận hành có thể lấy được chương trình gia công, thông số của máy và lưu trên thiết bị DNC.",
+        "bodyEn": "Lets the operator pull machining programs and machine parameters off the control and store them on the DNC unit."
       },
       {
-        "title": "Wi-Fi",
-        "titleEn": "Wi-Fi",
-        "body": "Quản lý dữ liệu và giám sát quá trình hoạt động của máy.",
-        "bodyEn": "Manage program data and monitor machine activity over Wi-Fi."
+        "title": "Truyền, quản lý dữ liệu thông qua Wi-Fi",
+        "titleEn": "Wi-Fi data transfer and management",
+        "body": "Giảm thời gian di chuyển để truyền chương trình gia công vào máy. Ngoài ra chức năng này còn giúp người vận hành có thể quản lý, giám sát quá trình hoạt động của máy.",
+        "bodyEn": "Cuts the walking time spent loading programs into the machine, and lets the operator manage program data and monitor machine activity remotely."
       }
     ],
+    "video": {
+      "youtubeId": "gqvkDDm4xuc",
+      "title": "Bộ truyền Micro DNC 3A — giải pháp truyền DNC qua RS232 cho máy CNC",
+      "titleEn": "Micro DNC 3A — DNC transfer over RS232 for CNC machines"
+    },
     "sourceUrl": "https://qstcnc.com/san-pham/micro-dnc-3a"
   },
   {

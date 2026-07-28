@@ -10,6 +10,9 @@ import { ListToolbar } from "./list-toolbar";
  * `SeriesCard`s, passed through the RSC boundary so the filter narrows the list
  * client-side without re-rendering the cards.
  */
+/** Query key the kind chips read and write when the list stands on its own
+ *  page; inside the catalogue tree the branch key `t` is used instead so the
+ *  sidebar and the chips drive one selection. */
 const KIND_KEY = "kind";
 
 export type SeriesFilterSection = {
@@ -31,6 +34,7 @@ export function SeriesListFilter({
   totalCount,
   showingLabel,
   unitLabel,
+  filterKey = KIND_KEY,
 }: {
   sections: SeriesFilterSection[];
   allLabel: string;
@@ -38,10 +42,9 @@ export function SeriesListFilter({
   totalCount: number;
   showingLabel: string;
   unitLabel: string;
+  filterKey?: string;
 }) {
-  // Series kind carries its own query key: this list also renders inside the
-  // catalogue tree, where `t` already belongs to the tree's own branches.
-  const kind = useFilterParams().get(KIND_KEY);
+  const kind = useFilterParams().get(filterKey);
   const type = sections.some((s) => s.id === kind) ? (kind as string) : "all";
   const visible = type === "all" ? sections : sections.filter((s) => s.id === type);
   const visibleCount = visible.reduce((n, s) => n + s.items.length, 0);
@@ -57,14 +60,23 @@ export function SeriesListFilter({
         <TypeFilterChips
           items={chips}
           active={type}
-          onSelect={(id) => setFilterParams({ [KIND_KEY]: id === "all" ? null : id })}
+          onSelect={(id) => setFilterParams({ [filterKey]: id === "all" ? null : id })}
           label={navLabel}
           className=""
         />
       </ListToolbar>
       <div className="flex flex-col gap-12">
+        {/* Sections stay tagged with the tree's branch key so the pre-paint
+            primer can narrow a shared `?g=servo&t=motor` link before hydration;
+            on a standalone page (own `kind` key) there is no primer to feed. */}
         {visible.map((s) => (
-          <TypeSection key={s.id} id={s.id} label={s.label} count={s.items.length}>
+          <TypeSection
+            key={s.id}
+            id={s.id}
+            label={s.label}
+            count={s.items.length}
+            branch={filterKey === "t" ? s.id : undefined}
+          >
             <div className="flex flex-col gap-6">
               {s.items.map((it) => (
                 <div key={it.slug}>{it.node}</div>

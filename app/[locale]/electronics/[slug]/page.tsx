@@ -366,7 +366,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
       />
-      <div className="relative qs-wrap-wide">
+      <div className="relative qs-wrap-detail">
         <div className="grid lg:grid-cols-[minmax(0,760px)_minmax(0,1fr)] gap-x-16 gap-y-10 items-center">
           <div className="min-w-0">
             <header className="max-w-[820px]">
@@ -496,7 +496,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
       />
-      <div className="relative qs-wrap-wide">
+      <div className="relative qs-wrap-detail">
         <span className="qs-eyebrow">{t("specsEyebrow")}</span>
         <h2 className="qs-h2 mt-3">{t("specsHeading")}</h2>
         {multiProtocol && (
@@ -557,7 +557,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
       />
-      <div className="relative qs-wrap-wide">
+      <div className="relative qs-wrap-detail">
         <div className="qs-section-head">
           <div className="max-w-[62ch]">
             <span className="qs-eyebrow">{t("resourcesEyebrow")}</span>
@@ -577,7 +577,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
   const packagePanel = (
     <section className="py-12 sm:py-16 lg:py-24 bg-[#f7f5ef]">
-      <div className="qs-wrap-wide">
+      <div className="qs-wrap-detail">
         <div className="qs-section-head">
           <div>
             <span className="qs-eyebrow">{t("packageEyebrow", { name: p.name })}</span>
@@ -625,7 +625,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
       <section className="relative overflow-hidden bg-[#10110f] text-white border-b border-[#28261f]">
         <div className="absolute inset-0 qs-grid-bg opacity-[.12]" />
         <div className="absolute -right-20 top-0 h-[420px] w-[420px] rounded-full bg-gold-2/10 blur-3xl" aria-hidden="true" />
-        <div className="relative qs-wrap-wide pt-8 pb-14 lg:pt-10 lg:pb-16">
+        <div className="relative qs-wrap-detail pt-8 pb-14 lg:pt-10 lg:pb-16">
           <div className="qs-crumb mb-8 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <Link href="/electronics">{t("breadcrumb.products")}</Link><span className="sep">/</span>
@@ -676,7 +676,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           variant="light"
           className="hidden md:block absolute inset-y-0 right-0 w-[34%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_66%)]"
         />
-        <div className="relative qs-wrap-wide py-8 lg:py-10">
+        <div className="relative qs-wrap-detail py-8 lg:py-10">
           <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
             <span className="qs-eyebrow">
               {t("packageTeaser", { count: p.bundle.length })}
@@ -722,7 +722,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
       <ProductDetailTabs tabs={tabs} />
 
       <section className="py-12 sm:py-16 lg:py-24 bg-white border-t border-line">
-        <div className="qs-wrap-wide">
+        <div className="qs-wrap-detail">
           <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
             <div>
               <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">{t("ctaHeading", { name: p.name })}</h3>

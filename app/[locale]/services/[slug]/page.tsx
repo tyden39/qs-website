@@ -94,7 +94,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
                 {s.hero.line2} <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{s.hero.emphasis}</em><br/>
                 {t("heroLine3")}
               </h1>
-              <p className="text-lede leading-[1.7] text-[#3a3a3a] max-w-[55ch] mt-6">{s.lede}</p>
+              <p className="text-title leading-[1.7] text-[#3a3a3a] max-w-[55ch] mt-6">{s.lede}</p>
               <div className="flex gap-3 mt-7">
                 <Link className="qs-btn qs-btn-gold" href="/contact">{t("surveyBtn")}</Link>
                 <a className="qs-btn qs-btn-ghost" href="#pricing">{t("pricingBtn")}</a>
@@ -116,22 +116,22 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
                   <linearGradient id="sd-m1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#e8e6e0"/><stop offset="1" stopColor="#a8a499"/></linearGradient>
                   <linearGradient id="sd-m2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#3a3530"/><stop offset="1" stopColor="#1a1815"/></linearGradient>
                 </defs>
-                <text x="40" y="42" fontFamily="JetBrains Mono,monospace" fontSize="10" letterSpacing="2" fill="#8a6f35">BEFORE · 2008</text>
+                <text x="40" y="42" fontFamily="inherit" fontSize="10" letterSpacing="2" fill="#8a6f35">BEFORE · 2008</text>
                 <rect x="40" y="60" width="320" height="160" fill="url(#sd-m2)" stroke="#5a5650"/>
                 <rect x="60" y="80" width="220" height="100" fill="#0a1a2a" opacity=".5"/>
-                <text x="74" y="108" fontFamily="JetBrains Mono,monospace" fontSize="9" fill="#5a5650">FANUC 0i-MD</text>
-                <text x="74" y="138" fontFamily="JetBrains Mono,monospace" fontSize="14" fontWeight="700" fill="#7a7570">DEPRECATED</text>
+                <text x="74" y="108" fontFamily="inherit" fontSize="9" fill="#5a5650">FANUC 0i-MD</text>
+                <text x="74" y="138" fontFamily="inherit" fontSize="14" fontWeight="700" fill="#7a7570">DEPRECATED</text>
                 <g fill="#2a2520">
                   <rect x="290" y="80" width="20" height="20"/><rect x="314" y="80" width="20" height="20"/><rect x="338" y="80" width="20" height="20"/>
                   <rect x="290" y="104" width="20" height="20"/><rect x="314" y="104" width="20" height="20"/><rect x="338" y="104" width="20" height="20"/>
                 </g>
-                <text x="200" y="252" fontFamily="JetBrains Mono,monospace" fontSize="22" letterSpacing="6" fill="#c9a35a" textAnchor="middle">↓</text>
-                <text x="40" y="282" fontFamily="JetBrains Mono,monospace" fontSize="10" letterSpacing="2" fill="#8a6f35">AFTER · QS F86</text>
+                <text x="200" y="252" fontFamily="inherit" fontSize="22" letterSpacing="6" fill="#c9a35a" textAnchor="middle">↓</text>
+                <text x="40" y="282" fontFamily="inherit" fontSize="10" letterSpacing="2" fill="#8a6f35">AFTER · QS F86</text>
                 <rect x="40" y="300" width="320" height="160" fill="url(#sd-m1)" stroke="#5a5650" strokeWidth="2"/>
                 <rect x="60" y="320" width="220" height="100" fill="#0a1a2a"/>
-                <text x="74" y="348" fontFamily="JetBrains Mono,monospace" fontSize="10" fill="#5ab8e0">QS · F86 · ETHERCAT</text>
-                <text x="74" y="378" fontFamily="JetBrains Mono,monospace" fontSize="18" fontWeight="700" fill="#fff">RUN 14:32</text>
-                <text x="74" y="402" fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#e8c878">FEED 1820 mm/min</text>
+                <text x="74" y="348" fontFamily="inherit" fontSize="10" fill="#5ab8e0">QS · F86 · ETHERCAT</text>
+                <text x="74" y="378" fontFamily="inherit" fontSize="18" fontWeight="700" fill="#fff">RUN 14:32</text>
+                <text x="74" y="402" fontFamily="inherit" fontSize="11" fill="#e8c878">FEED 1820 mm/min</text>
                 <g fill="#3a3530">
                   <rect x="290" y="320" width="20" height="20"/><rect x="314" y="320" width="20" height="20"/><rect x="338" y="320" width="20" height="20"/>
                   <rect x="290" y="344" width="20" height="20"/><rect x="314" y="344" width="20" height="20"/><rect x="338" y="344" width="20" height="20"/>

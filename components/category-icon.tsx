@@ -361,6 +361,20 @@ const PATHS: Record<string, React.ReactNode> = {
       <path d="M10 10l4.5 2.5V17" />
     </>
   ),
+  // Servo part roles: the drive enclosure with its terminal block, and the
+  // motor body with output shaft and mounting flange.
+  driver: (
+    <>
+      <rect x="6" y="4" width="9" height="16" rx="1" />
+      <path d="M15 8h3M15 12h3M15 16h3M9 7v4" />
+    </>
+  ),
+  motor: (
+    <>
+      <rect x="6" y="7" width="10" height="10" rx="1" />
+      <path d="M16 10.5h3v3h-3M6 9h-2M6 15h-2" />
+    </>
+  ),
   milling: (
     <>
       <path d="M9 3h6v9l-3 8-3-8V3Z" />

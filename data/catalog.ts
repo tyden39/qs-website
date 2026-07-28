@@ -31,6 +31,9 @@ export type CatalogFeature = {
   photo?: CatalogPhoto;
 };
 
+/** The product's own video on the QS Technology YouTube channel. */
+export type CatalogVideo = { youtubeId: string; title: string; titleEn: string };
+
 export type CatalogProduct = {
   slug: string;
   category: CatalogCategory;
@@ -45,7 +48,10 @@ export type CatalogProduct = {
   descEn: string;
   specs: CatalogSpec[];
   image: CatalogPhoto;
+  /** Extra hardware shots beyond `image` — port sides, rear face, mounting. */
+  gallery?: CatalogPhoto[];
   features: CatalogFeature[];
+  video?: CatalogVideo;
   sourceUrl: string;
 };
 

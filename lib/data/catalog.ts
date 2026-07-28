@@ -12,6 +12,7 @@ export type { CatalogCategory, CatalogSpec };
 /** A photo resolved to one locale — `alt` already carries the right language. */
 export type CatalogImage = { src: string; w: number; h: number; alt: string };
 export type CatalogFeatureView = { title: string; body: string; photo: CatalogImage | null };
+export type CatalogVideoView = { youtubeId: string; title: string };
 
 export type CatalogProductView = {
   slug: string;
@@ -21,7 +22,9 @@ export type CatalogProductView = {
   desc: string;
   specs: CatalogSpec[];
   image: CatalogImage;
+  gallery: CatalogImage[];
   features: CatalogFeatureView[];
+  video: CatalogVideoView | null;
   sourceUrl: string;
 };
 
@@ -102,11 +105,13 @@ function toView(p: CatalogProduct, locale: Locale): CatalogProductView {
     desc: en ? p.descEn : p.desc,
     specs: en ? p.specs.map(localizeSpec) : p.specs,
     image: toImage(p.image, en),
+    gallery: (p.gallery ?? []).map((photo) => toImage(photo, en)),
     features: p.features.map((f) => ({
       title: en ? f.titleEn : f.title,
       body: en ? f.bodyEn : f.body,
       photo: f.photo ? toImage(f.photo, en) : null,
     })),
+    video: p.video ? { youtubeId: p.video.youtubeId, title: en ? p.video.titleEn : p.video.title } : null,
     sourceUrl: p.sourceUrl,
   };
 }

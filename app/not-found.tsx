@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
-import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import NotFoundContent from "@/components/not-found-content";
 import viErrors from "@/messages/vi/errors.json";
 import enErrors from "@/messages/en/errors.json";
 
-const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-sans" });
-const display = Inter_Tight({ subsets: ["latin", "vietnamese"], variable: "--font-display" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", preload: false });
+// Same family variables as the locale layout, which globals.css maps onto the
+// role tokens (--font-sans / --font-display / --font-mono). This route owns its
+// own document, so it must set them itself.
+const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-inter" });
+const display = Inter_Tight({ subsets: ["latin", "vietnamese"], variable: "--font-inter-tight" });
 
 // The global not-found route renders under the pass-through app/layout.tsx, so
 // like app/page.tsx it owns the whole document — the locale layout that
@@ -54,7 +56,7 @@ var c=document.querySelector('[data-nf="contact"]');if(c)c.setAttribute('href','
 
 export default function RootNotFound() {
   return (
-    <html lang="vi" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
+    <html lang="vi" className={`${sans.variable} ${display.variable}`}>
       <body>
         <NotFoundContent
           labels={viErrors.notFound}

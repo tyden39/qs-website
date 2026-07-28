@@ -214,7 +214,7 @@ function FeaturePlaceholder() {
         <line x1="150" y1="200" x2="450" y2="200" stroke="#3a3530" strokeWidth="1" />
         <line x1="300" y1="50" x2="300" y2="350" stroke="#3a3530" strokeWidth="1" />
         <circle cx="300" cy="200" r="4" fill="#e8c878" />
-        <text x="36" y="374" fontFamily="JetBrains Mono, monospace" fontSize="12" fill="#8a6f35" letterSpacing="2">QS · TECHNOLOGY</text>
+        <text x="36" y="374" fontFamily="inherit" fontSize="12" fill="#8a6f35" letterSpacing="2">QS · TECHNOLOGY</text>
       </svg>
     </div>
   );

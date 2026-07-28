@@ -369,7 +369,7 @@ function Thumb({ kind }: { kind: SearchType }) {
             <rect x="14" y="6" width="60" height="68" fill="#fff" stroke="#d8d6cf" />
             <rect x="14" y="6" width="20" height="20" fill="#f5f3ee" />
             <rect x="20" y="48" width="48" height="12" fill="#c8553d" />
-            <text x="44" y="58" fontFamily="JetBrains Mono,monospace" fontSize="6" fontWeight="700" fill="#fff" textAnchor="middle">
+            <text x="44" y="58" fontFamily="inherit" fontSize="6" fontWeight="700" fill="#fff" textAnchor="middle">
               PDF
             </text>
           </>

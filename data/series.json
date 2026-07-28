@@ -4550,12 +4550,100 @@
           "size_mb": 5.76
         },
         {
-          "title": "S3100A 3D Installation Dimensions",
+          "title": "S3100A 3D Installation Dimensions — Size 1 (2T0.75G-2T1.5G 4T0.75G-4T2.2G)",
           "category": "drawing",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250801/e058814c6d3f13c3ffdfbd4a3c710e08.rar",
-          "format": "rar",
-          "size_mb": 36.7
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-1-2t0.75g-2t1.5g-4t0.75g-4t2.2g.zip",
+          "format": "zip",
+          "size_mb": 2.63
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 2 (2T2.2G-2T4.0G 4T4.0G-4T7.5G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-2-2t2.2g-2t4.0g-4t4.0g-4t7.5g.zip",
+          "format": "zip",
+          "size_mb": 5.1
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 3 (4T7.5G-4T15G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-3-4t7.5g-4t15g.zip",
+          "format": "zip",
+          "size_mb": 4.61
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 4 (2T5.5G-2T7.5G 4T15G-4T22G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-4-2t5.5g-2t7.5g-4t15g-4t22g.zip",
+          "format": "zip",
+          "size_mb": 3.94
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 5 (2T11G-2T18.5G 4T22G-4T37G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-5-2t11g-2t18.5g-4t22g-4t37g.zip",
+          "format": "zip",
+          "size_mb": 3.06
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 6 (2T22G 4T45G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-6-2t22g-4t45g.zip",
+          "format": "zip",
+          "size_mb": 2.42
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 7 (2T30G-2T55G 4T55G-4T110G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-7-2t30g-2t55g-4t55g-4t110g.zip",
+          "format": "zip",
+          "size_mb": 2.65
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 8 (4T110G-4T160G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-8-4t110g-4t160g.zip",
+          "format": "zip",
+          "size_mb": 3.04
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 9 (4T185G-4T200G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-9-4t185g-4t200g.zip",
+          "format": "zip",
+          "size_mb": 2.4
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 10 (4T220G-4T315G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-10-4t220g-4t315g.zip",
+          "format": "zip",
+          "size_mb": 4.45
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 11 (4T315G-4T400G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-11-4t315g-4t400g.zip",
+          "format": "zip",
+          "size_mb": 6.69
+        },
+        {
+          "title": "S3100A 3D Installation Dimensions — Size 12 (4T450G-4T500G)",
+          "category": "drawing",
+          "lang": "en",
+          "url": "/downloads/series/s3100/3d-dimensions/s3100a-3d-dimensions-size-12-4t450g-4t500g.zip",
+          "format": "zip",
+          "size_mb": 7.11
         },
         {
           "title": "S3100A(E) Inverter Catalog",

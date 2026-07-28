@@ -51,7 +51,8 @@ export async function generateMetadata({
 }
 
 // Slug order drives the machine-name lookup and the application index.
-const appSlugs = ["phay-cnc", "cua-long", "dan-keo", "uon-lo-xo", "mong-go", "kim-hoan"];
+const appSlugs = ["phay-cnc", "cua-long", "dan-keo", "uon-lo-xo", "mong-go", "kim-hoan",
+                  "dieu-khac-da", "cat-da"];
 const relatedAppsMeta = [
   { slug: "cua-long", n: "02" },
   { slug: "dan-keo", n: "03" },
@@ -82,6 +83,8 @@ const STRENGTH_MEDIA: Record<string, Media[]> = {
   "dan-keo": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
   "uon-lo-xo": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
   "kim-hoan": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
+  "dieu-khac-da": [{ icon: "precision" }, { icon: "stability" }, { icon: "carving" }, { icon: "productivity" }],
+  "cat-da": [{ icon: "precision" }, { icon: "stability" }, { icon: "flexible-config" }, { icon: "productivity" }],
 };
 const CAPABILITY_MEDIA: Record<string, Media[]> = {
   "phay-cnc": photos("phay-cnc", ["face-milling", "slot-milling", "drill-tap", "surface-3d", "probing"]),
@@ -96,6 +99,10 @@ const CAPABILITY_MEDIA: Record<string, Media[]> = {
     ["compression", "extension", "torsion", "formed", "non-standard", "double-torsion", "flat-wire", "complex"]),
   "kim-hoan": photos("kim-hoan",
     ["engraving", "surface-3d", "micro-drill", "lettering", "sculpt-3d", "polishing"]),
+  "dieu-khac-da": photos("dieu-khac-da",
+    ["statue-3d", "relief", "ornament", "portrait", "architectural", "art-piece", "hand-carving"]),
+  "cat-da": photos("cat-da",
+    ["straight-cut", "contour-2d", "arc-cut", "logo-text", "cladding", "decorative-detail", "pattern-copy"]),
 };
 const COMPAT_MEDIA: Record<string, Media[]> = {
   "phay-cnc": [{ icon: "multi-axis" }, { icon: "gcode" }, { icon: "cam" }, { icon: "flexible-config" }],
@@ -106,6 +113,10 @@ const COMPAT_MEDIA: Record<string, Media[]> = {
     ["silicone", "epoxy", "uv", "ab-glue", "hot-melt", "anaerobic", "thermal", "nano-bead"]),
   "uon-lo-xo": [{ icon: "wire-round" }, { icon: "wire-square" }, { icon: "wire-flat" }, { icon: "wire-length" }],
   "kim-hoan": photos("kim-hoan", ["gold", "silver", "platinum", "copper", "gemstone", "wax"]),
+  "dieu-khac-da": photos("dieu-khac-da",
+    ["natural-stone", "marble", "granite", "artificial-stone", "stone-composite"]),
+  "cat-da": photos("cat-da",
+    ["natural-stone", "granite", "marble", "artificial-stone", "stone-composite"]),
 };
 const CONTROL_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "motion" }, { icon: "cutting" }, { icon: "performance" }, { icon: "gcode" }, { icon: "io" }],
@@ -114,6 +125,10 @@ const CONTROL_MEDIA: Record<string, Media[]> = {
               { icon: "stability" }],
   "uon-lo-xo": [{ icon: "multi-axis" }, { icon: "gcode" }, { icon: "coil" }, { icon: "io" }, { icon: "stability" }],
   "kim-hoan": [{ icon: "multi-axis" }, { icon: "surface-3d" }, { icon: "milling" }, { icon: "dnc" }, { icon: "stability" }],
+  "dieu-khac-da": [{ icon: "multi-axis" }, { icon: "surface-3d" }, { icon: "gcode" }, { icon: "performance" },
+                   { icon: "io" }, { icon: "stability" }],
+  "cat-da": [{ icon: "multi-axis" }, { icon: "motion" }, { icon: "gcode" }, { icon: "performance" },
+             { icon: "io" }, { icon: "stability" }],
 };
 const MACHINE_PART_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "motion" }, { icon: "cutting" }],
@@ -121,6 +136,10 @@ const MACHINE_PART_MEDIA: Record<string, Media[]> = {
   "dan-keo": [{ icon: "dispensing" }, { icon: "pump" }, { icon: "motion" }, { icon: "controllers" }],
   "uon-lo-xo": [{ icon: "bending" }, { icon: "motion" }, { icon: "cutting" }, { icon: "machine" }, { icon: "controllers" }],
   "kim-hoan": [{ icon: "router" }, { icon: "multi-axis" }, { icon: "motion" }, { icon: "controllers" }],
+  "dieu-khac-da": [{ icon: "router" }, { icon: "carving" }, { icon: "machine" }, { icon: "motion" },
+                   { icon: "controllers" }],
+  "cat-da": [{ icon: "router" }, { icon: "cutting" }, { icon: "machine" }, { icon: "motion" }, { icon: "pump" },
+             { icon: "controllers" }],
 };
 const BENEFIT_MEDIA: Record<string, Media[]> = {
   "cua-long": [{ icon: "precision" }, { icon: "usability" }, { icon: "productivity" }, { icon: "gcode" }, { icon: "flexible-config" }],
@@ -132,6 +151,10 @@ const BENEFIT_MEDIA: Record<string, Media[]> = {
                 { icon: "flexible-config" }, { icon: "stability" }],
   "kim-hoan": [{ icon: "precision" }, { icon: "jewelry" }, { icon: "productivity" }, { icon: "usability" },
                { icon: "flexible-config" }, { icon: "stability" }],
+  "dieu-khac-da": [{ icon: "precision" }, { icon: "carving" }, { icon: "usability" }, { icon: "productivity" },
+                   { icon: "flexible-config" }, { icon: "stability" }],
+  "cat-da": [{ icon: "precision" }, { icon: "cutting" }, { icon: "usability" }, { icon: "productivity" },
+             { icon: "flexible-config" }, { icon: "stability" }],
 };
 /** Finished parts photographed on the reference sheet — decoration, so no captions. */
 const GALLERY_IMAGES: Record<string, string[]> = {
@@ -237,7 +260,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                   {machine_.tagline}
                 </p>
               )}
-              <p className="qs-rise mt-6 text-lede leading-[1.6] text-[#a8a499] max-w-[55ch]" style={{ animationDelay: "180ms" }}>
+              <p className="qs-rise mt-6 text-title leading-[1.6] text-[#a8a499] max-w-[55ch]" style={{ animationDelay: "180ms" }}>
                 {heroLede}
               </p>
             </div>

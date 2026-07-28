@@ -50,6 +50,8 @@ const appAssets = [
   { slug: "uon-lo-xo", img: "/home/app-uon-lo-xo.webp" },
   { slug: "mong-go", img: "/home/app-mong-go.webp" },
   { slug: "kim-hoan", img: "/home/app-kim-hoan.webp" },
+  { slug: "dieu-khac-da", img: "/home/app-dieu-khac-da.webp" },
+  { slug: "cat-da", img: "/home/app-cat-da.webp" },
 ];
 
 // Shop-floor stills for sub-types that have no case study yet — the card still
@@ -66,7 +68,7 @@ type AppSubItem = { kind: "case"; slug: string } | { kind: "soon"; key: string }
 const appTaxonomy: AppSubItem[][] = [
   [{ kind: "case", slug: "phay-cnc" }],
   [{ kind: "soon", key: "dieu-khac-go" }, { kind: "case", slug: "cua-long" }, { kind: "case", slug: "mong-go" }],
-  [{ kind: "soon", key: "dieu-khac-da" }, { kind: "soon", key: "cat-da" }],
+  [{ kind: "case", slug: "dieu-khac-da" }, { kind: "case", slug: "cat-da" }],
   [{ kind: "case", slug: "kim-hoan" }],
   [{ kind: "case", slug: "dan-keo" }, { kind: "case", slug: "uon-lo-xo" }],
 ];
@@ -139,11 +141,13 @@ export default async function Applications({ params }: { params: Promise<{ local
   // case-study photo, or the material glyph when it has no case yet. Fills the
   // shared HERO_IMAGE_SLOT (standard size lives in the tree component).
   const appFigure = (src: string | null, alt: string, icon: string, priority = false) =>
+    // Keyed: the figure crosses the RSC boundary and is reconciled from a lazy
+    // reference inside the tree's group list, which React reads as an array child.
     src ? (
-      <Image src={src} alt={alt} fill priority={priority} sizes="(max-width:1023px) 92vw, 38vw"
+      <Image key={src} src={src} alt={alt} fill priority={priority} sizes="(max-width:1023px) 92vw, 38vw"
              className="object-cover" />
     ) : (
-      <div className="absolute inset-0 grid place-items-center">
+      <div key={icon} className="absolute inset-0 grid place-items-center">
         <CategoryIcon name={icon} className="w-16 h-16 text-gold-1/60" />
       </div>
     );
@@ -153,8 +157,8 @@ export default async function Applications({ params }: { params: Promise<{ local
         ? { key: it.slug, name: caseAt(it.slug).label, subtype: it.slug, node: caseCard(it.slug) }
         : { key: it.key, name: soon.items[it.key], subtype: it.key, node: soonCard(it.key) },
     );
-    // First case study in the group provides the hero photo; groups that are all
-    // "coming soon" (e.g. stone) fall back to the material glyph.
+    // First case study in the group provides the hero photo; a group that is all
+    // "coming soon" falls back to the material glyph.
     const lead = g.items.find((it) => it.kind === "case");
     const heroSrc = lead && lead.kind === "case" ? caseAt(lead.slug).img : null;
     return {
@@ -204,7 +208,7 @@ export default async function Applications({ params }: { params: Promise<{ local
               { key: "t" },
             ]}
           />
-          <Reveal eager>
+          <Reveal>
             <CategoryTreeHero
               // The rail groups industries, not a product catalogue, so it takes
               // the page's own "by industry" heading rather than the shared
@@ -225,7 +229,7 @@ export default async function Applications({ params }: { params: Promise<{ local
       {/* GROUPED BY MATERIAL — the active group's cases, full width below the hero */}
       <section className="py-12 sm:py-16 lg:py-24 bg-white" id="list">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <Reveal eager>
+          <Reveal>
             <CategoryTreePanels groups={appGroups} />
           </Reveal>
         </div>

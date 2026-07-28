@@ -35,9 +35,7 @@
       "label": "Coming soon",
       "imageLabel": "Image coming soon",
       "items": {
-        "dieu-khac-go": "Wood carving",
-        "dieu-khac-da": "Stone carving",
-        "cat-da": "Stone cutting"
+        "dieu-khac-go": "Wood carving"
       }
     },
     "controllerFor": "Controller for",
@@ -55,7 +53,9 @@
       { "t": "Gluing", "machine": "Gluing Machine" },
       { "t": "Spring", "machine": "Spring Bending Machine" },
       { "t": "Tenon", "machine": "Tenoning Machine" },
-      { "t": "Jewellery", "machine": "Jewellery Machine" }
+      { "t": "Jewellery", "machine": "Jewellery Machine" },
+      { "t": "Stone Carving", "machine": "Stone Carving CNC Machine" },
+      { "t": "Stone Cutting", "machine": "Stone Cutting CNC Machine" }
     ]
   },
   "detailPage": {
@@ -556,6 +556,153 @@
           { "l": "Drive · Precision", "t": "High-definition control", "d": "Communicates smoothly with ultra-high-speed spindles (40,000–60,000 RPM) and high-resolution encoder servo motors, fully eliminating marks on the cut surface." },
           { "l": "Monitor · HMI", "t": "Protection & monitoring", "d": "Tracks the detailed engraving path in real time. Integrates overload protection for the main axis when machining hard precious alloys." }
         ]
+      },
+      "dieu-khac-da": {
+        "tagline": "Precise carving — Crisp 3D detail — Stable operation",
+        "heroLede": "The QS Controller is a CNC control solution for stone carving machines: it governs multi-axis motion precisely, optimises the toolpath, and raises surface quality. The system handles complex 3D forms in natural and engineered stone for fine-art, architectural, and premium handcrafted work.",
+        "strengths": [
+          { "t": "High precision", "d": "Motion tracks the 3D profile steadily, keeping machining deviation low." },
+          { "t": "Stable operation", "d": "A system built to run reliably over long production hours." },
+          { "t": "Crisp detail", "d": "Suited to ornament, relief work, and finely carved stone statues." },
+          { "t": "Higher productivity", "d": "Optimised cycles that repeat consistently, run after run." }
+        ],
+        "control": {
+          "heading": "QS Controller — the control centre",
+          "items": [
+            { "t": "Multi-axis control", "d": "Supports X/Y/Z/A/B/C as the machine configuration requires." },
+            { "t": "Smooth interpolation", "d": "Keeps the toolpath steady across 3D surfaces." },
+            { "t": "CNC program management", "d": "Programs are easy to load, edit, and run." },
+            { "t": "Precise speed control", "d": "Matched to each cutter and each type of stone." },
+            { "t": "Flexible I/O control", "d": "Integrates sensors, switches, and peripheral equipment." },
+            { "t": "Safety and protection", "d": "Alarms, emergency stop, and continuous status monitoring." }
+          ]
+        },
+        "machineParts": {
+          "heading": "A CNC stone carving machine running the QS Controller",
+          "items": [
+            { "t": "Spindle assembly", "d": "Carries the carving tool, with speed set for the stone." },
+            { "t": "Carving tool", "d": "Detail cutter for ornament and 3D profiles." },
+            { "t": "Work table", "d": "Locates and clamps the stone blank through the cycle." },
+            { "t": "Motion axes", "d": "Drive the axes along the programmed path." },
+            { "t": "Controller", "d": "The QS Controller coordinates the whole cycle." }
+          ]
+        },
+        "capabilityHeading": "A full range of carving work",
+        "capabilities": [
+          { "t": "3D stone statues" },
+          { "t": "Relief panels" },
+          { "t": "Decorative ornament" },
+          { "t": "Portrait busts" },
+          { "t": "Architectural details" },
+          { "t": "Art pieces" },
+          { "t": "Premium hand carving" }
+        ],
+        "industries": {
+          "items": [
+            "Fine-art stone statuary",
+            "Interior and exterior decoration",
+            "Relief panels and ornamental work",
+            "Gifts and souvenirs",
+            "Premium handcrafted products",
+            "Display and art prototypes"
+          ]
+        },
+        "compat": {
+          "heading": "Machining many kinds of stone",
+          "lede": "The QS Controller works in both natural and engineered stone — spindle speed and feed are set per material group so detail stays crisp without chipping.",
+          "items": [
+            { "t": "Natural stone" },
+            { "t": "Marble" },
+            { "t": "Granite" },
+            { "t": "Engineered stone" },
+            { "t": "Stone-look composite" }
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Accurate forms", "d": "3D profiles come out true to the design." },
+            { "t": "Fine finish", "d": "Crisp lines and a smooth machined surface." },
+            { "t": "Easy to use", "d": "A clear interface that is quick to learn and operate." },
+            { "t": "Higher output", "d": "Shorter machining time with repeatable cycles." },
+            { "t": "Flexible integration", "d": "Connects and expands easily with other equipment." },
+            { "t": "High stability", "d": "A durable system that runs steadily over the long term." }
+          ]
+        },
+        "closing": "An optimal CNC control solution for stone carving machines, raising the quality of fine stone work."
+      },
+      "cat-da": {
+        "tagline": "Precise cutting — Stable operation — Optimised output",
+        "heroLede": "The QS Controller is a CNC control solution for stone cutting machines: it governs axis motion precisely, optimises the cut path, and keeps machining stable. The system supports straight cuts, varied edge profiles, and complex contours in natural stone, engineered stone, and slab materials.",
+        "strengths": [
+          { "t": "High precision", "d": "Steady motion control, clean cut lines, low deviation." },
+          { "t": "Stable operation", "d": "Axes work in step, running reliably in real shop conditions." },
+          { "t": "Flexible applications", "d": "Fits many cutting styles and many machine configurations." },
+          { "t": "Higher productivity", "d": "Optimised cycles that cut repeat production time." }
+        ],
+        "control": {
+          "heading": "QS Controller — the control centre",
+          "items": [
+            { "t": "Multi-axis control", "d": "Supports X/Y/Z/A/B/C as the machine configuration requires." },
+            { "t": "Smooth interpolation", "d": "Keeps the cut steady across complex profiles." },
+            { "t": "CNC program management", "d": "Programs are easy to load, edit, and run." },
+            { "t": "Precise speed control", "d": "Parameters set to match each stone and each blade." },
+            { "t": "Flexible I/O control", "d": "Connects sensors, switches, coolant, and peripherals." },
+            { "t": "Safety and protection", "d": "Machine status monitoring with alarms and emergency stop." }
+          ]
+        },
+        "machineParts": {
+          "heading": "A CNC stone cutting machine running the QS Controller",
+          "items": [
+            { "t": "Spindle / cutting head", "d": "Carries the blade, with speed set for the stone." },
+            { "t": "Cutting blade", "d": "Purpose-built disc for slabs and profile cuts." },
+            { "t": "Work table", "d": "Supports and locates the slab along the cut." },
+            { "t": "Motion axes", "d": "Drive the axes along the programmed path." },
+            { "t": "Coolant system", "d": "Feeds water to the blade and keeps stone dust down." },
+            { "t": "Controller", "d": "The QS Controller coordinates the whole cycle." }
+          ]
+        },
+        "capabilityHeading": "A full range of cutting work",
+        "capabilities": [
+          { "t": "Straight cuts" },
+          { "t": "2D contours" },
+          { "t": "Arc cuts" },
+          { "t": "Lettering and logos" },
+          { "t": "Cladding panels" },
+          { "t": "Decorative details" },
+          { "t": "Cutting to a template" }
+        ],
+        "industries": {
+          "items": [
+            "Stone cladding and flooring",
+            "Stone countertops",
+            "Decorative components",
+            "Stone signage and lettering",
+            "Engineered stone cut to template",
+            "Interior and exterior products"
+          ]
+        },
+        "compat": {
+          "heading": "Machining many kinds of stone",
+          "lede": "From hard natural stone to engineered slabs that chip easily, the controller sets blade speed and feed per material group to keep the cut edge clean.",
+          "items": [
+            { "t": "Natural stone" },
+            { "t": "Granite" },
+            { "t": "Marble" },
+            { "t": "Engineered stone" },
+            { "t": "Stone-look composite" }
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Precise cuts", "d": "The cut follows the profile with low deviation." },
+            { "t": "Clean edges", "d": "Tidy cut lines with minimal chipping." },
+            { "t": "Easy to use", "d": "A clear interface that is quick to learn and operate." },
+            { "t": "Higher output", "d": "Shorter machining time with repeatable cycles." },
+            { "t": "Flexible integration", "d": "Connects and expands easily with other equipment." },
+            { "t": "High stability", "d": "A durable system that runs steadily over the long term." }
+          ]
+        },
+        "closing": "An effective CNC control solution for stone cutting machines, raising both quality and throughput."
       }
     }
   }

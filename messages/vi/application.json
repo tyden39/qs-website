@@ -35,9 +35,7 @@
       "label": "Đang cập nhật",
       "imageLabel": "Hình ảnh đang cập nhật",
       "items": {
-        "dieu-khac-go": "Điêu khắc gỗ",
-        "dieu-khac-da": "Điêu khắc đá",
-        "cat-da": "Cắt đá"
+        "dieu-khac-go": "Điêu khắc gỗ"
       }
     },
     "controllerFor": "Bộ điều khiển cho",
@@ -55,7 +53,9 @@
       { "t": "Dán Keo", "machine": "Máy Dán Keo" },
       { "t": "Lò Xo", "machine": "Máy Uốn Lò Xo" },
       { "t": "Mộng Gỗ", "machine": "Máy Làm Mộng" },
-      { "t": "Kim Hoàn", "machine": "Máy Kim Hoàn" }
+      { "t": "Kim Hoàn", "machine": "Máy Kim Hoàn" },
+      { "t": "Điêu Khắc Đá", "machine": "Máy CNC Điêu Khắc Đá" },
+      { "t": "Cắt Đá", "machine": "Máy CNC Cắt Đá" }
     ]
   },
   "detailPage": {
@@ -556,6 +556,153 @@
           { "l": "Drive · Precision", "t": "Điều khiển độ nét cao", "d": "Giao tiếp mượt mà với các spindle tốc độ siêu cao (40.000 - 60.000 vòng/phút) và động cơ servo có độ phân giải encoder lớn, loại bỏ hoàn toàn vết hằn trên bề mặt cắt." },
           { "l": "Monitor · HMI", "t": "Bảo vệ & Giám sát", "d": "Theo dõi thời gian thực quỹ đạo chạm khắc chi tiết. Tích hợp các tính năng bảo vệ chống quá tải trục chính khi gia công các hợp kim quý có độ cứng cao." }
         ]
+      },
+      "dieu-khac-da": {
+        "tagline": "Điêu khắc chính xác — Biên dạng 3D sắc nét — Vận hành ổn định",
+        "heroLede": "QS Controller là giải pháp điều khiển CNC phù hợp cho máy điêu khắc tượng đá, giúp kiểm soát chính xác chuyển động nhiều trục, tối ưu đường chạy dao và nâng cao chất lượng bề mặt gia công. Hệ thống hỗ trợ tạo hình 3D phức tạp trên đá tự nhiên và đá nhân tạo, phù hợp cho các ứng dụng mỹ thuật, kiến trúc và sản xuất thủ công cao cấp.",
+        "strengths": [
+          { "t": "Độ chính xác cao", "d": "Điều khiển bám biên dạng 3D ổn định, giảm sai số gia công." },
+          { "t": "Vận hành ổn định", "d": "Hệ thống làm việc bền bỉ trong thời gian dài." },
+          { "t": "Chi tiết sắc nét", "d": "Phù hợp cho hoa văn, phù điêu và tượng đá tinh xảo." },
+          { "t": "Nâng cao năng suất", "d": "Tối ưu chu trình gia công, tăng tính lặp lại." }
+        ],
+        "control": {
+          "heading": "QS Controller — trung tâm điều khiển",
+          "items": [
+            { "t": "Điều khiển đa trục", "d": "Hỗ trợ các trục X/Y/Z/A/B/C tùy cấu hình máy." },
+            { "t": "Nội suy mượt", "d": "Giúp đường chạy dao ổn định trên bề mặt 3D." },
+            { "t": "Quản lý chương trình CNC", "d": "Dễ nhập, chỉnh sửa và chạy chương trình." },
+            { "t": "Điều khiển tốc độ chính xác", "d": "Phù hợp với từng loại dao và vật liệu đá." },
+            { "t": "Quản lý I/O linh hoạt", "d": "Tích hợp cảm biến, công tắc và thiết bị ngoại vi." },
+            { "t": "An toàn & bảo vệ", "d": "Hỗ trợ cảnh báo, dừng khẩn và giám sát trạng thái." }
+          ]
+        },
+        "machineParts": {
+          "heading": "Máy CNC điêu khắc tượng đá dùng QS Controller",
+          "items": [
+            { "t": "Cụm trục chính", "d": "Mang dao khắc, điều tốc theo loại đá." },
+            { "t": "Dao khắc", "d": "Đầu khắc chi tiết cho hoa văn và biên dạng 3D." },
+            { "t": "Bàn làm việc", "d": "Định vị và kẹp giữ phôi đá trong suốt chu trình." },
+            { "t": "Hệ trục chuyển động", "d": "Dẫn động các trục theo quỹ đạo chương trình." },
+            { "t": "Bộ điều khiển", "d": "QS Controller điều phối toàn bộ chu trình gia công." }
+          ]
+        },
+        "capabilityHeading": "Khả năng gia công đa dạng",
+        "capabilities": [
+          { "t": "Tượng đá 3D" },
+          { "t": "Phù điêu" },
+          { "t": "Hoa văn trang trí" },
+          { "t": "Tượng chân dung" },
+          { "t": "Chi tiết kiến trúc" },
+          { "t": "Mẫu thử nghệ thuật" },
+          { "t": "Chạm khắc thủ công cao cấp" }
+        ],
+        "industries": {
+          "items": [
+            "Điêu khắc tượng đá mỹ nghệ",
+            "Trang trí nội - ngoại thất",
+            "Chế tác phù điêu và hoa văn",
+            "Sản xuất quà tặng, đồ lưu niệm",
+            "Gia công sản phẩm thủ công cao cấp",
+            "Chế tạo mẫu trưng bày và nghệ thuật"
+          ]
+        },
+        "compat": {
+          "heading": "Gia công trên nhiều loại đá",
+          "lede": "QS Controller làm việc trên cả đá tự nhiên và đá nhân tạo — tốc độ trục chính và lượng ăn dao được đặt riêng cho từng nhóm vật liệu để giữ chi tiết sắc nét mà không sứt mẻ.",
+          "items": [
+            { "t": "Đá tự nhiên" },
+            { "t": "Đá cẩm thạch" },
+            { "t": "Đá granite" },
+            { "t": "Đá nhân tạo" },
+            { "t": "Vật liệu giả đá" }
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Tạo hình chính xác", "d": "Đảm bảo biên dạng 3D đúng thiết kế." },
+            { "t": "Bề mặt đẹp", "d": "Đường nét sắc nét, bề mặt mịn." },
+            { "t": "Dễ sử dụng", "d": "Giao diện thân thiện, dễ học, dễ vận hành." },
+            { "t": "Tăng năng suất", "d": "Rút ngắn thời gian gia công, tăng tính lặp lại." },
+            { "t": "Linh hoạt tích hợp", "d": "Dễ dàng kết nối, mở rộng với thiết bị khác." },
+            { "t": "Độ ổn định cao", "d": "Hệ thống bền bỉ, hoạt động ổn định lâu dài." }
+          ]
+        },
+        "closing": "Giải pháp điều khiển CNC tối ưu cho máy điêu khắc tượng đá, nâng tầm chất lượng sản phẩm đá mỹ nghệ."
+      },
+      "cat-da": {
+        "tagline": "Cắt chính xác — Vận hành ổn định — Tối ưu năng suất",
+        "heroLede": "QS Controller là giải pháp điều khiển CNC phù hợp cho máy cắt đá, giúp kiểm soát chính xác chuyển động các trục, tối ưu đường cắt và nâng cao độ ổn định khi gia công. Hệ thống hỗ trợ cắt nhiều dạng biên, đường thẳng và biên dạng phức tạp trên đá tự nhiên, đá nhân tạo và nhiều vật liệu dạng tấm.",
+        "strengths": [
+          { "t": "Độ chính xác cao", "d": "Điều khiển chuyển động ổn định, đường cắt rõ nét, sai số thấp." },
+          { "t": "Vận hành ổn định", "d": "Phối hợp đồng bộ giữa các trục, hoạt động bền bỉ trong môi trường gia công." },
+          { "t": "Linh hoạt ứng dụng", "d": "Phù hợp cho nhiều kiểu cắt đá và nhiều cấu hình máy khác nhau." },
+          { "t": "Nâng cao năng suất", "d": "Tối ưu chu trình gia công, giảm thời gian sản xuất lặp lại." }
+        ],
+        "control": {
+          "heading": "QS Controller — trung tâm điều khiển",
+          "items": [
+            { "t": "Điều khiển đa trục", "d": "Hỗ trợ các trục X/Y/Z/A/B/C tùy cấu hình máy." },
+            { "t": "Nội suy mượt", "d": "Giúp đường cắt ổn định trên biên dạng phức tạp." },
+            { "t": "Quản lý chương trình CNC", "d": "Dễ nhập, chỉnh sửa và chạy chương trình gia công." },
+            { "t": "Điều khiển tốc độ chính xác", "d": "Thiết lập thông số phù hợp với từng loại đá và dao cắt." },
+            { "t": "Quản lý I/O linh hoạt", "d": "Kết nối cảm biến, công tắc, làm mát và thiết bị ngoại vi." },
+            { "t": "An toàn & bảo vệ", "d": "Giám sát trạng thái máy, hỗ trợ cảnh báo và dừng khẩn." }
+          ]
+        },
+        "machineParts": {
+          "heading": "Máy CNC cắt đá dùng QS Controller",
+          "items": [
+            { "t": "Cụm trục chính / đầu cắt", "d": "Mang đĩa cắt, điều tốc theo loại đá." },
+            { "t": "Dao cắt", "d": "Đĩa cắt chuyên dụng cho đá tấm và biên dạng." },
+            { "t": "Bàn làm việc", "d": "Đỡ và định vị tấm đá trong suốt đường cắt." },
+            { "t": "Hệ trục chuyển động", "d": "Dẫn động các trục theo quỹ đạo chương trình." },
+            { "t": "Hệ thống làm mát", "d": "Cấp nước làm mát dao cắt và giảm bụi đá." },
+            { "t": "Bộ điều khiển", "d": "QS Controller điều phối toàn bộ chu trình gia công." }
+          ]
+        },
+        "capabilityHeading": "Khả năng gia công đa dạng",
+        "capabilities": [
+          { "t": "Cắt đường thẳng" },
+          { "t": "Cắt biên dạng 2D" },
+          { "t": "Cắt cung tròn" },
+          { "t": "Cắt chữ / logo" },
+          { "t": "Cắt tấm ốp" },
+          { "t": "Cắt chi tiết trang trí" },
+          { "t": "Gia công theo mẫu" }
+        ],
+        "industries": {
+          "items": [
+            "Gia công đá ốp lát",
+            "Cắt mặt bàn đá",
+            "Sản xuất chi tiết trang trí",
+            "Gia công biển hiệu và chữ đá",
+            "Cắt đá nhân tạo theo mẫu",
+            "Chế tạo sản phẩm nội - ngoại thất"
+          ]
+        },
+        "compat": {
+          "heading": "Gia công trên nhiều loại đá",
+          "lede": "Từ đá tự nhiên cứng đến tấm đá nhân tạo dễ sứt cạnh, bộ điều khiển đặt tốc độ đĩa cắt và lượng tiến dao riêng cho từng nhóm vật liệu để giữ mép cắt sạch.",
+          "items": [
+            { "t": "Đá tự nhiên" },
+            { "t": "Đá granite" },
+            { "t": "Đá cẩm thạch" },
+            { "t": "Đá nhân tạo" },
+            { "t": "Vật liệu giả đá" }
+          ]
+        },
+        "benefits": {
+          "items": [
+            { "t": "Cắt chính xác", "d": "Đường cắt đúng biên dạng, sai số thấp." },
+            { "t": "Bề mặt đẹp", "d": "Mép cắt sạch, hạn chế sứt mẻ." },
+            { "t": "Dễ sử dụng", "d": "Giao diện thân thiện, dễ học, dễ vận hành." },
+            { "t": "Tăng năng suất", "d": "Rút ngắn thời gian gia công, tăng tính lặp lại." },
+            { "t": "Linh hoạt tích hợp", "d": "Dễ dàng kết nối, mở rộng với thiết bị khác." },
+            { "t": "Độ ổn định cao", "d": "Hệ thống bền bỉ, hoạt động ổn định lâu dài." }
+          ]
+        },
+        "closing": "Giải pháp điều khiển CNC hiệu quả cho máy cắt đá, nâng cao chất lượng và hiệu suất gia công."
       }
     }
   }

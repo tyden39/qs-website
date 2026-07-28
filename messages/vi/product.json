@@ -82,7 +82,7 @@
       "servo": {
         "label": "Servo",
         "labelGold": "Servo",
-        "blurb": "Hệ truyền động servo QS: driver SDV3 và SDA2 từ 0.4 đến 55 kW, cùng motor, cáp và đầu nối đồng bộ."
+        "blurb": "Hệ truyền động servo QS: driver SDV3 từ 0.4 đến 4 kW, cùng motor, cáp và đầu nối đồng bộ."
       },
       "inverter": {
         "label": "Biến tần",
@@ -142,22 +142,36 @@
     "filterLabel": "Lọc theo",
     "quoteBtn": "Nhận báo giá",
     "modelLine": "Dòng sản phẩm",
-    "accessoriesEyebrow": "[ Phụ kiện đồng bộ ]",
-    "accessoriesHeading": "Motor & cáp đồng bộ",
-    "accessoriesHint": "Các bộ phận ghép bộ tạo thành hệ servo hoàn chỉnh cùng driver.",
-    "accessoriesLink": "Xem chi tiết",
     "ctaHeading": "Cần chọn đúng model {name}?",
     "ctaBody": "Gửi yêu cầu về tải, điện áp và ứng dụng — kỹ thuật QS tư vấn chọn mã, cáp và phụ kiện đồng bộ.",
     "ctaBtn": "Liên hệ kỹ thuật",
     "comingSoon": "Bảng mã chi tiết đang được cập nhật — liên hệ để tra cứu đầy đủ.",
-    "tabs": ["Giới thiệu", "Thông số", "Tài liệu", "Phụ kiện"],
+    "tabs": [
+      "Giới thiệu",
+      "Thông số",
+      "Tài liệu",
+      "Phụ kiện"
+    ],
     "introEyebrow": "[ Tổng quan ]",
     "introHeading": "Giới thiệu sản phẩm",
     "docsEyebrow": "[ Tải tài liệu ]",
     "docsHeading": "Tài liệu & hướng dẫn",
     "docsHint": "Tài liệu từ nhà sản xuất (Savch) — hướng dẫn sử dụng, bản vẽ, phần mềm, catalogue và chứng nhận.",
-    "docsTable": { "name": "Tài liệu", "category": "Loại", "size": "Dung lượng", "download": "Tải" },
-    "docsCategory": { "manual": "Hướng dẫn", "drawing": "Bản vẽ", "software": "Phần mềm", "brochure": "Catalogue", "certificate": "Chứng nhận" },
+    "docsTable": {
+      "name": "Tài liệu",
+      "category": "Loại",
+      "size": "Dung lượng",
+      "download": "Tải",
+      "parts": "{count} phần",
+      "partsHint": "Tách theo cỡ vỏ — chỉ cần tải đúng phần bạn dùng."
+    },
+    "docsCategory": {
+      "manual": "Hướng dẫn",
+      "drawing": "Bản vẽ",
+      "software": "Phần mềm",
+      "brochure": "Catalogue",
+      "certificate": "Chứng nhận"
+    },
     "accessoryImagesEyebrow": "[ Phụ kiện tùy chọn ]",
     "accessoryImagesHeading": "Phụ kiện tùy chọn",
     "paramImagesHeading": "Bảng thông số kỹ thuật",
@@ -303,6 +317,8 @@
     },
     "specsLink": "Xem thông số →",
     "featuresHeading": "[ Tính năng ]",
+    "catalogSpecsHeading": "Thông số kỹ thuật",
+    "catalogFeaturesHeading": "Tính năng chính",
     "catalogCtaBody": "Kỹ sư QS hỗ trợ chọn model phù hợp, kiểm tra khả năng tương thích với máy CNC hiện có và hướng dẫn lắp đặt."
   },
   "list": {

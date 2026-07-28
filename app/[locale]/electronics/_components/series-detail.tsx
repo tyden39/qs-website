@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { buildSeriesProduct, buildTrail, JsonLd } from "@/lib/seo/jsonld";
-import { getSeriesAccessories, type SeriesView } from "@/lib/data/series";
+import { toDocumentRows, type SeriesView } from "@/lib/data/series";
 import type { Locale } from "@/lib/i18n/config";
 import { SeriesModelTable } from "./series-model-table";
 import { SeriesFigures, SeriesNamingFigure, SeriesImageStrip } from "./series-figures";
@@ -44,10 +44,6 @@ export async function SeriesDetail({
   const tCrumb = await getTranslations({ locale, namespace: "product.detailPage.breadcrumb" });
   const tGroups = await getTranslations({ locale, namespace: "product.page.groups" });
 
-  // Accessory series (motor, cables) are not listed on their own; a drive page
-  // surfaces them as the companion parts that complete the servo system.
-  const accessories = series.kind === "driver" ? getSeriesAccessories(locale, series.category) : [];
-
   const categoryPath = CATEGORY_PATH[series.category];
   const categoryLabel = tGroups(`${series.category}.label`);
   const productJsonLd = buildSeriesProduct(series, locale);
@@ -62,13 +58,15 @@ export async function SeriesDetail({
 
   // ── Tab 1: Introduction — the 产品介绍 content. Pure-text manufacturer plates
   //    are re-authored as native bilingual HTML (lead + applications + feature
-  //    groups); the diagram/topology/brochure plates that are not pure text are
-  //    kept as an image gallery beneath the copy. ──
+  //    groups); plates that mix copy with a diagram become an `introSheet` so
+  //    each diagram stays beside its text. Whatever is neither is kept as an
+  //    image gallery beneath the copy. ──
   const intro = detail?.intro;
+  const introSheet = detail?.introSheet ?? [];
   const introImages = detail?.introduction ?? [];
-  const introPanel = (intro || introImages.length > 0) && (
+  const introPanel = (intro || introSheet.length > 0 || introImages.length > 0) && (
     <section className="bg-white border-b border-line py-12 sm:py-16 lg:py-24">
-      <div className="qs-wrap-wide">
+      <div className="qs-wrap-detail">
         <div className="qs-eyebrow mb-2">{t("introEyebrow")}</div>
         <h2 className="qs-h2 mb-6">{t("introHeading")}</h2>
         {intro && (
@@ -106,8 +104,13 @@ export async function SeriesDetail({
             )}
           </>
         )}
+        {introSheet.length > 0 && (
+          <div className={intro ? "mt-14" : ""}>
+            <SeriesSpecSheet blocks={introSheet} zoomLabel={t("galleryZoom")} />
+          </div>
+        )}
         {introImages.length > 0 && (
-          <div className={intro ? "mt-12" : ""}>
+          <div className={intro || introSheet.length > 0 ? "mt-12" : ""}>
             <SeriesImageStrip images={introImages} zoomLabel={t("galleryZoom")} />
           </div>
         )}
@@ -132,18 +135,14 @@ export async function SeriesDetail({
     </dl>
   );
 
-  // ── Tab 2: Specifications — the 产品参数 spec sheets. The model-code decode,
-  //    selection tables and datasheet figures already live inside those images,
-  //    so the native versions render only as a fallback for series that carry
-  //    no param images (e.g. accessory series reached from a drive page). ──
+  // ── Tab 2: Specifications — the 产品参数 spec sheets. The native model-code
+  //    decode, selection tables and figures render first, then the re-authored
+  //    spec sheet, then whatever manufacturer plates have not been rebuilt yet
+  //    as a gallery beneath them. ──
   const specsPanel = (
     <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
-      <div className="qs-wrap-wide">
-        {detail && detail.specSheet.length > 0 ? (
-          <SeriesSpecSheet blocks={detail.specSheet} zoomLabel={t("galleryZoom")} />
-        ) : detail && detail.paramImages.length > 0 ? (
-          <SeriesImageStrip images={detail.paramImages} zoomLabel={t("galleryZoom")} />
-        ) : detail ? (
+      <div className="qs-wrap-detail">
+        {detail ? (
           <div className="flex flex-col gap-14">
             {detail.naming && (
               <div>
@@ -196,6 +195,14 @@ export async function SeriesDetail({
                 zoomLabel={t("figuresZoom")}
               />
             )}
+
+            {detail.specSheet.length > 0 && (
+              <SeriesSpecSheet blocks={detail.specSheet} zoomLabel={t("galleryZoom")} />
+            )}
+
+            {detail.paramImages.length > 0 && (
+              <SeriesImageStrip images={detail.paramImages} zoomLabel={t("galleryZoom")} />
+            )}
           </div>
         ) : (
           <div className="border border-dashed border-gold/60 bg-paper p-8 lg:p-10 text-center">
@@ -211,18 +218,25 @@ export async function SeriesDetail({
     </section>
   );
 
-  // ── Tab 3: Documentation — the 资料下载 download list (URLs kept as-is),
-  //    grouped by document type so a long list stays browsable. Each present
-  //    category renders its own table; the category badge becomes the group
-  //    heading, so the per-row type column is dropped. ──
-  const docs = detail?.documentation ?? [];
+  // ── Tab 3: Documentation — the 资料下载 download list, grouped by document
+  //    type so a long list stays browsable. Each present category renders its
+  //    own table; the category badge becomes the group heading, so the per-row
+  //    type column is dropped. A document that ships in parts occupies one row
+  //    that expands into its slices. ──
+  const docs = toDocumentRows(detail?.documentation ?? []);
+  // A PDF is worth opening in the browser's viewer; an archive would only leave
+  // a blank tab behind, so it saves straight to disk.
+  const fileLinkProps = (format: string) =>
+    format === "pdf"
+      ? { target: "_blank", rel: "noopener noreferrer" }
+      : { download: true };
   const docGroups = DOC_CATEGORY_ORDER.map((category) => ({
     category,
     items: docs.filter((d) => d.category === category),
   })).filter((g) => g.items.length > 0);
   const docsPanel = docs.length > 0 && (
     <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
-      <div className="qs-wrap-wide">
+      <div className="qs-wrap-detail">
         <div className="qs-eyebrow mb-2">{t("docsEyebrow")}</div>
         <h2 className="qs-h2 mb-3">{t("docsHeading")}</h2>
         <p className="text-meta text-muted leading-[1.7] max-w-[62ch] mb-10">{t("docsHint")}</p>
@@ -243,29 +257,76 @@ export async function SeriesDetail({
                   <span>{t("docsTable.size")}</span>
                   <span className="text-right">{t("docsTable.download")}</span>
                 </div>
-                {group.items.map((d, i) => (
-                  <div
-                    key={`${d.url}-${i}`}
-                    className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 py-4 border-t border-line hover:bg-paper transition-colors"
-                  >
-                    <span className="font-semibold text-ink text-meta tracking-[-.005em] min-w-0">
-                      {d.title}
-                    </span>
-                    <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
-                      {d.size_mb ? `${d.size_mb} MB` : "—"}
-                    </span>
-                    <div className="flex md:justify-end">
-                      <a
-                        href={d.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors font-mono text-label tracking-[.14em] uppercase"
-                      >
-                        {d.format.toUpperCase()} ↓
-                      </a>
+                {group.items.map((d) =>
+                  d.parts ? (
+                    // Multi-part document: a native disclosure, so the row
+                    // expands with no client-side state behind it.
+                    <details key={d.key} className="group/doc border-t border-line">
+                      <summary className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 py-4 cursor-pointer list-none hover:bg-paper transition-colors [&::-webkit-details-marker]:hidden">
+                        <span className="min-w-0">
+                          <span className="font-semibold text-ink text-meta tracking-[-.005em]">
+                            {d.title}
+                          </span>
+                          <span className="block text-label text-muted mt-0.5">
+                            {t("docsTable.partsHint")}
+                          </span>
+                        </span>
+                        <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
+                          {d.size_mb ? `${d.size_mb} MB` : "—"}
+                        </span>
+                        <div className="flex md:justify-end">
+                          <span className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink text-ink px-4 py-2 group-hover/doc:bg-ink group-hover/doc:text-white transition-colors font-mono text-label tracking-[.14em] uppercase">
+                            {t("docsTable.parts", { count: d.parts.length })}
+                            <span className="transition-transform group-open/doc:rotate-180">▾</span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div className="bg-paper border-t border-line">
+                        {d.parts.map((p) => (
+                          <div
+                            key={p.url}
+                            className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 md:pl-10 py-3 border-t border-line/60 first:border-t-0"
+                          >
+                            <span className="text-meta text-[#3a3a3a] min-w-0">{p.label}</span>
+                            <span className="font-mono text-label text-muted">
+                              {p.size_mb ? `${p.size_mb} MB` : "—"}
+                            </span>
+                            <div className="flex md:justify-end">
+                              <a
+                                href={p.url}
+                                {...fileLinkProps(d.format)}
+                                className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors font-mono text-label tracking-[.14em] uppercase"
+                              >
+                                {d.format.toUpperCase()} ↓
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </details>
+                  ) : (
+                    <div
+                      key={d.key}
+                      className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 py-4 border-t border-line hover:bg-paper transition-colors"
+                    >
+                      <span className="font-semibold text-ink text-meta tracking-[-.005em] min-w-0">
+                        {d.title}
+                      </span>
+                      <span className="font-mono text-label text-muted md:text-[#3a3a3a]">
+                        {d.size_mb ? `${d.size_mb} MB` : "—"}
+                      </span>
+                      <div className="flex md:justify-end">
+                        <a
+                          href={d.url}
+                          {...fileLinkProps(d.format)}
+                          className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors font-mono text-label tracking-[.14em] uppercase"
+                        >
+                          {d.format.toUpperCase()} ↓
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ),
+                )}
               </div>
             </div>
           ))}
@@ -274,57 +335,19 @@ export async function SeriesDetail({
     </section>
   );
 
-  // ── Tab 4: Accessories — QS companion series (driver pages) + the 可选配件
-  //    manufacturer gallery. ──
+  // ── Tab 4: Accessories — the 可选配件 catalogue (cable reference table and
+  //    model-code decodes), re-authored where a sheet exists. ──
   const accessoryImages = detail?.accessoryImages ?? [];
   const accessorySheet = detail?.accessorySheet ?? [];
-  const hasAccessories =
-    accessories.length > 0 || accessorySheet.length > 0 || accessoryImages.length > 0;
-  const accessoriesPanel = hasAccessories && (
+  const accessoriesPanel = (accessorySheet.length > 0 || accessoryImages.length > 0) && (
     <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
-      <div className="qs-wrap-wide flex flex-col gap-14">
-        {accessories.length > 0 && (
-          <div>
-            <div className="qs-eyebrow mb-2">{t("accessoriesEyebrow")}</div>
-            <h2 className="qs-h2 mb-3">{t("accessoriesHeading")}</h2>
-            <p className="text-meta text-muted leading-[1.7] max-w-[62ch] mb-8">
-              {t("accessoriesHint")}
-            </p>
-            <div className="grid gap-px bg-line border border-line sm:grid-cols-2 lg:grid-cols-3">
-              {accessories.map((a) => (
-                <Link
-                  key={a.slug}
-                  href={`/electronics/${a.slug}`}
-                  className="group bg-white p-6 flex flex-col gap-2 hover:bg-white/60 transition-colors"
-                >
-                  <span className="font-mono text-label-xs tracking-[.16em] uppercase text-gold-1">
-                    {a.tag}
-                  </span>
-                  <span className="font-display text-title font-bold tracking-[-.02em] text-ink">
-                    {a.name}
-                  </span>
-                  <span className="text-meta leading-[1.6] text-[#3a3a3a] line-clamp-3">
-                    {a.desc}
-                  </span>
-                  <span className="mt-2 font-mono text-label-xs tracking-[.14em] uppercase text-ink group-hover:text-gold-1 transition-colors">
-                    {t("accessoriesLink")} <span aria-hidden="true">→</span>
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {(accessorySheet.length > 0 || accessoryImages.length > 0) && (
-          <div>
-            <div className="qs-eyebrow mb-2">{t("accessoryImagesEyebrow")}</div>
-            <h2 className="qs-h2 mb-8">{t("accessoryImagesHeading")}</h2>
-            {accessorySheet.length > 0 ? (
-              <SeriesSpecSheet blocks={accessorySheet} zoomLabel={t("galleryZoom")} />
-            ) : (
-              <SeriesImageStrip images={accessoryImages} zoomLabel={t("galleryZoom")} />
-            )}
-          </div>
+      <div className="qs-wrap-detail">
+        <div className="qs-eyebrow mb-2">{t("accessoryImagesEyebrow")}</div>
+        <h2 className="qs-h2 mb-8">{t("accessoryImagesHeading")}</h2>
+        {accessorySheet.length > 0 ? (
+          <SeriesSpecSheet blocks={accessorySheet} zoomLabel={t("galleryZoom")} />
+        ) : (
+          <SeriesImageStrip images={accessoryImages} zoomLabel={t("galleryZoom")} />
         )}
       </div>
     </section>
@@ -350,7 +373,7 @@ export async function SeriesDetail({
           className="absolute -right-20 top-0 h-[420px] w-[420px] rounded-full bg-gold-2/10 blur-3xl"
           aria-hidden="true"
         />
-        <div className="relative qs-wrap-wide pt-8 pb-14 lg:pt-10 lg:pb-16">
+        <div className="relative qs-wrap-detail pt-8 pb-14 lg:pt-10 lg:pb-16">
           <div className="qs-crumb mb-8 text-[#8f8878]">
             <Link href="/">{tCrumb("home")}</Link>
             <span className="sep">/</span>
@@ -416,7 +439,7 @@ export async function SeriesDetail({
 
       {/* ── CTA ── */}
       <section className="py-12 sm:py-16 lg:py-24 bg-white">
-        <div className="qs-wrap-wide">
+        <div className="qs-wrap-detail">
           <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
             <div>
               <h3 className="font-display font-bold text-h2 text-white tracking-[-.01em] m-0">

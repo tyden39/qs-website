@@ -5,7 +5,7 @@ import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllDownloads, getDownloadGroups, groupByDocument, formatBytes } from "@/lib/data/downloads";
 import type { DownloadDoc, DownloadFile } from "@/lib/data/downloads";
-import { getSeries } from "@/lib/data/series";
+import { getSeries, toDocumentRows } from "@/lib/data/series";
 import { DownloadsTree } from "./_components/downloads-tree";
 import type { DlGroup, DlProduct, DlRow } from "./_components/downloads-tree";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -116,30 +116,49 @@ export default async function Downloads({ params }: Props) {
   const driveProducts = (list: typeof servo): DlProduct[] =>
     list
       .map((s) => {
-        const docs = s.detail?.documentation ?? [];
+        const docs = toDocumentRows(s.detail?.documentation ?? []);
+        const mb = (n?: number) => (n ? `${n} MB` : "—");
         const groups = DRIVE_DOC_ORDER.map((cat) => ({
           id: cat,
           label: t(`docGroup.${cat}`),
           rows: docs
             .filter((d) => d.category === cat)
-            .map((d, i) => ({
-              key: `${s.slug}-${cat}-${i}`,
-              title: d.title,
-              ext: d.format.toUpperCase(),
-              version: "—",
-              productHref: `/electronics/${s.slug}`,
-              productLabel: s.name,
-              variants: [
-                {
-                  lang: d.lang.toUpperCase(),
-                  url: d.url,
-                  sizeLabel: d.size_mb ? `${d.size_mb} MB` : "—",
-                  // Mirrored files are site-relative and download in place; a
-                  // document left on the manufacturer's origin opens in a tab.
-                  external: d.url.startsWith("http"),
-                },
-              ],
-            })),
+            .map((d, i): DlRow => {
+              const head = {
+                key: `${s.slug}-${cat}-${i}`,
+                title: d.title,
+                ext: d.format.toUpperCase(),
+                version: "—",
+                productHref: `/electronics/${s.slug}`,
+                productLabel: s.name,
+              };
+              if (d.parts) {
+                return {
+                  ...head,
+                  sizeLabel: mb(d.size_mb),
+                  partsLabel: t("table.parts", { count: d.parts.length }),
+                  partsHint: t("table.partsHint"),
+                  parts: d.parts.map((p) => ({
+                    label: p.label,
+                    url: p.url,
+                    sizeLabel: mb(p.size_mb),
+                  })),
+                };
+              }
+              return {
+                ...head,
+                variants: [
+                  {
+                    lang: d.lang.toUpperCase(),
+                    url: d.url!,
+                    sizeLabel: mb(d.size_mb),
+                    // Mirrored files are site-relative and download in place; a
+                    // document left on the manufacturer's origin opens in a tab.
+                    external: d.url!.startsWith("http"),
+                  },
+                ],
+              };
+            }),
         })).filter((dg) => dg.rows.length > 0);
         return { id: s.slug, label: s.name, groups };
       })

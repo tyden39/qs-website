@@ -82,6 +82,14 @@ export type SeriesDocumentation = {
   format: "pdf" | "rar" | "zip";
   size_mb?: number;
   date?: string;
+  /** Set on the slices of a document that ships in parts — an archive too large
+   *  for the static host's per-file ceiling, split along a seam the content
+   *  already has (one CAD model per inverter frame size). Slices carrying the
+   *  same `group` share one `title` and collapse into a single expandable row;
+   *  `part` names the slice ("Size 1 (4T0.75G-4T2.2G)") and stays
+   *  locale-neutral, being model codes throughout. */
+  group?: string;
+  part?: string;
 };
 
 /** One feature group inside the rebuilt introduction — a heading plus its

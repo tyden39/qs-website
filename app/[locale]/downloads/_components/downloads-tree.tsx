@@ -22,7 +22,12 @@ export type DlVariant = {
   external?: boolean;
 };
 
-/** A document row: one logical document with its language/source variants. */
+/** One slice of a document that ships in parts. */
+export type DlPart = { label: string; url: string; sizeLabel: string };
+
+/** A document row: one logical document, carried either as its language/source
+ *  variants or — for an archive split to fit the host's per-file ceiling — as
+ *  the parts it was split into, which expand under the row. */
 export type DlRow = {
   key: string;
   title: string;
@@ -33,7 +38,14 @@ export type DlRow = {
   /** Product detail link when the document belongs to a catalogue product. */
   productHref?: string;
   productLabel?: string;
-  variants: DlVariant[];
+  variants?: DlVariant[];
+  parts?: DlPart[];
+  /** Combined size of the parts, shown on the parent row. */
+  sizeLabel?: string;
+  /** Localized "N parts" toggle label and the line explaining the split.
+   *  Resolved on the server, since this component cannot format messages. */
+  partsLabel?: string;
+  partsHint?: string;
 };
 
 /** A document group inside a product (e.g. Manuals, Drawings) — rendered as a
@@ -81,7 +93,10 @@ function DocTable({
         <span>{headers.version}</span>
         <span className="text-right">{headers.download}</span>
       </div>
-      {rows.map((row) => (
+      {rows.map((row) =>
+        row.parts ? (
+          <MultiPartRow key={row.key} row={row} />
+        ) : (
         <div
           key={row.key}
           className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line transition-colors hover:bg-paper
@@ -113,7 +128,7 @@ function DocTable({
           <span className="font-mono text-label text-muted md:text-[#3a3a3a] tabular-nums">{row.version}</span>
           {/* download — one button per variant */}
           <div className="flex flex-wrap gap-2 md:justify-end">
-            {row.variants.map((v) => (
+            {row.variants?.map((v) => (
               <a
                 key={v.url}
                 href={v.url}
@@ -129,8 +144,78 @@ function DocTable({
             ))}
           </div>
         </div>
-      ))}
+        ),
+      )}
     </div>
+  );
+}
+
+/**
+ * A document that ships in parts: one row that expands into its slices. Built on
+ * `<details>` so the disclosure needs no state — the surrounding tree is a
+ * client component only because of its tab selection.
+ */
+function MultiPartRow({ row }: { row: DlRow }) {
+  return (
+    <details className="group/doc relative border-t border-line">
+      <summary
+        className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 cursor-pointer list-none transition-colors hover:bg-paper [&::-webkit-details-marker]:hidden
+                   before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-gold-grad before:opacity-0 before:transition-opacity hover:before:opacity-100"
+      >
+        <div className="flex items-center gap-4">
+          <span className="relative w-11 h-[54px] flex-shrink-0 grid place-items-center bg-[#11120f] text-gold-2 font-mono text-label-xs font-bold tracking-[.06em] overflow-hidden
+                           before:content-[''] before:absolute before:top-0 before:right-0 before:border-t-[11px] before:border-l-[11px] before:border-t-transparent before:border-l-[#2a2822]
+                           after:content-[''] after:absolute after:top-0 after:right-0 after:border-t-[11px] after:border-r-[11px] after:border-t-gold-2/70 after:border-r-transparent">
+            {row.ext}
+          </span>
+          <div className="flex flex-col gap-0.5 min-w-0">
+            <span className="font-semibold text-ink text-meta tracking-[-.005em] group-hover/row:text-black">
+              {row.title}
+            </span>
+            {row.partsHint && (
+              <span className="text-label text-muted">{row.partsHint}</span>
+            )}
+            {row.productHref && (
+              <span className="font-mono text-label text-gold-1 tracking-[.06em]">
+                {row.productLabel}
+              </span>
+            )}
+          </div>
+        </div>
+        <span className="font-mono text-label text-muted md:text-[#3a3a3a] tabular-nums">
+          {row.sizeLabel ?? row.version}
+        </span>
+        <div className="flex md:justify-end">
+          <span className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink text-ink px-4 py-2 transition-colors group-hover/doc:bg-ink group-hover/doc:text-white font-mono text-label tracking-[.14em] uppercase">
+            {row.partsLabel}
+            <span className="transition-transform group-open/doc:rotate-180">▾</span>
+          </span>
+        </div>
+      </summary>
+      <div className="bg-paper">
+        {row.parts?.map((p) => (
+          <div
+            key={p.url}
+            className="grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-2 items-center px-5 md:pl-20 py-3 border-t border-line/60"
+          >
+            <span className="text-meta text-[#3a3a3a] min-w-0">{p.label}</span>
+            <span className="font-mono text-label text-muted tabular-nums">{p.sizeLabel}</span>
+            <div className="flex md:justify-end">
+              <a
+                href={p.url}
+                download
+                className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 transition-colors hover:bg-gold-3 hover:border-gold-3
+                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2 focus-visible:ring-offset-1"
+              >
+                <span className="font-mono text-label tracking-[.14em] uppercase">
+                  {row.ext} ↓
+                </span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
   );
 }
 

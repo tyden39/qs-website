@@ -82,7 +82,7 @@
       "servo": {
         "label": "Servo",
         "labelGold": "Servo",
-        "blurb": "QS servo drive line: SDV3 and SDA2 drivers from 0.4 to 55 kW, with matching motors, cables and connectors."
+        "blurb": "QS servo drive line: SDV3 drivers from 0.4 to 4 kW, with matching motors, cables and connectors."
       },
       "inverter": {
         "label": "Inverters",
@@ -142,22 +142,36 @@
     "filterLabel": "Filter by",
     "quoteBtn": "Request a quote",
     "modelLine": "Product series",
-    "accessoriesEyebrow": "[ Matched accessories ]",
-    "accessoriesHeading": "Matched motor & cables",
-    "accessoriesHint": "Companion parts that complete the servo system with this drive.",
-    "accessoriesLink": "View details",
     "ctaHeading": "Need the right {name} model?",
     "ctaBody": "Send us the load, voltage and application — QS engineering helps pick the model code, cable and matching accessories.",
     "ctaBtn": "Contact engineering",
     "comingSoon": "The detailed model table is being updated — contact us for the full part list.",
-    "tabs": ["Introduction", "Specifications", "Documentation", "Accessories"],
+    "tabs": [
+      "Introduction",
+      "Specifications",
+      "Documentation",
+      "Accessories"
+    ],
     "introEyebrow": "[ Overview ]",
     "introHeading": "Product introduction",
     "docsEyebrow": "[ Downloads ]",
     "docsHeading": "Manuals & documentation",
     "docsHint": "Manufacturer documents (Savch) — manuals, drawings, software, brochures and certificates.",
-    "docsTable": { "name": "Document", "category": "Type", "size": "Size", "download": "Download" },
-    "docsCategory": { "manual": "Manual", "drawing": "Drawing", "software": "Software", "brochure": "Brochure", "certificate": "Certificate" },
+    "docsTable": {
+      "name": "Document",
+      "category": "Type",
+      "size": "Size",
+      "download": "Download",
+      "parts": "{count} parts",
+      "partsHint": "Split by frame size — download only the one you need."
+    },
+    "docsCategory": {
+      "manual": "Manual",
+      "drawing": "Drawing",
+      "software": "Software",
+      "brochure": "Brochure",
+      "certificate": "Certificate"
+    },
     "accessoryImagesEyebrow": "[ Optional accessories ]",
     "accessoryImagesHeading": "Optional accessories",
     "paramImagesHeading": "Specification sheets",
@@ -303,6 +317,8 @@
     },
     "specsLink": "View specs →",
     "featuresHeading": "[ Features ]",
+    "catalogSpecsHeading": "Technical specifications",
+    "catalogFeaturesHeading": "Key features",
     "catalogCtaBody": "QS engineers help you pick the right model, confirm compatibility with your existing CNC machine, and walk you through installation."
   },
   "list": {

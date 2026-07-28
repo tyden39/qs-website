@@ -75,7 +75,9 @@
       "lang": "Ngôn ngữ",
       "version": "Phiên bản",
       "size": "Dung lượng",
-      "download": "Tải về"
+      "download": "Tải về",
+      "parts": "{count} phần",
+      "partsHint": "Tách theo cỡ vỏ — chỉ cần tải đúng phần bạn dùng."
     },
     "plc": {
       "tag": "[ Tài liệu PLC ]",

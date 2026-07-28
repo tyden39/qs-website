@@ -75,7 +75,9 @@
       "lang": "Language",
       "version": "Version",
       "size": "File size",
-      "download": "Download"
+      "download": "Download",
+      "parts": "{count} parts",
+      "partsHint": "Split by frame size — download only the one you need."
     },
     "plc": {
       "tag": "[ PLC documents ]",

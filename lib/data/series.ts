@@ -99,6 +99,69 @@ export type SheetBlockView =
  *  it describes the file's own language, which the UI may badge. */
 export type SeriesDocumentationView = Omit<SeriesDocumentation, "titleEn">;
 
+/** One slice of a document that ships in parts. */
+export type SeriesDocumentPart = { label: string; url: string; size_mb?: number };
+
+/**
+ * A document as the download tables print it: either a single file (`url` set)
+ * or a set of parts collapsed under one title (`parts` set, `url` absent), so a
+ * split archive occupies one row that expands rather than a dozen sibling rows.
+ * `size_mb` is the file's size for a single document and the sum across parts
+ * for a split one.
+ */
+export type SeriesDocumentRow = {
+  key: string;
+  title: string;
+  category: SeriesDocumentation["category"];
+  lang: SeriesDocumentation["lang"];
+  format: SeriesDocumentation["format"];
+  url?: string;
+  size_mb?: number;
+  parts?: SeriesDocumentPart[];
+};
+
+/**
+ * Collapse a series' document list into display rows, folding every slice that
+ * shares a `group` into one multi-part row and leaving ungrouped documents as
+ * they are. Order follows first appearance, so the manufacturer's ordering
+ * survives.
+ */
+export function toDocumentRows(docs: SeriesDocumentationView[]): SeriesDocumentRow[] {
+  const rows: SeriesDocumentRow[] = [];
+  const byGroup = new Map<string, SeriesDocumentRow>();
+  for (const [i, d] of docs.entries()) {
+    if (!d.group) {
+      rows.push({
+        key: `${d.url}-${i}`,
+        title: d.title,
+        category: d.category,
+        lang: d.lang,
+        format: d.format,
+        url: d.url,
+        size_mb: d.size_mb,
+      });
+      continue;
+    }
+    let row = byGroup.get(d.group);
+    if (!row) {
+      row = {
+        key: d.group,
+        title: d.title,
+        category: d.category,
+        lang: d.lang,
+        format: d.format,
+        size_mb: 0,
+        parts: [],
+      };
+      byGroup.set(d.group, row);
+      rows.push(row);
+    }
+    row.parts!.push({ label: d.part ?? d.title, url: d.url, size_mb: d.size_mb });
+    row.size_mb = Number(((row.size_mb ?? 0) + (d.size_mb ?? 0)).toFixed(2));
+  }
+  return rows;
+}
+
 export type SeriesDetailView = {
   naming?: {
     code: string;

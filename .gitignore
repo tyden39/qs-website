@@ -24,6 +24,8 @@ images-origin/
 
 # source product PDFs (large originals, not bundled)
 *.pdf
+# the download library ships with the site, so those PDFs stay tracked
+!public/downloads/**/*.pdf
 
 # crawl scratch data (not bundled)
 download/

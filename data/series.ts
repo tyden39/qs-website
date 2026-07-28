@@ -66,12 +66,16 @@ export type SeriesFigure = {
 export type SeriesCodeSegment = { text: string; label: string; labelEn: string };
 
 /** A downloadable document catalogued from the manufacturer's 资料下载 tab.
- *  We store the source URL only (files stay hosted on savch.net); `lang` is the
- *  document's own language (the file itself), independent of the display `title`
- *  which is localized (`title` Vietnamese, `titleEn` English). */
+ *  The file itself is mirrored into `public/downloads/series/<slug>/`, so `url`
+ *  is a site-relative path — serving it ourselves keeps the download at our own
+ *  edge instead of the manufacturer's origin. `lang` is the document's own
+ *  language (the file itself), independent of the display `title`, which is
+ *  localized (`title` Vietnamese, `titleEn` English). Manufacturer document
+ *  names are English-only in practice, so `titleEn` is optional and the view
+ *  falls back to `title`. */
 export type SeriesDocumentation = {
   title: string;
-  titleEn: string;
+  titleEn?: string;
   category: "manual" | "drawing" | "software" | "brochure" | "certificate";
   lang: "zh" | "en" | "vi" | "id";
   url: string;
@@ -164,7 +168,16 @@ export type SheetCableRow = {
 export type SheetBlock =
   | { kind: "heading"; text: Loc; sub?: Loc }
   | { kind: "note"; text: Loc }
+  /** A bullet list — the manufacturer's feature plates state each capability as
+   *  its own line, so they read as a list rather than a paragraph. */
+  | { kind: "bullets"; items: Loc[] }
   | { kind: "image"; src: string; w: number; h: number; alt: Loc; caption?: Loc }
+  /** Two or three drawings that belong side by side — the manufacturer prints
+   *  the front views of several frame sizes on one line to be compared. */
+  | {
+      kind: "imageRow";
+      images: { src: string; w: number; h: number; alt: Loc; caption?: Loc }[];
+    }
   | { kind: "naming"; code: string; branches: SheetNamingBranch[] }
   | {
       kind: "specList";
@@ -240,19 +253,28 @@ export type SeriesDetail = {
   };
   /** 产品介绍 — re-authored bilingual introduction content. */
   intro?: SeriesIntro;
+  /** Re-authored 产品介绍 detail: the feature plates whose copy is interleaved
+   *  with a diagram, rebuilt as native bilingual blocks and rendered under the
+   *  Introduction tab beneath `intro`. The diagrams themselves ride along as
+   *  `image` blocks so each one stays beside the text it illustrates. */
+  introSheet?: SheetBlock[];
   /** 产品介绍 gallery — the manufacturer's introduction plates (product
    *  diagrams, wiring/topology charts, brochure pages) that are not pure text,
    *  shown under the Introduction tab beneath the re-authored `intro` copy.
    *  Pure-text plates are re-authored into `intro` instead of kept here. */
   introduction?: SeriesPhoto[];
-  tables: SeriesModelTable[];
+  /** Selection / compatibility grids. Omitted where the per-model data lives in
+   *  the rebuilt `specSheet` instead — carrying both would print the same
+   *  ratings twice on one tab. */
+  tables?: SeriesModelTable[];
   figures?: SeriesFigure[];
   /** 产品参数 gallery — spec sheets published as images, shown under the
    *  Specifications tab below the machine-readable series specs. */
   paramImages?: SeriesPhoto[];
   /** Re-authored 产品参数 sheet: text/table plates rebuilt as native bilingual
-   *  blocks. When present it renders in place of `paramImages`; cropped drawings
-   *  ride along as `image` blocks. */
+   *  blocks, rendered under the Specifications tab after the naming decode and
+   *  selection tables. Cropped drawings ride along as `image` blocks; whatever
+   *  plates have not been rebuilt yet stay in `paramImages` beneath it. */
   specSheet?: SheetBlock[];
   /** 资料下载 — downloadable documents (URL catalogue only). */
   documentation?: SeriesDocumentation[];

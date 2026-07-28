@@ -110,7 +110,9 @@ export default async function Downloads({ params }: Props) {
 
   // Drive (servo/inverter) families: one product per series → doc groups
   // (manual, drawing, software, brochure, certificate) pulled from the series
-  // data. Documents are external source PDFs, also shown on the detail page.
+  // data. The manufacturer's files are mirrored under public/downloads/series so
+  // they download from our own origin; anything too large for the static host
+  // keeps its manufacturer URL and is linked out instead.
   const driveProducts = (list: typeof servo): DlProduct[] =>
     list
       .map((s) => {
@@ -132,7 +134,9 @@ export default async function Downloads({ params }: Props) {
                   lang: d.lang.toUpperCase(),
                   url: d.url,
                   sizeLabel: d.size_mb ? `${d.size_mb} MB` : "—",
-                  external: true,
+                  // Mirrored files are site-relative and download in place; the
+                  // few still served from the manufacturer open in a new tab.
+                  external: d.url.startsWith("http"),
                 },
               ],
             })),

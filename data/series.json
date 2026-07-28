@@ -54,130 +54,845 @@
     },
     "sourceUrl": "https://en.savch.net/SDV3Economicservo/55.html",
     "detail": {
-      "tables": [],
-      "introduction": [
+      "intro": {
+        "lead": "Dòng SDV3 là hệ servo trọn bộ (motor và driver) tối ưu chi phí, dùng được trên dải thiết bị công nghiệp rất rộng.",
+        "leadEn": "The SDV3 series is a cost-effective servo system (motor and drive) that suits a very wide range of industrial equipment.",
+        "applications": "Máy khắc laser, robot khớp, tay máy tuyến tính, máy chế biến gỗ, máy kính, máy ép nhựa, thiết bị hàn và cắt, thiết bị gốm sứ, máy dệt, thiết bị kiểm tra, thiết bị sản xuất cáp, thiết bị pin lithium, thiết bị điện tử, máy phay, máy mài, máy tiện CNC, dây chuyền thực phẩm, dây chuyền đóng gói, máy khắc – phay, máy khắc, máy đánh bóng high-light, máy quấn, máy dệt kim sợi dọc, máy dán nhãn, máy lạng gỗ…",
+        "applicationsEn": "Laser marking machines, joint robots, linear mechanical hands, wood machinery, glass machinery, injection moulding machinery, welding and cutting equipment, ceramic equipment, textile equipment, testing equipment, cable equipment, lithium battery equipment, electronic manufacturing equipment, milling machines, grinding machines, CNC lathes, food production lines, packaging production lines, engraving and milling machines, engraving machines, high-light machines, around-line machines, warp knitting machines, labelling machines, veneer machines and more.",
+        "sections": [
+          {
+            "title": "Hiệu năng cao",
+            "titleEn": "High performance",
+            "items": [
+              {
+                "t": "Tần số đáp ứng đến 1.2 kHz",
+                "tEn": "Response frequency up to 1.2 kHz"
+              },
+              {
+                "t": "Hỗ trợ encoder 17 bit / 20 bit",
+                "tEn": "Supports 17-bit / 20-bit encoders"
+              },
+              {
+                "t": "Moment răng lược (cogging) thấp",
+                "tEn": "Low cogging torque"
+              },
+              {
+                "t": "Khả năng quá tải gấp 3 lần",
+                "tEn": "3× overload ability"
+              }
+            ]
+          },
+          {
+            "title": "Thông minh",
+            "titleEn": "Intelligent",
+            "items": [
+              {
+                "t": "Nhận dạng quán tính tải",
+                "tEn": "Load inertia identification"
+              },
+              {
+                "t": "Tự chỉnh gain theo thời gian thực",
+                "tEn": "Real-time automatic gain adjustment"
+              },
+              {
+                "t": "Bộ lọc notch tự động / thủ công",
+                "tEn": "Automatic / manual notch filter"
+              },
+              {
+                "t": "Điều khiển triệt rung tự động / thủ công",
+                "tEn": "Automatic / manual vibration suppression control"
+              }
+            ]
+          },
+          {
+            "title": "Thực dụng",
+            "titleEn": "Practical",
+            "items": [
+              {
+                "t": "Hàm script linh hoạt",
+                "tEn": "Highly flexible script function"
+              },
+              {
+                "t": "Gán tự do chức năng cho tín hiệu vào/ra",
+                "tEn": "Freely assigned input/output signals"
+              },
+              {
+                "t": "Chế độ lập trình vị trí nội bộ",
+                "tEn": "Internal position programming mode"
+              },
+              {
+                "t": "Điều khiển vị trí có ngắt",
+                "tEn": "Interrupt position control"
+              },
+              {
+                "t": "Bù moment ma sát",
+                "tEn": "Friction torque compensation"
+              },
+              {
+                "t": "Chuyển gain",
+                "tEn": "Gain switch"
+              },
+              {
+                "t": "Thay đổi giới hạn moment",
+                "tEn": "Torque limit change"
+              },
+              {
+                "t": "Motor và driver nhỏ gọn",
+                "tEn": "Motor and drive miniaturization"
+              },
+              {
+                "t": "Hỗ trợ CANopen, EtherCAT để đồng bộ đa trục đáp ứng cao",
+                "tEn": "Supports CANopen and EtherCAT for high-response multi-axis synchronization control"
+              }
+            ]
+          }
+        ]
+      },
+      "introSheet": [
         {
-          "src": "/img/products/series/sdv3/intro/01.webp",
-          "w": 900,
-          "h": 580,
-          "alt": "SDV3 — giới thiệu 01",
-          "altEn": "SDV3 — introduction 01"
+          "kind": "heading",
+          "text": {
+            "vi": "Bộ lọc notch tự động",
+            "en": "Notch filter (auto-notch filter)"
+          }
         },
         {
-          "src": "/img/products/series/sdv3/intro/02.webp",
-          "w": 900,
-          "h": 1398,
-          "alt": "SDV3 — giới thiệu 02",
-          "altEn": "SDV3 — introduction 02"
+          "kind": "bullets",
+          "items": [
+            {
+              "vi": "Khi phát hiện cộng hưởng cơ khí, bộ lọc notch được đặt tự động.",
+              "en": "When mechanical resonance is detected, the notch filter is set automatically."
+            },
+            {
+              "vi": "Khi bật bộ lọc notch tự động, driver dò cộng hưởng liên tục nên xử lý được cả trường hợp tần số cộng hưởng thay đổi theo thời gian.",
+              "en": "With the automatic notch filter switched on the drive keeps detecting, so it also copes with a resonance frequency that varies over time."
+            }
+          ]
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/sdv3/intro/notch-filter.webp",
+          "w": 1536,
+          "h": 1024,
+          "alt": {
+            "vi": "SDV3 — điểm cộng hưởng cơ khí, đặc tuyến bộ lọc notch và dạng rung khi bật/tắt notch tự động",
+            "en": "SDV3 — mechanical resonance points, notch filter response and the vibration trace with the auto-notch filter off and on"
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Triệt rung cơ khí",
+            "en": "Mechanical vibration suppression"
+          }
+        },
+        {
+          "kind": "bullets",
+          "items": [
+            {
+              "vi": "Hàm điều khiển triệt rung thế hệ mới là trang bị tiêu chuẩn, giảm tối đa rung động của máy.",
+              "en": "The newly designed vibration suppression control function is standard and maximizes the suppression of machine vibration."
+            },
+            {
+              "vi": "Xử lý được rung ở đầu tay robot có độ cứng vững thấp, giữ máy chạy ổn định.",
+              "en": "It solves the vibration of a low-rigidity machine at the front of a robot arm and keeps the machine running stably."
+            }
+          ]
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/sdv3/intro/vibration-suppression.webp",
+          "w": 1600,
+          "h": 746,
+          "alt": {
+            "vi": "SDV3 — tay gắp rung khi không có bộ lọc triệt rung so với tay gắp ổn định khi bật bộ lọc",
+            "en": "SDV3 — arm jitter without the vibration filter compared with manipulator stability when the filter is on"
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Hàm tự chỉnh thế hệ mới",
+            "en": "New auto-tuning function"
+          }
+        },
+        {
+          "kind": "bullets",
+          "items": [
+            {
+              "vi": "Hàm auto-tuning thiết kế lại nâng rõ khả năng tự thích nghi của SDV3; kể cả máy có độ cứng vững thấp vẫn chỉnh được về mức phù hợp nhất.",
+              "en": "The newly designed auto-tuning function greatly improves the SDV3's self-adaptive performance. Even a machine with low rigidity is tuned to the most appropriate setting."
+            }
+          ]
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/sdv3/intro/auto-tuning.webp",
+          "w": 1530,
+          "h": 1028,
+          "alt": {
+            "vi": "SDV3 — tốc độ lệnh, tốc độ phản hồi và moment khi chưa có và khi có hàm auto-tuning mới",
+            "en": "SDV3 — reference speed, feedback speed and torque without and with the new auto-tuning function"
+          }
+        },
+        {
+          "kind": "note",
+          "text": {
+            "vi": "Trước đây, khi độ cứng vững của máy thấp thì máy dễ cộng hưởng nên không nâng được đáp ứng. SDV3 với hàm auto-tuning mới ít cộng hưởng hơn, nhờ đó nâng được đáp ứng và tăng khả năng chịu tải va đập.",
+            "en": "Previously, when rigidity was low the machine tended to resonate, so responsiveness could not be improved. The SDV3's new auto-tuning function makes resonance far less likely even on a low-rigidity machine, which raises responsiveness and strengthens resistance to impact loads."
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Hàm script",
+            "en": "Script function"
+          }
+        },
+        {
+          "kind": "bullets",
+          "items": [
+            {
+              "vi": "Script tích hợp thay được PLC và các bộ điều khiển cấp trên để chạy phần logic, tăng đáng kể tính linh hoạt của ứng dụng servo.",
+              "en": "The built-in script function can replace the PLC and other upper computers to realize the logic programming function, which greatly improves the flexibility of the servo application."
+            },
+            {
+              "vi": "Script được lập trình bằng phần mềm máy tính đi kèm, tập lệnh đơn giản, dễ dùng.",
+              "en": "The script is programmed with the supporting host computer software, and the instructions are simple and easy to use."
+            }
+          ]
         }
       ],
-      "paramImages": [
+      "specSheet": [
         {
-          "src": "/img/products/series/sdv3/params/01.webp",
-          "w": 900,
-          "h": 442,
-          "alt": "SDV3 — thông số 01",
-          "altEn": "SDV3 — specification 01"
+          "kind": "heading",
+          "text": {
+            "vi": "Cách đọc mã driver",
+            "en": "Model description"
+          },
+          "sub": {
+            "vi": "Driver servo",
+            "en": "Servo drive"
+          }
         },
         {
-          "src": "/img/products/series/sdv3/params/02.webp",
-          "w": 900,
-          "h": 1247,
-          "alt": "SDV3 — thông số 02",
-          "altEn": "SDV3 — specification 02"
+          "kind": "naming",
+          "code": "SDV3-2S0.4G",
+          "branches": [
+            {
+              "seg": "SDV3",
+              "label": {
+                "vi": "Dòng sản phẩm",
+                "en": "Product series"
+              }
+            },
+            {
+              "seg": "2S",
+              "label": {
+                "vi": "Điện áp vào",
+                "en": "Input voltage (V)"
+              },
+              "options": [
+                {
+                  "vi": "2S: AC 220 V một pha",
+                  "en": "2S: AC220V single phase"
+                },
+                {
+                  "vi": "2T: AC 220 V ba pha",
+                  "en": "2T: AC220V three phase"
+                },
+                {
+                  "vi": "4T: AC 380 V ba pha",
+                  "en": "4T: AC380V three phase"
+                }
+              ]
+            },
+            {
+              "seg": "0.4",
+              "label": {
+                "vi": "Công suất",
+                "en": "Power (kW)"
+              },
+              "options": [
+                {
+                  "vi": "0.4 = 0.4 kW",
+                  "en": "0.4 = 0.4 kW"
+                },
+                {
+                  "vi": "0.75 = 0.75 kW",
+                  "en": "0.75 = 0.75 kW"
+                },
+                {
+                  "vi": "1.0 = 1.0 kW",
+                  "en": "1.0 = 1.0 kW"
+                },
+                {
+                  "vi": "1.5 = 1.5 kW",
+                  "en": "1.5 = 1.5 kW"
+                },
+                {
+                  "vi": "2.0 = 2.0 kW",
+                  "en": "2.0 = 2.0 kW"
+                },
+                {
+                  "vi": "3.0 = 3.0 kW",
+                  "en": "3.0 = 3.0 kW"
+                },
+                {
+                  "vi": "4.0 = 4.0 kW",
+                  "en": "4.0 = 4.0 kW"
+                }
+              ]
+            },
+            {
+              "seg": "G",
+              "label": {
+                "vi": "Truyền thông",
+                "en": "Bus option"
+              },
+              "options": [
+                {
+                  "vi": "G: bản tiêu chuẩn",
+                  "en": "G: general"
+                },
+                {
+                  "vi": "E: có EtherCAT",
+                  "en": "E: with EtherCAT"
+                },
+                {
+                  "vi": "C: có CANopen",
+                  "en": "C: with CANopen"
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/sdv3/params/03.webp",
-          "w": 900,
-          "h": 1389,
-          "alt": "SDV3 — thông số 03",
-          "altEn": "SDV3 — specification 03"
+          "kind": "heading",
+          "text": {
+            "vi": "Thông số driver servo",
+            "en": "Servo drive specification"
+          },
+          "sub": {
+            "vi": "Thông số chung",
+            "en": "Common specifications"
+          }
         },
         {
-          "src": "/img/products/series/sdv3/params/04.webp",
-          "w": 900,
-          "h": 1487,
-          "alt": "SDV3 — thông số 04",
-          "altEn": "SDV3 — specification 04"
-        }
-      ],
-      "accessoryImages": [
-        {
-          "src": "/img/products/series/sdv3/accessories/01.webp",
-          "w": 900,
-          "h": 851,
-          "alt": "SDV3 — phụ kiện 01",
-          "altEn": "SDV3 — accessory 01"
+          "kind": "specList",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "valueHeader": {
+            "vi": "Thông số",
+            "en": "Specifications"
+          },
+          "groups": [
+            {
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Nguồn vào",
+                    "en": "Input power"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Một pha / ba pha 220 V · ba pha 380 V",
+                      "en": "Single / three phase 220 V · three phase 380 V"
+                    },
+                    {
+                      "vi": "Dải dao động điện áp (−15 % ~ +10 %), 50/60 Hz",
+                      "en": "Voltage variation range (−15 % ~ +10 %), 50/60 Hz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Làm mát",
+                    "en": "Cooling method"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Quạt",
+                      "en": "Fan cooling"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Điều khiển mạch chính",
+                    "en": "Main circuit control mode"
+                  },
+                  "lines": [
+                    {
+                      "vi": "PWM hình sin",
+                      "en": "Sinusoidal PWM drive"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Phản hồi",
+                    "en": "Feedback"
+                  },
+                  "lines": [
+                    {
+                      "vi": "17 bit INC / 20 bit INC",
+                      "en": "17-bit INC / 20-bit INC"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Chế độ điều khiển",
+                    "en": "Control mode"
+                  },
+                  "lines": [
+                    {
+                      "vi": "① Điều khiển vị trí  ② Điều khiển tốc độ  ③ Điều khiển moment",
+                      "en": "① Position control  ② Speed control  ③ Torque control"
+                    },
+                    {
+                      "vi": "④ Chuyển vị trí/tốc độ  ⑤ Chuyển vị trí/moment  ⑥ Chuyển tốc độ/moment",
+                      "en": "④ Position/speed mode switch  ⑤ Position/torque mode switch  ⑥ Speed/torque mode switch"
+                    },
+                    {
+                      "vi": "⑦ Chế độ chạy định vị",
+                      "en": "⑦ Positioning operation mode"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Điều khiển vị trí",
+                "en": "Position control"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Tần số xung lệnh tối đa",
+                    "en": "Max input pulse frequency"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Line drive: tối đa 500 kHz",
+                      "en": "Line drive input: max 500 kHz"
+                    },
+                    {
+                      "vi": "Open collector: tối đa 200 kHz",
+                      "en": "Open collector input: max 200 kHz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Kiểu xung lệnh",
+                    "en": "Command pulse input mode"
+                  },
+                  "lines": [
+                    {
+                      "vi": "① Xung lệnh + tín hiệu chiều  ② Xung thuận và xung nghịch  ③ Xung vuông pha A/B",
+                      "en": "① Command pulse / command signal  ② Forward rotating pulse and reverse rotating pulse  ③ A/B phase orthogonal pulse"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Nguồn lệnh vị trí",
+                    "en": "Command control mode"
+                  },
+                  "lines": [
+                    {
+                      "vi": "① Xung lệnh từ bên ngoài  ② Dữ liệu vị trí nội bộ",
+                      "en": "① External command pulse input control  ② Internal position data control"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Bánh răng điện tử",
+                    "en": "Electronic gear"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Tỉ số N/M (N: 1~4194304 / M: 1~4194304)",
+                      "en": "Electronic gear N/M times (N: 1~4194304 / M: 1~4194304)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Giới hạn moment",
+                    "en": "Torque limitation"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt bằng tham số (thuận và nghịch đặt riêng) / giới hạn bằng tín hiệu analog bên ngoài",
+                      "en": "Parameter control (forward and reverse rotating can be set respectively) / external analog torque control"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Điều khiển tốc độ",
+                "en": "Speed control"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Lệnh analog",
+                    "en": "Analog command input"
+                  },
+                  "lines": [
+                    {
+                      "vi": "VCL DC 0 ~ ±10 V",
+                      "en": "VCL DC 0 ~ ±10 V"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ dao động tốc độ",
+                    "en": "Speed variation rate"
+                  },
+                  "lines": [
+                    {
+                      "vi": "≤ ±1 v/ph (dải tải 0 ~ 100 %)",
+                      "en": "±1 r/min or below (load range 0 ~ 100 %)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Dải tốc độ",
+                    "en": "Speed range"
+                  },
+                  "lines": [
+                    {
+                      "vi": "1:5000",
+                      "en": "1:5000"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Đặt thời gian tăng/giảm tốc",
+                    "en": "Acceleration and deceleration time setting"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt riêng thời gian tăng và giảm tốc, có hai nhóm, hỗ trợ đường cong S",
+                      "en": "Acceleration time and deceleration time can be set respectively, in two groups, and can accelerate and decelerate with an S curve"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Nguồn lệnh tốc độ",
+                    "en": "Speed control method"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Analog bên ngoài, đặt bằng tham số, lệnh qua truyền thông, tần số xung lệnh",
+                      "en": "External analog input, parameter setting, communication speed command, command pulse frequency"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Giới hạn moment",
+                    "en": "Torque limitation"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt bằng tham số (thuận và nghịch đặt riêng) / giới hạn bằng tín hiệu analog bên ngoài",
+                      "en": "Parameter control (forward and reverse rotating can be set respectively) / external analog torque control"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Điều khiển moment",
+                "en": "Torque control"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Lệnh analog",
+                    "en": "Analog command input"
+                  },
+                  "lines": [
+                    {
+                      "vi": "VCL DC 0 ~ ±10 V",
+                      "en": "VCL DC 0 ~ ±10 V"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Giới hạn moment",
+                    "en": "Torque limitation"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt bằng tham số / giới hạn tốc độ bằng analog bên ngoài",
+                      "en": "Parameter control / external analog speed limitation"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Vào/ra số",
+                "en": "Digital input / output"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Đầu vào",
+                    "en": "Input"
+                  },
+                  "lines": [
+                    {
+                      "vi": "5 đầu vào EI1 ~ EI5, chức năng gán tự do bằng tham số",
+                      "en": "EI1 ~ EI5, 5 lines input, the function can be set freely according to the parameter"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Đầu ra",
+                    "en": "Output"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Xung encoder chia tần, pha A/B/Z xuất bằng line drive",
+                      "en": "Encoder pulse outputs by frequency division, A/B/Z phase output by line drive"
+                    },
+                    {
+                      "vi": "3 đầu ra EOUT1 ~ EOUT3, chức năng gán tự do bằng tham số",
+                      "en": "EOUT1 ~ EOUT3, 3 lines output, the function can be set freely according to the parameter"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Giám sát",
+                    "en": "Monitor"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Tốc độ phản hồi, tốc độ lệnh, moment lệnh, dòng motor, vị trí phản hồi, sai lệch vị trí, tần số xung lệnh, tích luỹ xung phản hồi, tích luỹ xung lệnh, điện áp VREF, điện áp TREF, tín hiệu đầu vào, tín hiệu đầu ra…",
+                      "en": "Feedback speed, reference speed, reference torque, motor current, feedback of current location, location difference, reference pulse frequency, feedback pulse accumulation, reference pulse accumulation, VREF input voltage, TREF input voltage, input terminal signal, output terminal signal etc."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Bảo vệ (mã báo lỗi)",
+                    "en": "Protection (alarm display)"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Quá dòng (oc1, oc2), vượt tốc (oS), quá áp (Hv), lỗi bộ nhớ (dE), lỗi encoder (Ec), quá tải (oL1, oL2), sụt áp mạch chính (Lu), trùng lặp EI (ctE), tràn sai lệch (oF), quá nhiệt motor (AH)…",
+                      "en": "Overcurrent (oc1, oc2), over speeding (oS), overvoltage (Hv), memory error (dE), encoder error (Ec), overload (oL1, oL2), main circuit under voltage (Lu), EI repeat (ctE), deviation overflow (oF), servo motor over heat (AH) etc."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Môi trường sử dụng",
+                "en": "Application environment"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Vị trí lắp",
+                    "en": "Site location"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Trong nhà, tránh nắng chiếu trực tiếp, không có khí ăn mòn (tránh khói, methane)",
+                      "en": "Indoors (avoid direct sunlight), no corrosive gas (avoid smoke, methane)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Nhiệt độ môi trường",
+                    "en": "Ambient temperature"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0 ~ 50 °C (cao hơn mức này cần thông gió cưỡng bức)",
+                      "en": "0 ~ 50 °C (when the ambient temperature is higher than the required one, please introduce air circulation)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Nhiệt độ lưu kho",
+                    "en": "Storage temperature"
+                  },
+                  "lines": [
+                    {
+                      "vi": "−20 ~ 75 °C",
+                      "en": "−20 ~ 75 °C"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ ẩm tương đối",
+                    "en": "Relative humidity"
+                  },
+                  "lines": [
+                    {
+                      "vi": "RH ≤ 90 % (không đọng sương)",
+                      "en": "RH 90 % lower (no condensation)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ cao",
+                    "en": "Altitude"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Dưới 1000 m",
+                      "en": "Lower than 1000 m"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Áp suất khí quyển",
+                    "en": "Atmospheric pressure"
+                  },
+                  "lines": [
+                    {
+                      "vi": "86 ~ 106 kPa",
+                      "en": "86 ~ 106 kPa"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Rung",
+                    "en": "Vibration"
+                  },
+                  "lines": [
+                    {
+                      "vi": "≤ 0.5 G",
+                      "en": "≤ 0.5 G"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/sdv3/accessories/02.webp",
-          "w": 900,
-          "h": 1254,
-          "alt": "SDV3 — phụ kiện 02",
-          "altEn": "SDV3 — accessory 02"
+          "kind": "heading",
+          "text": {
+            "vi": "Mô tả bên ngoài driver",
+            "en": "Servo drive external description"
+          },
+          "sub": {
+            "vi": "Mặt trước",
+            "en": "Front view"
+          }
         },
         {
-          "src": "/img/products/series/sdv3/accessories/03.webp",
-          "w": 900,
-          "h": 1170,
-          "alt": "SDV3 — phụ kiện 03",
-          "altEn": "SDV3 — accessory 03"
+          "kind": "imageRow",
+          "images": [
+            {
+              "src": "/img/products/series/sdv3/params/front-view-a.webp",
+              "w": 1429,
+              "h": 1101,
+              "alt": {
+                "vi": "SDV3 — mặt trước bản AC 220 V 400 W và 1.5 kW: cổng USB, cổng I/O, cổng encoder, cầu đấu nguồn vào và ra motor",
+                "en": "SDV3 — front view of the AC220V 400 W and 1.5 kW drives: USB terminal, I/O terminal, encoder terminal, power input/output terminal"
+              }
+            },
+            {
+              "src": "/img/products/series/sdv3/params/front-view-b.webp",
+              "w": 1316,
+              "h": 1195,
+              "alt": {
+                "vi": "SDV3 — mặt trước bản AC 220 V 3.0 kW: cổng USB, cổng I/O, cổng encoder, cầu đấu nguồn vào và ra motor",
+                "en": "SDV3 — front view of the AC220V 3.0 kW drive: USB terminal, I/O terminal, encoder terminal, power input/output terminal"
+              }
+            }
+          ]
         },
         {
-          "src": "/img/products/series/sdv3/accessories/04.webp",
-          "w": 900,
-          "h": 1170,
-          "alt": "SDV3 — phụ kiện 04",
-          "altEn": "SDV3 — accessory 04"
+          "kind": "heading",
+          "text": {
+            "vi": "Kích thước ngoài driver",
+            "en": "Servo drive external dimension"
+          },
+          "sub": {
+            "vi": "Đơn vị: mm",
+            "en": "Unit: mm"
+          }
         },
         {
-          "src": "/img/products/series/sdv3/accessories/05.webp",
-          "w": 900,
-          "h": 1190,
-          "alt": "SDV3 — phụ kiện 05",
-          "altEn": "SDV3 — accessory 05"
+          "kind": "image",
+          "src": "/img/products/series/sdv3/params/dimension-size1.webp",
+          "w": 1600,
+          "h": 793,
+          "alt": {
+            "vi": "SDV3 — kích thước lắp đặt Size 1: rộng 40, cao 170, sâu 150 mm",
+            "en": "SDV3 — Size 1 mounting dimensions: 40 wide, 170 high, 150 deep (mm)"
+          },
+          "caption": {
+            "vi": "Size 1 — 2S 0.4G ~ 0.75G",
+            "en": "Size 1 — 2S 0.4G ~ 0.75G"
+          }
         },
         {
-          "src": "/img/products/series/sdv3/accessories/06.webp",
-          "w": 900,
-          "h": 1161,
-          "alt": "SDV3 — phụ kiện 06",
-          "altEn": "SDV3 — accessory 06"
+          "kind": "image",
+          "src": "/img/products/series/sdv3/params/dimension-size2.webp",
+          "w": 1600,
+          "h": 755,
+          "alt": {
+            "vi": "SDV3 — kích thước lắp đặt Size 2: rộng 55, cao 170, sâu 163 mm",
+            "en": "SDV3 — Size 2 mounting dimensions: 55 wide, 170 high, 163 deep (mm)"
+          },
+          "caption": {
+            "vi": "Size 2 — 2S 1.0G ~ 1.5G · 4T 0.75G ~ 2.0G",
+            "en": "Size 2 — 2S 1.0G ~ 1.5G · 4T 0.75G ~ 2.0G"
+          }
         },
         {
-          "src": "/img/products/series/sdv3/accessories/07.webp",
-          "w": 900,
-          "h": 585,
-          "alt": "SDV3 — phụ kiện 07",
-          "altEn": "SDV3 — accessory 07"
-        },
-        {
-          "src": "/img/products/series/sdv3/accessories/08.webp",
-          "w": 900,
-          "h": 1085,
-          "alt": "SDV3 — phụ kiện 08",
-          "altEn": "SDV3 — accessory 08"
-        },
-        {
-          "src": "/img/products/series/sdv3/accessories/09.webp",
-          "w": 900,
-          "h": 1749,
-          "alt": "SDV3 — phụ kiện 09",
-          "altEn": "SDV3 — accessory 09"
-        },
-        {
-          "src": "/img/products/series/sdv3/accessories/10.webp",
-          "w": 893,
-          "h": 1257,
-          "alt": "SDV3 — phụ kiện 10",
-          "altEn": "SDV3 — accessory 10"
-        },
-        {
-          "src": "/img/products/series/sdv3/accessories/11.webp",
-          "w": 900,
-          "h": 623,
-          "alt": "SDV3 — phụ kiện 11",
-          "altEn": "SDV3 — accessory 11"
+          "kind": "image",
+          "src": "/img/products/series/sdv3/params/dimension-size3.webp",
+          "w": 1600,
+          "h": 685,
+          "alt": {
+            "vi": "SDV3 — kích thước lắp đặt Size 3: rộng 80, cao 190, sâu 204 mm",
+            "en": "SDV3 — Size 3 mounting dimensions: 80 wide, 190 high, 204 deep (mm)"
+          },
+          "caption": {
+            "vi": "Size 3 — 2T 2.0G ~ 3.0G · 4T 3.0G ~ 4.0G",
+            "en": "Size 3 — 2T 2.0G ~ 3.0G · 4T 3.0G ~ 4.0G"
+          }
         }
       ],
       "documentation": [
@@ -185,39 +900,39 @@
           "title": "SDV3-EtherCAT application manual",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250422/9696a2853ff070a84af480a85aaa20ea.pdf",
+          "url": "/downloads/series/sdv3/sdv3-ethercat-application-manual.pdf",
           "format": "pdf",
-          "size_mb": 1.5
+          "size_mb": 1.48
         },
         {
           "title": "SDV3-CANopen application manual",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250422/d7fe2775dd80edd908a3bb78f03f93f9.pdf",
+          "url": "/downloads/series/sdv3/sdv3-canopen-application-manual.pdf",
           "format": "pdf",
-          "size_mb": 1
+          "size_mb": 0.99
         },
         {
           "title": "SDV3 General purpose user manual",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250605/0518af9aa528ae262a6591140aa24458.pdf",
+          "url": "/downloads/series/sdv3/sdv3-general-purpose-user-manual.pdf",
           "format": "pdf",
-          "size_mb": 6
+          "size_mb": 5.95
         },
         {
           "title": "SDV3 EtherCAT Quick manual",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250422/82fbb9425b1536c217e4814bef1651a6.pdf",
+          "url": "/downloads/series/sdv3/sdv3-ethercat-quick-manual.pdf",
           "format": "pdf",
-          "size_mb": 1.3
+          "size_mb": 1.31
         },
         {
           "title": "SDV3 Failure Elimination",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/723ee91e2c2469516cf7bfec4e62ebb1.pdf",
+          "url": "/downloads/series/sdv3/sdv3-failure-elimination.pdf",
           "format": "pdf",
           "size_mb": 0.31
         },
@@ -225,7 +940,7 @@
           "title": "SDV3 External Dimensions",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/d88bcb9cc67f35174c65308684fbac70.pdf",
+          "url": "/downloads/series/sdv3/sdv3-external-dimensions.pdf",
           "format": "pdf",
           "size_mb": 0.19
         },
@@ -233,31 +948,31 @@
           "title": "SDV3 Control Wiring Diagram",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/ee33170a392efc804a958a109f97f7fa.pdf",
+          "url": "/downloads/series/sdv3/sdv3-control-wiring-diagram.pdf",
           "format": "pdf",
-          "size_mb": 0.38
+          "size_mb": 0.37
         },
         {
           "title": "SDV3 Basic Wiring Diagram",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250605/824fe68a901cb0501f5455d6de84a227.pdf",
+          "url": "/downloads/series/sdv3/sdv3-basic-wiring-diagram.pdf",
           "format": "pdf",
-          "size_mb": 0.7
+          "size_mb": 0.71
         },
         {
           "title": "SDV3_3D Installation Dimensions",
           "category": "drawing",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/727b5a888ab5fe77019fbab0042a6eb0.rar",
+          "url": "/downloads/series/sdv3/sdv3-3d-installation-dimensions.rar",
           "format": "rar",
-          "size_mb": 8.3
+          "size_mb": 8.11
         },
         {
           "title": "SDV3_2D Dimensions",
           "category": "drawing",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/1b78edf0f2fba95ba11e7f698f15610f.rar",
+          "url": "/downloads/series/sdv3/sdv3-2d-dimensions.rar",
           "format": "rar",
           "size_mb": 0.41
         },
@@ -265,323 +980,307 @@
           "title": "SavchSoft_SRV_EN_Install",
           "category": "software",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20260710/7411fae506f31210264a19d1cd3bf1cb.rar",
+          "url": "/downloads/series/sdv3/savchsoft-srv-en-install.rar",
           "format": "rar",
-          "size_mb": 10.9
+          "size_mb": 10.96
         },
         {
           "title": "Savch_SDV3-E Servo Drive ESI File",
           "category": "software",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250606/356257483493b813ccdecbeea9a197be.rar",
+          "url": "/downloads/series/sdv3/savch-sdv3-e-servo-drive-esi-file.rar",
           "format": "rar",
-          "size_mb": 0.07
+          "size_mb": 0.01
         },
         {
           "title": "SDV3 Servo Catalog",
           "category": "brochure",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20260427/9696adba91919906a1b83a3a5add6677.pdf",
+          "url": "/downloads/series/sdv3/sdv3-servo-catalog.pdf",
           "format": "pdf",
-          "size_mb": 4.7
+          "size_mb": 4.6
         },
         {
           "title": "SDV3-CE",
           "category": "certificate",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250207/efba5ad8ee538702ac4b7910548d20ad.pdf",
+          "url": "/downloads/series/sdv3/sdv3-ce.pdf",
           "format": "pdf",
-          "size_mb": 0.4
-        }
-      ]
-    }
-  },
-  {
-    "slug": "sda2",
-    "category": "servo",
-    "kind": "driver",
-    "brand": "QS Servo",
-    "name": "SDA2",
-    "tag": "Dòng hiệu năng cao",
-    "tagEn": "High-performance series",
-    "desc": "Servo driver hiệu năng cao 0.4 – 55 kW cho tải nặng và chuyển động chính xác: cánh tay robot, máy khắc laser, máy ép nhựa, gia công gỗ – kính, thiết bị hàn, máy dệt và dây chuyền đóng gói.",
-    "descEn": "High-performance servo drive, 0.4 – 55 kW, for heavy loads and precision motion: robot arms, laser engravers, injection molding, wood and glass machining, welding equipment, textile machines and packaging lines.",
-    "specs": [
-      {
-        "l": "Công suất",
-        "v": "0.4 – 55 kW"
-      },
-      {
-        "l": "Điện áp",
-        "v": "1 pha 220 V · 3 pha 220 V · 3 pha 380 V"
-      },
-      {
-        "l": "Tần số đầu ra",
-        "v": "0 – 250 Hz"
-      },
-      {
-        "l": "Ứng dụng",
-        "v": "Robot · laser · ép nhựa · gỗ / kính · hàn · dệt · CNC · đóng gói"
-      }
-    ],
-    "specsEn": [
-      {
-        "l": "Power range",
-        "v": "0.4 – 55 kW"
-      },
-      {
-        "l": "Supply voltage",
-        "v": "1-ph 220 V · 3-ph 220 V · 3-ph 380 V"
-      },
-      {
-        "l": "Output frequency",
-        "v": "0 – 250 Hz"
-      },
-      {
-        "l": "Applications",
-        "v": "Robots · laser · injection molding · wood / glass · welding · textile · CNC · packaging"
-      }
-    ],
-    "image": {
-      "src": "/img/products/series/sda2.webp",
-      "w": 300,
-      "h": 225,
-      "alt": "Driver servo SDA2 các cỡ công suất",
-      "altEn": "SDA2 servo drives across the power range"
-    },
-    "sourceUrl": "https://en.savch.net/SDA2Generalservo/57.html",
-    "detail": {
-      "tables": [],
-      "introduction": [
-        {
-          "src": "/img/products/series/sda2/intro/01.webp",
-          "w": 938,
-          "h": 836,
-          "alt": "SDA2 — giới thiệu 01",
-          "altEn": "SDA2 — introduction 01"
-        },
-        {
-          "src": "/img/products/series/sda2/intro/02.webp",
-          "w": 939,
-          "h": 1308,
-          "alt": "SDA2 — giới thiệu 02",
-          "altEn": "SDA2 — introduction 02"
+          "size_mb": 0.04
         }
       ],
-      "paramImages": [
+      "accessorySheet": [
         {
-          "src": "/img/products/series/sda2/params/01.webp",
-          "w": 944,
-          "h": 468,
-          "alt": "SDA2 — thông số 01",
-          "altEn": "SDA2 — specification 01"
+          "kind": "heading",
+          "text": {
+            "vi": "Cáp",
+            "en": "Cable"
+          },
+          "sub": {
+            "vi": "L: chiều dài cáp, đơn vị m",
+            "en": "L: cable length, unit: m"
+          }
         },
         {
-          "src": "/img/products/series/sda2/params/02.webp",
-          "w": 932,
-          "h": 1253,
-          "alt": "SDA2 — thông số 02",
-          "altEn": "SDA2 — specification 02"
+          "kind": "cableTable",
+          "cols": {
+            "model": {
+              "vi": "Mã cáp",
+              "en": "Cable model"
+            },
+            "style": {
+              "vi": "Hình dạng tham khảo",
+              "en": "Reference sample"
+            },
+            "fit": {
+              "vi": "Motor ghép bộ",
+              "en": "Matched motor"
+            }
+          },
+          "rows": [
+            {
+              "model": "DL-SCH086(ZD1V)-N-L",
+              "bracket": {
+                "vi": "Không phanh",
+                "en": "Without brake"
+              },
+              "images": [
+                {
+                  "src": "/img/products/series/sdv3/accessories/cable-dl-sch086-n.webp",
+                  "w": 1600,
+                  "h": 381
+                }
+              ],
+              "fit": {
+                "vi": "SCH060\nđến\nSCH090",
+                "en": "SCH060\nto\nSCH090"
+              },
+              "fitRows": 2
+            },
+            {
+              "model": "DL-SCH086(ZD1V)-B-L",
+              "bracket": {
+                "vi": "Có phanh",
+                "en": "With brake"
+              },
+              "images": [
+                {
+                  "src": "/img/products/series/sdv3/accessories/cable-dl-sch086-b.webp",
+                  "w": 1600,
+                  "h": 823
+                }
+              ]
+            },
+            {
+              "model": "DL-SCH130(ZD1V)-N-L\nDL-SCH180(ZD1V)-N-L",
+              "bracket": {
+                "vi": "Không phanh",
+                "en": "Without brake"
+              },
+              "images": [
+                {
+                  "src": "/img/products/series/sdv3/accessories/cable-dl-sch130-n.webp",
+                  "w": 1600,
+                  "h": 623
+                }
+              ],
+              "fit": {
+                "vi": "SCH110\nđến\nSCH180",
+                "en": "SCH110\nto\nSCH180"
+              },
+              "fitRows": 2
+            },
+            {
+              "model": "DL-SCH130(ZD1V)-B-L\nDL-SCH180(ZD1V)-B-L",
+              "bracket": {
+                "vi": "Có phanh",
+                "en": "With brake"
+              },
+              "images": [
+                {
+                  "src": "/img/products/series/sdv3/accessories/cable-dl-sch130-b.webp",
+                  "w": 1600,
+                  "h": 978
+                }
+              ]
+            },
+            {
+              "model": "SA2FK-P1S(ZD1Y)-L",
+              "images": [
+                {
+                  "src": "/img/products/series/sdv3/accessories/cable-sa2fk-p1s.webp",
+                  "w": 1600,
+                  "h": 376
+                }
+              ],
+              "fit": {
+                "vi": "SCH060\nđến\nSCH090",
+                "en": "SCH060\nto\nSCH090"
+              },
+              "fitRows": 2
+            },
+            {
+              "model": "SA2FK-P1D(ZD1Y)-L",
+              "images": [
+                {
+                  "src": "/img/products/series/sdv3/accessories/cable-sa2fk-p1d.webp",
+                  "w": 1600,
+                  "h": 375
+                }
+              ]
+            },
+            {
+              "model": "SA2FK-P2S(ZD1Y)-L",
+              "images": [
+                {
+                  "src": "/img/products/series/sdv3/accessories/cable-sa2fk-p2s.webp",
+                  "w": 1600,
+                  "h": 505
+                }
+              ],
+              "fit": {
+                "vi": "SCH110\nđến\nSCH180",
+                "en": "SCH110\nto\nSCH180"
+              },
+              "fitRows": 2
+            },
+            {
+              "model": "SA2FK-P2D(ZD1Y)-L",
+              "images": [
+                {
+                  "src": "/img/products/series/sdv3/accessories/cable-sa2fk-p2d.webp",
+                  "w": 1600,
+                  "h": 505
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/sda2/params/03.webp",
-          "w": 968,
-          "h": 2100,
-          "alt": "SDA2 — thông số 03",
-          "altEn": "SDA2 — specification 03"
-        }
-      ],
-      "accessoryImages": [
-        {
-          "src": "/img/products/series/sda2/accessories/01.webp",
-          "w": 944,
-          "h": 783,
-          "alt": "SDA2 — phụ kiện 01",
-          "altEn": "SDA2 — accessory 01"
+          "kind": "heading",
+          "text": {
+            "vi": "Cách đọc mã cáp động lực",
+            "en": "Power cable type description"
+          }
         },
         {
-          "src": "/img/products/series/sda2/accessories/02.webp",
-          "w": 940,
-          "h": 1253,
-          "alt": "SDA2 — phụ kiện 02",
-          "altEn": "SDA2 — accessory 02"
+          "kind": "naming",
+          "code": "DL-SCH086(ZD1V)-N-L",
+          "branches": [
+            {
+              "seg": "DL",
+              "label": {
+                "vi": "Cáp động lực",
+                "en": "Power cable type"
+              }
+            },
+            {
+              "seg": "SCH086(ZD1V)",
+              "label": {
+                "vi": "Loại motor",
+                "en": "Motor type"
+              },
+              "options": [
+                {
+                  "vi": "SCH086: SCH060 ~ SCH090",
+                  "en": "SCH086: SCH060 ~ SCH090"
+                },
+                {
+                  "vi": "SCH130: SCH110 ~ SCH130",
+                  "en": "SCH130: SCH110 ~ SCH130"
+                },
+                {
+                  "vi": "SCH180: SCH180",
+                  "en": "SCH180: SCH180"
+                }
+              ]
+            },
+            {
+              "seg": "N",
+              "label": {
+                "vi": "Phanh",
+                "en": "Brake"
+              },
+              "options": [
+                {
+                  "vi": "N: không phanh",
+                  "en": "N: without brake"
+                },
+                {
+                  "vi": "B: có phanh",
+                  "en": "B: with brake"
+                }
+              ]
+            },
+            {
+              "seg": "L",
+              "label": {
+                "vi": "Chiều dài cáp (m)",
+                "en": "Cable length (m)"
+              }
+            }
+          ]
         },
         {
-          "src": "/img/products/series/sda2/accessories/03.webp",
-          "w": 936,
-          "h": 1255,
-          "alt": "SDA2 — phụ kiện 03",
-          "altEn": "SDA2 — accessory 03"
+          "kind": "heading",
+          "text": {
+            "vi": "Cách đọc mã cáp phản hồi",
+            "en": "Feedback cable type description"
+          }
         },
         {
-          "src": "/img/products/series/sda2/accessories/04.webp",
-          "w": 940,
-          "h": 1229,
-          "alt": "SDA2 — phụ kiện 04",
-          "altEn": "SDA2 — accessory 04"
-        },
-        {
-          "src": "/img/products/series/sda2/accessories/05.webp",
-          "w": 936,
-          "h": 1227,
-          "alt": "SDA2 — phụ kiện 05",
-          "altEn": "SDA2 — accessory 05"
-        },
-        {
-          "src": "/img/products/series/sda2/accessories/06.webp",
-          "w": 935,
-          "h": 1252,
-          "alt": "SDA2 — phụ kiện 06",
-          "altEn": "SDA2 — accessory 06"
-        },
-        {
-          "src": "/img/products/series/sda2/accessories/07.webp",
-          "w": 935,
-          "h": 1238,
-          "alt": "SDA2 — phụ kiện 07",
-          "altEn": "SDA2 — accessory 07"
-        },
-        {
-          "src": "/img/products/series/sda2/accessories/08.webp",
-          "w": 934,
-          "h": 1613,
-          "alt": "SDA2 — phụ kiện 08",
-          "altEn": "SDA2 — accessory 08"
-        },
-        {
-          "src": "/img/products/series/sda2/accessories/09.webp",
-          "w": 937,
-          "h": 1165,
-          "alt": "SDA2 — phụ kiện 09",
-          "altEn": "SDA2 — accessory 09"
-        },
-        {
-          "src": "/img/products/series/sda2/accessories/10.webp",
-          "w": 935,
-          "h": 1244,
-          "alt": "SDA2 — phụ kiện 10",
-          "altEn": "SDA2 — accessory 10"
-        },
-        {
-          "src": "/img/products/series/sda2/accessories/11.webp",
-          "w": 935,
-          "h": 1267,
-          "alt": "SDA2 — phụ kiện 11",
-          "altEn": "SDA2 — accessory 11"
-        }
-      ],
-      "documentation": [
-        {
-          "title": "SDA2-EtherCAT application manual",
-          "category": "manual",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250422/c3d4b991ccdd1f0d8250fcc731222d43.pdf",
-          "format": "pdf",
-          "size_mb": 1.4
-        },
-        {
-          "title": "SDA2-CANopen application manual",
-          "category": "manual",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250422/5064edebc0dde13877b80b79aa0f1e42.pdf",
-          "format": "pdf",
-          "size_mb": 0.9
-        },
-        {
-          "title": "SDA2 High performance type manual",
-          "category": "manual",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250710/64fc59faa68680b2eae0518d216dfdf4.pdf",
-          "format": "pdf",
-          "size_mb": 7.1
-        },
-        {
-          "title": "SDA2 Failure Elimination",
-          "category": "manual",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/58d02b649aa47aea91a0a3478170d63c.pdf",
-          "format": "pdf",
-          "size_mb": 0.31
-        },
-        {
-          "title": "SDA2 External Dimensions",
-          "category": "manual",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/16eff4dd00c9c8e2b1230b2a0312da29.pdf",
-          "format": "pdf",
-          "size_mb": 0.66
-        },
-        {
-          "title": "SDA2 Control Wiring Diagram",
-          "category": "manual",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250605/b635ab63efec8d0251619f91361354df.pdf",
-          "format": "pdf",
-          "size_mb": 0.51
-        },
-        {
-          "title": "SDA2 Basic Wiring Diagram",
-          "category": "manual",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250605/0c0ca1e48aa02adbe9cece8907bd8dde.pdf",
-          "format": "pdf",
-          "size_mb": 0.3
-        },
-        {
-          "title": "SDA2_3D Installation Dimensions",
-          "category": "drawing",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/a144fbd0703d1346f1aa6051435d933a.rar",
-          "format": "rar",
-          "size_mb": 7.8
-        },
-        {
-          "title": "SDA2_2D Dimensions",
-          "category": "drawing",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/27f142f4ad5644eef15bebef197aba66.rar",
-          "format": "rar",
-          "size_mb": 8.6
-        },
-        {
-          "title": "SavchSoft_SRV_EN_Install",
-          "category": "software",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20260710/7411fae506f31210264a19d1cd3bf1cb.rar",
-          "format": "rar",
-          "size_mb": 10.9
-        },
-        {
-          "title": "Savch_SDA2-E Servo Drive ESI File",
-          "category": "software",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250224/baa4252543dc3b7e1c63e922b6afbb8a.rar",
-          "format": "rar",
-          "size_mb": 0.07
-        },
-        {
-          "title": "Savch_SDA2-E Servo Drive ESI File",
-          "category": "software",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250606/3a26e54a98935b3dd4993587ef0598ad.rar",
-          "format": "rar",
-          "size_mb": 0.07
-        },
-        {
-          "title": "SDA2 Servo Catalog(H)",
-          "category": "brochure",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20260427/5611a31520f46691ebcf93c40931c051.pdf",
-          "format": "pdf",
-          "size_mb": 4.7
-        },
-        {
-          "title": "SDA2-CE",
-          "category": "certificate",
-          "lang": "en",
-          "url": "https://en.savch.net/uploads/20250207/552c56b1de3af05d9ebc9fddc43cbed7.pdf",
-          "format": "pdf",
-          "size_mb": 0.6
+          "kind": "naming",
+          "code": "SA2FK-P1S(ZD1Y)-L",
+          "branches": [
+            {
+              "seg": "SA2FK",
+              "label": {
+                "vi": "Cáp phản hồi",
+                "en": "Feedback cable"
+              }
+            },
+            {
+              "seg": "P1",
+              "label": {
+                "vi": "Loại motor",
+                "en": "Motor type"
+              },
+              "options": [
+                {
+                  "vi": "P1: SCH060 ~ SCH090",
+                  "en": "P1: SCH060 ~ SCH090"
+                },
+                {
+                  "vi": "P2: SCH110 ~ SCH180",
+                  "en": "P2: SCH110 ~ SCH180"
+                }
+              ]
+            },
+            {
+              "seg": "S(ZD1Y)",
+              "label": {
+                "vi": "Loại encoder",
+                "en": "Encoder model"
+              },
+              "options": [
+                {
+                  "vi": "S: INC (tăng dần)",
+                  "en": "S: INC"
+                },
+                {
+                  "vi": "D: ABS (kèm hộp pin)",
+                  "en": "D: ABS (with battery)"
+                }
+              ]
+            },
+            {
+              "seg": "L",
+              "label": {
+                "vi": "Chiều dài cáp (m)",
+                "en": "Cable length (m)"
+              }
+            }
+          ]
         }
       ]
     }
@@ -590,29 +1289,28 @@
     "slug": "sch-motor",
     "category": "servo",
     "kind": "motor",
-    "listed": false,
     "brand": "QS Servo",
     "name": "SCH",
     "tag": "Motor servo AC",
     "tagEn": "AC servo motor",
-    "desc": "Motor servo AC dòng SCH ghép bộ với driver SDV3 và SDA2 — frame 60 đến 260 mm, 0.2 đến 45 kW, encoder tăng dần hoặc tuyệt đối, phanh DC 24 V tuỳ chọn. Mã motor gọi theo frame và công suất (ví dụ SCH130152E = frame 130, 1.5 kW).",
-    "descEn": "SCH-series AC servo motors matched to the SDV3 and SDA2 drives — frame 60 to 260 mm, 0.2 to 45 kW, incremental or absolute encoder, optional DC 24 V brake. Part numbers encode frame and power (e.g. SCH130152E = frame 130, 1.5 kW).",
+    "desc": "Motor servo AC dòng SCH ghép bộ với driver SDV3 — frame 60 đến 180 mm, 0.2 đến 4.3 kW, encoder tăng dần hoặc tuyệt đối, phanh DC 24 V tuỳ chọn. Mã motor gọi theo frame và công suất (ví dụ SCH130152E = frame 130, 1.5 kW).",
+    "descEn": "SCH-series AC servo motors matched to the SDV3 drive — frame 60 to 180 mm, 0.2 to 4.3 kW, incremental or absolute encoder, optional DC 24 V brake. Part numbers encode frame and power (e.g. SCH130152E = frame 130, 1.5 kW).",
     "specs": [
       {
         "l": "Công suất",
-        "v": "0.2 – 45 kW"
+        "v": "0.2 – 4.3 kW"
       },
       {
         "l": "Frame",
-        "v": "60 · 80 · 110 · 130 · 180 · 200 · 230 · 260 mm"
+        "v": "60 · 80 · 110 · 130 · 180 mm"
       },
       {
         "l": "Moment định mức",
-        "v": "0.64 – 286 Nm"
+        "v": "0.64 – 27 Nm"
       },
       {
         "l": "Tốc độ định mức",
-        "v": "1000 – 3000 v/ph (dòng HS tới 6000)"
+        "v": "1000 – 3000 v/ph (tối đa 3600)"
       },
       {
         "l": "Encoder",
@@ -620,25 +1318,25 @@
       },
       {
         "l": "Tuỳ chọn",
-        "v": "Phanh DC 24 V · cách điện F class · frame 200 – 260 làm mát quạt, IP54"
+        "v": "Phanh DC 24 V · cách điện F class"
       }
     ],
     "specsEn": [
       {
         "l": "Power range",
-        "v": "0.2 – 45 kW"
+        "v": "0.2 – 4.3 kW"
       },
       {
         "l": "Frame size",
-        "v": "60 · 80 · 110 · 130 · 180 · 200 · 230 · 260 mm"
+        "v": "60 · 80 · 110 · 130 · 180 mm"
       },
       {
         "l": "Rated torque",
-        "v": "0.64 – 286 Nm"
+        "v": "0.64 – 27 Nm"
       },
       {
         "l": "Rated speed",
-        "v": "1000 – 3000 rpm (HS line up to 6000)"
+        "v": "1000 – 3000 rpm (3600 max)"
       },
       {
         "l": "Encoder",
@@ -646,7 +1344,7 @@
       },
       {
         "l": "Options",
-        "v": "DC 24 V brake · class F insulation · frame 200 – 260 fan-cooled, IP54"
+        "v": "DC 24 V brake · class F insulation"
       }
     ],
     "image": {
@@ -658,1045 +1356,2725 @@
     },
     "sourceUrl": "https://savch.net/uploads/20260427/05e5f2e13a0fd1fb64897f106a2956b4.pdf",
     "detail": {
-      "naming": {
-        "code": "SCH130152E",
-        "lines": [
-          "SCH = motor servo AC dòng H, cách điện F class (155°C)",
-          "130 = đường kính frame (mm): 60 · 80 · 110 · 130 · 180 · 200 · 230 · 260",
-          "152 = công suất (2 số đầu × 10^số cuối, đơn vị W): 152 = 1.5 kW, 751 = 750 W",
-          "E/C/B/A/H = tổ hợp moment – tốc độ; điện áp theo driver ghép (2S/2T = 220 V, 4T = 380 V)",
-          "Hậu tố -□5 (chỉ SDA2) = dòng HS cao tốc, tối đa 6000 v/ph"
-        ],
-        "linesEn": [
-          "SCH = H-series AC servo motor, class F insulation (155°C)",
-          "130 = frame diameter (mm): 60 · 80 · 110 · 130 · 180 · 200 · 230 · 260",
-          "152 = power (first 2 digits × 10^last digit, in W): 152 = 1.5 kW, 751 = 750 W",
-          "E/C/B/A/H = torque–speed combination; voltage follows the matched drive (2S/2T = 220 V, 4T = 380 V)",
-          "Suffix -□5 (SDA2 only) = high-speed HS line, up to 6000 rpm"
-        ],
-        "figure": {
-          "src": "/img/products/series/sch-motor/naming.webp",
-          "srcEn": "/img/products/series/sch-motor/naming-en.webp",
-          "w": 900,
-          "h": 851,
-          "alt": "Sơ đồ cách đọc mã motor servo SCH",
-          "altEn": "SCH servo motor model code breakdown"
-        }
-      },
-      "tables": [
+      "specSheet": [
         {
-          "caption": "Bảng chọn motor SCH — dòng H",
-          "captionEn": "SCH motor selection — H series",
-          "note": "Quán tính rotor tính theo kg·m²×10⁻⁴. Moment đỉnh là moment tức thời cực đại — hãng không công bố cho frame 200–260. Frame 60–180 dùng chung cho driver SDV3 và SDA2; frame 200–260 chỉ đi với SDA2, làm mát quạt, IP54, không kèm cáp động lực từ nhà máy. Dòng H5 cao tốc (hậu tố -□5) chỉ có bản 220 V ở frame 60/80/130 và chỉ ghép driver SDA2 — frame 60/80 chạy tới 6000 v/ph, frame 130 tới 3000 v/ph; catalog không công bố thông số phanh cho dòng này. Phanh DC 24 V ±10 % tuỳ chọn cho dòng H, encoder tăng dần/tuyệt đối 17/20 bit.",
-          "noteEn": "Rotor inertia is given in kg·m²×10⁻⁴. Peak torque is the instantaneous maximum — not published for frames 200–260. Frame 60–180 is shared by the SDV3 and SDA2 drives; frame 200–260 pairs with SDA2 only, fan-cooled, IP54, shipped without a factory power cable. The high-speed H5 line (suffix -□5) is 220 V only, on frames 60/80/130, and pairs with SDA2 drives only — frames 60/80 reach 6000 rpm, frame 130 reaches 3000 rpm; the catalog publishes no brake data for it. Optional DC 24 V ±10 % brake on the H line, 17/20-bit incremental/absolute encoder.",
-          "filterCol": "volt",
-          "cols": [
+          "kind": "heading",
+          "text": {
+            "vi": "Cách đọc mã motor",
+            "en": "Model description"
+          },
+          "sub": {
+            "vi": "Motor servo",
+            "en": "Servo motor"
+          }
+        },
+        {
+          "kind": "naming",
+          "code": "SCH060401C-2ND310-H(5)",
+          "branches": [
             {
-              "key": "model",
-              "label": "Mã motor",
-              "labelEn": "Motor code"
+              "seg": "SCH",
+              "label": {
+                "vi": "Dòng sản phẩm",
+                "en": "Product series"
+              }
             },
             {
-              "key": "kw",
-              "label": "Công suất (kW)",
-              "labelEn": "Power (kW)"
+              "seg": "060",
+              "label": {
+                "vi": "Cỡ khung",
+                "en": "Frame size (mm)"
+              },
+              "options": [
+                {
+                  "vi": "060: 60 mm",
+                  "en": "060: 60 mm"
+                },
+                {
+                  "vi": "080: 80 mm",
+                  "en": "080: 80 mm"
+                },
+                {
+                  "vi": "090: 90 mm",
+                  "en": "090: 90 mm"
+                },
+                {
+                  "vi": "110: 110 mm",
+                  "en": "110: 110 mm"
+                },
+                {
+                  "vi": "130: 130 mm",
+                  "en": "130: 130 mm"
+                },
+                {
+                  "vi": "180: 180 mm",
+                  "en": "180: 180 mm"
+                }
+              ]
             },
             {
-              "key": "volt",
-              "label": "Điện áp",
-              "labelEn": "Supply"
+              "seg": "401",
+              "label": {
+                "vi": "Công suất",
+                "en": "Power"
+              },
+              "options": [
+                {
+                  "vi": "40 × 10¹ = 400 W",
+                  "en": "40 × 10¹ = 400 W"
+                }
+              ]
             },
             {
-              "key": "driver",
-              "label": "Driver ghép",
-              "labelEn": "Matched drive"
+              "seg": "C",
+              "label": {
+                "vi": "Tốc độ định mức",
+                "en": "Rated rotation speed"
+              },
+              "options": [
+                {
+                  "vi": "A: 1000 vòng/phút",
+                  "en": "A: 1000 r/min"
+                },
+                {
+                  "vi": "B: 2000 vòng/phút",
+                  "en": "B: 2000 r/min"
+                },
+                {
+                  "vi": "C: 3000 vòng/phút",
+                  "en": "C: 3000 r/min"
+                },
+                {
+                  "vi": "H: 1500 vòng/phút",
+                  "en": "H: 1500 r/min"
+                },
+                {
+                  "vi": "E: 2500 vòng/phút",
+                  "en": "E: 2500 r/min"
+                }
+              ]
             },
             {
-              "key": "nm",
-              "label": "Moment (Nm)",
-              "labelEn": "Torque (Nm)"
+              "seg": "2",
+              "label": {
+                "vi": "Điện áp định mức",
+                "en": "Rated voltage"
+              },
+              "options": [
+                {
+                  "vi": "2: 220 V",
+                  "en": "2: 220 V"
+                },
+                {
+                  "vi": "3: 380 V",
+                  "en": "3: 380 V"
+                }
+              ]
             },
             {
-              "key": "nmMax",
-              "label": "Moment đỉnh (Nm)",
-              "labelEn": "Peak torque (Nm)"
+              "seg": "N",
+              "label": {
+                "vi": "Phanh",
+                "en": "Brake"
+              },
+              "options": [
+                {
+                  "vi": "N: không có phanh",
+                  "en": "N: without brake"
+                },
+                {
+                  "vi": "B: có phanh",
+                  "en": "B: with brake"
+                }
+              ]
             },
             {
-              "key": "rpm",
-              "label": "Tốc độ v/ph (max)",
-              "labelEn": "Speed rpm (max)"
+              "seg": "D",
+              "label": {
+                "vi": "Encoder",
+                "en": "Encoder"
+              },
+              "options": [
+                {
+                  "vi": "C: encoder từ 17 bit",
+                  "en": "C: 17-bit magnetic encoder"
+                },
+                {
+                  "vi": "D: encoder quang 17 bit",
+                  "en": "D: 17-bit optical encoder"
+                },
+                {
+                  "vi": "K: encoder quang 20 bit",
+                  "en": "K: 20-bit optical encoder"
+                }
+              ]
             },
             {
-              "key": "a",
-              "label": "Dòng (A)",
-              "labelEn": "Current (A)"
+              "seg": "3",
+              "label": {
+                "vi": "Kiểu đấu dây",
+                "en": "Wiring type"
+              },
+              "options": [
+                {
+                  "vi": "3: tiêu chuẩn (frame 060~090)",
+                  "en": "3: standard (frame No. 060~090)"
+                },
+                {
+                  "vi": "A: chuẩn quân sự (frame 110~180)",
+                  "en": "A: military spec (frame No. 110~180)"
+                }
+              ]
             },
             {
-              "key": "j",
-              "label": "Quán tính rotor",
-              "labelEn": "Rotor inertia"
+              "seg": "1",
+              "label": {
+                "vi": "Phớt dầu",
+                "en": "Oil seal"
+              },
+              "options": [
+                {
+                  "vi": "0: không phớt dầu",
+                  "en": "0: without oil seal"
+                },
+                {
+                  "vi": "1: có phớt dầu",
+                  "en": "1: with oil seal"
+                }
+              ]
             },
             {
-              "key": "kg",
-              "label": "Khối lượng (kg)",
-              "labelEn": "Weight (kg)"
+              "seg": "0",
+              "label": {
+                "vi": "Thông tin tuỳ chỉnh",
+                "en": "Customization"
+              },
+              "options": [
+                {
+                  "vi": "0: tiêu chuẩn",
+                  "en": "0: standard"
+                },
+                {
+                  "vi": "Khác: đặt theo yêu cầu",
+                  "en": "Other: made to order"
+                }
+              ]
+            },
+            {
+              "seg": "H",
+              "label": {
+                "vi": "Dòng motor",
+                "en": "Motor series"
+              },
+              "options": [
+                {
+                  "vi": "H: dòng H",
+                  "en": "H: H series"
+                }
+              ]
+            },
+            {
+              "seg": "(5)",
+              "label": {
+                "vi": "Số cặp cực",
+                "en": "Pole pairs"
+              },
+              "options": [
+                {
+                  "vi": "Trống: 4 cặp cực",
+                  "en": "Blank: 4 pole pairs"
+                },
+                {
+                  "vi": "5: 5 cặp cực",
+                  "en": "5: 5 pole pairs"
+                }
+              ]
             }
-          ],
-          "rows": [
-            [
-              "SCH060201C",
-              "0.2",
-              "220 V",
-              "SDV3-2S0.4G",
-              "0.64",
-              "1.91",
-              "3000 (3600)",
-              "1.8",
-              "0.264",
-              "1.2"
-            ],
-            [
-              "SCH060401C",
-              "0.4",
-              "220 V",
-              "SDV3-2S0.4G",
-              "1.27",
-              "3.81",
-              "3000 (3600)",
-              "2.6",
-              "0.407",
-              "1.6"
-            ],
-            [
-              "SCH080751C",
-              "0.75",
-              "220 V",
-              "SDV3-2S0.75G",
-              "2.39",
-              "7.1",
-              "3000 (3600)",
-              "3",
-              "1.82",
-              "2.9"
-            ],
-            [
-              "SCH080731B",
-              "0.73",
-              "220 V",
-              "SDV3-2S0.75G",
-              "3.5",
-              "10.5",
-              "2000 (2400)",
-              "3",
-              "2.63",
-              "3.9"
-            ],
-            [
-              "SCH080102E",
-              "1.0",
-              "220 V",
-              "SDV3-2S1.0G",
-              "4",
-              "12",
-              "2500 (3000)",
-              "4.4",
-              "2.97",
-              "4.1"
-            ],
-            [
-              "SCH110122C",
-              "1.2",
-              "220 V",
-              "SDV3-2S1.0G",
-              "4",
-              "12",
-              "3000 (3600)",
-              "5",
-              "5.4",
-              "6"
-            ],
-            [
-              "SCH110152C",
-              "1.5",
-              "220 V",
-              "SDV3-2S1.5G",
-              "5",
-              "15",
-              "3000 (3600)",
-              "6",
-              "6.3",
-              "6.8"
-            ],
-            [
-              "SCH110122B",
-              "1.2",
-              "220 V",
-              "SDV3-2S1.0G",
-              "6",
-              "12",
-              "2000 (2400)",
-              "4.5",
-              "7.6",
-              "7.9"
-            ],
-            [
-              "SCH110182C",
-              "1.8",
-              "220 V",
-              "SDV3-2S1.5G",
-              "6",
-              "18",
-              "3000 (3600)",
-              "6",
-              "7.6",
-              "7.9"
-            ],
-            [
-              "SCH130102E",
-              "1.0",
-              "220 V",
-              "SDV3-2S1.0G",
-              "4",
-              "12",
-              "2500 (3000)",
-              "4",
-              "8.5",
-              "6.2"
-            ],
-            [
-              "SCH130132E",
-              "1.3",
-              "220 V",
-              "SDV3-2S1.0G",
-              "5",
-              "15",
-              "2500 (3000)",
-              "5",
-              "10.6",
-              "6.6"
-            ],
-            [
-              "SCH130152E",
-              "1.5",
-              "220 V",
-              "SDV3-2S1.5G",
-              "6",
-              "18",
-              "2500 (3000)",
-              "6",
-              "12.6",
-              "7.4"
-            ],
-            [
-              "SCH130102A",
-              "1.0",
-              "220 V",
-              "SDV3-2S1.0G",
-              "10",
-              "20",
-              "1000 (1200)",
-              "4.5",
-              "19.4",
-              "10.2"
-            ],
-            [
-              "SCH130152H",
-              "1.5",
-              "220 V",
-              "SDV3-2S1.5G",
-              "10",
-              "25",
-              "1500 (1800)",
-              "6",
-              "19.4",
-              "10.2"
-            ],
-            [
-              "SCH130202E",
-              "2.0",
-              "220 V",
-              "SDV3-2T2.0G",
-              "7.7",
-              "22",
-              "2500 (3000)",
-              "7.5",
-              "15.3",
-              "8.3"
-            ],
-            [
-              "SCH130262E",
-              "2.6",
-              "220 V",
-              "SDV3-2T2.0G",
-              "10",
-              "25",
-              "2500 (3000)",
-              "10",
-              "19.4",
-              "9.8"
-            ],
-            [
-              "SCH130232H",
-              "2.3",
-              "220 V",
-              "SDV3-2T2.0G",
-              "15",
-              "30",
-              "1500 (1800)",
-              "9.5",
-              "27.7",
-              "12.6"
-            ],
-            [
-              "SCH130382E",
-              "3.8",
-              "220 V",
-              "SDV3-2T3.0G",
-              "15",
-              "30",
-              "2500 (3000)",
-              "13.5",
-              "27.7",
-              "11.8"
-            ],
-            [
-              "SCH180252H",
-              "2.5",
-              "220 V",
-              "SDV3-2T2.0G",
-              "17",
-              "42",
-              "1500 (1800)",
-              "10",
-              "65",
-              "19.5"
-            ],
-            [
-              "SCH180302H",
-              "3.0",
-              "220 V",
-              "SDV3-2T3.0G",
-              "19",
-              "47",
-              "1500 (1800)",
-              "12",
-              "70",
-              "20.5"
-            ],
-            [
-              "SCH080751C",
-              "0.75",
-              "380 V",
-              "SDV3-4T0.75G",
-              "2.39",
-              "7.1",
-              "3000 (3600)",
-              "1.6",
-              "1.82",
-              "2.9"
-            ],
-            [
-              "SCH080731B",
-              "0.73",
-              "380 V",
-              "SDV3-4T0.75G",
-              "3.5",
-              "10.5",
-              "2000 (2400)",
-              "1.8",
-              "2.63",
-              "3.9"
-            ],
-            [
-              "SCH080102E",
-              "1.0",
-              "380 V",
-              "SDV3-4T1.0G",
-              "4",
-              "12",
-              "2500 (3000)",
-              "2.3",
-              "2.97",
-              "4.1"
-            ],
-            [
-              "SCH110122C",
-              "1.2",
-              "380 V",
-              "SDV3-4T1.0G",
-              "4",
-              "12",
-              "3000 (3600)",
-              "3.0",
-              "5.4",
-              "6"
-            ],
-            [
-              "SCH110152C",
-              "1.5",
-              "380 V",
-              "SDV3-4T1.5G",
-              "5",
-              "15",
-              "3000 (3600)",
-              "4.5",
-              "6.3",
-              "6.8"
-            ],
-            [
-              "SCH110122B",
-              "1.2",
-              "380 V",
-              "SDV3-4T1.0G",
-              "6",
-              "12",
-              "2000 (2400)",
-              "3.0",
-              "7.6",
-              "7.9"
-            ],
-            [
-              "SCH110182C",
-              "1.8",
-              "380 V",
-              "SDV3-4T1.5G",
-              "6",
-              "18",
-              "3000 (3600)",
-              "4.5",
-              "7.6",
-              "7.9"
-            ],
-            [
-              "SCH130102E",
-              "1.0",
-              "380 V",
-              "SDV3-4T1.0G",
-              "4",
-              "12",
-              "2500 (3000)",
-              "2.6",
-              "8.5",
-              "7.7"
-            ],
-            [
-              "SCH130132E",
-              "1.3",
-              "380 V",
-              "SDV3-4T1.0G",
-              "5",
-              "15",
-              "2500 (3000)",
-              "3.0",
-              "10.6",
-              "8.2"
-            ],
-            [
-              "SCH130152E",
-              "1.5",
-              "380 V",
-              "SDV3-4T1.5G",
-              "6",
-              "18",
-              "2500 (3000)",
-              "4.0",
-              "12.6",
-              "8.9"
-            ],
-            [
-              "SCH130202E",
-              "2.0",
-              "380 V",
-              "SDV3-4T2.0G",
-              "7.7",
-              "22",
-              "2500 (3000)",
-              "4.7",
-              "15.3",
-              "10.0"
-            ],
-            [
-              "SCH130102A",
-              "1.0",
-              "380 V",
-              "SDV3-4T1.0G",
-              "10",
-              "20",
-              "1000 (1200)",
-              "2.5",
-              "19.4",
-              "10.1"
-            ],
-            [
-              "SCH130152H",
-              "1.5",
-              "380 V",
-              "SDV3-4T1.5G",
-              "10",
-              "25",
-              "1500 (1800)",
-              "3.5",
-              "19.4",
-              "12.1"
-            ],
-            [
-              "SCH130262E",
-              "2.6",
-              "380 V",
-              "SDV3-4T2.0G",
-              "10",
-              "25",
-              "2500 (3000)",
-              "6.0",
-              "19.4",
-              "9.1"
-            ],
-            [
-              "SCH130232H",
-              "2.3",
-              "380 V",
-              "SDV3-4T2.0G",
-              "15",
-              "30",
-              "1500 (1800)",
-              "5.0",
-              "27.7",
-              "12.6"
-            ],
-            [
-              "SCH130382E",
-              "3.8",
-              "380 V",
-              "SDV3-4T4.0G",
-              "15",
-              "30",
-              "2500 (3000)",
-              "8.8",
-              "27.7",
-              "14.5"
-            ],
-            [
-              "SCH180302H",
-              "3.0",
-              "380 V",
-              "SDV3-4T3.0G",
-              "19",
-              "47",
-              "1500 (1800)",
-              "7.5",
-              "70",
-              "20.5"
-            ],
-            [
-              "SCH180432H",
-              "4.3",
-              "380 V",
-              "SDV3-4T4.0G",
-              "27",
-              "67",
-              "1500 (1800)",
-              "10",
-              "96.4",
-              "25.5"
-            ],
-            [
-              "SCH180552H",
-              "5.5",
-              "380 V",
-              "SDA2-4T5.5G",
-              "35",
-              "70",
-              "1500 (1800)",
-              "12",
-              "122.5",
-              "30.5"
-            ],
-            [
-              "SCH180752H",
-              "7.5",
-              "380 V",
-              "SDA2-4T7.5G",
-              "48",
-              "96",
-              "1500 (1800)",
-              "20",
-              "167.2",
-              "40"
-            ],
-            [
-              "SCH200832H",
-              "8.3",
-              "380 V",
-              "SDA2-4T7.5G",
-              "53",
-              "—",
-              "1500",
-              "18",
-              "72",
-              "46"
-            ],
-            [
-              "SCH200113B",
-              "11.1",
-              "380 V",
-              "SDA2-4T11G",
-              "53",
-              "—",
-              "2000",
-              "22",
-              "72",
-              "46"
-            ],
-            [
-              "SCH200113H",
-              "11",
-              "380 V",
-              "SDA2-4T11G",
-              "70",
-              "—",
-              "1500",
-              "21",
-              "97.7",
-              "52"
-            ],
-            [
-              "SCH200133H",
-              "13",
-              "380 V",
-              "SDA2-4T11G",
-              "84",
-              "—",
-              "1500",
-              "23",
-              "114",
-              "59"
-            ],
-            [
-              "SCH200153B",
-              "15",
-              "380 V",
-              "SDA2-4T15G",
-              "70",
-              "—",
-              "2000",
-              "28",
-              "97",
-              "52"
-            ],
-            [
-              "SCH200183B",
-              "18",
-              "380 V",
-              "SDA2-4T18.5G",
-              "84",
-              "—",
-              "2000",
-              "32",
-              "114",
-              "59"
-            ],
-            [
-              "SCH230233H",
-              "23",
-              "380 V",
-              "SDA2-4T22G",
-              "149",
-              "—",
-              "1500",
-              "54",
-              "145",
-              "—"
-            ],
-            [
-              "SCH230293H",
-              "29",
-              "380 V",
-              "SDA2-4T30G",
-              "185",
-              "—",
-              "1500",
-              "65.5",
-              "620",
-              "—"
-            ],
-            [
-              "SCH230353H",
-              "35",
-              "380 V",
-              "SDA2-4T37G",
-              "223",
-              "—",
-              "1500",
-              "79",
-              "740",
-              "—"
-            ],
-            [
-              "SCH260383H",
-              "38",
-              "380 V",
-              "SDA2-4T30G",
-              "242",
-              "—",
-              "1500",
-              "67.5",
-              "1700",
-              "—"
-            ],
-            [
-              "SCH260453H",
-              "45",
-              "380 V",
-              "SDA2-4T45G",
-              "286",
-              "—",
-              "1500",
-              "93",
-              "2100",
-              "—"
-            ],
-            [
-              "SCH060201C-□5",
-              "0.2",
-              "220 V · H5",
-              "SDA2-2S0.4G",
-              "0.64",
-              "1.92",
-              "3000 (6000)",
-              "1.6",
-              "0.28",
-              "0.8"
-            ],
-            [
-              "SCH060401C-□5",
-              "0.4",
-              "220 V · H5",
-              "SDA2-2S0.4G",
-              "1.27",
-              "3.81",
-              "3000 (6000)",
-              "2.6",
-              "0.52",
-              "1.1"
-            ],
-            [
-              "SCH080751C-□5",
-              "0.75",
-              "220 V · H5",
-              "SDA2-2S0.75G",
-              "2.39",
-              "7.17",
-              "3000 (6000)",
-              "4.5",
-              "2",
-              "2.1"
-            ],
-            [
-              "SCH130851H-□5",
-              "0.85",
-              "220 V · H5",
-              "SDA2-2S1.0G",
-              "5.4",
-              "16.2",
-              "1500 (3000)",
-              "6.5",
-              "13.9",
-              "6.8"
-            ],
-            [
-              "SCH130132H-□5",
-              "1.3",
-              "220 V · H5",
-              "SDA2-2T1.0G",
-              "8.4",
-              "25.2",
-              "1500 (3000)",
-              "9.5",
-              "20.5",
-              "9.4"
-            ],
-            [
-              "SCH130182H-□5",
-              "1.8",
-              "220 V · H5",
-              "SDA2-2T1.5G",
-              "11.5",
-              "34.5",
-              "1500 (3000)",
-              "12.5",
-              "30.1",
-              "11.5"
-            ],
-            [
-              "SCH130232H-□5",
-              "2.3",
-              "220 V · H5",
-              "SDA2-2T2.0G",
-              "14.6",
-              "43.8",
-              "1500 (3000)",
-              "16.0",
-              "40.7",
-              "12.4"
-            ]
           ]
-        }
-      ]
-    }
-  },
-  {
-    "slug": "dl-power-cable",
-    "category": "servo",
-    "kind": "cable",
-    "listed": false,
-    "brand": "QS Servo",
-    "name": "DL-SCH",
-    "tag": "Cáp động lực",
-    "tagEn": "Power cable",
-    "desc": "Cáp động lực đúc sẵn nối driver với motor SCH, đầu nối đi liền bộ — aviation plug cho frame từ 110 trở lên. Đặt theo chiều dài mét; motor frame 200 – 260 không kèm cáp động lực từ nhà máy.",
-    "descEn": "Pre-assembled power cable from drive to SCH motor, connectors included — aviation plug from frame 110 up. Ordered by length in metres; frame 200 – 260 motors ship without a factory power cable.",
-    "specs": [
-      {
-        "l": "Nhóm mã",
-        "v": "DL-SCH086 · DL-SCH130 · DL-SCH180"
-      },
-      {
-        "l": "Tương thích",
-        "v": "Motor SCH060 – SCH180"
-      },
-      {
-        "l": "Phanh",
-        "v": "N = không phanh · B = có phanh"
-      },
-      {
-        "l": "Tuỳ chọn",
-        "v": "Chiều dài theo mét · hậu tố -R cho loại cáp mềm"
-      }
-    ],
-    "specsEn": [
-      {
-        "l": "Part groups",
-        "v": "DL-SCH086 · DL-SCH130 · DL-SCH180"
-      },
-      {
-        "l": "Fits",
-        "v": "SCH060 – SCH180 motors"
-      },
-      {
-        "l": "Brake",
-        "v": "N = without brake · B = with brake"
-      },
-      {
-        "l": "Options",
-        "v": "Ordered by length in metres · -R suffix for flexible cable"
-      }
-    ],
-    "image": null,
-    "sourceUrl": "https://savch.net/uploads/20260427/ab81e1dfb54604b0184e63ac723a192c.pdf",
-    "detail": {
-      "naming": {
-        "code": "DL-SCH130(ZD1Y)-B-5",
-        "lines": [
-          "DL = cáp động lực đúc sẵn (driver → motor), đầu nối đi liền bộ",
-          "SCH086 / SCH130 / SCH180 = nhóm size motor tương thích",
-          "ZD1V = đi với driver SDV3 · ZD1Y = đi với driver SDA2",
-          "N = không phanh · B = có phanh (thêm lõi cấp phanh)",
-          "5 = chiều dài cáp (m) · hậu tố -R = loại cáp mềm (flexible)"
-        ],
-        "linesEn": [
-          "DL = pre-assembled power cable (drive → motor), connectors included",
-          "SCH086 / SCH130 / SCH180 = compatible motor size group",
-          "ZD1V = for SDV3 drives · ZD1Y = for SDA2 drives",
-          "N = without brake · B = with brake (adds brake-supply cores)",
-          "5 = cable length (m) · -R suffix = flexible cable"
-        ],
-        "figure": {
-          "src": "/img/products/series/dl-power-cable/naming.webp",
-          "srcEn": "/img/products/series/dl-power-cable/naming-en.webp",
-          "w": 900,
-          "h": 330,
-          "alt": "Sơ đồ cách đọc mã cáp nguồn DL",
-          "altEn": "DL power cable model code breakdown"
-        }
-      },
-      "tables": [
+        },
         {
-          "caption": "Cáp động lực — chọn theo nhóm size motor",
-          "captionEn": "Power cable — select by motor size group",
-          "note": "Đầu nối aviation plug cho frame từ 110 trở lên, đầu rời cho frame nhỏ — đều đi liền bộ cáp. Motor frame 200–260 không kèm cáp động lực từ nhà máy. Đặt theo chiều dài mét; thêm hậu tố -R nếu cần cáp mềm.",
-          "noteEn": "Aviation-plug connector from frame 110 up, loose terminals for smaller frames — both ship with the cable set. Frame 200–260 motors ship without a factory power cable. Ordered by length in metres; add the -R suffix for flexible cable.",
-          "cols": [
-            {
-              "key": "code",
-              "label": "Mã cáp",
-              "labelEn": "Cable code"
-            },
-            {
-              "key": "group",
-              "label": "Nhóm size",
-              "labelEn": "Size group"
-            },
-            {
-              "key": "brake",
-              "label": "Phanh",
-              "labelEn": "Brake"
-            },
-            {
-              "key": "fits",
-              "label": "Motor tương thích",
-              "labelEn": "Fits motors"
-            }
+          "kind": "note",
+          "text": {
+            "vi": "Bảng thông số bên dưới in mã rút gọn gồm bốn nhóm đầu — ví dụ SCH130152E là frame 130 mm, 15 × 10² = 1500 W, tốc độ định mức 2500 vòng/phút.",
+            "en": "The rating tables below print the short code — its first four groups only. SCH130152E is a 130 mm frame, 15 × 10² = 1500 W, rated at 2500 r/min."
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Thông số motor servo",
+            "en": "Servo motor specification"
+          },
+          "sub": {
+            "vi": "Dòng H — 220 V",
+            "en": "H series — 220 V"
+          }
+        },
+        {
+          "kind": "note",
+          "text": {
+            "vi": "Mọi model trong bảng: cách điện F Class (155 °C), nhiệt độ môi trường −20 °C ~ +40 °C, phanh tuỳ chọn DC 24 V ±10 %.",
+            "en": "Every model listed: class F insulation (155 °C), ambient temperature −20 °C ~ +40 °C, optional DC 24 V ±10 % brake."
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 60 mm",
+            "en": "60 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH060201C",
+            "SCH060401C"
           ],
-          "rows": [
-            [
-              "DL-SCH086(ZD1V/ZD1Y)-N/B-L",
-              "SCH086",
-              "N / B",
-              "SCH060 – SCH090"
-            ],
-            [
-              "DL-SCH130(ZD1V/ZD1Y)-N/B-L",
-              "SCH130",
-              "N / B",
-              "SCH110 – SCH130"
-            ],
-            [
-              "DL-SCH180(ZD1V/ZD1Y)-N/B-L",
-              "SCH180",
-              "N / B",
-              "SCH180"
-            ]
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "200",
+                    "400"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-2S0.4G",
+                    "SDV3-2S0.4G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "0.64",
+                    "1.27"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3000",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "1.8",
+                    "2.6"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "0.264",
+                    "0.407"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "1.91",
+                    "3.81"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3600",
+                    "3600"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "1.2",
+                    "1.6"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "2",
+                      "cs": 2
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "11",
+                      "cs": 2
+                    }
+                  ]
+                }
+              ]
+            }
           ]
-        }
-      ]
-    }
-  },
-  {
-    "slug": "sa2fk-encoder-cable",
-    "category": "servo",
-    "kind": "cable",
-    "listed": false,
-    "brand": "QS Servo",
-    "name": "SA2FK",
-    "tag": "Cáp phản hồi encoder",
-    "tagEn": "Encoder feedback cable",
-    "desc": "Cáp phản hồi encoder đúc sẵn nối motor SCH về driver, đầu nối đi liền bộ. Mã chọn theo nhóm frame motor và loại encoder; bản ABS đi kèm hộp pin.",
-    "descEn": "Pre-assembled encoder feedback cable from SCH motor back to the drive, connectors included. Part number follows the motor frame group and encoder type; the absolute version includes the battery box.",
-    "specs": [
-      {
-        "l": "Nhóm mã",
-        "v": "SA2FK-P1 (SCH060 – SCH090) · SA2FK-P2 (SCH110 – SCH260)"
-      },
-      {
-        "l": "Loại encoder",
-        "v": "S = tăng dần 17/20 bit · D = tuyệt đối · F = 2500 xung"
-      },
-      {
-        "l": "Tuỳ chọn",
-        "v": "Chiều dài theo mét · hậu tố -R cho loại cáp mềm"
-      }
-    ],
-    "specsEn": [
-      {
-        "l": "Part groups",
-        "v": "SA2FK-P1 (SCH060 – SCH090) · SA2FK-P2 (SCH110 – SCH260)"
-      },
-      {
-        "l": "Encoder type",
-        "v": "S = 17/20-bit incremental · D = absolute · F = 2500-line"
-      },
-      {
-        "l": "Options",
-        "v": "Ordered by length in metres · -R suffix for flexible cable"
-      }
-    ],
-    "image": null,
-    "sourceUrl": "https://savch.net/uploads/20260427/05e5f2e13a0fd1fb64897f106a2956b4.pdf",
-    "detail": {
-      "naming": {
-        "code": "SA2FK-P2S(ZD1Y)-5",
-        "lines": [
-          "SA2FK = cáp phản hồi encoder đúc sẵn (motor → driver), đầu nối đi liền bộ",
-          "P1 = motor SCH060 – SCH090 · P2 = motor SCH110 – SCH260",
-          "S = encoder tăng dần 17/20 bit · D = tuyệt đối (kèm hộp pin) · F = 2500 xung",
-          "ZD1Y = mã đầu nối cáp encoder — dùng chung cho cả driver SDV3 và SDA2",
-          "5 = chiều dài cáp (m) · hậu tố -R = loại cáp mềm (flexible)"
-        ],
-        "linesEn": [
-          "SA2FK = pre-assembled encoder feedback cable (motor → drive), connectors included",
-          "P1 = SCH060 – SCH090 motors · P2 = SCH110 – SCH260 motors",
-          "S = 17/20-bit incremental encoder · D = absolute (battery box included) · F = 2500-line",
-          "ZD1Y = encoder-cable connector code — shared by both SDV3 and SDA2 drives",
-          "5 = cable length (m) · -R suffix = flexible cable"
-        ],
-        "figure": {
-          "src": "/img/products/series/sa2fk-encoder-cable/naming.webp",
-          "srcEn": "/img/products/series/sa2fk-encoder-cable/naming-en.webp",
-          "w": 900,
-          "h": 293,
-          "alt": "Sơ đồ cách đọc mã cáp encoder SA2FK",
-          "altEn": "SA2FK feedback cable model code breakdown"
-        }
-      },
-      "tables": [
+        },
         {
-          "caption": "Cáp phản hồi encoder — chọn theo frame & loại encoder",
-          "captionEn": "Encoder feedback cable — select by frame & encoder type",
-          "note": "Bản tuyệt đối (D) đi kèm hộp pin giữ vị trí. Đặt theo chiều dài mét; thêm hậu tố -R nếu cần cáp mềm.",
-          "noteEn": "The absolute (D) version includes a position-holding battery box. Ordered by length in metres; add the -R suffix for flexible cable.",
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 80 mm",
+            "en": "80 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH080751C",
+            "SCH080731B",
+            "SCH080102E"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "750",
+                    "730",
+                    "1000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-2S0.75G",
+                    "SDV3-2S0.75G",
+                    "SDV3-2S1.0G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "2.39",
+                    "3.5",
+                    "4"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3000",
+                    "2000",
+                    "2500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "3",
+                    "3",
+                    "4.4"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "1.82",
+                    "2.63",
+                    "2.97"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "7.1",
+                    "10.5",
+                    "12"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3600",
+                    "2400",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "2.9",
+                    "3.9",
+                    "4.1"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "4",
+                      "cs": 3
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "18",
+                      "cs": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 110 mm",
+            "en": "110 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH110122C",
+            "SCH110152C",
+            "SCH110122B",
+            "SCH110182C"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "1200",
+                    "1500",
+                    "1200",
+                    "1800"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-2S1.0G",
+                    "SDV3-2S1.5G",
+                    "SDV3-2S1.0G",
+                    "SDV3-2S1.5G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "4",
+                    "5",
+                    "6",
+                    "6"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3000",
+                    "3000",
+                    "2000",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "5",
+                    "6",
+                    "4.5",
+                    "6"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "5.4",
+                    "6.3",
+                    "7.6",
+                    "7.6"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "12",
+                    "15",
+                    "12",
+                    "18"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3600",
+                    "3600",
+                    "2400",
+                    "3600"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "6",
+                    "6.8",
+                    "7.9",
+                    "7.9"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "8",
+                      "cs": 4
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "15",
+                      "cs": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 130 mm",
+            "en": "130 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH130102E",
+            "SCH130132E",
+            "SCH130152E",
+            "SCH130102A",
+            "SCH130152H"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "1000",
+                    "1300",
+                    "1500",
+                    "1000",
+                    "1500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-2S1.0G",
+                    "SDV3-2S1.0G",
+                    "SDV3-2S1.5G",
+                    "SDV3-2S1.0G",
+                    "SDV3-2S1.5G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "4",
+                    "5",
+                    "6",
+                    "10",
+                    "10"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "2500",
+                    "2500",
+                    "2500",
+                    "1000",
+                    "1500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "4",
+                    "5",
+                    "6",
+                    "4.5",
+                    "6"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "8.5",
+                    "10.6",
+                    "12.6",
+                    "19.4",
+                    "19.4"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "12",
+                    "15",
+                    "18",
+                    "20",
+                    "25"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3000",
+                    "3000",
+                    "3000",
+                    "1200",
+                    "1800"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "6.2",
+                    "6.6",
+                    "7.4",
+                    "10.2",
+                    "10.2"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "16",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "25",
+                      "cs": 5
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH130202E",
+            "SCH130262E",
+            "SCH130232H",
+            "SCH130382E"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "2000",
+                    "2600",
+                    "2300",
+                    "3800"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-2T2.0G",
+                    "SDV3-2T2.0G",
+                    "SDV3-2T2.0G",
+                    "SDV3-2T3.0G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "7.7",
+                    "10",
+                    "15",
+                    "15"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "2500",
+                    "2500",
+                    "1500",
+                    "2500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "7.5",
+                    "10",
+                    "9.5",
+                    "13.5"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "15.3",
+                    "19.4",
+                    "27.7",
+                    "27.7"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "22",
+                    "25",
+                    "30",
+                    "30"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3000",
+                    "3000",
+                    "1800",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "8.3",
+                    "9.1",
+                    "12.6",
+                    "11.8"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "8",
+                    {
+                      "v": "16",
+                      "cs": 3
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "15",
+                    {
+                      "v": "25",
+                      "cs": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 180 mm",
+            "en": "180 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH180252H",
+            "SCH180302H"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "2500",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-2T2.0G",
+                    "SDV3-2T3.0G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "17",
+                    "19"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "1500",
+                    "1500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "10",
+                    "12"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "65",
+                    "70"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "42",
+                    "47"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "1800",
+                    "1800"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "19.5",
+                    "20.5"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "30",
+                      "cs": 2
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "35",
+                      "cs": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Thông số motor servo",
+            "en": "Servo motor specification"
+          },
+          "sub": {
+            "vi": "Dòng H — 380 V",
+            "en": "H series — 380 V"
+          }
+        },
+        {
+          "kind": "note",
+          "text": {
+            "vi": "Mọi model trong bảng: cách điện F Class (155 °C), nhiệt độ môi trường −20 °C ~ +40 °C, phanh tuỳ chọn DC 24 V ±10 %.",
+            "en": "Every model listed: class F insulation (155 °C), ambient temperature −20 °C ~ +40 °C, optional DC 24 V ±10 % brake."
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 80 mm",
+            "en": "80 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH080751C",
+            "SCH080731B",
+            "SCH080102E"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "750",
+                    "730",
+                    "1000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-4T0.75G",
+                    "SDV3-4T0.75G",
+                    "SDV3-4T1.0G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "2.39",
+                    "3.5",
+                    "4"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3000",
+                    "2000",
+                    "2500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "1.6",
+                    "1.8",
+                    "2.3"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "1.82",
+                    "2.63",
+                    "2.97"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "7.1",
+                    "10.5",
+                    "12"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3600",
+                    "2400",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "2.9",
+                    "3.9",
+                    "4.1"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "4",
+                      "cs": 3
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "18",
+                      "cs": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 110 mm",
+            "en": "110 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH110122C",
+            "SCH110152C",
+            "SCH110122B",
+            "SCH110182C"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "1200",
+                    "1500",
+                    "1200",
+                    "1800"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-4T1.0G",
+                    "SDV3-4T1.5G",
+                    "SDV3-4T1.0G",
+                    "SDV3-4T1.5G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "4",
+                    "5",
+                    "6",
+                    "6"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3000",
+                    "3000",
+                    "2000",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "3.0",
+                    "4.5",
+                    "3.0",
+                    "4.5"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "5.4",
+                    "6.3",
+                    "7.6",
+                    "7.6"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "12",
+                    "15",
+                    "12",
+                    "18"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3600",
+                    "3600",
+                    "2400",
+                    "3600"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "6",
+                    "6.8",
+                    "7.9",
+                    "7.9"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "8",
+                      "cs": 4
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "15",
+                      "cs": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 130 mm",
+            "en": "130 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH130102E",
+            "SCH130132E",
+            "SCH130152E",
+            "SCH130202E"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "1000",
+                    "1300",
+                    "1500",
+                    "2000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-4T1.0G",
+                    "SDV3-4T1.0G",
+                    "SDV3-4T1.5G",
+                    "SDV3-4T2.0G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "4",
+                    "5",
+                    "6",
+                    "7.7"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "2500",
+                    "2500",
+                    "2500",
+                    "2500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "2.6",
+                    "3.0",
+                    "4.0",
+                    "4.7"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "8.5",
+                    "10.6",
+                    "12.6",
+                    "15.3"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "12",
+                    "15",
+                    "18",
+                    "22"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "3000",
+                    "3000",
+                    "3000",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "7.7",
+                    "8.2",
+                    "8.9",
+                    "10.0"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "8",
+                      "cs": 4
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "15",
+                      "cs": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH130102A",
+            "SCH130152H",
+            "SCH130262E",
+            "SCH130232H",
+            "SCH130382E"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "1000",
+                    "1500",
+                    "2600",
+                    "2300",
+                    "3800"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-4T1.0G",
+                    "SDV3-4T1.5G",
+                    "SDV3-4T2.0G",
+                    "SDV3-4T2.0G",
+                    "SDV3-4T4.0G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "10",
+                    "10",
+                    "10",
+                    "15",
+                    "15"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "1000",
+                    "1500",
+                    "2500",
+                    "1500",
+                    "2500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "2.5",
+                    "3.5",
+                    "6.0",
+                    "5.0",
+                    "8.8"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "19.4",
+                    "19.4",
+                    "19.4",
+                    "27.7",
+                    "27.7"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "20",
+                    "25",
+                    "25",
+                    "30",
+                    "30"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "1200",
+                    "1800",
+                    "3000",
+                    "1800",
+                    "3000"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "10.1",
+                    "12.1",
+                    "9.1",
+                    "12.6",
+                    "14.5"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "16",
+                      "cs": 5
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "25",
+                      "cs": 5
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 180 mm",
+            "en": "180 mm series"
+          }
+        },
+        {
+          "kind": "paramTable",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Mã motor servo",
+            "en": "Servo motor model"
+          },
+          "models": [
+            "SCH180302H",
+            "SCH180432H"
+          ],
+          "groups": [
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất định mức",
+                    "en": "Rated output power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    "3000",
+                    "4300"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Driver ghép bộ",
+                    "en": "Applicable servo drive"
+                  },
+                  "cells": [
+                    "SDV3-4T3.0G",
+                    "SDV3-4T4.0G"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment định mức",
+                    "en": "Rated torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "19",
+                    "27"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ định mức",
+                    "en": "Rated rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "1500",
+                    "1500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng định mức",
+                    "en": "Rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "7.5",
+                    "10"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Quán tính rotor",
+                    "en": "Rotor inertia"
+                  },
+                  "unit": "kg·m²×10⁻⁴",
+                  "cells": [
+                    "70",
+                    "96.4"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Moment đỉnh tức thời",
+                    "en": "Instant max torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    "47",
+                    "67"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Tốc độ tối đa",
+                    "en": "Max rotation speed"
+                  },
+                  "unit": "r/min",
+                  "cells": [
+                    "1800",
+                    "1800"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khối lượng",
+                    "en": "Weight"
+                  },
+                  "unit": "kg",
+                  "cells": [
+                    "20.5",
+                    "25.5"
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Phanh nam châm vĩnh cửu",
+                "en": "Permanent magnet brake"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Moment ma sát tĩnh của phanh",
+                    "en": "Brake static friction torque"
+                  },
+                  "unit": "N·m",
+                  "cells": [
+                    {
+                      "v": "30",
+                      "cs": 2
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất phanh",
+                    "en": "Brake rated power"
+                  },
+                  "unit": "W",
+                  "cells": [
+                    {
+                      "v": "35",
+                      "cs": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Kích thước ngoài motor servo",
+            "en": "Servo motor external dimension"
+          },
+          "sub": {
+            "vi": "Đơn vị: mm",
+            "en": "Unit: mm"
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 60 mm",
+            "en": "60 mm series"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/sch-motor/params/dimension-60.webp",
+          "w": 1600,
+          "h": 873,
+          "alt": {
+            "vi": "SCH frame 60 mm — mặt bích 60.2 × 60.2 mm, trục Ø14, 4 lỗ Ø5.5, then M4×L22",
+            "en": "SCH 60 mm frame — 60.2 × 60.2 mm flange, Ø14 shaft, 4-Ø5.5 holes, M4×L22 tapped end"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "220 V",
+            "en": "220 V"
+          },
           "cols": [
             {
-              "key": "code",
-              "label": "Mã cáp",
-              "labelEn": "Cable code"
+              "vi": "Mã motor",
+              "en": "Model"
             },
             {
-              "key": "group",
-              "label": "Nhóm frame",
-              "labelEn": "Frame group"
+              "vi": "SCH060201C",
+              "en": "SCH060201C"
             },
             {
-              "key": "encoder",
-              "label": "Encoder",
-              "labelEn": "Encoder"
-            },
-            {
-              "key": "fits",
-              "label": "Motor tương thích",
-              "labelEn": "Fits motors"
+              "vi": "SCH060401C",
+              "en": "SCH060401C"
             }
           ],
           "rows": [
-            [
-              "SA2FK-P1S(ZD1Y)-L",
-              "P1",
-              "INC 17/20-bit",
-              "SCH060 – SCH090"
-            ],
-            [
-              "SA2FK-P1D(ZD1Y)-L",
-              "P1",
-              "ABS 17/20-bit",
-              "SCH060 – SCH090"
-            ],
-            [
-              "SA2FK-P2S(ZD1Y)-L",
-              "P2",
-              "INC 17/20-bit",
-              "SCH110 – SCH260"
-            ],
-            [
-              "SA2FK-P2D(ZD1Y)-L",
-              "P2",
-              "ABS 17/20-bit",
-              "SCH110 – SCH260"
-            ],
-            [
-              "SA2FK-P2F(ZD1Y)-L",
-              "P2",
-              "2500-line",
-              "SCH110 – SCH260"
-            ]
+            {
+              "cells": [
+                {
+                  "vi": "L (không phanh)",
+                  "en": "L (without brake)"
+                },
+                {
+                  "vi": "109",
+                  "en": "109"
+                },
+                {
+                  "vi": "133",
+                  "en": "133"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "L (có phanh)",
+                  "en": "L (with brake)"
+                },
+                {
+                  "vi": "157",
+                  "en": "157"
+                },
+                {
+                  "vi": "181",
+                  "en": "181"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 80 mm",
+            "en": "80 mm series"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/sch-motor/params/dimension-80.webp",
+          "w": 1600,
+          "h": 704,
+          "alt": {
+            "vi": "SCH frame 80 mm — mặt bích 80.4 × 80.4 mm, trục Ø19, 4 lỗ Ø6, then M5×L22",
+            "en": "SCH 80 mm frame — 80.4 × 80.4 mm flange, Ø19 shaft, 4-Ø6 holes, M5×L22 tapped end"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "220 V / 380 V",
+            "en": "220 V / 380 V"
+          },
+          "cols": [
+            {
+              "vi": "Mã motor",
+              "en": "Model"
+            },
+            {
+              "vi": "SCH080751C",
+              "en": "SCH080751C"
+            },
+            {
+              "vi": "SCH080731B",
+              "en": "SCH080731B"
+            },
+            {
+              "vi": "SCH080102E",
+              "en": "SCH080102E"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "L (không phanh)",
+                  "en": "L (without brake)"
+                },
+                {
+                  "vi": "151",
+                  "en": "151"
+                },
+                {
+                  "vi": "179",
+                  "en": "179"
+                },
+                {
+                  "vi": "191",
+                  "en": "191"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "L (có phanh)",
+                  "en": "L (with brake)"
+                },
+                {
+                  "vi": "193",
+                  "en": "193"
+                },
+                {
+                  "vi": "221",
+                  "en": "221"
+                },
+                {
+                  "vi": "233",
+                  "en": "233"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 110 mm",
+            "en": "110 mm series"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/sch-motor/params/dimension-110.webp",
+          "w": 1600,
+          "h": 950,
+          "alt": {
+            "vi": "SCH frame 110 mm — mặt bích 110 × 110 mm, trục Ø19, 4 lỗ Ø9, then M6×L25",
+            "en": "SCH 110 mm frame — 110 × 110 mm flange, Ø19 shaft, 4-Ø9 holes, M6×L25 tapped end"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "220 V / 380 V",
+            "en": "220 V / 380 V"
+          },
+          "cols": [
+            {
+              "vi": "Mã motor",
+              "en": "Model"
+            },
+            {
+              "vi": "SCH110122C",
+              "en": "SCH110122C"
+            },
+            {
+              "vi": "SCH110152C",
+              "en": "SCH110152C"
+            },
+            {
+              "vi": "SCH110122B",
+              "en": "SCH110122B"
+            },
+            {
+              "vi": "SCH110182C",
+              "en": "SCH110182C"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "L (không phanh)",
+                  "en": "L (without brake)"
+                },
+                {
+                  "vi": "189",
+                  "en": "189"
+                },
+                {
+                  "vi": "204",
+                  "en": "204"
+                },
+                {
+                  "vi": "219",
+                  "en": "219"
+                },
+                {
+                  "vi": "219",
+                  "en": "219"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "L (có phanh)",
+                  "en": "L (with brake)"
+                },
+                {
+                  "vi": "254",
+                  "en": "254"
+                },
+                {
+                  "vi": "269",
+                  "en": "269"
+                },
+                {
+                  "vi": "284",
+                  "en": "284"
+                },
+                {
+                  "vi": "284",
+                  "en": "284"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 130 mm",
+            "en": "130 mm series"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/sch-motor/params/dimension-130.webp",
+          "w": 1600,
+          "h": 893,
+          "alt": {
+            "vi": "SCH frame 130 mm — mặt bích 130 × 130 mm, trục Ø22, 4 lỗ Ø9, then M6×L22",
+            "en": "SCH 130 mm frame — 130 × 130 mm flange, Ø22 shaft, 4-Ø9 holes, M6×L22 tapped end"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "220 V / 380 V",
+            "en": "220 V / 380 V"
+          },
+          "cols": [
+            {
+              "vi": "Mã motor",
+              "en": "Model"
+            },
+            {
+              "vi": "SCH130102E",
+              "en": "SCH130102E"
+            },
+            {
+              "vi": "SCH130132E",
+              "en": "SCH130132E"
+            },
+            {
+              "vi": "SCH130152E",
+              "en": "SCH130152E"
+            },
+            {
+              "vi": "SCH130102A",
+              "en": "SCH130102A"
+            },
+            {
+              "vi": "SCH130152H",
+              "en": "SCH130152H"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "L (không phanh)",
+                  "en": "L (without brake)"
+                },
+                {
+                  "vi": "166",
+                  "en": "166"
+                },
+                {
+                  "vi": "171",
+                  "en": "171"
+                },
+                {
+                  "vi": "179",
+                  "en": "179"
+                },
+                {
+                  "vi": "213",
+                  "en": "213"
+                },
+                {
+                  "vi": "213",
+                  "en": "213"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "L (có phanh)",
+                  "en": "L (with brake)"
+                },
+                {
+                  "vi": "226",
+                  "en": "226"
+                },
+                {
+                  "vi": "231",
+                  "en": "231"
+                },
+                {
+                  "vi": "239",
+                  "en": "239"
+                },
+                {
+                  "vi": "276",
+                  "en": "276"
+                },
+                {
+                  "vi": "276",
+                  "en": "276"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "220 V / 380 V",
+            "en": "220 V / 380 V"
+          },
+          "cols": [
+            {
+              "vi": "Mã motor",
+              "en": "Model"
+            },
+            {
+              "vi": "SCH130202E",
+              "en": "SCH130202E"
+            },
+            {
+              "vi": "SCH130262E",
+              "en": "SCH130262E"
+            },
+            {
+              "vi": "SCH130232H",
+              "en": "SCH130232H"
+            },
+            {
+              "vi": "SCH130382E",
+              "en": "SCH130382E"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "L (không phanh)",
+                  "en": "L (without brake)"
+                },
+                {
+                  "vi": "192",
+                  "en": "192"
+                },
+                {
+                  "vi": "209",
+                  "en": "209"
+                },
+                {
+                  "vi": "241",
+                  "en": "241"
+                },
+                {
+                  "vi": "231",
+                  "en": "231"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "L (có phanh)",
+                  "en": "L (with brake)"
+                },
+                {
+                  "vi": "252",
+                  "en": "252"
+                },
+                {
+                  "vi": "272",
+                  "en": "272"
+                },
+                {
+                  "vi": "304",
+                  "en": "304"
+                },
+                {
+                  "vi": "294",
+                  "en": "294"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Frame 180 mm",
+            "en": "180 mm series"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/sch-motor/params/dimension-180.webp",
+          "w": 1600,
+          "h": 803,
+          "alt": {
+            "vi": "SCH frame 180 mm — mặt bích 180.5 × 180.5 mm, trục Ø35, 4 lỗ Ø13.5, then M8×L30",
+            "en": "SCH 180 mm frame — 180.5 × 180.5 mm flange, Ø35 shaft, 4-Ø13.5 holes, M8×L30 tapped end"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "220 V / 380 V",
+            "en": "220 V / 380 V"
+          },
+          "cols": [
+            {
+              "vi": "Mã motor",
+              "en": "Model"
+            },
+            {
+              "vi": "SCH180252H",
+              "en": "SCH180252H"
+            },
+            {
+              "vi": "SCH180302H",
+              "en": "SCH180302H"
+            },
+            {
+              "vi": "SCH180432H",
+              "en": "SCH180432H"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "L (không phanh)",
+                  "en": "L (without brake)"
+                },
+                {
+                  "vi": "226",
+                  "en": "226"
+                },
+                {
+                  "vi": "232",
+                  "en": "232"
+                },
+                {
+                  "vi": "262",
+                  "en": "262"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "L (có phanh)",
+                  "en": "L (with brake)"
+                },
+                {
+                  "vi": "298",
+                  "en": "298"
+                },
+                {
+                  "vi": "304",
+                  "en": "304"
+                },
+                {
+                  "vi": "334",
+                  "en": "334"
+                }
+              ]
+            }
           ]
         }
       ]
@@ -1771,7 +4149,6 @@
       "altEn": "Savch S600 inverter"
     },
     "detail": {
-      "tables": [],
       "introduction": [
         {
           "src": "/img/products/series/s600/intro/01.webp",
@@ -1846,23 +4223,23 @@
           "title": "S600 Mini type user manual (IM)",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20260120/28f4a8f4c030e0ef1cee9857678d7abf.pdf",
+          "url": "/downloads/series/s600/s600-mini-type-user-manual.pdf",
           "format": "pdf",
-          "size_mb": 4.3
+          "size_mb": 4.21
         },
         {
           "title": "External Dimensions",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/44e9bd8fdd3602a5d57663138713f30a.pdf",
+          "url": "/downloads/series/s600/external-dimensions.pdf",
           "format": "pdf",
-          "size_mb": 0.4
+          "size_mb": 0.41
         },
         {
           "title": "EL-OP-B2 Remote Keypad User Manual",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/a60534125c8b4780dd067bd769e50b6d.pdf",
+          "url": "/downloads/series/s600/el-op-b2-remote-keypad-user-manual.pdf",
           "format": "pdf",
           "size_mb": 0.2
         },
@@ -1870,7 +4247,7 @@
           "title": "EL-OP-A2 Remote Keypad User Manual",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/120b72645388ad48dfb5c4928aa2b5be.pdf",
+          "url": "/downloads/series/s600/el-op-a2-remote-keypad-user-manual.pdf",
           "format": "pdf",
           "size_mb": 0.1
         },
@@ -1878,7 +4255,7 @@
           "title": "S600-Basic Wiring Diagram",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/34b2553acaa59396cd8be71934a84672.pdf",
+          "url": "/downloads/series/s600/s600-basic-wiring-diagram.pdf",
           "format": "pdf",
           "size_mb": 0.3
         },
@@ -1886,7 +4263,7 @@
           "title": "S600 Failure Elimination",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/fcbbcb453a4530522c6bf0e9b5edfb41.pdf",
+          "url": "/downloads/series/s600/s600-failure-elimination.pdf",
           "format": "pdf",
           "size_mb": 0.07
         },
@@ -1894,31 +4271,31 @@
           "title": "3D Installation Dimensions",
           "category": "drawing",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/f2c486ff99df765398a3c5f019251244.rar",
+          "url": "/downloads/series/s600/3d-installation-dimensions.rar",
           "format": "rar",
-          "size_mb": 6.8
+          "size_mb": 6.69
         },
         {
           "title": "2D Dimensions",
           "category": "drawing",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/bb596edfbfb3f395e4446479e5d3c65f.rar",
+          "url": "/downloads/series/s600/2d-dimensions.rar",
           "format": "rar",
-          "size_mb": 1.8
+          "size_mb": 1.79
         },
         {
           "title": "S600(E) Inverter Catalog",
           "category": "brochure",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20260427/0092826d7b05fbdde3d2c990dfdbf283.pdf",
+          "url": "/downloads/series/s600/s600-inverter-catalog.pdf",
           "format": "pdf",
-          "size_mb": 6.5
+          "size_mb": 6.42
         },
         {
           "title": "S600A(E)-CE",
           "category": "certificate",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250207/bb7e7a0362ebb043ad70eb9fa0a6560c.pdf",
+          "url": "/downloads/series/s600/s600a-ce.pdf",
           "format": "pdf",
           "size_mb": 0.04
         }
@@ -1988,7 +4365,6 @@
     },
     "sourceUrl": "https://en.savch.net/S3100AEGeneraldrive/53.html",
     "detail": {
-      "tables": [],
       "introduction": [
         {
           "src": "/img/products/series/s3100/intro/01.webp",
@@ -2105,23 +4481,23 @@
           "title": "S3100A General vector control manual(IM)",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20260618/08fe31b2688cf5ca6254d683b1b7d6a8.pdf",
+          "url": "/downloads/series/s3100/s3100a-general-vector-control-manual.pdf",
           "format": "pdf",
-          "size_mb": 7.3
+          "size_mb": 7.14
         },
         {
           "title": "S3100A Failure Elimination",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20260109/bda0e03df6837e75669fe36f88624258.pdf",
+          "url": "/downloads/series/s3100/s3100a-failure-elimination.pdf",
           "format": "pdf",
-          "size_mb": 0.08
+          "size_mb": 0.09
         },
         {
           "title": "S3100A Basic Wiring Diagram",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20260109/9120ed120d4fc2c3ac91bd256d0c6296.pdf",
+          "url": "/downloads/series/s3100/s3100a-basic-wiring-diagram.pdf",
           "format": "pdf",
           "size_mb": 0.3
         },
@@ -2129,23 +4505,23 @@
           "title": "S3100A External and Installation Dimensions of Inverter",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250801/f7075a34d5ab92194a0d2ec3210afc98.pdf",
+          "url": "/downloads/series/s3100/s3100a-external-and-installation-dimensions-of-inverter.pdf",
           "format": "pdf",
-          "size_mb": 1.3
+          "size_mb": 1.31
         },
         {
           "title": "HCA-B ETIO-AOMC1 Optional Card Manual",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/503ffe3897979ea9e38d215dcc09b6b8.pdf",
+          "url": "/downloads/series/s3100/hca-b-etio-aomc1-optional-card-manual.pdf",
           "format": "pdf",
-          "size_mb": 0.34
+          "size_mb": 0.33
         },
         {
           "title": "HCA-A ETIO-AOMC1 Optional Card Manual",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/98f75f3a03ee21c32b38b5b3e949dc40.pdf",
+          "url": "/downloads/series/s3100/hca-a-etio-aomc1-optional-card-manual.pdf",
           "format": "pdf",
           "size_mb": 0.26
         },
@@ -2153,7 +4529,7 @@
           "title": "HC-OP-B2 Operation keypad dimensions",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/40e1d1363a7ec48bf9edbf414947bf93.pdf",
+          "url": "/downloads/series/s3100/hc-op-b2-operation-keypad-dimensions.pdf",
           "format": "pdf",
           "size_mb": 0.4
         },
@@ -2161,7 +4537,7 @@
           "title": "HC-OP-A2 Operation keypad dimensions",
           "category": "manual",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250214/f35dd6da4cd76a5ef17c4b78a4301b52.pdf",
+          "url": "/downloads/series/s3100/hc-op-a2-operation-keypad-dimensions.pdf",
           "format": "pdf",
           "size_mb": 0.4
         },
@@ -2169,9 +4545,9 @@
           "title": "S3100A 2D Dimensions",
           "category": "drawing",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250801/097ef64d697d62a6b242ec89938ecde2.rar",
+          "url": "/downloads/series/s3100/s3100a-2d-dimensions.rar",
           "format": "rar",
-          "size_mb": 5.9
+          "size_mb": 5.76
         },
         {
           "title": "S3100A 3D Installation Dimensions",
@@ -2179,21 +4555,21 @@
           "lang": "en",
           "url": "https://en.savch.net/uploads/20250801/e058814c6d3f13c3ffdfbd4a3c710e08.rar",
           "format": "rar",
-          "size_mb": 37.5
+          "size_mb": 36.7
         },
         {
           "title": "S3100A(E) Inverter Catalog",
           "category": "brochure",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20260427/56519ebf0f2bc8a37e92baa76e37c3f2.pdf",
+          "url": "/downloads/series/s3100/s3100a-inverter-catalog.pdf",
           "format": "pdf",
-          "size_mb": 6.4
+          "size_mb": 6.26
         },
         {
           "title": "S3100A(E)-CE",
           "category": "certificate",
           "lang": "en",
-          "url": "https://en.savch.net/uploads/20250207/29c4eb06dff1a56ff878c508f8f6b55c.pdf",
+          "url": "/downloads/series/s3100/s3100a-ce.pdf",
           "format": "pdf",
           "size_mb": 0.08
         }

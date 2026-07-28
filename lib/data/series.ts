@@ -51,7 +51,12 @@ export type ViewSheetCell = string | { v: string; cs?: number };
 export type SheetBlockView =
   | { kind: "heading"; text: string; sub?: string }
   | { kind: "note"; text: string }
+  | { kind: "bullets"; items: string[] }
   | { kind: "image"; src: string; w: number; h: number; alt: string; caption?: string }
+  | {
+      kind: "imageRow";
+      images: { src: string; w: number; h: number; alt: string; caption?: string }[];
+    }
   | {
       kind: "naming";
       code: string;
@@ -108,6 +113,8 @@ export type SeriesDetailView = {
     applications?: string;
     sections: { title: string; items: string[] }[];
   };
+  /** Rebuilt introduction detail: feature copy interleaved with its diagram. */
+  introSheet: SheetBlockView[];
   /** Introduction gallery plates resolved to one locale (localized alt). */
   introduction: SeriesFigureView[];
   tables: SeriesModelTableView[];
@@ -151,6 +158,8 @@ function toSheetBlockView(b: SheetBlock, en: boolean): SheetBlockView {
       return { kind: "heading", text: L(b.text, en), sub: b.sub ? L(b.sub, en) : undefined };
     case "note":
       return { kind: "note", text: L(b.text, en) };
+    case "bullets":
+      return { kind: "bullets", items: b.items.map((i) => L(i, en)) };
     case "image":
       return {
         kind: "image",
@@ -159,6 +168,17 @@ function toSheetBlockView(b: SheetBlock, en: boolean): SheetBlockView {
         h: b.h,
         alt: L(b.alt, en),
         caption: b.caption ? L(b.caption, en) : undefined,
+      };
+    case "imageRow":
+      return {
+        kind: "imageRow",
+        images: b.images.map((im) => ({
+          src: im.src,
+          w: im.w,
+          h: im.h,
+          alt: L(im.alt, en),
+          caption: im.caption ? L(im.caption, en) : undefined,
+        })),
       };
     case "naming":
       return {
@@ -258,8 +278,9 @@ function toDetailView(d: SeriesDetail, en: boolean): SeriesDetailView {
         }
       : undefined,
     intro: d.intro ? toIntroView(d.intro, en) : undefined,
+    introSheet: (d.introSheet ?? []).map((b) => toSheetBlockView(b, en)),
     introduction: (d.introduction ?? []).map((p) => photoToView(p, en)),
-    tables: d.tables.map((t) => ({
+    tables: (d.tables ?? []).map((t) => ({
       caption: en ? t.captionEn : t.caption,
       note: en ? t.noteEn : t.note,
       filterCol: t.filterCol,
@@ -271,7 +292,10 @@ function toDetailView(d: SeriesDetail, en: boolean): SeriesDetailView {
     specSheet: (d.specSheet ?? []).map((b) => toSheetBlockView(b, en)),
     documentation: (d.documentation ?? []).map(({ titleEn, ...doc }) => ({
       ...doc,
-      title: en ? titleEn : doc.title,
+      // Manufacturer document names are published in English only; where no
+      // Vietnamese title exists the English one stands in rather than blanking
+      // the row.
+      title: (en ? titleEn : doc.title) || doc.title,
     })),
     accessoryImages: (d.accessoryImages ?? []).map((p) => photoToView(p, en)),
     accessorySheet: (d.accessorySheet ?? []).map((b) => toSheetBlockView(b, en)),
@@ -318,8 +342,8 @@ function toView(s: ProductSeries, locale: Locale): SeriesView {
   };
 }
 
-/** Series shown in a category listing — excludes accessory series (motor,
- *  cables) flagged `listed: false`, which are reached from the drive detail. */
+/** Series shown in a category listing — excludes series flagged
+ *  `listed: false` (the cable sets), which are reached from a drive detail. */
 export function getSeries(locale: Locale, category: SeriesCategory): SeriesView[] {
   return productSeries
     .filter((s) => s.category === category && s.listed !== false)
@@ -328,14 +352,6 @@ export function getSeries(locale: Locale, category: SeriesCategory): SeriesView[
 
 export function getSeriesCount(category: SeriesCategory): number {
   return productSeries.filter((s) => s.category === category && s.listed !== false).length;
-}
-
-/** Accessory series for a category — the unlisted companion parts (motor,
- *  cables) linked from a drive's detail page. */
-export function getSeriesAccessories(locale: Locale, category: SeriesCategory): SeriesView[] {
-  return productSeries
-    .filter((s) => s.category === category && s.listed === false)
-    .map((s) => toView(s, locale));
 }
 
 /** Every series slug — feeds `generateStaticParams` and the sitemap so each

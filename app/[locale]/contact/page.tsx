@@ -14,16 +14,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const seo = await getTranslations({ locale, namespace: "seo" });
   const title = t("meta.title");
   const description = seo("contactDescription");
+  const alternates = buildAlternates("/contact", locale);
   return {
     title,
     description,
-    alternates: buildAlternates("/contact", locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/contact",
+      url: alternates.canonical,
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },

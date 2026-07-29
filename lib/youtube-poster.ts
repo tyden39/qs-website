@@ -5,16 +5,18 @@ import { useEffect, useState } from "react";
 /**
  * YouTube poster stills for a 16:9 feature box, sharpest first.
  *
- * - `maxresdefault` — 1280×720, true 16:9. Only exists for HD uploads.
+ * - `maxresdefault` — 1280×720, true 16:9. Only exists for HD uploads, so it is opt-in
+ *   (see `hd` below) rather than something we speculatively request.
  * - `sddefault` — 640×480, 4:3 letterbox (the 16:9 frame is 640×360 after cropping).
  * - `hqdefault` — 480×360, 4:3 letterbox (480×270 cropped). The only file guaranteed
  *   to exist for every public video.
  *
  * Landing on the bottom rung means the still is upscaled ~2× inside a ~960px-wide
- * feature box, which reads as a torn, blocky image — hence always starting at the top
- * and stepping down only when a file is genuinely missing.
+ * feature box, which reads as a torn, blocky image — hence starting as high as the video
+ * actually goes and stepping down only when a file is genuinely missing.
  */
-const POSTER_FILES = ["maxresdefault", "sddefault", "hqdefault"] as const;
+const POSTER_FILES = ["sddefault", "hqdefault"] as const;
+const HD_POSTER_FILES = ["maxresdefault", ...POSTER_FILES] as const;
 
 /** Poster URL for a video id and still name (`mqdefault` = 320×180, for small thumbs). */
 export const posterUrl = (youtubeId: string, file: string) =>
@@ -29,8 +31,13 @@ const PLACEHOLDER_MAX_WIDTH = 120;
 
 /**
  * Resolves the sharpest poster still a video actually has, and returns the `src` to put
- * on an `<img>` (or `next/image`). It starts at `maxresdefault` and steps down a rung
+ * on an `<img>` (or `next/image`). It starts at `sddefault` and steps down a rung
  * whenever the current file turns out to be missing, settling on the best real still.
+ *
+ * Pass `hd` for clips that genuinely have a 1280×720 still, which then becomes the top
+ * rung. Most uploads have no `maxresdefault`, and asking for one that is absent costs a
+ * real 404 (logged in the browser console) plus a frame of broken poster before the
+ * fallback lands — so the HD rung is declared per clip instead of guessed for all.
  *
  * Each rung is checked with a detached probe image rather than `onLoad`/`onError` on the
  * rendered element: the poster sits in the prerendered HTML, so the browser often
@@ -42,13 +49,14 @@ const PLACEHOLDER_MAX_WIDTH = 120;
  * Rungs are remembered per video id, so a component that swaps between several clips
  * does not re-probe one it has already resolved.
  */
-export function useYoutubePoster(youtubeId: string) {
+export function useYoutubePoster(youtubeId: string, hd = false) {
+  const files = hd ? HD_POSTER_FILES : POSTER_FILES;
   const [rungs, setRungs] = useState<Record<string, number>>({});
   const rung = rungs[youtubeId] ?? 0;
-  const src = posterUrl(youtubeId, POSTER_FILES[rung]);
+  const src = posterUrl(youtubeId, files[rung]);
 
   useEffect(() => {
-    if (rung >= POSTER_FILES.length - 1) return;
+    if (rung >= files.length - 1) return;
 
     let cancelled = false;
     const dropRung = () => {
@@ -65,7 +73,7 @@ export function useYoutubePoster(youtubeId: string) {
     return () => {
       cancelled = true;
     };
-  }, [youtubeId, rung, src]);
+  }, [youtubeId, rung, src, files.length]);
 
   return { src };
 }

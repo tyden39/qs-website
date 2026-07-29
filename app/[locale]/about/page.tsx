@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import CircuitTraces from "@/components/circuit-traces";
 import Reveal from "@/components/reveal";
@@ -29,16 +29,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const seo = await getTranslations({ locale, namespace: "seo" });
   const title = t("metaTitle");
   const description = seo("aboutDescription");
+  const alternates = buildAlternates("/about", locale);
   return {
     title,
     description,
-    alternates: buildAlternates("/about", locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/about",
+      url: alternates.canonical,
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },

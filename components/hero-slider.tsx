@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/navigation";
@@ -147,7 +147,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           key={`c-${active}`}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          className="order-first md:order-none qs-sweep-in"
+          className="order-first md:order-none qs-sweep-in-opaque"
           style={sweep(120)}
         >
           <div className="relative w-full max-w-[456px] mx-auto">
@@ -158,8 +158,20 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                 src={s.img}
                 alt={`${t("hero.imgAltPrefix")} ${s.name}`}
                 fill
-                sizes="(max-width:1024px) 90vw, 456px"
+                // The render is `object-contain` in a box whose height is clamped
+                // and whose width never binds: the art is portrait (700x1373, ratio
+                // .51), so the painted width is always .51 x the box height, not the
+                // box width. Ceiling is .51 x 672px (the lg height cap) = 343px, and
+                // a phone at 36vh paints ~155px. Declaring the *box* width instead
+                // (90vw / 456px) overstated the need by 1.6-2.3x and pushed every
+                // phone onto the 700px original (120 KB) for a slot that the 384w
+                // variant (48 KB) covers. Tiers are the per-breakpoint ceilings.
+                sizes="(max-width:640px) 190px, (max-width:1024px) 270px, 350px"
                 priority={active === 0}
+                // The first slide is the page's LCP element. `priority` alone only
+                // emits the preload link, so the tag itself still competes with the
+                // rest of the hero for bandwidth until this marks it.
+                fetchPriority={active === 0 ? "high" : "auto"}
                 className="object-contain object-center drop-shadow-[0_34px_46px_rgba(0,0,0,.6)]"
               />
               <div className="qs-scan" aria-hidden="true" />

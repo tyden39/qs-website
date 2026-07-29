@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { createSearchDb, searchDb, type SearchDb, type SearchRecord } from "@/lib/search/engine";

@@ -16,16 +16,17 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "seo" });
   const title = t("servicesTitle");
   const description = t("servicesDescription");
+  const alternates = buildAlternates("/services", locale);
   return {
     title,
     description,
-    alternates: buildAlternates("/services", locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/services",
+      url: alternates.canonical,
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },

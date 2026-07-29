@@ -196,10 +196,11 @@
       "inspection": "Checkweighing"
     },
     "typesGold": {
-      "cnc": "machines"
+      "cnc": "machines",
+      "inspection": "Checkweighing"
     },
     "typeBlurb": {
-      "cnc": "CNC machines designed and assembled by QS — milling, routing and precision machining for metal, wood and stone.",
+      "cnc": "QS Technology supplies CNC machines designed and built around each specific machining need. From CNC milling machines and routers to jewellery machining units, every product is configured to match the customer's material, production process and operating requirements.",
       "automation": "Automation lines and machines built on QS controllers — dispensing, spring forming and other dedicated stations.",
       "inspection": "Automatic checkweighing and inspection equipment integrated with QS control on the production line."
     },
@@ -274,6 +275,8 @@
       "inLabel": "Infeed",
       "outLabel": "Discharge",
       "galleryHeading": "On the floor",
+      "videoHeading": "Machine in operation",
+      "videoPlay": "Play video",
       "controlSystemHeading": "Control system",
       "controlSystemBody": "Operated from the {system} with an andon status tower and emergency stop — clear at a glance for line operators.",
       "applicationsHeading": "Applications",

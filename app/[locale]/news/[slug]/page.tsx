@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/lib/i18n/navigation";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import DOMPurify from "isomorphic-dompurify";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllNews, getNewsBySlug, getNewsSlugs } from "@/lib/data/news";
+import { withImageLoadingHints } from "@/lib/media/article-images";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
+import { seoTitle, socialTitle, seoDescription } from "@/lib/seo/text";
 import { buildArticle, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 import { APP_URL } from "@/lib/seo/app-url";
@@ -20,16 +22,24 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const n = await getNewsBySlug(slug, locale);
   if (!n) return {};
+  const alternates = buildAlternates(`/news/${slug}`, locale);
+  // Editorial headlines here run long — some past 190 characters, which a SERP
+  // truncates to a fragment and a social card clips outright. The full headline
+  // still leads the page as the <h1>, so trimming the metadata copy costs the
+  // reader nothing while keeping the visible title readable.
+  const title = seoTitle(n.title);
+  const cardTitle = socialTitle(n.title);
+  const description = seoDescription(n.excerpt ?? "");
   return {
-    title: n.title,
-    description: n.excerpt?.slice(0, 160),
-    alternates: buildAlternates(`/news/${slug}`, locale),
+    title,
+    description,
+    alternates,
     openGraph: {
-      title: n.title,
-      description: n.excerpt,
+      title: cardTitle,
+      description,
       type: "article",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: `/news/${slug}`,
+      url: alternates.canonical,
       images: [
         {
           url: n.coverImage ?? "/og-default.png",
@@ -40,7 +50,7 @@ export async function generateMetadata({
       ],
       publishedTime: n.publishedAt?.toISOString(),
     },
-    twitter: { card: "summary_large_image", title: n.title, description: n.excerpt },
+    twitter: { card: "summary_large_image", title: cardTitle, description },
   };
 }
 
@@ -67,9 +77,9 @@ function slugifyVi(s: string): string {
     .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "section";
 }
 
-/** Sanitize, then add stable ids to <h2> headings and return a TOC. */
+/** Sanitize, add loading hints to images and stable ids to <h2>, return a TOC. */
 function buildArticleBody(raw: string): { html: string; toc: { id: string; text: string }[] } {
-  const html = safeHtml(raw);
+  const html = withImageLoadingHints(safeHtml(raw));
   const toc: { id: string; text: string }[] = [];
   const used = new Set<string>();
   const out = html.replace(/<h2>([\s\S]*?)<\/h2>/g, (_m, inner: string) => {

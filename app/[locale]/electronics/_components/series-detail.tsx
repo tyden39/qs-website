@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import ContactCta from "@/components/contact-cta";
 import { getTranslations } from "next-intl/server";

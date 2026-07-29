@@ -1,8 +1,9 @@
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import Reveal from "@/components/reveal";
 import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
+import { ProductVideo } from "../../electronics/_components/product-video";
 import {
   LogIn,
   Cog,
@@ -184,44 +185,66 @@ export default async function LineMachineDetail({
         </section>
       )}
 
-      {/* GALLERY — the machine on a real line, captioned */}
-      {machine.gallery.length > 0 && (
+      {/* MEDIA — the machine running, then the same machine on a real line */}
+      {(machine.video || machine.gallery.length > 0) && (
         <section className="relative py-8 sm:py-10 lg:py-14 bg-paper overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
           <div className="relative qs-wrap-detail">
-            <Reveal>
-              <div className="pb-6 border-b border-line mb-10">
-                <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-steelblue"></span>{d("galleryHeading")}
-                </span>
+            {machine.video && (
+              <Reveal>
+                <div className="pb-6 border-b border-line mb-10">
+                  <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-steelblue"></span>{d("videoHeading")}
+                  </span>
+                </div>
+                <div className="max-w-[960px] mx-auto">
+                  <ProductVideo
+                    youtubeId={machine.video.youtubeId}
+                    title={machine.model}
+                    playLabel={d("videoPlay")}
+                    hd={machine.video.hd}
+                  />
+                </div>
+              </Reveal>
+            )}
+
+            {machine.gallery.length > 0 && (
+              <>
+              <Reveal>
+                <div className={`pb-6 border-b border-line mb-10 ${machine.video ? "mt-14" : ""}`}>
+                  <span className="font-mono text-label text-steelblue tracking-[.16em] uppercase inline-flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-steelblue"></span>{d("galleryHeading")}
+                  </span>
+                </div>
+              </Reveal>
+              <div className={`grid grid-cols-1 gap-4 ${machine.gallery.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
+                {machine.gallery.map((shot, i) => (
+                  <Reveal key={shot.src} delay={i * 70}>
+                    <figure className="group m-0 border border-line bg-white overflow-hidden">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Image
+                          src={shot.src}
+                          alt={shot.caption}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          className="object-cover [filter:saturate(.97)_contrast(1.03)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                        />
+                        <LightboxTrigger
+                          group={galleryShots}
+                          index={i}
+                          ariaLabel={zoomLabel}
+                          className="absolute inset-0 z-[6]"
+                        />
+                      </div>
+                      <figcaption className="px-4 py-3 border-t border-line font-mono text-meta leading-[1.5] text-muted">
+                        <span className="text-steelblue mr-1.5">{String(i + 1).padStart(2, "0")}</span>{shot.caption}
+                      </figcaption>
+                    </figure>
+                  </Reveal>
+                ))}
               </div>
-            </Reveal>
-            <div className={`grid grid-cols-1 gap-4 ${machine.gallery.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
-              {machine.gallery.map((shot, i) => (
-                <Reveal key={shot.src} delay={i * 70}>
-                  <figure className="group m-0 border border-line bg-white overflow-hidden">
-                    <div className="relative aspect-[4/3] overflow-hidden">
-                      <Image
-                        src={shot.src}
-                        alt={shot.caption}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        className="object-cover [filter:saturate(.97)_contrast(1.03)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                      />
-                      <LightboxTrigger
-                        group={galleryShots}
-                        index={i}
-                        ariaLabel={zoomLabel}
-                        className="absolute inset-0 z-[6]"
-                      />
-                    </div>
-                    <figcaption className="px-4 py-3 border-t border-line font-mono text-meta leading-[1.5] text-muted">
-                      <span className="text-steelblue mr-1.5">{String(i + 1).padStart(2, "0")}</span>{shot.caption}
-                    </figcaption>
-                  </figure>
-                </Reveal>
-              ))}
-            </div>
+              </>
+            )}
           </div>
         </section>
       )}

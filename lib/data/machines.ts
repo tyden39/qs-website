@@ -8,10 +8,11 @@ import {
   type MachineSpec,
   type MachinePhoto,
   type MachineHeroShot,
+  type MachineVideo,
 } from "@/data/machines";
 import type { Locale } from "@/lib/i18n/config";
 
-export type { MachineCategory, MachineType, MachineSpec, MachinePhoto, MachineHeroShot };
+export type { MachineCategory, MachineType, MachineSpec, MachinePhoto, MachineHeroShot, MachineVideo };
 
 /** Section order on the machines list page: the CNC line first. */
 export const MACHINE_TYPES: MachineType[] = ["cnc", "automation", "inspection"];
@@ -54,6 +55,8 @@ export type MachineView = {
   /** Line-station template extras (automation/inspection). Empty when unused. */
   line: MachineLineStepView[];
   control: MachineControlView | null;
+  /** YouTube clip of the machine running, `null` when none has been published. */
+  video: MachineVideo | null;
   gallery: MachineShotView[];
   applications: string[];
 };
@@ -111,6 +114,7 @@ function toView(m: Machine, locale: Locale): MachineView {
           points: m.control.points.map((p) => (en ? p.labelEn ?? p.label : p.label)),
         }
       : null,
+    video: m.video ?? null,
     gallery: (m.gallery ?? []).map((g) => ({
       src: g.src,
       caption: en ? g.captionEn ?? g.caption : g.caption,

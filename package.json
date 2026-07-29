@@ -4,13 +4,14 @@
   "private": true,
   "packageManager": "yarn@1.22.22",
   "scripts": {
-    "predev": "tsx scripts/build-search-index.ts",
+    "predev": "tsx scripts/build-search-index.ts && tsx scripts/generate-image-variants.ts",
     "dev": "next dev",
-    "prebuild": "tsx scripts/build-search-index.ts",
+    "prebuild": "tsx scripts/build-search-index.ts && tsx scripts/generate-image-variants.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "search:index": "tsx scripts/build-search-index.ts",
+    "img:variants": "tsx scripts/generate-image-variants.ts",
     "i18n:check": "tsx scripts/check-i18n-keys.ts"
   },
   "dependencies": {
@@ -39,6 +40,7 @@
     "node-fetch": "^3.3.2",
     "postcss": "8.5.14",
     "schema-dts": "^2.0.0",
+    "sharp": "0.34.5",
     "tailwindcss": "^4.3.0",
     "tsx": "^4.20.0",
     "typescript": "6.0.3"

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Reveal from "@/components/reveal";
 import CircuitTraces from "@/components/circuit-traces";
 import { MachineCard } from "@/components/products/machine-card";
-import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, type CategoryTreeGroup, type CategoryTreeChild } from "../electronics/_components/product-category-tree";
+import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, HERO_FIGURE_SIZES, type CategoryTreeGroup, type CategoryTreeChild } from "../electronics/_components/product-category-tree";
 import { SortableCardList } from "../electronics/_components/sortable-card-list";
 import { FilterPrePaint } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
@@ -23,16 +23,17 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "cnc" });
   const title = t("seo.title");
   const description = t("seo.description");
+  const alternates = buildAlternates("/machine-building", locale);
   return {
     title,
     description,
-    alternates: buildAlternates("/machine-building", locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/machine-building",
+      url: alternates.canonical,
       images: [{ url: "/home/cnc-machine-hero.webp", width: 1672, height: 941, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -69,7 +70,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
     // Keyed: the figure crosses the RSC boundary and is reconciled from a lazy
     // reference inside the tree's group list, which React reads as an array child.
     <Image key={img.src} src={img.src} alt={alt} fill priority={priority}
-           sizes="(max-width:1023px) 92vw, 38vw" className="object-contain" />
+           sizes={HERO_FIGURE_SIZES} className="object-contain" />
   );
   const machineGroups: CategoryTreeGroup[] = MACHINE_TYPES.map((ty) => ({
     ty,

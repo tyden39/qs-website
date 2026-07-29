@@ -361,6 +361,18 @@ body {
   to   { opacity: 1; transform: translateX(0); }
 }
 
+/* Same entrance, minus the fade — for whichever element is the page's Largest
+   Contentful Paint. An element that starts at `opacity: 0` is not a paint as far
+   as the browser is concerned, so animating opacity on the LCP element pushes
+   the metric out by the delay plus the fade (measured at ~2.8s on the home hero,
+   on a throttled phone profile). Travelling in on transform alone keeps the
+   motion language and lets the paint count the moment the pixels land. */
+.qs-sweep-in-opaque { animation: qs-sweep-in-opaque 1s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes qs-sweep-in-opaque {
+  from { transform: translateX(-4rem); }
+  to   { transform: translateX(0); }
+}
+
 /* ─── Running marquee ticker ─── */
 .qs-marquee { display: flex; overflow: hidden; }
 .qs-marquee-track {
@@ -616,7 +628,7 @@ body {
   .qs-glow { opacity: .55; }
   .qs-scan { display: none; }
   .qs-rise { animation: none; opacity: 1; transform: none; }
-  .qs-sweep-in { animation: none; opacity: 1; transform: none; clip-path: none; }
+  .qs-sweep-in, .qs-sweep-in-opaque { animation: none; opacity: 1; transform: none; clip-path: none; }
   .qs-marquee-track { animation: none; }
   .qs-pcb-flow path, .qs-pcb-pad { animation: none; }
   .qs-pcb-pad { opacity: .45; }

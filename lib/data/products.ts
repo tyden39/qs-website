@@ -51,20 +51,11 @@ export type ProductView = {
   images: ProductImage[];
   /** Crawled enrichment (legacy site). Optional — not every model has it. */
   overview: string | null;
-  highlights: string[];
-  overviewImage: ProductFrontPhoto | null;
   video: { youtubeId: string; title?: string } | null;
   /** Front / rear / on-machine studio renders shown in the detail-page hero. */
   heroTriptych: HeroTriptych | null;
   gallery: ProductGalleryImage[];
-  documents: string[];
-  software: string[];
-  accessories: string[];
-  sourceUrl: string | null;
   specSheet: ProductSpecSheet;
-  gCodes: string[];
-  sort: number;
-  publishedAt: Date | null;
 };
 
 /**
@@ -189,7 +180,7 @@ function localizeAlt(alt: string): string {
 
 // Vietnamese is the primary copy; English variants are served on the `en`
 // locale. Spec values that are numbers/units stay shared.
-function toView(p: Product, index: number, locale: Locale): ProductView {
+function toView(p: Product, locale: Locale): ProductView {
   const source = p.gallery ?? [];
   const en = locale === "en";
   const gallery: ProductGalleryImage[] = source.map((g) => ({
@@ -216,29 +207,20 @@ function toView(p: Product, index: number, locale: Locale): ProductView {
     // Reuse the existing image slot for the crawled photo gallery.
     images: gallery.map((g) => ({ url: g.src, alt: g.alt })),
     overview: (en ? p.overviewEn ?? p.overview : p.overview) ?? null,
-    highlights: (en ? p.highlightsEn ?? p.highlights : p.highlights) ?? [],
-    overviewImage: p.overviewImage ?? null,
     video: p.video ?? null,
     heroTriptych: HERO_TRIPTYCH[p.slug] ?? null,
     gallery,
-    documents: p.documents ?? [],
-    software: p.software ?? [],
-    accessories: p.accessories ?? [],
-    sourceUrl: p.sourceUrl ?? null,
     specSheet: en ? localizeSpecSheet(specSheet) : specSheet,
-    gCodes: p.gCodes ?? [],
-    sort: index,
-    publishedAt: null,
   };
 }
 
 export function getAllProducts(locale: Locale): ProductView[] {
-  return products.map((p, i) => toView(p, i, locale));
+  return products.map((p) => toView(p, locale));
 }
 
 export function getProductBySlug(slug: string, locale: Locale): ProductView | null {
-  const index = products.findIndex((p) => p.slug === slug);
-  return index === -1 ? null : toView(products[index], index, locale);
+  const p = products.find((x) => x.slug === slug);
+  return p ? toView(p, locale) : null;
 }
 
 export function getProductSlugs(): string[] {

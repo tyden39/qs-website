@@ -99,20 +99,12 @@ export type Product = {
   overview?: string;
   /** English overview, served on the `en` locale (Vietnamese `overview` stays primary). */
   overviewEn?: string;
-  highlights?: string[];
-  /** English highlights, served on the `en` locale (Vietnamese `highlights` stays primary). */
-  highlightsEn?: string[];
-  /** Lead photo shown in the overview's right column. Optional — falls back to a placeholder. */
-  overviewImage?: ProductPhoto;
   /** Product video (YouTube) rendered below the photo tour in the overview tab. */
   video?: { youtubeId: string; title?: string };
   gallery?: ProductGalleryPhoto[];
-  documents?: string[];
-  software?: string[];
-  accessories?: string[];
-  sourceUrl?: string;
   specSheet?: ProductSpecSheet;
-  gCodes?: string[];
+  /** Legacy-site page this row was crawled from — provenance, never rendered. */
+  sourceUrl?: string;
 };
 
 // Specs and bundles follow the QS "CNC Solution Controller" catalogue: only the

@@ -1,42 +1,22 @@
 {
-  "meta": {
-    "title": "Applications",
-    "description": "Industrial applications of QS equipment"
-  },
-  "page": {
-    "heading": "Applications",
-    "subheading": "QS equipment suited for a wide range of industries",
-    "viewDetail": "View details",
-    "noResults": "No applications found."
-  },
-  "detail": {
-    "workflow": "Application workflow",
-    "specs": "Technical specifications",
-    "deployments": "Real-world deployments",
-    "back": "Back to list"
-  },
   "index": {
     "breadcrumb": { "home": "Home", "current": "Applications" },
     "eyebrow": "Industrial Applications",
     "heading": "Applications",
     "lede": "QS controllers run across multiple material families — metal, wood, stone, and jewellery — plus dedicated automation machines. Each group is its own machining challenge.",
-    "catalogEyebrow": "[ Grouped · by industry ]",
     "catalogHeading": "Applications by Industry",
-    "caseStudies": "{count} case studies",
-    "groupsCount": "{count} groups",
     "groups": [
-      { "name": "Metal machining", "nameGold": "machining", "tag": "Kim loại", "desc": "CNC milling for metal — molds, mechanical parts, medical devices.", "axes": "3 · 4 · 5 axis" },
-      { "name": "Wood machining", "nameGold": "machining", "tag": "Gỗ", "desc": "Carving, jigsaw, and joinery for furniture and woodcraft." },
-      { "name": "Stone machining", "nameGold": "machining", "tag": "Đá", "desc": "Carving and cutting for natural and engineered stone." },
-      { "name": "Jewellery machining", "nameGold": "machining", "tag": "Kim hoàn", "desc": "Fine engraving and milling on gold, silver, and precious alloys." },
-      { "name": "Other automation", "nameGold": "automation", "tag": "Automation", "desc": "Other dedicated machines running QS controllers — gluing, spring bending." }
+      { "name": "Metal machining", "nameGold": "machining", "tag": "Kim loại", "desc": "QS Controller runs on CNC machines for metal machining, supporting operations such as milling, drilling, tapping and contour machining. The system suits a wide range of production needs, from molds and mechanical parts to industrial and medical device components. Precise motion control keeps the machine stable and matched to the machining requirements of each product.", "axes": "3 · 4 · 5 axis" },
+      { "name": "Wood machining", "nameGold": "machining", "tag": "Gỗ", "desc": "QS Controller runs on CNC machines for wood machining, covering operations such as jigsaw cutting, joinery and 2D, 3D carving. The system suits furniture production, woodcraft, decorative details and wooden components with complex contours. Precise motion control keeps cutting paths steady and faithful to the design contour." },
+      { "name": "Stone machining", "nameGold": "machining", "tag": "Đá", "desc": "QS Controller runs on CNC machines for cutting and carving natural and engineered stone. The system supports patterns, reliefs, stone statues, countertops and decorative details with complex contours. Coordinated multi-axis motion keeps the machine on the toolpath and meets the shaping requirements of each product." },
+      { "name": "Jewellery machining", "nameGold": "machining", "tag": "Kim hoàn", "desc": "QS Controller runs on CNC machines for jewellery machining, supporting engraving, milling and shaping of details on gold, silver and precious alloys. Precise motion control lets the machine handle intricate patterns, fine lines and surfaces that demand a high level of refinement. The system suits production of rings, bangles, pendants and many other jewellery products." },
+      { "name": "Other automation", "nameGold": "automation", "tag": "Automation", "desc": "QS Controller runs on dedicated automation machines such as CNC glue dispensing machines, spring forming machines and many made-to-order production units. The system synchronises axis motion with the machine's I/O signals and actuators. Programmable customisation adapts flexibly to each process and equipment configuration." }
     ],
     "soon": {
       "label": "Coming soon",
       "imageLabel": "Image coming soon",
       "items": {}
     },
-    "controllerFor": "Controller for",
     "detail": "Details",
     "swipeHint": "Swipe for more",
     "videoEyebrow": "[ Video ]",
@@ -80,41 +60,12 @@
     "benefitHeading": "What the QS Controller brings",
     "galleryEyebrow": "[ Gallery ]",
     "galleryHeading": "Parts made on these machines",
-    "workflowEyebrow": "[ Workflow · 4 steps ]",
-    "workflowHeading": "Operation workflow",
-    "workflowLede": "The QS controller handles the entire chain from CAD/CAM file import to servo control and cycle monitoring. The four steps below describe the typical data and signal flow of a 3-axis milling machine.",
     "workflow": [
       { "l": "Input · G-code", "t": "Load the machining program", "d": "NC files are loaded via USB, Ethernet, or DNC. The controller parses and simulates the toolpath on screen before the real run." },
       { "l": "Plan · Path", "t": "Compute the servo trajectory", "d": "256-block look-ahead, S-curve acceleration, and tool-error compensation. The path is NURBS-smoothed for the best surface finish." },
       { "l": "Drive · EtherCAT", "t": "Control servo & spindle", "d": "Pulse/encoder signals over 1 ms EtherCAT to the X/Y/Z axes and spindle inverter. The closed loop checks position every cycle." },
       { "l": "Monitor · HMI", "t": "Monitoring & alarms", "d": "The HMI shows coordinates, speed, spindle current, and alarms. Cycle data is logged for traceability and OEE." }
     ],
-    "specEyebrow": "[ Specification ]",
-    "specHeading": "Reference specifications",
-    "specLede": "A typical configuration for a mid-size 3-axis milling machine using the QS Astro 6AH controller — suited to moulds and precision mechanical components.",
-    "specBtn1": "View the matching controller",
-    "specBtn2": "Download datasheet ↓",
-    "specs": [
-      ["Axes", "3 axes (X / Y / Z) — expandable to 4–6"],
-      ["Travel", "600 × 400 × 320 mm"],
-      ["Precision", "±0.005 mm"],
-      ["Feed rate", "10 000 mm/min"],
-      ["Spindle speed", "14 000 RPM"],
-      ["Controller", "QS Astro 6AH · 8\" HMI"],
-      ["Interfaces", "EtherCAT · USB · Ethernet · RS-232"]
-    ],
-    "deployEyebrow": "[ Field deployment ]",
-    "deployHeading": "Deployed at",
-    "deployCount": "3 of 14 projects",
-    "deployments": [
-      { "name": "Cơ khí Tân Bình", "loc": "HCMC · 2024 · 12 Astro 6AH 3-axis milling machines for an automotive-component line." },
-      { "name": "Khuôn mẫu Hà Nam", "loc": "Ha Nam · 2025 · A 5-axis system with F10T Touch for high-tech plastic moulds." },
-      { "name": "Y khoa Đồng Nai", "loc": "Dong Nai · 2024 · 6 Astro 10i medical milling machines for titanium implant machining." }
-    ],
-    "relatedEyebrow": "[ Next ]",
-    "relatedHeading": "Related applications",
-    "backAll": "← All applications",
-    "relatedAppLabel": "Application",
     "ctaHeading": "Automating {machine} machines?",
     "ctaBody": "QS engineers help choose the I/O configuration, wiring diagram, and driver suited to this machine type.",
     "ctaBtn": "Contact engineering →",
@@ -214,20 +165,11 @@
             { "t": "Flexible integration", "d": "Fits many machine configurations and a wide spread of requirements." }
           ]
         },
-        "closing": "A complete CNC control solution — raising performance across every machining application.",
-        "heroStats": [["2–3", "Axes"], ["±0.1", "Precision (mm)"], ["30 m/min", "Cutting speed"]],
-        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a jigsaw machine.",
-        "workflow": [
-          { "l": "Input · G-code/DXF", "t": "Import the profile drawing", "d": "The system reads design file formats (CAD/DXF) directly. The controller automatically detects them and sets up the initial cutting boundary." },
-          { "l": "Plan · Path", "t": "Compute & interpolate the path", "d": "A high-speed curve-interpolation algorithm ensures smooth fillets with no stutter or catch when the blade changes direction." },
-          { "l": "Drive · EtherCAT", "t": "Control the workpiece feed", "d": "Servo drive over EtherCAT with ultra-low latency, synchronising the rotary table motion with the jigsaw blade speed." },
-          { "l": "Monitor · HMI", "t": "Monitoring & alarms", "d": "The HMI tracks the actual running speed and integrates safety alarms such as blade-break detection and motor overload." }
-        ]
+        "closing": "A complete CNC control solution — raising performance across every machining application."
       },
       "dan-keo": {
         "tagline": "Precise glue — Even beads — Automatic — Higher productivity",
         "heroLede": "An automatic glue-dispensing solution that tracks the profile contour precisely, with strong applications in footwear, packaging, and electronic components. It ensures an even glue volume, saves material, and boosts productivity.",
-        "heroStats": [["3–4", "Axes"], ["Configurable", "Flow rate"], ["500 mm/s", "Run speed"]],
         "strengths": [
           { "t": "High precision", "d": "Precise motion and glue metering control, for a clean and perfectly even bead." },
           { "t": "Stable operation", "d": "A robust control system that suits many glue types and runs continuously, year after year." },
@@ -309,19 +251,11 @@
             { "t": "Durable operation", "d": "A stable system with equipment protection that runs reliably." }
           ]
         },
-        "closing": "The optimal CNC control solution for automatic glue dispensing — high quality, a real edge for your business.",
-        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a gluing machine.",
-        "workflow": [
-          { "l": "Input · Teaching", "t": "Program the glue path", "d": "Supports programming via G-code or an intuitive point-teaching mode right on the handheld pendant or the HMI." },
-          { "l": "Plan · Path", "t": "Optimise cornering", "d": "A look-ahead algorithm precomputes the 3D path and applies automatic deceleration at sharp corners to avoid glue pooling." },
-          { "l": "Drive · Dispenser", "t": "Sync pump valve & servo", "d": "Closed-loop control between the XYZ travel speed and the glue-pump valve opening keeps the glue bead even and unbroken." },
-          { "l": "Monitor · HMI", "t": "Cycle control", "d": "Manages batch counts and dispensing cycle time. The screen alarms immediately if it detects low glue pressure or a clogged nozzle." }
-        ]
+        "closing": "The optimal CNC control solution for automatic glue dispensing — high quality, a real edge for your business."
       },
       "uon-lo-xo": {
         "tagline": "Precise bending — High speed — Automatic — Outstanding output",
         "heroLede": "A dedicated controller that automates the whole process of wire feeding, coiling, bending, and cutting. It produces compression, extension, and multi-amplitude torsion springs with perfect uniformity and the lowest tolerance.",
-        "heroStats": [["4–8", "Axes"], ["±0.01", "Precision (mm)"], ["120 m/min", "Wire feed speed"]],
         "strengths": [
           { "t": "High precision", "d": "Precise multi-axis control under program, with low tolerance and uniform parts." },
           { "t": "Stable operation", "d": "An optimised system keeps the machine running quietly and continuously, with little maintenance and a long life." },
@@ -402,14 +336,7 @@
             { "t": "Durable operation", "d": "Runs steadily with few faults and a long service life." }
           ]
         },
-        "closing": "The optimal CNC control solution for spring coilers — better parts, better production.",
-        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a spring bending machine.",
-        "workflow": [
-          { "l": "Input · Parameters", "t": "Enter geometric parameters", "d": "Enter the spring specifications directly — wire diameter, pitch, bend angle, and number of coils — on the control screen." },
-          { "l": "Plan · Cam", "t": "Electronic cam sync", "d": "The controller sets up a fine electronic-cam (E-Cam) relationship between the wire-feed master axis and the bend/cut slave axes." },
-          { "l": "Drive · Multi-axis", "t": "Multi-axis control", "d": "Handles simultaneous multi-axis interpolation. The servo motors run independently yet tightly coupled with near-zero latency over a high-speed bus." },
-          { "l": "Monitor · HMI", "t": "Wire-length control", "d": "Automatically measures the fed wire length, counts spring output, and raises an alarm on wire jam or material runout." }
-        ]
+        "closing": "The optimal CNC control solution for spring coilers — better parts, better production."
       },
       "mong-go": {
         "tagline": "Precise control — Even, clean joints — Outstanding output",
@@ -477,20 +404,11 @@
             { "t": "Durable and dependable", "d": "Industrial design that stays stable over years of use." }
           ]
         },
-        "closing": "The CNC control solution for wood joinery machines — raising the quality of Vietnamese woodwork.",
-        "heroStats": [["3–5", "Axes"], ["±0.05", "Joint tolerance (mm)"], ["18k", "Spindle speed (RPM)"]],
-        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a tenoning machine.",
-        "workflow": [
-          { "l": "Input · Macro", "t": "Call the joint program", "d": "Supports a macro library of common wood-joint styles. The technician only enters dimensions (length, width, depth) instead of writing complex G-code." },
-          { "l": "Plan · Path", "t": "Compute tool offset", "d": "A smart algorithm automatically computes the milling-cutter radius offset, ensuring the mortise and tenon fit snugly — neither loose nor too tight." },
-          { "l": "Drive · EtherCAT", "t": "Control clamping & cutting", "d": "Smoothly coordinates the I/O signals for pneumatic workpiece clamping with the high-speed cutting path of the main-axis servo." },
-          { "l": "Monitor · HMI", "t": "Monitoring & tool management", "d": "Visually simulates the joint style being run. Tracks the milling cutter's wear time to warn of timely tool changes." }
-        ]
+        "closing": "The CNC control solution for wood joinery machines — raising the quality of Vietnamese woodwork."
       },
       "kim-hoan": {
         "tagline": "Micro precision — Refined detail — Perfect value",
         "heroLede": "Smooth interpolation control power combined with ultra-fine micro-step resolution. It delivers extremely refined engraving and milling on gold, silver, and jewellery, meeting the strictest standards of the jewellery industry.",
-        "heroStats": [["4–5", "Axes"], ["1µm", "Resolution"], ["60k", "Spindle speed (RPM)"]],
         "strengths": [
           { "t": "High precision", "d": "Resolution down to 0.001 mm keeps every engraved line crisp." },
           { "t": "Stable operation", "d": "A robust control system runs smoothly and continuously on the finest detail work." },
@@ -547,14 +465,7 @@
             { "t": "Durable operation", "d": "A stable system that runs for long stretches." }
           ]
         },
-        "closing": "The optimal CNC control solution for jewellery — precise, refined, and lasting in value.",
-        "workflowLede": "The QS controller handles the entire automation chain from parameter intake to drive control. The four steps below describe the typical signal flow of a jewellery machine.",
-        "workflow": [
-          { "l": "Input · Jewelry CAD", "t": "Receive the 3D design", "d": "Handles extremely large G-code files exported from dedicated jewellery design software (such as Matrix, Rhino)." },
-          { "l": "Plan · Micro-step", "t": "Micro-step computation", "d": "The algorithm subdivides the path down to the micro-step level, perfectly smoothing curved surfaces and ultra-fine ornamental details." },
-          { "l": "Drive · Precision", "t": "High-definition control", "d": "Communicates smoothly with ultra-high-speed spindles (40,000–60,000 RPM) and high-resolution encoder servo motors, fully eliminating marks on the cut surface." },
-          { "l": "Monitor · HMI", "t": "Protection & monitoring", "d": "Tracks the detailed engraving path in real time. Integrates overload protection for the main axis when machining hard precious alloys." }
-        ]
+        "closing": "The optimal CNC control solution for jewellery — precise, refined, and lasting in value."
       },
       "dieu-khac-da": {
         "tagline": "Precise carving — Crisp 3D detail — Stable operation",

@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import { FilterPrePaintCleanup, setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 import type { NewsCategoryId } from "@/lib/data/news";

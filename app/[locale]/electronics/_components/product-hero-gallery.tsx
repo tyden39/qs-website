@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { useLightbox } from "@/components/media/image-lightbox";
 import { useHorizontalSwipe } from "@/lib/use-swipe";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";

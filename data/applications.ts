@@ -4,18 +4,13 @@
 // types and re-exports the JSON so consumers are unchanged.
 import applicationsData from "./applications.json";
 
-export type ApplicationWorkflowStep = {
-  n: string;
-  label: string;
-  title: string;
-  desc: string;
-};
-
-export type ApplicationDeployment = {
-  name: string;
-  loc: string;
-};
-
+/**
+ * A machine-type case study. The detail page renders its workflow, spec table
+ * and deployment list from `application.detailPage` in the message catalogue —
+ * one shared block for every machine type — so those never lived here; this row
+ * carries the per-machine identity, the summary behind the metadata/JSON-LD,
+ * and the controller pairing.
+ */
 export type Application = {
   slug: string;
   machine: string;
@@ -23,9 +18,6 @@ export type Application = {
   machineEn?: string;
   summary: string;
   summaryEn?: string;
-  workflow: ApplicationWorkflowStep[];
-  specs: Array<{ label: string; value: string }>;
-  deployments: ApplicationDeployment[];
   /** Controller model slugs (see data/products.ts) suited to this machine type. */
   products: string[];
 };

@@ -19,16 +19,17 @@ export async function generateMetadata({
   if (!m) return {};
   const t = await getTranslations({ locale, namespace: "cnc" });
   const title = `${m.model} — ${t(`machines.categories.${m.category}`)}`;
+  const alternates = buildAlternates(`/machine-building/${slug}`, locale);
   return {
     title,
     description: m.tagline,
-    alternates: buildAlternates(`/machine-building/${slug}`, locale),
+    alternates,
     openGraph: {
       title,
       description: m.tagline,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: `/machine-building/${slug}`,
+      url: alternates.canonical,
       images: [{ url: m.image.src, width: m.image.w, height: m.image.h, alt: m.model }],
     },
     twitter: { card: "summary_large_image", title, description: m.tagline },

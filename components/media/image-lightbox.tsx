@@ -9,7 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { useZoomPan, type PanMetrics } from "@/lib/use-zoom-pan";
 
 /** Fraction of the viewport the image fits into at rest — matches the CSS caps. */

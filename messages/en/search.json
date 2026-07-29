@@ -25,12 +25,13 @@
     "typeLabels": {
       "all": "All",
       "product": "Products",
+      "machine": "Machines",
       "pdf": "Documents",
       "news": "News",
       "app": "Applications",
-      "faq": "FAQ"
+      "service": "Services"
     },
-    "emptyPrompt": "Enter a keyword to search products, documents, news, and applications.",
+    "emptyPrompt": "Enter a keyword to search products, machines, documents, news, applications, and services.",
     "noResults": "No results found for \"{query}\". Try a different keyword or contact the technical team."
   }
 }

@@ -7,12 +7,6 @@ export type ApplicationView = {
   title: string;
   summary: string;
   heroImage: string | null;
-  workflow: { n: string; label: string; title: string; desc: string }[];
-  specs: { label: string; value: string }[];
-  deployments: { name: string; loc: string }[];
-  /** Controller model slugs suited to this machine type. */
-  products: string[];
-  sort: number;
 };
 
 // Shop-floor still shown on the catalog card and detail hero. Shared with the
@@ -31,24 +25,19 @@ const heroImages: Record<string, string> = {
 
 // Vietnamese is the primary copy; `machineEn` / `summaryEn` serve the `en`
 // locale (metadata, JSON-LD, and the search index all read this view).
-function toView(a: Application, index: number, locale: Locale): ApplicationView {
+function toView(a: Application, locale: Locale): ApplicationView {
   const en = locale === "en";
   return {
     slug: a.slug,
     title: (en ? a.machineEn : null) ?? a.machine,
     summary: (en ? a.summaryEn : null) ?? a.summary,
     heroImage: heroImages[a.slug] ?? null,
-    workflow: a.workflow,
-    specs: a.specs,
-    deployments: a.deployments,
-    products: a.products,
-    sort: index,
   };
 }
 
 export function getApplicationBySlug(slug: string, locale: Locale): ApplicationView | null {
-  const index = applications.findIndex((a) => a.slug === slug);
-  return index === -1 ? null : toView(applications[index], index, locale);
+  const a = applications.find((x) => x.slug === slug);
+  return a ? toView(a, locale) : null;
 }
 
 export function getApplicationSlugs(): string[] {

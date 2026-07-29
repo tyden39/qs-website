@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/i18n/navigation";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -7,14 +7,18 @@ import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
 /**
- * The six catalogue groups. `id` doubles as the i18n key under
- * `product.page.groups.*`; `segment` is the URL path piece under /electronics.
+ * The catalogue groups that own a list page under /electronics. `id` doubles as
+ * the i18n key under `product.page.groups.*`; `segment` is the URL path piece.
  * Static segments win over the `/electronics/[slug]` dynamic route, so these
  * names must never collide with a product or catalogue slug.
+ *
+ * Controllers and machines are deliberately absent: both are reached through the
+ * /electronics hub tree (and /machine-building for machines) rather than a
+ * dedicated list page, so they have no segment to name here. Adding a key
+ * without the matching route directory only produces metadata for a URL that
+ * 404s.
  */
 export const PRODUCT_GROUPS = {
-  machines: { segment: "machines", seoKey: "productsMachines" },
-  controllers: { segment: "controllers", seoKey: "productsControllers" },
   servo: { segment: "servo", seoKey: "productsServo" },
   inverter: { segment: "inverters", seoKey: "productsInverters" },
   dnc: { segment: "dnc", seoKey: "productsDnc" },
@@ -25,21 +29,20 @@ export type ProductGroupId = keyof typeof PRODUCT_GROUPS;
 
 /**
  * Hero render for each group's list page, shown object-contained on a light
- * tile in the header band. Controllers reuse the Products page controller
- * render and machines reuse the (currently hidden) CNC page machine hero, per
- * request; the remaining groups point at their strongest catalogue asset.
+ * tile in the header band. Each group points at its strongest catalogue asset.
+ * The /electronics hub declares its own controller render inline, since that
+ * intro is sized for the hub band rather than a list-page header.
  *
  * `scale` shrinks a render inside the tile when the raw art crowds the frame —
- * the wide multi-unit drive, DNC and accessory shots sit ~28% down so they read
- * at the same visual weight as the single-unit groups.
+ * the wide multi-unit drive, DNC and accessory shots sit slightly down so they
+ * read at the same visual weight as the single-unit groups without looking
+ * undersized in the header band.
  */
 export const GROUP_HERO: Record<ProductGroupId, { src: string; w: number; h: number; scale?: number }> = {
-  machines: { src: "/home/cnc-machine-hero.webp", w: 1672, h: 941 },
-  controllers: { src: "/img/products/products-hero-controllers.webp", w: 1400, h: 1408 },
-  servo: { src: "/img/products/hero-servo.webp", w: 1136, h: 612, scale: 0.72 },
-  inverter: { src: "/img/products/hero-inverter.webp", w: 1403, h: 809, scale: 0.72 },
-  dnc: { src: "/img/products/catalog/micro-dnc-2d.webp", w: 1400, h: 980, scale: 0.72 },
-  accessory: { src: "/img/products/hero-accessory.webp", w: 1600, h: 783, scale: 0.72 },
+  servo: { src: "/img/products/hero-servo.webp", w: 1136, h: 612, scale: 0.95 },
+  inverter: { src: "/img/products/hero-inverter.webp", w: 1403, h: 809, scale: 0.95 },
+  dnc: { src: "/img/products/catalog/micro-dnc-2d.webp", w: 1400, h: 980, scale: 0.95 },
+  accessory: { src: "/img/products/hero-accessory.webp", w: 1600, h: 783, scale: 0.95 },
 };
 
 export async function categoryMetadata(
@@ -52,16 +55,17 @@ export async function categoryMetadata(
   const title = t(`${group.seoKey}Title`);
   const description = t(`${group.seoKey}Description`);
   const path = `/electronics/${group.segment}`;
+  const alternates = buildAlternates(path, locale);
   return {
     title,
     description,
-    alternates: buildAlternates(path, locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: path,
+      url: alternates.canonical,
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },

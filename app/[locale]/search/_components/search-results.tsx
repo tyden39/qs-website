@@ -8,7 +8,7 @@ import { createSearchDb, searchDb, type SearchDb, type SearchRecord, type Search
 
 const PAGE_SIZE = 10;
 const RECENT_KEY = "qs-recent-searches";
-const TYPE_ORDER: SearchType[] = ["product", "pdf", "news", "app", "faq"];
+const TYPE_ORDER: SearchType[] = ["product", "machine", "pdf", "news", "app", "service"];
 // Upper bound on hits pulled from Orama for one query; the index is small, so
 // this fetches every match and pagination happens client-side below.
 const MAX_RESULTS = 500;
@@ -346,9 +346,6 @@ function highlight(text: string, query: string) {
 
 function Thumb({ kind }: { kind: SearchType }) {
   const wrap = "aspect-[5/4] bg-paper-2 border border-line overflow-hidden grid place-items-center";
-  if (kind === "faq") {
-    return <div className={`${wrap} bg-ink text-gold-2 font-display text-h2 font-bold`}>?</div>;
-  }
   return (
     <div className={wrap}>
       <svg viewBox="0 0 100 80" className="w-full h-full">
@@ -385,6 +382,25 @@ function Thumb({ kind }: { kind: SearchType }) {
           <>
             <rect x="20" y="14" width="60" height="22" fill="#cfc9b8" stroke="#8a8680" />
             <rect x="26" y="38" width="48" height="32" fill="#a8a499" stroke="#5a5650" />
+          </>
+        )}
+        {/* machine: gantry column over a table, with the spindle on centre */}
+        {kind === "machine" && (
+          <>
+            <rect x="10" y="8" width="80" height="46" fill="#2a2520" stroke="#5a5650" />
+            <rect x="30" y="14" width="40" height="22" fill="#0a3a3a" />
+            <rect x="46" y="36" width="8" height="14" fill="#e8c878" />
+            <rect x="18" y="56" width="64" height="8" fill="#a8a499" stroke="#5a5650" />
+            <rect x="24" y="64" width="52" height="8" fill="#5a5650" />
+          </>
+        )}
+        {/* service: spanner across a gear */}
+        {kind === "service" && (
+          <>
+            <circle cx="38" cy="40" r="18" fill="#2a2520" />
+            <circle cx="38" cy="40" r="7" fill="#f5f3ee" />
+            <rect x="52" y="22" width="10" height="40" fill="#a8a499" stroke="#5a5650" transform="rotate(38 57 42)" />
+            <rect x="50" y="16" width="14" height="12" fill="#e8c878" transform="rotate(38 57 22)" />
           </>
         )}
       </svg>

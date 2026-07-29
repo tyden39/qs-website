@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { services, type Service } from "@/data/services";
 import { getServiceBySlug, getServiceSlugs } from "@/lib/data/services";
 import { buildAlternates } from "@/lib/seo/alternates";
+import { seoDescription } from "@/lib/seo/text";
 import { buildService, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -30,19 +31,20 @@ export async function generateMetadata({
   const staticService = services.find((x) => x.slug === slug);
   const title = localized?.name ?? staticService?.name ?? slug;
   const description =
-    localized?.lede?.slice(0, 160) ??
-    staticService?.lede?.slice(0, 160) ??
+    (localized?.lede ? seoDescription(localized.lede) : undefined) ??
+    (staticService?.lede ? seoDescription(staticService.lede) : undefined) ??
     "";
+  const alternates = buildAlternates(`/services/${slug}`, locale);
   return {
     title,
     description,
-    alternates: buildAlternates(`/services/${slug}`, locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: `/services/${slug}`,
+      url: alternates.canonical,
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },

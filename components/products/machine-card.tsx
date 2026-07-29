@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import type { MachineView } from "@/lib/data/machines";
@@ -44,9 +44,16 @@ export async function MachineCard({
             alt={machine.model}
             width={machine.thumbnail.w}
             height={machine.thumbnail.h}
-            sizes="(max-width: 768px) 90vw, 240px"
+            // No `priority` here. The list sits below the catalogue hero, and the
+            // hero's own render is the page's LCP element — so preloading a card
+            // only takes bandwidth from it. Worse, `index === 0` is per *group*,
+            // not per page, so it also preloaded the first card of groups whose
+            // panel is not the active one. Lazy loading still starts these early
+            // (next/image observes with a rootMargin), just without the hint.
+            // `sizes` is bounded by the 200px height cap plus the widest thumbnail
+            // ratio, not by the 90vw cell — the render is `object-contain`.
+            sizes="(max-width: 768px) 350px, 240px"
             className="w-auto max-h-[200px] max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
-            priority={index === 0}
           />
         </Link>
 

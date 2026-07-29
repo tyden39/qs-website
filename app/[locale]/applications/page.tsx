@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import ContactCta from "@/components/contact-cta";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import { ProductVideo } from "../electronics/_components/product-video";
-import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, type CategoryTreeGroup } from "../electronics/_components/product-category-tree";
+import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, HERO_FIGURE_SIZES, type CategoryTreeGroup } from "../electronics/_components/product-category-tree";
 import { SortableCardList, type SortableCard } from "../electronics/_components/sortable-card-list";
 import { CategoryIcon } from "@/components/category-icon";
 import Reveal from "@/components/reveal";
@@ -26,16 +26,17 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "seo" });
   const title = t("applicationsTitle");
   const description = t("applicationsDescription");
+  const alternates = buildAlternates("/applications", locale);
   return {
     title,
     description,
-    alternates: buildAlternates("/applications", locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/applications",
+      url: alternates.canonical,
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -144,7 +145,7 @@ export default async function Applications({ params }: { params: Promise<{ local
     // Keyed: the figure crosses the RSC boundary and is reconciled from a lazy
     // reference inside the tree's group list, which React reads as an array child.
     src ? (
-      <Image key={src} src={src} alt={alt} fill priority={priority} sizes="(max-width:1023px) 92vw, 38vw"
+      <Image key={src} src={src} alt={alt} fill priority={priority} sizes={HERO_FIGURE_SIZES}
              className="object-cover" />
     ) : (
       <div key={icon} className="absolute inset-0 grid place-items-center">

@@ -5,7 +5,6 @@ import type {
   Article,
   TechArticle,
   Service,
-  FAQPage,
   BreadcrumbList,
   WithContext,
   SearchAction,
@@ -20,6 +19,7 @@ import type { ServiceView } from "@/lib/data/services";
 import type { MachineView } from "@/lib/data/machines";
 import type { Locale } from "@/lib/i18n/config";
 import { APP_URL, localeUrl } from "@/lib/seo/app-url";
+import { seoDescription } from "@/lib/seo/text";
 
 export function buildOrganization(): WithContext<Organization> {
   return {
@@ -173,7 +173,7 @@ export function buildArticle(n: NewsView, locale: Locale): WithContext<Article> 
     "@context": "https://schema.org",
     "@type": "Article",
     headline: n.title,
-    description: n.excerpt?.slice(0, 160),
+    description: n.excerpt ? seoDescription(n.excerpt) : undefined,
     image: n.coverImage ?? `${APP_URL}/og-default.png`,
     url,
     datePublished: n.publishedAt?.toISOString() ?? undefined,
@@ -200,7 +200,7 @@ export function buildTechArticle(a: ApplicationView, locale: Locale): WithContex
     "@context": "https://schema.org",
     "@type": "TechArticle",
     headline: a.title,
-    description: a.summary?.slice(0, 160),
+    description: a.summary ? seoDescription(a.summary) : undefined,
     url,
     image: a.heroImage
       ? (a.heroImage.startsWith("http") ? a.heroImage : `${APP_URL}${a.heroImage}`)
@@ -228,7 +228,7 @@ export function buildService(s: ServiceView, locale: Locale): WithContext<Servic
     "@context": "https://schema.org",
     "@type": "Service",
     name: s.title,
-    description: s.hero.subhead?.slice(0, 160),
+    description: s.hero.subhead ? seoDescription(s.hero.subhead) : undefined,
     url,
     provider: {
       "@type": "Organization",
@@ -239,21 +239,6 @@ export function buildService(s: ServiceView, locale: Locale): WithContext<Servic
       name: "Vietnam",
     },
   } as unknown as WithContext<Service>;
-}
-
-export function buildFAQPage(faqs: { q: string; a: string }[]): WithContext<FAQPage> {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: f.a,
-      },
-    })),
-  };
 }
 
 export function buildBreadcrumbList(

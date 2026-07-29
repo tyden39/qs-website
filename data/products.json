@@ -117,29 +117,9 @@
       }
     ],
     "overview": "<p>Bộ điều khiển 4 trục F54 được thiết kế nhỏ gọn nhưng hiệu năng mạnh mẽ, có hồi tiếp encoder phase Z và tích hợp PLC ladder để theo dõi trạng thái máy, lập trình mở rộng ứng dụng. Màn hình 5 inch độ phân giải 480 × 272 px giúp người vận hành dễ theo dõi thông số.</p><p>Giao diện người dùng được thiết kế hiện đại, thân thiện và trực quan. Sản phẩm đã được lắp đặt đồng loạt trên nhiều máy phay CNC, bao gồm hệ máy GS-40 tại nhà máy của khách hàng Hàn Quốc.</p>",
-    "highlights": [
-      "LCD 5 Inch",
-      "4 trục điều khiển đồng thời",
-      "Số trục chính điều khiển tối đa: 1",
-      "Look-Ahead 250 dòng",
-      "Số cổng Input/Output: 16/6",
-      "Số cổng I/O mở rộng tối đa: 256/256",
-      "Tính năng bù rơ cơ khí (backlash)",
-      "Hồi tiếp encoder: Phase Z"
-    ],
     "overviewEn": "<p>The F54 4-axis controller pairs a compact footprint with strong performance, featuring Z-phase encoder feedback and an integrated PLC ladder for monitoring machine status and extending application logic. The 5-inch, 480 × 272 px display keeps operating parameters easy to read.</p><p>The user interface is modern, friendly and intuitive. The product has been deployed across many CNC milling machines, including the GS-40 line at a Korean customer's factory.</p>",
-    "highlightsEn": [
-      "5-inch LCD",
-      "4 simultaneously controlled axes",
-      "Max. spindle axes: 1",
-      "Look-Ahead 250 lines",
-      "Input/Output ports: 16/6",
-      "Max. expanded I/O ports: 256/256",
-      "Mechanical backlash compensation",
-      "Encoder feedback: Phase Z"
-    ],
     "video": {
-      "youtubeId": "W0Z8zw3TkfE"
+      "youtubeId": "x-NiFdMKQAk"
     },
     "gallery": [
       {
@@ -227,22 +207,6 @@
         "alt": "Ứng dụng thực tế Bộ điều khiển 4 trục F54 trên máy CNC"
       }
     ],
-    "documents": [
-      "Catalog",
-      "Operation Manual"
-    ],
-    "software": [
-      "QS Editor",
-      "QS Explorer"
-    ],
-    "accessories": [
-      "4 Axis MPG Handwheel",
-      "Board - I/O Link-32-V1-10722",
-      "Board I/O Link RLTR_07_V10723",
-      "Board PID-V1-10722",
-      "Board-DAC-12FCV1-1222"
-    ],
-    "sourceUrl": "https://qstcnc.com/san-pham/f54-controller",
     "specSheet": {
       "cols": [
         {
@@ -352,53 +316,7 @@
         }
       ]
     },
-    "gCodes": [
-      "G00",
-      "G01",
-      "G02",
-      "G03",
-      "G04",
-      "G17",
-      "G18",
-      "G19",
-      "G20",
-      "G21",
-      "G28",
-      "G30",
-      "G31",
-      "G43",
-      "G44",
-      "G49",
-      "G53",
-      "G54",
-      "G55",
-      "G56",
-      "G57",
-      "G58",
-      "G59",
-      "G61",
-      "G64",
-      "G65",
-      "G73",
-      "G76",
-      "G80",
-      "G81",
-      "G82",
-      "G83",
-      "G84",
-      "G85",
-      "G86",
-      "G87",
-      "G88",
-      "G89",
-      "G90",
-      "G91",
-      "G92",
-      "G93",
-      "G94",
-      "G98",
-      "G99"
-    ]
+    "sourceUrl": "https://qstcnc.com/san-pham/f54-controller"
   },
   {
     "slug": "f86",
@@ -537,33 +455,9 @@
       }
     ],
     "overview": "<p>Bộ điều khiển F86 thuộc dòng sản phẩm mới của QS Technology với thiết kế kích thước lớn hơn và màn hình 8 inch độ phân giải 800 × 600 px, giúp vận hành và theo dõi thông tin máy trực quan hơn.</p><p>F86 cho phép điều khiển từ 4 đến 6 trục đồng thời, có hồi tiếp Encoder phase Z để về home chính xác hơn. Bộ điều khiển tích hợp module xử lý PLC ladder, hỗ trợ theo dõi trạng thái hoạt động, lập trình mở rộng chức năng máy và lập trình Macro.</p>",
-    "highlights": [
-      "LCD 8 Inches",
-      "6 trục điều khiển đồng thời",
-      "Số trục chính điều khiển tối đa: 2",
-      "Look-Ahead 250 lines",
-      "Số cổng Input/Output: 24/16",
-      "Số cổng I/O mở rộng tối đa: 256/256",
-      "Tính năng bù rơ cơ khí (backlash)",
-      "Hồi tiếp encoder: Phase Z",
-      "Tích hợp module xử lý PLC ladder",
-      "Cho phép lập trình Macro"
-    ],
     "overviewEn": "<p>The F86 controller is part of QS Technology's newer line, with a larger body and an 8-inch, 800 × 600 px display for clearer operation and machine monitoring.</p><p>The F86 controls 4 to 6 axes simultaneously and adds Z-phase encoder feedback for more accurate homing. It integrates a PLC ladder processing module, supporting status monitoring, extended machine functions and Macro programming.</p>",
-    "highlightsEn": [
-      "8-inch LCD",
-      "6 simultaneously controlled axes",
-      "Max. spindle axes: 2",
-      "Look-Ahead 250 lines",
-      "Input/Output ports: 24/16",
-      "Max. expanded I/O ports: 256/256",
-      "Mechanical backlash compensation",
-      "Encoder feedback: Phase Z",
-      "Integrated PLC ladder processing module",
-      "Macro programming support"
-    ],
     "video": {
-      "youtubeId": "3bBrcmmvkZw"
+      "youtubeId": "ivyRPGGD6sc"
     },
     "gallery": [
       {
@@ -642,21 +536,6 @@
         "alt": "Ứng dụng thực tế Bộ điều khiển 6 trục F86 trên máy CNC"
       }
     ],
-    "documents": [
-      "Catalog",
-      "Operation Manual"
-    ],
-    "software": [
-      "QS Editor",
-      "QS Explorer"
-    ],
-    "accessories": [
-      "Board - I/O Link-32-V1-10722",
-      "Board I/O Link RLTR_07_V10723",
-      "Board PID-V1-10722",
-      "Board-DAC-12FCV1-1222"
-    ],
-    "sourceUrl": "https://qstcnc.com/san-pham/bo-dieu-khien-cnc-6-truc-f86",
     "specSheet": {
       "cols": [
         {
@@ -809,53 +688,7 @@
         }
       ]
     },
-    "gCodes": [
-      "G00",
-      "G01",
-      "G02",
-      "G03",
-      "G04",
-      "G17",
-      "G18",
-      "G19",
-      "G20",
-      "G21",
-      "G28",
-      "G30",
-      "G31",
-      "G43",
-      "G44",
-      "G49",
-      "G53",
-      "G54",
-      "G55",
-      "G56",
-      "G57",
-      "G58",
-      "G59",
-      "G61",
-      "G64",
-      "G65",
-      "G73",
-      "G76",
-      "G80",
-      "G81",
-      "G82",
-      "G83",
-      "G84",
-      "G85",
-      "G86",
-      "G87",
-      "G88",
-      "G89",
-      "G90",
-      "G91",
-      "G92",
-      "G93",
-      "G94",
-      "G98",
-      "G99"
-    ]
+    "sourceUrl": "https://qstcnc.com/san-pham/bo-dieu-khien-cnc-6-truc-f86"
   },
   {
     "slug": "f10t",
@@ -994,29 +827,10 @@
       }
     ],
     "overview": "<p>Bộ điều khiển F10T là dòng bộ điều khiển sử dụng màn hình cảm ứng điện dung, cho phép điều khiển từ 4 đến 6 trục. Màn hình 10.4 inch độ phân giải 800 × 600, độ chống nhiễu tín hiệu cao.</p><p>F10T tích hợp PLC ladder để người dùng theo dõi trạng thái hoạt động của máy và mở rộng thêm ứng dụng khi cần thiết.</p>",
-    "highlights": [
-      "LCD 10.4 Inch",
-      "6 trục điều khiển đồng thời",
-      "Số trục chính điều khiển đồng thời: 1",
-      "Số cổng Input/Output: 24/16",
-      "Số cổng I/O mở rộng tối đa: 256/256",
-      "Real-time PLC debug",
-      "Look-Ahead 250 dòng",
-      "Tính năng bù rơ cơ khí",
-      "Hồi tiếp encoder: Phase Z"
-    ],
     "overviewEn": "<p>The F10T is a controller with a capacitive touchscreen, controlling 4 to 6 axes. Its 10.4-inch, 800 × 600 display offers high signal-noise immunity.</p><p>The F10T integrates a PLC ladder so users can monitor machine status and add further applications as needed.</p>",
-    "highlightsEn": [
-      "10.4-inch LCD",
-      "6 simultaneously controlled axes",
-      "Simultaneous spindle axes: 1",
-      "Input/Output ports: 24/16",
-      "Max. expanded I/O ports: 256/256",
-      "Real-time PLC debug",
-      "Look-Ahead 250 lines",
-      "Mechanical backlash compensation",
-      "Encoder feedback: Phase Z"
-    ],
+    "video": {
+      "youtubeId": "WruSQOowzOU"
+    },
     "gallery": [
       {
         "src": "/img/products/crawled/f10t/gallery-1.webp",
@@ -1075,21 +889,6 @@
         "place": "hide"
       }
     ],
-    "documents": [
-      "Catalog",
-      "Operation Manual"
-    ],
-    "software": [
-      "QS Editor",
-      "QS Explorer"
-    ],
-    "accessories": [
-      "Board - I/O Link-32-V1-10722",
-      "Board I/O Link RLTR_07_V10723",
-      "Board PID-V1-10722",
-      "Board-DAC-12FCV1-1222"
-    ],
-    "sourceUrl": "https://qstcnc.com/san-pham/astro-series-10t",
     "specSheet": {
       "cols": [
         {
@@ -1242,53 +1041,7 @@
         }
       ]
     },
-    "gCodes": [
-      "G00",
-      "G01",
-      "G02",
-      "G03",
-      "G04",
-      "G17",
-      "G18",
-      "G19",
-      "G20",
-      "G21",
-      "G28",
-      "G30",
-      "G31",
-      "G43",
-      "G44",
-      "G49",
-      "G53",
-      "G54",
-      "G55",
-      "G56",
-      "G57",
-      "G58",
-      "G59",
-      "G61",
-      "G64",
-      "G65",
-      "G73",
-      "G76",
-      "G80",
-      "G81",
-      "G82",
-      "G83",
-      "G84",
-      "G85",
-      "G86",
-      "G87",
-      "G88",
-      "G89",
-      "G90",
-      "G91",
-      "G92",
-      "G93",
-      "G94",
-      "G98",
-      "G99"
-    ]
+    "sourceUrl": "https://qstcnc.com/san-pham/astro-series-10t"
   },
   {
     "slug": "astro-10s",
@@ -1417,6 +1170,9 @@
         }
       }
     ],
+    "video": {
+      "youtubeId": "VreiYdmzWWg"
+    },
     "gallery": [
       {
         "src": "/img/products/crawled/astro-10s/gallery-front.webp",
@@ -1753,31 +1509,10 @@
       }
     ],
     "overview": "<p>Bộ điều khiển thuộc series Astro là dòng sản phẩm cao cấp của QS Technology, có hồi tiếp encoder tất cả các trục, tích hợp PLC và hỗ trợ lập trình Macro. Bảng điều khiển nhiều chức năng, chia thành hai phần và có nút dừng khẩn cấp.</p><p>Kiểu dáng Astro 6AH phù hợp với hầu hết dạng máy CNC. Khả năng thu thập tín hiệu hồi tiếp từ encoder giúp vận hành an toàn, chính xác; tốc độ nội suy đồng thời vượt trội hơn các dòng F54, F86.</p>",
-    "highlights": [
-      "LCD 8 Inch",
-      "6 trục điều khiển đồng thời",
-      "Số trục chính điều khiển đồng thời: 2",
-      "Số cổng Input/Output: 24/16",
-      "Số cổng I/O mở rộng tối đa: 256/256",
-      "Real-time PLC debug",
-      "Look-Ahead 500 dòng",
-      "Tính năng bù rơ cơ khí (backlash)",
-      "Tính năng bù sai số hành trình (pitch error)",
-      "Hồi tiếp encoder: tất cả các trục"
-    ],
     "overviewEn": "<p>The Astro series is QS Technology's premium line, with encoder feedback on every axis, an integrated PLC and Macro programming support. The multi-function control panel is split into two sections and includes an emergency stop.</p><p>The Astro 6AH form factor suits most CNC machine types. Encoder feedback enables safe, precise operation, with simultaneous interpolation speed well above the F54 and F86 lines.</p>",
-    "highlightsEn": [
-      "8-inch LCD",
-      "6 simultaneously controlled axes",
-      "Simultaneous spindle axes: 2",
-      "Input/Output ports: 24/16",
-      "Max. expanded I/O ports: 256/256",
-      "Real-time PLC debug",
-      "Look-Ahead 500 lines",
-      "Mechanical backlash compensation",
-      "Pitch error compensation",
-      "Encoder feedback: all axes"
-    ],
+    "video": {
+      "youtubeId": "JlE2x0h-MmY"
+    },
     "gallery": [
       {
         "src": "/img/products/crawled/astro-6ah/gallery-1.webp",
@@ -1787,7 +1522,7 @@
         "place": "tour"
       },
       {
-        "src": "/img/products/crawled/astro-6ah/gallery-rear.webp",
+        "src": "/img/products/astro-6ah-rear.webp",
         "w": 1400,
         "h": 1297,
         "alt": "Mặt sau Bộ điều khiển 6 trục Astro-6A (H)",
@@ -1850,21 +1585,6 @@
         "place": "hide"
       }
     ],
-    "documents": [
-      "Catalog",
-      "Operation Manual"
-    ],
-    "software": [
-      "QS Editor",
-      "QS Explorer"
-    ],
-    "accessories": [
-      "Board - I/O Link-32-V1-10722",
-      "Board I/O Link RLTR_07_V10723",
-      "Board PID-V1-10722",
-      "Board-DAC-12FCV1-1222"
-    ],
-    "sourceUrl": "https://qstcnc.com/san-pham/astro-series-6ah",
     "specSheet": {
       "cols": [
         {
@@ -2023,53 +1743,7 @@
         }
       ]
     },
-    "gCodes": [
-      "G00",
-      "G01",
-      "G02",
-      "G03",
-      "G04",
-      "G17",
-      "G18",
-      "G19",
-      "G20",
-      "G21",
-      "G28",
-      "G30",
-      "G31",
-      "G43",
-      "G44",
-      "G49",
-      "G53",
-      "G54",
-      "G55",
-      "G56",
-      "G57",
-      "G58",
-      "G59",
-      "G61",
-      "G64",
-      "G65",
-      "G73",
-      "G76",
-      "G80",
-      "G81",
-      "G82",
-      "G83",
-      "G84",
-      "G85",
-      "G86",
-      "G87",
-      "G88",
-      "G89",
-      "G90",
-      "G91",
-      "G92",
-      "G93",
-      "G94",
-      "G98",
-      "G99"
-    ]
+    "sourceUrl": "https://qstcnc.com/san-pham/astro-series-6ah"
   },
   {
     "slug": "astro-6av",
@@ -2219,33 +1893,9 @@
       }
     ],
     "overview": "<p>Bộ điều khiển series Astro là dòng cao cấp của QS Technology với đầy đủ tính năng, hiệu năng mạnh mẽ, điều khiển vòng kín và tích hợp FPGA. Astro-6AV là phiên bản dọc của Astro-6AH, có bàn phím chức năng mở rộng và tích hợp tay quay MPG.</p><p>Màn hình 8 inch độ phân giải 800 × 600 giúp người vận hành theo dõi thông số rõ ràng, chi tiết.</p>",
-    "highlights": [
-      "LCD 8 Inch",
-      "6 trục điều khiển đồng thời",
-      "Số trục chính điều khiển đồng thời: 2",
-      "Số cổng Input/Output: 24/16",
-      "Số cổng I/O mở rộng tối đa: 256/256",
-      "Real-time PLC debug",
-      "Look-Ahead 500 dòng",
-      "Tính năng bù rơ cơ khí (backlash)",
-      "Tính năng bù sai số hành trình (pitch error)",
-      "Hồi tiếp Encoder: Tất cả các trục"
-    ],
     "overviewEn": "<p>The Astro series is QS Technology's premium line — fully featured, high-performance, closed-loop control with an integrated FPGA. The Astro-6AV is the vertical version of the Astro-6AH, with an extended function keypad and a built-in MPG handwheel.</p><p>The 8-inch, 800 × 600 display lets operators track parameters clearly and in detail.</p>",
-    "highlightsEn": [
-      "8-inch LCD",
-      "6 simultaneously controlled axes",
-      "Simultaneous spindle axes: 2",
-      "Input/Output ports: 24/16",
-      "Max. expanded I/O ports: 256/256",
-      "Real-time PLC debug",
-      "Look-Ahead 500 lines",
-      "Mechanical backlash compensation",
-      "Pitch error compensation",
-      "Encoder feedback: all axes"
-    ],
     "video": {
-      "youtubeId": "kLcNpeHu-2A"
+      "youtubeId": "BXj5IyyFldc"
     },
     "gallery": [
       {
@@ -2305,21 +1955,6 @@
         "place": "hide"
       }
     ],
-    "documents": [
-      "Catalog",
-      "Operation Manual"
-    ],
-    "software": [
-      "QS Editor",
-      "QS Explorer"
-    ],
-    "accessories": [
-      "Board - I/O Link-32-V1-10722",
-      "Board I/O Link RLTR_07_V10723",
-      "Board PID-V1-10722",
-      "Board-DAC-12FCV1-1222"
-    ],
-    "sourceUrl": "https://qstcnc.com/san-pham/astro-series-6av",
     "specSheet": {
       "cols": [
         {
@@ -2478,53 +2113,7 @@
         }
       ]
     },
-    "gCodes": [
-      "G00",
-      "G01",
-      "G02",
-      "G03",
-      "G04",
-      "G17",
-      "G18",
-      "G19",
-      "G20",
-      "G21",
-      "G28",
-      "G30",
-      "G31",
-      "G43",
-      "G44",
-      "G49",
-      "G53",
-      "G54",
-      "G55",
-      "G56",
-      "G57",
-      "G58",
-      "G59",
-      "G61",
-      "G64",
-      "G65",
-      "G73",
-      "G76",
-      "G80",
-      "G81",
-      "G82",
-      "G83",
-      "G84",
-      "G85",
-      "G86",
-      "G87",
-      "G88",
-      "G89",
-      "G90",
-      "G91",
-      "G92",
-      "G93",
-      "G94",
-      "G98",
-      "G99"
-    ]
+    "sourceUrl": "https://qstcnc.com/san-pham/astro-series-6av"
   },
   {
     "slug": "astro-10i",
@@ -2674,31 +2263,10 @@
       }
     ],
     "overview": "<p>Bộ điều khiển Astro 10i là dòng sản phẩm cao cấp nhất của QS Technology, với đầy đủ tính năng, hiệu năng mạnh mẽ, điều khiển vòng kín và tích hợp FPGA để mang lại trải nghiệm vận hành tốt nhất.</p><p>Astro 10i là phiên bản nâng cấp từ Astro 6AV và Astro-6AH, có bàn phím chức năng mở rộng, tích hợp thêm công tắc và nút dừng khẩn cấp. Màn hình 10.4 inch độ phân giải 800 × 600 giúp theo dõi thông số rõ ràng, chi tiết.</p>",
-    "highlights": [
-      "LCD 10.4 Inch",
-      "6 trục điều khiển đồng thời",
-      "Số trục chính điều khiển đồng thời: 2",
-      "Số cổng Input/Output: 24/16",
-      "Số cổng I/O mở rộng tối đa: 256/256",
-      "Real-time PLC debug",
-      "Look-Ahead 1000 dòng",
-      "Tính năng bù rơ cơ khí (backlash)",
-      "Tính năng bù sai số hành trình (pitch error)",
-      "Hồi tiếp Encoder: Tất cả các trục"
-    ],
     "overviewEn": "<p>The Astro 10i is QS Technology's top-of-the-range controller — fully featured, high-performance, closed-loop control with an integrated FPGA for the best operating experience.</p><p>The Astro 10i is an upgrade of the Astro 6AV and Astro-6AH, with an extended function keypad and added switches and emergency stop. The 10.4-inch, 800 × 600 display keeps parameters clear and detailed.</p>",
-    "highlightsEn": [
-      "10.4-inch LCD",
-      "6 simultaneously controlled axes",
-      "Simultaneous spindle axes: 2",
-      "Input/Output ports: 24/16",
-      "Max. expanded I/O ports: 256/256",
-      "Real-time PLC debug",
-      "Look-Ahead 1000 lines",
-      "Mechanical backlash compensation",
-      "Pitch error compensation",
-      "Encoder feedback: all axes"
-    ],
+    "video": {
+      "youtubeId": "ZCjU0D7hSpk"
+    },
     "gallery": [
       {
         "src": "/img/products/crawled/astro-10i/gallery-1.webp",
@@ -2708,7 +2276,7 @@
         "place": "tour"
       },
       {
-        "src": "/img/products/crawled/astro-10i/gallery-rear.webp",
+        "src": "/img/products/astro-10i-rear.webp",
         "w": 1400,
         "h": 2734,
         "alt": "Mặt sau Bộ điều khiển 6 trục Astro 10i",
@@ -2771,21 +2339,6 @@
         "place": "hide"
       }
     ],
-    "documents": [
-      "Catalog",
-      "Operation Manual"
-    ],
-    "software": [
-      "QS Editor",
-      "QS Explorer"
-    ],
-    "accessories": [
-      "Board - I/O Link-32-V1-10722",
-      "Board I/O Link RLTR_07_V10723",
-      "Board PID-V1-10722",
-      "Board-DAC-12FCV1-1222"
-    ],
-    "sourceUrl": "https://qstcnc.com/san-pham/bo-dieu-khien-cnc-6-truc-astro-10i",
     "specSheet": {
       "cols": [
         {
@@ -2944,52 +2497,6 @@
         }
       ]
     },
-    "gCodes": [
-      "G00",
-      "G01",
-      "G02",
-      "G03",
-      "G04",
-      "G17",
-      "G18",
-      "G19",
-      "G20",
-      "G21",
-      "G28",
-      "G30",
-      "G31",
-      "G43",
-      "G44",
-      "G49",
-      "G53",
-      "G54",
-      "G55",
-      "G56",
-      "G57",
-      "G58",
-      "G59",
-      "G61",
-      "G64",
-      "G65",
-      "G73",
-      "G76",
-      "G80",
-      "G81",
-      "G82",
-      "G83",
-      "G84",
-      "G85",
-      "G86",
-      "G87",
-      "G88",
-      "G89",
-      "G90",
-      "G91",
-      "G92",
-      "G93",
-      "G94",
-      "G98",
-      "G99"
-    ]
+    "sourceUrl": "https://qstcnc.com/san-pham/bo-dieu-khien-cnc-6-truc-astro-10i"
   }
 ]

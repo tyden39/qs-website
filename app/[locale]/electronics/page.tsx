@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getAllProducts, CONTROLLER_TYPES } from "@/lib/data/products";
 import { ProductBundleCard } from "@/components/products/product-bundle-card";
 import { ProductListFilter, type ProductFilterItem } from "./_components/product-list-filter";
-import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, type CategoryTreeChild, type CategoryTreeGroup } from "./_components/product-category-tree";
+import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, HERO_FIGURE_SIZES, type CategoryTreeChild, type CategoryTreeGroup } from "./_components/product-category-tree";
 import { CatalogList } from "./_components/catalog-list";
 import { GROUP_HERO } from "./_components/category-page";
 import { SeriesList } from "./_components/series-list";
@@ -29,16 +29,17 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "seo" });
   const title = t("productsTitle");
   const description = t("productsDescription");
+  const alternates = buildAlternates("/electronics", locale);
   return {
     title,
     description,
-    alternates: buildAlternates("/electronics", locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/electronics",
+      url: alternates.canonical,
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -103,7 +104,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     // Keyed: the figure crosses the RSC boundary and is reconciled from a lazy
     // reference inside the tree's group list, which React reads as an array child.
     <Image key={img.src} src={img.src} alt={alt} fill priority={priority}
-           sizes="(max-width: 1023px) 92vw, 38vw" className="object-contain"
+           sizes={HERO_FIGURE_SIZES} className="object-contain"
            style={img.scale ? { transform: `scale(${img.scale})` } : undefined} />
   );
   // Distinct family render for the controllers intro (the servo/inverter/DNC

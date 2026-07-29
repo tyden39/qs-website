@@ -64,6 +64,13 @@ export type MachineControl = {
 export type MachineShot = { src: string; caption: string; captionEn?: string };
 
 /**
+ * Machine video (YouTube), shown above the in-context gallery on the detail page.
+ * `hd` marks clips that actually publish a 1280×720 poster still, so the facade
+ * starts there instead of the 640×480 one every upload has.
+ */
+export type MachineVideo = { youtubeId: string; hd?: boolean };
+
+/**
  * A studio shot for the CNC hero slideshow. `kind` is an i18n key resolved from
  * `cnc.machines.detail.shots.*` (front, back, left, controller…) so the caption
  * localizes; `src`/`w`/`h` point at the real photo under `/img/machines/gallery`.
@@ -147,6 +154,7 @@ export type Machine = {
    */
   line?: MachineLineStep[];
   control?: MachineControl;
+  video?: MachineVideo;
   gallery?: MachineShot[];
   applications?: MachineApplication[];
 };

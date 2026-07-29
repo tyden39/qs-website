@@ -14,13 +14,16 @@ export function ProductVideo({
   youtubeId,
   title,
   playLabel,
+  hd = false,
 }: {
   youtubeId: string;
   title: string;
   playLabel: string;
+  /** Set for clips that publish a 1280×720 still, so the facade starts there. */
+  hd?: boolean;
 }) {
   const [playing, setPlaying] = useState(false);
-  const posterProps = useYoutubePoster(youtubeId);
+  const posterProps = useYoutubePoster(youtubeId, hd);
 
   if (playing) {
     return (

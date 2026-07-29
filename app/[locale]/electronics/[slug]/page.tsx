@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import DOMPurify from "isomorphic-dompurify";
 import { Link } from "@/lib/i18n/navigation";
 import ContactCta from "@/components/contact-cta";
@@ -21,6 +21,7 @@ import { ProductVideo } from "../_components/product-video";
 import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
 import { routing } from "@/lib/i18n/routing";
 import { buildAlternates } from "@/lib/seo/alternates";
+import { seoDescription } from "@/lib/seo/text";
 import { buildProduct, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -32,16 +33,17 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const c = getCatalogProductBySlug(slug, locale);
   if (c) {
+    const alternates = buildAlternates(`/electronics/${slug}`, locale);
     return {
       title: c.name,
-      description: c.desc.slice(0, 160),
-      alternates: buildAlternates(`/electronics/${slug}`, locale),
+      description: seoDescription(c.desc),
+      alternates,
       openGraph: {
         title: c.name,
         description: c.desc,
         type: "website",
         locale: locale === "en" ? "en_US" : "vi_VN",
-        url: `/electronics/${slug}`,
+        url: alternates.canonical,
         images: [{ url: c.image.src, width: c.image.w, height: c.image.h, alt: c.image.alt }],
       },
       twitter: { card: "summary_large_image", title: c.name, description: c.desc },
@@ -49,17 +51,18 @@ export async function generateMetadata({
   }
   const s = getSeriesBySlug(slug, locale);
   if (s) {
-    const desc = s.desc.slice(0, 160);
+    const desc = seoDescription(s.desc);
+    const alternates = buildAlternates(`/electronics/${slug}`, locale);
     return {
       title: `${s.name} — ${s.brand}`,
       description: desc,
-      alternates: buildAlternates(`/electronics/${slug}`, locale),
+      alternates,
       openGraph: {
         title: `${s.name} — ${s.brand}`,
         description: s.desc,
         type: "website",
         locale: locale === "en" ? "en_US" : "vi_VN",
-        url: `/electronics/${slug}`,
+        url: alternates.canonical,
         images: s.image
           ? [{ url: s.image.src, width: s.image.w, height: s.image.h, alt: s.image.alt }]
           : undefined,
@@ -69,16 +72,17 @@ export async function generateMetadata({
   }
   const p = await getProductBySlug(slug, locale);
   if (!p) return {};
+  const alternates = buildAlternates(`/electronics/${slug}`, locale);
   return {
     title: p.name,
-    description: p.desc?.slice(0, 160),
-    alternates: buildAlternates(`/electronics/${slug}`, locale),
+    description: seoDescription(p.desc ?? ""),
+    alternates,
     openGraph: {
       title: p.name,
       description: p.desc,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: `/electronics/${slug}`,
+      url: alternates.canonical,
       images: [
         {
           url: p.images?.[0]?.url ?? "/og-default.png",

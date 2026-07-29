@@ -72,11 +72,6 @@
       "eyebrow": "Danh mục",
       "heading": "Danh mục sản phẩm",
       "viewList": "Xem danh sách",
-      "machines": {
-        "label": "Máy",
-        "labelGold": "Máy",
-        "blurb": "Máy CNC và thiết bị tự động hóa do QS thiết kế, lắp ráp — bảo hành và hỗ trợ kỹ thuật tại Việt Nam."
-      },
       "controllers": {
         "label": "Bộ điều khiển",
         "labelGold": "điều khiển",
@@ -114,11 +109,6 @@
       "navLabel": "Loại sản phẩm",
       "all": "Tất cả",
       "soon": "Sắp có",
-      "machines": {
-        "cnc": "Máy CNC",
-        "automation": "Máy tự động hóa",
-        "inspection": "Máy kiểm tra"
-      },
       "controllers": {
         "motion": "Điều khiển chuyển động",
         "cnc": "Điều khiển CNC",

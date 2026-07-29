@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
@@ -12,6 +12,12 @@ export type VideoItem = {
   title: string;
   /** Optional duration label, e.g. "02:14". Omit to hide the badge. */
   duration?: string;
+  /**
+   * Set only for clips that really have a 1280×720 still on YouTube
+   * (`https://i.ytimg.com/vi/<id>/maxresdefault.jpg` answers 200). Requesting it for a
+   * clip that lacks one costs a 404 and a flash of broken poster, so it is opt-in.
+   */
+  hd?: boolean;
 };
 
 const INTERVAL = 6000; // ms each clip stays featured before auto-advancing
@@ -56,7 +62,7 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
   }, [animate, paused, playing, active, items.length]);
 
   const feat = items[active];
-  const featPoster = useYoutubePoster(feat.youtubeId);
+  const featPoster = useYoutubePoster(feat.youtubeId, feat.hd);
 
   // Feature a clip; `play` jumps straight into the embed (used by clicks, not hover).
   const select = (i: number, play: boolean) => {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import Reveal from "@/components/reveal";
 import Marquee from "@/components/marquee";
@@ -23,16 +23,17 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "seo" });
   const title = t("homeTitle");
   const description = t("homeDescription");
+  const alternates = buildAlternates("/", locale);
   return {
     title,
     description,
-    alternates: buildAlternates("/", locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: "/",
+      url: alternates.canonical,
       images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
@@ -64,7 +65,15 @@ const productAssets = [
 ];
 
 // Thumbnails are derived from each youtubeId by VideoReel; titles come from i18n.
-const videoIds = ["3bBrcmmvkZw", "kLcNpeHu-2A", "cpoLcWsIfVQ", "W0Z8zw3TkfE", "B1wENfUjn8M"];
+// `hd` marks the clips whose 1280×720 still (maxresdefault.jpg) actually exists — the
+// others only publish the 640×480 one, and asking for the HD file would 404.
+const videoAssets = [
+  { youtubeId: "3bBrcmmvkZw" },
+  { youtubeId: "kLcNpeHu-2A" },
+  { youtubeId: "cpoLcWsIfVQ" },
+  { youtubeId: "W0Z8zw3TkfE" },
+  { youtubeId: "B1wENfUjn8M", hd: true },
+];
 
 // How many latest articles the home newsroom feed surfaces.
 const HOME_NEWS_COUNT = 5;
@@ -90,7 +99,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     t.raw("products.items") as { name: string; desc: string; meta: string[] }[]
   ).map((txt, i) => ({ ...productAssets[i], ...txt }));
   const videoTitles = t.raw("showreel.videos") as string[];
-  const videos: VideoItem[] = videoIds.map((youtubeId, i) => ({ youtubeId, title: videoTitles[i] }));
+  const videos: VideoItem[] = videoAssets.map((v, i) => ({ ...v, title: videoTitles[i] }));
 
   // Newsroom feed pulls the latest real articles instead of hardcoded placeholders.
   const tNews = await getTranslations({ locale, namespace: "news" });

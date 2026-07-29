@@ -1308,6 +1308,10 @@
         }
       ]
     },
+    "video": {
+      "youtubeId": "B1wENfUjn8M",
+      "hd": true
+    },
     "gallery": [
       {
         "src": "/img/machines/features/rbt01-heads.webp",
@@ -1454,6 +1458,10 @@
           "labelEn": "Andon alarm tower"
         }
       ]
+    },
+    "video": {
+      "youtubeId": "_G-CwMgo3iA",
+      "hd": true
     },
     "gallery": [
       {

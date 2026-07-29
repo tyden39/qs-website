@@ -222,8 +222,8 @@
     "name": "I/O Link 32_V1_10722",
     "tag": "Board mở rộng I/O · 32 in / 32 out",
     "tagEn": "I/O expansion board · 32 in / 32 out",
-    "desc": "Board mạch mở rộng số cổng input / output cho bộ điều khiển CNC.",
-    "descEn": "An expansion board that adds input / output ports to a CNC controller.",
+    "desc": "Board mạch mở rộng số cổng input / output cho bộ điều khiển CNC: 32 cổng input, 32 cổng output, 4 cổng COM mỗi chiều, nguồn 24–28 VDC, kích thước 150 x 90 mm.",
+    "descEn": "An expansion board that adds input / output ports to a CNC controller: 32 inputs, 32 outputs, 4 COM ports each way, 24–28 VDC supply, 150 x 90 mm.",
     "specs": [
       {
         "l": "Kích thước",

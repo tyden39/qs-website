@@ -1,42 +1,22 @@
 {
-  "meta": {
-    "title": "Ứng dụng",
-    "description": "Các ứng dụng công nghiệp của thiết bị QS"
-  },
-  "page": {
-    "heading": "Ứng dụng",
-    "subheading": "Thiết bị QS phù hợp với nhiều ngành công nghiệp khác nhau",
-    "viewDetail": "Xem chi tiết",
-    "noResults": "Không có ứng dụng nào."
-  },
-  "detail": {
-    "workflow": "Quy trình ứng dụng",
-    "specs": "Thông số kỹ thuật",
-    "deployments": "Triển khai thực tế",
-    "back": "Quay lại danh sách"
-  },
   "index": {
     "breadcrumb": { "home": "Trang chủ", "current": "Ứng dụng" },
     "eyebrow": "Ứng dụng công nghiệp",
     "heading": "Ứng Dụng",
     "lede": "Bộ điều khiển QS vận hành trên nhiều nhóm vật liệu — kim loại, gỗ, đá và kim hoàn — cùng các dòng máy tự động hóa chuyên dụng. Mỗi nhóm là một bài toán gia công riêng.",
-    "catalogEyebrow": "[ Phân loại · theo ngành ]",
     "catalogHeading": "Ứng Dụng Theo Ngành",
-    "caseStudies": "{count} nghiên cứu ứng dụng",
-    "groupsCount": "{count} nhóm",
     "groups": [
-      { "name": "Gia công kim loại", "nameGold": "kim loại", "tag": "Metal", "desc": "Phay CNC gia công kim loại — khuôn mẫu, linh kiện cơ khí, thiết bị y tế.", "axes": "3 · 4 · 5 trục" },
-      { "name": "Gia công gỗ", "nameGold": "gỗ", "tag": "Wood", "desc": "Điêu khắc, cưa lọng và làm mộng cho ngành nội thất, mỹ nghệ." },
-      { "name": "Gia công đá", "nameGold": "đá", "tag": "Stone", "desc": "Điêu khắc và cắt đá tự nhiên, đá nhân tạo với độ nét cao." },
-      { "name": "Gia công kim hoàn", "nameGold": "kim hoàn", "tag": "Jewelry", "desc": "Chạm khắc, phay tinh xảo trên vàng, bạc và hợp kim quý." },
-      { "name": "Máy tự động hóa khác", "nameGold": "khác", "tag": "Automation", "desc": "Các dòng máy chuyên dụng khác dùng bộ điều khiển QS — bồi keo, uốn lò xo." }
+      { "name": "Gia công kim loại", "nameGold": "kim loại", "tag": "Metal", "desc": "QS Controller được ứng dụng trên các dòng máy CNC gia công kim loại, hỗ trợ thực hiện các nguyên công như phay, khoan, taro và gia công biên dạng. Hệ thống phù hợp với nhiều nhu cầu sản xuất, từ khuôn mẫu, chi tiết cơ khí đến linh kiện thiết bị công nghiệp và y tế. Khả năng điều khiển chuyển động chính xác giúp máy vận hành ổn định và đáp ứng yêu cầu gia công của từng sản phẩm.", "axes": "3 · 4 · 5 trục" },
+      { "name": "Gia công gỗ", "nameGold": "gỗ", "tag": "Wood", "desc": "QS Controller được ứng dụng trên các dòng máy CNC gia công gỗ, đáp ứng các nguyên công như cưa lọng, làm mộng và điêu khắc 2D, 3D. Hệ thống phù hợp cho sản xuất đồ nội thất, sản phẩm mỹ nghệ, chi tiết trang trí và các cấu kiện gỗ có biên dạng phức tạp. Khả năng điều khiển chuyển động chính xác giúp máy thực hiện đường cắt ổn định và bám sát biên dạng thiết kế." },
+      { "name": "Gia công đá", "nameGold": "đá", "tag": "Stone", "desc": "QS Controller được ứng dụng trên các dòng máy CNC cắt và điêu khắc đá tự nhiên, đá nhân tạo. Hệ thống hỗ trợ gia công hoa văn, phù điêu, tượng đá, mặt bàn và các chi tiết trang trí có biên dạng phức tạp. Khả năng phối hợp chuyển động nhiều trục giúp máy bám sát đường chạy dao và đáp ứng yêu cầu tạo hình của từng sản phẩm." },
+      { "name": "Gia công kim hoàn", "nameGold": "kim hoàn", "tag": "Jewelry", "desc": "QS Controller được ứng dụng trên các dòng máy CNC gia công kim hoàn, hỗ trợ chạm khắc, phay và tạo hình các chi tiết trên vàng, bạc và hợp kim quý. Khả năng điều khiển chuyển động chính xác giúp máy xử lý hoa văn phức tạp, đường nét nhỏ và các bề mặt yêu cầu độ tinh xảo cao. Hệ thống phù hợp cho sản xuất nhẫn, vòng, mặt dây chuyền và nhiều sản phẩm trang sức khác." },
+      { "name": "Máy tự động hóa khác", "nameGold": "khác", "tag": "Automation", "desc": "QS Controller được ứng dụng trên các dòng máy tự động hóa chuyên dụng như máy bôi keo CNC, máy uốn lò xo và nhiều thiết bị sản xuất theo yêu cầu. Hệ thống hỗ trợ điều khiển đồng bộ chuyển động các trục với tín hiệu vào/ra và cơ cấu chấp hành của máy. Khả năng tùy chỉnh chương trình giúp đáp ứng linh hoạt từng quy trình và cấu hình thiết bị." }
     ],
     "soon": {
       "label": "Đang cập nhật",
       "imageLabel": "Hình ảnh đang cập nhật",
       "items": {}
     },
-    "controllerFor": "Bộ điều khiển cho",
     "detail": "Chi tiết",
     "swipeHint": "Vuốt để xem thêm",
     "videoEyebrow": "[ Video ]",
@@ -80,41 +60,12 @@
     "benefitHeading": "Lợi ích khi sử dụng QS Controller",
     "galleryEyebrow": "[ Gallery ]",
     "galleryHeading": "Một số sản phẩm sau gia công",
-    "workflowEyebrow": "[ Workflow · 4 steps ]",
-    "workflowHeading": "Quy trình vận hành",
-    "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi từ nhập file CAD/CAM đến điều khiển servo và giám sát chu trình. Bốn bước dưới đây mô tả luồng dữ liệu và tín hiệu điển hình của một máy phay 3 trục.",
     "workflow": [
       { "l": "Input · G-code", "t": "Nhập chương trình gia công", "d": "File NC được nạp qua USB, Ethernet hoặc DNC. Bộ điều khiển phân tích và mô phỏng đường chạy dao trên màn hình trước khi chạy thật." },
       { "l": "Plan · Path", "t": "Tính toán quỹ đạo servo", "d": "Look-ahead 256 block, gia tốc S-curve và bù sai số dao. Quỹ đạo được làm mượt theo NURBS để đạt finish bề mặt tốt nhất." },
       { "l": "Drive · EtherCAT", "t": "Điều khiển servo & spindle", "d": "Tín hiệu xung/encoder qua EtherCAT 1ms tới các trục X/Y/Z và biến tần spindle. Vòng kín kiểm tra vị trí từng chu kỳ." },
       { "l": "Monitor · HMI", "t": "Giám sát & báo lỗi", "d": "HMI hiển thị tọa độ, tốc độ, dòng spindle, alarm. Dữ liệu chu trình ghi log để phục vụ truy xuất nguồn gốc và OEE." }
     ],
-    "specEyebrow": "[ Specification ]",
-    "specHeading": "Thông số kỹ thuật tham khảo",
-    "specLede": "Cấu hình điển hình cho một dòng máy phay 3 trục cỡ trung dùng controller QS Astro 6AH — phù hợp gia công khuôn mẫu, linh kiện cơ khí chính xác.",
-    "specBtn1": "Xem controller phù hợp",
-    "specBtn2": "Tải datasheet ↓",
-    "specs": [
-      ["Số trục", "3 trục (X / Y / Z) — mở rộng 4–6 trục"],
-      ["Hành trình", "600 × 400 × 320 mm"],
-      ["Độ chính xác", "±0.005 mm"],
-      ["Tốc độ chạy dao", "10 000 mm/min"],
-      ["Tốc độ spindle", "14 000 RPM"],
-      ["Bộ điều khiển", "QS Astro 6AH · 8\" HMI"],
-      ["Giao tiếp", "EtherCAT · USB · Ethernet · RS-232"]
-    ],
-    "deployEyebrow": "[ Field deployment ]",
-    "deployHeading": "Đã triển khai tại",
-    "deployCount": "3 of 14 dự án",
-    "deployments": [
-      { "name": "Cơ khí Tân Bình", "loc": "HCM · 2024 · 12 máy phay 3 trục Astro 6AH cho dây chuyền linh kiện ô tô." },
-      { "name": "Khuôn mẫu Hà Nam", "loc": "Hà Nam · 2025 · Hệ thống 5 trục với F10T Touch cho khuôn nhựa kỹ thuật cao." },
-      { "name": "Y khoa Đồng Nai", "loc": "Đồng Nai · 2024 · 6 máy phay y tế Astro 10i cho gia công implant Titan." }
-    ],
-    "relatedEyebrow": "[ Next ]",
-    "relatedHeading": "Ứng dụng liên quan",
-    "backAll": "← Tất cả ứng dụng",
-    "relatedAppLabel": "Application",
     "ctaHeading": "Bạn đang tự động hóa máy {machine}?",
     "ctaBody": "Kỹ sư QS hỗ trợ chọn cấu hình I/O, sơ đồ đấu nối và driver phù hợp với dòng máy này.",
     "ctaBtn": "Liên hệ kỹ thuật →",
@@ -148,7 +99,6 @@
       "cua-long": {
         "tagline": "Cắt chính xác — Biên dạng linh hoạt — Năng suất vượt trội",
         "heroLede": "QS Controller mang đến giải pháp điều khiển tối ưu cho máy cưa lọng CNC, giúp lưỡi cưa di chuyển chính xác theo chương trình, tạo ra những đường cắt mượt mà và các biên dạng phức tạp trên nhiều loại vật liệu.",
-        "heroStats": [["2–3", "Số trục"], ["±0.1", "Độ chính xác (mm)"], ["30 m/p", "Tốc độ cắt"]],
         "strengths": [
           { "t": "Độ chính xác cao", "d": "Điều khiển chuyển động chính xác theo chương trình, đường cắt mượt và sắc nét." },
           { "t": "Vận hành ổn định", "d": "Hệ thống điều khiển mạnh mẽ, chống nhiễu tốt, hoạt động ổn định trong thời gian dài." },
@@ -215,19 +165,11 @@
             { "t": "Linh hoạt tích hợp", "d": "Dễ dàng tích hợp vào nhiều cấu hình máy khác nhau, đáp ứng nhu cầu đa dạng." }
           ]
         },
-        "closing": "Giải pháp điều khiển CNC toàn diện — nâng tầm hiệu suất cho mọi ứng dụng gia công.",
-        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy cưa lọng.",
-        "workflow": [
-          { "l": "Input · G-code/DXF", "t": "Nhập bản vẽ biên dạng", "d": "Hệ thống tiếp nhận trực tiếp các định dạng file thiết kế (CAD/DXF). Bộ điều khiển sẽ tự động nhận diện và thiết lập đường biên cắt ban đầu." },
-          { "l": "Plan · Path", "t": "Tính toán & nội suy quỹ đạo", "d": "Thuật toán xử lý nội suy đường cong tốc độ cao, đảm bảo góc bo mượt mà, không bị sượng hay vấp khi chuyển hướng lưỡi cưa." },
-          { "l": "Drive · EtherCAT", "t": "Điều khiển kéo phôi", "d": "Truyền động servo qua EtherCAT với độ trễ cực thấp, đồng bộ hóa chuyển động của mâm xoay và tốc độ lưỡi cưa lọng." },
-          { "l": "Monitor · HMI", "t": "Giám sát & cảnh báo", "d": "Giao diện HMI theo dõi tốc độ chạy thực tế, tích hợp các cảnh báo an toàn như phát hiện đứt lưỡi cưa hay quá tải động cơ." }
-        ]
+        "closing": "Giải pháp điều khiển CNC toàn diện — nâng tầm hiệu suất cho mọi ứng dụng gia công."
       },
       "dan-keo": {
         "tagline": "Bôi keo chính xác — Đồng đều — Tự động — Nâng cao năng suất",
         "heroLede": "QS Controller là giải pháp điều khiển CNC chuyên dụng cho máy tự động hóa bôi keo, giúp định lượng, định vị và di chuyển đầu bôi keo chính xác theo chương trình. Hệ thống vận hành ổn định, dễ sử dụng, phù hợp với nhiều loại keo và nhiều yêu cầu sản xuất.",
-        "heroStats": [["3–4", "Số trục"], ["Tùy chỉnh", "Lưu lượng"], ["500 mm/s", "Tốc độ chạy"]],
         "strengths": [
           { "t": "Độ chính xác cao", "d": "Điều khiển chuyển động và định lượng keo chính xác, đảm bảo đường keo đẹp và đồng đều." },
           { "t": "Vận hành ổn định", "d": "Hệ thống điều khiển mạnh mẽ, tương thích với nhiều loại keo, hoạt động liên tục, bền bỉ theo thời gian." },
@@ -309,19 +251,11 @@
             { "t": "Vận hành bền bỉ", "d": "Hệ thống ổn định, bảo vệ an toàn thiết bị, hoạt động tin cậy." }
           ]
         },
-        "closing": "Giải pháp điều khiển CNC tối ưu cho máy tự động hóa bôi keo — chất lượng cao, khác biệt cho doanh nghiệp.",
-        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy dán keo.",
-        "workflow": [
-          { "l": "Input · Teaching", "t": "Lập trình quỹ đạo dán", "d": "Hỗ trợ lập trình bằng G-Code hoặc chế độ Dạy điểm (Teaching) trực quan ngay trên màn hình cầm tay (pendant) hoặc HMI." },
-          { "l": "Plan · Path", "t": "Tối ưu hóa góc cua", "d": "Thuật toán Look-ahead xử lý tính toán trước quỹ đạo 3D, kết hợp giảm tốc tự động tại các góc cua gắt để tránh hiện tượng dồn cục keo." },
-          { "l": "Drive · Dispenser", "t": "Đồng bộ van bơm & servo", "d": "Điều khiển vòng kín giữa tốc độ di chuyển của trục XYZ và độ mở của van bơm keo, đảm bảo đường keo ra đều đặn, không đứt quãng." },
-          { "l": "Monitor · HMI", "t": "Kiểm soát chu trình", "d": "Quản lý số lượng mẻ, thời gian chu kỳ dán. Màn hình cảnh báo ngay lập tức nếu phát hiện áp suất keo yếu hoặc tắc đầu phun." }
-        ]
+        "closing": "Giải pháp điều khiển CNC tối ưu cho máy tự động hóa bôi keo — chất lượng cao, khác biệt cho doanh nghiệp."
       },
       "uon-lo-xo": {
         "tagline": "Uốn chính xác — Tốc độ cao — Tự động — Năng suất vượt trội",
         "heroLede": "QS Controller là giải pháp điều khiển CNC chuyên dụng cho máy tự động hóa uốn lò xo, giúp gia công lò xo chính xác theo chương trình, đồng bộ nhiều trục chuyển động. Hệ thống vận hành ổn định, dễ sử dụng, đáp ứng đa dạng chủng loại lò xo với hiệu suất cao và chất lượng đồng đều.",
-        "heroStats": [["4–8", "Số trục"], ["±0.01", "Độ chính xác (mm)"], ["120 m/p", "Tốc độ cấp dây"]],
         "strengths": [
           { "t": "Độ chính xác cao", "d": "Điều khiển đa trục chính xác theo chương trình, sai số thấp, đảm bảo độ đồng đều của từng sản phẩm." },
           { "t": "Vận hành ổn định", "d": "Hệ thống tối ưu giúp máy hoạt động êm ái, liên tục, ít bảo trì và tuổi thọ cao." },
@@ -402,19 +336,11 @@
             { "t": "Vận hành bền bỉ", "d": "Hoạt động ổn định, ít hỏng hóc, tuổi thọ cao." }
           ]
         },
-        "closing": "Giải pháp điều khiển CNC tối ưu cho máy uốn lò xo — nâng tầm chất lượng sản phẩm và hiệu quả sản xuất.",
-        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy uốn lò xo.",
-        "workflow": [
-          { "l": "Input · Parameters", "t": "Nhập thông số hình học", "d": "Nhập trực tiếp các thông số kỹ thuật của lò xo như: đường kính dây, bước xoắn, góc uốn và số vòng trên màn hình điều khiển." },
-          { "l": "Plan · Cam", "t": "Đồng bộ Cam điện tử", "d": "Bộ điều khiển thiết lập mối quan hệ Cam điện tử (E-Cam) tinh vi giữa trục cấp dây (Master) và các trục uốn/cắt (Slave)." },
-          { "l": "Drive · Multi-axis", "t": "Điều khiển đa trục", "d": "Xử lý nội suy đa trục đồng thời. Các động cơ servo hoạt động độc lập nhưng liên kết chặt chẽ với độ trễ gần như bằng 0 qua bus tốc độ cao." },
-          { "l": "Monitor · HMI", "t": "Kiểm soát chiều dài dây", "d": "Tự động đo chiều dài dây đã cấp, đếm sản lượng lò xo và đưa ra báo động nếu kẹt dây hoặc hết phôi." }
-        ]
+        "closing": "Giải pháp điều khiển CNC tối ưu cho máy uốn lò xo — nâng tầm chất lượng sản phẩm và hiệu quả sản xuất."
       },
       "mong-go": {
         "tagline": "Điều khiển chính xác — Mộng đẹp đồng đều — Năng suất vượt trội",
         "heroLede": "QS Controller là giải pháp điều khiển CNC chuyên dụng cho máy làm mộng gỗ, giúp gia công mộng, khoan, xẻ rãnh chính xác theo chương trình đã thiết lập. Hệ thống vận hành ổn định, dễ sử dụng, đáp ứng đa dạng yêu cầu sản xuất từ đơn giản đến phức tạp.",
-        "heroStats": [["3–5", "Số trục"], ["±0.05", "Sai số mộng (mm)"], ["18k", "Tốc độ spindle (RPM)"]],
         "strengths": [
           { "t": "Độ chính xác cao", "d": "Điều khiển chuyển động chính xác theo chương trình, mộng đều, khít, đẹp." },
           { "t": "Vận hành ổn định", "d": "Hệ thống tối ưu, hoạt động êm ái, ít rung lắc, độ bền cao." },
@@ -478,19 +404,11 @@
             { "t": "Độ bền & tin cậy", "d": "Thiết kế công nghiệp, ổn định, hoạt động bền bỉ theo thời gian." }
           ]
         },
-        "closing": "Giải pháp điều khiển CNC tối ưu cho máy làm mộng gỗ — nâng tầm chất lượng sản phẩm gỗ Việt.",
-        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy làm mộng gỗ.",
-        "workflow": [
-          { "l": "Input · Macro", "t": "Gọi chương trình mộng", "d": "Hỗ trợ thư viện Macro các kiểu mộng gỗ thông dụng. Kỹ thuật viên chỉ cần điền kích thước (dài, rộng, sâu) thay vì phải lập trình G-Code phức tạp." },
-          { "l": "Plan · Path", "t": "Tính toán bù trừ dao", "d": "Thuật toán thông minh tự động tính toán bù trừ bán kính dao phay, đảm bảo mộng âm và dương lắp ráp vừa vặn, không bị lỏng hay quá chật." },
-          { "l": "Drive · EtherCAT", "t": "Điều khiển kẹp & cắt", "d": "Phối hợp nhịp nhàng giữa tín hiệu I/O điều khiển kẹp phôi bằng khí nén và quỹ đạo cắt tốc độ cao của servo trục chính." },
-          { "l": "Monitor · HMI", "t": "Giám sát & Quản lý dao", "d": "Hiển thị trực quan mô phỏng kiểu mộng đang chạy. Theo dõi thời gian mài mòn của dao phay để cảnh báo thay dao kịp thời." }
-        ]
+        "closing": "Giải pháp điều khiển CNC tối ưu cho máy làm mộng gỗ — nâng tầm chất lượng sản phẩm gỗ Việt."
       },
       "kim-hoan": {
         "tagline": "Độ chính xác siêu nhỏ — Đường nét tinh xảo — Giá trị hoàn hảo",
         "heroLede": "QS Controller là giải pháp điều khiển CNC chuyên dụng cho máy gia công kim hoàn, đáp ứng nhu cầu gia công các chi tiết siêu nhỏ với độ chính xác cao và bề mặt hoàn thiện tinh xảo. Hệ thống hỗ trợ đa dạng chức năng, tối ưu cho các công đoạn phay, khắc, đục, khoan và đánh bóng trên nhiều loại vật liệu quý.",
-        "heroStats": [["4–5", "Số trục"], ["1µm", "Độ phân giải"], ["60k", "Tốc độ spindle (RPM)"]],
         "strengths": [
           { "t": "Độ chính xác cao", "d": "Điều khiển độ phân giải cao đến 0.001 mm, đảm bảo chi tiết gia công sắc nét từng đường nét." },
           { "t": "Vận hành ổn định", "d": "Hệ thống điều khiển mạnh mẽ, chạy mượt mà, liên tục, đáp ứng gia công chi tiết siêu nhỏ." },
@@ -547,14 +465,7 @@
             { "t": "Vận hành bền bỉ", "d": "Hệ thống ổn định, hoạt động liên tục trong thời gian dài." }
           ]
         },
-        "closing": "Giải pháp điều khiển CNC tối ưu cho ngành kim hoàn — chính xác, tinh xảo, giá trị bền vững.",
-        "workflowLede": "Bộ điều khiển QS đảm nhiệm toàn bộ chuỗi tự động hóa từ khâu tiếp nhận thông số đến điều khiển truyền động. Bốn bước dưới đây mô tả luồng tín hiệu điển hình của máy kim hoàn.",
-        "workflow": [
-          { "l": "Input · Jewelry CAD", "t": "Tiếp nhận thiết kế 3D", "d": "Xử lý các file G-Code dung lượng cực lớn xuất ra từ các phần mềm thiết kế trang sức chuyên dụng (như Matrix, Rhino)." },
-          { "l": "Plan · Micro-step", "t": "Tính toán vi bước", "d": "Thuật toán chia nhỏ quỹ đạo tới mức vi bước (Micro-stepping), làm mượt hoàn hảo các bề mặt cong và những chi tiết hoa văn siêu nhỏ." },
-          { "l": "Drive · Precision", "t": "Điều khiển độ nét cao", "d": "Giao tiếp mượt mà với các spindle tốc độ siêu cao (40.000 - 60.000 vòng/phút) và động cơ servo có độ phân giải encoder lớn, loại bỏ hoàn toàn vết hằn trên bề mặt cắt." },
-          { "l": "Monitor · HMI", "t": "Bảo vệ & Giám sát", "d": "Theo dõi thời gian thực quỹ đạo chạm khắc chi tiết. Tích hợp các tính năng bảo vệ chống quá tải trục chính khi gia công các hợp kim quý có độ cứng cao." }
-        ]
+        "closing": "Giải pháp điều khiển CNC tối ưu cho ngành kim hoàn — chính xác, tinh xảo, giá trị bền vững."
       },
       "dieu-khac-da": {
         "tagline": "Điêu khắc chính xác — Biên dạng 3D sắc nét — Vận hành ổn định",

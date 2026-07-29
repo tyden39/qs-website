@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import type { CatalogProductView } from "@/lib/data/catalog";

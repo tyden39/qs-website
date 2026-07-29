@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import ContactCta from "@/components/contact-cta";
 import Reveal from "@/components/reveal";
@@ -8,6 +8,7 @@ import { CategoryIcon } from "@/components/category-icon";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getApplicationBySlug, getApplicationProducts, getApplicationSlugs } from "@/lib/data/applications";
 import { buildAlternates } from "@/lib/seo/alternates";
+import { seoDescription } from "@/lib/seo/text";
 import { buildTechArticle, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
 import { routing } from "@/lib/i18n/routing";
@@ -27,17 +28,18 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const a = await getApplicationBySlug(slug, locale);
   const title = a?.title ?? slug.replace(/-/g, " ");
-  const description = a?.summary?.slice(0, 160) ?? "";
+  const description = seoDescription(a?.summary ?? "");
+  const alternates = buildAlternates(`/applications/${slug}`, locale);
   return {
     title,
     description,
-    alternates: buildAlternates(`/applications/${slug}`, locale),
+    alternates,
     openGraph: {
       title,
       description,
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
-      url: `/applications/${slug}`,
+      url: alternates.canonical,
       images: [
         {
           url: a?.heroImage ?? "/og-default.png",
@@ -200,8 +202,6 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
     string,
     {
       heroLede: string;
-      workflowLede: string;
-      workflow: { l: string; t: string; d: string }[];
       tagline?: string;
       strengths?: CopyItem[];
       control?: { heading?: string; items: CopyItem[] };
@@ -233,8 +233,6 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
   const benefits = machine_?.benefits;
   const benefitMedia = BENEFIT_MEDIA[slug] ?? [];
   const gallery = GALLERY_IMAGES[slug] ?? [];
-  const specs = t.raw("specs") as [string, string][];
-  const deployments = t.raw("deployments") as { name: string; loc: string }[];
   const relatedApps = relatedAppsMeta.map((r) => ({ ...r, t: machineFor(r.slug) }));
   const appData = await getApplicationBySlug(slug, locale);
   const relatedProducts = getApplicationProducts(slug, locale);

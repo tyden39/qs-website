@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
 import type { SheetBlockView } from "@/lib/data/series";
 

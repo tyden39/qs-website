@@ -6,9 +6,7 @@ export type NewsView = {
   title: string;
   excerpt: string;
   bodyHtml: string;
-  bodyJson: unknown | null;
   coverImage: string | null;
-  category: string;
   cat: string;
   /** Locale-independent category key; pairs with the `news.list.tabs` order. */
   categoryId: NewsCategoryId;
@@ -92,9 +90,7 @@ function toView(n: News, locale: Locale): NewsView {
     title,
     excerpt: cleanExcerpt(excerpt, title),
     bodyHtml: body,
-    bodyJson: null,
     coverImage: n.cover ?? null,
-    category: cat,
     cat,
     categoryId: CATEGORY_ID_BY_LABEL[n.cat] ?? "company",
     tags: (en ? n.tagsEn : null) ?? n.tags ?? [],

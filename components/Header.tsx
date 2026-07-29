@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/lib/i18n/navigation";

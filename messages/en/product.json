@@ -72,11 +72,6 @@
       "eyebrow": "Catalogue",
       "heading": "Product categories",
       "viewList": "View list",
-      "machines": {
-        "label": "Machines",
-        "labelGold": "Machines",
-        "blurb": "CNC machines and automation equipment designed and assembled by QS — with local warranty and technical support in Vietnam."
-      },
       "controllers": {
         "label": "Controllers",
         "labelGold": "Controllers",
@@ -114,11 +109,6 @@
       "navLabel": "Product types",
       "all": "All",
       "soon": "Soon",
-      "machines": {
-        "cnc": "CNC machines",
-        "automation": "Automation machines",
-        "inspection": "Inspection machines"
-      },
       "controllers": {
         "motion": "Motion controllers",
         "cnc": "CNC controllers",

@@ -3,7 +3,7 @@
  * (`public/search-index.<locale>.json`, produced by scripts/build-search-index.ts).
  * Shared by the index builder, the Orama engine, and both UI surfaces.
  */
-export type SearchType = "product" | "pdf" | "news" | "app" | "faq";
+export type SearchType = "product" | "machine" | "pdf" | "news" | "app" | "service";
 
 export interface SearchRecord {
   id: string;

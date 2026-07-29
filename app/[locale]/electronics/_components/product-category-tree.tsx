@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { createContext, useContext, useEffect, useId, useState } from "react";
+import Image from "@/components/media/image";
+import { createContext, useContext, useId, useState } from "react";
 import { CategoryIcon } from "@/components/category-icon";
 import CountBadge from "@/components/count-badge";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
@@ -21,6 +21,19 @@ const TYPE_KEY = "t";
  * truth, so pages must not set their own.
  */
 export const HERO_IMAGE_SLOT = "relative w-full aspect-[4/3]";
+
+/**
+ * The `sizes` that goes with that slot, kept beside it for the same reason: the
+ * box is defined here, so the width the browser is told about has to be too.
+ *
+ * Below `lg` the figure is the 4:3 card inside the padded container, so it is
+ * near enough the full viewport. From `lg` up its width is `--qs-bleed`, which
+ * globals.css defines as `min(27vw, 415px)` — the two tiers below say exactly
+ * that, switching at the 1537px where 27vw reaches the 415px cap. The old
+ * blanket `38vw` overstated it by up to 1.8x, which on a 2x desktop put the
+ * catalogue hero on the 1400w original (337 KB) instead of the 960w (180 KB).
+ */
+export const HERO_FIGURE_SIZES = "(max-width:1023px) 92vw, (min-width:1537px) 415px, 27vw";
 
 /**
  * The subcategory chosen inside the currently active group, or null for "all".
@@ -237,18 +250,24 @@ export function CategoryTreeHero({
   mobileFigure?: boolean;
 }) {
   const { active, activeGroup, child } = useCategoryState(groups);
-  const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
   const skin = TONE[tone];
 
-  // Keep the tree's expansion in sync with the URL selection so the active
-  // group's branch is revealed — and its selected sub-branch highlighted — even
-  // when the selection was made from the header menu rather than clicked here.
-  // Runs on group/sub-branch change; a manual collapse (which leaves the URL
-  // untouched) therefore persists until the next selection.
-  useEffect(() => {
-    const kids = activeGroup.children ?? [];
-    setExpandedGroupId(kids.length > 0 ? activeGroup.id : null);
-  }, [active, child, activeGroup]);
+  // The tree's expansion follows the URL selection, so the active group's branch
+  // is revealed — and its selected sub-branch highlighted — even when the
+  // selection was made from the header menu rather than clicked here. A manual
+  // collapse leaves the URL untouched and therefore persists until the next
+  // selection.
+  //
+  // Compared during render rather than synced from an effect, so the reset lands
+  // in the same pass as the selection change instead of a second render.
+  const branchFor = (g: CategoryTreeGroup) => ((g.children ?? []).length > 0 ? g.id : null);
+  const selection = `${active} ${child ?? ""}`;
+  const [expandedGroupId, setExpandedGroupId] = useState<string | null>(() => branchFor(activeGroup));
+  const [prevSelection, setPrevSelection] = useState(selection);
+  if (prevSelection !== selection) {
+    setPrevSelection(selection);
+    setExpandedGroupId(branchFor(activeGroup));
+  }
 
   // The first group is the default view, so it stays out of the query; picking a
   // group always clears the previous group's branch. Unlike the sub-branch pick,
@@ -462,17 +481,27 @@ export function CategoryTreeHero({
           >
             {/* Heading spans the band; only the trailing `labelGold` portion gets
                 the gold sheen (the whole title when unset), so a compound last
-                word gilds as one unit. */}
+                word gilds as one unit.
+
+                The visible group's heading is the page's <h1> and the mounted-but-
+                hidden ones are <h2>, so the document always carries exactly one
+                <h1> naming what the reader is actually looking at. Without this
+                split every group would claim <h1> (six per page) or none would —
+                and these catalogue hubs are the site's main ranking targets, so a
+                heading-less document costs them their strongest on-page signal.
+                Server-side no group is selected, so index 0 wins and the
+                prerendered HTML a crawler reads is stable. */}
             {(() => {
               const title = g.heroTitle ?? g.label;
               const at = g.labelGold ? title.lastIndexOf(g.labelGold) : -1;
               const head = at > 0 ? title.slice(0, at) : "";
               const tail = at >= 0 ? title.slice(at) : title;
+              const Heading = i === active ? "h1" : "h2";
               return (
-                <h2 className={`qs-h1 text-balance ${skin.title}`}>
+                <Heading className={`qs-h1 text-balance ${skin.title}`}>
                   {head}
                   <span className="qs-gold-shimmer inline-block">{tail}</span>
-                </h2>
+                </Heading>
               );
             })()}
             {/* Below lg the figure is a framed card between the heading and the

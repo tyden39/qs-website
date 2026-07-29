@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/media/image";
 import { getTranslations } from "next-intl/server";
 import CircuitTraces from "./circuit-traces";
 

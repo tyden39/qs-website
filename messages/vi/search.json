@@ -25,12 +25,13 @@
     "typeLabels": {
       "all": "Tất cả",
       "product": "Sản phẩm",
+      "machine": "Máy CNC",
       "pdf": "Tài liệu",
       "news": "Tin tức",
       "app": "Ứng dụng",
-      "faq": "FAQ"
+      "service": "Dịch vụ"
     },
-    "emptyPrompt": "Nhập từ khoá để tìm sản phẩm, tài liệu, tin tức và ứng dụng.",
+    "emptyPrompt": "Nhập từ khoá để tìm sản phẩm, máy CNC, tài liệu, tin tức, ứng dụng và dịch vụ.",
     "noResults": "Không tìm thấy kết quả cho \"{query}\". Thử từ khoá khác hoặc liên hệ đội kỹ thuật."
   }
 }

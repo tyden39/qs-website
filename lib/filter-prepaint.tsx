@@ -62,7 +62,14 @@ export function FilterPrePaint({ keys }: { keys: PrePaintKey[] }) {
  * renders on every visit.
  *
  * Figures opt in by carrying `data-f-hero="<group id>"`; `param`/`def` mirror
- * the `PrePaintKey` the page uses for the same dimension.
+ * the `PrePaintKey` the page uses for the same dimension. A group can tag one
+ * figure per breakpoint (the mobile hero and the desktop bleed), and an eager
+ * image downloads even inside `display:none` — so the script measures each
+ * candidate and skips the ones the current viewport hides, rather than paying
+ * for a render nobody sees. Measuring is safe here: the primer has already
+ * force-shown the selected group, pending stylesheets have loaded (parser-
+ * blocking scripts wait on them), and the forced layout runs before first
+ * paint, where it costs nothing extra.
  *
  * next/image's dev-only LCP warning still fires on such a link: it compares the
  * `loading` value the component rendered with, which is `lazy` for every group
@@ -75,6 +82,6 @@ export function PrePaintHeroImage({ param, def }: { param: string; def?: string 
     param,
   )})||${JSON.stringify(
     def ?? "",
-  )}).replace(/[^a-z0-9-]/gi,"");if(!v)return;var n=document.querySelectorAll('[data-f-hero~="'+v+'"] img');for(var i=0;i<n.length;i++){n[i].loading="eager";n[i].setAttribute("fetchpriority","high")}}catch(e){}})();`;
+  )}).replace(/[^a-z0-9-]/gi,"");if(!v)return;var n=document.querySelectorAll('[data-f-hero~="'+v+'"] img');for(var i=0;i<n.length;i++){if(!n[i].getBoundingClientRect().width)continue;n[i].loading="eager";n[i].setAttribute("fetchpriority","high")}}catch(e){}})();`;
   return <script dangerouslySetInnerHTML={{ __html: code }} />;
 }

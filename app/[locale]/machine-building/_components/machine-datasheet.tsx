@@ -44,6 +44,7 @@ import { getAllDownloads, getProductDownloads } from "@/lib/data/downloads";
 import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
 import RailNudge from "@/components/rail-nudge";
 import { MachineHeroGallery } from "./machine-hero-gallery";
+import { ProductVideo } from "../../electronics/_components/product-video";
 import type { Locale } from "@/lib/i18n/config";
 
 /**
@@ -52,7 +53,9 @@ import type { Locale } from "@/lib/i18n/config";
  * data is: sections the catalogue cannot fill yet — machining-capability photos,
  * standard/optional equipment — show an "updating" placeholder in place of the
  * content rather than collapsing, so the page shape stays comparable across
- * models and the gaps are visible.
+ * models and the gaps are visible. The shop-floor video is the one exception: a
+ * missing clip drops the section entirely rather than leaving an empty frame,
+ * since there is nothing to promise a visitor there.
  *
  * Sections derive from the machine's own spec rows wherever possible (see
  * `lib/data/machine-datasheet`); the controller card and downloads read the
@@ -471,6 +474,29 @@ export default async function MachineDatasheet({
           )}
         </div>
       </section>
+
+      {/* ── VIDEO ── the machine cutting, between the feature story and the
+          technical half of the sheet. Same lazy facade the line machines use. */}
+      {machine.video && (
+        <section className="relative py-10 bg-paper overflow-hidden">
+          <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true" />
+          <div className="relative qs-wrap-detail">
+            <Reveal>
+              <PanelTitle>{d("videoHeading")}</PanelTitle>
+            </Reveal>
+            <Reveal>
+              <div className="max-w-[960px] mx-auto">
+                <ProductVideo
+                  youtubeId={machine.video.youtubeId}
+                  title={machine.model}
+                  playLabel={d("videoPlay")}
+                  hd={machine.video.hd}
+                />
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       {/* ── MACHINING CAPABILITIES + WORKING SPACE ── */}
       <section className="relative py-10 bg-paper overflow-hidden">

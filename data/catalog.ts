@@ -47,6 +47,11 @@ export type CatalogProduct = {
   desc: string;
   descEn: string;
   specs: CatalogSpec[];
+  /** Lead paragraph above the spec table, where the catalogue wrote one. */
+  specsIntro?: string;
+  specsIntroEn?: string;
+  /** Shot that runs alongside that paragraph — the board in situ, typically. */
+  specsPhoto?: CatalogPhoto;
   image: CatalogPhoto;
   /** Extra hardware shots beyond `image` — port sides, rear face, mounting. */
   gallery?: CatalogPhoto[];

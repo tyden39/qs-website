@@ -31,7 +31,7 @@ export function ProductVideo({
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`}
           title={title}
-          allow="accelerated-fullscreen; autoplay; encrypted-media; picture-in-picture"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
           className="absolute inset-0 h-full w-full"
         />

@@ -195,6 +195,41 @@ export async function CatalogDetail({
           <div className="relative qs-wrap-detail">
             {bandHead(t("specsEyebrow"), t("catalogSpecsHeading"), product.specs.length)}
 
+            {/* Where the catalogue wrote one, a lead paragraph sits between the
+                ruled head and the table — the sheet's preamble. A shot of the
+                product in situ runs alongside it when there is one; without it
+                the copy keeps a narrow measure instead of spanning the frame. */}
+            {(product.specsIntro || product.specsPhoto) && (
+              <div
+                className={`mb-8 lg:mb-10 grid items-center gap-6 lg:gap-12 ${
+                  product.specsIntro && product.specsPhoto
+                    ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)]"
+                    : ""
+                }`}
+              >
+                {product.specsIntro && (
+                  <p className="m-0 max-w-[80ch] text-body leading-[1.8] text-[#3a3a3a] sm:text-justify">
+                    {product.specsIntro}
+                  </p>
+                )}
+                {product.specsPhoto && (
+                  <figure className="m-0 flex justify-center overflow-hidden border border-line bg-[#11120f]">
+                    {/* Catalogue shots run landscape or portrait; capping the
+                        height keeps a tall board from towering over the few
+                        lines of copy it sits beside. */}
+                    <Image
+                      src={product.specsPhoto.src}
+                      alt={product.specsPhoto.alt}
+                      width={product.specsPhoto.w}
+                      height={product.specsPhoto.h}
+                      sizes="(max-width: 1024px) 92vw, 480px"
+                      className="max-h-[26rem] w-auto object-contain"
+                    />
+                  </figure>
+                )}
+              </div>
+            )}
+
             {/*
               Hairlines live on the cells, not on a `gap-px` sheet behind them: a
               spec count that does not fill its last row would otherwise leave

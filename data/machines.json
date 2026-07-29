@@ -453,7 +453,11 @@
         "label": "Hệ thống tưới nguội",
         "labelEn": "Coolant system"
       }
-    ]
+    ],
+    "video": {
+      "youtubeId": "flqLNbonb7Y",
+      "hd": true
+    }
   },
   {
     "slug": "qsm-r4020",

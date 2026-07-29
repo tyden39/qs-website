@@ -275,7 +275,10 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                 {heroLede}
               </p>
             </div>
-            <div className="qs-rise relative order-1 aspect-4/5 border overflow-hidden md:order-2"
+            {/* Square plate rather than the taller portrait it used to be: the
+                shop-floor stills are landscape, so a shorter frame crops less of
+                the machine away and keeps the hero from pushing the copy down. */}
+            <div className="qs-rise relative order-1 aspect-square border overflow-hidden md:order-2"
                  style={{ background:"linear-gradient(135deg, #1a1815, #0a0a08)", borderColor:"#2a2620", animationDelay: "160ms" }}>
               {appData?.heroImage && (
                 <Image src={appData.heroImage} alt={machine} fill sizes="(max-width:768px) 100vw, 40vw"
@@ -491,10 +494,11 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
       )}
 
       {/* VIDEO — the machine running on the shop floor, only for the machine types
-          that have a clip. Paper keeps the surfaces alternating: the block above it
-          (benefits, or the finished-parts gallery) is white, the products below are too. */}
+          that have a clip. paper-2 because the block above it varies (white benefits,
+          or the paper finished-parts gallery) — the third tone reads as its own band
+          either way, and the white products below keep it off the paper-2 closing CTA. */}
       {appData?.video && (
-        <section className="py-8 sm:py-10 lg:py-14 bg-paper border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-paper-2 border-b border-line">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <div className="max-w-[900px] mx-auto text-center">
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>

@@ -21,6 +21,10 @@
     "machineEn": "Jigsaw Machine",
     "summary": "Máy cưa lọng công nghiệp được sử dụng để cắt các biên dạng cong phức tạp trên gỗ, nhựa hoặc vật liệu mỏng với tốc độ cao và đường cắt mượt mà. Hệ thống điều khiển QS giúp duy trì độ ổn định liên tục cho xưởng sản xuất.",
     "summaryEn": "Industrial jigsaw machines cut complex curved profiles in wood, plastic, and thin materials at high speed with clean, smooth cuts. QS control systems keep production shops running with consistent, continuous stability.",
+    "video": {
+      "youtubeId": "kSSlsGLSYZM",
+      "hd": true
+    },
     "products": [
       "f86"
     ]
@@ -65,6 +69,10 @@
     "machineEn": "Tenoning Machine",
     "summary": "Giải pháp gia công mộng âm dương chính xác cao cho ngành sản xuất nội thất. Rút ngắn thời gian thiết lập phôi, đa dạng hóa các kiểu mộng và đẩy nhanh tốc độ sản xuất hàng loạt cho xưởng mộc công nghiệp.",
     "summaryEn": "A high-precision mortise-and-tenon machining solution for the furniture industry. Shortens workpiece setup time, diversifies joint styles, and accelerates mass production for industrial woodworking shops.",
+    "video": {
+      "youtubeId": "3-63w7yk8SQ",
+      "hd": true
+    },
     "products": [
       "f54",
       "f86",
@@ -96,6 +104,10 @@
     "machineEn": "Stone Carving CNC Machine",
     "summary": "Bộ điều khiển QS kiểm soát chính xác chuyển động nhiều trục trên máy điêu khắc tượng đá — tạo hình 3D phức tạp trên đá tự nhiên và đá nhân tạo cho tượng, phù điêu, hoa văn trang trí và chi tiết kiến trúc.",
     "summaryEn": "QS controllers govern multi-axis motion on stone carving machines — shaping complex 3D forms in natural and engineered stone for statues, reliefs, decorative patterns, and architectural details.",
+    "video": {
+      "youtubeId": "O4YSoAxhCVQ",
+      "hd": true
+    },
     "products": [
       "f86",
       "f10t",
@@ -111,6 +123,10 @@
     "machineEn": "Stone Cutting CNC Machine",
     "summary": "Bộ điều khiển QS điều phối các trục và đầu cắt đĩa trên máy cắt đá — cắt đường thẳng, cung tròn và biên dạng phức tạp trên đá tự nhiên, đá nhân tạo và vật liệu dạng tấm với đường cắt rõ nét.",
     "summaryEn": "QS controllers coordinate the axes and blade head on stone cutting machines — straight lines, arcs, and complex profiles in natural stone, engineered stone, and slab materials with clean cut edges.",
+    "video": {
+      "youtubeId": "TPpZUEPb7QY",
+      "hd": true
+    },
     "products": [
       "f86",
       "f10t",

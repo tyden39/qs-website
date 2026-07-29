@@ -222,8 +222,17 @@
     "name": "I/O Link 32_V1_10722",
     "tag": "Board mở rộng I/O · 32 in / 32 out",
     "tagEn": "I/O expansion board · 32 in / 32 out",
-    "desc": "Board mạch mở rộng số cổng input / output cho bộ điều khiển CNC: 32 cổng input, 32 cổng output, 4 cổng COM mỗi chiều, nguồn 24–28 VDC, kích thước 150 x 90 mm.",
-    "descEn": "An expansion board that adds input / output ports to a CNC controller: 32 inputs, 32 outputs, 4 COM ports each way, 24–28 VDC supply, 150 x 90 mm.",
+    "desc": "Board mở rộng I/O Link 32_V1_10722 được sử dụng để tăng số lượng ngõ vào và ngõ ra cho bộ điều khiển CNC. Với 32 cổng input, 32 cổng output cùng 4 cổng COM cho mỗi nhóm tín hiệu, sản phẩm hỗ trợ kết nối linh hoạt với cảm biến, công tắc, relay, van điện từ và nhiều thiết bị ngoại vi.",
+    "descEn": "The I/O Link 32_V1_10722 expansion board increases the number of inputs and outputs available to a CNC controller. With 32 input ports, 32 output ports and 4 COM ports per signal group, it connects flexibly to sensors, switches, relays, solenoid valves and many other peripheral devices.",
+    "specsIntro": "Thiết kế nhỏ gọn, sử dụng nguồn 24–28 VDC giúp board dễ dàng tích hợp trong tủ điện của máy CNC. Các ngõ vào có thể được sử dụng để tiếp nhận tín hiệu từ cảm biến, công tắc hành trình, nút nhấn và tín hiệu trạng thái của thiết bị. Các ngõ ra hỗ trợ điều khiển relay trung gian, van điện từ, đèn báo, còi cảnh báo và nhiều cơ cấu ngoại vi khác trong hệ thống máy.",
+    "specsIntroEn": "A compact design running on a 24–28 VDC supply lets the board fit easily inside the electrical cabinet of a CNC machine. The inputs take signals from sensors, limit switches, push buttons and device status contacts. The outputs drive interposing relays, solenoid valves, indicator lamps, warning buzzers and many other peripheral actuators in the machine.",
+    "specsPhoto": {
+      "src": "/img/products/catalog/io-link-32-din.webp",
+      "w": 1200,
+      "h": 675,
+      "alt": "Board I/O Link 32_V1_10722 lắp trên đế ray DIN",
+      "altEn": "I/O Link 32_V1_10722 board on its DIN-rail carrier"
+    },
     "specs": [
       {
         "l": "Kích thước",
@@ -252,8 +261,8 @@
     ],
     "image": {
       "src": "/img/products/catalog/io-link-32.webp",
-      "w": 1400,
-      "h": 792,
+      "w": 1600,
+      "h": 1013,
       "alt": "Board I/O Link 32_V1_10722",
       "altEn": "I/O Link 32_V1_10722 board"
     },
@@ -268,6 +277,15 @@
     "tagEn": "I/O expansion board · Doubles as PLC",
     "desc": "Board mạch mở rộng cổng input/output cho bộ điều khiển CNC. Có thể chuyển đổi và sử dụng như một thiết bị PLC.",
     "descEn": "An input/output expansion board for CNC controllers that can also be switched over and used as a standalone PLC.",
+    "specsIntro": "Board RLTR_07_V10723 kết hợp chức năng mở rộng I/O và điều khiển PLC trong cùng một thiết bị. Ở chế độ I/O Link, sản phẩm mở rộng thêm 8 ngõ vào và 8 ngõ ra cho hệ thống điều khiển CNC thông qua giao tiếp RS485. Khi chuyển sang chế độ PLC, board có thể được sử dụng để xử lý các tín hiệu và trình tự điều khiển phù hợp với từng ứng dụng máy. Thiết kế nhỏ gọn giúp sản phẩm dễ dàng bố trí trong nhiều cấu hình tủ điện khác nhau.",
+    "specsIntroEn": "The RLTR_07_V10723 board combines I/O expansion and PLC control in a single device. In I/O Link mode it adds 8 inputs and 8 outputs to a CNC control system over RS485. Switched to PLC mode, the board handles the signals and control sequences suited to each machine application. Its compact design makes the product easy to place in a wide range of cabinet layouts.",
+    "specsPhoto": {
+      "src": "/img/products/catalog/io-link-rltr-top.webp",
+      "w": 1000,
+      "h": 1151,
+      "alt": "Board I/O Link RLTR_07_V10723 nhìn từ trên",
+      "altEn": "Top view of the I/O Link RLTR_07_V10723 board"
+    },
     "specs": [
       {
         "l": "Kích thước",
@@ -316,6 +334,15 @@
     "tagEn": "Digital → analog converter board",
     "desc": "Board mạch hỗ trợ chuyển đổi tín hiệu Digital từ bộ điều khiển sang tín hiệu Analog để điều khiển các dòng driver servo đời cũ.",
     "descEn": "A board that converts digital signals from the controller into analog signals, so older-generation servo drives can be driven from a modern control.",
+    "specsIntro": "PID_V1_10722 là board chuyển đổi tín hiệu Digital sang Analog, hỗ trợ kết nối bộ điều khiển CNC với các dòng servo drive sử dụng tín hiệu điều khiển Analog. Sản phẩm phù hợp cho các dự án cải tạo và nâng cấp máy CNC cũ, giúp tiếp tục khai thác hệ thống truyền động hiện có mà không cần thay thế toàn bộ servo drive. Board hỗ trợ giao tiếp RS485, sử dụng nguồn 24–28 VDC và có thiết kế thuận tiện để tích hợp trong tủ điện máy.",
+    "specsIntroEn": "The PID_V1_10722 converts digital signals to analog, letting a CNC controller drive servo drives that expect an analog command signal. It suits retrofit and upgrade projects on older CNC machines, where the existing drive system can keep working instead of replacing every servo drive. The board supports RS485, runs on a 24–28 VDC supply and is designed to sit conveniently inside the machine's electrical cabinet.",
+    "specsPhoto": {
+      "src": "/img/products/catalog/pid-v1-10722-top.webp",
+      "w": 1400,
+      "h": 1009,
+      "alt": "Board PID_V1_10722 nhìn từ trên",
+      "altEn": "Top view of the PID_V1_10722 board"
+    },
     "specs": [
       {
         "l": "Kích thước",

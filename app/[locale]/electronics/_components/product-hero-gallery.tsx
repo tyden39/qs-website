@@ -58,10 +58,6 @@ export function ProductHeroGallery({
       <div className="absolute top-4 left-5 font-mono text-label-xs tracking-[.18em] uppercase text-[#8f8878]">
         {calibrationLabel}
       </div> */}
-      <div className="absolute bottom-2 right-2 z-10 font-mono text-label-xs tracking-[.18em] uppercase text-[#8f8878]">
-        QS · {name.toUpperCase()}
-      </div>
-
       <div className="relative h-[320px] sm:h-[380px] bg-paper border border-white/10" {...swipeProps}>
         {shots.map((s, i) => (
           <div
@@ -101,7 +97,10 @@ export function ProductHeroGallery({
       )}
 
       <figcaption className="relative mt-3 h-4 overflow-hidden text-center font-mono text-label-xs tracking-[.14em] uppercase text-[#8f8878]">
-        <span className="block truncate">{current.alt}</span>
+        {/* One line carries both the QS stamp and the shot's own caption; they
+            used to be separate elements and collided on single-shot products,
+            where the stamp sat on top of this row. */}
+        <span className="block truncate">QS · {current.alt}</span>
       </figcaption>
 
       {shots.length > 1 && (

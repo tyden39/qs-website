@@ -60,6 +60,9 @@
     "benefitHeading": "Lợi ích khi sử dụng QS Controller",
     "galleryEyebrow": "[ Gallery ]",
     "galleryHeading": "Một số sản phẩm sau gia công",
+    "videoEyebrow": "[ Video ]",
+    "videoHeading": "{machine} vận hành thực tế",
+    "videoPlay": "Phát video",
     "workflow": [
       { "l": "Input · G-code", "t": "Nhập chương trình gia công", "d": "File NC được nạp qua USB, Ethernet hoặc DNC. Bộ điều khiển phân tích và mô phỏng đường chạy dao trên màn hình trước khi chạy thật." },
       { "l": "Plan · Path", "t": "Tính toán quỹ đạo servo", "d": "Look-ahead 256 block, gia tốc S-curve và bù sai số dao. Quỹ đạo được làm mượt theo NURBS để đạt finish bề mặt tốt nhất." },

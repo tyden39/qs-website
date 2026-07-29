@@ -97,7 +97,12 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
               <div className="aspect-[16/10] md:aspect-auto md:min-h-[420px] bg-ink-2 md:border-r border-line overflow-hidden relative">
                 {feat.img ? (
                   <>
-                    <Image src={feat.img} alt={feat.title} fill sizes="(max-width: 768px) 100vw, 60vw" className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04]" />
+                    {/* The banner cover is the largest thing in the first
+                        viewport on /news, so it is preloaded rather than left
+                        to lazy discovery. A `?cat=…` link hides the banner and
+                        pays for one unused preload; plain /news — the nav link
+                        and the canonical URL — is the common case. */}
+                    <Image src={feat.img} alt={feat.title} fill priority sizes="(max-width: 768px) 100vw, 60vw" className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04]" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
                   </>
                 ) : (

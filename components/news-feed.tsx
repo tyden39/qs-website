@@ -24,7 +24,8 @@ const INTERVAL = 5500; // ms each story stays featured before auto-advancing
  * Newsroom feed — the active story fills the immersive lead on the left while the
  * right column lists every story with a thumbnail. Autoplay walks the list and
  * swaps the lead (re-keyed → replays the qs-rise cross-fade); hovering/focusing the
- * feed pauses the cycle and lets the pointer drive which story is featured.
+ * feed pauses the cycle and lets the pointer — or keyboard focus — drive which story
+ * is featured.
  *
  * Each row's gold edge bar only shows on hover (uniform across rows). The *active*
  * row is marked differently — lit thumbnail + gold title + an autoplay progress seam
@@ -70,8 +71,7 @@ export default function NewsFeed({ items }: { items: NewsItem[] }) {
       {/* LEAD — the active story, re-keyed so each advance replays the rise/cross-fade */}
       <Link
         href={lead.href}
-        aria-live="polite"
-        className="group relative block aspect-video overflow-hidden rounded-[6px] bg-ink-2"
+        className="group relative block aspect-video md:aspect-auto md:h-full overflow-hidden rounded-[6px] bg-ink-2"
       >
         <Image
           key={active}
@@ -81,10 +81,24 @@ export default function NewsFeed({ items }: { items: NewsItem[] }) {
           sizes="(max-width:1024px) 100vw, 52vw"
           className="qs-rise object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.94) 6%,rgba(10,10,8,.36) 48%,rgba(10,10,8,.08) 100%)" }} />
-        {/* perpetual broadcast scan-line + ember breathe */}
+        {/* ember breathe — ambiance on the cover, kept *under* the scrim so it never lifts text contrast */}
+        <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-1/2" style={{ background: "radial-gradient(ellipse 72% 82% at 28% 124%, rgba(232,200,120,.14), transparent 70%)" }} aria-hidden="true" />
+        {/* frosted lower-third — blurs/desaturates whatever the cover has behind the text (posters
+            carry their own baked-in headlines that a plain gradient cannot separate from ours).
+            The gradient mask keeps it edgeless, so it still reads as a broadcast band, not a panel. */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[72%]"
+          style={{
+            backdropFilter: "blur(18px) saturate(.65) brightness(.72)",
+            WebkitBackdropFilter: "blur(18px) saturate(.65) brightness(.72)",
+            maskImage: "linear-gradient(0deg,#000 55%,transparent 100%)",
+            WebkitMaskImage: "linear-gradient(0deg,#000 55%,transparent 100%)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.96) 0%,rgba(10,10,8,.9) 30%,rgba(10,10,8,.58) 56%,rgba(10,10,8,.16) 80%,rgba(10,10,8,0) 100%)" }} />
+        {/* perpetual broadcast scan-line */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] qs-scan" aria-hidden="true" />
-        <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-1/2" style={{ background: "radial-gradient(ellipse 72% 82% at 28% 124%, rgba(232,200,120,.22), transparent 70%)" }} aria-hidden="true" />
         {/* light sheen sweeping across the cover on hover */}
         <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1000ms] ease-out" style={{ background: "linear-gradient(115deg, transparent 40%, rgba(255,255,255,.14) 50%, transparent 60%)" }} aria-hidden="true" />
         <div className="pointer-events-none absolute inset-4 border border-white/12 transition-colors duration-500 group-hover:border-gold-2/55">
@@ -97,8 +111,8 @@ export default function NewsFeed({ items }: { items: NewsItem[] }) {
           <span className="absolute top-7 left-7 font-mono text-label-xs text-gold-2 tracking-[.2em] uppercase">[ {lead.badge} ]</span>
         )}
         <div className="absolute inset-x-0 bottom-0 p-8 lg:p-10">
-          <h3 className="font-display font-semibold text-white text-subhead lg:text-h2 leading-[1.12] tracking-[-.01em] max-w-[24ch]">{lead.title}</h3>
-          <p className="text-[#d2ccba] text-meta leading-[1.6] mt-3.5 max-w-[52ch]">{lead.desc}</p>
+          <h3 className="font-display font-semibold text-white text-subhead lg:text-h2 leading-[1.12] tracking-[-.01em] max-w-[24ch] line-clamp-3">{lead.title}</h3>
+          <p className="text-[#d2ccba] text-meta leading-[1.6] mt-3.5 max-w-[52ch] line-clamp-2">{lead.desc}</p>
           <div className="mt-5 font-mono text-label-xs text-gold-2 tracking-[.14em]">{lead.date} · {lead.read}</div>
         </div>
       </Link>
@@ -116,6 +130,7 @@ export default function NewsFeed({ items }: { items: NewsItem[] }) {
             href={n.href}
             data-active={i === active ? "true" : undefined}
             onMouseEnter={() => setActive(i)}
+            onFocus={() => setActive(i)}
             className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-center py-4 border-b border-line transition-[padding] duration-300 hover:pl-3 qs-rise"
             style={{ animationDelay: `${i * 80}ms` }}
           >

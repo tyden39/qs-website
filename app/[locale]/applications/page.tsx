@@ -10,7 +10,7 @@ import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, HERO_FIGURE_S
 import { SortableCardList, type SortableCard } from "../electronics/_components/sortable-card-list";
 import { CategoryIcon } from "@/components/category-icon";
 import Reveal from "@/components/reveal";
-import { FilterPrePaint } from "@/lib/filter-prepaint";
+import { FilterPrePaint, PrePaintHeroImage } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -231,6 +231,9 @@ export default async function Applications({ params }: { params: Promise<{ local
             the hero. Sits after the wrapper so the pre-paint primer above still
             governs it, and under the wrapper's z-10 so the copy stays on top. */}
         <CategoryHeroFigure groups={appGroups} />
+        {/* Eager-loads that photo when the URL names a group other than the
+            default, whose figure is the only one carrying `priority`. */}
+        <PrePaintHeroImage param="g" def={appGroups[0]?.id} />
       </section>
 
       {/* GROUPED BY MATERIAL — the active group's cases, full width below the hero.

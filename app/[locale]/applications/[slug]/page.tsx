@@ -5,6 +5,7 @@ import ContactCta from "@/components/contact-cta";
 import Reveal from "@/components/reveal";
 import RailNudge from "@/components/rail-nudge";
 import { CategoryIcon } from "@/components/category-icon";
+import { ProductVideo } from "../../electronics/_components/product-video";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getApplicationBySlug, getApplicationProducts, getApplicationSlugs } from "@/lib/data/applications";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -484,6 +485,28 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                   </div>
                 </Reveal>
               ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* VIDEO — the machine running on the shop floor, only for the machine types
+          that have a clip. Paper keeps the surfaces alternating: the block above it
+          (benefits, or the finished-parts gallery) is white, the products below are too. */}
+      {appData?.video && (
+        <section className="py-8 sm:py-10 lg:py-14 bg-paper border-b border-line">
+          <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
+            <div className="max-w-[900px] mx-auto text-center">
+              <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>
+              <h2 className="qs-h2 mt-2">{t("videoHeading", { machine })}</h2>
+            </div>
+            <div className="max-w-[900px] mx-auto mt-8">
+              <ProductVideo
+                youtubeId={appData.video.youtubeId}
+                hd={appData.video.hd}
+                title={t("videoHeading", { machine })}
+                playLabel={t("videoPlay")}
+              />
             </div>
           </div>
         </section>

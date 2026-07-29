@@ -7,6 +7,7 @@ export type ApplicationView = {
   title: string;
   summary: string;
   heroImage: string | null;
+  video: { youtubeId: string; hd?: boolean } | null;
 };
 
 // Shop-floor still shown on the catalog card and detail hero. Shared with the
@@ -32,6 +33,7 @@ function toView(a: Application, locale: Locale): ApplicationView {
     title: (en ? a.machineEn : null) ?? a.machine,
     summary: (en ? a.summaryEn : null) ?? a.summary,
     heroImage: heroImages[a.slug] ?? null,
+    video: a.video ?? null,
   };
 }
 

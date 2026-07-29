@@ -31,6 +31,10 @@
     "machineEn": "Gluing Machine",
     "summary": "Giải pháp rải keo tự động bám sát đường viền biên dạng, ứng dụng mạnh mẽ trong sản xuất giày da, bao bì và linh kiện điện tử. Đảm bảo lượng keo đồng đều, tiết kiệm nguyên liệu và nâng cao năng suất.",
     "summaryEn": "An automated glue-dispensing solution that follows part contours precisely — widely applied in leather footwear, packaging, and electronics manufacturing. Ensures a uniform adhesive line, saves material, and raises productivity.",
+    "video": {
+      "youtubeId": "0Ixbk7Qekog",
+      "hd": true
+    },
     "products": [
       "f54",
       "f86",
@@ -47,6 +51,9 @@
     "machineEn": "Spring Bending Machine",
     "summary": "Bộ điều khiển chuyên dụng tự động hóa toàn bộ quá trình cấp dây, cuốn, uốn và cắt. Tạo ra các loại lò xo nén, kéo, và lò xo xoắn đa biên độ với độ đồng đều tuyệt đối và sai số thấp nhất.",
     "summaryEn": "A dedicated controller that automates the entire wire feeding, coiling, bending, and cutting cycle. Produces compression, extension, and multi-amplitude torsion springs with absolute uniformity and the lowest possible tolerance.",
+    "video": {
+      "youtubeId": "3bBrcmmvkZw"
+    },
     "products": [
       "f86",
       "astro-10s"
@@ -118,6 +125,10 @@
     "machineEn": "Wood Carving CNC Machine",
     "summary": "Bộ điều khiển QS kiểm soát chính xác chuyển động nhiều trục trên máy điêu khắc tượng gỗ — tạo hình 3D tinh xảo trên gỗ tự nhiên, gỗ ghép và gỗ công nghiệp cho tượng, phù điêu, hoa văn trang trí và chi tiết nội thất.",
     "summaryEn": "QS controllers govern multi-axis motion on wood carving machines — shaping fine 3D forms in natural, laminated, and engineered wood for statues, reliefs, decorative patterns, and furniture details.",
+    "video": {
+      "youtubeId": "RnaCEKANmUM",
+      "hd": true
+    },
     "products": [
       "f86",
       "f10t",

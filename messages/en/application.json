@@ -60,6 +60,9 @@
     "benefitHeading": "What the QS Controller brings",
     "galleryEyebrow": "[ Gallery ]",
     "galleryHeading": "Parts made on these machines",
+    "videoEyebrow": "[ Video ]",
+    "videoHeading": "{machine} in action",
+    "videoPlay": "Play video",
     "workflow": [
       { "l": "Input · G-code", "t": "Load the machining program", "d": "NC files are loaded via USB, Ethernet, or DNC. The controller parses and simulates the toolpath on screen before the real run." },
       { "l": "Plan · Path", "t": "Compute the servo trajectory", "d": "256-block look-ahead, S-curve acceleration, and tool-error compensation. The path is NURBS-smoothed for the best surface finish." },

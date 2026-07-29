@@ -27,7 +27,8 @@ const INTERVAL = 6000; // ms each clip stays featured before auto-advancing
  * Showreel — the active clip fills the cinematic feature screen on the left while the
  * playlist on the right lists every clip with a thumbnail. Autoplay walks the list and
  * swaps the feature still (re-keyed → replays the qs-rise cross-fade); hovering/focusing
- * the reel pauses the cycle and lets the pointer pick which clip is featured.
+ * the reel pauses the cycle and lets the pointer — or keyboard focus — pick which clip
+ * is featured.
  *
  * Mirrors the Newsroom feed: each row's gold edge bar shows on hover only (uniform),
  * while the *active* row is marked by a lit thumbnail, gold title, a "▶ Đang phát" tag,
@@ -79,6 +80,8 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
       onBlurCapture={() => setPaused(false)}
     >
       {/* FEATURE SCREEN — 16:9 (HD) still that swaps to the YouTube embed on play (facade: iframe only loads on click) */}
+      {/* Stays 16:9 on purpose: YouTube's guaranteed stills are 4:3 letterboxed, and a
+          16:9 box is exactly what crops the black bars away (see lib/youtube-poster). */}
       <div className="group relative aspect-video overflow-hidden rounded-[6px] bg-ink-2 border border-line shadow-[0_18px_50px_-28px_rgba(0,0,0,.55)]">
         {playing ? (
           <>
@@ -109,10 +112,11 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
               sizes="(max-width:1024px) 100vw, 52vw"
               className="qs-rise object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.9) 2%,rgba(10,10,8,.1) 42%,transparent 72%)" }} />
-            {/* broadcast scan-line + ember breathe — mirrors the Newsroom lead */}
+            {/* ember breathe — under the scrim so it lights the still without washing out the caption */}
+            <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-1/2" style={{ background: "radial-gradient(ellipse 72% 82% at 28% 124%, rgba(232,200,120,.14), transparent 70%)" }} aria-hidden="true" />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(0deg,rgba(10,10,8,.94) 2%,rgba(10,10,8,.5) 26%,rgba(10,10,8,.1) 52%,transparent 76%)" }} />
+            {/* broadcast scan-line — mirrors the Newsroom lead */}
             <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] qs-scan" aria-hidden="true" />
-            <div className="qs-breathe pointer-events-none absolute inset-x-0 bottom-0 h-1/2" style={{ background: "radial-gradient(ellipse 72% 82% at 28% 124%, rgba(232,200,120,.22), transparent 70%)" }} aria-hidden="true" />
             {/* light sheen sweeping across the still on hover */}
             <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1000ms] ease-out" style={{ background: "linear-gradient(115deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%)" }} aria-hidden="true" />
             {/* registration frame */}
@@ -152,8 +156,9 @@ export default function VideoReel({ items }: { items: VideoItem[] }) {
             type="button"
             data-active={i === active ? "true" : undefined}
             onMouseEnter={() => { if (!playing) setActive(i); }}
+            onFocus={() => { if (!playing) setActive(i); }}
             onClick={() => select(i, true)}
-            className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-center text-left py-4 border-b border-line transition-[padding] duration-300 hover:pl-3 qs-rise"
+            className="qs-wire group relative grid grid-cols-[auto_1fr_auto] gap-4 items-center text-left py-3.5 md:flex-1 border-b border-line transition-[padding] duration-300 hover:pl-3 qs-rise"
             style={{ animationDelay: `${i * 80}ms` }}
           >
             {/* gold edge bar — hover only, identical for every row */}

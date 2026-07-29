@@ -20,6 +20,13 @@ export type Application = {
   summaryEn?: string;
   /** Controller model slugs (see data/products.ts) suited to this machine type. */
   products: string[];
+  /**
+   * Shop-floor clip for this machine type; the detail page hides its video
+   * section when absent. `hd` marks clips that publish a 1280×720 still
+   * (`https://i.ytimg.com/vi/<id>/maxresdefault.jpg` answers 200) — asking for
+   * that file when it does not exist costs a 404 and a broken poster.
+   */
+  video?: { youtubeId: string; hd?: boolean };
 };
 
 export const applications = applicationsData as unknown as Application[];

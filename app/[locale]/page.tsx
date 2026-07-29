@@ -75,8 +75,14 @@ const videoAssets = [
   { youtubeId: "B1wENfUjn8M", hd: true },
 ];
 
-// How many latest articles the home newsroom feed surfaces.
-const HOME_NEWS_COUNT = 5;
+// How many clips the home showreel playlist surfaces. The feature screen is locked to
+// 16:9 (YouTube stills need that crop), so the playlist has to stay short enough to fit
+// beside it — its rows then stretch to fill whatever height is left.
+const HOME_VIDEO_COUNT = 4;
+
+// How many latest articles the home newsroom feed surfaces. The lead cover follows the
+// feed's height here, so this is about content weight rather than fit.
+const HOME_NEWS_COUNT = 4;
 // Fallback cover for the rare seed article that has no image of its own.
 const NEWS_FALLBACK_IMG = "/home/news-ethercat.webp";
 
@@ -99,7 +105,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     t.raw("products.items") as { name: string; desc: string; meta: string[] }[]
   ).map((txt, i) => ({ ...productAssets[i], ...txt }));
   const videoTitles = t.raw("showreel.videos") as string[];
-  const videos: VideoItem[] = videoAssets.map((v, i) => ({ ...v, title: videoTitles[i] }));
+  const videos: VideoItem[] = videoAssets
+    .slice(0, HOME_VIDEO_COUNT)
+    .map((v, i) => ({ ...v, title: videoTitles[i] }));
 
   // Newsroom feed pulls the latest real articles instead of hardcoded placeholders.
   const tNews = await getTranslations({ locale, namespace: "news" });

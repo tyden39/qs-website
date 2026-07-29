@@ -511,6 +511,9 @@ export function CategoryTreeHero({
             <div className="mt-6 lg:mt-7">
               {mobileFigure && g.heroImage ? (
                 <figure
+                  // Names the group this render belongs to, so `PrePaintHeroImage`
+                  // can eager-load the one the URL selects before it is painted.
+                  data-f-hero={g.id}
                   className={`lg:hidden relative m-0 mb-7 border overflow-hidden ${HERO_IMAGE_SLOT} ${skin.frame}`}
                   style={{ background: skin.frameBg }}
                 >
@@ -587,8 +590,11 @@ export function CategoryHeroFigure({
             key={g.id}
             hidden={i !== active}
             // Same pre-paint hook as the intro and list panels, so a shared
-            // link's figure is the right one before hydration.
+            // link's figure is the right one before hydration. `data-f-hero`
+            // additionally lets `PrePaintHeroImage` eager-load that figure,
+            // which is the LCP element on a deep-linked group.
             data-f-g={g.id}
+            data-f-hero={g.id}
             className="absolute inset-0 overflow-hidden [mask-image:linear-gradient(90deg,transparent_0%,#000_16%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,#000_16%)]"
           >
             {/* The lightbox the render sits on, carried by its own layer so it

@@ -13,7 +13,7 @@ import { getSeries, type SeriesCategory } from "@/lib/data/series";
 import CircuitTraces from "@/components/circuit-traces";
 import ContactCta from "@/components/contact-cta";
 import Reveal from "@/components/reveal";
-import { FilterPrePaint } from "@/lib/filter-prepaint";
+import { FilterPrePaint, PrePaintHeroImage } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -234,6 +234,9 @@ export default async function Products({ params }: { params: Promise<{ locale: L
             Sits after the wrapper so the pre-paint primer above still governs
             it, and under the wrapper's z-10 so the copy stays on top. */}
         <CategoryHeroFigure groups={groups} />
+        {/* Eager-loads that render when the URL names a group other than the
+            default, whose figure is the only one carrying `priority`. */}
+        <PrePaintHeroImage param="g" def="controllers" />
       </section>
 
       {/* LIST — the active group's catalogue, full width below the hero */}

@@ -7,7 +7,7 @@ import CircuitTraces from "@/components/circuit-traces";
 import { MachineCard } from "@/components/products/machine-card";
 import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, HERO_FIGURE_SIZES, type CategoryTreeGroup, type CategoryTreeChild } from "../electronics/_components/product-category-tree";
 import { SortableCardList } from "../electronics/_components/sortable-card-list";
-import { FilterPrePaint } from "@/lib/filter-prepaint";
+import { FilterPrePaint, PrePaintHeroImage } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import { getMachines, MACHINE_TYPES, type MachineView, type MachineCategory } from "@/lib/data/machines";
 import { buildAlternates } from "@/lib/seo/alternates";
@@ -158,6 +158,9 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
             hero. Sits after the wrapper so the pre-paint primer above still
             governs it, and under the wrapper's z-10 so the copy stays on top. */}
         <CategoryHeroFigure groups={machineGroups} tone="dark" />
+        {/* Eager-loads that render when the URL names a type other than the
+            default, whose figure is the only one carrying `priority`. */}
+        <PrePaintHeroImage param="g" def={machineGroups[0]?.id} />
       </section>
 
       {/* MACHINE LINE-UP — the active type's machines, full width below the hero */}

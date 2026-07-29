@@ -5,7 +5,6 @@ import ContactCta from "@/components/contact-cta";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
-import { ProductVideo } from "../electronics/_components/product-video";
 import { CategoryHeroFigure, CategoryTreeHero, CategoryTreePanels, HERO_FIGURE_SIZES, type CategoryTreeGroup } from "../electronics/_components/product-category-tree";
 import { SortableCardList, type SortableCard } from "../electronics/_components/sortable-card-list";
 import { CategoryIcon } from "@/components/category-icon";
@@ -13,9 +12,6 @@ import Reveal from "@/components/reveal";
 import { FilterPrePaint, PrePaintHeroImage } from "@/lib/filter-prepaint";
 import { FilterPrePaintCleanup } from "@/lib/use-filter-params";
 import type { Locale } from "@/lib/i18n/config";
-
-// Shop-floor feature clip shown below the catalog list.
-const APP_VIDEO_ID = "kLcNpeHu-2A";
 
 export async function generateMetadata({
   params,
@@ -250,21 +246,6 @@ export default async function Applications({ params }: { params: Promise<{ local
         </div>
       </section>
       <FilterPrePaintCleanup />
-
-      {/* VIDEO — centered feature clip below the catalog. White so the page
-          alternates surfaces (tinted hero → paper list → white video) instead of
-          running two paper bands into each other. */}
-      <section className="py-8 sm:py-10 lg:py-14 bg-white border-t border-line">
-        <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="max-w-[900px] mx-auto text-center">
-            <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>
-            <h2 className="qs-h2 mt-2">{t("videoHeading")}</h2>
-          </div>
-          <div className="max-w-[900px] mx-auto mt-8">
-            <ProductVideo youtubeId={APP_VIDEO_ID} title={t("videoHeading")} playLabel={t("videoPlay")} />
-          </div>
-        </div>
-      </section>
 
       {/* CONTACT CTA */}
       <ContactCta bordered heading={t("ctaHeading")} body={t("ctaBody")} ctaLabel={t("ctaBtn")} />

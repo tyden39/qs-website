@@ -62,7 +62,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
   const products = await getAllProducts(locale);
   // Filter metadata derived from product data; the async card is pre-rendered
   // on the server and handed to the client filter as an opaque node.
-  const items: ProductFilterItem[] = products.map((p, i) => ({
+  const items: ProductFilterItem[] = products.map((p) => ({
     slug: p.slug,
     axisNum: parseInt(p.axes, 10) || 0,
     displayNum: parseFloat(p.display) || 0,
@@ -70,7 +70,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
     type: p.type,
     // Control interface drives the toolbar chips; derive it from the spec columns.
     controlInterface: p.interfaces.map((c) => c.name).join(" ").toLowerCase(),
-    node: <ProductBundleCard key={p.slug} product={p} index={i} total={products.length} />,
+    node: <ProductBundleCard key={p.slug} product={p} />,
   }));
   // Controllers' subcategory branches = catalogue types (cnc / motion / robot /
   // cobot), each labelled from i18n and counted from the product data. Every

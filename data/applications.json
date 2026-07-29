@@ -5,6 +5,10 @@
     "machineEn": "CNC Milling Machine",
     "summary": "Máy phay CNC sử dụng các công cụ cắt xoay để loại bỏ vật liệu khỏi phôi — gia công các bộ phận tùy chỉnh phức tạp với độ chính xác cao và sản lượng lớn cho khuôn mẫu, linh kiện cơ khí và thiết bị y tế.",
     "summaryEn": "CNC milling machines use rotating cutting tools to remove material from the workpiece — machining complex custom parts with high precision and high throughput for molds, mechanical components, and medical devices.",
+    "video": {
+      "youtubeId": "wrsWXsvqF0o",
+      "hd": true
+    },
     "products": [
       "f54",
       "f86",

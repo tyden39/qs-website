@@ -22,10 +22,10 @@ export async function SeriesList({
 
   return (
     <SortableCardList
-      items={series.map((s, i) => ({
+      items={series.map((s) => ({
         key: s.slug,
         name: s.name,
-        node: <SeriesCard key={s.slug} series={s} index={i} total={series.length} />,
+        node: <SeriesCard key={s.slug} series={s} />,
       }))}
       sortOptions={tb.raw("sortBasic") as string[]}
       showing={tb("showing")}

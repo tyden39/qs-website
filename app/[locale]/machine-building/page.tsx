@@ -106,11 +106,11 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         children,
         node: (
           <SortableCardList
-            items={ms.map((m, i) => ({
+            items={ms.map((m) => ({
               key: m.slug,
               name: m.model,
               subtype: m.category,
-              node: <MachineCard machine={m} index={i} total={ms.length} />,
+              node: <MachineCard machine={m} />,
             }))}
             sortOptions={pt.raw("toolbar.sortBasic") as string[]}
             showing={pt("toolbar.showing")}

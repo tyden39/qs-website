@@ -13,17 +13,8 @@ import type { MachineView } from "@/lib/data/machines";
  * stacks and the spec matrix folds behind a summary line, so a list of machines
  * stays scannable instead of turning into a wall of numbers.
  */
-export async function MachineCard({
-  machine,
-  index,
-  total,
-}: {
-  machine: MachineView;
-  index: number;
-  total: number;
-}) {
+export async function MachineCard({ machine }: { machine: MachineView }) {
   const t = await getTranslations("cnc.machines");
-  const idx = String(index + 1).padStart(2, "0");
   const specCount = String(machine.highlights.length).padStart(2, "0");
   const href = `/machine-building/${machine.slug}`;
 
@@ -99,21 +90,16 @@ export async function MachineCard({
 
         <div className="hidden group-open/sp:flex lg:!flex flex-col mt-4 lg:mt-0">
           <div className="hidden lg:flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
-            <div>
-              <div className="qs-eyebrow">{t("specsTitle")}</div>
-              <div className="mt-1 font-mono text-label-xs tracking-[.14em] uppercase text-muted">
-                {t("listLabel")} {idx} / {String(total).padStart(2, "0")} · {machine.model}
-              </div>
-            </div>
+            <div className="qs-eyebrow">{t("specsTitle")}</div>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-px bg-line border border-line rounded-[2px] overflow-hidden">
             {machine.highlights.map((s) => (
               <div key={s.k} className="bg-white px-4 py-3 flex flex-col gap-1">
-                <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
+                <span className="font-mono text-[15px] leading-snug tracking-[.06em] uppercase text-muted">
                   {t(`labels.${s.k}`)}
                 </span>
-                <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
+                <span className="text-title font-semibold tracking-[-.005em] text-ink tabular-nums">
                   {s.v}
                 </span>
               </div>

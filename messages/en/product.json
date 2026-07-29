@@ -120,8 +120,7 @@
   "seriesCard": {
     "quote": "Request a quote",
     "imageUpdating": "Image coming soon",
-    "specifications": "[ Series specifications ]",
-    "seriesLabel": "Series",
+    "specifications": "[ Technical specifications ]",
     "details": "View details",
     "specsUnit": "specs"
   },
@@ -182,7 +181,6 @@
     "frontView": "front view",
     "viewDetails": "View details",
     "components": "Bundle",
-    "modelLabel": "Model",
     "parts": "parts",
     "specifications": "[ Specifications ]",
     "moreSpecs": "+{count} more specs"

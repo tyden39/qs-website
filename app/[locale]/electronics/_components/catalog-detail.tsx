@@ -226,14 +226,15 @@ export async function CatalogDetail({
                 }`}
               >
                 {product.specsIntro && (
-                  <p className="m-0 max-w-[80ch] text-body leading-[1.8] text-[#3a3a3a] sm:text-justify">
+                  <p className="m-0 max-w-[80ch] text-title leading-[1.8] text-[#3a3a3a] sm:text-justify">
                     {product.specsIntro}
                   </p>
                 )}
-                {/* The shot fills its frame at its own aspect ratio: these
-                    photos carry their own backdrop — some black, some white —
-                    so any panel colour behind them would clash with half the
-                    catalogue. Letting the image cover the box sidesteps it. */}
+                {/* The shot keeps its own aspect ratio and the frame hugs it:
+                    these photos carry their own backdrop — some black, some
+                    white — so any panel colour showing around them would clash
+                    with half the catalogue. A 350px ceiling keeps a tall shot
+                    from towering over the intro copy beside it. */}
                 {product.specsPhoto && (
                   <figure className="m-0 overflow-hidden border border-line">
                     <Image
@@ -242,7 +243,7 @@ export async function CatalogDetail({
                       width={product.specsPhoto.w}
                       height={product.specsPhoto.h}
                       sizes="(max-width: 1024px) 92vw, 480px"
-                      className="block w-full h-auto"
+                      className="block mx-auto h-auto w-auto max-h-[350px] max-w-full"
                     />
                   </figure>
                 )}
@@ -269,10 +270,10 @@ export async function CatalogDetail({
                     key={s.l}
                     className="flex flex-col gap-1.5 border-r border-b border-line px-5 py-4"
                   >
-                    <span className="font-mono text-label-xs leading-snug tracking-[.08em] uppercase text-muted">
+                    <span className="font-mono text-[15px] leading-snug tracking-[.08em] uppercase text-muted">
                       {s.l}
                     </span>
-                    <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
+                    <span className="text-title font-semibold tracking-[-.005em] text-ink tabular-nums">
                       {s.v}
                     </span>
                   </div>

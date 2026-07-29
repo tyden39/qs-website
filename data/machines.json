@@ -242,7 +242,11 @@
         "label": "Hệ thống thay dao tự động (ATC)",
         "labelEn": "Automatic tool changer (ATC)"
       }
-    ]
+    ],
+    "video": {
+      "youtubeId": "U0jLHhUICOc",
+      "hd": true
+    }
   },
   {
     "slug": "vmc-300",

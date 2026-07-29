@@ -11,15 +11,10 @@ import { KitComponentIcon } from "./kit-component-icon";
  */
 export async function ProductBundleCard({
   product,
-  index,
-  total,
 }: {
   product: ProductView;
-  index: number;
-  total: number;
 }) {
   const t = await getTranslations("product.card");
-  const idx = String(index + 1).padStart(2, "0");
   const count = String(product.bundle.length).padStart(2, "0");
 
   return (
@@ -106,12 +101,7 @@ export async function ProductBundleCard({
 
         <div className="hidden group-open/bd:flex lg:!flex flex-col mt-4 lg:mt-0">
           <div className="hidden lg:flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
-            <div>
-              <div className="qs-eyebrow">{t("components")}</div>
-              <div className="mt-1 font-mono text-label-xs tracking-[.14em] uppercase text-muted">
-                {t("modelLabel")} {idx} / {String(total).padStart(2, "0")} · {product.tag}
-              </div>
-            </div>
+            <div className="qs-eyebrow">{t("components")}</div>
             <span className="font-mono text-label tracking-widest text-muted whitespace-nowrap">
               <b className="text-ink font-semibold">{count}</b> {t("parts")}
             </span>

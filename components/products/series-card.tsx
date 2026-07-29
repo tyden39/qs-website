@@ -14,17 +14,8 @@ import type { SeriesView } from "@/lib/data/series";
  * stacks and the spec matrix folds behind a summary line, so a list of series
  * stays scannable instead of turning into a wall of numbers.
  */
-export async function SeriesCard({
-  series,
-  index,
-  total,
-}: {
-  series: SeriesView;
-  index: number;
-  total: number;
-}) {
+export async function SeriesCard({ series }: { series: SeriesView }) {
   const t = await getTranslations("product.seriesCard");
-  const idx = String(index + 1).padStart(2, "0");
   const specCount = String(series.specs.length).padStart(2, "0");
 
   return (
@@ -102,21 +93,16 @@ export async function SeriesCard({
 
         <div className="hidden group-open/sp:flex lg:!flex flex-col mt-4 lg:mt-0">
           <div className="hidden lg:flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
-            <div>
-              <div className="qs-eyebrow">{t("specifications")}</div>
-              <div className="mt-1 font-mono text-label-xs tracking-[.14em] uppercase text-muted">
-                {t("seriesLabel")} {idx} / {String(total).padStart(2, "0")} · {series.tag}
-              </div>
-            </div>
+            <div className="qs-eyebrow">{t("specifications")}</div>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-px bg-line border border-line rounded-[2px] overflow-hidden">
             {series.specs.map((s) => (
               <div key={s.l} className="bg-white px-4 py-3 flex flex-col gap-1">
-                <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
+                <span className="font-mono text-[15px] leading-snug tracking-[.06em] uppercase text-muted">
                   {s.l}
                 </span>
-                <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
+                <span className="text-title font-semibold tracking-[-.005em] text-ink tabular-nums">
                   {s.v}
                 </span>
               </div>

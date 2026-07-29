@@ -110,9 +110,15 @@ body {
                        before:content-[''] before:inline-block before:w-6 before:h-px before:bg-gold; }
   .qs-crumb    { @apply font-mono text-label-xs sm:text-label tracking-[.1em] uppercase text-muted
                        flex gap-2.5 items-center; }
-  .qs-crumb a  { @apply text-muted hover:text-ink; }
+  .qs-crumb a  { @apply text-muted transition-colors duration-150; }
+  .qs-crumb a:hover { color: var(--qs-crumb-hover, var(--color-ink)); }
   .qs-crumb .sep  { @apply opacity-40; }
   .qs-crumb .here { @apply text-ink; }
+  /* Dark heroes: the default ink hover sinks into the near-black band and the
+     muted rest state reads too dim. Links take the band's own tone and gild on
+     hover so the target is unmistakable. */
+  .qs-crumb-dark { --qs-crumb-hover: var(--color-gold-2); }
+  .qs-crumb-dark a { color: inherit; }
   .qs-tag      { @apply font-mono text-label-xs tracking-[.12em] uppercase
                        py-1 px-2 border border-line rounded-[2px] text-muted; }
   .qs-chip     { @apply font-mono text-label-xs tracking-[.14em] uppercase text-muted
@@ -201,10 +207,16 @@ body {
   -moz-appearance: none;
   appearance: none;
   color-scheme: light;
-  padding-right: 2rem;
+  /* The chevron sits at the control's own right inset so it reads as the mirror of
+     the text's left inset. The filter selects run px-3, which the 0.7rem default
+     matches; a control with roomier padding (the contact form's px-4 fields) sets
+     --qs-select-inset to its own value. Declared only as a var() fallback, never as
+     a property on this rule, so a utility class can still override it — an unlayered
+     declaration here would outrank the utility and pin every select to one inset. */
+  padding-right: calc(var(--qs-select-inset, 0.7rem) + 1.3rem);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M1 3l4 4 4-4' fill='none' stroke='%23807a70' stroke-width='1.4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.7rem center;
+  background-position: right var(--qs-select-inset, 0.7rem) center;
   background-size: 10px;
 }
 
@@ -636,12 +648,15 @@ section.sm\:py-16.bg-\[\#f7f5ef\] + section.sm\:py-16.bg-\[\#f7f5ef\] {
   padding-top: var(--qs-stack-pt);
 }
 
-/* The closing call to action already ends in its own bottom padding, so the gap the
+/* A closing call to action already ends in its own bottom padding, so the gap the
    footer normally holds off the preceding section would land twice — two light bands
-   of different tone stacked between the dark CTA card and the dark footer. Drop the
-   footer's own gap whenever that block is what precedes it; pages that end on any
-   other section keep it. */
-.qs-closing-cta + .qs-foot { margin-top: 0; }
+   of different tone stacked between the call to action and the dark footer, and the
+   space below the button reading as roughly triple the space above the kicker. Drop
+   the footer's own gap whenever a block carrying this marker precedes it; pages that
+   end on any other section keep it. A dark closing block is the exception: with the
+   gap removed it runs straight into the equally dark footer and the two read as one
+   slab, so it keeps the page-background band as a separator. */
+.qs-closing-cta:not(.bg-ink) + .qs-foot { margin-top: 0; }
 
 .qs-nav { background: #fff; border-bottom: 1px solid #d8d6cf; position: sticky; top: 0; z-index: 50; }
 

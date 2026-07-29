@@ -116,7 +116,7 @@ export async function CatalogDetail({
           aria-hidden="true"
         />
         <div className="relative qs-wrap-detail pt-8 pb-12 lg:pt-10 lg:pb-14">
-          <div className="qs-crumb mb-8 text-[#8f8878]">
+          <div className="qs-crumb qs-crumb-dark mb-8 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link>
             <span className="sep">/</span>
             <Link href="/electronics">{t("breadcrumb.products")}</Link>

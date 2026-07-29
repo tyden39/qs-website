@@ -86,7 +86,7 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
       {/* FEATURED — editorial highlight, shown only on the "All" tab. Kept in
           the DOM (hidden off-tab) so the primer can drop it before paint. */}
       {feat && (
-        <section className="py-12 sm:py-16 bg-white" hidden={!showFeatured} data-f-hide-when="cat">
+        <section className="py-8 sm:py-10 bg-white" hidden={!showFeatured} data-f-hide-when="cat">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <Link
               href={`/news/${feat.slug}`}
@@ -125,7 +125,7 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
       )}
 
       {/* GRID */}
-      <section className="py-12 sm:py-16 pb-14 sm:pb-16 bg-white">
+      <section className="qs-closing-cta py-8 sm:py-10 pb-10 sm:pb-12 bg-white">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
@@ -164,13 +164,13 @@ export function NewsListFilter({ articles }: { articles: NewsListItem[] }) {
               ))}
           </div>
           {visibleSlugs.size === 0 && (
-            <p className="text-body text-[#3a3a3a] leading-[1.7] m-0 py-12 text-center">{t("list.empty")}</p>
+            <p className="text-body text-[#3a3a3a] leading-[1.7] m-0 py-10 text-center">{t("list.empty")}</p>
           )}
 
           {/* pagination — touch devices get the 44px minimum hit area, mouse
               pointers keep the compact 36px squares */}
           {totalPages > 1 && (
-            <div className="flex justify-center gap-1.5 mt-12">
+            <div className="flex justify-center gap-1.5 mt-10">
               <button
                 type="button"
                 disabled={safePage === 1}

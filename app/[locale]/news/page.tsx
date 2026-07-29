@@ -56,7 +56,7 @@ export default async function News({ params }: { params: Promise<{ locale: Local
     <>
       <JsonLd data={breadcrumb} />
       {/* HEAD */}
-      <section className="relative overflow-hidden border-b border-line py-12 sm:py-16 pb-10 sm:pb-14"
+      <section className="relative overflow-hidden border-b border-line py-8 sm:py-12 pb-8 sm:pb-10"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         <div className="qs-glow hidden sm:block right-[4%] top-[-40%] w-[38%] h-[150%]" aria-hidden="true"></div>

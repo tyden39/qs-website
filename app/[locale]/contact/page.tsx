@@ -42,7 +42,7 @@ export default async function Contact({ params }: Props) {
     <>
       <JsonLd data={breadcrumb} />
       {/* HERO */}
-      <section className="relative overflow-hidden border-b border-line py-12 sm:py-16 pb-10 sm:pb-12"
+      <section className="relative overflow-hidden border-b border-line py-8 sm:py-12 pb-8 sm:pb-10"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         <div className="qs-glow hidden sm:block right-[2%] top-[-40%] w-[36%] h-[150%]" aria-hidden="true"></div>
@@ -73,11 +73,29 @@ export default async function Contact({ params }: Props) {
       </section>
 
       {/* FORM */}
-      <section id="contact-form" className="relative overflow-hidden py-12 sm:py-16 lg:py-24 scroll-mt-24"
-               style={{ background: "linear-gradient(180deg, #f0eee8 0%, #fafaf7 100%)" }}>
-        {/* Blueprint grid + decorative accents so the lone form panel doesn't sit on a bare canvas. */}
-        <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-12 font-mono text-label text-gold-1 tracking-[.2em] uppercase opacity-60 hidden lg:block">[ {t("hero.eyebrow")} ]</div>
-
+      {/* The section's own padding is all that separates the form panel from the hero,
+          so nothing floats behind it — a watermark label used to sit here and the card
+          cut through it. The panel's own eyebrow carries the same wording anyway. */}
+      <section id="contact-form" className="qs-closing-cta relative overflow-hidden py-8 sm:py-10 lg:py-14 scroll-mt-24"
+               style={{ background: "linear-gradient(180deg, #f0eee8 0%, #e8e5dc 46%, #f3f1eb 100%)" }}>
+        {/* Drafting-sheet backdrop. The band used to be one flat tone, so the white
+            panel read as a card dropped on empty grey. Three layers fix that without
+            touching the hero: a gold dot field for texture (the hero carries the line
+            grid, so this stays a distinct layer), a pool of light behind the panel to
+            lift it off the band, and a pair of hairline rules that turn the dead space
+            either side of the column into the margins of a technical drawing. */}
+        <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-60
+                        [mask-image:radial-gradient(ellipse_80%_72%_at_50%_40%,#000_30%,transparent_80%)]
+                        [-webkit-mask-image:radial-gradient(ellipse_80%_72%_at_50%_40%,#000_30%,transparent_80%)]"
+             aria-hidden="true"></div>
+        <div className="absolute inset-0" aria-hidden="true"
+             style={{ background: "radial-gradient(ellipse 48% 44% at 50% 28%, rgba(255,255,255,.94) 0%, rgba(255,255,255,.52) 46%, rgba(255,255,255,0) 74%)" }}></div>
+        <div className="hidden lg:block absolute inset-y-8 left-1/2 -translate-x-[380px] w-px
+                        bg-[linear-gradient(180deg,transparent,rgba(138,111,53,.26)_22%,rgba(138,111,53,.26)_78%,transparent)]"
+             aria-hidden="true"></div>
+        <div className="hidden lg:block absolute inset-y-8 left-1/2 translate-x-[380px] w-px
+                        bg-[linear-gradient(180deg,transparent,rgba(138,111,53,.26)_22%,rgba(138,111,53,.26)_78%,transparent)]"
+             aria-hidden="true"></div>
         <div className="relative max-w-[640px] mx-auto px-5 sm:px-8">
           <ContactForm />
         </div>

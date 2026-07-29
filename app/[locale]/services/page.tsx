@@ -158,7 +158,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
       </section>
 
       {/* LIÊN HỆ */}
-      <section className="relative overflow-hidden border-t border-line py-8 sm:py-10 lg:py-14" id="contact"
+      <section className="qs-closing-cta relative overflow-hidden py-8 sm:py-10 lg:py-14" id="contact"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
 
         <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">

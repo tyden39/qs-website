@@ -254,9 +254,9 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         {/* breathing gold atmosphere behind the detail plate */}
         <div className="qs-glow hidden sm:block right-[4%] top-[-25%] w-[34%] h-[150%]" aria-hidden="true"></div>
         <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 pt-12 pb-16">
-          <div className="qs-crumb mb-8">
-            <Link href="/" className="text-[#a8a499]!">{t("breadcrumb.home")}</Link><span className="sep text-[#a8a499]!">/</span>
-            <Link href="/applications" className="text-[#a8a499]!">{t("breadcrumb.applications")}</Link><span className="sep text-[#a8a499]!">/</span>
+          <div className="qs-crumb qs-crumb-dark mb-8 text-[#a8a499]">
+            <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
+            <Link href="/applications">{t("breadcrumb.applications")}</Link><span className="sep">/</span>
             <span className="here text-gold-2! capitalize">{machine}</span>
           </div>
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-end">

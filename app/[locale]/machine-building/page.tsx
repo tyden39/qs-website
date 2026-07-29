@@ -129,7 +129,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         <CircuitTraces variant="dark" className="absolute inset-y-0 left-[-8%] w-[46%] opacity-[.4] [mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_66%)]" />
         <div className="qs-glow" style={{ top: "-140px", right: "18%", width: "420px", height: "420px" }} aria-hidden="true"></div>
         <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 py-12 lg:py-16">
-          <nav className="qs-crumb mb-7 text-[#8f8878]">
+          <nav className="qs-crumb qs-crumb-dark mb-7 text-[#8f8878]">
             <Link href="/">{t("breadcrumb.home")}</Link><span className="sep">/</span>
             <span className="here text-[#eee9d7]">{t("breadcrumb.current")}</span>
           </nav>
@@ -170,8 +170,9 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
         </div>
       </section>
 
-      {/* CTA — closing consultation band */}
-      <section className="relative py-8 sm:py-10 lg:py-14 bg-paper overflow-hidden">
+      {/* CTA — closing consultation band. Extra bottom padding balances the band
+          against the section padding above it now that the footer sits flush. */}
+      <section className="relative py-8 sm:py-10 lg:py-14 mb-8 sm:mb-10 lg:mb-14 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 left-0 w-[36%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)]" />
         <div className="relative mx-auto px-5 sm:px-8 lg:px-12 max-w-[880px] text-center">

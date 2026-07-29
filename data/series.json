@@ -6543,115 +6543,2795 @@
     },
     "sourceUrl": "https://en.savch.net/S3100AEGeneraldrive/53.html",
     "detail": {
-      "introduction": [
+      "naming": {
+        "code": "S3100A-4T7.5G/11P",
+        "lines": [
+          "S — thương hiệu SAVCH.",
+          "3100A — dòng sản phẩm: S3100A cho động cơ không đồng bộ, S3100E cho động cơ đồng bộ nam châm vĩnh cửu.",
+          "4T — điện áp nguồn: 2T là ba pha 220 V (từ 2T2.2G trở xuống dùng được nguồn một pha), 4T là ba pha 440 V.",
+          "7.5G/11P — công suất và loại tải: 0.4 đến 800 tương ứng 0.4 kW đến 800 kW; G là tải nặng, P là tải nhẹ."
+        ],
+        "linesEn": [
+          "S — SAVCH brand.",
+          "3100A — product series: S3100A for asynchronous motors, S3100E for permanent magnet synchronous motors.",
+          "4T — supply voltage: 2T is 3-phase 220 V (2T2.2G and below also accept a single-phase supply), 4T is 3-phase 440 V.",
+          "7.5G/11P — power rating and load type: 0.4 through 800 mean 0.4 kW through 800 kW; G is general (heavy) duty, P is light load."
+        ],
+        "segments": [
+          {
+            "text": "S",
+            "label": "Thương hiệu SAVCH",
+            "labelEn": "SAVCH brand"
+          },
+          {
+            "text": "3100A",
+            "label": "Dòng sản phẩm — S3100A cho động cơ không đồng bộ, S3100E cho động cơ đồng bộ nam châm vĩnh cửu",
+            "labelEn": "Product series — S3100A for asynchronous motors, S3100E for permanent magnet synchronous motors"
+          },
+          {
+            "text": "4T",
+            "label": "Điện áp nguồn — 2T: ba pha 220 V (từ 2T2.2G trở xuống dùng được nguồn một pha); 4T: ba pha 440 V",
+            "labelEn": "Supply voltage — 2T: 3-phase 220 V (2T2.2G and below also accept a single-phase supply); 4T: 3-phase 440 V"
+          },
+          {
+            "text": "7.5G/11P",
+            "label": "Công suất và loại tải — 0.4 · 0.75 · 1.5 · 2.2 … 15 … 800 tương ứng 0.4 kW đến 800 kW; G là tải nặng, P là tải nhẹ",
+            "labelEn": "Power rating and load type — 0.4 · 0.75 · 1.5 · 2.2 … 15 … 800 mean 0.4 kW through 800 kW; G is general duty, P is light load"
+          }
+        ]
+      },
+      "intro": {
+        "lead": "S3100A/E là thế hệ nâng cấp của dòng biến tần S3100. Cấu hình phần cứng cao của thế hệ trước được giữ nguyên, cách vận hành được điều chỉnh theo thói quen sử dụng thực tế, còn hiệu năng driver cùng lớp phần mềm nền và lớp ứng dụng đều được cải thiện.",
+        "leadEn": "S3100A/E series is an upgraded version of the S3100 series inverter. The original high hardware configuration remains unchanged, the operation mode is adjusted to real usage habits, and the driver performance together with the bottom and application software layers are improved.",
+        "applications": "S3100A/E là biến tần đa dụng điều khiển vector dòng nâng cao, hỗ trợ cả động cơ không đồng bộ và động cơ đồng bộ nam châm vĩnh cửu. Ứng dụng linh hoạt hơn và vận hành ổn định hơn — phù hợp với những nơi đòi hỏi cao về độ chính xác điều khiển tốc độ, tốc độ đáp ứng moment và đặc tính đầu ra ở tần số thấp.",
+        "applicationsEn": "S3100A/E is an enhanced current vector control general-purpose inverter supporting both asynchronous and permanent magnet synchronous motors. The application is more flexible and the performance is more stable, so it suits applications with high requirements for speed control accuracy, torque response speed and low-frequency output characteristics.",
+        "sections": [
+          {
+            "title": "Điều khiển động cơ",
+            "titleEn": "Motor control",
+            "items": [
+              {
+                "t": "Hỗ trợ động cơ không đồng bộ và động cơ đồng bộ nam châm vĩnh cửu.",
+                "tEn": "Supports asynchronous motor and permanent magnet synchronous motor control."
+              },
+              {
+                "t": "Moment khởi động lớn nhất 200 % tại 0.5 Hz, độ chính xác tốc độ 0.1 %.",
+                "tEn": "Maximum starting torque 200 % at 0.5 Hz, speed accuracy 0.1 %."
+              },
+              {
+                "t": "Thuật toán vector đồng bộ nam châm vĩnh cửu thế hệ mới — khởi động không đảo chiều.",
+                "tEn": "Latest permanent magnet synchronization vector algorithm — no reversal when starting."
+              },
+              {
+                "t": "Chip DSP nâng cấp: điều khiển vector không cảm biến (SVC), V/f, tách rời V/f và điều khiển moment.",
+                "tEn": "Upgraded DSP main chip: sensorless vector control (SVC), V/f control, V/f separation control and torque control."
+              }
+            ]
+          },
+          {
+            "title": "Tần số và chức năng",
+            "titleEn": "Frequency and functions",
+            "items": [
+              {
+                "t": "Đầu ra tần số cao tới 3200 Hz.",
+                "tEn": "High-frequency output up to 3200 Hz."
+              },
+              {
+                "t": "PLC đơn giản và chức năng tần số dao động tích hợp sẵn.",
+                "tEn": "Simple PLC and built-in swing frequency function."
+              },
+              {
+                "t": "Điều khiển cộng tần số chính với tần số phụ.",
+                "tEn": "Main and auxiliary frequency superposition control."
+              },
+              {
+                "t": "Terminal đa chức năng có 1 ngõ vào xung và 1 ngõ ra xung tốc độ cao.",
+                "tEn": "The multi-function terminal includes 1 high-speed pulse input and 1 high-speed pulse output."
+              }
+            ]
+          },
+          {
+            "title": "Bảo vệ và vận hành",
+            "titleEn": "Protection and operation",
+            "items": [
+              {
+                "t": "Quản lý nhiệt độ module tối ưu hơn — bảo vệ kịp thời khi môi trường nóng hoặc khi quá tải.",
+                "tEn": "More optimized module temperature management — protects more timely and considerately when the environment is hot or overloaded."
+              },
+              {
+                "t": "Bảo vệ ngắn mạch được tối ưu hơn.",
+                "tEn": "More optimized short-circuit protection."
+              },
+              {
+                "t": "Dòng 2T từ 4.0 kW và dòng 4T từ 5.5 kW trở xuống có sẵn bộ bảo vệ quá nhiệt điện trở nạp.",
+                "tEn": "2T series 4.0 kW and 4T series 5.5 kW and below are equipped with a built-in charging resistor overheating protection unit."
+              },
+              {
+                "t": "Terminal đầu vào ngoài chọn được hai chế độ NPN / PNP để ghép gọn với PLC và màn hình cảm ứng bên ngoài.",
+                "tEn": "External input terminals can select NPN or PNP mode to connect neatly with an external PLC and touch screen."
+              }
+            ]
+          }
+        ]
+      },
+      "introSheet": [
         {
-          "src": "/img/products/series/s3100/intro/01.webp",
-          "w": 882,
-          "h": 1308,
-          "alt": "S3100A/E — giới thiệu 01",
-          "altEn": "S3100A/E — introduction 01"
+          "kind": "heading",
+          "text": {
+            "vi": "Bảo trì thuận tiện hơn",
+            "en": "For more convenient maintenance"
+          }
         },
         {
-          "src": "/img/products/series/s3100/intro/02.webp",
-          "w": 879,
-          "h": 1231,
-          "alt": "S3100A/E — giới thiệu 02",
-          "altEn": "S3100A/E — introduction 02"
+          "kind": "bullets",
+          "items": [
+            {
+              "vi": "Kết cấu module hóa, tháo lắp đơn giản.",
+              "en": "Integrates an easy-disassembly modularization factor."
+            },
+            {
+              "vi": "Bảo trì dễ hơn, thuận tiện khi tản nhiệt và vệ sinh bên trong máy.",
+              "en": "Maintenance is easier and it is convenient to sink heat and clean the internals."
+            }
+          ]
         },
         {
-          "src": "/img/products/series/s3100/intro/03.webp",
-          "w": 891,
-          "h": 548,
-          "alt": "S3100A/E — giới thiệu 03",
-          "altEn": "S3100A/E — introduction 03"
+          "kind": "image",
+          "src": "/img/products/series/s3100/intro/maintenance-steps.webp",
+          "w": 1400,
+          "h": 830,
+          "alt": {
+            "vi": "S3100A/E — năm bước tháo lắp: nắp thân máy, bàn phím, tấm chắn tụ, quạt và đế máy",
+            "en": "S3100A/E — five disassembly steps: mainframe cover, operation keypad, capacitor baffle, fan and baseboard"
+          },
+          "caption": {
+            "vi": "Năm bước tháo lắp",
+            "en": "Five disassembly steps"
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Bus DC chung",
+            "en": "Common DC bus"
+          }
+        },
+        {
+          "kind": "bullets",
+          "items": [
+            {
+              "vi": "Toàn dải công suất hỗ trợ ứng dụng bus DC chung: các biến tần chia sẻ năng lượng với nhau, nhờ đó giảm công suất điện trở hãm hoặc bỏ hẳn điện trở hãm.",
+              "en": "All power ranges support the common DC bus application, sharing energy between drives to reduce braking-resistor power or remove the brake resistor altogether."
+            }
+          ]
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/intro/common-dc-bus.webp",
+          "w": 1400,
+          "h": 512,
+          "alt": {
+            "vi": "S3100A/E — sơ đồ ba biến tần đấu chung thanh cái DC (+) và (−)",
+            "en": "S3100A/E — three drives sharing one common DC bus, (+) and (−) rails"
+          },
+          "caption": {
+            "vi": "Đấu nối bus DC chung",
+            "en": "Common DC bus wiring"
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Đặc tính kỹ thuật",
+            "en": "Characteristics"
+          }
+        },
+        {
+          "kind": "bullets",
+          "items": [
+            {
+              "vi": "Khả năng quá tải 150 % trong 60 giây với loại G, 120 % trong 60 giây với loại P.",
+              "en": "Overload capacity 150 % for 60 seconds for the G type and 120 % for 60 seconds for the P type."
+            },
+            {
+              "vi": "Moment khởi động lớn nhất (SVC) 200 % tại 0.5 Hz, độ chính xác tốc độ 0.1 %.",
+              "en": "Maximum starting torque (SVC) is 200 % at 0.5 Hz and the speed accuracy is 0.1 %."
+            },
+            {
+              "vi": "Thuật toán vector đồng bộ nam châm vĩnh cửu thế hệ mới không đảo chiều khi khởi động.",
+              "en": "The latest vector algorithm for permanent magnet synchronization does not reverse when starting."
+            },
+            {
+              "vi": "Đường cong V/f 3 điểm, 6 bộ đường cong V/f, điều khiển tách rời V/f.",
+              "en": "3-point V/f curve setting, 6 sets of V/f curve setting, V/f separation control."
+            },
+            {
+              "vi": "Chức năng dừng tức thời, bám tốc độ, triệt hãm hiệu quả.",
+              "en": "Instant stop function, speed tracking function, effective brake suppression function."
+            },
+            {
+              "vi": "Chức năng dừng tức thời không ngắt, bám tốc độ, triệt hãm hiệu quả.",
+              "en": "Instantaneous stop non-stop function, speed tracking function, effective brake suppression function."
+            },
+            {
+              "vi": "Tích hợp PID, PLC đơn giản, chức năng tần số dao động.",
+              "en": "Built-in PID function, simple PLC function, swing frequency function."
+            },
+            {
+              "vi": "Terminal đa kênh đa chức năng, gồm tùy chọn 1 ngõ vào xung và 1 ngõ ra xung tốc độ cao.",
+              "en": "Multi-channel multi-function terminal, including optional 1 high-speed pulse input and 1 high-speed pulse output."
+            },
+            {
+              "vi": "Terminal ngoài chọn được chế độ NPN hoặc PNP, ghép linh hoạt với PLC và màn hình cảm ứng.",
+              "en": "The external terminals can be selected from NPN and PNP modes, which are more flexible with external PLC and touch screen."
+            },
+            {
+              "vi": "Tích hợp transistor hãm cho các model tới 22 kW.",
+              "en": "Built-in brake transistor for power models up to 22 kW."
+            },
+            {
+              "vi": "Chuyển sang chế độ tần số cao (3200 Hz) ở đầu ra.",
+              "en": "Switch to high frequency (3200 Hz) output."
+            },
+            {
+              "vi": "Hai dải định mức: đặt bằng tham số cho loại G tải nặng hoặc loại P tải nhẹ.",
+              "en": "With double limit specification: G type heavy load / P type light load specification can be set by parameters."
+            },
+            {
+              "vi": "Nhiều chức năng bảo vệ: ngắn mạch biến tần, quá áp, quá dòng, quá tải, quá nhiệt và các bảo vệ khác.",
+              "en": "Provides a variety of fault protection functions: inverter short circuit protection, over voltage, over current, overload, over temperature and other protection functions."
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Mô tả chức năng",
+            "en": "Function description"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "Cổng terminal đa năng",
+            "en": "Multi terminal ports"
+          },
+          "cols": [
+            {
+              "vi": "Terminal",
+              "en": "Terminal"
+            },
+            {
+              "vi": "Chức năng",
+              "en": "Function"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "AVI",
+                  "en": "AVI"
+                },
+                {
+                  "vi": "Ngõ vào DC 0 ~ +10 V",
+                  "en": "DC 0 ~ +10 V input"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "AVI2 / ACI",
+                  "en": "AVI2 / ACI"
+                },
+                {
+                  "vi": "DC 0 ~ +10 V hoặc DC 4 ~ 20 mA",
+                  "en": "DC 0 ~ +10 V / DC 4 ~ 20 mA"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "MI5",
+                  "en": "MI5"
+                },
+                {
+                  "vi": "Ngõ vào xung",
+                  "en": "Pulse input"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "AFM",
+                  "en": "AFM"
+                },
+                {
+                  "vi": "Ngõ ra analog",
+                  "en": "Analog output"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "DFM",
+                  "en": "DFM"
+                },
+                {
+                  "vi": "Ngõ ra xung",
+                  "en": "Pulse output"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/intro/fast-current-limit-waveform.webp",
+          "w": 1400,
+          "h": 710,
+          "alt": {
+            "vi": "S3100A/E — dạng sóng dòng ba pha đo trên oscilloscope khi bật giới hạn dòng nhanh",
+            "en": "S3100A/E — three-phase current waveform captured on an oscilloscope with fast current limiting active"
+          },
+          "caption": {
+            "vi": "Giới hạn dòng nhanh",
+            "en": "Fast current limiting"
+          },
+          "note": {
+            "vi": "Chức năng giới hạn dòng nhanh tránh cho biến tần báo lỗi quá dòng liên tục. Khi dòng vượt ngưỡng bảo vệ, chức năng này kéo dòng về trong ngưỡng ngay lập tức, bảo vệ thiết bị và tránh báo quá dòng do tải thay đổi đột ngột hoặc do nhiễu.",
+            "en": "The fast current limiting function avoids frequent over-current alarms. When the current exceeds the current protection point, it limits the current back within the protection point quickly, protecting the device and avoiding over-current alarms caused by sudden load changes or interference."
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/intro/swing-frequency-diagram.webp",
+          "w": 1400,
+          "h": 608,
+          "alt": {
+            "vi": "S3100A/E — sơ đồ vận hành tần số dao động: tần số trung tâm, biên độ dao động, tần số kick và chu kỳ dao động theo thời gian",
+            "en": "S3100A/E — swing frequency operation diagram: center frequency, swing range, kick frequency and wobble cycle over time"
+          },
+          "caption": {
+            "vi": "Sơ đồ vận hành tần số dao động",
+            "en": "Swing frequency operation diagram"
+          },
+          "note": {
+            "vi": "Ngành sợi hóa học và các ngành cần trải sợi dùng chức năng tần số dao động để búp sợi thành hình phẳng, không bị trống ở giữa.",
+            "en": "Chemical fiber and other industries needing traverse winding use the swing frequency function to make the forming spindle flat, with no drum."
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/intro/torque-characteristics.webp",
+          "w": 1400,
+          "h": 1323,
+          "alt": {
+            "vi": "S3100A/E — biểu đồ moment theo tốc độ và biểu đồ moment đầu ra theo tần số",
+            "en": "S3100A/E — torque versus operating speed chart and output torque versus output frequency chart"
+          },
+          "caption": {
+            "vi": "Đặc tính moment",
+            "en": "Torque characteristics"
+          },
+          "note": {
+            "vi": "Điều khiển vector dòng mạnh, moment khởi động cao: chạy được ở trạng thái kẹt trục mà không cần encoder. Dưới 0.5 Hz moment đầu ra định mức đạt 200 %; điều khiển vector không cảm biến giảm phụ thuộc vào tham số động cơ và tăng khả năng thích ứng hiện trường.",
+            "en": "Powerful current vector control and high starting torque: it runs under block conditions with no speed sensor. Under 0.5 Hz the rated output torque is 200 %; sensorless vector control reduces sensitivity to motor parameters and improves field adaptability."
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/intro/power-failure-ride-through.webp",
+          "w": 1400,
+          "h": 1107,
+          "alt": {
+            "vi": "S3100A/E — biểu đồ điện áp bus và tần số chạy khi mất điện tức thời, với các mốc tham số 11-59, 11-60, 11-61 và 11-62",
+            "en": "S3100A/E — bus voltage and running frequency during an instantaneous power failure, with parameters 11-59, 11-60, 11-61 and 11-62 marked"
+          },
+          "caption": {
+            "vi": "Không dừng khi mất điện tức thời",
+            "en": "Instantaneous power failure without stopping"
+          },
+          "note": {
+            "vi": "Khi mất điện tức thời hoặc điện áp sụt đột ngột, biến tần không dừng: nó giảm tốc độ đầu ra, lấy năng lượng phản hồi từ tải để bù điện áp và duy trì hoạt động trong thời gian ngắn.",
+            "en": "In case of an instantaneous power failure or sudden voltage drop the inverter does not stop: it reduces the output speed and the load feeds energy back to compensate the voltage drop, keeping the inverter running for a short time."
+          }
         }
       ],
-      "paramImages": [
+      "specSheet": [
         {
-          "src": "/img/products/series/s3100/params/01.webp",
-          "w": 883,
-          "h": 372,
-          "alt": "S3100A/E — thông số 01",
-          "altEn": "S3100A/E — specification 01"
+          "kind": "heading",
+          "text": {
+            "vi": "Thông số sản phẩm",
+            "en": "Product specification"
+          },
+          "sub": {
+            "vi": "Thông số chung",
+            "en": "Common specification"
+          }
         },
         {
-          "src": "/img/products/series/s3100/params/02.webp",
-          "w": 880,
-          "h": 1473,
-          "alt": "S3100A/E — thông số 02",
-          "altEn": "S3100A/E — specification 02"
+          "kind": "specList",
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "valueHeader": {
+            "vi": "Diễn giải",
+            "en": "Explanation"
+          },
+          "groups": [
+            {
+              "vlabel": {
+                "vi": "Đặc tính điều khiển",
+                "en": "Control characteristic"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Chế độ điều khiển",
+                    "en": "Control mode"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Điều khiển V/f, vector vòng hở, điều khiển moment",
+                      "en": "V/f control, open loop vector control, torque control"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Dải tần số ra",
+                    "en": "Range of output frequency"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0 ~ 500.00 Hz (V/f tối đa 3200.0 Hz)",
+                      "en": "0 ~ 500.00 Hz (V/f highest 3200.0 Hz)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ phân giải tần số đặt",
+                    "en": "Frequency setting resolution"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0.01 Hz",
+                      "en": "0.01 Hz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ phân giải tần số ra",
+                    "en": "Output frequency setting resolution"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0.01 Hz",
+                      "en": "0.01 Hz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tần số sóng mang PWM",
+                    "en": "PWM carrier frequency"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Chỉnh được từ 0.5 kHz đến 16 kHz",
+                      "en": "Adjust from 0.5 kHz to 16 kHz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tăng moment",
+                    "en": "Torque boost"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Vector vòng hở (SVC): loại G 0.5 Hz / 150 %, loại P 0.5 Hz / 120 %",
+                      "en": "Open loop vector control (SVC): G type 0.5 Hz / 150 %, P type 0.5 Hz / 120 %"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Đường cong V/f",
+                    "en": "V/f curve"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Ba kiểu: tuyến tính, đa điểm, lũy thừa bậc N",
+                      "en": "Three types: line, multi-point, Nth power V/f curve"
+                    },
+                    {
+                      "vi": "(lũy thừa 1.2 · 1.4 · 1.6 · 1.8 · 2)",
+                      "en": "(1.2th, 1.4th, 1.6th, 1.8th, 2th power)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tách rời V/f",
+                    "en": "V/f separation"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Hai kiểu: tách hoàn toàn, tách một phần",
+                      "en": "Two types: full separation, semi-separation"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tần số cấm",
+                    "en": "Jump frequency"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Chỉnh được từ 0.1 Hz đến 500.00 Hz",
+                      "en": "Adjust from 0.1 Hz to 500.00 Hz"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Thời gian tăng / giảm tốc",
+                    "en": "Acceleration / deceleration time"
+                  },
+                  "lines": [
+                    {
+                      "vi": "0.00 đến 65000 giây (4 nấc thời gian tăng/giảm tốc đặt độc lập), kiểu tuyến tính hoặc đường cong S",
+                      "en": "0.00 to 65000 seconds (4-stage acceleration/deceleration time is set independently), linear or S-curve acceleration/deceleration mode"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Ngưỡng chống kẹt quá dòng",
+                    "en": "Over current stall prevention level"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt theo đặc tính tải của động cơ, trong khoảng 100 ~ 200 % dòng định mức của biến tần",
+                      "en": "Can be set according to the motor load characteristics with 100 ~ 200 % of the rated current of the driver"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Hãm DC",
+                    "en": "DC brake"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Khi dừng, tác động được từ 0.00 Hz đến tần số vận hành lớn nhất; dòng hãm 0 ~ 100 % dòng định mức. Thời gian bắt đầu 0 ~ 100.0 giây, thời gian dừng 0 ~ 100.0 giây.",
+                      "en": "When stopping, it can be operated from 0.00 to the maximum operating frequency, and the braking current is 0 to 100 % of the rated current. Start time 0 ~ 100.0 seconds, stop time 0 ~ 100.0 seconds."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Moment hãm",
+                    "en": "Brake torque"
+                  },
+                  "lines": [
+                    {
+                      "vi": "20 % (gắn thêm điện trở hãm ngoài đạt tới 125 %)",
+                      "en": "20 % (external optional brake resistor can reach 125 %)"
+                    },
+                    {
+                      "vi": "(1 ~ 50 HP có sẵn transistor hãm; từ 60 HP trở lên đấu thêm module hãm ngoài)",
+                      "en": "(1 ~ 50 HP brake transistor built-in, 60 HP and above can be connected to the external brake unit module)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Dải điều tốc",
+                    "en": "Speed ratio"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Vector vòng hở: 1 : 100",
+                      "en": "Open loop vector control: 1 : 100"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Đặc tính vận hành",
+                "en": "Operation characteristic"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Tín hiệu đặt tần số — bàn phím",
+                    "en": "Frequency setting signal — keypad"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt bằng phím ▲ ▼",
+                      "en": "Set by the ▲ ▼ keys"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tín hiệu đặt tần số — terminal ngoài",
+                    "en": "Frequency setting signal — external terminal"
+                  },
+                  "lines": [
+                    {
+                      "vi": "DC 0 ~ 10 V, DC 4 ~ 20 mA, truyền thông nối tiếp (RS485)",
+                      "en": "DC 0 ~ 10 V, DC 4 ~ 20 mA, serial communication (RS485)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tín hiệu vận hành — bàn phím",
+                    "en": "Operation signal — keypad"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Vận hành bằng phím RUN, STOP, JOG",
+                      "en": "Available to be operated by RUN, STOP, JOG keys"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tín hiệu vận hành — terminal ngoài",
+                    "en": "Operation signal — external terminal"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Điều khiển 2 dây / 3 dây, chạy nhấp (jog), truyền thông nối tiếp (RS485)",
+                      "en": "2-wire / 3-wire operation, jog operation, serial communication (RS485)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Terminal vào đa chức năng",
+                    "en": "Input terminal of multi-function"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Chạy thuận / nghịch, điều khiển 3 dây, chạy nhấp thuận / nghịch, dừng tự do, reset lỗi, tạm dừng, ngõ vào lỗi ngoài, tăng / giảm tần số bằng terminal, chuyển 16 cấp tốc độ đặt trước, chuyển thời gian tăng / giảm tốc, chuyển nguồn tần số, chuyển lệnh chạy, điều khiển PID, reset trạng thái PLC, tạm dừng và reset tần số dao động, cấm tăng / giảm tốc, khóa điều khiển moment, chức năng đếm, đếm chiều dài, xóa giá trị tăng / giảm tần số, tần số xung tốc độ cao, hãm DC khi dừng, cho phép đổi tần số, chuyển giữa điều khiển tốc độ và moment, xóa thời gian chạy của lần chạy này.",
+                      "en": "Forward and reverse running, three-wire running control, forward and reverse jog running, free stop, reset fault, running pause, external fault input, increment/decrement frequency terminal setting, 16-segment preset speed switching, acceleration/deceleration time switching, frequency source switching, running command switching, PID control, PLC status reset, pause swing frequency, reset swing frequency, prohibit acceleration and deceleration, disable torque control, calculator function, length count, frequency increase and decrease setting clear, high speed pulse frequency, stop DC braking, frequency modification enable, speed control and torque control switching, clear running time of this time."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Terminal ra đa chức năng",
+                    "en": "Output terminal of multi-function"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Biến tần đang chạy, báo lỗi, phát hiện mức tần số FDT, đạt tần số, chạy tốc độ 0, cảnh báo sớm quá tải, đạt giá trị đếm, đạt chiều dài, hoàn tất chu trình PLC, đạt thời gian chạy tích lũy, giới hạn tần số, giới hạn moment, sẵn sàng chạy, AVI1 > AVI2, đạt giới hạn tần số trên, đạt giới hạn tần số dưới (liên quan vận hành), báo trạng thái thấp áp, đặt qua truyền thông, đạt thời gian cấp nguồn tích lũy, ngõ ra đạt tần số, ngõ ra đạt hẹn giờ, mất tải, đang chạy nghịch, trạng thái dòng bằng 0, module đạt ngưỡng nhiệt, dòng ra vượt giới hạn, đạt giới hạn tần số dưới (vẫn xuất khi dừng), ngõ ra cảnh báo (vẫn tiếp tục chạy), và đạt thời gian chạy.",
+                      "en": "Inverter operation, fault output, frequency level detection FDT output, frequency arrival, zero speed operation, overload pre-alarm, count value arrival, length arrival, PLC cycle completion, cumulative running time arrival, frequency limitation, torque limit, ready to run, AVI1 > AVI2, upper limit frequency arrival, lower limit frequency arrival (operation related), undervoltage status output, communication setting, cumulative power-on time arrival, frequency arrival output, timing arrival output, offload, reverse in operation, zero current state, module temperature reached, output current exceeds the limit, lower limit frequency arrival (also output on stop), alarm output (continues to run), and running time arrival."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Ngõ ra tín hiệu analog",
+                    "en": "Analog signal output"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Tương ứng tần số ra, dòng ra, điện áp ra thực tế…",
+                      "en": "Corresponding to the actual output frequency, output current, output voltage, etc."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Tiếp điểm báo lỗi",
+                    "en": "Fault signal contact"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Tiếp điểm \"ON\" (một relay tiếp điểm C hoặc hai ngõ ra cực thu hở khi biến tần lỗi)",
+                      "en": "Contact \"ON\" (one \"C\" contact relay or two open collector outputs when the AC drive fails)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Chức năng tích hợp",
+                    "en": "Inner function"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Đặt giới hạn trên / dưới tần số ra, khởi động lại sau mất điện tức thời, khởi động lại sau lỗi, bám tốc độ, PLC đơn giản, chạy đa cấp tốc độ, điều khiển PID, điều khiển theo thời gian, tự động điều chỉnh điện áp ra, lưu lỗi, khóa tham số, khôi phục mặc định, cấm chạy nghịch, chống kẹt quá dòng, chống kẹt quá áp, relay nhiệt điện tử.",
+                      "en": "Output frequency upper and lower limit setting, instantaneous power failure restart, abnormal fault restart, speed tracking, simple PLC, multi-speed operation, PID control, timing control, automatic regulated output regulation, abnormal record, parameter lock, parameter factory reset, reverse rotation prohibited, overcurrent stall prevention, overvoltage stall prevention, electronic thermal relay."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Chức năng bảo vệ",
+                    "en": "Protection function"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Bảo vệ ngắn mạch, quá dòng khi tăng tốc / giảm tốc / chạy ổn định, quá áp khi tăng tốc / giảm tốc / chạy ổn định, thấp áp bus, quá tải động cơ, quá tải biến tần, bảo vệ quá moment, mất pha đầu vào (từ 7.5G/11P trở lên), mất pha đầu ra, quá nhiệt module, lỗi ngoài, lỗi truyền thông, lỗi mạch đo dòng, lỗi tự học tham số động cơ, lỗi đọc ghi tham số, lỗi phần cứng biến tần, động cơ chạm đất, đạt thời gian chạy, đạt thời gian cấp nguồn, mất tải, đứt hồi tiếp PID và quá thời gian giới hạn dòng nhanh.",
+                      "en": "Short circuit protection, acceleration over current, deceleration over current, constant speed over current, acceleration over voltage, deceleration over voltage, constant speed over voltage, bus undervoltage fault, motor overload, inverter overload, over torque protection, loss phase on the input (7.5G/11P and above), loss phase on the output, module overheating, external fault, communication fault, current detection fault, motor self-learning fault, parameter read and write abnormality, inverter hardware abnormality, motor short circuit to ground, running time arrival, power-on time arrival, load dropped, PID feedback disconnected, and fast current limit timeout."
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Bàn phím",
+                    "en": "Number of part on keypad"
+                  },
+                  "lines": [
+                    {
+                      "vi": "8 phím chức năng, màn hình LED 5 số 8 đoạn, 6 đèn báo trạng thái. Đặt được tần số, hiển thị tần số ra, dòng ra và đơn vị do người dùng định nghĩa; duyệt và sửa tham số, khóa tham số, hiển thị lỗi; chạy, dừng, reset, đảo chiều và chạy nhấp.",
+                      "en": "Contains 8 function keys, a 5-digit 8-segment LED display and 6 status indicator LEDs. Can set the frequency, display the actual output frequency, output current and user-defined unit; parameter browsing and modification, parameter locking, abnormal fault display; run, stop, reset, forward/reverse and jogging."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Môi trường",
+                "en": "Environment"
+              },
+              "rows": [
+                {
+                  "item": {
+                    "vi": "Nhiệt độ vận hành",
+                    "en": "Operation temperature"
+                  },
+                  "lines": [
+                    {
+                      "vi": "−10 °C ~ +40 °C",
+                      "en": "−10 °C ~ +40 °C"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Nhiệt độ lưu kho",
+                    "en": "Temperature of stock"
+                  },
+                  "lines": [
+                    {
+                      "vi": "−20 °C ~ +60 °C",
+                      "en": "−20 °C ~ +60 °C"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ ẩm môi trường vận hành",
+                    "en": "Humidity of operation environment"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Dưới 90 % RH, không đọng sương",
+                      "en": "Below 90 % RH, no condensation"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Độ cao lắp đặt",
+                    "en": "Height of installation"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Không quá 1000 m; không có khí ăn mòn, chất lỏng, bụi",
+                      "en": "No more than 1000 m in height, no corrosive gas, liquid, dust"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Rung động",
+                    "en": "Vibration"
+                  },
+                  "lines": [
+                    {
+                      "vi": "Dưới 20 Hz: 9.80665 m/s² (1 G); 20 ~ 50 Hz: 5.88 m/s² (0.6 G)",
+                      "en": "Below 20 Hz 9.80665 m/s² (1 G), 20 ~ 50 Hz 5.88 m/s² (0.6 G)"
+                    }
+                  ]
+                },
+                {
+                  "item": {
+                    "vi": "Cấp bảo vệ",
+                    "en": "Enclosure"
+                  },
+                  "lines": [
+                    {
+                      "vi": "IP20 (tùy môi trường lắp đặt của khách hàng)",
+                      "en": "IP20 (depending on the end customer's installation environment)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/s3100/params/03.webp",
-          "w": 883,
-          "h": 2298,
-          "alt": "S3100A/E — thông số 03",
-          "altEn": "S3100A/E — specification 03"
+          "kind": "heading",
+          "text": {
+            "vi": "Thông số theo model",
+            "en": "Standard specification"
+          }
         },
         {
-          "src": "/img/products/series/s3100/params/04.webp",
-          "w": 885,
-          "h": 1287,
-          "alt": "S3100A/E — thông số 04",
-          "altEn": "S3100A/E — specification 04"
+          "kind": "paramTable",
+          "title": {
+            "vi": "220 V — một pha / ba pha",
+            "en": "220 V single phase / three phase series"
+          },
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Thông số",
+            "en": "Specifications"
+          },
+          "modelPattern": "S3100A/E-2T***G",
+          "models": [
+            "0.4",
+            "0.75",
+            "1.5",
+            "2.2",
+            "4.0",
+            "5.5",
+            "7.5"
+          ],
+          "groups": [
+            {
+              "vlabel": {
+                "vi": "Ngõ ra",
+                "en": "Output"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất động cơ lớn nhất",
+                    "en": "Max. applicable motor output power"
+                  },
+                  "unit": "kW",
+                  "cells": [
+                    "0.4",
+                    "0.75",
+                    "1.5",
+                    "2.2",
+                    "4.0",
+                    "5.5",
+                    "7.5"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất động cơ lớn nhất",
+                    "en": "Max. applicable motor output power"
+                  },
+                  "unit": "HP",
+                  "cells": [
+                    "0.5",
+                    "1",
+                    "2",
+                    "3",
+                    "5.4",
+                    "7.4",
+                    "10"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất biểu kiến định mức",
+                    "en": "Output rated capacity"
+                  },
+                  "unit": "kVA",
+                  "cells": [
+                    "1.1",
+                    "1.5",
+                    "2.7",
+                    "3.7",
+                    "6.5",
+                    "9.5",
+                    "12.2"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng ra định mức",
+                    "en": "Output rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "2.3",
+                    "4.0",
+                    "7.0",
+                    "9.6",
+                    "17.0",
+                    "25",
+                    "32"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dải tần số ra",
+                    "en": "Output frequency range"
+                  },
+                  "cells": [
+                    {
+                      "v": "0 ~ 500 Hz",
+                      "cs": 7
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khả năng quá tải",
+                    "en": "Overload capacity"
+                  },
+                  "cells": [
+                    {
+                      "v": "150 % — 60 s",
+                      "cs": 7
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Điện áp ra lớn nhất",
+                    "en": "Max output voltage"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Bằng điện áp vào",
+                      "en": "Same as input voltage",
+                      "cs": 7
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Ngõ vào",
+                "en": "Input"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Số pha, điện áp, tần số",
+                    "en": "Phase, voltage, frequency"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Một pha / ba pha 200 ~ 240 V · 50/60 Hz",
+                      "en": "Single phase / three phase 200 ~ 240 V · 50/60 Hz",
+                      "cs": 7
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dao động điện áp / tần số",
+                    "en": "Voltage & frequency variations"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Điện áp ±15 %, tần số ±5 %",
+                      "en": "Voltage ±15 %, frequency ±5 %",
+                      "cs": 7
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng vào — một pha",
+                    "en": "Input current — single phase"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "5.4",
+                    "8.2",
+                    "14.2",
+                    "23",
+                    {
+                      "vi": "Không có ngõ vào một pha",
+                      "en": "No single phase input",
+                      "cs": 3
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng vào — ba pha",
+                    "en": "Input current — three phase"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "3.1",
+                    "5.0",
+                    "7.7",
+                    "11.1",
+                    "22.2",
+                    "31.5",
+                    "42.7"
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Phương pháp làm mát",
+                    "en": "Cooling method"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Làm mát bằng quạt",
+                      "en": "Fan cooling",
+                      "cs": 7
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/s3100/params/05.webp",
-          "w": 884,
-          "h": 2325,
-          "alt": "S3100A/E — thông số 05",
-          "altEn": "S3100A/E — specification 05"
+          "kind": "paramTable",
+          "title": {
+            "vi": "440 V — ba pha · 0.75 ~ 55 kW",
+            "en": "440 V three phase series · 0.75 ~ 55 kW"
+          },
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Thông số",
+            "en": "Specifications"
+          },
+          "modelPattern": "S3100A/E-4T***G/P",
+          "models": [
+            "0.75",
+            "1.5",
+            "2.2",
+            "4.0",
+            "5.5",
+            "7.5",
+            "11",
+            "15",
+            "18.5",
+            "22",
+            "30",
+            "37",
+            "45",
+            "55"
+          ],
+          "groups": [
+            {
+              "vlabel": {
+                "vi": "Ngõ ra",
+                "en": "Output"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất động cơ lớn nhất",
+                    "en": "Max. applicable motor output power"
+                  },
+                  "unit": "kW",
+                  "cells": [
+                    "0.75",
+                    "1.5",
+                    "2.2",
+                    "4.0",
+                    "5.5",
+                    "7.5",
+                    "11",
+                    "15",
+                    "18.5",
+                    "22",
+                    "30",
+                    "37",
+                    "45",
+                    "55"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất động cơ lớn nhất",
+                    "en": "Max. applicable motor output power"
+                  },
+                  "unit": "HP",
+                  "cells": [
+                    "1",
+                    "2",
+                    "3",
+                    "5.4",
+                    "7.4",
+                    "10",
+                    "14.7",
+                    "20",
+                    "24.7",
+                    "29.4",
+                    "40",
+                    "50",
+                    "60",
+                    "74"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất biểu kiến định mức",
+                    "en": "Output rated capacity"
+                  },
+                  "unit": "kVA",
+                  "cells": [
+                    "1.9",
+                    "2.9",
+                    "3.9",
+                    "6.9",
+                    "9.9",
+                    "13",
+                    "19.1",
+                    "24.4",
+                    "28.2",
+                    "34.3",
+                    "45.7",
+                    "57.1",
+                    "68.6",
+                    "83.8"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng ra định mức",
+                    "en": "Output rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "2.5 (3.2)",
+                    "3.8 (4.7)",
+                    "5.1 (6.5)",
+                    "9 (11.8)",
+                    "13 (15)",
+                    "17 (21.7)",
+                    "25 (28.5)",
+                    "32 (35.4)",
+                    "37 (42)",
+                    "45 (60)",
+                    "60 (75)",
+                    "75 (85)",
+                    "90 (110)",
+                    "110 (152)"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dải tần số ra",
+                    "en": "Output frequency range"
+                  },
+                  "cells": [
+                    {
+                      "v": "0 ~ 500 Hz",
+                      "cs": 14
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khả năng quá tải",
+                    "en": "Overload capacity"
+                  },
+                  "cells": [
+                    {
+                      "v": "G: 150 % — 60 s · P: 120 % — 60 s",
+                      "cs": 14
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Điện áp ra lớn nhất",
+                    "en": "Max output voltage"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Bằng điện áp vào",
+                      "en": "Same as input voltage",
+                      "cs": 14
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Ngõ vào",
+                "en": "Input"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Số pha, điện áp, tần số",
+                    "en": "Phase, voltage, frequency"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Ba pha 380 ~ 460 V · 50/60 Hz",
+                      "en": "Three phase 380 ~ 460 V · 50/60 Hz",
+                      "cs": 14
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dao động điện áp / tần số",
+                    "en": "Voltage & frequency variations"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Điện áp ±15 %, tần số ±5 %",
+                      "en": "Voltage ±15 %, frequency ±5 %",
+                      "cs": 14
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng vào",
+                    "en": "Input current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "3.4",
+                    "5.0",
+                    "5.8",
+                    "10.5",
+                    "15",
+                    "20.5",
+                    "26",
+                    "35",
+                    "38",
+                    "46",
+                    "62",
+                    "76",
+                    "92",
+                    "113"
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Phương pháp làm mát",
+                    "en": "Cooling method"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Làm mát bằng quạt",
+                      "en": "Fan cooling",
+                      "cs": 14
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/s3100/params/06.webp",
-          "w": 881,
-          "h": 2303,
-          "alt": "S3100A/E — thông số 06",
-          "altEn": "S3100A/E — specification 06"
+          "kind": "paramTable",
+          "title": {
+            "vi": "440 V — ba pha · 75 ~ 250 kW",
+            "en": "440 V three phase series · 75 ~ 250 kW"
+          },
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Thông số",
+            "en": "Specifications"
+          },
+          "modelPattern": "S3100A/E-4T***G/P",
+          "models": [
+            "75",
+            "90",
+            "110",
+            "132",
+            "160",
+            "185",
+            "200",
+            "220",
+            "250"
+          ],
+          "groups": [
+            {
+              "vlabel": {
+                "vi": "Ngõ ra",
+                "en": "Output"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất động cơ lớn nhất",
+                    "en": "Max. applicable motor output power"
+                  },
+                  "unit": "kW",
+                  "cells": [
+                    "75",
+                    "90",
+                    "110",
+                    "132",
+                    "160",
+                    "185",
+                    "200",
+                    "220",
+                    "250"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất động cơ lớn nhất",
+                    "en": "Max. applicable motor output power"
+                  },
+                  "unit": "HP",
+                  "cells": [
+                    "100",
+                    "120",
+                    "147",
+                    "176",
+                    "214",
+                    "247",
+                    "267",
+                    "294",
+                    "334"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất biểu kiến định mức",
+                    "en": "Output rated capacity"
+                  },
+                  "unit": "kVA",
+                  "cells": [
+                    "114.3",
+                    "134",
+                    "160",
+                    "191",
+                    "229",
+                    "259",
+                    "290",
+                    "316",
+                    "358"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng ra định mức",
+                    "en": "Output rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "152 (176)",
+                    "176 (210)",
+                    "210 (253)",
+                    "253 (304)",
+                    "304 (340)",
+                    "340 (377)",
+                    "377 (426)",
+                    "426 (465)",
+                    "465 (520)"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dải tần số ra",
+                    "en": "Output frequency range"
+                  },
+                  "cells": [
+                    {
+                      "v": "0 ~ 500 Hz",
+                      "cs": 9
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khả năng quá tải",
+                    "en": "Overload capacity"
+                  },
+                  "cells": [
+                    {
+                      "v": "G: 150 % — 60 s · P: 120 % — 60 s",
+                      "cs": 9
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Điện áp ra lớn nhất",
+                    "en": "Max output voltage"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Bằng điện áp vào",
+                      "en": "Same as input voltage",
+                      "cs": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Ngõ vào",
+                "en": "Input"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Số pha, điện áp, tần số",
+                    "en": "Phase, voltage, frequency"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Ba pha 380 ~ 460 V · 50/60 Hz",
+                      "en": "Three phase 380 ~ 460 V · 50/60 Hz",
+                      "cs": 9
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dao động điện áp / tần số",
+                    "en": "Voltage & frequency variations"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Điện áp ±15 %, tần số ±5 %",
+                      "en": "Voltage ±15 %, frequency ±5 %",
+                      "cs": 9
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng vào",
+                    "en": "Input current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "157",
+                    "180",
+                    "214",
+                    "256",
+                    "308",
+                    "345",
+                    "382",
+                    "430",
+                    "470"
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Phương pháp làm mát",
+                    "en": "Cooling method"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Làm mát bằng quạt",
+                      "en": "Fan cooling",
+                      "cs": 9
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/s3100/params/07.webp",
-          "w": 883,
-          "h": 1685,
-          "alt": "S3100A/E — thông số 07",
-          "altEn": "S3100A/E — specification 07"
+          "kind": "paramTable",
+          "title": {
+            "vi": "440 V — ba pha · 280 ~ 800 kW",
+            "en": "440 V three phase series · 280 ~ 800 kW"
+          },
+          "itemHeader": {
+            "vi": "Hạng mục",
+            "en": "Item"
+          },
+          "modelHeader": {
+            "vi": "Thông số",
+            "en": "Specifications"
+          },
+          "modelPattern": "S3100A/E-4T***G/P",
+          "models": [
+            "280",
+            "315",
+            "355",
+            "400",
+            "450",
+            "500",
+            "560",
+            "630",
+            "710",
+            "800"
+          ],
+          "groups": [
+            {
+              "vlabel": {
+                "vi": "Ngõ ra",
+                "en": "Output"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Công suất động cơ lớn nhất",
+                    "en": "Max. applicable motor output power"
+                  },
+                  "unit": "kW",
+                  "cells": [
+                    "280",
+                    "315",
+                    "355",
+                    "400",
+                    "450",
+                    "500",
+                    "560",
+                    "630",
+                    "710",
+                    "800"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất động cơ lớn nhất",
+                    "en": "Max. applicable motor output power"
+                  },
+                  "unit": "HP",
+                  "cells": [
+                    "374",
+                    "420",
+                    "470",
+                    "530",
+                    "600",
+                    "660",
+                    "755",
+                    "840",
+                    "1031",
+                    "1172"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Công suất biểu kiến định mức",
+                    "en": "Output rated capacity"
+                  },
+                  "unit": "kVA",
+                  "cells": [
+                    "396",
+                    "445",
+                    "500",
+                    "565",
+                    "630",
+                    "700",
+                    "785",
+                    "871",
+                    "1006",
+                    "1143"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng ra định mức",
+                    "en": "Output rated current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "520 (585)",
+                    "585 (650)",
+                    "650 (725)",
+                    "725 (820)",
+                    "820 (860)",
+                    "860",
+                    "1040",
+                    "1180",
+                    "1320",
+                    "1500"
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dải tần số ra",
+                    "en": "Output frequency range"
+                  },
+                  "cells": [
+                    {
+                      "v": "0 ~ 500 Hz",
+                      "cs": 10
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Khả năng quá tải",
+                    "en": "Overload capacity"
+                  },
+                  "cells": [
+                    {
+                      "v": "G: 150 % — 60 s · P: 120 % — 60 s",
+                      "cs": 10
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Điện áp ra lớn nhất",
+                    "en": "Max output voltage"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Bằng điện áp vào",
+                      "en": "Same as input voltage",
+                      "cs": 10
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "vlabel": {
+                "vi": "Ngõ vào",
+                "en": "Input"
+              },
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Số pha, điện áp, tần số",
+                    "en": "Phase, voltage, frequency"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Ba pha 380 ~ 460 V · 50/60 Hz",
+                      "en": "Three phase 380 ~ 460 V · 50/60 Hz",
+                      "cs": 10
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dao động điện áp / tần số",
+                    "en": "Voltage & frequency variations"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Điện áp ±15 %, tần số ±5 %",
+                      "en": "Voltage ±15 %, frequency ±5 %",
+                      "cs": 10
+                    }
+                  ]
+                },
+                {
+                  "label": {
+                    "vi": "Dòng vào",
+                    "en": "Input current"
+                  },
+                  "unit": "A",
+                  "cells": [
+                    "525",
+                    "590",
+                    "655",
+                    "730",
+                    "825",
+                    "865",
+                    "1045",
+                    "1185",
+                    "1452",
+                    "1650"
+                  ]
+                }
+              ]
+            },
+            {
+              "rows": [
+                {
+                  "label": {
+                    "vi": "Phương pháp làm mát",
+                    "en": "Cooling method"
+                  },
+                  "cells": [
+                    {
+                      "vi": "Làm mát bằng quạt",
+                      "en": "Fan cooling",
+                      "cs": 10
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/s3100/params/08.webp",
-          "w": 883,
-          "h": 1557,
-          "alt": "S3100A/E — thông số 08",
-          "altEn": "S3100A/E — specification 08"
+          "kind": "note",
+          "text": {
+            "vi": "Giá trị trong ngoặc ở hàng dòng ra định mức là thông số của loại tải nhẹ (P type).",
+            "en": "The value in brackets on the output rated current row is the light-load (P type) rating."
+          }
         },
         {
-          "src": "/img/products/series/s3100/params/09.webp",
-          "w": 848,
-          "h": 1302,
-          "alt": "S3100A/E — thông số 09",
-          "altEn": "S3100A/E — specification 09"
+          "kind": "heading",
+          "text": {
+            "vi": "Kích thước ngoài",
+            "en": "External dimensions"
+          },
+          "sub": {
+            "vi": "Đơn vị: mm",
+            "en": "Unit: mm"
+          }
         },
         {
-          "src": "/img/products/series/s3100/params/10.webp",
-          "w": 882,
-          "h": 1183,
-          "alt": "S3100A/E — thông số 10",
-          "altEn": "S3100A/E — specification 10"
-        }
-      ],
-      "accessoryImages": [
-        {
-          "src": "/img/products/series/s3100/accessories/01.webp",
-          "w": 863,
-          "h": 1030,
-          "alt": "S3100A/E — phụ kiện 01",
-          "altEn": "S3100A/E — accessory 01"
+          "kind": "dataTable",
+          "cols": [
+            {
+              "vi": "Khung",
+              "en": "Fig."
+            },
+            {
+              "vi": "Model biến tần",
+              "en": "Inverter type"
+            },
+            {
+              "vi": "W",
+              "en": "W"
+            },
+            {
+              "vi": "W1",
+              "en": "W1"
+            },
+            {
+              "vi": "W2",
+              "en": "W2"
+            },
+            {
+              "vi": "H",
+              "en": "H"
+            },
+            {
+              "vi": "H1",
+              "en": "H1"
+            },
+            {
+              "vi": "D",
+              "en": "D"
+            },
+            {
+              "vi": "M",
+              "en": "M"
+            },
+            {
+              "vi": "N",
+              "en": "N"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "Size 1",
+                  "en": "Size 1"
+                },
+                {
+                  "vi": "S3100A/E-2T0.4G · 2T0.75G · 2T1.5G · 4T0.75G/1.5P · 4T1.5G/2.2P · 4T2.2G/4.0P",
+                  "en": "S3100A/E-2T0.4G · 2T0.75G · 2T1.5G · 4T0.75G/1.5P · 4T1.5G/2.2P · 4T2.2G/4.0P"
+                },
+                {
+                  "vi": "108",
+                  "en": "108"
+                },
+                {
+                  "vi": "94",
+                  "en": "94"
+                },
+                {
+                  "vi": "94",
+                  "en": "94"
+                },
+                {
+                  "vi": "138.1",
+                  "en": "138.1"
+                },
+                {
+                  "vi": "118",
+                  "en": "118"
+                },
+                {
+                  "vi": "159.5",
+                  "en": "159.5"
+                },
+                {
+                  "vi": "5",
+                  "en": "5"
+                },
+                {
+                  "vi": "5",
+                  "en": "5"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 2",
+                  "en": "Size 2"
+                },
+                {
+                  "vi": "S3100A/E-2T2.2G · 2T4.0G · 4T4.0G/5.5P · 4T5.5G/7.5P · 4T7.5G",
+                  "en": "S3100A/E-2T2.2G · 2T4.0G · 4T4.0G/5.5P · 4T5.5G/7.5P · 4T7.5G"
+                },
+                {
+                  "vi": "130",
+                  "en": "130"
+                },
+                {
+                  "vi": "108",
+                  "en": "108"
+                },
+                {
+                  "vi": "108",
+                  "en": "108"
+                },
+                {
+                  "vi": "209",
+                  "en": "209"
+                },
+                {
+                  "vi": "198",
+                  "en": "198"
+                },
+                {
+                  "vi": "169.8",
+                  "en": "169.8"
+                },
+                {
+                  "vi": "5",
+                  "en": "5"
+                },
+                {
+                  "vi": "5",
+                  "en": "5"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 3",
+                  "en": "Size 3"
+                },
+                {
+                  "vi": "S3100A/E-4T7.5G/11P · 4T11G/15P · 4T15G",
+                  "en": "S3100A/E-4T7.5G/11P · 4T11G/15P · 4T15G"
+                },
+                {
+                  "vi": "140",
+                  "en": "140"
+                },
+                {
+                  "vi": "122",
+                  "en": "122"
+                },
+                {
+                  "vi": "122",
+                  "en": "122"
+                },
+                {
+                  "vi": "260",
+                  "en": "260"
+                },
+                {
+                  "vi": "248",
+                  "en": "248"
+                },
+                {
+                  "vi": "176.6",
+                  "en": "176.6"
+                },
+                {
+                  "vi": "6",
+                  "en": "6"
+                },
+                {
+                  "vi": "6",
+                  "en": "6"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 4",
+                  "en": "Size 4"
+                },
+                {
+                  "vi": "S3100A/E-2T5.5G · 2T7.5G · 4T15G/18.5P · 4T18.5G/22P · 4T22G",
+                  "en": "S3100A/E-2T5.5G · 2T7.5G · 4T15G/18.5P · 4T18.5G/22P · 4T22G"
+                },
+                {
+                  "vi": "180",
+                  "en": "180"
+                },
+                {
+                  "vi": "160",
+                  "en": "160"
+                },
+                {
+                  "vi": "160",
+                  "en": "160"
+                },
+                {
+                  "vi": "298",
+                  "en": "298"
+                },
+                {
+                  "vi": "284",
+                  "en": "284"
+                },
+                {
+                  "vi": "180",
+                  "en": "180"
+                },
+                {
+                  "vi": "6.5",
+                  "en": "6.5"
+                },
+                {
+                  "vi": "6.5",
+                  "en": "6.5"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 5",
+                  "en": "Size 5"
+                },
+                {
+                  "vi": "S3100A/E-2T11G · 2T15G · 2T18.5G · 4T22G/30P · 4T30G/37P · 4T37G/45P",
+                  "en": "S3100A/E-2T11G · 2T15G · 2T18.5G · 4T22G/30P · 4T30G/37P · 4T37G/45P"
+                },
+                {
+                  "vi": "260",
+                  "en": "260"
+                },
+                {
+                  "vi": "176",
+                  "en": "176"
+                },
+                {
+                  "vi": "176",
+                  "en": "176"
+                },
+                {
+                  "vi": "412",
+                  "en": "412"
+                },
+                {
+                  "vi": "397.5",
+                  "en": "397.5"
+                },
+                {
+                  "vi": "203",
+                  "en": "203"
+                },
+                {
+                  "vi": "6.5",
+                  "en": "6.5"
+                },
+                {
+                  "vi": "13",
+                  "en": "13"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 6",
+                  "en": "Size 6"
+                },
+                {
+                  "vi": "S3100A/E-2T22G · 4T45G/55P",
+                  "en": "S3100A/E-2T22G · 4T45G/55P"
+                },
+                {
+                  "vi": "305",
+                  "en": "305"
+                },
+                {
+                  "vi": "160",
+                  "en": "160"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "460",
+                  "en": "460"
+                },
+                {
+                  "vi": "442",
+                  "en": "442"
+                },
+                {
+                  "vi": "243",
+                  "en": "243"
+                },
+                {
+                  "vi": "7",
+                  "en": "7"
+                },
+                {
+                  "vi": "14",
+                  "en": "14"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 7",
+                  "en": "Size 7"
+                },
+                {
+                  "vi": "S3100A/E-2T30G · 2T37G · 2T45G · 2T55G · 4T55G/75P · 4T75G/90P · 4T90G/110P · 4T110G",
+                  "en": "S3100A/E-2T30G · 2T37G · 2T45G · 2T55G · 4T55G/75P · 4T75G/90P · 4T90G/110P · 4T110G"
+                },
+                {
+                  "vi": "320",
+                  "en": "320"
+                },
+                {
+                  "vi": "160",
+                  "en": "160"
+                },
+                {
+                  "vi": "230",
+                  "en": "230"
+                },
+                {
+                  "vi": "580",
+                  "en": "580"
+                },
+                {
+                  "vi": "563",
+                  "en": "563"
+                },
+                {
+                  "vi": "280",
+                  "en": "280"
+                },
+                {
+                  "vi": "9",
+                  "en": "9"
+                },
+                {
+                  "vi": "17",
+                  "en": "17"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 8",
+                  "en": "Size 8"
+                },
+                {
+                  "vi": "S3100A/E-4T110G/132P · 4T132G/160P · 4T160G",
+                  "en": "S3100A/E-4T110G/132P · 4T132G/160P · 4T160G"
+                },
+                {
+                  "vi": "380",
+                  "en": "380"
+                },
+                {
+                  "vi": "160",
+                  "en": "160"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "724.2",
+                  "en": "724.2"
+                },
+                {
+                  "vi": "694",
+                  "en": "694"
+                },
+                {
+                  "vi": "330.5",
+                  "en": "330.5"
+                },
+                {
+                  "vi": "12",
+                  "en": "12"
+                },
+                {
+                  "vi": "22",
+                  "en": "22"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 9",
+                  "en": "Size 9"
+                },
+                {
+                  "vi": "S3100A/E-4T185G/200P · 4T200G/220P",
+                  "en": "S3100A/E-4T185G/200P · 4T200G/220P"
+                },
+                {
+                  "vi": "450",
+                  "en": "450"
+                },
+                {
+                  "vi": "160",
+                  "en": "160"
+                },
+                {
+                  "vi": "160",
+                  "en": "160"
+                },
+                {
+                  "vi": "780",
+                  "en": "780"
+                },
+                {
+                  "vi": "746",
+                  "en": "746"
+                },
+                {
+                  "vi": "385",
+                  "en": "385"
+                },
+                {
+                  "vi": "12",
+                  "en": "12"
+                },
+                {
+                  "vi": "25",
+                  "en": "25"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 10",
+                  "en": "Size 10"
+                },
+                {
+                  "vi": "S3100A/E-4T220G/250P · 4T250G/280P · 4T280G/315P · 4T315G",
+                  "en": "S3100A/E-4T220G/250P · 4T250G/280P · 4T280G/315P · 4T315G"
+                },
+                {
+                  "vi": "500",
+                  "en": "500"
+                },
+                {
+                  "vi": "190",
+                  "en": "190"
+                },
+                {
+                  "vi": "190",
+                  "en": "190"
+                },
+                {
+                  "vi": "882",
+                  "en": "882"
+                },
+                {
+                  "vi": "849",
+                  "en": "849"
+                },
+                {
+                  "vi": "414",
+                  "en": "414"
+                },
+                {
+                  "vi": "13",
+                  "en": "13"
+                },
+                {
+                  "vi": "25",
+                  "en": "25"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 11",
+                  "en": "Size 11"
+                },
+                {
+                  "vi": "S3100A/E-4T315G/355P · 4T355G/400P · 4T400G/450P",
+                  "en": "S3100A/E-4T315G/355P · 4T355G/400P · 4T400G/450P"
+                },
+                {
+                  "vi": "626",
+                  "en": "626"
+                },
+                {
+                  "vi": "250",
+                  "en": "250"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "982",
+                  "en": "982"
+                },
+                {
+                  "vi": "949",
+                  "en": "949"
+                },
+                {
+                  "vi": "408",
+                  "en": "408"
+                },
+                {
+                  "vi": "13",
+                  "en": "13"
+                },
+                {
+                  "vi": "25",
+                  "en": "25"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 12",
+                  "en": "Size 12"
+                },
+                {
+                  "vi": "S3100A/E-4T450G/500P · 4T500G",
+                  "en": "S3100A/E-4T450G/500P · 4T500G"
+                },
+                {
+                  "vi": "737",
+                  "en": "737"
+                },
+                {
+                  "vi": "250",
+                  "en": "250"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "982",
+                  "en": "982"
+                },
+                {
+                  "vi": "947",
+                  "en": "947"
+                },
+                {
+                  "vi": "413",
+                  "en": "413"
+                },
+                {
+                  "vi": "13",
+                  "en": "13"
+                },
+                {
+                  "vi": "25",
+                  "en": "25"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 13",
+                  "en": "Size 13"
+                },
+                {
+                  "vi": "S3100A/E-4T560G · 4T630G",
+                  "en": "S3100A/E-4T560G · 4T630G"
+                },
+                {
+                  "vi": "1000",
+                  "en": "1000"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "2155",
+                  "en": "2155"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "800",
+                  "en": "800"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "Size 14",
+                  "en": "Size 14"
+                },
+                {
+                  "vi": "S3100A/E-4T710G · 4T800G",
+                  "en": "S3100A/E-4T710G · 4T800G"
+                },
+                {
+                  "vi": "1220",
+                  "en": "1220"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "2179",
+                  "en": "2179"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "760",
+                  "en": "760"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                },
+                {
+                  "vi": "—",
+                  "en": "—"
+                }
+              ]
+            }
+          ]
         },
         {
-          "src": "/img/products/series/s3100/accessories/02.webp",
-          "w": 862,
-          "h": 1172,
-          "alt": "S3100A/E — phụ kiện 02",
-          "altEn": "S3100A/E — accessory 02"
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size1.webp",
+          "w": 1003,
+          "h": 1082,
+          "alt": {
+            "vi": "S3100A/E Size 1 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 1 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 1 · S3100A/E-2T0.4G · 2T0.75G · 2T1.5G · 4T0.75G/1.5P · 4T1.5G/2.2P · 4T2.2G/4.0P",
+            "en": "Size 1 · S3100A/E-2T0.4G · 2T0.75G · 2T1.5G · 4T0.75G/1.5P · 4T1.5G/2.2P · 4T2.2G/4.0P"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size2.webp",
+          "w": 1041,
+          "h": 1008,
+          "alt": {
+            "vi": "S3100A/E Size 2 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 2 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 2 · S3100A/E-2T2.2G · 2T4.0G · 4T4.0G/5.5P · 4T5.5G/7.5P · 4T7.5G",
+            "en": "Size 2 · S3100A/E-2T2.2G · 2T4.0G · 4T4.0G/5.5P · 4T5.5G/7.5P · 4T7.5G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size3.webp",
+          "w": 1400,
+          "h": 807,
+          "alt": {
+            "vi": "S3100A/E Size 3 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 3 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 3 · S3100A/E-4T7.5G/11P · 4T11G/15P · 4T15G",
+            "en": "Size 3 · S3100A/E-4T7.5G/11P · 4T11G/15P · 4T15G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size4.webp",
+          "w": 1400,
+          "h": 766,
+          "alt": {
+            "vi": "S3100A/E Size 4 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 4 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 4 · S3100A/E-2T5.5G · 2T7.5G · 4T15G/18.5P · 4T18.5G/22P · 4T22G",
+            "en": "Size 4 · S3100A/E-2T5.5G · 2T7.5G · 4T15G/18.5P · 4T18.5G/22P · 4T22G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size5.webp",
+          "w": 1400,
+          "h": 1001,
+          "alt": {
+            "vi": "S3100A/E Size 5 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 5 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 5 · S3100A/E-2T11G · 2T15G · 2T18.5G · 4T22G/30P · 4T30G/37P · 4T37G/45P",
+            "en": "Size 5 · S3100A/E-2T11G · 2T15G · 2T18.5G · 4T22G/30P · 4T30G/37P · 4T37G/45P"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size6.webp",
+          "w": 1361,
+          "h": 1031,
+          "alt": {
+            "vi": "S3100A/E Size 6 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 6 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 6 · S3100A/E-2T22G · 4T45G/55P",
+            "en": "Size 6 · S3100A/E-2T22G · 4T45G/55P"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size7.webp",
+          "w": 1331,
+          "h": 1032,
+          "alt": {
+            "vi": "S3100A/E Size 7 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 7 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 7 · S3100A/E-2T30G · 2T37G · 2T45G · 2T55G · 4T55G/75P · 4T75G/90P · 4T90G/110P · 4T110G",
+            "en": "Size 7 · S3100A/E-2T30G · 2T37G · 2T45G · 2T55G · 4T55G/75P · 4T75G/90P · 4T90G/110P · 4T110G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size8.webp",
+          "w": 1400,
+          "h": 1024,
+          "alt": {
+            "vi": "S3100A/E Size 8 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 8 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 8 · S3100A/E-4T110G/132P · 4T132G/160P · 4T160G",
+            "en": "Size 8 · S3100A/E-4T110G/132P · 4T132G/160P · 4T160G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size9.webp",
+          "w": 1264,
+          "h": 1024,
+          "alt": {
+            "vi": "S3100A/E Size 9 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 9 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 9 · S3100A/E-4T185G/200P · 4T200G/220P",
+            "en": "Size 9 · S3100A/E-4T185G/200P · 4T200G/220P"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size10.webp",
+          "w": 1336,
+          "h": 1034,
+          "alt": {
+            "vi": "S3100A/E Size 10 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 10 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 10 · S3100A/E-4T220G/250P · 4T250G/280P · 4T280G/315P · 4T315G",
+            "en": "Size 10 · S3100A/E-4T220G/250P · 4T250G/280P · 4T280G/315P · 4T315G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-393-frame.webp",
+          "w": 1377,
+          "h": 1032,
+          "alt": {
+            "vi": "S3100A/E — bản vẽ kích thước khung rộng 393 mm, cao 882 mm",
+            "en": "S3100A/E — dimension drawing of the 393 mm wide, 882 mm high frame"
+          },
+          "caption": {
+            "vi": "Khung 393 × 882 mm",
+            "en": "393 × 882 mm frame"
+          },
+          "note": {
+            "vi": "Bản vẽ do nhà sản xuất cung cấp cho một biến thể khung cùng chiều cao với Size 10 nhưng rộng 393 mm; bảng kích thước ở trên không liệt kê khung này. Vui lòng xác nhận với chúng tôi trước khi thiết kế tủ.",
+            "en": "A manufacturer drawing for a frame variant the same height as Size 10 but 393 mm wide; the dimension table above does not list this frame. Please confirm with us before designing the enclosure."
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size11.webp",
+          "w": 1400,
+          "h": 1008,
+          "alt": {
+            "vi": "S3100A/E Size 11 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 11 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 11 · S3100A/E-4T315G/355P · 4T355G/400P · 4T400G/450P",
+            "en": "Size 11 · S3100A/E-4T315G/355P · 4T355G/400P · 4T400G/450P"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size12.webp",
+          "w": 1400,
+          "h": 997,
+          "alt": {
+            "vi": "S3100A/E Size 12 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 12 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 12 · S3100A/E-4T450G/500P · 4T500G",
+            "en": "Size 12 · S3100A/E-4T450G/500P · 4T500G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size13.webp",
+          "w": 1199,
+          "h": 1020,
+          "alt": {
+            "vi": "S3100A/E Size 13 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 13 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 13 · S3100A/E-4T560G · 4T630G",
+            "en": "Size 13 · S3100A/E-4T560G · 4T630G"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/dimension-size14.webp",
+          "w": 1241,
+          "h": 1008,
+          "alt": {
+            "vi": "S3100A/E Size 14 — bản vẽ kích thước mặt trước, mặt bên và mặt đáy",
+            "en": "S3100A/E Size 14 — front, side and bottom dimension drawing"
+          },
+          "caption": {
+            "vi": "Size 14 · S3100A/E-4T710G · 4T800G",
+            "en": "Size 14 · S3100A/E-4T710G · 4T800G"
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Kích thước bàn phím",
+            "en": "Keypad dimensions"
+          },
+          "sub": {
+            "vi": "Đơn vị: mm",
+            "en": "Unit: mm"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/keypad-below-18k5.webp",
+          "w": 1400,
+          "h": 406,
+          "alt": {
+            "vi": "Bàn phím HCA-OP-A2 — mặt trước, mặt cạnh, mặt sau và kích thước lỗ khoét",
+            "en": "HCA-OP-A2 keypad — front, side, rear views and panel cut-out size"
+          },
+          "caption": {
+            "vi": "Bàn phím — từ 18.5 kW trở xuống",
+            "en": "Keypad — 18.5 kW and below"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/keypad-above-22k.webp",
+          "w": 1400,
+          "h": 815,
+          "alt": {
+            "vi": "Bàn phím HCA-OP-B2 — mặt trước, mặt cạnh và mặt sau",
+            "en": "HCA-OP-B2 keypad — front, side and rear views"
+          },
+          "caption": {
+            "vi": "Bàn phím — từ 22 kW trở lên",
+            "en": "Keypad — 22 kW and above"
+          },
+          "note": {
+            "vi": "Kích thước lỗ khoét trên tủ: 75.2 ±0.25 × 122 ±0.25 mm.",
+            "en": "Panel cut-out size: 75.2 ±0.25 × 122 ±0.25 mm."
+          }
+        },
+        {
+          "kind": "note",
+          "text": {
+            "vi": "Bàn phím kéo dài được bằng cáp thông dụng 8 lõi.",
+            "en": "The keypad can be extended by a common 8-core cable."
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Kích thước đế gá bàn phím",
+            "en": "Epitaxial receptacle dimensions"
+          },
+          "sub": {
+            "vi": "Đơn vị: mm",
+            "en": "Unit: mm"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/keypad-box-below-18k5.webp",
+          "w": 1400,
+          "h": 380,
+          "alt": {
+            "vi": "Đế gá bàn phím cho biến tần tới 18.5 kW — mặt trước, mặt sau và kích thước lỗ khoét",
+            "en": "Keypad mounting box for drives up to 18.5 kW — front, rear and cut-out size"
+          },
+          "caption": {
+            "vi": "Đế gá — từ 18.5 kW trở xuống",
+            "en": "Mounting box — 18.5 kW and below"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/keypad-box-above-22k.webp",
+          "w": 1400,
+          "h": 511,
+          "alt": {
+            "vi": "Đế gá bàn phím cho biến tần từ 22 kW — mặt trước, mặt sau và kích thước lỗ khoét",
+            "en": "Keypad mounting box for drives from 22 kW — front, rear and cut-out size"
+          },
+          "caption": {
+            "vi": "Đế gá — từ 22 kW trở lên",
+            "en": "Mounting box — 22 kW and above"
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Sơ đồ đấu dây cơ bản",
+            "en": "Basic wiring diagram"
+          }
+        },
+        {
+          "kind": "note",
+          "text": {
+            "vi": "Sơ đồ dưới đây là sơ đồ đấu dây chuẩn của biến tần S3100A/E. Nếu chỉ dùng bàn phím số (HCA-OP-A2 / HCA-OP-B2) thì chỉ cần đấu dây mạch động lực.",
+            "en": "The following diagram is the standard wiring diagram of the S3100A/E series AC motor drive. If only the digital control panel (HCA-OP-A2 / HCA-OP-B2) is used, only the main circuit terminal wiring applies."
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/params/wiring-diagram.webp",
+          "w": 1400,
+          "h": 1517,
+          "alt": {
+            "vi": "S3100A/E — sơ đồ đấu dây chuẩn: mạch động lực R/S/T và U/V/W, cuộn kháng DC, bộ hãm, terminal đa chức năng MI1–MI5, ngõ ra MO1/DFM, relay RA-RB-RC và cổng RS485",
+            "en": "S3100A/E — standard wiring diagram: R/S/T and U/V/W main circuit, DC reactor, braking unit, MI1–MI5 multi-function inputs, MO1/DFM outputs, RA-RB-RC relay and the RS485 port"
+          },
+          "caption": {
+            "vi": "Sơ đồ đấu dây chuẩn",
+            "en": "Standard wiring diagram"
+          }
+        },
+        {
+          "kind": "bullets",
+          "items": [
+            {
+              "vi": "Terminal ngoài có hai ngõ vào AVI (AVI1, AVI2); một trong hai dùng chung với ACI và chuyển đổi qua lại được.",
+              "en": "The external terminal has two AVI inputs (AVI1, AVI2), one of which is shared with ACI and can be switched to each other."
+            },
+            {
+              "vi": "Lệnh tần số analog dòng ACI: chọn 4 ~ 20 mA hoặc 0 ~ +10 V làm tín hiệu vào bằng jumper J3.",
+              "en": "Analog current frequency command ACI: it can switch 4 ~ 20 mA or 0 ~ +10 V as input signal according to J3."
+            },
+            {
+              "vi": "Terminal ngoài có 5 ngõ vào đa chức năng (MI1 ~ MI5), chọn được cấu hình vào.",
+              "en": "There are 5 multi-function input terminals (MI1 ~ MI5) in the external terminal, and the configuration input can be selected."
+            },
+            {
+              "vi": "Terminal ngoài có 2 ngõ ra cực thu hở (MO1, DFM).",
+              "en": "The external terminals have 2 open collector outputs (MO1, DFM)."
+            },
+            {
+              "vi": "Terminal ngoài có 1 ngõ ra relay (RA-RB-RC).",
+              "en": "The external terminal has one relay output (RA-RB-RC)."
+            },
+            {
+              "vi": "Từ 22 kW trở lên lắp được card mở rộng I/O HCA-EIO-AO/MC1 — cả máy có 2 tín hiệu analog (chọn áp hoặc dòng) và 2 ngõ ra relay.",
+              "en": "The power of 22 kW and above can be equipped with the I/O expansion card HCA-EIO-AO/MC1; the whole machine then realizes 2 analog (voltage/current optional) signals and 2 relay outputs."
+            },
+            {
+              "vi": "Cuộn kháng DC, bộ hãm và điện trở hãm được chọn theo yêu cầu. Khi dùng cuộn kháng DC, tháo lá đồng nối tắt giữa P1 và (+) trước khi đấu dây.",
+              "en": "The DC reactor, braking unit and braking resistor are selected according to the requirements. When using the DC reactor, remove the short-circuit copper sheet between P1 and (+) before connecting."
+            }
+          ],
+          "title": {
+            "vi": "Ghi chú",
+            "en": "Remarks"
+          }
         }
       ],
       "documentation": [
@@ -6862,6 +9542,259 @@
           "url": "/downloads/series/s3100/s3100a-ce.pdf",
           "format": "pdf",
           "size_mb": 0.08
+        }
+      ],
+      "accessorySheet": [
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Card mở rộng HCA-A-ETIO-AOMC1",
+            "en": "HCA-A-ETIO-AOMC1 optional card"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/accessories/hca-a-board.webp",
+          "w": 1400,
+          "h": 594,
+          "alt": {
+            "vi": "Card mở rộng HCA-A-ETIO-AOMC1 — mạch in với hàng terminal AFM1, AFM2, ACM, MA, MB, MC, jumper J2 và relay",
+            "en": "HCA-A-ETIO-AOMC1 optional card — board with the AFM1, AFM2, ACM, MA, MB, MC terminal rows, jumper J2 and relay"
+          },
+          "caption": {
+            "vi": "Card HCA-A",
+            "en": "HCA-A card"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/accessories/hca-a-installation.webp",
+          "w": 1400,
+          "h": 504,
+          "alt": {
+            "vi": "Sơ đồ lắp card HCA-A lên board điều khiển: vít nylon M2.5, chân cắm ETIO, miếng cao su dán lên relay của C-BOARD",
+            "en": "HCA-A installation diagram: M2.5 nylon screws, ETIO pin header, rubber pad stuck on the relay of the C-BOARD"
+          },
+          "caption": {
+            "vi": "Sơ đồ lắp đặt",
+            "en": "Installation diagram"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "Mô tả chức năng terminal",
+            "en": "Description of terminal function"
+          },
+          "cols": [
+            {
+              "vi": "Terminal",
+              "en": "Terminal NO."
+            },
+            {
+              "vi": "Tên terminal",
+              "en": "Terminal name"
+            },
+            {
+              "vi": "Chức năng",
+              "en": "Function"
+            },
+            {
+              "vi": "Tham số",
+              "en": "Parameter"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "TB5",
+                  "en": "TB5"
+                },
+                {
+                  "vi": "AFM1-ACM — ngõ ra analog 1",
+                  "en": "AFM1-ACM analog output 1"
+                },
+                {
+                  "vi": "1. Dòng ra: 0 ~ 20 mA. 2. AFM1 và AFM trên board điều khiển dùng chung một nguồn tín hiệu.",
+                  "en": "1. Output current specification: 0 ~ 20 mA. 2. AFM1 and AFM on the control board are the same signal source."
+                },
+                {
+                  "vi": "06-07",
+                  "en": "06-07"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "TB5",
+                  "en": "TB5"
+                },
+                {
+                  "vi": "AFM2-ACM — ngõ ra analog 2 (chọn áp hoặc dòng bằng jumper J2)",
+                  "en": "AFM2-ACM analog output 2 (select voltage or current output by jumper J2)"
+                },
+                {
+                  "vi": "1. Điện áp ra: DC 0 ~ +10 V. 2. Dòng ra: 0 ~ 20 mA.",
+                  "en": "1. Output voltage specification: DC 0 ~ +10 V. 2. Output current specification: 0 ~ 20 mA."
+                },
+                {
+                  "vi": "06-08",
+                  "en": "06-08"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "TB6",
+                  "en": "TB6"
+                },
+                {
+                  "vi": "MA-MB-MC — ngõ ra tiếp điểm relay",
+                  "en": "MA-MB-MC relay contact output"
+                },
+                {
+                  "vi": "1. MA-MC thường mở, MB-MC thường đóng. 2. Tiếp điểm: AC 125 V 0.5 A, DC 30 V 2 A.",
+                  "en": "1. Normally open MA-MC, normally closed MB-MC. 2. Contact: AC 125 V 0.5 A, DC 30 V 2 A."
+                },
+                {
+                  "vi": "06-02",
+                  "en": "06-02"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "text": {
+            "vi": "Ngõ ra AFM 4 ~ 20 mA: 06-10 = 06-12 = 20.0 (%), 06-11 = 06-13 = 0.80.",
+            "en": "AFM output 4 ~ 20 mA: 06-10 = 06-12 = 20.0 (%), 06-11 = 06-13 = 0.80."
+          }
+        },
+        {
+          "kind": "heading",
+          "text": {
+            "vi": "Card mở rộng HCA-B-ETIO-AOMC1",
+            "en": "HCA-B-ETIO-AOMC1 optional card"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/accessories/hca-b-board.webp",
+          "w": 1400,
+          "h": 843,
+          "alt": {
+            "vi": "Card mở rộng HCA-B-ETIO-AOMC1 — mạch in với đầu cắm CN1, jumper J1/J2 và hai hàng terminal TB1 (AFM1, AFM2, ACM) và TB2 (MA, MB, MC)",
+            "en": "HCA-B-ETIO-AOMC1 optional card — board with the CN1 header, J1/J2 jumpers and the TB1 (AFM1, AFM2, ACM) and TB2 (MA, MB, MC) terminal rows"
+          },
+          "caption": {
+            "vi": "Card HCA-B",
+            "en": "HCA-B card"
+          }
+        },
+        {
+          "kind": "image",
+          "src": "/img/products/series/s3100/accessories/hca-b-installation.webp",
+          "w": 1400,
+          "h": 671,
+          "alt": {
+            "vi": "Sơ đồ lắp card HCA-B: card mở rộng, giấy cách điện và board điều khiển xếp chồng",
+            "en": "HCA-B installation diagram: optional card, insulating paper and control panel stacked together"
+          },
+          "caption": {
+            "vi": "Sơ đồ lắp đặt",
+            "en": "Installation diagram"
+          }
+        },
+        {
+          "kind": "dataTable",
+          "title": {
+            "vi": "Mô tả chức năng terminal",
+            "en": "Description of terminal function"
+          },
+          "cols": [
+            {
+              "vi": "Terminal",
+              "en": "Terminal NO."
+            },
+            {
+              "vi": "Tên terminal",
+              "en": "Terminal name"
+            },
+            {
+              "vi": "Chức năng",
+              "en": "Function"
+            },
+            {
+              "vi": "Tham số",
+              "en": "Parameter"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "vi": "TB1",
+                  "en": "TB1"
+                },
+                {
+                  "vi": "AFM1-ACM — ngõ ra analog 1 (chọn áp hoặc dòng bằng jumper J1)",
+                  "en": "AFM1-ACM analog output 1 (select voltage or current output by jumper J1)"
+                },
+                {
+                  "vi": "1. Điện áp ra: DC 0 ~ +10 V. 2. Dòng ra: 0 ~ 20 mA. 3. AFM1 và AFM trên board điều khiển dùng chung một nguồn tín hiệu.",
+                  "en": "1. Output voltage specification: DC 0 ~ +10 V. 2. Output current specification: 0 ~ 20 mA. 3. AFM1 and AFM on the control board are the same signal source."
+                },
+                {
+                  "vi": "06-07",
+                  "en": "06-07"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "TB1",
+                  "en": "TB1"
+                },
+                {
+                  "vi": "AFM2-ACM — ngõ ra analog 2 (chọn áp hoặc dòng bằng jumper J2)",
+                  "en": "AFM2-ACM analog output 2 (select voltage or current output by jumper J2)"
+                },
+                {
+                  "vi": "1. Điện áp ra: DC 0 ~ +10 V. 2. Dòng ra: 0 ~ 20 mA.",
+                  "en": "1. Output voltage specification: DC 0 ~ +10 V. 2. Output current specification: 0 ~ 20 mA."
+                },
+                {
+                  "vi": "06-08",
+                  "en": "06-08"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "vi": "TB2",
+                  "en": "TB2"
+                },
+                {
+                  "vi": "MA-MB-MC — ngõ ra tiếp điểm relay",
+                  "en": "MA-MB-MC relay contact output"
+                },
+                {
+                  "vi": "1. MA-MC thường mở, MB-MC thường đóng. 2. Tiếp điểm: AC 250 V 3 A, DC 30 V 3 A.",
+                  "en": "1. Normally open MA-MC, normally closed MB-MC. 2. Contact: AC 250 V 3 A, DC 30 V 3 A."
+                },
+                {
+                  "vi": "06-02",
+                  "en": "06-02"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

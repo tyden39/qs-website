@@ -159,7 +159,10 @@ export function ContactForm() {
         </div>
 
         <FormField label={t("form.businessField")} error={errors.businessFieldOther?.message}>
-          <select {...register("businessGroup")} className={inputCls(false)}>
+          <select
+            {...register("businessGroup")}
+            className={`qs-select cursor-pointer [--qs-select-inset:1rem] ${inputCls(false)}`}
+          >
             <option value="">{t("form.businessFieldPlaceholder")}</option>
             {CRM_BUSINESS_GROUP_CODES.map((code) => (
               <option key={code} value={code}>

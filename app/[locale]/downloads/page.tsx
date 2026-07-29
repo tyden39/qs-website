@@ -278,20 +278,20 @@ export default async function Downloads({ params }: Props) {
       </section>
 
       {/* HELPERS */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white border-t border-line">
+      <section className="qs-closing-cta py-10 sm:py-12 lg:py-14 bg-paper border-t border-line">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-2 gap-6">
-          <div className="border border-line p-8 relative
+          <div className="bg-white border border-line p-6 sm:p-7 relative
                           before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
             <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{t("plc.tag")}</div>
             <h3 className="font-display font-semibold text-subhead tracking-[-.01em] mt-2.5 mb-3">{t("plc.heading")}</h3>
-            <p className="text-meta text-[#4a4842] leading-[1.7] m-0 mb-6">{t("plc.body")}</p>
+            <p className="text-meta text-[#4a4842] leading-[1.7] m-0 mb-5">{t("plc.body")}</p>
             <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/contact">{t("plc.register")}</Link>
           </div>
-          <div className="border border-line p-8 relative
+          <div className="bg-white border border-line p-6 sm:p-7 relative
                           before:content-[''] before:absolute before:-top-px before:left-0 before:w-16 before:h-0.5 before:bg-gold-grad">
             <div className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{t("macro.tag")}</div>
             <h3 className="font-display font-semibold text-subhead tracking-[-.01em] mt-2.5 mb-3">{t("macro.heading")}</h3>
-            <p className="text-meta text-[#4a4842] leading-[1.7] m-0 mb-6">{t("macro.body")}</p>
+            <p className="text-meta text-[#4a4842] leading-[1.7] m-0 mb-5">{t("macro.body")}</p>
             <div className="flex gap-3">
               <Link className="qs-btn qs-btn-gold qs-btn-sm" href="/contact">{t("macro.request")}</Link>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/contact">{t("macro.contact")}</Link>

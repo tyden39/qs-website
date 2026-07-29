@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { Inter, Inter_Tight } from "next/font/google";
+import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchPanel, { type FeaturedProduct } from "@/components/SearchPanel";
@@ -11,18 +11,23 @@ import FloatingContact from "@/components/floating-contact";
 import { LightboxProvider } from "@/components/media/image-lightbox";
 import { getAllProducts } from "@/lib/data/products";
 import { routing } from "@/lib/i18n/routing";
+import { pickClientMessages } from "@/lib/i18n/client-messages";
 import type { Locale } from "@/lib/i18n/config";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildOrganization, buildWebSite, JsonLd } from "@/lib/seo/jsonld";
 
-// The loaded families expose their own variables (`--font-inter*`); globals.css
-// maps the role tokens (--font-sans / --font-display / --font-mono) onto them.
-// Keeping the two names apart is deliberate: a role token whose value referenced
-// a variable of the same name would be a self-referencing custom property, which
-// the cascade discards. The label/spec styling that used to be monospaced now
-// resolves to Inter as well, so no monospace family is loaded at all.
+// One family for the whole site. The loaded family exposes its own variable
+// (`--font-inter`); globals.css maps every role token (--font-sans /
+// --font-display / --font-mono) onto it. Keeping the names apart is deliberate:
+// a role token whose value referenced a variable of the same name would be a
+// self-referencing custom property, which the cascade discards.
+//
+// Display used to be Inter Tight. It was dropped because next/font preloads
+// every declared family at the highest priority, so a second face put ~55 KB
+// (its latin + vietnamese subsets) on the critical path competing with the LCP
+// image on every page — for headings alone. The headings below compensate for
+// Inter's wider face with tighter tracking.
 const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-inter" });
-const display = Inter_Tight({ subsets: ["latin", "vietnamese"], variable: "--font-inter-tight" });
 
 // This layout owns <html>/<body> so `lang` reflects the active locale (the
 // root app/layout.tsx is a pass-through). The `/` path is redirected to `/vi/`
@@ -93,7 +98,7 @@ export default async function LocaleLayout({
   }));
 
   return (
-    <html lang={locale} className={`${sans.variable} ${display.variable}`}>
+    <html lang={locale} className={sans.variable}>
       <head>
         <noscript>
           {/* Keep scroll-reveal content visible when JS is disabled. */}
@@ -101,7 +106,10 @@ export default async function LocaleLayout({
         </noscript>
       </head>
       <body>
-        <NextIntlClientProvider>
+        {/* Explicit `messages`: left to inherit, the provider serialises the whole
+            catalogue into every page's flight payload, including namespaces no
+            client component can reach. */}
+        <NextIntlClientProvider messages={pickClientMessages(await getMessages())}>
           <JsonLd data={buildOrganization()} />
           <JsonLd data={buildWebSite()} />
           <LightboxProvider labels={lightboxLabels}>

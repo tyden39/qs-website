@@ -24,11 +24,14 @@
   --color-steelblue-2: #6f93ad;
   --color-signal: #3f9a5a;
 
-  /* Role tokens, mapped onto the families the locale layout loads
-     (`--font-inter`, `--font-inter-tight`). The `mono` role is kept as a name
-     only — the labels, eyebrows and spec keys that carry it now render in the
-     default sans, so no monospace family is loaded or referenced anywhere. */
-  --font-display: var(--font-inter-tight), "Inter Tight", "Inter", sans-serif;
+  /* Role tokens, all mapped onto the one family the locale layout loads
+     (`--font-inter`). The `mono` role is kept as a name only — the labels,
+     eyebrows and spec keys that carry it render in the default sans, so no
+     monospace family is loaded or referenced anywhere. `display` is likewise a
+     role, not a second face: Inter Tight was dropped so only one family sits on
+     the critical path (see the note in the locale layout), and the headings
+     below tighten their tracking to stand in for its narrower letterforms. */
+  --font-display: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
 
@@ -125,14 +128,17 @@ body {
                        bg-white/70 border border-line rounded-full px-3 py-1.5 inline-flex items-center; }
 
   /* headings */
+  /* Tracking runs ~.01em tighter than the type would otherwise ask for: it is
+     standing in for Inter Tight, whose narrower letterforms these headings were
+     drawn against before the display face was dropped. */
   .qs-h1 { font-family: var(--font-display);
-           @apply font-bold tracking-[-.025em] leading-[1.02] text-balance text-ink m-0;
+           @apply font-bold tracking-[-.035em] leading-[1.02] text-balance text-ink m-0;
            font-size: clamp(36px, 5vw, 64px); }
   .qs-h2 { font-family: var(--font-display);
-           @apply font-bold tracking-[-.02em] leading-[1.1] m-0;
+           @apply font-bold tracking-[-.03em] leading-[1.1] m-0;
            font-size: clamp(26px, 2.4vw, 36px); }
   .qs-h3 { font-family: var(--font-display);
-           @apply font-semibold text-title tracking-[-.01em] m-0; }
+           @apply font-semibold text-title tracking-[-.02em] m-0; }
   /* Hero / intro paragraph — one step above the 17px lede step so every page's
      opening description reads at the same 20px across the site. */
   .qs-lede { @apply text-title leading-[1.55] text-[#3a3a3a] max-w-[60ch]; }

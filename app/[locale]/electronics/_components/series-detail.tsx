@@ -422,7 +422,7 @@ export async function SeriesDetail({
                   height={series.image.h}
                   priority
                   sizes="(max-width: 768px) 90vw, 460px"
-                  className="w-auto max-h-[340px] max-w-full object-contain"
+                  className="w-full h-auto max-h-[340px] object-contain"
                 />
               ) : (
                 <span className="relative font-mono text-label-xs tracking-[.16em] uppercase text-[#837b6c]">

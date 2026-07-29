@@ -46,7 +46,7 @@ export async function SeriesCard({
               width={series.image.w}
               height={series.image.h}
               sizes="(max-width: 768px) 90vw, 240px"
-              className="w-auto max-h-[200px] max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+              className="w-full h-auto max-h-[200px] object-contain transition-transform duration-300 group-hover:scale-[1.03]"
             />
           </Link>
         ) : (

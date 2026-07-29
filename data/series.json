@@ -47,8 +47,8 @@
     ],
     "image": {
       "src": "/img/products/series/sdv3.webp",
-      "w": 300,
-      "h": 225,
+      "w": 1363,
+      "h": 567,
       "alt": "QS servo drive các cỡ công suất",
       "altEn": "QS servo drive units across the power range"
     },
@@ -4143,8 +4143,8 @@
     ],
     "image": {
       "src": "/img/products/series/s600.webp",
-      "w": 300,
-      "h": 225,
+      "w": 872,
+      "h": 513,
       "alt": "Biến tần Savch S600",
       "altEn": "Savch S600 inverter"
     },
@@ -6536,8 +6536,8 @@
     ],
     "image": {
       "src": "/img/products/series/s3100.webp",
-      "w": 300,
-      "h": 225,
+      "w": 1115,
+      "h": 613,
       "alt": "Biến tần Savch S3100A và S3100E",
       "altEn": "Savch S3100A and S3100E inverters"
     },

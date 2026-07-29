@@ -87,7 +87,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     (txt, i) => ({ ...appAssets[i], ...txt }),
   );
   const homeProducts = (
-    t.raw("products.items") as { lbl: string; name: string; desc: string; meta: string[] }[]
+    t.raw("products.items") as { name: string; desc: string; meta: string[] }[]
   ).map((txt, i) => ({ ...productAssets[i], ...txt }));
   const videoTitles = t.raw("showreel.videos") as string[];
   const videos: VideoItem[] = videoIds.map((youtubeId, i) => ({ youtubeId, title: videoTitles[i] }));
@@ -122,7 +122,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative qs-section-head">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("products.eyebrow")}</span>
+                <span className="font-mono text-[15px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("products.eyebrow")}</span>
                 <h2 className="qs-h2 mt-3">{t("products.heading")}</h2>
               </div>
             </div>
@@ -147,7 +147,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                                  hover:ring-1 hover:ring-gold-2/70
                                  before:content-[''] before:absolute before:top-0 before:left-5 sm:before:left-8 before:w-8 before:h-0.5 before:bg-gold
                                  before:transition-all before:duration-300 group-hover:before:w-20 group-hover:before:bg-gold-2">
-                  <div className="font-mono text-label text-gold-1 tracking-[.16em]">{item.lbl}</div>
                   <h3 className="font-display font-semibold text-subhead tracking-[-.01em] m-0 transition-colors group-hover:text-gold-1">{item.name}</h3>
                   <p className="text-[17px] text-muted leading-[1.55] m-0">{item.desc}</p>
                   {/* product stage — shared showroom: blueprint grid + gold pedestal,
@@ -299,7 +298,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true"></div>
           <CircuitTraces variant="dark" className="absolute inset-y-0 right-[-10%] w-[70%] opacity-[.45] [mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_22%,transparent_68%)]" />
           <Reveal className="relative max-w-[640px]">
-            <span className="font-mono text-label text-gold-2 tracking-[.16em] uppercase">{t("about.eyebrow")}</span>
+            <span className="font-mono text-[15px] text-gold-2 tracking-[.16em] uppercase">{t("about.eyebrow")}</span>
             <h2 className="qs-h2 text-white mt-3">{t("about.heading")}</h2>
             <p className="text-[#a8a499] text-body leading-[1.7] mt-5">
               {t("about.p1")}
@@ -322,7 +321,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative qs-section-head">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("showreel.eyebrow")}</span>
+                <span className="font-mono text-[15px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("showreel.eyebrow")}</span>
                 <h2 className="qs-h2 mt-3">{t("showreel.heading")}</h2>
               </div>
               <a className="qs-btn qs-btn-ghost qs-btn-sm" href="https://youtube.com/@qstechnology7516" target="_blank" rel="noopener noreferrer">{t("showreel.youtube")} <span className="arr">→</span></a>
@@ -371,7 +370,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="relative qs-section-head">
               <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true"></span>
               <div>
-                <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("news.eyebrow")}</span>
+                <span className="font-mono text-[15px] text-gold-1 tracking-[.16em] uppercase inline-flex items-center gap-2"><span className="qs-live-dot"></span>{t("news.eyebrow")}</span>
                 <h2 className="qs-h2 mt-3">{t("news.heading")}</h2>
               </div>
               <Link className="qs-btn qs-btn-ghost qs-btn-sm" href="/news">{t("news.viewAll")} <span className="arr">→</span></Link>

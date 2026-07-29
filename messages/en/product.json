@@ -80,22 +80,22 @@
       "controllers": {
         "label": "Controllers",
         "labelGold": "Controllers",
-        "blurb": "Multi-protocol motion controllers for CNC machines, robots and automation — Pulse Train, EtherCAT, Mechatrolink."
+        "blurb": "QS Technology offers a broad range of controllers that flexibly cover requirements for axis count, control method and application scale across CNC machines, robots and industrial automation systems. They support the common communication standards — Pulse Train, EtherCAT and Mechatrolink — so they connect to a wide range of servo drives and peripheral devices."
       },
       "servo": {
         "label": "QS servo",
         "labelGold": "servo",
-        "blurb": "QS servo line: QS servo drive units from 0.4 to 4 kW with matching QS servo motors, cables and connectors."
+        "blurb": "QS Servo delivers the precise motion control that CNC machines and industrial automation systems require. The line covers servo drives, servo motors and connection cables, so each configuration can be matched to the machine type and the application. Fast response and high accuracy in position and speed control keep the system stable, synchronised and more efficient."
       },
       "inverter": {
         "label": "Inverters",
         "labelGold": "Inverters",
-        "blurb": "Savch inverters from 0.4 to 630 kW: mini, general-purpose, engineering and ultra-high-speed series."
+        "blurb": "SAVCH inverters cover a wide range of motor control requirements in CNC machines, industrial machinery and automation systems. They allow flexible speed and frequency adjustment along with torque control matched to the load characteristics and operating requirements of each application."
       },
       "dnc": {
         "label": "DNC Transfer Units",
         "labelGold": "DNC",
-        "blurb": "Devices that load machining programs into a CNC machine over RS232, replacing computer-based data transfer."
+        "blurb": "DNC transfer units load machining programs from USB or Wi-Fi and feed them to the CNC machine over RS232. Continuous data transfer handles large programs even when the CNC machine's own memory is limited. The units run standalone, making programs easy to store and manage on the shop floor."
       },
       "accessory": {
         "label": "Accessories",

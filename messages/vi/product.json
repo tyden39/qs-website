@@ -80,22 +80,22 @@
       "controllers": {
         "label": "Bộ điều khiển",
         "labelGold": "điều khiển",
-        "blurb": "Bộ điều khiển đa giao thức cho máy CNC, robot và tự động hóa — Pulse Train, EtherCAT, Mechatrolink."
+        "blurb": "QS Technology cung cấp đa dạng dòng bộ điều khiển, đáp ứng linh hoạt các yêu cầu về số trục, phương thức điều khiển và quy mô ứng dụng cho máy CNC, robot và hệ thống tự động hóa công nghiệp. Sản phẩm hỗ trợ các chuẩn truyền thông phổ biến như Pulse Train, EtherCAT và Mechatrolink, cho phép kết nối linh hoạt với nhiều loại servo và thiết bị ngoại vi."
       },
       "servo": {
         "label": "QS servo",
         "labelGold": "servo",
-        "blurb": "Hệ truyền động servo QS: QS servo drive 0.4 – 4 kW cùng QS servo motor, cáp và đầu nối đồng bộ."
+        "blurb": "QS Servo đáp ứng yêu cầu điều khiển chuyển động chính xác cho máy CNC và các hệ thống tự động hóa công nghiệp. Danh mục sản phẩm gồm servo drive, servo motor và cáp kết nối, cho phép lựa chọn cấu hình phù hợp với từng loại máy và yêu cầu ứng dụng. Khả năng phản hồi nhanh cùng độ chính xác cao trong điều khiển vị trí và tốc độ giúp hệ thống vận hành ổn định, đồng bộ và hiệu quả hơn."
       },
       "inverter": {
         "label": "Biến tần",
         "labelGold": "Biến tần",
-        "blurb": "Biến tần Savch từ 0.4 đến 630 kW: dòng mini, đa dụng, kỹ thuật và siêu cao tốc."
+        "blurb": "Biến tần SAVCH đáp ứng đa dạng yêu cầu điều khiển động cơ trong máy CNC, máy công nghiệp và hệ thống tự động hóa. Sản phẩm cho phép điều chỉnh linh hoạt tốc độ và tần số, đồng thời kiểm soát mô-men xoắn phù hợp với đặc tính tải và yêu cầu vận hành của từng ứng dụng."
       },
       "dnc": {
         "label": "Thiết bị truyền DNC",
         "labelGold": "DNC",
-        "blurb": "Thiết bị nạp chương trình gia công vào máy CNC qua cổng RS232, thay thế cho việc truyền dữ liệu bằng máy tính."
+        "blurb": "Thiết bị truyền DNC hỗ trợ nạp chương trình gia công từ USB hoặc Wi-Fi và truyền đến máy CNC qua cổng RS232. Khả năng truyền dữ liệu liên tục giúp xử lý các chương trình có dung lượng lớn, kể cả khi bộ nhớ máy CNC bị giới hạn. Thiết bị vận hành độc lập, thuận tiện cho việc lưu trữ và quản lý chương trình tại nhà máy."
       },
       "accessory": {
         "label": "Phụ kiện",

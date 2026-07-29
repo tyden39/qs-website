@@ -230,10 +230,10 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block font-display text-body font-semibold tracking-[-.01em] text-[#aaa498] group-data-[active=true]:text-white transition-colors truncate">
+                  <span className="block font-display text-[19px] font-semibold tracking-[-.01em] text-[#aaa498] group-data-[active=true]:text-white transition-colors truncate">
                     {slide.name}
                   </span>
-                  <span className="block font-mono text-label-xs tracking-[.16em] uppercase text-[#6b6453] group-data-[active=true]:text-gold-1 transition-colors truncate">
+                  <span className="block font-mono text-[15px] tracking-[.16em] uppercase text-[#6b6453] group-data-[active=true]:text-gold-1 transition-colors truncate">
                     {slide.tag}
                   </span>
                 </span>

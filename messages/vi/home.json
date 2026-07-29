@@ -102,11 +102,10 @@
     "eyebrow": "[ Sản phẩm ]",
     "heading": "Bộ điều khiển QS",
     "lede": "Sáu dòng bộ điều khiển cho phay, tiện, uốn và dán keo — chọn theo số trục và giao thức điều khiển.",
-    "viewAll": "Xem tất cả controller",
+    "viewAll": "Xem thêm",
     "swipeHint": "Vuốt để xem thêm",
     "items": [
       {
-        "lbl": "[ Dòng F ]",
         "name": "Bộ điều khiển F86",
         "desc": "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
         "meta": [
@@ -115,7 +114,6 @@
         ]
       },
       {
-        "lbl": "[ Dòng Astro ]",
         "name": "Bộ điều khiển Astro 6AH",
         "desc": "Dòng chủ lực 6 trục vòng kín, EtherCAT, cho gia công khuôn mẫu và linh kiện y tế chính xác cao.",
         "meta": [
@@ -124,7 +122,6 @@
         ]
       },
       {
-        "lbl": "[ Dòng F ]",
         "name": "Bộ điều khiển F86",
         "desc": "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
         "meta": [

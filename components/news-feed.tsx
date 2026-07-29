@@ -107,8 +107,8 @@ export default function NewsFeed({ items }: { items: NewsItem[] }) {
       <div className="flex flex-col">
         <div className="relative flex items-center justify-between pb-3 mb-1 border-b border-line">
           <span className="qs-trace pointer-events-none absolute left-0 right-0 bottom-[-1px] h-px" aria-hidden="true" />
-          <span className="font-mono text-label-xs tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot" />{t("latest")}</span>
-          <span className="font-mono text-label-xs tracking-[.14em] text-gold-1">{String(items.length).padStart(2, "0")} {t("bulletins")}</span>
+          <span className="font-mono text-[20px] font-bold tracking-[.18em] uppercase text-muted inline-flex items-center gap-2"><span className="qs-live-dot" />{t("latest")}</span>
+          <span className="font-mono text-[15px] tracking-[.14em] text-gold-1">{String(items.length).padStart(2, "0")} {t("bulletins")}</span>
         </div>
         {items.map((n, i) => (
           <Link

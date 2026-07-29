@@ -102,11 +102,10 @@
     "eyebrow": "[ Products ]",
     "heading": "QS Controllers",
     "lede": "Six controller lines for milling, turning, bending, and gluing — choose by axis count and control protocol.",
-    "viewAll": "View all controllers",
+    "viewAll": "View more",
     "swipeHint": "Swipe for more",
     "items": [
       {
-        "lbl": "[ F Series ]",
         "name": "F86 Controller",
         "desc": "A 6-axis controller for a wide range of machines. Supports Pulse Train — EtherCAT control.",
         "meta": [
@@ -115,7 +114,6 @@
         ]
       },
       {
-        "lbl": "[ Astro Series ]",
         "name": "Astro 6AH Controller",
         "desc": "The flagship 6-axis closed-loop line, EtherCAT, for high-precision mould-making and medical components.",
         "meta": [
@@ -124,7 +122,6 @@
         ]
       },
       {
-        "lbl": "[ F Series ]",
         "name": "F86 Controller",
         "desc": "A 6-axis controller for a wide range of machines. Supports Pulse Train — EtherCAT control.",
         "meta": [

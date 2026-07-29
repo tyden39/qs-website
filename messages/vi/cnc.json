@@ -312,6 +312,7 @@
         "other": "Thông số khác"
       },
       "galleryZoom": "Phóng to ảnh",
+      "swipeHint": "Vuốt để xem thêm",
       "shots": {
         "front": "Mặt trước",
         "back": "Mặt sau",
@@ -321,7 +322,8 @@
         "cabinet": "Tủ điện",
         "controller": "Bộ điều khiển"
       }
-    }
+    },
+    "specsUnit": "thông số"
   },
   "monitor": {
     "label": "Xưởng đang chạy",

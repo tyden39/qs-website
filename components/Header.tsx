@@ -58,8 +58,7 @@ export default function Header() {
   }, [open]);
 
   // Mobile-drawer accordions: at most one catalogue submenu (openSub) and one
-  // nested sub-type list (openSub2) is expanded at a time. Tracked by href so
-  // the state survives the drawer close reset.
+  // nested sub-type list (openSub2) is expanded at a time. Tracked by href.
   const [openSub, setOpenSub] = useState<string | null>(null);
   const [openSub2, setOpenSub2] = useState<string | null>(null);
 
@@ -161,6 +160,25 @@ export default function Header() {
     { href: "/contact", label: t("contact") },
   ];
   const all = [...left, ...right];
+
+  // Resting accordion state for the drawer: the branch holding the current
+  // page's active entry stays expanded, everything else folds away. The nested
+  // sub-type list only opens when a sub-type is the active filter — with just a
+  // group selected the active row is its own (already visible) parent.
+  const activeItem = all.find((i) => i.children && is(i.href));
+  const activeSub = activeItem?.href ?? null;
+  const activeSub2 = curT ? activeItem?.children?.find((c) => c.children && c.g === curG) : undefined;
+  const activeSub2Key = activeSub2 ? leafHref(activeSub2) : null;
+
+  // Apply that resting state once the drawer is closed, so a menu reopened
+  // after browsing around never shows a stale branch — and never hides where
+  // you are. Deferred by the drawer's 200ms slide-out so the rows do not
+  // visibly fold while it is still on screen.
+  useEffect(() => {
+    if (open) return;
+    const id = setTimeout(() => { setOpenSub(activeSub); setOpenSub2(activeSub2Key); }, 200);
+    return () => clearTimeout(id);
+  }, [open, activeSub, activeSub2Key]);
 
   // Desktop nav item: a plain link, or a hover/focus dropdown trigger when the
   // catalogue entry carries category children. The panel opens on hover and on

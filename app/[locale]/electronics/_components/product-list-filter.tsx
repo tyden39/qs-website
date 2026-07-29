@@ -121,7 +121,12 @@ export function ProductListFilter({ items, labels }: { items: ProductFilterItem[
 
   return (
     <div className="min-w-0">
-      <div className={`flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center sm:bg-white sm:border sm:border-line sm:px-6 sm:py-4 mb-6 ${mobileFrame}`}>
+      {/* Tablet (sm–lg) has room for the chips but not beside the count *and* the
+          sort menu — four interface labels overrun the bar and wrap one chip onto
+          a ragged half-line. So the bar wraps as a whole there: count + sort on
+          the first line, the chips on a full-width second line. From lg up
+          everything fits and the bar is a single nowrap row again. */}
+      <div className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-between sm:items-center sm:gap-x-6 sm:gap-y-3 lg:flex-nowrap sm:bg-white sm:border sm:border-line sm:px-6 sm:py-4 mb-6 ${mobileFrame}`}>
         <div className="flex flex-col gap-3 min-w-0 sm:flex-row sm:gap-6 sm:items-center">
           {/* count + minimize toggle share a row on mobile; the toggle disappears
               from sm up where the controls always stay expanded */}
@@ -152,20 +157,24 @@ export function ProductListFilter({ items, labels }: { items: ProductFilterItem[
               <option key={c} value={i}>{c}</option>
             ))}
           </select>
-          {/* chips: same interface filter, shown inline from tablet up where the
-              toolbar has room to wrap them */}
-          <div className="hidden sm:flex gap-1.5 flex-wrap">
-            {labels.filters.map((c, i) => (
-              <button
-                key={c}
-                type="button"
-                onClick={() => setFilterParams({ [INTERFACE_KEY]: INTERFACES[i] })}
-                className={`shrink-0 px-3 py-1.5 font-mono text-label tracking-widest uppercase border cursor-pointer ${i === chip ? "bg-ink text-white border-ink" : "border-line text-muted hover:border-ink"}`}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
+        </div>
+        {/* chips: same interface filter, shown from tablet up. A sibling of the
+            count rather than a child of it, so `w-full` can claim its own line on
+            tablet; `order-last` keeps it under the count/sort line instead of
+            pushing the sort down to a third one. From lg it sits back inline, and
+            `mr-auto` (not the bar's justify-between) is what holds it beside the
+            count with the sort alone at the far right. */}
+        <div className="hidden sm:flex gap-1.5 flex-wrap w-full max-lg:order-last lg:w-auto lg:mr-auto">
+          {labels.filters.map((c, i) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => setFilterParams({ [INTERFACE_KEY]: INTERFACES[i] })}
+              className={`shrink-0 px-3 py-1.5 font-mono text-label tracking-widest uppercase border cursor-pointer ${i === chip ? "bg-ink text-white border-ink" : "border-line text-muted hover:border-ink"}`}
+            >
+              {c}
+            </button>
+          ))}
         </div>
         <div className={`${collapse} flex gap-3 items-center w-full sm:w-auto sm:shrink-0`}>
           <select

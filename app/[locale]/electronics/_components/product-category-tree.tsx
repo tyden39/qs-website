@@ -217,6 +217,7 @@ export function CategoryTreeHero({
   allLabel,
   tone = "light",
   viewListLabel,
+  mobileFigure = true,
 }: {
   groups: CategoryTreeGroup[];
   /** Mono kicker above the tree that primes it as page-level navigation. */
@@ -227,6 +228,13 @@ export function CategoryTreeHero({
   tone?: CategoryHeroTone;
   /** Label for the affordance that scrolls down to the list; omit to hide it. */
   viewListLabel?: string;
+  /** Whether to stack the group's figure under the heading below `lg`. Set false
+   *  on a page whose `heroImage` is drawn from the group's own list — there the
+   *  phone would show the same photo twice in one column (once as the hero, once
+   *  as the first card), which reads as the page repeating itself rather than as
+   *  two bands. The desktop bleed is unaffected: `CategoryHeroFigure` frames the
+   *  photo quite differently from a card, so the collision never arises there. */
+  mobileFigure?: boolean;
 }) {
   const { active, activeGroup, child } = useCategoryState(groups);
   const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
@@ -315,32 +323,8 @@ export function CategoryTreeHero({
             scrolling internally when the tree is taller than the band. */}
         <nav
           aria-label={eyebrow ?? groups.map((g) => g.label).join(" / ")}
-          className={`hidden lg:flex lg:flex-col lg:relative lg:h-full lg:max-h-[540px] border 2xl:border-l-0 p-5 ${skin.rail}`}
+          className={`hidden lg:flex lg:flex-col lg:h-full lg:max-h-[540px] border p-5 ${skin.rail}`}
         >
-          {/* The rail's plate run off the left edge of the viewport — the band's
-              counterweight to the figure bleeding off the right. Past `2xl` the
-              container is capped well inside the viewport, so without this the
-              only hard edge in the band is the figure's and the whole hero reads
-              right-heavy over a dead left gutter; texture in that gutter carries
-              no mass and cannot answer an edge. `right-full` pins it to the
-              rail's own edge and the rail drops its left border there, so plate
-              and extension read as one surface with no seam; `inset-y-[-1px]`
-              continues the rail's hairlines rather than drawing a second pair.
-              50vw always outruns the gutter, and the hero section's
-              `overflow-hidden` clips the rest. */}
-          <div
-            aria-hidden="true"
-            className={`hidden 2xl:block absolute inset-y-[-1px] right-full w-[50vw] border-y pointer-events-none ${skin.rail}`}
-          >
-            {/* Blueprint dot field over the extension, fading out before it
-                reaches the tree so the rows stay on clean stock. It reads here
-                — where the same field over the page background did not —
-                because the plate is a flat, brighter surface. Light only: the
-                ink plate already separates itself from the band behind it. */}
-            {tone === "light" ? (
-              <div className="absolute inset-0 qs-dot-bg opacity-70 [mask-image:linear-gradient(90deg,#000_0%,transparent_86%)] [-webkit-mask-image:linear-gradient(90deg,#000_0%,transparent_86%)]" />
-            ) : null}
-          </div>
           {eyebrow ? (
             <div
               className={`pb-3.5 mb-1 border-b font-mono text-[19px] font-semibold tracking-[.16em] uppercase ${skin.railHead}`}
@@ -496,7 +480,7 @@ export function CategoryTreeHero({
                 is dropped here and drawn full-height by `CategoryHeroFigure`
                 against the right edge of the viewport instead. */}
             <div className="mt-6 lg:mt-7">
-              {g.heroImage ? (
+              {mobileFigure && g.heroImage ? (
                 <figure
                   className={`lg:hidden relative m-0 mb-7 border overflow-hidden ${HERO_IMAGE_SLOT} ${skin.frame}`}
                   style={{ background: skin.frameBg }}
@@ -563,8 +547,11 @@ export function CategoryHeroFigure({
   return (
     // Held to 70% of the hero's height and centred on it vertically, so equal
     // bands of the page show above and below and the bleed reads as inset rather
-    // than edge-to-edge. Width comes from `--qs-bleed` (`qs-hero-figure`).
-    <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 h-[70%] right-0 z-[1] qs-hero-figure">
+    // than edge-to-edge. Width *and* horizontal anchor both come from
+    // `qs-hero-figure`: the figure rides the viewport edge on ordinary desktops
+    // and pins to the centred container once the viewport outgrows it (see the
+    // "Catalogue hero bleed" block in globals.css).
+    <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 h-[70%] z-[1] qs-hero-figure">
       {groups.map((g, i) =>
         g.heroImage ? (
           <div
@@ -574,8 +561,19 @@ export function CategoryHeroFigure({
             // link's figure is the right one before hydration.
             data-f-g={g.id}
             className="absolute inset-0 overflow-hidden [mask-image:linear-gradient(90deg,transparent_0%,#000_16%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,#000_16%)]"
-            style={{ background: skin.frameBg }}
           >
+            {/* The lightbox the render sits on, carried by its own layer so it
+                can dissolve on every side. It used to run off the viewport edge,
+                where only its top and bottom showed; now that the figure pins to
+                the container it would otherwise read as a hard-cornered white
+                rectangle pasted on the paper. Masked, it reads as the halo the
+                heroes already put behind a product render. The mask stays off
+                `heroImage` itself so no part of the render is faded. */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 [mask-image:radial-gradient(closest-side_at_50%_46%,#000_58%,transparent_100%)] [-webkit-mask-image:radial-gradient(closest-side_at_50%_46%,#000_58%,transparent_100%)]"
+              style={{ background: skin.frameBg }}
+            />
             {g.heroImage}
             <div className="qs-scan" aria-hidden="true"></div>
           </div>

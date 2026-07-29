@@ -217,6 +217,12 @@ export default async function Applications({ params }: { params: Promise<{ local
               allLabel={pt("types.all")}
               viewListLabel={pt("groups.viewList")}
               groups={appGroups}
+              // A group's hero photo is its first case study's photo (see
+              // `heroSrc` above), which is also the first card in the list
+              // below. Stacked in one phone column those two read as the page
+              // repeating itself, so the phone hero stays text-only and the
+              // card carries the picture. The desktop bleed keeps the photo.
+              mobileFigure={false}
             />
           </Reveal>
         </div>
@@ -226,8 +232,13 @@ export default async function Applications({ params }: { params: Promise<{ local
         <CategoryHeroFigure groups={appGroups} />
       </section>
 
-      {/* GROUPED BY MATERIAL — the active group's cases, full width below the hero */}
-      <section className="py-8 sm:py-10 lg:py-14 bg-white" id="list">
+      {/* GROUPED BY MATERIAL — the active group's cases, full width below the hero.
+          On a phone the hero loses both of its desktop anchors (the 300px rail and
+          the figure bleeding off the right edge), so the seam needs carrying here:
+          the paper surface lifts the white toolbar and cards off the band, and the
+          extra top padding gives the boundary more air than any gap inside either
+          band. Matches the machine-building list band. */}
+      <section className="pt-12 pb-8 sm:pt-14 sm:pb-10 lg:pt-16 lg:pb-14 bg-paper border-t border-line" id="list">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal>
             <CategoryTreePanels groups={appGroups} />
@@ -236,8 +247,10 @@ export default async function Applications({ params }: { params: Promise<{ local
       </section>
       <FilterPrePaintCleanup />
 
-      {/* VIDEO — centered feature clip below the catalog */}
-      <section className="py-8 sm:py-10 lg:py-14 bg-paper border-t border-line">
+      {/* VIDEO — centered feature clip below the catalog. White so the page
+          alternates surfaces (tinted hero → paper list → white video) instead of
+          running two paper bands into each other. */}
+      <section className="py-8 sm:py-10 lg:py-14 bg-white border-t border-line">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="max-w-[900px] mx-auto text-center">
             <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>

@@ -23,13 +23,13 @@ export async function ProductBundleCard({
   const count = String(product.bundle.length).padStart(2, "0");
 
   return (
-    <article className="qs-card grid md:grid-cols-[minmax(0,300px)_1fr] group shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)]">
+    <article className="qs-card grid lg:grid-cols-[minmax(0,300px)_1fr] group shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)]">
       {/* ── Featured controller ── */}
-      <div className="relative flex flex-col bg-white p-5 sm:p-7 border-b md:border-b-0 md:border-r border-line">
+      <div className="relative flex flex-col bg-white p-5 sm:p-7 border-b lg:border-b-0 lg:border-r border-line">
         {/* gold seam echoing the catalogue's accent rule */}
         <span
           aria-hidden
-          className="absolute top-0 right-0 hidden md:block w-px h-10 bg-gold"
+          className="absolute top-0 right-0 hidden lg:block w-px h-10 bg-gold"
         />
         {/* controller render — real front-face photo, links to the detail page */}
         <Link
@@ -83,14 +83,14 @@ export async function ProductBundleCard({
       </div>
 
       {/* ── Bundle component grid ── */}
-      {/* On mobile the bundle collapses behind a summary so the card stays
-          compact; from sm+ it is always expanded (the toggle hides and the body
-          is forced visible regardless of the details open state). */}
-      {/* sm+ also neutralises the UA `content-visibility:hidden` that modern
+      {/* On phone and tablet the bundle collapses behind a summary so the card
+          stays compact; from lg+ it is always expanded (the toggle hides and
+          the body is forced visible regardless of the details open state). */}
+      {/* lg+ also neutralises the UA `content-visibility:hidden` that modern
           browsers put on the closed <details> content wrapper, so the forced
-          `sm:!flex` body below actually paints on desktop. */}
-      <details className="group/bd p-5 sm:p-6 sm:[&::details-content]:[content-visibility:visible]">
-        <summary className="sm:hidden flex items-center justify-between gap-3 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+          `lg:!flex` body below actually paints on desktop. */}
+      <details className="group/bd p-5 sm:p-6 lg:[&::details-content]:[content-visibility:visible]">
+        <summary className="lg:hidden flex items-center justify-between gap-3 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
           <span className="qs-eyebrow">{t("components")}</span>
           <span className="flex items-center gap-2 font-mono text-label tracking-widest text-muted whitespace-nowrap">
             <b className="text-ink font-semibold">{count}</b> {t("parts")}
@@ -104,8 +104,8 @@ export async function ProductBundleCard({
           </span>
         </summary>
 
-        <div className="hidden group-open/bd:flex sm:!flex flex-col mt-4 sm:mt-0">
-          <div className="hidden sm:flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
+        <div className="hidden group-open/bd:flex lg:!flex flex-col mt-4 lg:mt-0">
+          <div className="hidden lg:flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
             <div>
               <div className="qs-eyebrow">{t("components")}</div>
               <div className="mt-1 font-mono text-label-xs tracking-[.14em] uppercase text-muted">

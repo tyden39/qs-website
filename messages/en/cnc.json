@@ -311,6 +311,7 @@
         "other": "Other specifications"
       },
       "galleryZoom": "Zoom photo",
+      "swipeHint": "Swipe for more",
       "shots": {
         "front": "Front",
         "back": "Rear",
@@ -320,7 +321,8 @@
         "cabinet": "Control cabinet",
         "controller": "Controller"
       }
-    }
+    },
+    "specsUnit": "specs"
   },
   "monitor": {
     "label": "Shop floor · live",

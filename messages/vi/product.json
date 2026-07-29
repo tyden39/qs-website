@@ -132,7 +132,8 @@
     "imageUpdating": "Hình ảnh đang cập nhật",
     "specifications": "[ Thông số dòng ]",
     "seriesLabel": "Dòng",
-    "details": "Xem chi tiết"
+    "details": "Xem chi tiết",
+    "specsUnit": "thông số"
   },
   "seriesDetail": {
     "specsEyebrow": "[ Thông số dòng ]",

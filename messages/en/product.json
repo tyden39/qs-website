@@ -132,7 +132,8 @@
     "imageUpdating": "Image coming soon",
     "specifications": "[ Series specifications ]",
     "seriesLabel": "Series",
-    "details": "View details"
+    "details": "View details",
+    "specsUnit": "specs"
   },
   "seriesDetail": {
     "specsEyebrow": "[ Series specs ]",

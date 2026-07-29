@@ -9,6 +9,10 @@ import type { SeriesView } from "@/lib/data/series";
  * links through to the series datasheet page. Unknown facts are omitted, never
  * dashed out. What the servo set is made of is told by the list page's own
  * sections (drives / motors / cables), so the card does not repeat it.
+ *
+ * The two-column spread only holds from lg up. On phone and tablet the card
+ * stacks and the spec matrix folds behind a summary line, so a list of series
+ * stays scannable instead of turning into a wall of numbers.
  */
 export async function SeriesCard({
   series,
@@ -21,12 +25,13 @@ export async function SeriesCard({
 }) {
   const t = await getTranslations("product.seriesCard");
   const idx = String(index + 1).padStart(2, "0");
+  const specCount = String(series.specs.length).padStart(2, "0");
 
   return (
-    <article className="qs-card grid md:grid-cols-[minmax(0,300px)_1fr] group shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)]">
+    <article className="qs-card grid lg:grid-cols-[minmax(0,300px)_1fr] group shadow-[0_2px_22px_-14px_rgba(0,0,0,0.22)]">
       {/* ── Series render + positioning ── */}
-      <div className="relative flex flex-col bg-white p-7 border-b md:border-b-0 md:border-r border-line">
-        <span aria-hidden className="absolute top-0 right-0 hidden md:block w-px h-10 bg-gold" />
+      <div className="relative flex flex-col bg-white p-5 sm:p-7 border-b lg:border-b-0 lg:border-r border-line">
+        <span aria-hidden className="absolute top-0 right-0 hidden lg:block w-px h-10 bg-gold" />
         {series.image ? (
           <Link
             href={`/electronics/${series.slug}`}
@@ -74,29 +79,51 @@ export async function SeriesCard({
       </div>
 
       {/* ── Series spec grid ── */}
-      <div className="p-6 flex flex-col">
-        <div className="flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
-          <div>
-            <div className="qs-eyebrow">{t("specifications")}</div>
-            <div className="mt-1 font-mono text-label-xs tracking-[.14em] uppercase text-muted">
-              {t("seriesLabel")} {idx} / {String(total).padStart(2, "0")} · {series.tag}
+      {/* Below lg the matrix collapses behind a summary so the card stays
+          compact on phone and tablet; from lg+ it is always expanded (the
+          toggle hides and the body is forced visible regardless of the details
+          open state). lg+ also neutralises the UA `content-visibility:hidden`
+          that modern browsers put on the closed <details> content wrapper, so
+          the forced `lg:!flex` body below actually paints on desktop. */}
+      <details className="group/sp p-5 sm:p-6 lg:[&::details-content]:[content-visibility:visible]">
+        <summary className="lg:hidden flex items-center justify-between gap-3 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+          <span className="qs-eyebrow">{t("specifications")}</span>
+          <span className="flex items-center gap-2 font-mono text-label tracking-widest text-muted whitespace-nowrap">
+            <b className="text-ink font-semibold">{specCount}</b> {t("specsUnit")}
+            <svg
+              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+              className="text-muted transition-transform duration-200 group-open/sp:rotate-180"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </span>
+        </summary>
+
+        <div className="hidden group-open/sp:flex lg:!flex flex-col mt-4 lg:mt-0">
+          <div className="hidden lg:flex items-end justify-between gap-4 pb-3 mb-4 border-b border-line">
+            <div>
+              <div className="qs-eyebrow">{t("specifications")}</div>
+              <div className="mt-1 font-mono text-label-xs tracking-[.14em] uppercase text-muted">
+                {t("seriesLabel")} {idx} / {String(total).padStart(2, "0")} · {series.tag}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="grid sm:grid-cols-2 gap-px bg-line border border-line rounded-[2px] overflow-hidden">
-          {series.specs.map((s) => (
-            <div key={s.l} className="bg-white px-4 py-3 flex flex-col gap-1">
-              <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
-                {s.l}
-              </span>
-              <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
-                {s.v}
-              </span>
-            </div>
-          ))}
+          <div className="grid sm:grid-cols-2 gap-px bg-line border border-line rounded-[2px] overflow-hidden">
+            {series.specs.map((s) => (
+              <div key={s.l} className="bg-white px-4 py-3 flex flex-col gap-1">
+                <span className="font-mono text-label-xs leading-snug tracking-[.06em] uppercase text-muted">
+                  {s.l}
+                </span>
+                <span className="text-meta font-semibold tracking-[-.005em] text-ink tabular-nums">
+                  {s.v}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </details>
     </article>
   );
 }

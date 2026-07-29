@@ -245,6 +245,19 @@ body {
     will-change: auto;
   }
 }
+/* Same opt-out for rails that keep swiping through tablet and only become a grid
+   at lg. Beyond killing motion that fights the swipe, it removes the pending
+   card's 12px downward offset: a rail scrolls on x, and a box that scrolls on one
+   axis can no longer leave the other visible — the offset would otherwise turn
+   into a stray sliver of vertical scroll inside the rail. */
+@media (max-width: 1023px) {
+  .qs-reveal.qs-reveal-wide {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}
 
 /* ─── Drifting technical grid ─── */
 .qs-grid-drift { animation: qs-grid-drift 38s linear infinite; }
@@ -451,14 +464,31 @@ body {
    sitting in a column, so the copy beside it has to stop before the figure
    reaches into the centred container. `--qs-bleed` is the figure's width; the
    copy's padding is however far that figure overlaps the container's content
-   box (nothing until the container hits its max width, then half the overflow),
-   plus the page gutter and a breathing gap. */
-:root { --qs-bleed: 27vw; --qs-bleed-gap: 40px; }
+   box, plus the page gutter and a breathing gap.
+
+   Past 1536px the viewport keeps growing but the centred container does not, so
+   a figure still riding the viewport edge drifts ever further from the copy and
+   leaves the band listing to one side — at 4K that is ~640px of dead paper on
+   the left against almost none on the right, which no amount of decoration in
+   that gutter can answer. From there the figure pins to the container instead,
+   overhanging its right edge by `--qs-pin`: the same "breaks the frame" gesture,
+   measured against the frame that actually holds the layout. The changeover is
+   silent by construction — the pin engages exactly where half the container's
+   overflow equals that overhang (viewport 1536px), and the width cap is 27vw
+   *at* that viewport (≈415px), so nothing jumps while resizing across it and
+   1024–1535 stays exactly as it was. */
+:root { --qs-bleed: min(27vw, 415px); --qs-bleed-gap: 40px; --qs-pin: 128px; }
 @media (min-width: 1024px) {
-  .qs-hero-figure { width: var(--qs-bleed); }
+  .qs-hero-figure {
+    width: var(--qs-bleed);
+    right: max(0px, calc((100vw - var(--max-width-wrap)) / 2 - var(--qs-pin)));
+  }
   .qs-hero-copy {
+    /* The clamp mirrors the figure's `right` above, so the copy stops exactly
+       where the figure starts at every width. */
     padding-right: calc(
-      var(--qs-bleed) - max(0px, (100vw - var(--max-width-wrap)) / 2) - var(--pad) + var(--qs-bleed-gap)
+      var(--qs-bleed) - clamp(0px, (100vw - var(--max-width-wrap)) / 2, var(--qs-pin))
+      - var(--pad) + var(--qs-bleed-gap)
     );
   }
 }

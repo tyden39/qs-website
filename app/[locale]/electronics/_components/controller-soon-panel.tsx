@@ -48,21 +48,21 @@ export function ControllerSoonPanel({
   onBrowseAll: () => void;
 }) {
   return (
-    <article className="relative overflow-hidden rounded-[3px] border border-dashed border-gold-1/45 bg-white grid md:grid-cols-[minmax(0,300px)_1fr]">
+    <article className="relative overflow-hidden rounded-[3px] border border-dashed border-gold-1/45 bg-white grid lg:grid-cols-[minmax(0,300px)_1fr]">
       {/* Blueprint texture, gold atmosphere and the brand trace network — all
           decorative, and all already muted by the global reduced-motion rules. */}
       <span aria-hidden className="absolute inset-0 qs-dot-bg opacity-60" />
       <span aria-hidden className="qs-glow hidden sm:block right-[4%] top-[-45%] w-[32%] h-[190%]" />
       <CircuitTraces
         variant="light"
-        className="hidden md:block absolute inset-y-0 right-0 w-[46%] opacity-[.38] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_72%)]"
+        className="hidden lg:block absolute inset-y-0 right-0 w-[46%] opacity-[.38] [mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_72%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_18%,transparent_72%)]"
       />
 
       {/* ── Glyph plate, in the slot the controller render occupies on a card ── */}
-      <div className="relative p-5 sm:p-7 border-b md:border-b-0 md:border-r border-dashed border-gold-1/30">
+      <div className="relative p-5 sm:p-7 border-b lg:border-b-0 lg:border-r border-dashed border-gold-1/30">
         {/* Same gold seam the product card draws on its column divider, so the
             placeholder still reads as one of the list's plates. */}
-        <span aria-hidden className="absolute top-0 right-0 hidden md:block w-px h-10 bg-gold" />
+        <span aria-hidden className="absolute top-0 right-0 hidden lg:block w-px h-10 bg-gold" />
         <div
           className="relative grid place-items-center overflow-hidden rounded-[2px] border border-dashed border-gold-1/40 min-h-[200px]"
           style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}

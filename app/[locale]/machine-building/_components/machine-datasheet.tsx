@@ -42,6 +42,7 @@ import {
 import { getProductBySlug } from "@/lib/data/products";
 import { getAllDownloads, getProductDownloads } from "@/lib/data/downloads";
 import { LightboxTrigger, type LightboxShot } from "@/components/media/image-lightbox";
+import RailNudge from "@/components/rail-nudge";
 import { MachineHeroGallery } from "./machine-hero-gallery";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -135,6 +136,27 @@ const GRID_COLS = [
   "sm:grid-cols-2 lg:grid-cols-4",
 ];
 const gridCols = (n: number) => GRID_COLS[Math.min(n, 4)] ?? GRID_COLS[4];
+
+/** Highlights and the spec-group cards stay a swipe rail through tablet and only
+ *  settle into a grid from `lg` up, so their columns are lg-only. */
+const RAIL_COLS = ["", "lg:grid-cols-1", "lg:grid-cols-2", "lg:grid-cols-3", "lg:grid-cols-4"];
+const railCols = (n: number) => RAIL_COLS[Math.min(n, 4)] ?? RAIL_COLS[4];
+
+/** Shared rail chrome: a horizontal snap strip up to `lg`, a static grid beyond. */
+const RAIL_BASE =
+  "flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain gap-px bg-line border border-line [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:overflow-visible";
+
+/** One card per screen on phones, two on tablets, a grid cell from `lg`. The
+ *  half-pixel accounts for the hairline gap between cards. `qs-reveal-wide` drops
+ *  the per-card scroll-reveal for as long as the row is a rail — the swipe already
+ *  carries the motion, and the pending card's offset would add a sliver of
+ *  vertical scroll inside the strip. */
+const RAIL_CARD =
+  "qs-reveal-wide w-full shrink-0 snap-start sm:w-[calc(50%-0.5px)] lg:w-auto lg:shrink";
+
+/** Two cards already share the tablet row, so at that size a rail that short has
+ *  nothing left to swipe to — keep the cue on phones only. */
+const railNudgeClass = (n: number) => (n > 2 ? "lg:hidden" : "sm:hidden");
 
 /** Section heading with the shared live-dot rule. */
 function PanelTitle({ children }: { children: React.ReactNode }) {
@@ -386,60 +408,64 @@ export default async function MachineDatasheet({
             <PanelTitle>{d("featuresHeading")}</PanelTitle>
           </Reveal>
           {machine.features.length > 0 ? (
-            <div
-              className={`flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain ${gridCols(machine.features.length)} gap-px bg-line border border-line [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:overflow-visible`}
-            >
-              {machine.features.map((f, i) => {
-                const idx = String(i + 1).padStart(2, "0");
-                return (
-                  <Reveal
-                    key={f.title}
-                    delay={i * 80}
-                    className="w-[88%] shrink-0 snap-start sm:w-auto sm:shrink"
-                  >
-                    <div className="group bg-white h-full flex flex-col">
-                      <div className="relative aspect-[4/3] overflow-hidden bg-paper-2/60">
-                        <div className="absolute inset-0 qs-grid-bg opacity-50" aria-hidden="true" />
-                        {f.img ? (
-                          <Image
-                            src={f.img}
-                            alt={`${machine.model} — ${f.title}`}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            className="relative object-cover [filter:saturate(.96)_contrast(1.03)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                          />
-                        ) : null}
-                        {f.img ? (
-                          <LightboxTrigger
-                            group={featureShots}
-                            index={featureShotIndex[i]}
-                            ariaLabel={zoomLabel}
-                            className="absolute inset-0 z-[6]"
-                          />
-                        ) : (
-                          <span
-                            className="absolute inset-0 flex items-center justify-center font-mono font-semibold text-[68px] leading-none text-ink/[.06] select-none"
-                            aria-hidden="true"
-                          >
-                            {idx}
-                          </span>
-                        )}
-                        <div className="pointer-events-none absolute inset-2.5 z-10" aria-hidden="true">
-                          <span className="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/60" />
-                          <span className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/60" />
-                          <span className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/60" />
-                          <span className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-white/60" />
+            <>
+              <div
+                id="machine-features-rail"
+                className={`${RAIL_BASE} ${railCols(machine.features.length)}`}
+              >
+                {machine.features.map((f, i) => {
+                  const idx = String(i + 1).padStart(2, "0");
+                  return (
+                    <Reveal key={f.title} delay={i * 80} className={RAIL_CARD}>
+                      <div className="group bg-white h-full flex flex-col">
+                        <div className="relative aspect-[4/3] overflow-hidden bg-paper-2/60">
+                          <div className="absolute inset-0 qs-grid-bg opacity-50" aria-hidden="true" />
+                          {f.img ? (
+                            <Image
+                              src={f.img}
+                              alt={`${machine.model} — ${f.title}`}
+                              fill
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                              className="relative object-cover [filter:saturate(.96)_contrast(1.03)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                            />
+                          ) : null}
+                          {f.img ? (
+                            <LightboxTrigger
+                              group={featureShots}
+                              index={featureShotIndex[i]}
+                              ariaLabel={zoomLabel}
+                              className="absolute inset-0 z-[6]"
+                            />
+                          ) : (
+                            <span
+                              className="absolute inset-0 flex items-center justify-center font-mono font-semibold text-[68px] leading-none text-ink/[.06] select-none"
+                              aria-hidden="true"
+                            >
+                              {idx}
+                            </span>
+                          )}
+                          <div className="pointer-events-none absolute inset-2.5 z-10" aria-hidden="true">
+                            <span className="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/60" />
+                            <span className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/60" />
+                            <span className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/60" />
+                            <span className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-white/60" />
+                          </div>
+                        </div>
+                        <div className="p-5 flex flex-col flex-1 border-t border-line">
+                          <h3 className="font-display font-bold text-ink text-body tracking-[-.01em]">{f.title}</h3>
+                          <p className="text-meta leading-[1.6] text-muted mt-2 m-0">{f.desc}</p>
                         </div>
                       </div>
-                      <div className="p-5 flex flex-col flex-1 border-t border-line">
-                        <h3 className="font-display font-bold text-ink text-body tracking-[-.01em]">{f.title}</h3>
-                        <p className="text-meta leading-[1.6] text-muted mt-2 m-0">{f.desc}</p>
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
+                    </Reveal>
+                  );
+                })}
+              </div>
+              <RailNudge
+                targetId="machine-features-rail"
+                label={d("swipeHint")}
+                className={railNudgeClass(machine.features.length)}
+              />
+            </>
           ) : (
             <PlaceholderPanel label={tbd} />
           )}
@@ -642,15 +668,11 @@ export default async function MachineDatasheet({
           <Reveal>
             <PanelTitle>{d("specsHeading")}</PanelTitle>
           </Reveal>
-          <div className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain gap-px bg-line border border-line [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-3 xl:grid-cols-6">
+          <div id="machine-specs-rail" className={`${RAIL_BASE} lg:grid-cols-3 xl:grid-cols-6`}>
             {specGroups.map((g, i) => {
               const Icon = GROUP_ICON[g.id] ?? Settings;
               return (
-                <Reveal
-                  key={g.id}
-                  delay={i * 60}
-                  className="w-[88%] shrink-0 snap-start sm:w-auto sm:shrink"
-                >
+                <Reveal key={g.id} delay={i * 60} className={RAIL_CARD}>
                   <div className="bg-white h-full">
                     <div className="flex items-center gap-2 px-4 py-3.5 border-b border-line">
                       <Icon className="w-4 h-4 text-gold-1 shrink-0" strokeWidth={1.6} aria-hidden="true" />
@@ -677,6 +699,11 @@ export default async function MachineDatasheet({
               );
             })}
           </div>
+          <RailNudge
+            targetId="machine-specs-rail"
+            label={d("swipeHint")}
+            className={railNudgeClass(specGroups.length)}
+          />
           <p className="text-meta leading-[1.6] text-muted mt-5 m-0">{d("specsNote")}</p>
         </div>
       </section>

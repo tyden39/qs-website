@@ -186,13 +186,7 @@ function SheetImage({
 }) {
   return (
     <figure className="m-0 border border-line bg-white">
-      {block.caption && (
-        <figcaption className="flex items-baseline gap-2 border-b border-line px-4 py-2.5 bg-paper">
-          <span className="font-display text-meta font-bold tracking-[-.01em] text-ink">
-            {block.caption}
-          </span>
-        </figcaption>
-      )}
+      {block.caption && <SheetCaption text={block.caption} />}
       <LightboxTrigger
         group={shots}
         index={index}
@@ -214,6 +208,32 @@ function SheetImage({
         </p>
       )}
     </figure>
+  );
+}
+
+/** Drawing caption. Dimension plates are captioned "<frame size> · <the models
+ *  that share it>", a run long enough to read as one unbroken line. The frame
+ *  size leads as the plate's title and every model it covers is set as its own
+ *  token, so a reader can match a part number to a drawing at a glance. A
+ *  descriptive caption carries no such list and is left as plain text. */
+function SheetCaption({ text }: { text: string }) {
+  const parts = text.split(/ · | — /);
+  const [lead, ...rest] = parts;
+  // A leading frame/size label is short and carries its number; a prose opening
+  // ("Bàn phím — từ 22 kW trở lên") does not, and keeps the caption undivided.
+  const isLabelled = rest.length > 0 && lead.length <= 14 && /\d/.test(lead);
+  return (
+    <figcaption className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 border-b border-line px-4 py-2.5 bg-paper">
+      <span className="font-display text-meta font-bold tracking-[-.01em] text-ink">
+        {isLabelled ? lead : text}
+      </span>
+      {isLabelled &&
+        rest.map((t, i) => (
+          <span key={i} className={TOKEN_CLASS}>
+            {t}
+          </span>
+        ))}
+    </figcaption>
   );
 }
 
@@ -277,9 +297,39 @@ function SheetNaming({ block }: { block: Extract<SheetBlockView, { kind: "naming
 }
 
 const V_LABEL_CLASS =
-  "bg-[#eef1f4] px-2 py-3 align-middle text-center font-mono text-label-xs tracking-[.06em] uppercase text-[#5a6472] w-[52px] sm:w-[64px] leading-[1.3]";
+  "bg-[#eef1f4] px-2 py-3 align-middle text-center font-mono font-extrabold text-label-xs tracking-[.06em] uppercase text-[#5a6472] w-[52px] sm:w-[64px] leading-[1.3]";
 const TH_CLASS =
   "bg-[#11120f] px-4 py-3 text-left font-mono text-label-xs tracking-[.08em] uppercase text-gold-2";
+const TOKEN_CLASS =
+  "inline-block border border-line bg-[#f3f6f8] px-1.5 py-0.5 font-mono text-label-xs tracking-[.02em] text-[#33302a] whitespace-nowrap";
+
+/** A run of part numbers set as one middot-joined string ("S3100A/E-2T0.4G ·
+ *  2T0.75G · 4T1.5G/2.2P") reads as an unbroken line, so a reader cannot pick
+ *  a single model out of it. Split it only when every segment is a bare code —
+ *  no spaces — and at least one carries a rating figure; prose that merely uses
+ *  the middot as a separator ("ba pha 380 V · 50/60 Hz") stays as written. */
+function codeTokens(text: string): string[] | null {
+  const parts = text.split(" · ");
+  if (parts.length < 2) return null;
+  const bare = parts.every((p) => p.length > 0 && p.length <= 40 && !/\s/.test(p));
+  return bare && parts.some((p) => /\d/.test(p)) ? parts : null;
+}
+
+/** Table-cell text: a code run becomes one token per model, anything else is
+ *  left as plain text. */
+function CellText({ text }: { text: string }) {
+  const tokens = codeTokens(text);
+  if (!tokens) return <>{text}</>;
+  return (
+    <span className="flex flex-wrap gap-1">
+      {tokens.map((t, i) => (
+        <span key={i} className={TOKEN_CLASS}>
+          {t}
+        </span>
+      ))}
+    </span>
+  );
+}
 
 /** Item/value spec plate (the drive's general-spec sheet): a left item column
  *  and a wide value column, with runs of rows sharing a vertical group label. */
@@ -314,7 +364,7 @@ function SheetSpecList({ block }: { block: Extract<SheetBlockView, { kind: "spec
                 <td className="px-4 py-2.5 text-meta leading-[1.6] text-[#33302a] align-middle">
                   {row.lines.map((line, li) => (
                     <span key={li} className={li > 0 ? "block mt-1 text-[#5a5650]" : "block"}>
-                      {line}
+                      <CellText text={line} />
                     </span>
                   ))}
                 </td>
@@ -415,7 +465,7 @@ function SheetParamTable({ block }: { block: Extract<SheetBlockView, { kind: "pa
                       colSpan={cs}
                       className="px-4 py-2 text-center text-meta text-[#33302a] tabular-nums whitespace-nowrap"
                     >
-                      {v}
+                      <CellText text={v} />
                     </td>
                   );
                 })}
@@ -506,7 +556,7 @@ function SheetDataTable({ block }: { block: Extract<SheetBlockView, { kind: "dat
                         : "px-4 py-2.5 text-meta leading-[1.6] text-[#33302a] align-top"
                     }
                   >
-                    {cell.text}
+                    <CellText text={cell.text} />
                   </td>
                 ))}
               </tr>

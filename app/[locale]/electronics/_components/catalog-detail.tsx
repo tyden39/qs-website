@@ -13,6 +13,12 @@ import type { Locale } from "@/lib/i18n/config";
 // authoring order, so the leading rows are the ones worth reading first.
 const HERO_FACTS = 4;
 
+// The strip sets its values at display size in a quarter-width cell, so it only
+// works for the short ones — a dimension, a voltage, a port count. Some products
+// document a spec as a full sentence ("thường 5 mm; một số phiên bản…"), which
+// would run to four wrapped lines and tower over the rest of the row.
+const HERO_FACT_MAX = 30;
+
 /**
  * Detail page for DNC units and accessories.
  *
@@ -57,8 +63,9 @@ export async function CatalogDetail({
     alt: im.alt,
   }));
   // The hero facts strip only pays for itself when it fills its own row, so it
-  // waits for a product documented with at least that many rows.
-  const heroFacts = product.specs.length >= HERO_FACTS ? product.specs.slice(0, HERO_FACTS) : [];
+  // waits for a product documented with at least that many scannable rows.
+  const scannable = product.specs.filter((s) => s.v.length <= HERO_FACT_MAX);
+  const heroFacts = scannable.length >= HERO_FACTS ? scannable.slice(0, HERO_FACTS) : [];
   // Some catalogue entries illustrate a feature with a shot the hero gallery
   // already carries. Showing it twice on one page reads as padding, so the hero
   // keeps it and the feature falls back to its text-only row.
@@ -131,7 +138,18 @@ export async function CatalogDetail({
               <small className="block font-mono text-label text-gold-2 tracking-[.18em] uppercase mb-4">
                 {t("modelLine", { name: product.name })}
               </small>
-              <h1 className="font-display font-bold tracking-[-.035em] leading-[1.02] text-balance m-0 text-[clamp(32px,5.5vw,64px)]">
+              {/* Some products head the page with a bare model designation —
+                  one long token with no space or hyphen to wrap at, which
+                  browsers will happily run past the column. Those headings set
+                  in a smaller size so the token fits on one line, with
+                  `break-words` as the last-resort backstop. */}
+              <h1
+                className={`font-display font-bold tracking-[-.035em] leading-[1.02] text-balance break-words m-0 ${
+                  /\s/.test(product.tag)
+                    ? "text-[clamp(32px,5.5vw,64px)]"
+                    : "text-[clamp(26px,4.2vw,46px)]"
+                }`}
+              >
                 {product.tag}
               </h1>
               <p className="mt-6 text-lede leading-[1.75] text-[#c9c2b3] max-w-[62ch] sm:text-justify">
@@ -212,18 +230,19 @@ export async function CatalogDetail({
                     {product.specsIntro}
                   </p>
                 )}
+                {/* The shot fills its frame at its own aspect ratio: these
+                    photos carry their own backdrop — some black, some white —
+                    so any panel colour behind them would clash with half the
+                    catalogue. Letting the image cover the box sidesteps it. */}
                 {product.specsPhoto && (
-                  <figure className="m-0 flex justify-center overflow-hidden border border-line bg-[#11120f]">
-                    {/* Catalogue shots run landscape or portrait; capping the
-                        height keeps a tall board from towering over the few
-                        lines of copy it sits beside. */}
+                  <figure className="m-0 overflow-hidden border border-line">
                     <Image
                       src={product.specsPhoto.src}
                       alt={product.specsPhoto.alt}
                       width={product.specsPhoto.w}
                       height={product.specsPhoto.h}
                       sizes="(max-width: 1024px) 92vw, 480px"
-                      className="max-h-[26rem] w-auto object-contain"
+                      className="block w-full h-auto"
                     />
                   </figure>
                 )}

@@ -72,6 +72,17 @@ const SPEC_LABEL_EN: Record<string, string> = {
   "Đường kính thân": "Body diameter",
   "Đường kính lớn nhất": "Max diameter",
   "Đường kính cán lắp": "Shank diameter",
+  "Đường kính mặt tiếp xúc": "Contact surface diameter",
+  "Hành trình đo": "Measuring travel",
+  "Độ lặp lại công bố": "Stated repeatability",
+  "Tốc độ tiếp cận đề xuất": "Recommended approach speed",
+  "Lực kích hoạt": "Trigger force",
+  "Tuổi thọ tiếp điểm": "Contact life",
+  "Kiểu tiếp điểm đo": "Measuring contact type",
+  "Tiếp điểm bảo vệ quá hành trình": "Overtravel protection contact",
+  "Điện áp hoạt động": "Operating voltage",
+  "Tải tiếp điểm tham khảo": "Reference contact rating",
+  "Chiều dài dây": "Cable length",
 };
 
 const SPEC_VALUE_EN: Record<string, string> = {
@@ -82,6 +93,20 @@ const SPEC_VALUE_EN: Record<string, string> = {
   "1.000 gf (xấp xỉ 9,81 N)": "1,000 gf (approx. 9.81 N)",
   "65–130 gf (xấp xỉ 0,64–1,28 N)": "65–130 gf (approx. 0.64–1.28 N)",
   "147,3 mm": "147.3 mm",
+  "Khoảng Ø20–22 mm": "Approx. Ø20–22 mm",
+  "Thường 5 mm; một số phiên bản có thể đến 10 mm": "Typically 5 mm; some versions reach 10 mm",
+  "Khoảng 0,001–0,002 mm ở dòng chất lượng cao; một số sản phẩm phổ thông công bố 0,005–0,01 mm":
+    "Approx. 0.001–0.002 mm on high-grade units; general-purpose units state 0.005–0.01 mm",
+  "50–200 mm/phút": "50–200 mm/min",
+  "Khoảng 1,5 N": "Approx. 1.5 N",
+  "Khoảng 3.000.000 lần": "Approx. 3,000,000 operations",
+  "Thường mở NO": "Normally open (NO)",
+  "Thường đóng NC, dùng làm tín hiệu dừng hoặc cảnh báo":
+    "Normally closed (NC), used as a stop or alarm signal",
+  "Thường 24 VDC, một số phiên bản hỗ trợ 10–30 VDC": "Typically 24 VDC; some versions accept 10–30 VDC",
+  "Khoảng 24 VDC, 20 mA": "Approx. 24 VDC, 20 mA",
+  "Phổ biến IP67, chống bụi, nước làm mát và dầu": "Commonly IP67 — resists dust, coolant and oil",
+  "Thường 2–5 m, dây chịu dầu": "Typically 2–5 m, oil-resistant cable",
 };
 
 function localizeSpec(row: CatalogSpec): CatalogSpec {

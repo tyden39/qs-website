@@ -375,6 +375,15 @@
     "tagEn": "Analog board · Spindle speed control",
     "desc": "Board mạch chuyển đổi tín hiệu Digital đầu vào của bộ điều khiển sang tín hiệu đầu ra Analog để điều khiển tốc độ của trục chính và các thiết bị khác sử dụng tín hiệu Analog.",
     "descEn": "A board that converts the controller's digital input signals into analog outputs, driving spindle speed and any other equipment that takes an analog reference.",
+    "specsIntro": "Board DAC 12FCV1-1222 hỗ trợ chuyển đổi tín hiệu điều khiển từ bộ điều khiển CNC thành tín hiệu Analog phù hợp với biến tần hoặc bộ điều khiển trục chính. Các chuẩn đầu ra 0–10 V, -10–10 V và 4–20 mA cho phép sản phẩm đáp ứng nhiều cấu hình thiết bị khác nhau. Board phù hợp cho nhu cầu điều chỉnh tốc độ trục chính, nâng cấp hệ thống điều khiển và tích hợp các thiết bị Analog vào máy CNC.",
+    "specsIntroEn": "The DAC 12FCV1-1222 board converts control signals from a CNC controller into analog signals suited to a variable-frequency drive or a spindle controller. Output standards of 0–10 V, -10–10 V and 4–20 mA let it match a wide range of equipment configurations. It fits spindle speed adjustment, control-system upgrades and the integration of analog devices into a CNC machine.",
+    "specsPhoto": {
+      "src": "/img/products/catalog/dac-12fcv1-1222-case.webp",
+      "w": 1400,
+      "h": 788,
+      "alt": "Board DAC 12FCV1-1222 trong vỏ hộp nhựa trong",
+      "altEn": "DAC 12FCV1-1222 board in its clear plastic housing"
+    },
     "specs": [
       {
         "l": "Model",
@@ -411,10 +420,19 @@
     "slug": "plc-qs-mn-v1-009-22",
     "category": "accessory",
     "name": "PLC_QS_MN_V1_009_22",
-    "tag": "PLC nhỏ gọn · Ngõ ra Transistor",
-    "tagEn": "Compact PLC · Transistor output",
+    "tag": "PLC_QS_MN_V1_009_22",
+    "tagEn": "PLC_QS_MN_V1_009_22",
     "desc": "Thiết bị PLC với thiết kế nhỏ gọn, dễ dàng sử dụng, phù hợp cho các ứng dụng đơn giản với ngõ ra tín hiệu là Transistor.",
     "descEn": "A compact, straightforward PLC suited to simple applications, with transistor signal outputs.",
+    "specsIntro": "PLC_QS_MN_V1_009_22 được thiết kế cho các ứng dụng cần xử lý tín hiệu và điều khiển đóng/ngắt với tốc độ đáp ứng nhanh. Cấu hình gồm 10 ngõ vào và 4 ngõ ra transistor, phù hợp để kết nối cảm biến, công tắc hành trình, relay trung gian và các cơ cấu chấp hành tương thích. Giao tiếp RS232 hỗ trợ kết nối và trao đổi dữ liệu với thiết bị điều khiển trong hệ thống máy.",
+    "specsIntroEn": "The PLC_QS_MN_V1_009_22 is built for applications that need signal processing and fast switching control. Its configuration of 10 inputs and 4 transistor outputs suits sensors, limit switches, interposing relays and compatible actuators. RS232 provides the link and data exchange with the control equipment in the machine system.",
+    "specsPhoto": {
+      "src": "/img/products/catalog/plc-qs-mn-v1-009-22-board.webp",
+      "w": 1400,
+      "h": 824,
+      "alt": "Board PLC_QS_MN_V1_009_22",
+      "altEn": "PLC_QS_MN_V1_009_22 board"
+    },
     "specs": [
       {
         "l": "Kích thước",
@@ -524,12 +542,21 @@
   {
     "slug": "wireless-3d-touch-probe",
     "category": "accessory",
-    "name": "Đầu dò 3D không dây",
-    "nameEn": "Wireless 3D Touch Probe",
-    "tag": "Đầu dò 3D · Truyền tín hiệu không dây",
-    "tagEn": "3D touch probe · Wireless signal link",
+    "name": "Bộ đầu dò tâm phôi không dây GP800",
+    "nameEn": "GP800 Wireless Workpiece Probe",
+    "tag": "Bộ đầu dò tâm phôi không dây GP800",
+    "tagEn": "GP800 Wireless Workpiece Probe",
     "desc": "Bộ đầu dò 3D gá trên trục chính máy CNC dùng để rà cạnh, tìm tâm lỗ và thiết lập gốc phôi. Tín hiệu được truyền không dây về bộ thu gắn trên máy nên không vướng dây trong quá trình gia công.",
     "descEn": "A 3D touch probe held in the CNC spindle for edge finding, hole centring and workpiece zero setting. It reports over a wireless link to a receiver mounted on the machine, so no cable runs to the spindle.",
+    "specsIntro": "Đầu dò 3D không dây GP800 được sử dụng để xác định vị trí phôi trước gia công, bao gồm rà cạnh, tìm tâm, dò mặt và thiết lập gốc tọa độ trên máy CNC. Thiết kế truyền tín hiệu không dây giúp đầu dò làm việc linh hoạt hơn trong khu vực gia công và thuận tiện cho quá trình lắp đặt, sử dụng. GP800 phù hợp cho các máy CNC yêu cầu độ chính xác cao trong công đoạn setup và kiểm tra ban đầu.",
+    "specsIntroEn": "The GP800 wireless 3D probe locates the workpiece before machining — edge finding, centring, surface probing and setting the coordinate origin on a CNC machine. The wireless signal link lets the probe work more freely inside the machining area and keeps installation and daily use straightforward. The GP800 suits CNC machines that demand high accuracy during setup and initial inspection.",
+    "specsPhoto": {
+      "src": "/img/products/catalog/wireless-3d-touch-probe-kit.webp",
+      "w": 1000,
+      "h": 1039,
+      "alt": "Bộ đầu dò tâm phôi không dây GP800 và bộ thu tín hiệu",
+      "altEn": "GP800 Wireless Workpiece Probe with its signal receiver"
+    },
     "specs": [
       {
         "l": "Model",
@@ -600,8 +627,8 @@
       "src": "/img/products/catalog/wireless-3d-touch-probe.webp",
       "w": 679,
       "h": 706,
-      "alt": "Đầu dò 3D không dây kèm bộ thu tín hiệu",
-      "altEn": "Wireless 3D touch probe with its signal receiver"
+      "alt": "Bộ đầu dò tâm phôi không dây GP800 kèm bộ thu tín hiệu",
+      "altEn": "GP800 Wireless Workpiece Probe with its signal receiver"
     },
     "features": [],
     "sourceUrl": ""
@@ -609,19 +636,77 @@
   {
     "slug": "cnc-tool-setter",
     "category": "accessory",
-    "name": "Bộ đo dao máy CNC",
-    "nameEn": "CNC Tool Setter",
-    "tag": "Bộ đo dao · Xác định gốc dao trục Z",
-    "tagEn": "Tool setter · Z-axis tool zero",
+    "name": "Bộ so dao tự động",
+    "nameEn": "Automatic Tool Setter",
+    "tag": "Bộ so dao tự động",
+    "tagEn": "Automatic Tool Setter",
     "desc": "Thiết bị đặt trên bàn máy CNC để đo chiều dài dao và xác định gốc dao theo trục Z sau mỗi lần thay dao, thay cho thao tác rà dao thủ công.",
     "descEn": "A bench-mounted unit that measures tool length and sets the Z-axis tool zero after each tool change, replacing manual touch-off.",
-    "specs": [],
+    "specsIntro": "Bộ so dao tự động hỗ trợ xác định chiều dài dụng cụ sau mỗi lần lắp mới hoặc thay dao trên máy CNC. Khi đầu dao tiếp xúc với bề mặt đo, hệ thống ghi nhận vị trí trục Z và cập nhật giá trị bù dao theo chương trình đã thiết lập. Giải pháp này giúp quá trình thay dao diễn ra nhanh hơn, đồng thời hạn chế sai số phát sinh từ thao tác đo thủ công.",
+    "specsIntroEn": "An automatic tool setter establishes tool length each time a tool is newly fitted or changed on a CNC machine. As the tool tip touches the measuring surface, the system records the Z-axis position and updates the tool offset according to the programmed routine. This speeds up tool changes and limits the errors that come with measuring by hand.",
+    "specsPhoto": {
+      "src": "/img/products/catalog/cnc-tool-setter-detail.webp",
+      "w": 1000,
+      "h": 592,
+      "alt": "Bộ so dao tự động kèm dây tín hiệu bọc lò xo",
+      "altEn": "Automatic tool setter with its armoured signal cable"
+    },
+    "specs": [
+      {
+        "l": "Đường kính mặt tiếp xúc",
+        "v": "Khoảng Ø20–22 mm"
+      },
+      {
+        "l": "Hành trình đo",
+        "v": "Thường 5 mm; một số phiên bản có thể đến 10 mm"
+      },
+      {
+        "l": "Độ lặp lại công bố",
+        "v": "Khoảng 0,001–0,002 mm ở dòng chất lượng cao; một số sản phẩm phổ thông công bố 0,005–0,01 mm"
+      },
+      {
+        "l": "Tốc độ tiếp cận đề xuất",
+        "v": "50–200 mm/phút"
+      },
+      {
+        "l": "Lực kích hoạt",
+        "v": "Khoảng 1,5 N"
+      },
+      {
+        "l": "Tuổi thọ tiếp điểm",
+        "v": "Khoảng 3.000.000 lần"
+      },
+      {
+        "l": "Kiểu tiếp điểm đo",
+        "v": "Thường mở NO"
+      },
+      {
+        "l": "Tiếp điểm bảo vệ quá hành trình",
+        "v": "Thường đóng NC, dùng làm tín hiệu dừng hoặc cảnh báo"
+      },
+      {
+        "l": "Điện áp hoạt động",
+        "v": "Thường 24 VDC, một số phiên bản hỗ trợ 10–30 VDC"
+      },
+      {
+        "l": "Tải tiếp điểm tham khảo",
+        "v": "Khoảng 24 VDC, 20 mA"
+      },
+      {
+        "l": "Cấp bảo vệ",
+        "v": "Phổ biến IP67, chống bụi, nước làm mát và dầu"
+      },
+      {
+        "l": "Chiều dài dây",
+        "v": "Thường 2–5 m, dây chịu dầu"
+      }
+    ],
     "image": {
       "src": "/img/products/catalog/cnc-tool-setter.webp",
       "w": 550,
       "h": 550,
-      "alt": "Bộ đo dao dùng cho máy CNC",
-      "altEn": "Tool setter for CNC machines"
+      "alt": "Bộ so dao tự động dùng cho máy CNC",
+      "altEn": "Automatic Tool Setter for CNC machines"
     },
     "features": [],
     "sourceUrl": ""

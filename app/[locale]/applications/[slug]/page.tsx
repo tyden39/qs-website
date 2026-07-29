@@ -313,7 +313,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
 
       {/* CONTROL CENTRE — what the controller drives, and the machine it drives */}
       {control && (
-        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-white border-b border-line">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <div className="mb-10 pb-4 border-b border-line">
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("controlEyebrow")}</span>
@@ -355,7 +355,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
 
       {/* CAPABILITIES */}
       {capabilities.length > 0 && (
-        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-white border-b border-line">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <div className="mb-10 pb-4 border-b border-line">
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("capabilityEyebrow")}</span>
@@ -390,7 +390,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
 
       {/* MACHINING COMPATIBILITY */}
       {compat && (
-        <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-paper border-b border-line">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.1fr] gap-10 md:gap-16 items-start">
             <div>
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("compatEyebrow")}</span>
@@ -449,7 +449,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
 
       {/* BENEFITS */}
       {benefits && (
-        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-white border-b border-line">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <div className="mb-10 pb-4 border-b border-line">
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("benefitEyebrow")}</span>
@@ -470,7 +470,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
 
       {/* FINISHED PARTS */}
       {gallery.length > 0 && (
-        <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-paper border-b border-line">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <div className="mb-10 pb-4 border-b border-line">
               <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("galleryEyebrow")}</span>
@@ -493,7 +493,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
 
       {/* MATCHING PRODUCTS */}
       {relatedProducts.length > 0 && (
-        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-white border-b border-line">
           <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
             <Reveal className="qs-section-head">
               <div>

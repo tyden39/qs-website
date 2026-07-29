@@ -136,7 +136,7 @@ export default async function LineMachineDetail({
 
       {/* PROCESS FLOW — infeed → cycle → discharge, on an animated conveyor */}
       {machine.line.length > 0 && (
-        <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-b border-line overflow-hidden">
+        <section className="relative py-8 sm:py-10 lg:py-14 bg-paper-2 border-b border-line overflow-hidden">
           <div className="relative qs-wrap-detail">
             <Reveal>
               <div className="pb-6 border-b border-line mb-12 max-w-[70ch]">
@@ -186,7 +186,7 @@ export default async function LineMachineDetail({
 
       {/* GALLERY — the machine on a real line, captioned */}
       {machine.gallery.length > 0 && (
-        <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
+        <section className="relative py-8 sm:py-10 lg:py-14 bg-paper overflow-hidden">
           <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
           <div className="relative qs-wrap-detail">
             <Reveal>
@@ -227,7 +227,7 @@ export default async function LineMachineDetail({
       )}
 
       {/* FEATURES — icon callouts on hairline dividers */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-y border-line">
+      <section className="relative py-8 sm:py-10 lg:py-14 bg-paper-2 border-y border-line">
         <div className="relative qs-wrap-detail">
           <Reveal>
             <div className="pb-6 border-b border-line mb-10">
@@ -258,7 +258,7 @@ export default async function LineMachineDetail({
       </section>
 
       {/* SPECS + CONTROL + APPLICATIONS */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
+      <section className="relative py-8 sm:py-10 lg:py-14 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-40" aria-hidden="true"></div>
         <div className="relative qs-wrap-detail grid gap-12 lg:gap-16 items-start lg:grid-cols-[1.15fr_.85fr]">
           <Reveal>
@@ -345,7 +345,7 @@ export default async function LineMachineDetail({
       </section>
 
       {/* CTA — closing consultation band */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper-2 border-t border-line overflow-hidden">
+      <section className="relative py-8 sm:py-10 lg:py-14 bg-paper-2 border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-50" aria-hidden="true"></div>
         <div className="relative qs-wrap-detail max-w-[880px] text-center">
           <Reveal>

@@ -39,7 +39,7 @@ export default function ContactCta({
   bordered = false,
 }: ContactCtaProps) {
   return (
-    <section className={`py-10 sm:py-12 lg:py-16 bg-paper-2${bordered ? " border-t border-line" : ""}`}>
+    <section className={`qs-closing-cta py-10 sm:py-12 lg:py-16 bg-paper-2${bordered ? " border-t border-line" : ""}`}>
       <div className={wrap === "detail" ? "qs-wrap-detail" : "max-w-wrap mx-auto px-5 sm:px-8 lg:px-12"}>
         <div className="bg-[#11120f] text-[#cfc9b8] p-7 sm:p-10 lg:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center border border-[#28261f]">
           <div>

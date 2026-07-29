@@ -227,7 +227,7 @@ export default async function Applications({ params }: { params: Promise<{ local
       </section>
 
       {/* GROUPED BY MATERIAL — the active group's cases, full width below the hero */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white" id="list">
+      <section className="py-8 sm:py-10 lg:py-14 bg-white" id="list">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <Reveal>
             <CategoryTreePanels groups={appGroups} />
@@ -237,7 +237,7 @@ export default async function Applications({ params }: { params: Promise<{ local
       <FilterPrePaintCleanup />
 
       {/* VIDEO — centered feature clip below the catalog */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-paper border-t border-line">
+      <section className="py-8 sm:py-10 lg:py-14 bg-paper border-t border-line">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="max-w-[900px] mx-auto text-center">
             <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>

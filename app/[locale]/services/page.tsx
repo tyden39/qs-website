@@ -78,7 +78,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
       </section>
 
       {/* GIẢI PHÁP TOÀN DIỆN */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white">
+      <section className="py-8 sm:py-10 lg:py-14 bg-white">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
@@ -103,7 +103,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
       </section>
 
       {/* CASE STUDY — BEFORE / AFTER */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-paper border-y border-line">
+      <section className="py-8 sm:py-10 lg:py-14 bg-paper border-y border-line">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="qs-section-head">
             <div>
@@ -158,7 +158,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
       </section>
 
       {/* LIÊN HỆ */}
-      <section className="relative overflow-hidden border-t border-line py-12 sm:py-16 lg:py-24" id="contact"
+      <section className="relative overflow-hidden border-t border-line py-8 sm:py-10 lg:py-14" id="contact"
                style={{ background: "linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)" }}>
 
         <div className="relative z-10 max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">

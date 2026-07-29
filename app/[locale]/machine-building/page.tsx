@@ -160,7 +160,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
       </section>
 
       {/* MACHINE LINE-UP — the active type's machines, full width below the hero */}
-      <section id="list" className="relative py-12 sm:py-16 lg:py-24 bg-paper border-t border-line overflow-hidden">
+      <section id="list" className="relative py-8 sm:py-10 lg:py-14 bg-paper border-t border-line overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 right-0 w-[38%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_24%,transparent_70%)]" />
         <div className="relative max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
@@ -171,7 +171,7 @@ export default async function CncPage({ params }: { params: Promise<{ locale: Lo
       </section>
 
       {/* CTA — closing consultation band */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-paper overflow-hidden">
+      <section className="relative py-8 sm:py-10 lg:py-14 bg-paper overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-60" aria-hidden="true"></div>
         <CircuitTraces variant="light" className="hidden md:block absolute top-0 left-0 w-[36%] h-[70%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_left,#000_24%,transparent_70%)]" />
         <div className="relative mx-auto px-5 sm:px-8 lg:px-12 max-w-[880px] text-center">

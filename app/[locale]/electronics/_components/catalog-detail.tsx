@@ -186,7 +186,7 @@ export async function CatalogDetail({
       {hasSpecs && (
         <section
           id="specs"
-          className="relative overflow-hidden scroll-mt-24 bg-paper border-b border-line py-12 sm:py-16 lg:py-24"
+          className="relative overflow-hidden scroll-mt-24 bg-paper border-b border-line py-8 sm:py-10 lg:py-14"
         >
           <CircuitTraces
             variant="light"
@@ -231,7 +231,7 @@ export async function CatalogDetail({
 
       {/* ── Features (only where the catalogue documents them) ── */}
       {features.length > 0 && (
-        <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-white border-b border-line">
           <div className="qs-wrap-detail">
             {bandHead(t("featuresHeading"), t("catalogFeaturesHeading"), features.length)}
 
@@ -299,7 +299,7 @@ export async function CatalogDetail({
 
       {/* ── Video (lazy YouTube facade — no embed weight until played) ── */}
       {product.video && (
-        <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
+        <section className="py-8 sm:py-10 lg:py-14 bg-paper border-b border-line">
           <div className="qs-wrap-detail">
             {bandHead(t("videoEyebrow"), t("videoHeading"))}
 

@@ -146,7 +146,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       </section>
 
       {/* PROCESS */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white">
+      <section className="py-8 sm:py-10 lg:py-14 bg-white">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="mb-10 pb-4 border-b border-line">
             <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("processEyebrow")}</span>
@@ -170,7 +170,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       </section>
 
       {/* INCLUDES */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-paper border-t border-line">
+      <section className="py-8 sm:py-10 lg:py-14 bg-paper border-t border-line">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-start">
           <div>
             <span className="qs-eyebrow">{t("includesEyebrow")}</span>
@@ -203,7 +203,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       </section>
 
       {/* PRICING */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-white" id="pricing">
+      <section className="py-8 sm:py-10 lg:py-14 bg-white" id="pricing">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
           <div className="text-center mb-10">
             <span className="font-mono text-label text-gold-1 tracking-[.16em] uppercase">{t("pricingEyebrow")}</span>

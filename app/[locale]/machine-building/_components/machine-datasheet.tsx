@@ -824,7 +824,7 @@ export default async function MachineDatasheet({
       </section>
 
       {/* ── CTA ── */}
-      <section className="relative bg-ink text-[#cfc9b8] py-12 sm:py-16 lg:py-24 overflow-hidden">
+      <section className="relative bg-ink text-[#cfc9b8] py-8 sm:py-10 lg:py-14 overflow-hidden">
         <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.1]" aria-hidden="true" />
         <CircuitTraces
           variant="dark"

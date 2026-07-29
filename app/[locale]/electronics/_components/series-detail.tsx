@@ -66,7 +66,7 @@ export async function SeriesDetail({
   const introSheet = detail?.introSheet ?? [];
   const introImages = detail?.introduction ?? [];
   const introPanel = (intro || introSheet.length > 0 || introImages.length > 0) && (
-    <section className="bg-white border-b border-line py-12 sm:py-16 lg:py-24">
+    <section className="bg-white border-b border-line py-8 sm:py-10 lg:py-14">
       <div className="qs-wrap-detail">
         <div className="qs-eyebrow mb-2">{t("introEyebrow")}</div>
         <h2 className="qs-h2 mb-6">{t("introHeading")}</h2>
@@ -141,7 +141,7 @@ export async function SeriesDetail({
   //    spec sheet, then whatever manufacturer plates have not been rebuilt yet
   //    as a gallery beneath them. ──
   const specsPanel = (
-    <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+    <section className="py-8 sm:py-10 lg:py-14 bg-white border-b border-line">
       <div className="qs-wrap-detail">
         {detail ? (
           <div className="flex flex-col gap-14">
@@ -236,7 +236,7 @@ export async function SeriesDetail({
     items: docs.filter((d) => d.category === category),
   })).filter((g) => g.items.length > 0);
   const docsPanel = docs.length > 0 && (
-    <section className="py-12 sm:py-16 lg:py-24 bg-paper border-b border-line">
+    <section className="py-8 sm:py-10 lg:py-14 bg-paper border-b border-line">
       <div className="qs-wrap-detail">
         <div className="qs-eyebrow mb-2">{t("docsEyebrow")}</div>
         <h2 className="qs-h2 mb-3">{t("docsHeading")}</h2>
@@ -341,7 +341,7 @@ export async function SeriesDetail({
   const accessoryImages = detail?.accessoryImages ?? [];
   const accessorySheet = detail?.accessorySheet ?? [];
   const accessoriesPanel = (accessorySheet.length > 0 || accessoryImages.length > 0) && (
-    <section className="py-12 sm:py-16 lg:py-24 bg-white border-b border-line">
+    <section className="py-8 sm:py-10 lg:py-14 bg-white border-b border-line">
       <div className="qs-wrap-detail">
         <div className="qs-eyebrow mb-2">{t("accessoryImagesEyebrow")}</div>
         <h2 className="qs-h2 mb-8">{t("accessoryImagesHeading")}</h2>

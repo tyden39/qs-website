@@ -636,6 +636,13 @@ section.sm\:py-16.bg-\[\#f7f5ef\] + section.sm\:py-16.bg-\[\#f7f5ef\] {
   padding-top: var(--qs-stack-pt);
 }
 
+/* The closing call to action already ends in its own bottom padding, so the gap the
+   footer normally holds off the preceding section would land twice — two light bands
+   of different tone stacked between the dark CTA card and the dark footer. Drop the
+   footer's own gap whenever that block is what precedes it; pages that end on any
+   other section keep it. */
+.qs-closing-cta + .qs-foot { margin-top: 0; }
+
 .qs-nav { background: #fff; border-bottom: 1px solid #d8d6cf; position: sticky; top: 0; z-index: 50; }
 
 /* Catalogue list anchor: keep its top clear of the sticky nav (64px, 72px once

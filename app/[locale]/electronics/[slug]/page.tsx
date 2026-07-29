@@ -362,13 +362,13 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   };
 
   const overviewPanel = (
-    <section className="relative overflow-hidden bg-[#f7f5ef] py-12 sm:py-16 lg:py-24">
+    <section className="relative overflow-hidden bg-[#f7f5ef] py-8 sm:py-10 lg:py-14">
       <CircuitTraces
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
       />
       <div className="relative qs-wrap-detail">
-        <div className="grid lg:grid-cols-[minmax(0,760px)_minmax(0,1fr)] gap-x-16 gap-y-10 items-center">
+        <div className="grid lg:grid-cols-[minmax(0,760px)_minmax(0,1fr)] gap-x-16 gap-y-10 items-start">
           <div className="min-w-0">
             <header className="max-w-[820px]">
               <span className="qs-eyebrow">{t("overviewEyebrow")}</span>
@@ -386,7 +386,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                 group={galleryShots}
                 index={0}
                 ariaLabel={t("lightbox.zoom")}
-                className="relative lg:min-h-[480px] grid place-items-center p-6 sm:p-8 overflow-hidden w-full"
+                className="relative lg:min-h-[400px] grid place-items-center p-6 sm:p-8 overflow-hidden w-full"
               >
                 <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-70" aria-hidden="true" />
                 <span className="qs-glow left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />
@@ -409,7 +409,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         </div>
 
         {annotated.length > 0 && (
-          <div className="mt-14">
+          <div className="mt-10">
             <div className="flex items-end justify-between gap-4 border-b border-line pb-3 mb-8">
               <div>
                 <span className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{t("tourEyebrow")}</span>
@@ -440,7 +440,11 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
                       >
                         <LightboxTrigger group={tourShots} index={index} ariaLabel={t("lightbox.zoom")} className="relative min-h-[240px] grid place-items-center p-6 overflow-hidden w-full">
                           <div className="absolute inset-0 qs-grid-bg opacity-30" />
-                          <span className="absolute top-3 left-4 font-mono text-label-xs text-gold-1 tracking-[.16em]">{String(index + 1).padStart(2, "0")}</span>
+                          {/* The shot is centred inside the frame's padding, so a photo that
+                              fills the box lands right under a number set inside that band.
+                              Pin the index to the frame corner instead — it reads as a sheet
+                              annotation and stays clear of the image whatever its aspect. */}
+                          <span className="absolute top-2 left-2.5 z-[2] leading-none font-mono text-label-xs text-gold-1 tracking-[.16em]">{String(index + 1).padStart(2, "0")}</span>
                           <Image
                             src={img.src}
                             alt={img.alt}
@@ -469,7 +473,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
           </div>
         )}
 
-        <div className="mt-14">
+        <div className="mt-12">
           <div className="flex items-end justify-between gap-4 border-b border-line pb-3 mb-6">
             <div>
               <span className="font-mono text-label-xs text-gold-1 tracking-[.16em] uppercase">{t("videoEyebrow")}</span>
@@ -492,7 +496,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   );
 
   const specsPanel = (
-    <section className="relative overflow-hidden bg-[#f7f5ef] py-12 sm:py-16 lg:py-24">
+    <section className="relative overflow-hidden bg-[#f7f5ef] py-8 sm:py-10 lg:py-14">
       <CircuitTraces
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
@@ -553,7 +557,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   );
 
   const resourcesPanel = (
-    <section className="relative overflow-hidden py-12 sm:py-16 lg:py-24 bg-paper">
+    <section className="relative overflow-hidden py-8 sm:py-10 lg:py-14 bg-paper">
       <CircuitTraces
         variant="light"
         className="hidden md:block absolute top-0 right-0 w-[44%] h-[72%] opacity-[.5] [mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_top_right,#000_22%,transparent_70%)]"
@@ -577,7 +581,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   );
 
   const packagePanel = (
-    <section className="py-12 sm:py-16 lg:py-24 bg-[#f7f5ef]">
+    <section className="py-8 sm:py-10 lg:py-14 bg-[#f7f5ef]">
       <div className="qs-wrap-detail">
         <div className="qs-section-head">
           <div>

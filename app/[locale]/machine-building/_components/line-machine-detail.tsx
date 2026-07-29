@@ -75,7 +75,7 @@ export default async function LineMachineDetail({
                 {category}
               </span>
               <h1 className="qs-h1 mt-4">{machine.model}</h1>
-              <p className="qs-lede mt-5">{machine.tagline}</p>
+              <p className="qs-lede mt-5 sm:text-justify">{machine.tagline}</p>
 
               {/* andon status — the machine reads "ready" on the line */}
               <div className="mt-6 inline-flex items-center gap-2.5 font-mono text-meta tracking-[.12em] uppercase text-muted">

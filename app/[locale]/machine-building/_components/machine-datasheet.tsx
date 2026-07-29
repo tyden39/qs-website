@@ -261,7 +261,7 @@ export default async function MachineDatasheet({
                   {machine.subtitle}
                 </p>
               )}
-              <p className="qs-lede mt-5 max-w-[52ch] qs-rise" style={{ animationDelay: "260ms" }}>
+              <p className="qs-lede mt-5 max-w-[52ch] sm:text-justify qs-rise" style={{ animationDelay: "260ms" }}>
                 {machine.tagline}
               </p>
 

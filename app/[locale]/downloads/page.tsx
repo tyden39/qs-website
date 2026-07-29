@@ -234,7 +234,7 @@ export default async function Downloads({ params }: Props) {
                   </span>
                 </span>
               </h1>
-              <p className="qs-lede mt-5 max-w-[52ch] qs-rise" style={{ animationDelay: "300ms" }}>{t("hero.lede")}</p>
+              <p className="qs-lede mt-5 max-w-[52ch] sm:text-justify qs-rise" style={{ animationDelay: "300ms" }}>{t("hero.lede")}</p>
 
               {/* stats */}
               <div className="mt-9 flex gap-10 qs-rise" style={{ animationDelay: "400ms" }}>

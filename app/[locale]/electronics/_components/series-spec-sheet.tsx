@@ -239,59 +239,70 @@ function SheetCaption({ text }: { text: string }) {
 
 /**
  * Model-code decode. The manufacturer's leader-line layout needs fixed pixel
- * positions that do not survive a phone viewport, so the code is printed once
- * with each meaningful chunk marked, then decoded as numbered cards that reflow
- * — same mapping, responsive, and left in the HTML for search.
+ * positions that do not survive a phone viewport, so the code is set once as
+ * the plate's header bar — segments numbered in reading order — and decoded
+ * beneath as one row per segment, the same dense legend the rest of the sheet
+ * uses. Option codes ride as inline tokens rather than a bullet column: a
+ * segment with six options and one with none then cost what they are worth,
+ * instead of every card in a grid row growing to match its tallest neighbour.
  */
 function SheetNaming({ block }: { block: Extract<SheetBlockView, { kind: "naming" }> }) {
   return (
-    <div className="border border-line bg-paper p-6 lg:p-8">
-      <div className="flex flex-wrap items-end justify-center gap-x-1.5 gap-y-4">
+    <div className="border border-line bg-white">
+      {/* Segments wrap as whole units on a narrow viewport; each carries its
+          row number, so the mapping survives the wrap. Hidden from assistive
+          tech — the caption reads the code unfragmented. */}
+      <div
+        aria-hidden="true"
+        className="flex flex-wrap items-end gap-x-2.5 gap-y-2.5 bg-[#11120f] px-4 py-3 sm:px-5"
+      >
         {block.branches.map((br, i) => (
-          <div key={i} className="flex flex-col items-center gap-1.5">
-            <span className="font-display text-title sm:text-subhead font-bold tracking-[-.01em] text-ink whitespace-nowrap">
+          <span key={i} className="flex flex-col items-center gap-1">
+            <span className="font-display text-meta sm:text-title font-bold tracking-[-.01em] text-white whitespace-nowrap">
               {br.seg}
             </span>
-            <span className="w-full h-px bg-gold" aria-hidden="true" />
-            <span
-              className="font-mono text-label-xs tracking-[.08em] text-gold-1 tabular-nums"
-              aria-hidden="true"
-            >
+            <span className="h-px w-full bg-gold-2/60" />
+            <span className="font-mono text-label-xs tracking-[.08em] text-gold-2 tabular-nums leading-none">
               {i + 1}
             </span>
-          </div>
+          </span>
         ))}
       </div>
 
-      <span className="sr-only">{block.code}</span>
-
-      <div className="mt-7 grid gap-px bg-line border border-line sm:grid-cols-2 lg:grid-cols-4">
-        {block.branches.map((br, i) => (
-          <div key={i} className="bg-paper p-4 flex flex-col gap-1.5">
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-label-xs text-gold-1 tabular-nums">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="font-display text-meta font-bold tracking-[-.01em] text-ink">
-                {br.seg}
-              </span>
-            </div>
-            <span className="text-meta leading-[1.55] text-[#3a3a3a]">{br.label}</span>
-            {br.options && br.options.length > 0 && (
-              <ul className="mt-1 flex flex-col gap-1 m-0 p-0 list-none">
-                {br.options.map((o, oi) => (
-                  <li key={oi} className="flex gap-2 text-meta leading-[1.55] text-muted">
-                    <span aria-hidden className="text-gold-1 shrink-0">
-                      ·
+      <table className="w-full border-collapse">
+        <caption className="sr-only">{block.code}</caption>
+        <tbody>
+          {block.branches.map((br, i) => (
+            <tr key={i} className={i > 0 ? "border-t border-line" : undefined}>
+              {/* Shrink-to-fit: segments run from "C" to "SCH086(ZD1V)", so no
+                  fixed width would hold. */}
+              <th
+                scope="row"
+                className="w-px whitespace-nowrap bg-[#f3f6f8] px-3 py-2 text-left align-top sm:px-4"
+              >
+                <span className="font-mono text-label-xs text-gold-1 tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="ml-2 font-display text-meta font-bold tracking-[-.01em] text-ink">
+                  {br.seg}
+                </span>
+              </th>
+              <td className="px-3 py-2 align-top sm:px-4">
+                <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1">
+                  <span className="mr-1 text-meta font-semibold tracking-[-.005em] text-ink">
+                    {br.label}
+                  </span>
+                  {br.options?.map((o, oi) => (
+                    <span key={oi} className={TOKEN_CLASS}>
+                      {o}
                     </span>
-                    <span>{o}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))}
-      </div>
+                  ))}
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

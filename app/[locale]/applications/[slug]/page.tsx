@@ -272,7 +272,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
                   {machine_.tagline}
                 </p>
               )}
-              <p className="qs-rise mt-6 text-title leading-[1.6] text-[#a8a499] max-w-[55ch]" style={{ animationDelay: "180ms" }}>
+              <p className="qs-rise mt-6 text-title leading-[1.6] text-[#a8a499] max-w-[55ch] sm:text-justify" style={{ animationDelay: "180ms" }}>
                 {heroLede}
               </p>
             </div>

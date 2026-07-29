@@ -126,7 +126,7 @@ export async function CategoryShell({
                 <em className="not-italic qs-gold-shimmer">{gold}</em>
                 {after}
               </h1>
-              <p className="qs-lede mt-3.5 max-w-[54ch]">{t(`groups.${id}.blurb`)}</p>
+              <p className="qs-lede mt-3.5 max-w-[54ch] sm:text-justify">{t(`groups.${id}.blurb`)}</p>
             </div>
             {/* Group hero render on a light tile — reuses catalogue assets, no
                 bespoke art. object-contain keeps every shape (square controller,

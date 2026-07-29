@@ -73,7 +73,7 @@ export default async function Service({ params }: { params: Promise<{ locale: Lo
               </span>
             </span>
           </h1>
-          <p className="qs-lede mt-6 max-w-[64ch] qs-rise" style={{ animationDelay: "300ms" }}>{intro}</p>
+          <p className="qs-lede mt-6 max-w-[64ch] sm:text-justify qs-rise" style={{ animationDelay: "300ms" }}>{intro}</p>
         </div>
       </section>
 

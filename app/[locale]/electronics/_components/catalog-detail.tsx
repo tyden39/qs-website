@@ -134,7 +134,7 @@ export async function CatalogDetail({
               <h1 className="font-display font-bold tracking-[-.035em] leading-[1.02] text-balance m-0 text-[clamp(32px,5.5vw,64px)]">
                 {product.tag}
               </h1>
-              <p className="mt-6 text-lede leading-[1.75] text-[#c9c2b3] max-w-[62ch]">
+              <p className="mt-6 text-lede leading-[1.75] text-[#c9c2b3] max-w-[62ch] sm:text-justify">
                 {product.desc}
               </p>
 

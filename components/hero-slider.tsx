@@ -133,7 +133,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           {/* line-clamp caps phone copy at 4 lines and min-h matches that cap, so
               switching slides never reflows the stack below (no scroll jump)
               while short copy no longer leaves a tall blank gap. */}
-          <p className="mt-6 lg:mt-7 min-h-[7rem] sm:min-h-[6rem] lg:min-h-[7rem] text-title leading-[1.7] text-[#b4afa0] max-w-[50ch] mx-auto md:mx-0 line-clamp-4 sm:line-clamp-none qs-sweep-in" style={sweep(400)}>
+          <p className="mt-6 lg:mt-7 min-h-[7rem] sm:min-h-[6rem] lg:min-h-[7rem] text-title leading-[1.7] text-[#b4afa0] max-w-[50ch] mx-auto md:mx-0 md:text-justify line-clamp-4 sm:line-clamp-none qs-sweep-in" style={sweep(400)}>
             {s.desc}
           </p>
           <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-8 lg:mt-9 qs-sweep-in" style={sweep(500)}>

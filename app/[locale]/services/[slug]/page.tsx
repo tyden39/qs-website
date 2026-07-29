@@ -95,7 +95,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
                 {s.hero.line2} <em className="not-italic bg-gold-grad bg-clip-text text-transparent">{s.hero.emphasis}</em><br/>
                 {t("heroLine3")}
               </h1>
-              <p className="text-title leading-[1.7] text-[#3a3a3a] max-w-[55ch] mt-6">{s.lede}</p>
+              <p className="text-title leading-[1.7] text-[#3a3a3a] max-w-[55ch] mt-6 sm:text-justify">{s.lede}</p>
               <div className="flex gap-3 mt-7">
                 <Link className="qs-btn qs-btn-gold" href="/contact">{t("surveyBtn")}</Link>
                 <a className="qs-btn qs-btn-ghost" href="#pricing">{t("pricingBtn")}</a>

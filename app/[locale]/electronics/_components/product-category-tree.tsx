@@ -315,8 +315,32 @@ export function CategoryTreeHero({
             scrolling internally when the tree is taller than the band. */}
         <nav
           aria-label={eyebrow ?? groups.map((g) => g.label).join(" / ")}
-          className={`hidden lg:flex lg:flex-col lg:h-full lg:max-h-[540px] border p-5 ${skin.rail}`}
+          className={`hidden lg:flex lg:flex-col lg:relative lg:h-full lg:max-h-[540px] border 2xl:border-l-0 p-5 ${skin.rail}`}
         >
+          {/* The rail's plate run off the left edge of the viewport — the band's
+              counterweight to the figure bleeding off the right. Past `2xl` the
+              container is capped well inside the viewport, so without this the
+              only hard edge in the band is the figure's and the whole hero reads
+              right-heavy over a dead left gutter; texture in that gutter carries
+              no mass and cannot answer an edge. `right-full` pins it to the
+              rail's own edge and the rail drops its left border there, so plate
+              and extension read as one surface with no seam; `inset-y-[-1px]`
+              continues the rail's hairlines rather than drawing a second pair.
+              50vw always outruns the gutter, and the hero section's
+              `overflow-hidden` clips the rest. */}
+          <div
+            aria-hidden="true"
+            className={`hidden 2xl:block absolute inset-y-[-1px] right-full w-[50vw] border-y pointer-events-none ${skin.rail}`}
+          >
+            {/* Blueprint dot field over the extension, fading out before it
+                reaches the tree so the rows stay on clean stock. It reads here
+                — where the same field over the page background did not —
+                because the plate is a flat, brighter surface. Light only: the
+                ink plate already separates itself from the band behind it. */}
+            {tone === "light" ? (
+              <div className="absolute inset-0 qs-dot-bg opacity-70 [mask-image:linear-gradient(90deg,#000_0%,transparent_86%)] [-webkit-mask-image:linear-gradient(90deg,#000_0%,transparent_86%)]" />
+            ) : null}
+          </div>
           {eyebrow ? (
             <div
               className={`pb-3.5 mb-1 border-b font-mono text-[19px] font-semibold tracking-[.16em] uppercase ${skin.railHead}`}
@@ -491,7 +515,7 @@ export function CategoryTreeHero({
               ) : null}
               {g.blurb ? (
                 // 20px, matching the hero description size used site-wide (`qs-lede`).
-                <p className={`text-title leading-[1.6] max-w-[52ch] m-0 ${skin.blurb}`}>{g.blurb}</p>
+                <p className={`text-title leading-[1.6] max-w-[52ch] m-0 sm:text-justify ${skin.blurb}`}>{g.blurb}</p>
               ) : null}
               {viewListLabel ? (
                 <button

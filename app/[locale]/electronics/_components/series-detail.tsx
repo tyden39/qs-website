@@ -396,7 +396,7 @@ export async function SeriesDetail({
               <div className="mt-3 font-mono text-label tracking-[.14em] uppercase text-[#c9c2b3]">
                 {series.tag}
               </div>
-              <p className="mt-5 text-body leading-[1.7] text-[#c9c2b3] max-w-[64ch]">
+              <p className="mt-5 text-body leading-[1.7] text-[#c9c2b3] max-w-[64ch] sm:text-justify">
                 {series.desc}
               </p>
               <div className="mt-7 flex flex-wrap gap-3">

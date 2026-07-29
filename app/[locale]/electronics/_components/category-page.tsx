@@ -30,8 +30,8 @@ export type ProductGroupId = keyof typeof PRODUCT_GROUPS;
  * request; the remaining groups point at their strongest catalogue asset.
  *
  * `scale` shrinks a render inside the tile when the raw art crowds the frame —
- * the wide multi-unit drive and DNC shots sit ~28% down so they read at the same
- * visual weight as the single-unit groups.
+ * the wide multi-unit drive, DNC and accessory shots sit ~28% down so they read
+ * at the same visual weight as the single-unit groups.
  */
 export const GROUP_HERO: Record<ProductGroupId, { src: string; w: number; h: number; scale?: number }> = {
   machines: { src: "/home/cnc-machine-hero.webp", w: 1672, h: 941 },
@@ -39,7 +39,7 @@ export const GROUP_HERO: Record<ProductGroupId, { src: string; w: number; h: num
   servo: { src: "/img/products/hero-servo.webp", w: 1136, h: 612, scale: 0.72 },
   inverter: { src: "/img/products/hero-inverter.webp", w: 1403, h: 809, scale: 0.72 },
   dnc: { src: "/img/products/catalog/micro-dnc-2d.webp", w: 1400, h: 980, scale: 0.72 },
-  accessory: { src: "/img/products/components/mpg-pendant.webp", w: 450, h: 504 },
+  accessory: { src: "/img/products/hero-accessory.webp", w: 1600, h: 783, scale: 0.72 },
 };
 
 export async function categoryMetadata(

@@ -76,26 +76,27 @@ export default async function Contact({ params }: Props) {
       {/* The section's own padding is all that separates the form panel from the hero,
           so nothing floats behind it — a watermark label used to sit here and the card
           cut through it. The panel's own eyebrow carries the same wording anyway. */}
-      <section id="contact-form" className="qs-closing-cta relative overflow-hidden py-8 sm:py-10 lg:py-14 scroll-mt-24"
-               style={{ background: "linear-gradient(180deg, #f0eee8 0%, #e8e5dc 46%, #f3f1eb 100%)" }}>
-        {/* Drafting-sheet backdrop. The band used to be one flat tone, so the white
-            panel read as a card dropped on empty grey. Three layers fix that without
-            touching the hero: a gold dot field for texture (the hero carries the line
-            grid, so this stays a distinct layer), a pool of light behind the panel to
-            lift it off the band, and a pair of hairline rules that turn the dead space
-            either side of the column into the margins of a technical drawing. */}
-        <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-60
-                        [mask-image:radial-gradient(ellipse_80%_72%_at_50%_40%,#000_30%,transparent_80%)]
-                        [-webkit-mask-image:radial-gradient(ellipse_80%_72%_at_50%_40%,#000_30%,transparent_80%)]"
-             aria-hidden="true"></div>
-        <div className="absolute inset-0" aria-hidden="true"
-             style={{ background: "radial-gradient(ellipse 48% 44% at 50% 28%, rgba(255,255,255,.94) 0%, rgba(255,255,255,.52) 46%, rgba(255,255,255,0) 74%)" }}></div>
-        <div className="hidden lg:block absolute inset-y-8 left-1/2 -translate-x-[380px] w-px
-                        bg-[linear-gradient(180deg,transparent,rgba(138,111,53,.26)_22%,rgba(138,111,53,.26)_78%,transparent)]"
-             aria-hidden="true"></div>
-        <div className="hidden lg:block absolute inset-y-8 left-1/2 translate-x-[380px] w-px
-                        bg-[linear-gradient(180deg,transparent,rgba(138,111,53,.26)_22%,rgba(138,111,53,.26)_78%,transparent)]"
-             aria-hidden="true"></div>
+      {/* The band used to repeat the hero's warm paper gradient, so the two halves of
+          the page read as one undifferentiated surface with a card dropped in the
+          middle. It flips to the site's dark closing-band treatment instead: the white
+          form panel gains real contrast, and the boundary under the hero becomes a
+          deliberate cut. It runs straight into the equally dark footer below, which
+          carries a gold hairline on its top edge so the two slabs stay distinct. */}
+      <section id="contact-form"
+               className="qs-closing-cta relative overflow-hidden bg-ink scroll-mt-24
+                          py-10 sm:py-12 lg:py-16">
+        <div className="absolute inset-0 qs-grid-bg qs-grid-drift opacity-[.12]" aria-hidden="true"></div>
+        <div className="qs-glow left-1/2 -translate-x-1/2 top-[-34%] w-[56%] h-[120%]" aria-hidden="true"></div>
+        {/* Traces on both flanks: on desktop the 640px form column leaves wide empty
+            margins, and the brand's PCB current fills them instead of dead ink. */}
+        <CircuitTraces
+          variant="dark"
+          className="hidden md:block absolute inset-y-0 left-[-6%] w-[40%] opacity-[.42] [mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_left,#000_20%,transparent_70%)]"
+        />
+        <CircuitTraces
+          variant="dark"
+          className="hidden md:block absolute inset-y-0 right-[-6%] w-[40%] opacity-[.42] [mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_at_right,#000_20%,transparent_70%)]"
+        />
         <div className="relative max-w-[640px] mx-auto px-5 sm:px-8">
           <ContactForm />
         </div>

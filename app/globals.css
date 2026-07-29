@@ -736,7 +736,16 @@ section.sm\:py-16.bg-\[\#f7f5ef\] + section.sm\:py-16.bg-\[\#f7f5ef\] {
 }
 
 /* footer — industrial datasheet composition */
-.qs-foot { background: #0a0a0a; color: #c2bdb0; font-size: 13px; }
+/* The gold hairline caps the footer the same way it caps the copyright bar below,
+   and it is what keeps the footer legible as its own slab when the page ends on a
+   dark band (the contact form's ink section) — two #0a0a0a surfaces meeting with no
+   edge read as one continuous block. It stays soft at the extremes so it never turns
+   into a hard rule across the full viewport. */
+.qs-foot {
+  background: #0a0a0a; color: #c2bdb0; font-size: 13px;
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(232, 200, 120, .5) 16%, rgba(232, 200, 120, .5) 84%, transparent) 1;
+}
 .qs-foot-inner { max-width: 1680px; margin: 0 auto; padding: 64px clamp(20px, 4vw, 56px) 0; }
 
 /* masthead band: brand lockup left, mono spec-line right, gold hairline below */

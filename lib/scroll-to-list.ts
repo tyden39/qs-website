@@ -24,3 +24,16 @@ export function scrollToList(id = "list"): void {
     window.scrollTo({ top, behavior: "smooth" });
   });
 }
+
+/**
+ * Smooth-scrolls the window back to the very top. Used by the header submenu so
+ * a filter picked in the nav always lands at the page top, matching where a
+ * cross-page click on the same entry would leave the visitor.
+ *
+ * Deferred one frame for the mobile drawer: closing it releases the body scroll
+ * lock (`overflow: hidden`) in a layout effect, and a scroll requested while the
+ * lock is still applied would be dropped.
+ */
+export function scrollToTop(): void {
+  requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+}

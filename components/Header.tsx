@@ -6,6 +6,7 @@ import { Link, usePathname } from "@/lib/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { CategoryIcon } from "@/components/category-icon";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
+import { scrollToTop } from "@/lib/scroll-to-list";
 
 function closeSearch(){
   document.getElementById("qs-search-panel")?.classList.remove("open");
@@ -78,8 +79,8 @@ export default function Header() {
   const leafHref = (l: NavLeaf) =>
     `${l.page}?g=${encodeURIComponent(l.g)}${l.type ? `&t=${encodeURIComponent(l.type)}` : ""}`;
   // When already on the leaf's page, filter in place instead of a full
-  // navigation (which would jump to the page top), keeping the current scroll
-  // position rather than scrolling to the list.
+  // navigation, then scroll back to the page top — the same place a cross-page
+  // click on that entry lands, so every submenu pick reads the same way.
   // `trailingSlash: true` makes usePathname() return "/electronics/", so compare
   // with trailing slashes stripped or the same-page branch never matches.
   const samePath = (a: string, b: string) =>
@@ -92,6 +93,7 @@ export default function Header() {
     if (!samePath(path, l.page)) return; // different page → let the Link navigate
     e.preventDefault();
     setFilterParams({ g: l.g, t: l.type ?? null });
+    scrollToTop();
   };
 
   // A dropdown leaf is active when the current page and its filter query match

@@ -106,8 +106,8 @@ export default async function Products({ params }: { params: Promise<{ locale: L
            sizes="(max-width: 1023px) 92vw, 38vw" className="object-contain"
            style={img.scale ? { transform: `scale(${img.scale})` } : undefined} />
   );
-  // Distinct family render for the controllers intro (the servo/inverter/DNC/
-  // accessory groups reuse their own catalogue art).
+  // Distinct family render for the controllers intro (the servo/inverter/DNC
+  // groups reuse their own catalogue art).
   const controllersHero = { src: "/img/products/products-hero-controllers.webp", w: 1600, h: 1609 };
 
   // One group array feeds both halves of the split catalogue: the hero reads
@@ -185,7 +185,7 @@ export default async function Products({ params }: { params: Promise<{ locale: L
       count: accessoryProducts.length,
       thumb: accessoryProducts[0].image,
       blurb: t("groups.accessory.blurb"),
-      heroImage: heroFigure(accessoryProducts[0].image, t("groups.accessory.label")),
+      heroImage: heroFigure(GROUP_HERO.accessory, t("groups.accessory.label")),
       node: <CatalogList locale={locale} category="accessory" />,
     },
   ];

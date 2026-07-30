@@ -259,13 +259,17 @@ export async function CatalogDetail({
                         background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)",
                       }}
                     >
+                      {/* On a phone the shot spans the full column, so a tall
+                          photo would push the copy it illustrates a screen and a
+                          half down the page. The ceiling tightens with the
+                          viewport instead of holding at the desktop value. */}
                       <Image
                         src={s.photo.src}
                         alt={s.photo.alt}
                         width={s.photo.w}
                         height={s.photo.h}
                         sizes="(max-width: 1024px) 90vw, 384px"
-                        className="block mx-auto h-auto w-auto max-h-[420px] max-w-full object-contain"
+                        className="block mx-auto h-auto w-auto max-h-[240px] sm:max-h-[320px] lg:max-h-[420px] max-w-full object-contain"
                       />
                     </figure>
                   )}
@@ -396,13 +400,17 @@ export async function CatalogDetail({
                               background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)",
                             }}
                           >
+                            {/* Same ceiling as the overview shots: below lg the
+                                photo has the full column to itself, and a
+                                portrait one would otherwise stand taller than
+                                the feature text it belongs to. */}
                             <Image
                               src={f.photo.src}
                               alt={f.photo.alt}
                               width={f.photo.w}
                               height={f.photo.h}
                               sizes="(max-width: 1024px) 90vw, 416px"
-                              className="w-full h-auto object-contain"
+                              className="block mx-auto h-auto w-auto max-h-[240px] sm:max-h-[320px] lg:max-h-none max-w-full object-contain"
                             />
                           </figure>
                         )}

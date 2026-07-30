@@ -45,7 +45,7 @@ export async function generateMetadata({
       type: "website",
       locale: locale === "en" ? "en_US" : "vi_VN",
       url: alternates.canonical,
-      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: title }],
+      images: [{ url: "/og-default-v2.png", width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },
   };

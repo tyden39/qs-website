@@ -85,7 +85,7 @@ export async function generateMetadata({
       url: alternates.canonical,
       images: [
         {
-          url: p.images?.[0]?.url ?? "/og-default.png",
+          url: p.images?.[0]?.url ?? "/og-default-v2.png",
           width: 1200,
           height: 630,
           alt: p.images?.[0]?.alt ?? p.name,
@@ -402,13 +402,17 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
               >
                 <div className="absolute inset-0 qs-dot-bg qs-dot-drift opacity-70" aria-hidden="true" />
                 <span className="qs-glow left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />
+                {/* Below lg the shot sits under the copy at full column width,
+                    so an unbounded height let a panel photo fill the phone
+                    screen on its own. It now keeps a ceiling at every width —
+                    the lightbox is still there for reading the detail. */}
                 <Image
                   src={galleryShots[0].src}
                   alt={galleryShots[0].alt ?? p.name}
                   width={galleryShots[0].w}
                   height={galleryShots[0].h}
                   sizes="(max-width: 1024px) 92vw, 560px"
-                  className="qs-float relative w-auto lg:max-h-[460px] max-w-full object-contain drop-shadow-[0_22px_44px_rgba(0,0,0,.2)]"
+                  className="qs-float relative w-auto max-h-[280px] sm:max-h-[360px] lg:max-h-[460px] max-w-full object-contain drop-shadow-[0_22px_44px_rgba(0,0,0,.2)]"
                 />
               </LightboxTrigger>
             ) : (

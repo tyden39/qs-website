@@ -57,7 +57,7 @@ export default function WorkpieceCompare({
       ref={frameRef}
       className={`group relative ${aspectClass} overflow-hidden border border-[#2a2620] bg-ink-2 select-none touch-none cursor-ew-resize`}
       onPointerDown={(e) => {
-        (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+        e.currentTarget.setPointerCapture?.(e.pointerId);
         setDragging(true);
         setFromClientX(e.clientX);
       }}
@@ -71,7 +71,7 @@ export default function WorkpieceCompare({
         alt={alt}
         fill
         sizes="(max-width:1024px) 100vw, 60vw"
-        className="object-cover"
+        className="pointer-events-none object-cover"
       />
       <span className="pointer-events-none absolute top-3 right-3 z-10 font-mono text-label-xs tracking-[.16em] uppercase text-ink bg-gold-2/95 px-2 py-1">
         {afterLabel}
@@ -79,7 +79,7 @@ export default function WorkpieceCompare({
 
       {/* BEFORE — raw stock, clipped from the right by the divider */}
       <div
-        className="absolute inset-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
         style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
         aria-hidden="true"
       >
@@ -112,7 +112,7 @@ export default function WorkpieceCompare({
       </div>
 
       {/* divider + knob */}
-      <div className="absolute inset-y-0 z-20 w-px bg-gold-2/90" style={{ left: `${pos}%` }} aria-hidden="true">
+      <div className="pointer-events-none absolute inset-y-0 z-20 w-px bg-gold-2/90" style={{ left: `${pos}%` }} aria-hidden="true">
         <span className="absolute inset-y-0 -left-2 w-4"></span>
       </div>
       <button
@@ -123,7 +123,7 @@ export default function WorkpieceCompare({
         aria-valuemax={100}
         aria-valuenow={Math.round(pos)}
         onKeyDown={onKeyDown}
-        className="absolute top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 rounded-full bg-ink/80 border border-gold-2 backdrop-blur-[2px] text-gold-2 cursor-ew-resize focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-2"
+        className="absolute top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 rounded-full bg-ink/80 border border-gold-2 backdrop-blur-[2px] text-gold-2 cursor-ew-resize touch-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-2"
         style={{ left: `${pos}%` }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

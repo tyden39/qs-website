@@ -86,7 +86,7 @@ export function buildProduct(p: ProductView, locale: Locale): WithContext<Produc
       "@type": "Brand",
       name: "QS Technology",
     },
-    image: images.length > 0 ? images : [`${APP_URL}/og-default.png`],
+    image: images.length > 0 ? images : [`${APP_URL}/og-default-v2.png`],
     url: localeUrl(`/electronics/${p.slug}`, locale),
     // No `offers`: the site publishes no prices, and an Offer without `price` is
     // invalid — Google rejects the whole Product node rather than ignoring the
@@ -138,7 +138,7 @@ export function buildSeriesProduct(s: SeriesView, locale: Locale): WithContext<P
     },
     image: s.image
       ? (s.image.src.startsWith("http") ? s.image.src : `${APP_URL}${s.image.src}`)
-      : `${APP_URL}/og-default.png`,
+      : `${APP_URL}/og-default-v2.png`,
     url: localeUrl(`/electronics/${s.slug}`, locale),
     // No `offers`: quote-only catalogue, same rationale as buildProduct.
   };
@@ -174,7 +174,7 @@ export function buildArticle(n: NewsView, locale: Locale): WithContext<Article> 
     "@type": "Article",
     headline: n.title,
     description: n.excerpt ? seoDescription(n.excerpt) : undefined,
-    image: n.coverImage ?? `${APP_URL}/og-default.png`,
+    image: n.coverImage ?? `${APP_URL}/og-default-v2.png`,
     url,
     datePublished: n.publishedAt?.toISOString() ?? undefined,
     dateModified: n.publishedAt?.toISOString() ?? undefined,
@@ -204,7 +204,7 @@ export function buildTechArticle(a: ApplicationView, locale: Locale): WithContex
     url,
     image: a.heroImage
       ? (a.heroImage.startsWith("http") ? a.heroImage : `${APP_URL}${a.heroImage}`)
-      : `${APP_URL}/og-default.png`,
+      : `${APP_URL}/og-default-v2.png`,
     author: {
       "@type": "Organization",
       name: "QS Technology",

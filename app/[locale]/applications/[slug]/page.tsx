@@ -43,7 +43,7 @@ export async function generateMetadata({
       url: alternates.canonical,
       images: [
         {
-          url: a?.heroImage ?? "/og-default.png",
+          url: a?.heroImage ?? "/og-default-v2.png",
           width: 1200,
           height: 630,
           alt: title,

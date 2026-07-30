@@ -42,7 +42,7 @@ export async function generateMetadata({
       url: alternates.canonical,
       images: [
         {
-          url: n.coverImage ?? "/og-default.png",
+          url: n.coverImage ?? "/og-default-v2.png",
           width: 1200,
           height: 630,
           alt: n.title,

@@ -752,8 +752,8 @@
     "specs": [
       {
         "k": "materials",
-        "v": "Nhôm, đồng thau, gỗ, nhựa",
-        "vEn": "Aluminium, brass, wood, plastic"
+        "v": "Vàng, bạc, nhôm, đồng thau, gỗ, nhựa",
+        "vEn": "Gold, silver, aluminium, brass, wood, plastic"
       },
       {
         "k": "axes",
@@ -1007,8 +1007,8 @@
     "specs": [
       {
         "k": "materials",
-        "v": "Nhôm, đồng thau, gỗ, nhựa",
-        "vEn": "Aluminium, brass, wood, plastic"
+        "v": "Vàng, bạc, nhôm, đồng thau, gỗ, nhựa",
+        "vEn": "Gold, silver, aluminium, brass, wood, plastic"
       },
       {
         "k": "axes",

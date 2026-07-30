@@ -96,7 +96,12 @@ export function ProductHeroGallery({
         </div>
       )}
 
-      <figcaption className="relative mt-3 h-4 overflow-hidden text-center font-mono text-label-xs tracking-[.14em] uppercase text-[#8f8878]">
+      {/* No fixed height here: the caption row must grow with its own type step.
+          It used to be clamped to h-4 + overflow-hidden, which matched the 11px
+          label step but sliced the top off the 16px step the detail pages use —
+          taking the Vietnamese diacritics with it. `truncate` below already
+          keeps this to a single line, so the row stays layout-stable. */}
+      <figcaption className="relative mt-3 text-center font-mono text-label-xs leading-[1.5] tracking-[.14em] uppercase text-[#8f8878]">
         {/* One line carries both the QS stamp and the shot's own caption; they
             used to be separate elements and collided on single-shot products,
             where the stamp sat on top of this row. */}

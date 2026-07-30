@@ -12,6 +12,13 @@ export type { CatalogCategory, CatalogSpec };
 /** A photo resolved to one locale — `alt` already carries the right language. */
 export type CatalogImage = { src: string; w: number; h: number; alt: string };
 export type CatalogFeatureView = { title: string; body: string; photo: CatalogImage | null };
+export type CatalogOverviewItemView = { title: string | null; body: string };
+export type CatalogOverviewSectionView = {
+  heading: string;
+  body: string[];
+  items: CatalogOverviewItemView[];
+  photo: CatalogImage | null;
+};
 export type CatalogVideoView = { youtubeId: string; title: string };
 
 export type CatalogProductView = {
@@ -21,6 +28,7 @@ export type CatalogProductView = {
   tag: string;
   desc: string;
   specs: CatalogSpec[];
+  overview: CatalogOverviewSectionView[];
   specsIntro: string | null;
   specsPhoto: CatalogImage | null;
   image: CatalogImage;
@@ -72,17 +80,17 @@ const SPEC_LABEL_EN: Record<string, string> = {
   "Đường kính thân": "Body diameter",
   "Đường kính lớn nhất": "Max diameter",
   "Đường kính cán lắp": "Shank diameter",
-  "Đường kính mặt tiếp xúc": "Contact surface diameter",
-  "Hành trình đo": "Measuring travel",
-  "Độ lặp lại công bố": "Stated repeatability",
-  "Tốc độ tiếp cận đề xuất": "Recommended approach speed",
-  "Lực kích hoạt": "Trigger force",
-  "Tuổi thọ tiếp điểm": "Contact life",
-  "Kiểu tiếp điểm đo": "Measuring contact type",
-  "Tiếp điểm bảo vệ quá hành trình": "Overtravel protection contact",
+  "Loại thiết bị": "Device type",
+  "Chế độ đầu ra": "Output mode",
+  "Độ lặp lại": "Repeatability",
+  "Độ lệch cho phép theo X–Y": "Permissible deflection, X–Y",
+  "Hành trình theo trục Z": "Z-axis travel",
   "Điện áp hoạt động": "Operating voltage",
-  "Tải tiếp điểm tham khảo": "Reference contact rating",
-  "Chiều dài dây": "Cable length",
+  "Dòng tín hiệu cho phép": "Permissible signal current",
+  "Đèn chỉ báo": "Indicator light",
+  "Chiều cao tổng thể": "Overall height",
+  "Kiểu tín hiệu phổ biến": "Common signal type",
+  "Vật liệu đầu tiếp xúc": "Contact tip material",
 };
 
 const SPEC_VALUE_EN: Record<string, string> = {
@@ -93,20 +101,14 @@ const SPEC_VALUE_EN: Record<string, string> = {
   "1.000 gf (xấp xỉ 9,81 N)": "1,000 gf (approx. 9.81 N)",
   "65–130 gf (xấp xỉ 0,64–1,28 N)": "65–130 gf (approx. 0.64–1.28 N)",
   "147,3 mm": "147.3 mm",
-  "Khoảng Ø20–22 mm": "Approx. Ø20–22 mm",
-  "Thường 5 mm; một số phiên bản có thể đến 10 mm": "Typically 5 mm; some versions reach 10 mm",
-  "Khoảng 0,001–0,002 mm ở dòng chất lượng cao; một số sản phẩm phổ thông công bố 0,005–0,01 mm":
-    "Approx. 0.001–0.002 mm on high-grade units; general-purpose units state 0.005–0.01 mm",
-  "50–200 mm/phút": "50–200 mm/min",
-  "Khoảng 1,5 N": "Approx. 1.5 N",
-  "Khoảng 3.000.000 lần": "Approx. 3,000,000 operations",
-  "Thường mở NO": "Normally open (NO)",
-  "Thường đóng NC, dùng làm tín hiệu dừng hoặc cảnh báo":
-    "Normally closed (NC), used as a stop or alarm signal",
-  "Thường 24 VDC, một số phiên bản hỗ trợ 10–30 VDC": "Typically 24 VDC; some versions accept 10–30 VDC",
-  "Khoảng 24 VDC, 20 mA": "Approx. 24 VDC, 20 mA",
-  "Phổ biến IP67, chống bụi, nước làm mát và dầu": "Commonly IP67 — resists dust, coolant and oil",
-  "Thường 2–5 m, dây chịu dầu": "Typically 2–5 m, oil-resistant cable",
+  "0,001 mm": "0.001 mm",
+  "Bộ so dao và dò biên tiếp xúc 5 hướng": "5-direction touch-trigger tool setter and edge finder",
+  "Module chuyển mạch tín hiệu": "Signal switching module",
+  "Dưới 50 mA": "Under 50 mA",
+  "LED sáng khi kích hoạt": "LED lights on trigger",
+  "Khoảng 98 mm": "Approx. 98 mm",
+  "Ba dây, thường đóng – tùy phiên bản": "Three-wire, normally closed — version dependent",
+  "Ceramic – tùy phiên bản": "Ceramic — version dependent",
 };
 
 function localizeSpec(row: CatalogSpec): CatalogSpec {
@@ -131,6 +133,15 @@ function toView(p: CatalogProduct, locale: Locale): CatalogProductView {
     tag: en ? p.tagEn : p.tag,
     desc: en ? p.descEn : p.desc,
     specs: en ? p.specs.map(localizeSpec) : p.specs,
+    overview: (p.overview ?? []).map((s) => ({
+      heading: en ? s.headingEn : s.heading,
+      body: (en ? s.bodyEn : s.body) ?? [],
+      items: (s.items ?? []).map((it) => ({
+        title: (en ? it.titleEn : it.title) ?? null,
+        body: en ? it.bodyEn : it.body,
+      })),
+      photo: s.photo ? toImage(s.photo, en) : null,
+    })),
     specsIntro: (en ? p.specsIntroEn : p.specsIntro) ?? null,
     specsPhoto: p.specsPhoto ? toImage(p.specsPhoto, en) : null,
     image: toImage(p.image, en),

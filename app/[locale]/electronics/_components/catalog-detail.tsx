@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import CircuitTraces from "@/components/circuit-traces";
 import { buildCatalogProduct, buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import { ProductHeroGallery, type HeroShot } from "./product-hero-gallery";
+import { HeroSpecStrip } from "./hero-spec-strip";
 import { ProductVideo } from "./product-video";
 import type { CatalogProductView } from "@/lib/data/catalog";
 import type { Locale } from "@/lib/i18n/config";
@@ -13,8 +14,8 @@ import type { Locale } from "@/lib/i18n/config";
 // authoring order, so the leading rows are the ones worth reading first.
 const HERO_FACTS = 4;
 
-// The strip sets its values at display size in a quarter-width cell, so it only
-// works for the short ones — a dimension, a voltage, a port count. Some products
+// The strip reads its values in a quarter-width cell, so it only works for the
+// short ones — a dimension, a voltage, a port count. Some products
 // document a spec as a full sentence ("thường 5 mm; một số phiên bản…"), which
 // would run to four wrapped lines and tower over the rest of the row.
 const HERO_FACT_MAX = 30;
@@ -183,22 +184,97 @@ export async function CatalogDetail({
 
           {/* Facts strip: squares off the hero and puts the numbers a buyer
               scans for above the fold, ahead of the full table below. */}
-          {heroFacts.length > 0 && (
-            <dl className="mt-10 lg:mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
-              {heroFacts.map((s) => (
-                <div key={s.l} className="bg-[#141510] px-4 py-3.5 sm:px-5 sm:py-4">
-                  <dt className="font-mono text-label-xs tracking-[.16em] uppercase text-[#837b6c]">
-                    {s.l}
-                  </dt>
-                  <dd className="m-0 mt-1.5 font-display text-title font-semibold tracking-[-.02em] text-white tabular-nums">
-                    {s.v}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          )}
+          <HeroSpecStrip items={heroFacts} className="mt-10 lg:mt-12" />
         </div>
       </section>
+
+      {/* ── Overview (what it does / how it works, where the catalogue writes it) ── */}
+      {product.overview.length > 0 && (
+        <section className="py-8 sm:py-10 lg:py-14 bg-white border-b border-line">
+          <div className="qs-wrap-detail">
+            {bandHead(t("overviewEyebrow"), t("catalogOverviewHeading"), product.overview.length)}
+
+            {/* Sections stack down the page rather than sitting side by side: a
+                section can be three paragraphs or a single list, and a two-column
+                split would leave one side stranded whenever they differ in
+                length. Within a section the copy runs straight down — heading,
+                paragraphs, list — with only the shot taking a column beside it. */}
+            <div>
+              {product.overview.map((s) => (
+                <section
+                  key={s.heading}
+                  className={`grid items-start gap-6 lg:gap-12 border-b border-line pb-8 sm:pb-10 last:border-b-0 last:pb-0 ${
+                    // The shot, where there is one, takes a column to the right of
+                    // the copy and drops under it below lg — the same split the
+                    // spec band uses for its intro photo.
+                    s.photo ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]" : ""
+                  }`}
+                >
+                  <div className="max-w-[80ch]">
+                    <h3 className="font-display font-bold text-subhead tracking-[-.02em] m-0 mb-5 text-balance">
+                      {s.heading}
+                    </h3>
+
+                    {s.body.map((p) => (
+                      <p
+                        key={p}
+                        className="m-0 mb-4 last:mb-0 text-body leading-[1.8] text-[#3a3a3a] sm:text-justify"
+                      >
+                        {p}
+                      </p>
+                    ))}
+
+                    {s.items.length > 0 && (
+                      // Titled items read as a definition list — the capability
+                      // name, then its explanation. Untitled ones are a plain
+                      // run of bullets, so they keep the tighter list rhythm.
+                      <ul className={`m-0 list-none p-0 ${s.body.length > 0 ? "mt-6" : ""}`}>
+                        {s.items.map((it) => (
+                          <li
+                            key={it.title ?? it.body}
+                            className="relative border-l-2 border-gold-1/35 pl-4 mt-4 first:mt-0"
+                          >
+                            {it.title && (
+                              <h4 className="font-display font-bold text-body tracking-[-.01em] m-0 text-ink">
+                                {it.title}
+                              </h4>
+                            )}
+                            <p
+                              className={`m-0 text-body leading-[1.8] text-[#3a3a3a] ${
+                                it.title ? "mt-1.5" : ""
+                              }`}
+                            >
+                              {it.body}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  {s.photo && (
+                    <figure
+                      className="m-0 overflow-hidden border border-line p-4 lg:sticky lg:top-24"
+                      style={{
+                        background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)",
+                      }}
+                    >
+                      <Image
+                        src={s.photo.src}
+                        alt={s.photo.alt}
+                        width={s.photo.w}
+                        height={s.photo.h}
+                        sizes="(max-width: 1024px) 90vw, 384px"
+                        className="block mx-auto h-auto w-auto max-h-[420px] max-w-full object-contain"
+                      />
+                    </figure>
+                  )}
+                </section>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Specifications ── */}
       {hasSpecs && (

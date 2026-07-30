@@ -31,6 +31,34 @@ export type CatalogFeature = {
   photo?: CatalogPhoto;
 };
 
+/**
+ * One entry in an overview section's list. `title` is optional because the two
+ * shapes a catalogue section uses both land here: a named capability ("Đo chiều
+ * dài dao theo trục Z" plus its explanation) and a bare bullet in a run-on list
+ * ("Tính chiều dài hoặc độ lệch dụng cụ.").
+ */
+export type CatalogOverviewItem = {
+  title?: string;
+  titleEn?: string;
+  body: string;
+  bodyEn: string;
+};
+
+/**
+ * A titled block of prose above the spec table — what the product does, how it
+ * works. Distinct from `specsIntro`, which is a single lead paragraph the spec
+ * band carries; a section can run several paragraphs and close on a list.
+ */
+export type CatalogOverviewSection = {
+  heading: string;
+  headingEn: string;
+  body?: string[];
+  bodyEn?: string[];
+  items?: CatalogOverviewItem[];
+  /** Shot that runs alongside this section's copy, where there is one. */
+  photo?: CatalogPhoto;
+};
+
 /** The product's own video on the QS Technology YouTube channel. */
 export type CatalogVideo = { youtubeId: string; title: string; titleEn: string };
 
@@ -47,6 +75,9 @@ export type CatalogProduct = {
   desc: string;
   descEn: string;
   specs: CatalogSpec[];
+  /** Prose bands between the hero and the spec table, where the catalogue
+   *  documents the product at more length than the hero lede allows. */
+  overview?: CatalogOverviewSection[];
   /** Lead paragraph above the spec table, where the catalogue wrote one. */
   specsIntro?: string;
   specsIntroEn?: string;

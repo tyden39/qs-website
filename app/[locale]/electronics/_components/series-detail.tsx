@@ -1,4 +1,5 @@
 import Image from "@/components/media/image";
+import { LightboxTrigger } from "@/components/media/image-lightbox";
 import { Link } from "@/lib/i18n/navigation";
 import ContactCta from "@/components/contact-cta";
 import { getTranslations } from "next-intl/server";
@@ -10,6 +11,7 @@ import { SeriesFigures, SeriesNamingFigure, SeriesImageStrip } from "./series-fi
 import { SeriesNamingCode } from "./series-naming-code";
 import { SeriesSpecSheet } from "./series-spec-sheet";
 import { ProductDetailTabs, type ProductDetailTab } from "./product-detail-tabs";
+import { HeroSpecStrip } from "./hero-spec-strip";
 
 /**
  * Detail page for a drive-line series (QS Servo drives/motors/cables, Savch
@@ -121,20 +123,7 @@ export async function SeriesDetail({
 
   // Series-level spec grid, rendered inside the hero (dark theme, no header bar)
   // so the key ratings sit with the title rather than behind a tab.
-  const heroSpecGrid = (
-    <dl className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 m-0">
-      {series.specs.map((s) => (
-        <div key={s.l} className="bg-[#141510] px-4 py-3 sm:px-5 sm:py-4">
-          <dt className="font-mono text-label-xs tracking-[.16em] uppercase text-[#837b6c]">
-            {s.l}
-          </dt>
-          <dd className="m-0 mt-1.5 font-display text-title font-semibold tracking-[-.02em] text-white tabular-nums">
-            {s.v}
-          </dd>
-        </div>
-      ))}
-    </dl>
-  );
+  const heroSpecGrid = <HeroSpecStrip items={series.specs} className="mt-8" />;
 
   // ── Tab 2: Specifications — the 产品参数 spec sheets. The native model-code
   //    decode, selection tables and figures render first, then the re-authored
@@ -406,29 +395,47 @@ export async function SeriesDetail({
               </div>
             </div>
 
-            <div
-              className="relative order-1 grid place-items-center border border-white/10 p-6 md:order-2 lg:p-8 overflow-hidden min-h-[240px]"
-              style={{ background: "radial-gradient(circle at 50% 38%, #1b1c17, #101109)" }}
-            >
+            {/* Ivory panel inside a dark mat, the same frame the accessory hero
+                and the product cards use. The series shots are a mix of cut-out
+                PNGs and photos with their own white backdrop, and only a light
+                panel takes both — a dark one either swallowed the cut-outs or
+                left the white-backed shots floating as a bright rectangle. */}
+            <div className="relative order-1 overflow-hidden border border-white/10 bg-[#171812] p-3 md:order-2">
               <div
-                className="absolute inset-3 border border-dashed border-gold opacity-25 pointer-events-none"
-                aria-hidden="true"
-              />
-              {series.image ? (
-                <Image
-                  src={series.image.src}
-                  alt={series.image.alt}
-                  width={series.image.w}
-                  height={series.image.h}
-                  priority
-                  sizes="(max-width: 768px) 90vw, 460px"
-                  className="w-full h-auto max-h-[340px] object-contain"
+                className="relative grid place-items-center overflow-hidden border border-black/5 p-6 lg:p-8 min-h-[240px]"
+                style={{ background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)" }}
+              >
+                <div
+                  className="absolute inset-3 border border-dashed border-gold-1/30 pointer-events-none"
+                  aria-hidden="true"
                 />
-              ) : (
-                <span className="relative font-mono text-label-xs tracking-[.16em] uppercase text-[#837b6c]">
-                  {series.name}
-                </span>
-              )}
+                {series.image ? (
+                  <>
+                    <Image
+                      src={series.image.src}
+                      alt={series.image.alt}
+                      width={series.image.w}
+                      height={series.image.h}
+                      priority
+                      sizes="(max-width: 768px) 90vw, 460px"
+                      className="relative w-full h-auto max-h-[340px] object-contain"
+                    />
+                    {/* Same full-screen zoom the controller hero opens — the
+                        trigger overlays the whole panel so the shot itself is
+                        the click target. */}
+                    <LightboxTrigger
+                      group={[series.image]}
+                      index={0}
+                      ariaLabel={t("galleryZoom")}
+                      className="absolute inset-0 z-[2]"
+                    />
+                  </>
+                ) : (
+                  <span className="relative font-mono text-label-xs tracking-[.16em] uppercase text-muted">
+                    {series.name}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 

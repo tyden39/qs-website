@@ -47,8 +47,8 @@
     ],
     "image": {
       "src": "/img/products/series/sdv3.webp",
-      "w": 1363,
-      "h": 567,
+      "w": 1452,
+      "h": 810,
       "alt": "QS servo drive các cỡ công suất",
       "altEn": "QS servo drive units across the power range"
     },
@@ -1349,10 +1349,10 @@
     ],
     "image": {
       "src": "/img/products/series/servo-motor-sch.webp",
-      "w": 412,
-      "h": 335,
-      "alt": "QS servo motor với cáp động lực và cáp encoder",
-      "altEn": "QS servo motor with power and encoder cables"
+      "w": 942,
+      "h": 947,
+      "alt": "Động cơ QS servo motor",
+      "altEn": "QS servo motor"
     },
     "sourceUrl": "https://savch.net/uploads/20260427/05e5f2e13a0fd1fb64897f106a2956b4.pdf",
     "detail": {

@@ -636,77 +636,143 @@
   {
     "slug": "cnc-tool-setter",
     "category": "accessory",
-    "name": "Bộ so dao tự động",
-    "nameEn": "Automatic Tool Setter",
-    "tag": "Bộ so dao tự động",
-    "tagEn": "Automatic Tool Setter",
-    "desc": "Thiết bị đặt trên bàn máy CNC để đo chiều dài dao và xác định gốc dao theo trục Z sau mỗi lần thay dao, thay cho thao tác rà dao thủ công.",
-    "descEn": "A bench-mounted unit that measures tool length and sets the Z-axis tool zero after each tool change, replacing manual touch-off.",
-    "specsIntro": "Bộ so dao tự động hỗ trợ xác định chiều dài dụng cụ sau mỗi lần lắp mới hoặc thay dao trên máy CNC. Khi đầu dao tiếp xúc với bề mặt đo, hệ thống ghi nhận vị trí trục Z và cập nhật giá trị bù dao theo chương trình đã thiết lập. Giải pháp này giúp quá trình thay dao diễn ra nhanh hơn, đồng thời hạn chế sai số phát sinh từ thao tác đo thủ công.",
-    "specsIntroEn": "An automatic tool setter establishes tool length each time a tool is newly fitted or changed on a CNC machine. As the tool tip touches the measuring surface, the system records the Z-axis position and updates the tool offset according to the programmed routine. This speeds up tool changes and limits the errors that come with measuring by hand.",
-    "specsPhoto": {
-      "src": "/img/products/catalog/cnc-tool-setter-detail.webp",
-      "w": 1000,
-      "h": 592,
-      "alt": "Bộ so dao tự động kèm dây tín hiệu bọc lò xo",
-      "altEn": "Automatic tool setter with its armoured signal cable"
-    },
+    "name": "Bộ so dao tự động WP-600",
+    "nameEn": "WP-600 Automatic Tool Setter",
+    "tag": "Bộ so dao tự động WP-600",
+    "tagEn": "WP-600 Automatic Tool Setter",
+    "desc": "WP-600 là bộ so dao và dò biên 5 hướng cho máy CNC, hỗ trợ kích hoạt theo ±X, ±Y và +Z. Thiết bị có độ lặp lại công bố 0,001 mm, đèn LED báo trạng thái và nguồn hoạt động 24 VDC, phù hợp cho thiết lập dao, rà cạnh và xác định gốc phôi.",
+    "descEn": "The WP-600 is a five-direction tool setter and edge finder for CNC machines, triggering on ±X, ±Y and +Z. It states 0.001 mm repeatability, carries an LED status light and runs on 24 VDC — suited to tool setting, edge finding and workpiece zero setting.",
+    "overview": [
+      {
+        "heading": "Chức năng chính",
+        "headingEn": "Main functions",
+        "items": [
+          {
+            "title": "Đo chiều dài dao theo trục Z",
+            "titleEn": "Measuring tool length on the Z axis",
+            "body": "Khi dụng cụ chạm vào bề mặt tiếp xúc từ phía trên, WP-600 tạo tín hiệu để bộ điều khiển ghi nhận vị trí trục Z. Giá trị này có thể được sử dụng để tính chiều dài dụng cụ, thiết lập bù dao hoặc cập nhật vị trí chuẩn sau khi thay dao.",
+            "bodyEn": "When the tool touches the contact surface from above, the WP-600 raises a signal for the control to record the Z-axis position. That value can be used to work out tool length, set the tool offset, or refresh the reference position after a tool change."
+          },
+          {
+            "title": "Dò cạnh phôi theo X và Y",
+            "titleEn": "Edge finding on X and Y",
+            "body": "Khả năng kích hoạt theo bốn hướng ngang cho phép thiết bị dò cạnh, xác định vị trí bề mặt và hỗ trợ thiết lập tọa độ phôi. Đây là điểm khác biệt quan trọng giữa WP-600 và các bộ so dao một hướng thông thường.",
+            "bodyEn": "Triggering on four horizontal directions lets the unit find edges, locate surfaces and help establish the workpiece coordinate system. This is the key difference between the WP-600 and an ordinary single-direction tool setter."
+          },
+          {
+            "title": "Hỗ trợ phát hiện va chạm hoặc quá hành trình",
+            "titleEn": "Collision and overtravel detection",
+            "body": "Cơ cấu có độ lệch cho phép theo X–Y và hành trình theo Z giúp giảm nguy cơ hư hỏng ngay lập tức khi quá trình tiếp cận vượt quá điểm kích hoạt trong giới hạn thiết kế. Tuy nhiên, chương trình đo vẫn cần sử dụng tốc độ tiếp cận phù hợp và thiết lập giới hạn hành trình an toàn.",
+            "bodyEn": "Permissible deflection on X–Y and travel on Z reduce the risk of immediate damage when an approach overshoots the trigger point within the designed limits. Even so, the probing program still needs a sensible approach speed and safe travel limits."
+          }
+        ],
+        "photo": {
+          "src": "/img/products/catalog/cnc-tool-setter-detail.webp",
+          "w": 1000,
+          "h": 1000,
+          "alt": "Bộ so dao tự động WP-600 với kim dò ngang và đế gá từ tính",
+          "altEn": "WP-600 automatic tool setter with its horizontal stylus and magnetic base"
+        }
+      },
+      {
+        "heading": "Nguyên lý hoạt động",
+        "headingEn": "How it works",
+        "body": [
+          "WP-600 hoạt động theo nguyên lý tiếp xúc cơ khí. Khi dao hoặc bề mặt cần đo tác động vào đầu tiếp xúc, cơ cấu bên trong thay đổi trạng thái tín hiệu. Bộ điều khiển CNC nhận tín hiệu này và ghi lại tọa độ tại thời điểm kích hoạt.",
+          "Tùy theo chương trình được cài đặt, tọa độ ghi nhận có thể được sử dụng để:"
+        ],
+        "bodyEn": [
+          "The WP-600 works on mechanical contact. When the tool or the surface being measured presses on the contact tip, the mechanism inside changes the signal state. The CNC control reads that signal and records the coordinate at the moment of triggering.",
+          "Depending on the program in use, the recorded coordinate can serve to:"
+        ],
+        "items": [
+          {
+            "body": "Tính chiều dài hoặc độ lệch dụng cụ.",
+            "bodyEn": "Work out tool length or tool offset."
+          },
+          {
+            "body": "Thiết lập gốc dao theo trục Z.",
+            "bodyEn": "Set the tool zero on the Z axis."
+          },
+          {
+            "body": "Xác định cạnh trái, phải, trước hoặc sau của phôi.",
+            "bodyEn": "Locate the left, right, front or rear edge of the workpiece."
+          },
+          {
+            "body": "Tính tâm của chi tiết sau khi dò hai cạnh đối diện.",
+            "bodyEn": "Calculate the part centre after probing two opposite edges."
+          },
+          {
+            "body": "Kiểm tra vị trí chuẩn trước khi bắt đầu gia công.",
+            "bodyEn": "Verify the reference position before machining starts."
+          }
+        ]
+      }
+    ],
     "specs": [
       {
-        "l": "Đường kính mặt tiếp xúc",
-        "v": "Khoảng Ø20–22 mm"
+        "l": "Model",
+        "v": "WP-600"
       },
       {
-        "l": "Hành trình đo",
-        "v": "Thường 5 mm; một số phiên bản có thể đến 10 mm"
+        "l": "Loại thiết bị",
+        "v": "Bộ so dao và dò biên tiếp xúc 5 hướng"
       },
       {
-        "l": "Độ lặp lại công bố",
-        "v": "Khoảng 0,001–0,002 mm ở dòng chất lượng cao; một số sản phẩm phổ thông công bố 0,005–0,01 mm"
+        "l": "Hướng kích hoạt",
+        "v": "+X, -X, +Y, -Y, +Z"
       },
       {
-        "l": "Tốc độ tiếp cận đề xuất",
-        "v": "50–200 mm/phút"
+        "l": "Chế độ đầu ra",
+        "v": "Module chuyển mạch tín hiệu"
       },
       {
-        "l": "Lực kích hoạt",
-        "v": "Khoảng 1,5 N"
+        "l": "Độ lặp lại",
+        "v": "0,001 mm"
       },
       {
-        "l": "Tuổi thọ tiếp điểm",
-        "v": "Khoảng 3.000.000 lần"
+        "l": "Độ lệch cho phép theo X–Y",
+        "v": "±15°"
       },
       {
-        "l": "Kiểu tiếp điểm đo",
-        "v": "Thường mở NO"
-      },
-      {
-        "l": "Tiếp điểm bảo vệ quá hành trình",
-        "v": "Thường đóng NC, dùng làm tín hiệu dừng hoặc cảnh báo"
+        "l": "Hành trình theo trục Z",
+        "v": "+3 mm"
       },
       {
         "l": "Điện áp hoạt động",
-        "v": "Thường 24 VDC, một số phiên bản hỗ trợ 10–30 VDC"
+        "v": "24 VDC"
       },
       {
-        "l": "Tải tiếp điểm tham khảo",
-        "v": "Khoảng 24 VDC, 20 mA"
+        "l": "Dòng tín hiệu cho phép",
+        "v": "Dưới 50 mA"
+      },
+      {
+        "l": "Đèn chỉ báo",
+        "v": "LED sáng khi kích hoạt"
       },
       {
         "l": "Cấp bảo vệ",
-        "v": "Phổ biến IP67, chống bụi, nước làm mát và dầu"
+        "v": "IP56"
       },
       {
-        "l": "Chiều dài dây",
-        "v": "Thường 2–5 m, dây chịu dầu"
+        "l": "Chiều cao tổng thể",
+        "v": "Khoảng 98 mm"
+      },
+      {
+        "l": "Kiểu tín hiệu phổ biến",
+        "v": "Ba dây, thường đóng – tùy phiên bản"
+      },
+      {
+        "l": "Vật liệu đầu tiếp xúc",
+        "v": "Ceramic – tùy phiên bản"
       }
     ],
     "image": {
       "src": "/img/products/catalog/cnc-tool-setter.webp",
-      "w": 550,
-      "h": 550,
-      "alt": "Bộ so dao tự động dùng cho máy CNC",
-      "altEn": "Automatic Tool Setter for CNC machines"
+      "w": 1000,
+      "h": 1000,
+      "alt": "Bộ so dao tự động WP-600 dùng cho máy CNC",
+      "altEn": "WP-600 automatic tool setter for CNC machines"
     },
     "features": [],
     "sourceUrl": ""

@@ -16,7 +16,10 @@ export function LocaleSwitcher() {
 
   function switchLocale(next: Locale) {
     if (next === locale) return;
-    // Persist the choice so the `/` redirect (app/page.tsx) honors it next time.
+    // Persist the choice so a later visit to the site root honours it. The host
+    // 301s `/` to `/vi/` and cannot read this, so the inline script in
+    // app/[locale]/layout.tsx re-routes `/vi/` to `/en/` when it reads "en".
+    // The 404 page reads the same key to pick its language.
     try {
       localStorage.setItem("locale", next);
     } catch {

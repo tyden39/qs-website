@@ -1,0 +1,72 @@
+{
+  "hosting": {
+    "public": "out",
+    "trailingSlash": true,
+    "cleanUrls": false,
+    "appAssociation": "NONE",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "_headers",
+      "_redirects"
+    ],
+    "redirects": [
+      { "source": "/", "destination": "/vi/", "type": 301 },
+
+      { "source": "/products", "destination": "/vi/electronics/", "type": 301 },
+      { "regex": "^/products/(?P<rest>.*)$", "destination": "/vi/electronics/:rest", "type": 301 },
+      { "source": "/services", "destination": "/vi/services/", "type": 301 },
+      { "regex": "^/services/(?P<rest>.*)$", "destination": "/vi/services/:rest", "type": 301 },
+      { "source": "/news", "destination": "/vi/news/", "type": 301 },
+      { "regex": "^/news/(?P<rest>.*)$", "destination": "/vi/news/:rest", "type": 301 },
+      { "source": "/applications", "destination": "/vi/applications/", "type": 301 },
+      { "regex": "^/applications/(?P<rest>.*)$", "destination": "/vi/applications/:rest", "type": 301 },
+      { "source": "/downloads", "destination": "/vi/downloads/", "type": 301 },
+      { "source": "/about", "destination": "/vi/about/", "type": 301 },
+      { "source": "/contact", "destination": "/vi/contact/", "type": 301 },
+      { "source": "/search", "destination": "/vi/search/", "type": 301 },
+
+      { "source": "/vi/products", "destination": "/vi/electronics/", "type": 301 },
+      { "regex": "^/vi/products/(?P<rest>.*)$", "destination": "/vi/electronics/:rest", "type": 301 },
+      { "source": "/en/products", "destination": "/en/electronics/", "type": 301 },
+      { "regex": "^/en/products/(?P<rest>.*)$", "destination": "/en/electronics/:rest", "type": 301 },
+
+      { "source": "/vi/cnc/qsm-125", "destination": "/vi/machine-building/qsm-215/", "type": 301 },
+      { "source": "/en/cnc/qsm-125", "destination": "/en/machine-building/qsm-215/", "type": 301 },
+      { "source": "/vi/cnc", "destination": "/vi/machine-building/", "type": 301 },
+      { "regex": "^/vi/cnc/(?P<rest>.*)$", "destination": "/vi/machine-building/:rest", "type": 301 },
+      { "source": "/en/cnc", "destination": "/en/machine-building/", "type": 301 },
+      { "regex": "^/en/cnc/(?P<rest>.*)$", "destination": "/en/machine-building/:rest", "type": 301 }
+    ],
+    "headers": [
+      {
+        "source": "/_next/static/**",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        ]
+      },
+      {
+        "source": "/downloads/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      },
+      {
+        "source": "/img/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+      },
+      {
+        "source": "**",
+        "headers": [
+          { "key": "X-Content-Type-Options", "value": "nosniff" },
+          { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+          { "key": "X-Frame-Options", "value": "DENY" },
+          { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=()" },
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; img-src 'self' blob: data: https://i.ytimg.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://crm.qstcnc.com; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'"
+          }
+        ]
+      }
+    ]
+  }
+}

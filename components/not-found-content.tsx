@@ -8,7 +8,7 @@ export type NotFoundLabels = {
 
 // Presentational 404 body, shared by the locale-tree not-found (reached via
 // notFound()) and the root not-found that the static export writes to
-// out/404.html — the file Cloudflare serves for every unmatched URL.
+// out/404.html — the file Firebase Hosting serves for every unmatched URL.
 //
 // Plain anchors and explicit locale-prefixed hrefs on purpose: the root copy
 // renders outside the i18n routing tree, where next-intl's <Link> does not

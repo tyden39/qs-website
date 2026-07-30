@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import NotFoundContent from "@/components/not-found-content";
@@ -12,11 +11,11 @@ import enErrors from "@/messages/en/errors.json";
 const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-inter" });
 
 // The global not-found route renders under the pass-through app/layout.tsx, so
-// like app/page.tsx it owns the whole document — the locale layout that
-// normally supplies <html>/<body> is not in this branch of the tree.
+// it owns the whole document itself — the locale layout that normally supplies
+// <html>/<body> is not in this branch of the tree.
 //
-// The static export writes this to out/404.html, which Cloudflare serves for
-// every unmatched URL in both locales. Vietnamese (the default locale) is
+// The static export writes this to out/404.html, which Firebase Hosting serves
+// for every unmatched URL in both locales. Vietnamese (the default locale) is
 // prerendered; English is swapped in client-side below.
 export const metadata: Metadata = {
   title: viErrors.notFound.metaTitle,
@@ -34,7 +33,17 @@ const EN = JSON.stringify({
 
 // Switch to English when the missing URL is under /en/, or — for a path with no
 // locale prefix at all — when the visitor's saved or browser language is
-// English. Mirrors the detection in app/page.tsx.
+// English. A 404 has no host-side redirect to lean on, so this is the only
+// place left that still sniffs the language in the browser.
+//
+// It ships as a raw inline <script> at the end of <body>, deliberately not
+// next/script. `strategy="beforeInteractive"` is only honoured in the root
+// layout; from a route it degrades to pushing this source onto `self.__next_s`
+// as a string for the async React runtime chunk to fetch, parse and replay —
+// which lands well after first paint, so an English visitor read a full screen
+// of Vietnamese before it swapped. Inline here it executes during parse, after
+// the elements it rewrites exist and before the render-blocking stylesheet lets
+// anything paint.
 const LOCALIZE = `(function(){try{
 var p=location.pathname;
 if(/^\\/vi(\\/|$)/.test(p))return;
@@ -62,9 +71,7 @@ export default function RootNotFound() {
           homeHref="/vi/"
           contactHref="/vi/contact/"
         />
-        <Script id="localize-error" strategy="beforeInteractive">
-          {LOCALIZE}
-        </Script>
+        <script dangerouslySetInnerHTML={{ __html: LOCALIZE }} />
       </body>
     </html>
   );

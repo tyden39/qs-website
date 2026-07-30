@@ -2,9 +2,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
-// Static export for Cloudflare Pages: no server runtime. Security headers (CSP,
-// nosniff, referrer-policy) are served by Cloudflare via a `_headers` file —
-// Next's `async headers()` is not applied to a static export.
+// Static export for Firebase Hosting: no server runtime. Security headers (CSP,
+// nosniff, referrer-policy) and the 301 redirect table are served by Firebase
+// via `firebase.json` — Next's `async headers()` and `async redirects()` are not
+// applied to a static export.
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",

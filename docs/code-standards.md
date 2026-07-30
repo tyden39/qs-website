@@ -33,9 +33,9 @@ When adding a new content type, mirror this shape. Pages iterate the array and p
 
 Client widgets currently include `Header`, `SearchPanel`, `hero-slider`, `news-feed`, `app-deck`, `count-up`, `locale-switcher`, and `circuit-traces`. New interactive widgets should follow the same isolation pattern.
 
-## Static export constraints (Cloudflare Pages)
+## Static export constraints (Firebase Hosting)
 
-`next.config.ts` sets `output: "export"` — there is **no server runtime**. Every route must render fully static at build time, so any dynamic API throws `Route … couldn't be rendered statically because it used …`. Follow these rules:
+`next.config.mjs` sets `output: "export"` — there is **no server runtime**. Every route must render fully static at build time, so any dynamic API throws `Route … couldn't be rendered statically because it used …`. Follow these rules:
 
 - **No dynamic request APIs in render** — never call `headers()`, `cookies()`, `draftMode()`, or read `searchParams` in a Server Component. Read per-request state on the client instead (e.g. `useSearchParams`).
 - **next-intl locale resolution must be static.** Calling next-intl's `<Link>` / `getTranslations` / `getLocale` in a **Server Component** resolves the active locale via `requestLocale`, which falls back to `headers()` unless `setRequestLocale(locale)` ran in that render scope. Therefore: **every statically-rendered `page.tsx` and `layout.tsx` under `app/[locale]/` that uses next-intl server APIs must call `setRequestLocale(locale)` first.** The layout doing it is not enough — layout and page render in parallel, so the page can render its `<Link>` before the layout's call lands.

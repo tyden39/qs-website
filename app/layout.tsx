@@ -3,13 +3,14 @@ import { APP_URL } from "@/lib/seo/app-url";
 
 // Pass-through root layout. The real <html>/<body> (with `lang={locale}`) live
 // in app/[locale]/layout.tsx so the language tag reflects the active locale.
-// This root exists only so the `/` route (app/page.tsx) can render a redirect
-// to /vi/ for local dev and direct origin hits; on Cloudflare the `_redirects`
-// file handles `/` → `/vi/` at the edge.
+// This root exists because Next requires one, and because the global not-found
+// route (app/not-found.tsx) sits outside the locale tree and needs a parent that
+// leaves the document to it. There is no `/` page: the host redirects `/` to
+// `/vi/` with a 301 (see the redirect table in firebase.json).
 // Single source of the base URL for resolving relative OG/Twitter image paths.
 // It lives at the root (not in app/[locale]/layout.tsx) so routes rendered
-// outside the locale tree — `/`, 404, _not-found — inherit it too; without it
-// Next resolves those images against localhost and the previews break.
+// outside the locale tree — 404, _not-found — inherit it too; without it Next
+// resolves those images against localhost and the previews break.
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
 };

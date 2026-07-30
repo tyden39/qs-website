@@ -30,9 +30,37 @@ import { buildOrganization, buildWebSite, JsonLd } from "@/lib/seo/jsonld";
 const sans = Inter({ subsets: ["latin", "vietnamese"], variable: "--font-inter" });
 
 // This layout owns <html>/<body> so `lang` reflects the active locale (the
-// root app/layout.tsx is a pass-through). The `/` path is redirected to `/vi/`
-// by Cloudflare `_redirects` at the edge, with app/page.tsx as the prerendered
-// fallback for local dev and direct origin hits.
+// root app/layout.tsx is a pass-through). Every visitor arrives under a locale
+// prefix: `/` is 301'd to `/vi/` (the default locale) by the host redirect table
+// in firebase.json, so there is no unprefixed entry point to serve.
+
+// That `/` → `/vi/` 301 is decided by the host and cannot read anything about
+// the visitor, so someone who previously picked English still lands on
+// Vietnamese. This recovers that one behaviour: at the Vietnamese entry point,
+// an explicitly saved English choice re-routes to the English entry point.
+//
+// Deliberately narrow on two axes:
+//   - Only the locale root, never a deeper path. A shared `/vi/electronics/…`
+//     link is an explicit destination; bouncing it would override the person
+//     who sent it. `/` is the only place a locale was assumed rather than asked
+//     for, and `/vi/` is where that assumption lands.
+//   - Only the stored choice, never `navigator.language`. Sniffing would bounce
+//     every first-time English visitor, and Googlebot executes JS — a crawl of
+//     `/vi/` that redirects itself away would undermine the page being indexed.
+//     An empty localStorage is exactly the crawler's state, so it stays put.
+//
+// Raw inline <script>, deliberately not next/script: `strategy="beforeInteractive"`
+// is only honoured in the root layout, and from a route Next instead serialises
+// the source into `self.__next_s` for the async React runtime chunk to fetch and
+// replay — which lands after first paint, i.e. a visible flash of Vietnamese
+// before the swap. Inline in <head> it runs during parse, before anything paints.
+const RESTORE_SAVED_LOCALE = `(function(){try{
+var p=location.pathname;
+if(p!=='/vi/'&&p!=='/vi')return;
+if(localStorage.getItem('locale')!=='en')return;
+location.replace('/en/'+location.search+location.hash);
+}catch(e){}})();`;
+
 export async function generateMetadata({
   params,
 }: {
@@ -100,6 +128,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={sans.variable}>
       <head>
+        {/* Only shipped on the Vietnamese tree — the English pages are already
+            where a saved English choice would send the visitor. */}
+        {locale === routing.defaultLocale && (
+          <script dangerouslySetInnerHTML={{ __html: RESTORE_SAVED_LOCALE }} />
+        )}
         <noscript>
           {/* Keep scroll-reveal content visible when JS is disabled. */}
           <style>{`.qs-reveal{opacity:1!important;transform:none!important}`}</style>

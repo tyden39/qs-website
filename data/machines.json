@@ -708,7 +708,11 @@
         "label": "Hệ thống tưới nguội",
         "labelEn": "Coolant system"
       }
-    ]
+    ],
+    "video": {
+      "youtubeId": "exNcpsTmMEE",
+      "hd": true
+    }
   },
   {
     "slug": "pjm-420",
@@ -959,7 +963,11 @@
         "label": "Hệ thống thay dao tự động (ATC)",
         "labelEn": "Automatic tool changer (ATC)"
       }
-    ]
+    ],
+    "video": {
+      "youtubeId": "7adeCQn5SBM",
+      "hd": true
+    }
   },
   {
     "slug": "jw-230",

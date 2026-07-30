@@ -281,13 +281,21 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   // they have no protocol datasheet, kit or downloads to render.
   const catalogProduct = getCatalogProductBySlug(slug, locale);
   if (catalogProduct) {
-    return <CatalogDetail product={catalogProduct} locale={locale} />;
+    return (
+      <div className="qs-detail-type">
+        <CatalogDetail product={catalogProduct} locale={locale} />
+      </div>
+    );
   }
   // Drive-line series (servo drives/motors/cables, inverters) sold at series
   // level render the datasheet template instead of the controller layout.
   const series = getSeriesBySlug(slug, locale);
   if (series) {
-    return <SeriesDetail series={series} locale={locale} />;
+    return (
+      <div className="qs-detail-type">
+        <SeriesDetail series={series} locale={locale} />
+      </div>
+    );
   }
   const t = await getTranslations({ locale, namespace: "product.detailPage" });
   const tDl = await getTranslations({ locale, namespace: "downloads.index" });
@@ -628,7 +636,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   ];
 
   return (
-    <>
+    <div className="qs-detail-type">
       <JsonLd data={productJsonLd} />
       <JsonLd data={breadcrumb} />
       <section className="relative overflow-hidden bg-[#10110f] text-white border-b border-[#28261f]">
@@ -737,6 +745,6 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         body={t("ctaBody")}
         ctaLabel={t("ctaBtn")}
       />
-    </>
+    </div>
   );
 }

@@ -170,7 +170,7 @@ export function ProductListFilter({ items, labels }: { items: ProductFilterItem[
               key={c}
               type="button"
               onClick={() => setFilterParams({ [INTERFACE_KEY]: INTERFACES[i] })}
-              className={`shrink-0 px-3 py-1.5 font-mono text-label tracking-widest uppercase border cursor-pointer ${i === chip ? "bg-ink text-white border-ink" : "border-line text-muted hover:border-ink"}`}
+              className={`shrink-0 px-3 py-1.5 font-mono font-extrabold text-label tracking-widest uppercase border cursor-pointer ${i === chip ? "bg-ink text-white border-ink" : "border-line text-muted hover:border-ink"}`}
             >
               {c}
             </button>

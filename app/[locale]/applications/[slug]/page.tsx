@@ -244,7 +244,7 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
   ]);
 
   return (
-    <>
+    <div className="qs-detail-type">
       {techArticleJsonLd && <JsonLd data={techArticleJsonLd} />}
       <JsonLd data={breadcrumb} />
       {/* DARK HERO */}
@@ -570,6 +570,6 @@ export default async function ApplicationDetail({ params }: { params: Promise<{ 
         body={t("ctaBody")}
         ctaLabel={t("ctaBtn")}
       />
-    </>
+    </div>
   );
 }

@@ -270,7 +270,7 @@ export async function CatalogDetail({
                     key={s.l}
                     className="flex flex-col gap-1.5 border-r border-b border-line px-5 py-4"
                   >
-                    <span className="font-mono text-[15px] leading-snug tracking-[.08em] uppercase text-muted">
+                    <span className="font-mono text-body leading-snug tracking-[.08em] uppercase text-muted">
                       {s.l}
                     </span>
                     <span className="text-title font-semibold tracking-[-.005em] text-ink tabular-nums">

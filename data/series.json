@@ -1382,8 +1382,8 @@
             {
               "seg": "060",
               "label": {
-                "vi": "Cỡ khung",
-                "en": "Frame size (mm)"
+                "vi": "Mặt bích motor",
+                "en": "Motor flange (mm)"
               },
               "options": [
                 {

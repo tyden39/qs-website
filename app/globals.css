@@ -46,7 +46,8 @@
      `meta` and up. */
   --text-label-xs: 11px;   /* mono tags, chips, micro crumbs */
   --text-label: 12px;      /* mono eyebrows, panel labels */
-  --text-meta: 14px;       /* captions, meta, buttons, small UI */
+  --text-meta: 14px;       /* captions, meta, small UI */
+  --text-button: 14px;     /* button faces — held at 14px everywhere */
   --text-body: 16px;       /* default paragraph / body copy */
   --text-lede: 18px;       /* intro / lede paragraphs */
   --text-title: 20px;      /* card titles, small headings */
@@ -107,13 +108,32 @@ body {
   .qs-rule     { @apply h-px bg-line border-0; }
   .qs-mono     { @apply font-mono; }
 
+  /* Detail pages are read, not scanned: a visitor lands on a machine, product,
+     application, service or article page to actually take in the copy, so no
+     text in that content may fall below the 16px body step. Raising the three
+     small steps in one place lifts every consumer at once — eyebrows, crumbs,
+     tags, chips, spec labels, captions, table cells — without touching the
+     listing and marketing pages, which keep the denser scale. Buttons are
+     deliberately excluded: they carry their own `--text-button` step so their
+     fixed heights and toolbar rows keep their proportions. */
+  .qs-detail-type {
+    --text-label-xs: 16px;
+    --text-label: 16px;
+    --text-meta: 16px;
+  }
+
   /* eyebrow / breadcrumb / tags */
   .qs-eyebrow  { @apply font-mono text-label tracking-[.18em] uppercase text-gold-1
                        inline-flex items-center gap-2.5
                        before:content-[''] before:inline-block before:w-6 before:h-px before:bg-gold; }
+  /* Wraps as whole crumbs rather than mid-label: on a narrow phone the trail is
+     wider than the viewport, and a link broken across two lines reads as two
+     separate steps. Only the links and separators are held together — the
+     trailing `.here` carries a full product or article name and has to be free
+     to break, or it pushes the row past the screen edge. */
   .qs-crumb    { @apply font-mono text-label-xs sm:text-label tracking-[.1em] uppercase text-muted
-                       flex gap-2.5 items-center; }
-  .qs-crumb a  { @apply text-muted transition-colors duration-150; }
+                       flex flex-wrap gap-x-2.5 gap-y-1 items-center; }
+  .qs-crumb a  { @apply text-muted transition-colors duration-150 whitespace-nowrap; }
   .qs-crumb a:hover { color: var(--qs-crumb-hover, var(--color-ink)); }
   .qs-crumb .sep  { @apply opacity-40; }
   .qs-crumb .here { @apply text-ink; }
@@ -147,7 +167,7 @@ body {
      refined compact size on desktop (≥1024px). */
   .qs-btn {
     @apply inline-flex items-center justify-center gap-2.5
-           text-meta font-semibold tracking-[.01em] rounded-[3px]
+           text-button font-semibold tracking-[.01em] rounded-[3px]
            bg-ink text-white transition-all duration-150
            hover:bg-black
            min-h-[44px] px-5 py-3
@@ -159,7 +179,7 @@ body {
                   border: 1px solid #8a6f35; }
   .qs-btn-gold:hover { background: var(--gold-grad); color: #0a0a0a; }
   .qs-btn-ghost { @apply bg-transparent text-ink border border-ink hover:bg-ink hover:text-white; }
-  .qs-btn-sm    { @apply text-meta min-h-[38px] px-4 py-2.5
+  .qs-btn-sm    { @apply text-button min-h-[38px] px-4 py-2.5
                          lg:min-h-0 lg:px-3 lg:py-[7px]; }
 
   .qs-link {

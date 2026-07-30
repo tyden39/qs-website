@@ -66,11 +66,13 @@ export default async function MachineDetailPage({
     <>
       <JsonLd data={buildMachine(machine, categoryLabel, locale)} />
       <JsonLd data={breadcrumb} />
-      {machine.line.length > 0 ? (
-        <LineMachineDetail machine={machine} locale={locale} />
-      ) : (
-        <MachineDatasheet machine={machine} locale={locale} />
-      )}
+      <div className="qs-detail-type">
+        {machine.line.length > 0 ? (
+          <LineMachineDetail machine={machine} locale={locale} />
+        ) : (
+          <MachineDatasheet machine={machine} locale={locale} />
+        )}
+      </div>
     </>
   );
 }

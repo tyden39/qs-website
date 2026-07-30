@@ -75,7 +75,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
   ]);
 
   return (
-    <>
+    <div className="qs-detail-type">
       {serviceJsonLd && <JsonLd data={serviceJsonLd} />}
       <JsonLd data={breadcrumb} />
       {/* HERO */}
@@ -241,6 +241,6 @@ export default async function ServiceDetail({ params }: { params: Promise<{ loca
       </section>
 
       <ContactCta heading={s.cta.title} body={s.cta.desc} ctaLabel={t("ctaBtn")} />
-    </>
+    </div>
   );
 }

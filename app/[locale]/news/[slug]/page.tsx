@@ -125,7 +125,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
   const hasToc = article.toc.length >= 2;
 
   return (
-    <article>
+    <article className="qs-detail-type">
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumb} />
       {/* CRUMB */}
@@ -177,7 +177,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
       <section className="py-12 sm:py-16 lg:py-24 bg-white">
         <div className={`max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid gap-10 md:gap-20 items-start ${hasToc ? "md:grid-cols-[1fr_240px]" : ""}`}>
           <article
-            className="prose prose-sm md:prose-base max-w-[72ch]
+            className="prose max-w-[72ch]
                        prose-headings:font-display prose-headings:font-bold prose-headings:tracking-[-.01em]
                        prose-h2:text-title md:prose-h2:text-subhead prose-h2:leading-[1.25] prose-h2:mt-9 md:prose-h2:mt-12 prose-h2:mb-4 prose-h2:scroll-mt-28
                        prose-h2:before:content-[''] prose-h2:before:block prose-h2:before:w-8 prose-h2:before:h-0.5 prose-h2:before:bg-gold-grad prose-h2:before:mb-3.5

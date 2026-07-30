@@ -121,12 +121,21 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             <span className="qs-live-dot mr-1" aria-hidden="true" />QS Technology · {s.tag}
           </span>
           <h1 className="qs-h1 mt-4 text-white" style={{ fontSize: "clamp(46px,6vw,96px)", lineHeight: ".94" }}>
-            <span className="block overflow-hidden pb-[.04em]">
+            {/* Each line is masked so it sweeps in from behind its own edge. The mask
+                has to be horizontal only: at this heading's .94 line-height the glyph
+                area is taller than the line box, so a plain `overflow:hidden` also
+                sliced the tops off stacked Vietnamese marks (ề, ể) — "Bộ điều khiển"
+                came out with flat-topped accents. `overflow-x` alone is not expressible
+                (a non-visible value forces the other axis to auto), so the mask is a
+                clip-path whose vertical insets are negative: left/right clip at the box
+                edge, top/bottom let the accents and descenders bleed out. clip-path is
+                paint-only, so line spacing is untouched. */}
+            <span className="block [clip-path:inset(-0.35em_0_-0.25em_0)] pb-[.04em]">
               <span className="qs-sweep-in inline-block" style={sweep(150)}>
                 <span className="qs-gold-shimmer font-semibold">{s.name}</span>
               </span>
             </span>
-            <span className="block overflow-hidden pb-[.04em]">
+            <span className="block [clip-path:inset(-0.35em_0_-0.25em_0)] pb-[.04em]">
               <span className="qs-sweep-in inline-block" style={sweep(270)}>{s.sub}</span>
             </span>
           </h1>

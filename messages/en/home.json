@@ -122,8 +122,8 @@
         ]
       },
       {
-        "name": "F86 Controller",
-        "desc": "A 6-axis controller for a wide range of machines. Supports Pulse Train — EtherCAT control.",
+        "name": "F10T Controller",
+        "desc": "A 6-axis open-loop controller with a large 10.4\" touch screen. Supports Pulse Train — EtherCAT.",
         "meta": [
           "6 axes · open loop",
           "pulse train / ethercat"

@@ -122,8 +122,8 @@
         ]
       },
       {
-        "name": "Bộ điều khiển F86",
-        "desc": "Bộ điều khiển 6 trục ứng dụng trên đa dạng dòng máy. Hỗ trợ điều khiển Pulse Train — EtherCAT.",
+        "name": "Bộ điều khiển F10T",
+        "desc": "Bộ điều khiển 6 trục vòng hở, màn hình cảm ứng 10.4\" lớn. Hỗ trợ Pulse Train — EtherCAT.",
         "meta": [
           "6 trục · vòng hở",
           "pulse train / ethercat"

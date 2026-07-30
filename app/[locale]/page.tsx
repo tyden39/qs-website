@@ -61,7 +61,7 @@ const appAssets = [
 const productAssets = [
   { slug: "f86", img: "/home/product-f86.webp" },
   { slug: "astro-6ah", img: "/home/product-astro-6ah.webp" },
-  { slug: "f86", img: "/home/product-f86-open.webp" },
+  { slug: "f10t", img: "/home/product-f10t.webp" },
 ];
 
 // Thumbnails are derived from each youtubeId by VideoReel; titles come from i18n.

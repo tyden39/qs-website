@@ -974,8 +974,8 @@
     "model": "JW-230",
     "category": "jewelry",
     "axes": 5,
-    "controller": "QS Astro 10i (EtherCAT)",
-    "controllerSlug": "astro-10i",
+    "controller": "QS Astro 6AVE (EtherCAT)",
+    "controllerSlug": "astro-6av",
     "subtitle": "5-Axis Jewelry CNC Machine",
     "tagline": "Máy kim hoàn CNC 5 trục gia công trang sức tinh xảo, độ chính xác cao, tối ưu thời gian và hiệu suất.",
     "taglineEn": "A 5-axis jewelry CNC machine producing intricate designs at high precision while optimizing time and efficiency.",
@@ -1049,7 +1049,7 @@
       },
       {
         "k": "controller",
-        "v": "QS Astro 10i (EtherCAT)"
+        "v": "QS Astro 6AVE (EtherCAT)"
       },
       {
         "k": "rapidSpeed",
@@ -1146,8 +1146,8 @@
       {
         "title": "Bộ điều khiển",
         "titleEn": "Controller",
-        "desc": "QS Astro 10i giao tiếp EtherCAT, điều khiển đồng thời 5 trục.",
-        "descEn": "QS Astro 10i with EtherCAT driving five simultaneous axes.",
+        "desc": "QS Astro 6AVE giao tiếp EtherCAT, điều khiển vòng kín đồng thời 5 trục.",
+        "descEn": "QS Astro 6AVE with EtherCAT, closed-loop control across five simultaneous axes.",
         "img": "/img/machines/features/jw-controller.webp"
       }
     ],

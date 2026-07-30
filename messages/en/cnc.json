@@ -84,7 +84,7 @@
         "title": "Travel & table",
         "rows": [
           [
-            "X / Y / Z travel",
+            "X/Y/Z travel",
             "850 / 500 / 540 mm"
           ],
           [
@@ -220,7 +220,7 @@
       "machinePower": "Machine power",
       "materials": "Machining materials",
       "frameMaterial": "Frame material",
-      "machineTravel": "X / Y / Z travel",
+      "machineTravel": "X/Y/Z travel",
       "toolMagazine": "Tool magazine",
       "toolHead": "Tool head",
       "collet": "Collet",

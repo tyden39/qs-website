@@ -84,7 +84,7 @@
         "title": "Hành trình & bàn máy",
         "rows": [
           [
-            "Hành trình X / Y / Z",
+            "Hành trình X/Y/Z",
             "850 / 500 / 540 mm"
           ],
           [
@@ -220,7 +220,7 @@
       "machinePower": "Công suất máy",
       "materials": "Vật liệu gia công",
       "frameMaterial": "Vật liệu thân máy",
-      "machineTravel": "Hành trình X / Y / Z",
+      "machineTravel": "Hành trình X/Y/Z",
       "toolMagazine": "Ổ chứa dao",
       "toolHead": "Đầu dao",
       "collet": "Đầu kẹp dao (collet)",

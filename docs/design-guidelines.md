@@ -1,241 +1,320 @@
-# Design Guidelines
+# Design guidelines
 
-> *Industrial precision, made legible.*
-> Source: `design-concept.md` (DC-2026 · Rev 01) — this file is the implementation companion that maps the concept to Tailwind tokens, CSS classes, and codebase conventions.
+The visual system, as it exists in `app/globals.css`. Everything below is a
+token, class or rule that ships today.
 
-The visual language is **technical drawing meets editorial print**: warm paper background, carbon ink, gold-bronze accents, and JetBrains-Mono labels that frame each section like an engineering drawing. The goal: gợi cảm giác *bản vẽ kỹ thuật + bảng định mức + tấm nhãn máy*. **Never** SaaS gradients, glows, or emoji.
-
-## Philosophy — 6 Principles
-
-| # | Principle | Implementation rule |
-|---|---|---|
-| P·01 | **Bản vẽ kỹ thuật** | 1px sharp borders, 32px grid, faint gridlines. No large rounding, no soft drop shadows. |
-| P·02 | **Vật liệu thật** | Paper `#f5f3ee`, carbon `#0a0a0a`, gold-bronze `#c9a35a`. Colors evoke materials, not pixels. |
-| P·03 | **Đọc được từ xa** | Inter Tight bold display with `-0.02em`. Hierarchy always 3-tier: *eyebrow mono → display → body sans*. |
-| P·04 | **Mono = số liệu** | JetBrains Mono reserved for product codes, eyebrows, labels, breadcrumb, footer — every "this is technical data" signal. |
-| P·05 | **Vàng dùng tiết kiệm** | Gold appears only at: highlight em-text, active menu underline, image-placeholder corner ticks, badges, corner accents. **Never** as a large background. |
-| P·06 | **Lưới = quyền lực** | 1280px · 12 cols · gutter 16 · padding 48. Every section gets a 1px top/bottom border. No floating blocks. |
-
-> **Manifesto** — "Bộ điều khiển CNC tốt là bộ điều khiển không cần hướng dẫn sử dụng. Website của nó cũng vậy."
-
-## Color tokens
-
-Tokens live in [app/globals.css](app/globals.css) under `@theme`. Use them via Tailwind utilities (`bg-paper`, `text-ink`, `border-line`, `text-gold-1`, etc.).
-
-### Primary
-
-| Token | Hex / Value | Role |
-|---|---|---|
-| `--color-ink` | `#0A0A0A` | Foreground for ≥80% of text on paper. Footer, nav. |
-| `--color-paper` | `#F5F3EE` | Default body background. Warmer than white — reduces glare. |
-| `--gold-grad` | `linear-gradient(180deg, #f0d28a, #c9a35a, #8a6f35)` | Sole chromatic accent. Headline `em`, gold buttons, badges. |
-| `Snow` (white) | `#FFFFFF` | Card / panel background to separate from paper. **Never** as page background. |
-
-### Neutrals — warm gray scale (hue ~60°, sat < 2%)
-
-| Token | Hex | Usage |
-|---|---|---|
-| `paper-0` | `#fafaf7` | Hero gradient top |
-| `paper-1` / `--color-paper-2` | `#f0eee8` → `#ecebe5` | Card placeholder, hover background |
-| `--color-line` | `#d8d6cf` | Borders / dividers |
-| `--color-line-2` | `#b8b6ae` | Stronger dividers |
-| `--color-muted` | `#6b6960` | Secondary text, mono labels |
-| `--color-ink-2` | `#1a1a1a` | Footer, body text |
-| `--color-ink-3` | `#2a2a2a` | Borders inside dark sections |
-
-> **Never** use cool gray — it breaks the paper feel.
-
-### Gold scale (on-paper vs on-dark)
-
-| Token | Hex | When to use |
-|---|---|---|
-| `--color-gold` | `#c9a35a` | Strokes, accent rules, icons |
-| `--color-gold-1` / `--color-gold-3` | `#8a6f35` | Eyebrow text **on paper** |
-| `--color-gold-2` | `#e8c878` | Gold text **on dark** (factory, CTA, stat blocks) |
-
-### Status (use sparingly — forms / alerts only)
-
-| Token | Hex | Use |
-|---|---|---|
-| `accent` | `#1F6FEB` | Link, focus ring |
-| `ok` | `#3A7D5C` | Success, "Do" tag |
-| `--color-rust` / `danger` | `#C8553D` | Alert, "Don't" tag, status dots, video play indicator |
-
-> Status colors **never** appear in marketing UI.
-
-## Typography
-
-Three families, three voices. **No fourth font.**
-
-| Variable | Family | Weights | Role |
-|---|---|---|---|
-| `--font-display` | **Inter Tight** | 700 / 600 | Headlines, hero, `qs-h1`/`h2`/`h3` |
-| `--font-sans` | **Inter** | 400 / 500 / 600 / 700 | Body copy, UI |
-| `--font-mono` | **JetBrains Mono** | 400 / 500 | Eyebrow, label, code, numbers |
-
-### Type scale
-
-| Token | Spec |
-|---|---|
-| `.qs-h1` | Inter Tight 700 · `clamp(36px, 4.6vw, 64px)` · `-0.025em` · line-height 1.02 |
-| `.qs-h2` | Inter Tight 700 · `clamp(26px, 2.4vw, 36px)` · `-0.02em` · line-height 1.1 |
-| `.qs-h3` | Inter Tight 600 · 20px · `-0.01em` |
-| `.qs-lede` | Inter 400 · 17px · 1.55 · max 60ch |
-| Body | Inter 400 · 15px · 1.55 |
-| `.qs-eyebrow` | JetBrains Mono 500 · 11px · `0.18em` · UPPER · gold-1, with 24px gold dash before |
-| Mono code | JetBrains Mono 500 · 13px · `0.06em` |
-
-Hero variants may override `.qs-h1` with inline `style={{ fontSize: "clamp(...)" }}`. Keep letter-spacing `-.02em` to `-.025em`.
-
-## Layout
-
-1280px container · 12 cols · gutter 16 · padding 48 — **no exceptions**.
-
-| Rule | Value | Note |
-|---|---|---|
-| Container | `.qs-wrap` — `max-w-wrap` (1280px) · `px-12` | Mobile (<900px) drops to `--pad: 24px`. |
-| Section padding | `py-20` to `py-24` (80–96px) | Dense narrative blocks: `py-16`. Tight stacks: `py-12`. |
-| Grid gap | `gap-px` over `bg-line` | Faux 1px engineering rule between cards. Inner cards sit on `bg-white`/`bg-ink`. |
-| Grid gap (airy) | `gap-6` (24px) | When breathing room is needed (apps grid). |
-| Radius | `rounded-[3px]` | Only on buttons / inputs. Cards & images: 0px. |
-| Section head | `.qs-section-head` | Eyebrow + h2 left, CTA right, bottom rule. |
-
-### Layout patterns
-
-- **Hero** — 12-col full or 7/5 split (headline + lede vs. visual)
-- **Product strip** — 3 cols, `gap-px`, gold tick top of each cell
-- **Apps grid** — 4 cols, `gap-6`, bordered cards
-- **Dark stats** — 4 cols on `#0e0e0c`, gold tick top-left per cell
-
-## Motifs — 6 signature details
-
-These are the brand DNA. Without them, the page still works — but stops feeling QS.
-
-| # | Motif | Implementation |
-|---|---|---|
-| M·01 | **Corner tick · 4 corners** | 14px L-shape, 1.5px stroke, gold-bronze. Placed at 2 symmetric corners of image placeholders. |
-| M·02 | **Gold gradient clip** | Headline `<em>` uses `background-clip: text` with 3-stop gold gradient. |
-| M·03 | **Mono ribbon · tag** | Black bg, gold text. Used for product badges, top-strip nav (`.qs-topstrip`). |
-| M·04 | **Striped placeholder** | `.qs-img-ph` — 45° stripes + corner tick. **Every** un-imaged slot uses this; no icon-set fallback. |
-| M·05 | **Spec stamp · 2-line** | Technical name above (mono · gold), commercial name below (display · ink). |
-| M·06 | **Background grid 32px** | `.qs-grid-bg` — `rgba(0,0,0,.04)` overlay on hero sections to reinforce the drawing feel. |
-
-## Components
-
-Each component has **one correct variant**. Extend via size or state modifiers, not structural rewrites.
-
-### Buttons
-
-| Class | Use |
-|---|---|
-| `.qs-btn` | Primary — ink background, white text |
-| `.qs-btn-gold` | Main CTA — gold gradient, gold-3 border, ink text |
-| `.qs-btn-ghost` | Secondary — ink outline, inverts on hover |
-| `.qs-btn-sm` | Compact modifier — padding 7×12, 12px font |
-| `.qs-link` | Mono pill text-link, e.g. "Xem catalogue →" |
-
-Always include the arrow: `→` for primary CTAs, `↓` for downloads, `‹` `›` for pagination, `↵` for submit. **No emoji.**
-
-### Tags & eyebrows
-
-- `.qs-tag` — mono 10px, `tracking-[.12em]`, `border-line`, padding 4×8
-- `.qs-eyebrow` — mono 11px, `tracking-[.18em]`, 24px gold dash before
-- `.qs-crumb` — breadcrumb mono, separator at opacity 0.4
-
-### Product card (`.qs-card`)
-
-- White bg, `border-line` 1px, `rounded-[3px]`
-- Structure: `num` (mono · gold) → `img` (placeholder) → `h5` (display) → `ft` (mono)
-- Hover: `-translate-y-0.5` + `border-ink-3`
-- 24px gold corner accent top-right (M·01 variant)
-
-### Dark stat-row
-
-- Background `#0e0e0c`, 3–4 cols, `gap-px` on `#2a2620`
-- 24×2px gold tick top-left of each cell
-- Number: Inter Tight 700, `gold-2`, 28–48px
-- Label: mono 9–10px, `tracking-[.16em]`, `#7a7570`
-
-## Imagery
-
-- **No bitmap product photos yet.** Visuals are inline SVG technical drawings — see [app/page.tsx](app/page.tsx) and [app/products/[slug]/page.tsx](app/products/[slug]/page.tsx) for canonical examples.
-- **Placeholders** use `.qs-img-ph` (striped) or radial gradient `radial-gradient(circle, #fff, #f0eee8)` with a mono caption like `FIG · 01`.
-- **Aspect ratios**: `aspect-[4/5]`, `aspect-[5/3]`, `aspect-video`, `aspect-square`.
-- **Logo**: `public/logo-st.png` — Header (`h-[42px]`), Footer (`h-12`, `brightness-105`).
-
-## Background patterns
-
-- `.qs-grid-bg` — 32px technical grid. Low opacity (`opacity-50` light / `opacity-[.12]` dark) inside `.relative` parent.
-- Hero gradient: `linear-gradient(180deg, #fafaf7 0%, #f0eee8 100%)` applied inline.
-
-## Dark sections
-
-Used on: home stats strip, application hero, About factory, "By the numbers", newsletter / final CTA.
-
-- Background `bg-ink`, text `text-[#cfc9b8]`
-- **Switch gold** from `gold-1` (#8a6f35) → `gold-2` (#e8c878) for legibility
-- Borders shift `line` (#d8d6cf) → `[#2a2620]` / `[#2a2a2a]`
-
-## Iconography
-
-- 14×14 to 18×18 stroke icons inline as SVG. `stroke="currentColor"` so they inherit text color.
-- 22×22 rounded check / dash badges in feature tables.
-- 9×13 Vietnam flag as CSS pseudo-element on `.qs-icon-btn .flag` for the language toggle.
-
-## Spacing rhythm
-
-- Vertical: `mb-3.5` (eyebrow → headline), `mt-2` (headline → subtitle), `mt-5`/`mt-6`/`mt-7` (intro), `mt-10`/`mt-12` (section breaks)
-- Cards: `p-6`–`p-8` by content density. Aside callouts: `p-7`.
-
-## Motion
-
-> Full motion + effects catalog: [home-effects-and-motion.md](home-effects-and-motion.md) — scroll-reveal, ambient drift, PCB traces, scan beams, autoplay feeds, and the reusable component/utility list. **That file is canonical for motion.**
-
-- Subtle hover translations: `hover:-translate-y-0.5`, `hover:-translate-y-px`
-- Hover bg swaps: `hover:bg-paper`, `hover:bg-paper-2`
-- Search panel: `max-height` transition (`.28s ease`) — **do not** rewrite as height transition
-- Scroll-reveal (`<Reveal>`) and perpetual ambient motion are now part of the language; all of it respects `prefers-reduced-motion`. Keep motion subtle/industrial — no SaaS bounce, no scroll-jacking parallax.
-
-## Forms
-
-- Label: mono uppercase 10–11px in muted, 6px bottom margin
-- Input: `border border-line` on white, `focus:border-ink` (no ring)
-- Radio chips: pill border, hardens to `border-ink` on hover
-- `Field` and `RadioGroup` are duplicated in [app/services/page.tsx](app/services/page.tsx) and [app/contact/page.tsx](app/contact/page.tsx). If a third form appears, lift them to `components/Form.tsx`.
-
-## Voice & copywriting
-
-> Như một kỹ sư trưởng — ngắn, chính xác, không phô trương.
-
-Short sentences. Concrete numbers. Full technical codenames. Avoid empty marketing words.
-
-### ✅ Do
-
-- "Bộ điều khiển F-86 · 6 trục · 24V"
-- "Lắp đặt trong 4 giờ. Bảo hành 36 tháng."
-- "12,400 bộ đang vận hành tại Việt Nam."
-- Numbers first, explanation after
-- Codenames always in mono
-
-### ❌ Avoid
-
-- "Giải pháp công nghệ đột phá cho ngành 4.0"
-- "Trải nghiệm khác biệt, tiên phong"
-- "Đồng hành cùng quý khách hàng…"
-- Emoji ✨🚀💡 — never
-- SaaS buzzwords: "seamless", "synergy"
-- Marketing claims without numeric backing
-
-## Don't
-
-- Don't introduce new color tokens or fonts without updating both this file and [app/globals.css](app/globals.css).
-- Don't use `rounded-xl`/`2xl`. Corner radius is `rounded-[2px]`–`rounded-[3px]` only.
-- Don't add drop shadows beyond the soft `qs-card` hover shadow.
-- Don't decorate buttons with emoji. Use `→`, `↓`, `↵`, `›`, `‹`, `+`, `✕`.
-- Don't break the **eyebrow → headline → lede → action** sequence in marketing sections.
-- Don't use gold as a large background fill (P·05).
-- Don't drop the 1px section borders (P·06).
+Design language in one line: **industrial datasheet on warm paper, with gold as
+the single accent and technical-drawing motifs (grids, scan lines, PCB traces)
+carrying the brand.**
 
 ---
 
-*Implementation companion to `design-concept.md` (DC-2026 · Rev 01).*
+## Colour tokens
+
+Declared in the `@theme` block, so each is available as `bg-*`, `text-*`,
+`border-*` and as `var(--color-*)`.
+
+### Surfaces
+
+| Token | Hex | Used for |
+|---|---|---|
+| `paper` | `#f5f3ee` | page background (also set directly on `html, body`) |
+| `paper-2` | `#ecebe5` | secondary bands, hover fills on nav links and icon buttons |
+| `ink` | `#0a0a0a` | dark slabs — top strip, footer, dark hero bands, primary buttons |
+| `ink-2` | `#1a1a1a` | body text colour |
+| `ink-3` | `#2a2a2a` | card border on hover |
+
+### Text and rules
+
+| Token | Hex | Used for |
+|---|---|---|
+| `text` | `#1a1a1a` | default copy |
+| `muted` | `#6b6960` | captions, meta, crumbs, spec labels |
+| `line` | `#d8d6cf` | hairline dividers, card and input borders |
+| `line-2` | `#b8b6ae` | scrollbar thumb, heavier rules |
+
+### Accents
+
+| Token | Hex | Used for |
+|---|---|---|
+| `gold` | `#c9a35a` | the accent — eyebrow ticks, active underlines, mid-stop of the gradient |
+| `gold-1` | `#8a6f35` | eyebrow and panel-title text (darkest gold, readable on paper) |
+| `gold-2` | `#e8c878` | light gold — glows, scan lines, sheens, dark-surface hover |
+| `gold-3` | `#8a6f35` | currently identical to `gold-1`; prefer `gold-1` for new work |
+| `rust` | `#c8553d` | warning / secondary accent |
+| `steel` | `#1a1f2e` | deep blue-black slab |
+| `steelblue` | `#34566f` | reserved for the automation/inspection "line station" template |
+| `steelblue-2` | `#6f93ad` | lighter step of the same process accent |
+| `signal` | `#3f9a5a` | status green — the andon "ready" lamp |
+
+**Gold gradient.** `--background-image-gold-grad` (and the equivalent
+`--gold-grad` on `:root`) is
+`linear-gradient(180deg, #f0d28a 0%, #c9a35a 50%, #8a6f35 100%)`. It fills
+`.qs-btn-gold`, the active nav underline, the hero tab seam and the hovered
+spec-row accent bar. Use the variable, not a re-declared gradient.
+
+**Steel-blue is reserved.** It exists so the automation/inspection detail
+template (conveyor belt, control chrome, andon lamps) reads as a different kind
+of product from the gold CNC pages. Do not borrow it for general accents.
+
+---
+
+## Typography
+
+### One family, three role names
+
+The locale layout loads **exactly one font family**: Inter, subsets `latin` and
+`vietnamese`, exposed as `--font-inter`. All three role tokens point at it:
+
+```css
+--font-display: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+--font-sans:    var(--font-inter), …;
+--font-mono:    var(--font-inter), …;
+```
+
+Two things to understand before "fixing" this:
+
+- **`--font-mono` loads no monospace face.** The name is a role, not a family.
+  It marks the uppercase, wide-tracked label style — eyebrows, crumbs, tags,
+  spec keys, footer headings. Those render in the default sans.
+- **`--font-display` is not a second face either.** Display used to be Inter
+  Tight. It was dropped because `next/font` preloads every declared family at
+  highest priority, so a second face put roughly 55 KB (its latin + vietnamese
+  subsets) on the critical path competing with the LCP image on every page — for
+  headings alone. The heading classes compensate with tighter tracking
+  (`-.035em` on h1, `-.03em` on h2, `-.02em` on h3), standing in for Inter
+  Tight's narrower letterforms.
+
+The role names are kept distinct from `--font-inter` deliberately: a token whose
+value referenced a custom property of the same name would be self-referencing,
+and the cascade discards it.
+
+### Type scale — the single source of truth
+
+| Token | Size | Intended for |
+|---|---|---|
+| `text-label-xs` | 11px | mono tags, chips, micro crumbs |
+| `text-label` | 12px | mono eyebrows, panel labels |
+| `text-meta` | 14px | captions, meta, small UI |
+| `text-button` | 14px | button faces, held at 14 everywhere |
+| `text-body` | 16px | default paragraph copy |
+| `text-lede` | 18px | intro paragraphs |
+| `text-title` | 20px | card titles, small headings |
+| `text-subhead` | 24px | sub-heads, stat values |
+| `text-h2` | `clamp(26px, 2.4vw, 36px)` | section headings |
+
+Every size in the app maps to one of these. Decorative one-offs — giant stat
+numerals, watermark digits — stay as arbitrary values.
+
+The two label steps are reserved for uppercase decoration where the wide tracking
+carries the reading. **Anything a visitor reads as a sentence, a spec value or a
+caption starts at `meta`.**
+
+`.qs-h1` sits outside the scale on purpose at `clamp(36px, 5vw, 64px)`.
+
+Body copy is **16px on every viewport**. Desktop previously stepped down to 15px
+for a denser editorial feel, which shrank the long datasheet and description copy
+exactly where it is read most closely.
+
+`font-feature-settings: "ss01","cv11"` is set on `body`.
+
+### `.qs-detail-type` — the detail-page floor
+
+Detail pages are read, not scanned. Wrapping a detail page's content in
+`.qs-detail-type` re-declares the three small steps at 16px:
+
+```css
+.qs-detail-type { --text-label-xs: 16px; --text-label: 16px; --text-meta: 16px; }
+```
+
+That lifts every consumer at once — eyebrows, crumbs, tags, chips, spec labels,
+captions, table cells — without touching listing and marketing pages, which keep
+the denser scale. Buttons are deliberately excluded: they carry their own
+`--text-button` step so fixed heights and toolbar rows keep their proportions.
+
+*Known nit:* the comment beside `.qs-lede` calls the lede step 17px while the
+token is 18px. The class itself uses `text-title` (20px), so every page's opening
+paragraph reads at 20px. The comment is stale, the behaviour is not.
+
+---
+
+## Layout
+
+| Token / class | Value | Use |
+|---|---|---|
+| `--max-width-wrap` | 1280px | the frame the hero bleed measures itself against |
+| `.qs-wrap-wide` | `max-w-[1680px]`, px 5 / sm 8 / lg 14 | listing and marketing pages — edge-to-edge feel, capped on ultra-wide |
+| `.qs-wrap-detail` | `max-w-[1280px]`, same gutters | product and machine detail — datasheet copy reads better on a narrower measure |
+| `.qs-section` | `py-12 sm:py-16 lg:py-24` | standard vertical rhythm |
+| `--pad` | 48px, 24px below 1024px | shared page inset used by the hero-bleed maths |
+
+Breakpoints follow Tailwind's defaults (sm 640, md 768, lg 1024, xl 1280,
+2xl 1536) plus two bespoke nav steps at 1366 and 1680.
+
+**Sticky header height is 64px below `lg` and 72px from `lg` up.** That number
+appears in `.qs-search-panel`'s `top`, in `#list { scroll-margin-top }`, and in
+`product-detail-tabs.tsx`'s `headerOffset()`. Change one and change all three.
+
+**Stacked sections.** Where two full-padding sections meet *on the same
+background*, their facing paddings add up (96 + 96 on desktop) and the page reads
+as coming apart, since the only boundary is a 1px hairline. A set of
+adjacent-sibling rules halves the second section's top padding for each matching
+surface pair. It keys off `sm:py-16` — the padding step this group shares — so a
+section that opts out of that scale opts out of the rule. Matching lives in CSS
+rather than on the pages because most of these sections are conditional, and the
+sibling selector sees what actually rendered.
+
+**Closing CTA + footer.** `.qs-closing-cta:not(.bg-ink) + .qs-foot` removes the
+footer's top gap, so a page ending on a call to action does not stack two light
+bands before the dark footer. A dark closing block keeps the gap, or it would run
+straight into the equally dark footer and read as one slab.
+
+**Catalogue hero bleed.** From `lg` the hero figure runs off the right edge of
+the viewport; the copy's right padding mirrors the figure's position at every
+width via a `clamp()` pair. Past 1536px the figure pins to the container instead
+of the viewport and overhangs by `--qs-pin: 128px` — otherwise at 4K it drifts
+ever further from the copy and leaves ~640px of dead paper on the left. The
+changeover is silent by construction: the pin engages exactly where half the
+container overflow equals that overhang, and the width cap (`min(27vw, 415px)`)
+is 27vw at that viewport, so nothing jumps while resizing.
+
+---
+
+## Component primitives
+
+All live in `@layer components` in `app/globals.css`. Use these before writing
+new utility soup.
+
+| Class | What it is |
+|---|---|
+| `.qs-eyebrow` | uppercase gold-1 label, 12px, tracking `.18em`, with a 24px gold tick rule before it |
+| `.qs-panel-title` | bolder section eyebrow at `meta` size, tracking `.16em` |
+| `.qs-crumb` | breadcrumb trail; wraps as whole crumbs, never mid-label, because a link broken across two lines reads as two steps. Only links and separators are held together — the trailing `.here` carries a full product name and must be free to break. `.qs-crumb-dark` retints it for dark hero bands, where the default ink hover sinks into the near-black. |
+| `.qs-tag` / `.qs-chip` | small uppercase metadata pills; chip is pill-shaped on translucent white |
+| `.qs-h1` / `.qs-h2` / `.qs-h3` | heading steps with the compensating negative tracking |
+| `.qs-lede` | opening paragraph — 20px, `leading-[1.55]`, `#3a3a3a`, capped at `60ch` |
+| `.qs-btn` | primary button. 44px minimum height below `lg` for touch, compact from `lg` up. `.arr` inside slides 3px right on hover. |
+| `.qs-btn-gold` / `.qs-btn-ghost` / `.qs-btn-sm` | gold-gradient, outline, and compact variants |
+| `.qs-link` | uppercase mono link with a solid underline |
+| `.qs-card` | white card, 1px `line` border, 3px radius; on hover the border darkens to `ink-3` and a soft lifted shadow appears |
+| `.qs-section-head` | section title + lede row; stacks below `md` so the title column keeps its full width |
+| `.qs-img-ph` | technical placeholder — 45° hatch over a paper gradient, used where a photo has not been shot yet |
+| `.qs-select` | native-chrome reset for `<select>`, with a drawn chevron. Left **unlayered** on purpose: inside `@layer components` it would lose to the utility classes on each select. Its inset is a `var()` fallback (`--qs-select-inset`, default `0.7rem`) rather than a declaration, so a roomier control can still override it. |
+| `.qs-scroll` | thin tone-matched scrollbar for panels that scroll internally; thumb colour comes from `--qs-scroll-thumb` so dark skins can restate it |
+| `.qs-grid-bg` / `.qs-dot-bg` | technical-drawing line grid (32px) and gold blueprint dot field (26px) |
+
+Radius is small throughout — 2–3px on tags, buttons and cards; 10px only on the
+footer tiles; full round on chips and status dots.
+
+---
+
+## Motion
+
+Motion is a brand signal here, not decoration: gold sweeps left→right, technical
+surfaces drift, product renders float and get scanned.
+
+| Class | Effect | Duration |
+|---|---|---|
+| `.qs-reveal` | scroll-reveal: fade + 12px rise | .6s, delay via `--reveal-delay` |
+| `.qs-rise` | headline rise from 115% | .9s |
+| `.qs-sweep-in` | slide in from `-4rem` with fade | 1s |
+| `.qs-sweep-in-opaque` | same slide, **no fade** — for the LCP element | 1s |
+| `.qs-grid-drift` / `.qs-dot-drift` | background drift | 38s / 52s |
+| `.qs-glow` | breathing gold radial glow | 6.5s |
+| `.qs-kenburns` | slow zoom/pan for editorial photos | 14s alternate |
+| `.qs-float` | product render bob | 6.5s |
+| `.qs-scan` | gold scan line sweeping a product | 4.8s alternate |
+| `.qs-marquee` | ticker; pauses on hover | `--mq-dur`, default 42s |
+| `.qs-gold-shimmer` | perpetual gold sheen on clipped text | 7s |
+| `.qs-trace` | gold scanner along a section rule | 5.5s |
+| `.qs-pcb-flow` / `.qs-pcb-pad` | current flowing along PCB traces, pads pulsing | 6s / 3.4s |
+| `.qs-conveyor` / `.qs-andon` | line-station conveyor dashes and status lamp | 1s / 2.4s |
+| `.qs-play` | pulsing rings on the showreel play button | 2.8s |
+| `.qs-swipe-nudge` | chevron drifting right under a swipe rail | 1.9s |
+
+Easing convention: `cubic-bezier(.16, 1, .3, 1)` for entrances and interaction,
+`ease`/`linear` for ambient loops.
+
+### Non-negotiable motion rules
+
+1. **Every animation needs a `prefers-reduced-motion: reduce` counterpart.** The
+   file has several such blocks; add to them.
+2. **Never leave an invisible animation running.** `opacity: 0` does not stop the
+   animation clock — an idle product card would keep laying out and painting an
+   invisible 2px scan bar every frame. Pause it:
+   `.group:not(:hover) .qs-scan.opacity-0 { animation-play-state: paused; }`
+3. **Do not fade in the LCP element.** An element starting at `opacity: 0` is not
+   a paint as far as the browser is concerned, so animating opacity on the LCP
+   element pushes the metric out by delay + fade (measured around 2.8s on the
+   home hero on a throttled phone profile). Use `.qs-sweep-in-opaque`, which
+   keeps the motion language and lets the paint count when the pixels land.
+4. **Release compositor layers once settled.** `will-change` is set only while a
+   reveal is pending; a permanent layer on settled grid cells makes their 1px
+   borders round away on fractional column widths, so dividers go missing.
+5. **Rails opt out of reveal on small screens.** `.qs-reveal-desktop` (below
+   768px) and `.qs-reveal-wide` (below 1024px) disable the reveal where a
+   horizontal swipe already carries the motion. On a swipe rail the 12px vertical
+   offset is worse than redundant: a box that scrolls on one axis can no longer
+   leave the other visible, so it becomes a stray sliver of vertical scroll.
+
+### Reveal fail-open
+
+Reveal content starts at `opacity: 0`, so a page whose client JS never arrives
+would paint as an empty shell under a working header. Two defences, both in the
+locale layout: a `<noscript>` style for JS switched off, and a parse-time timer
+that adds `.qs-reveal-failsafe` after 4 seconds if no `Reveal` component has
+marked the document hydrated. The failsafe rule is last in its section so it
+outranks the pending-reveal rule. The animation is lost; a blank page is worse.
+
+---
+
+## Accessibility
+
+- Touch targets: `.qs-btn` is at least 44px tall below `lg`; `.qs-icon-btn` grows
+  from 36px to 44px under `@media (pointer: coarse)`; breadcrumb links get a
+  padding / negative-margin pair on coarse pointers so the hit area grows without
+  moving the layout.
+- Nav labels must never wrap — the bar has a fixed height. Vietnamese labels run
+  roughly 1.6× their English counterparts, so `.qs-menu-link` steps its font size
+  and horizontal padding down twice between 1366 and 1680px.
+- Hover effects have `:focus-within` counterparts where they convey state (the
+  hero spec readout).
+- Interactive components pair the visual state with ARIA wiring — the product
+  detail tabs expose their ids for aria and for URL hashes.
+- `.qs-gold-shimmer` adds `padding-block: 0.2em` with a cancelling negative
+  margin so stacked Vietnamese diacritics (ử, ữ) stay inside the clipped gradient
+  under tight heading line-height.
+
+---
+
+## Detail-page templates
+
+Five distinct detail templates exist. Pick the matching one rather than inventing
+a sixth.
+
+| Template | File | Look |
+|---|---|---|
+| Controller | `electronics/[slug]/page.tsx` + `product-detail-tabs` | tabbed datasheet — hero triptych, protocol spec sheet, kit grid, gallery, downloads |
+| Catalogue item | `electronics/_components/catalog-detail.tsx` | deliberately simpler: hero → spec table → feature walkthrough → video → quote CTA. A DNC unit or cable has no protocol datasheet or kit to show, and each band drops out when the catalogue never documented it. |
+| Drive/inverter series | `electronics/_components/series-detail.tsx` | tabs mirroring the manufacturer's own page: Introduction · Specifications · Documentation · Optional accessories. A tab with no content is dropped, never shown empty. |
+| CNC machine | `machine-building/_components/machine-datasheet.tsx` | dark datasheet — hero slideshow, computed spec groups, performance strip, envelope wireframe, use cases |
+| Line-integrated machine | `machine-building/_components/line-machine-detail.tsx` | light "line station" — stainless hero with andon readout, infeed → cycle → discharge flow, in-context gallery, control-panel card. Chosen automatically when a machine ships `line`/`control` data. This is where `steelblue` lives. |
+
+Machine templates always render every section, filling gaps with an "updating"
+placeholder, so every machine page has the same shape regardless of how complete
+its datasheet is.
+
+---
+
+## Adding to the system
+
+1. Need a colour? Check the token table first. If it genuinely does not exist,
+   add it to `@theme`, not inline.
+2. Need a size? Use a scale step. If nothing fits, the design is probably
+   drifting — the scale is the source of truth.
+3. Need a repeated composite? Add a `qs-*` class in `@layer components`.
+4. Need a rule that must beat a utility class? Put it outside the layer, and
+   leave any per-instance value as a `var()` fallback so a utility can still
+   override it.
+5. Adding motion? Write the reduced-motion counterpart in the same commit, and
+   check you are not animating the LCP element's opacity.

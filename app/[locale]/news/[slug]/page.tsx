@@ -144,12 +144,21 @@ export default async function NewsDetail({ params }: { params: Promise<{ locale:
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12 grid md:grid-cols-[1fr_320px] gap-8 md:gap-16 items-start">
           {n.coverImage && (
             <div className="relative col-span-full aspect-[16/10] overflow-hidden border border-line bg-paper md:hidden">
+              {/* Phone-only cover — from md up the article body opens with the
+                  same photo, so this frame is hidden there. A hidden frame is
+                  still a loaded image (and this one is preloaded, being the
+                  phone LCP), so the md+ tier has to declare a width: a bare
+                  "100vw" had every desktop visitor preload the widest rung
+                  (175 KB here) for a frame they never see. The md+ figure is
+                  nominal — the frame paints at zero — and small enough to pull
+                  the smallest rung (11 KB); it also drops the ladder floor, so
+                  a narrow phone stops rounding up to the 640w rung. */}
               <Image
                 src={n.coverImage}
                 alt={n.title}
                 fill
                 priority
-                sizes="100vw"
+                sizes="(min-width: 768px) 5vw, 100vw"
                 className="object-cover"
               />
             </div>

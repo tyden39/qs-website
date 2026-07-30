@@ -284,6 +284,18 @@ body {
     will-change: auto;
   }
 }
+/* Fail-open for a page whose client JS never arrived: without it every reveal
+   stays at opacity 0 and the page reads as empty content under a working header.
+   A parse-time timer in the root layout adds this class when no Reveal has
+   claimed hydration by its deadline (a 404'd chunk after restoring a tab whose
+   cached HTML names a build that is gone, a throw before hydration completes).
+   Last in the section so it outranks the pending-reveal rule above. */
+.qs-reveal-failsafe .qs-reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
 
 /* ─── Drifting technical grid ─── */
 .qs-grid-drift { animation: qs-grid-drift 38s linear infinite; }

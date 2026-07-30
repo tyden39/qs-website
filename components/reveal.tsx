@@ -28,6 +28,11 @@ export default function Reveal({
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    // Claims hydration for the whole document: the root layout's parse-time
+    // fail-open shows every pending reveal if nothing has set this by its
+    // deadline, on the assumption that the client bundle never arrived.
+    document.documentElement.setAttribute("data-hydrated", "1");
+
     const el = ref.current;
     if (!el) return;
 

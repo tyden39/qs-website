@@ -61,6 +61,24 @@ if(localStorage.getItem('locale')!=='en')return;
 location.replace('/en/'+location.search+location.hash);
 }catch(e){}})();`;
 
+// Scroll-reveal content starts at opacity 0 and is only shown once `Reveal`'s
+// effect runs, so a page whose client JS never arrives paints as an empty shell:
+// header, breadcrumb, and nothing else. The <noscript> style below covers JS
+// being switched off, but not JS that was requested and failed — a chunk that
+// 404s (restoring a tab whose cached HTML points at a build that no longer has
+// those files), or a throw before hydration finishes.
+//
+// This is the fail-open for that case. It runs during parse, so it survives
+// whatever happens to the module graph afterwards, and hands over to `Reveal`
+// the moment the real thing mounts: the first `Reveal` effect marks the document
+// hydrated, and the timer below then does nothing. If nothing has claimed
+// hydration by the deadline the content is simply shown — the animation is lost,
+// which is the correct trade against a page that looks blank.
+const REVEAL_FAILSAFE = `(function(){try{setTimeout(function(){
+if(!document.documentElement.hasAttribute('data-hydrated'))
+document.documentElement.classList.add('qs-reveal-failsafe');
+},4000)}catch(e){}})();`;
+
 export async function generateMetadata({
   params,
 }: {
@@ -133,6 +151,7 @@ export default async function LocaleLayout({
         {locale === routing.defaultLocale && (
           <script dangerouslySetInnerHTML={{ __html: RESTORE_SAVED_LOCALE }} />
         )}
+        <script dangerouslySetInnerHTML={{ __html: REVEAL_FAILSAFE }} />
         <noscript>
           {/* Keep scroll-reveal content visible when JS is disabled. */}
           <style>{`.qs-reveal{opacity:1!important;transform:none!important}`}</style>

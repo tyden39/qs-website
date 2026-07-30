@@ -5,6 +5,7 @@ import Image from "@/components/media/image";
 import { useLightbox } from "@/components/media/image-lightbox";
 import { useHorizontalSwipe } from "@/lib/use-swipe";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
+import { useUserEngaged } from "@/lib/use-user-engaged";
 
 export type HeroShot = { src: string; w: number; h: number; alt: string };
 
@@ -16,6 +17,12 @@ const AUTOPLAY_MS = 4000;
  * when the image changes, and it auto-advances (pausing on hover / reduced
  * motion). Used for the product-name shots so the hero reads as a showcase
  * rather than a single static render.
+ *
+ * Auto-advance waits for the visitor's first gesture. This frame is the page's
+ * LCP element, and cross-fading a second shot in while the browser is still
+ * nominating candidates re-dated the metric to that later paint — four seconds
+ * in, on an image that was never preloaded. The first gesture is also what
+ * closes the LCP window, so gating on it keeps the measurement on shot one.
  */
 export function ProductHeroGallery({
   shots,
@@ -32,8 +39,9 @@ export function ProductHeroGallery({
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduced = usePrefersReducedMotion();
+  const engaged = useUserEngaged();
 
-  const autoplay = shots.length > 1 && !reduced;
+  const autoplay = shots.length > 1 && !reduced && engaged;
   const swipe = useHorizontalSwipe((dir) => setActive((i) => (i + dir + shots.length) % shots.length));
   const swipeProps = shots.length > 1 ? swipe : {};
 

@@ -5,6 +5,7 @@ import Image from "@/components/media/image";
 import { useLightbox } from "@/components/media/image-lightbox";
 import { useHorizontalSwipe } from "@/lib/use-swipe";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
+import { useUserEngaged } from "@/lib/use-user-engaged";
 
 export type MachineHeroGalleryShot = {
   src: string;
@@ -22,6 +23,11 @@ const AUTOPLAY_MS = 4000;
  * (white plate, corner registration ticks, model / axes footer) but cross-fades
  * through the machine's studio shots, auto-advancing (pausing on hover / reduced
  * motion) with a thumbnail strip and click-to-zoom.
+ *
+ * Auto-advance waits for the visitor's first gesture, for the same reason as the
+ * product hero: this frame is the page's LCP element, and fading a second shot in
+ * on a timer re-dated the metric to that later paint instead of the preloaded
+ * first shot. The first gesture is also what closes the browser's LCP window.
  */
 export function MachineHeroGallery({
   shots,
@@ -38,6 +44,7 @@ export function MachineHeroGallery({
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduced = usePrefersReducedMotion();
+  const engaged = useUserEngaged();
 
   // The zoomed caption carries the model so a full-screen shot stays identifiable.
   const zoomShots = useMemo(
@@ -45,7 +52,7 @@ export function MachineHeroGallery({
     [shots, model],
   );
 
-  const autoplay = shots.length > 1 && !reduced;
+  const autoplay = shots.length > 1 && !reduced && engaged;
 
   useEffect(() => {
     if (!autoplay || paused) return;

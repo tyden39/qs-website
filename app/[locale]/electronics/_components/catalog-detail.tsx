@@ -81,15 +81,8 @@ export async function CatalogDetail({
     { name: product.name, path: `/electronics/${product.slug}` },
   ]);
 
-  // The band has two shapes, picked by whether the catalogue illustrated this
-  // product. Photographed features keep the walkthrough rows — body text with
-  // its shot alongside. Features documented in words only would leave that photo
-  // column empty on every row, so they read as a table instead: number, title,
-  // description, all on one axis across the full frame.
-  const anyFeaturePhoto = features.some((f) => f.photo);
-
   const featureIndex = (i: number) => (
-    <div className="font-mono text-label-xs tracking-[.18em] text-gold-1 tabular-nums md:pt-1.5">
+    <div className="font-mono text-label-xs tracking-[.18em] text-gold-1 tabular-nums md:pt-1">
       {String(i + 1).padStart(2, "0")}
     </div>
   );
@@ -370,67 +363,55 @@ export async function CatalogDetail({
           <div className="qs-wrap-detail">
             {bandHead(t("featuresHeading"), t("catalogFeaturesHeading"), features.length)}
 
-            {/* The band head already rules a line across the frame, so the rows
-                below only carry their own bottom divider. */}
+            {/* Every feature reads as one table row — number, title, then the
+                description — whether or not the catalogue illustrated it. An
+                illustrated feature keeps its shot as a thumbnail beside the
+                description rather than a full walkthrough block, so a
+                photographed product and a text-only one hold the same rhythm and
+                neither runs a screen deep. The band head already rules a line
+                across the frame, so the rows only carry their bottom divider. */}
             <div>
-              {anyFeaturePhoto
-                ? features.map((f, i) => (
-                    <article
-                      key={f.title}
-                      className="grid gap-x-8 gap-y-4 border-b border-line py-8 sm:py-10 lg:py-12 md:grid-cols-[3rem_minmax(0,1fr)]"
-                    >
-                      {featureIndex(i)}
-                      <div
-                        className={`grid gap-6 lg:gap-12 items-start ${
-                          f.photo ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]" : ""
-                        }`}
-                      >
-                        <div>
-                          <h3 className="font-display font-bold text-subhead tracking-[-.02em] m-0">
-                            {f.title}
-                          </h3>
-                          <p className="mt-3.5 m-0 text-body leading-[1.75] text-[#3a3a3a] max-w-[58ch]">
-                            {f.body}
-                          </p>
-                        </div>
-                        {f.photo && (
-                          <figure
-                            className="m-0 relative overflow-hidden border border-line p-4"
-                            style={{
-                              background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)",
-                            }}
-                          >
-                            {/* Same ceiling as the overview shots: below lg the
-                                photo has the full column to itself, and a
-                                portrait one would otherwise stand taller than
-                                the feature text it belongs to. */}
-                            <Image
-                              src={f.photo.src}
-                              alt={f.photo.alt}
-                              width={f.photo.w}
-                              height={f.photo.h}
-                              sizes="(max-width: 1024px) 90vw, 416px"
-                              className="block mx-auto h-auto w-auto max-h-[240px] sm:max-h-[320px] lg:max-h-none max-w-full object-contain"
-                            />
-                          </figure>
-                        )}
-                      </div>
-                    </article>
-                  ))
-                : features.map((f, i) => (
-                    <article
-                      key={f.title}
-                      className="grid items-start gap-x-8 gap-y-4 border-b border-line py-8 sm:py-10 md:grid-cols-[3rem_minmax(0,24rem)_minmax(0,1fr)]"
-                    >
-                      {featureIndex(i)}
-                      <h3 className="font-display font-bold text-subhead tracking-[-.02em] m-0 text-balance">
-                        {f.title}
-                      </h3>
-                      <p className="m-0 text-body leading-[1.75] text-[#3a3a3a] max-w-[68ch]">
+              {features.map((f, i) => (
+                <article
+                  key={f.title}
+                  className="grid items-start gap-x-8 gap-y-2 border-b border-line py-4 sm:py-5 md:grid-cols-[2.5rem_minmax(0,22rem)_minmax(0,1fr)]"
+                >
+                  {featureIndex(i)}
+                  <h3 className="font-display font-bold text-title tracking-[-.015em] m-0 text-balance">
+                    {f.title}
+                  </h3>
+                  {f.photo ? (
+                    <div className="grid items-start gap-4 lg:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,17rem)]">
+                      <p className="m-0 text-body leading-[1.7] text-[#3a3a3a] max-w-[72ch]">
                         {f.body}
                       </p>
-                    </article>
-                  ))}
+                      {/* The shot is a reference thumbnail at this size, not a
+                          reading surface: it is capped so the row stays as tall
+                          as its copy, and below lg — where it has the column to
+                          itself — the ceiling tightens further. */}
+                      <figure
+                        className="m-0 overflow-hidden border border-line p-2"
+                        style={{
+                          background: "radial-gradient(circle at 50% 38%, #ffffff, #ecebe5)",
+                        }}
+                      >
+                        <Image
+                          src={f.photo.src}
+                          alt={f.photo.alt}
+                          width={f.photo.w}
+                          height={f.photo.h}
+                          sizes="(max-width: 1024px) 90vw, 272px"
+                          className="block mx-auto h-auto w-auto max-h-[150px] lg:max-h-[190px] max-w-full object-contain"
+                        />
+                      </figure>
+                    </div>
+                  ) : (
+                    <p className="m-0 text-body leading-[1.7] text-[#3a3a3a] max-w-[72ch]">
+                      {f.body}
+                    </p>
+                  )}
+                </article>
+              ))}
             </div>
           </div>
         </section>

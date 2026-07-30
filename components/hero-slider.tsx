@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/lib/i18n/navigation";
 import CircuitTraces from "@/components/circuit-traces";
 import { useHorizontalSwipe } from "@/lib/use-swipe";
+import { useUserEngaged } from "@/lib/use-user-engaged";
 
 export type HeroSlide = {
   /** Short label that follows the live-dot eyebrow, e.g. "Premium High-End". */
@@ -35,12 +36,20 @@ const INTERVAL = 7000; // ms each slide stays before auto-advancing
  * Autoplay pauses on spec-sheet hover or keyboard focus, advances with ←/→, and honours
  * prefers-reduced-motion (no autoplay, no progress bar). The first slide renders on
  * the server so crawlers and no-JS visitors still get a real <h1> + spec sheet.
+ *
+ * Autoplay also waits for the visitor's first gesture. The slides carry different
+ * aspect ratios, so on a phone the second render paints roughly twice the area of
+ * the first — advancing on a timer therefore handed the LCP to a lazily-loaded
+ * image seven seconds in, for every visitor who hadn't yet scrolled. Starting the
+ * timer at the same gesture that closes the browser's LCP window keeps the metric
+ * on the preloaded first slide.
  */
 export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const t = useTranslations("home");
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [animate, setAnimate] = useState(true);
+  const engaged = useUserEngaged();
   const rootRef = useRef<HTMLElement>(null);
 
   const go = useCallback(
@@ -59,17 +68,25 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 
   // Auto-advance; pause while hovered/focused.
   useEffect(() => {
-    if (!animate || paused || slides.length < 2) return;
+    if (!animate || !engaged || paused || slides.length < 2) return;
     const id = window.setInterval(
       () => setActive((a) => (a + 1) % slides.length),
       INTERVAL,
     );
     return () => window.clearInterval(id);
-  }, [animate, paused, active, slides.length]);
+  }, [animate, engaged, paused, active, slides.length]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowRight") go(active + 1);
     else if (e.key === "ArrowLeft") go(active - 1);
+  };
+
+  // Pause on focus is for keyboard users only. A mouse click on a slide tab also
+  // focuses it, and the button keeps that focus after the pointer leaves — no
+  // blur fires, so plain focus-pausing stalled autoplay for good. :focus-visible
+  // is exactly the "focus the browser thinks deserves a ring" signal we want.
+  const onFocusCapture = (e: React.FocusEvent) => {
+    if ((e.target as HTMLElement).matches(":focus-visible")) setPaused(true);
   };
 
   // Touch users advance the carousel by swiping anywhere on the stage.
@@ -85,7 +102,7 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       aria-label={t("hero.regionAria")}
       onKeyDown={onKeyDown}
       {...swipe}
-      onFocusCapture={() => setPaused(true)}
+      onFocusCapture={onFocusCapture}
       onBlurCapture={() => setPaused(false)}
       className="relative bg-ink text-[#cfc9b8] overflow-hidden border-b border-[#221e18]"
     >
@@ -261,14 +278,16 @@ export default function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                 <span className="font-mono text-meta text-[#46402f] group-data-[active=true]:text-gold-2 group-hover:translate-x-0.5 transition-all">→</span>
                 {/* autoplay progress seam — restarts whenever this tab becomes active */}
                 <span className="pointer-events-none absolute left-0 bottom-0 h-[2px] w-full bg-transparent">
-                  {i === active && animate && !paused && slides.length > 1 && (
+                  {i === active && animate && engaged && !paused && slides.length > 1 && (
                     <span
                       key={active}
                       className="block h-full bg-gold-2"
                       style={{ animation: `qs-progress ${INTERVAL}ms linear forwards` }}
                     />
                   )}
-                  {i === active && (!animate || paused) && <span className="block h-full bg-gold-2/70" />}
+                  {i === active && (!animate || !engaged || paused) && (
+                    <span className="block h-full bg-gold-2/70" />
+                  )}
                 </span>
               </button>
             ))}

@@ -49,7 +49,10 @@ export function buildOrganization(): WithContext<Organization> {
       addressCountry: "VN",
       addressLocality: "Hà Nội",
     },
-    sameAs: ["https://youtube.com/@qstechnology7516"],
+    sameAs: [
+      "https://www.facebook.com/qs.technology2018",
+      "https://youtube.com/@qstechnology7516",
+    ],
   };
 }
 

@@ -65,7 +65,7 @@
     "videoPlay": "Phát video",
     "workflow": [
       { "l": "Input · G-code", "t": "Nhập chương trình gia công", "d": "File NC được nạp qua USB, Ethernet hoặc DNC. Bộ điều khiển phân tích và mô phỏng đường chạy dao trên màn hình trước khi chạy thật." },
-      { "l": "Plan · Path", "t": "Tính toán quỹ đạo servo", "d": "Look-ahead 256 block, gia tốc S-curve và bù sai số dao. Quỹ đạo được làm mượt theo NURBS để đạt finish bề mặt tốt nhất." },
+      { "l": "Plan · Path", "t": "Tính toán quỹ đạo servo", "d": "Look-ahead 256 block, gia tốc S-curve và bù sai số dao. Quỹ đạo được làm mượt theo NURBS để đạt finish bề mặt tối ưu." },
       { "l": "Drive · EtherCAT", "t": "Điều khiển servo & spindle", "d": "Tín hiệu xung/encoder qua EtherCAT 1ms tới các trục X/Y/Z và biến tần spindle. Vòng kín kiểm tra vị trí từng chu kỳ." },
       { "l": "Monitor · HMI", "t": "Giám sát & báo lỗi", "d": "HMI hiển thị tọa độ, tốc độ, dòng spindle, alarm. Dữ liệu chu trình ghi log để phục vụ truy xuất nguồn gốc và OEE." }
     ],

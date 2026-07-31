@@ -21,12 +21,13 @@
       "installation": "Hướng dẫn lắp đặt"
     },
     "titles": {
-      "productCatalogue": "Catalogue sản phẩm 2024",
-      "companyProfile": "Hồ sơ năng lực công ty"
+      "productCatalogue": "Catalogue sản phẩm",
+      "companyProfile": "Hồ sơ công ty"
     },
     "lang": {
       "vi": "Tiếng Việt",
-      "en": "English"
+      "en": "English",
+      "vi-en": "Song ngữ Việt — Anh"
     },
     "tree": {
       "eyebrow": "Thư viện tài liệu",
@@ -38,7 +39,7 @@
       "catalogue": {
         "label": "Catalogue & hồ sơ",
         "heading": "Catalogue & hồ sơ",
-        "desc": "Catalogue tổng hợp toàn bộ dòng controller F-series và Astro-series, kèm hồ sơ năng lực công ty. Bản tiếng Việt và tiếng Anh."
+        "desc": "Catalogue tổng hợp toàn bộ dòng controller F-series và Astro-series, kèm hồ sơ công ty. Cả hai đều là bản song ngữ Việt — Anh."
       },
       "controllers": {
         "label": "Bộ điều khiển",

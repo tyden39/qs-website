@@ -21,12 +21,13 @@
       "installation": "Installation manual"
     },
     "titles": {
-      "productCatalogue": "Product Catalogue 2024",
+      "productCatalogue": "Product Catalogue",
       "companyProfile": "Company Profile"
     },
     "lang": {
       "vi": "Vietnamese",
-      "en": "English"
+      "en": "English",
+      "vi-en": "Vietnamese — English"
     },
     "tree": {
       "eyebrow": "Document library",
@@ -38,7 +39,7 @@
       "catalogue": {
         "label": "Catalogue & profile",
         "heading": "Catalogue & profile",
-        "desc": "The full catalogue covering every F-series and Astro-series controller line, plus the company profile. Vietnamese and English editions."
+        "desc": "The full catalogue covering every F-series and Astro-series controller line, plus the company profile. Both are bilingual Vietnamese — English."
       },
       "controllers": {
         "label": "Controllers",

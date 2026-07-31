@@ -1,27 +1,15 @@
 [
   {
-    "slug": "catalogue-2024-vi",
+    "slug": "catalogue",
     "ext": "PDF",
     "category": "catalogue",
     "model": null,
     "titleKey": "productCatalogue",
-    "lang": "vi",
-    "version": "2024",
+    "lang": "vi-en",
+    "version": null,
     "date": null,
-    "sizeBytes": 5837867,
-    "fileUrl": "/downloads/catalogue/qs-product-catalogue-2024-vi.pdf"
-  },
-  {
-    "slug": "catalogue-2024-en",
-    "ext": "PDF",
-    "category": "catalogue",
-    "model": null,
-    "titleKey": "productCatalogue",
-    "lang": "en",
-    "version": "2024",
-    "date": null,
-    "sizeBytes": 4777351,
-    "fileUrl": "/downloads/catalogue/qs-product-catalogue-2024-en.pdf"
+    "sizeBytes": 2265936,
+    "fileUrl": "/downloads/catalogue/qs-product-catalogue.pdf"
   },
   {
     "slug": "company-profile",
@@ -29,10 +17,10 @@
     "category": "catalogue",
     "model": null,
     "titleKey": "companyProfile",
-    "lang": "en",
+    "lang": "vi-en",
     "version": null,
     "date": null,
-    "sizeBytes": 9511528,
+    "sizeBytes": 3973466,
     "fileUrl": "/downloads/catalogue/qs-company-profile.pdf"
   },
   {

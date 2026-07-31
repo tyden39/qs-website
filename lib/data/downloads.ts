@@ -51,7 +51,7 @@ export type DownloadDoc = {
   variants: DownloadFile[];
 };
 
-const LANG_ORDER: Record<string, number> = { vi: 0, en: 1 };
+const LANG_ORDER: Record<string, number> = { vi: 0, "vi-en": 0, en: 1 };
 
 // Collapse files that are the same document in different languages into one
 // entry, preserving the source order of first appearance. Variants are sorted

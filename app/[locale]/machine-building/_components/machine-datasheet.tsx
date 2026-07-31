@@ -239,12 +239,10 @@ export default async function MachineDatasheet({
   // catalogue, so controller copy lives in exactly one place.
   const controller = machine.controllerSlug ? getProductBySlug(machine.controllerSlug, locale) : null;
 
-  // Downloads: the real catalogue PDF for this locale, the controller's own
-  // manual, and a placeholder card for the machine datasheet we don't host yet.
-  const catalogue =
-    getAllDownloads().find((f) => f.category === "catalogue" && f.lang === locale) ??
-    getAllDownloads().find((f) => f.category === "catalogue") ??
-    null;
+  // Downloads: the real catalogue PDF (one bilingual file, so no per-locale
+  // pick), the controller's own manual, and a placeholder card for the machine
+  // datasheet we don't host yet.
+  const catalogue = getAllDownloads().find((f) => f.category === "catalogue") ?? null;
   const controllerDoc = machine.controllerSlug
     ? getProductDownloads(machine.controllerSlug).find(
         (f) => f.category === "operation" || f.category === "installation",

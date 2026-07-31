@@ -8,7 +8,10 @@
 import downloadsData from "./downloads.json";
 
 export type DownloadExt = "PDF" | "ZIP";
-export type DownloadLang = "vi" | "en";
+/** `vi-en` is a single file containing both languages, not a translation pair —
+ *  the catalogue and company profile ship that way, so they have no per-language
+ *  edition to collapse. */
+export type DownloadLang = "vi" | "en" | "vi-en";
 export type DownloadCategory = "catalogue" | "operation" | "installation" | "software";
 
 export type DownloadFile = {

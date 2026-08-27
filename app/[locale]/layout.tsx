@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import SearchPanel, { type FeaturedProduct } from "@/components/SearchPanel";
 import FloatingContact from "@/components/floating-contact";
 import { LightboxProvider } from "@/components/media/image-lightbox";
+import { AuthProvider } from "@/lib/auth/auth-context";
 import { getAllProducts } from "@/lib/data/products";
 import { routing } from "@/lib/i18n/routing";
 import { pickClientMessages } from "@/lib/i18n/client-messages";
@@ -164,13 +165,15 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={pickClientMessages(await getMessages())}>
           <JsonLd data={buildOrganization()} />
           <JsonLd data={buildWebSite()} />
-          <LightboxProvider labels={lightboxLabels}>
-            <Header />
-            <SearchPanel featured={featured} productCount={products.length} />
-            {children}
-            <Footer />
-            <FloatingContact />
-          </LightboxProvider>
+          <AuthProvider>
+            <LightboxProvider labels={lightboxLabels}>
+              <Header />
+              <SearchPanel featured={featured} productCount={products.length} />
+              {children}
+              <Footer />
+              <FloatingContact />
+            </LightboxProvider>
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

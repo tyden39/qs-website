@@ -25,6 +25,7 @@ import type { AbstractIntlMessages } from "next-intl";
 export const CLIENT_MESSAGE_PATHS = [
   "common", // rail-nudge, floating-contact
   "nav", // Header
+  "auth", // Header — LoginModal, AccountMenu
   "product", // Header — product.page.types.*
   "cnc", // Header — cnc.machines.categories.*
   "application.index", // Header

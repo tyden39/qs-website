@@ -80,7 +80,7 @@ function resolveId<T extends { id: string }>(items: T[], param: string | null): 
   return (items.some((i) => i.id === param) ? param : null) ?? items[0]?.id ?? null;
 }
 
-function DocTable({
+export function DocTable({
   rows,
   headers,
 }: {

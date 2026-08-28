@@ -18,7 +18,8 @@
     },
     "docType": {
       "operation": "Operation manual",
-      "installation": "Installation manual"
+      "installation": "Installation manual",
+      "maintenance": "Maintenance manual"
     },
     "titles": {
       "productCatalogue": "Product Catalogue",
@@ -34,6 +35,16 @@
       "all": "All documents",
       "support": "Technical support",
       "supportCta": "Contact engineering"
+    },
+    "latest": {
+      "eyebrow": "Live updates",
+      "heading": "Latest documents",
+      "lede": "Manuals pulled directly from our internal system — always the newest published edition.",
+      "loading": "Loading document list...",
+      "empty": "No documents have been published yet.",
+      "error": "Could not load the document list. Please try again later.",
+      "download": "Download PDF",
+      "live": "Live"
     },
     "families": {
       "catalogue": {
@@ -65,6 +76,7 @@
     "docGroup": {
       "operation": "Operation manuals",
       "installation": "Installation manuals",
+      "maintenance": "Maintenance manuals",
       "manual": "Manuals & guides",
       "drawing": "Technical drawings",
       "software": "Software & tools",

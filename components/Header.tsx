@@ -735,11 +735,16 @@ export default function Header() {
                 <small className="hidden sm:block font-mono text-label-xs text-muted tracking-[.18em] uppercase whitespace-nowrap">CNC · Automation · Vietnam</small>
               </div>
             </Link>
+          </div>
+          <div className="flex items-center gap-2">
+            {/* Nav links moved into the right-hand cluster (next to
+                search/locale/login) so they sit close to the right edge
+                instead of trailing the logo with a big empty gap between
+                them and the icons — matches the requested "menu gần bên
+                phải hơn" layout. */}
             <div className="hidden min-[1366px]:flex gap-0.5">
               {all.map(renderDesktopItem)}
             </div>
-          </div>
-          <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5 pl-2 min-[1366px]:border-l border-line min-[1366px]:ml-1">
               <button onClick={openSearch} aria-label={t("search")} className="qs-icon-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>

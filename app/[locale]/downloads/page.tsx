@@ -3,18 +3,11 @@ import Image from "@/components/media/image";
 import { Link } from "@/lib/i18n/navigation";
 import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { getAllDownloads, getDownloadGroups, groupByDocument, formatBytes } from "@/lib/data/downloads";
-import type { DownloadDoc, DownloadFile } from "@/lib/data/downloads";
-import { getSeries, toDocumentRows } from "@/lib/data/series";
-import { DownloadsTree } from "./_components/downloads-tree";
-import type { DlGroup, DlProduct, DlRow } from "./_components/downloads-tree";
+import { LiveDownloadsTree } from "./_components/live-downloads-tree";
+import type { DlGroup, DlProduct } from "./_components/downloads-tree";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
-
-/** Doc-group order inside a drive product — mirrors the order the product
- *  detail page groups its documentation in. */
-const DRIVE_DOC_ORDER = ["manual", "drawing", "software", "brochure", "certificate"] as const;
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -46,128 +39,6 @@ export default async function Downloads({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "downloads.index" });
 
-  const groups = getDownloadGroups();
-  const all = getAllDownloads();
-  const servo = getSeries(locale, "servo");
-  const inverter = getSeries(locale, "inverter");
-
-  // Compose the display title for a local controller/catalogue/software file.
-  const titleOf = (d: DownloadFile): string => {
-    if (d.titleKey) return t(`titles.${d.titleKey}`);
-    if (d.category === "operation" || d.category === "installation") {
-      return `${d.model} — ${t(`docType.${d.category}`)}`;
-    }
-    return d.model ?? "";
-  };
-
-  // A local file (public/downloads) collapses its language editions into one row.
-  const localRow = (doc: DownloadDoc): DlRow => {
-    const head = doc.variants[0];
-    return {
-      key: doc.key,
-      title: titleOf(head),
-      ext: head.ext,
-      version: head.version ?? (head.date ? head.date.slice(0, 7).replace("-", "/") : "—"),
-      productHref: head.productSlug ? `/electronics/${head.productSlug}` : undefined,
-      productLabel: head.productSlug ? head.model ?? undefined : undefined,
-      variants: doc.variants.map((v) => ({
-        lang: v.lang.toUpperCase(),
-        url: v.fileUrl,
-        sizeLabel: formatBytes(v.sizeBytes),
-      })),
-    };
-  };
-  const catFiles = (category: DownloadFile["category"]): DownloadFile[] =>
-    groups.find((g) => g.category === category)?.files ?? [];
-  const localRows = (category: DownloadFile["category"]): DlRow[] =>
-    groupByDocument(catFiles(category)).map(localRow);
-
-  // Controllers: one product per model → doc groups (operation, installation),
-  // each group's manuals collapsed across languages.
-  const controllerProducts = (): DlProduct[] => {
-    const files = [...catFiles("operation"), ...catFiles("installation")];
-    const order: string[] = [];
-    const byModel = new Map<string, DownloadFile[]>();
-    for (const f of files) {
-      const id = f.productSlug ?? f.model ?? f.slug;
-      if (!byModel.has(id)) {
-        byModel.set(id, []);
-        order.push(id);
-      }
-      byModel.get(id)!.push(f);
-    }
-    return order.map((id) => {
-      const list = byModel.get(id)!;
-      const groups = (["operation", "installation"] as const)
-        .map((cat) => ({
-          id: cat,
-          label: t(`docGroup.${cat}`),
-          rows: groupByDocument(list.filter((f) => f.category === cat)).map(localRow),
-        }))
-        .filter((dg) => dg.rows.length > 0);
-      return { id, label: list[0].model ?? id, groups };
-    });
-  };
-
-  // Drive (servo/inverter) families: one product per series → doc groups
-  // (manual, drawing, software, brochure, certificate) pulled from the series
-  // data. The manufacturer's files are mirrored under public/downloads/series so
-  // they download from our own origin; anything too large for the static host's
-  // per-file ceiling is split into parts rather than linked out.
-  const driveProducts = (list: typeof servo): DlProduct[] =>
-    list
-      .map((s) => {
-        const docs = toDocumentRows(s.detail?.documentation ?? []);
-        const mb = (n?: number) => (n ? `${n} MB` : "—");
-        const groups = DRIVE_DOC_ORDER.map((cat) => ({
-          id: cat,
-          label: t(`docGroup.${cat}`),
-          rows: docs
-            .filter((d) => d.category === cat)
-            .map((d, i): DlRow => {
-              const head = {
-                key: `${s.slug}-${cat}-${i}`,
-                title: d.title,
-                ext: d.format.toUpperCase(),
-                version: "—",
-                productHref: `/electronics/${s.slug}`,
-                productLabel: s.name,
-              };
-              if (d.parts) {
-                return {
-                  ...head,
-                  sizeLabel: mb(d.size_mb),
-                  partsLabel: t("table.parts", { count: d.parts.length }),
-                  partsHint: t("table.partsHint"),
-                  parts: d.parts.map((p) => ({
-                    label: p.label,
-                    url: p.url,
-                    sizeLabel: mb(p.size_mb),
-                  })),
-                };
-              }
-              return {
-                ...head,
-                variants: [
-                  {
-                    lang: d.lang.toUpperCase(),
-                    url: d.url!,
-                    sizeLabel: mb(d.size_mb),
-                    // Mirrored files are site-relative and download in place; a
-                    // document left on the manufacturer's origin opens in a tab.
-                    external: d.url!.startsWith("http"),
-                  },
-                ],
-              };
-            }),
-        })).filter((dg) => dg.rows.length > 0);
-        return { id: s.slug, label: s.name, groups };
-      })
-      .filter((p) => p.groups.length > 0);
-
-  const driveDocCount = (list: typeof servo) =>
-    list.reduce((n, s) => n + (s.detail?.documentation?.length ?? 0), 0);
-
   const family = (id: string, extra: Partial<DlGroup>): DlGroup => ({
     id,
     label: t(`families.${id}.label`),
@@ -176,21 +47,32 @@ export default async function Downloads({ params }: Props) {
     ...extra,
   });
 
+  // Every family here starts empty on the server — ManualHub is the sole
+  // source for every document on this page now, no static fallback. Kept
+  // present (not filtered out) purely so LiveDownloadsTree's mergeLive has a
+  // family id to attach live products/rows to once ManualHub's documents
+  // load client-side; "catalogue" and "software" currently have no live
+  // source at all (mergeLive only attaches to a product inside
+  // "controllers"/"servo"/"inverter" via FAMILY_BY_PRODUCT_CODE — see that
+  // file) so they'll stay empty until that mapping exists, but are kept in
+  // the sidebar at their original position (catalogue first, software last).
+  const controllerProducts: DlProduct[] = [];
+  const driveProducts: DlProduct[] = [];
+
   const tree: DlGroup[] = [
-    family("catalogue", { rows: localRows("catalogue") }),
-    family("controllers", { products: controllerProducts() }),
-    family("servo", { products: driveProducts(servo) }),
-    family("inverter", { products: driveProducts(inverter) }),
-    family("software", { rows: localRows("software") }),
-  ].filter((g) => (g.products ? g.products.length > 0 : (g.rows?.length ?? 0) > 0));
+    family("catalogue", { rows: [] }),
+    family("controllers", { products: controllerProducts }),
+    family("servo", { products: driveProducts }),
+    family("inverter", { products: driveProducts }),
+    family("software", { rows: [] }),
+  ];
 
-  const totalDocs = all.length + driveDocCount(servo) + driveDocCount(inverter);
-  const modelCount =
-    new Set(all.map((d) => d.productSlug).filter(Boolean)).size + servo.length + inverter.length;
-
+  // Static counts are gone — the real numbers only exist once ManualHub's
+  // live documents load client-side, which this server-rendered hero can't
+  // see. "—" instead of a wrong/stale number.
   const stats = [
-    { v: String(totalDocs), l: t("stats.docs") },
-    { v: String(modelCount), l: t("stats.models") },
+    { v: "—", l: t("stats.docs") },
+    { v: "—", l: t("stats.models") },
     { v: "VN / EN", l: t("stats.lang") },
   ];
 
@@ -265,15 +147,31 @@ export default async function Downloads({ params }: Props) {
         </div>
       </section>
 
-      {/* LIBRARY TREE */}
+      {/* LIBRARY TREE — sidebar groups/products are the static catalog, but
+          the docs shown for each product are live-merged with ManualHub
+          client-side (see live-downloads-tree.tsx). */}
       <section className="py-12 sm:py-16 bg-white">
         <div className="max-w-wrap mx-auto px-5 sm:px-8 lg:px-12">
-          <DownloadsTree
+          <LiveDownloadsTree
             groups={tree}
             eyebrow={t("tree.eyebrow")}
             allLabel={t("tree.all")}
             headers={{ name: t("table.name"), version: t("table.version"), download: t("table.download") }}
             support={{ title: t("tree.support"), cta: t("tree.supportCta") }}
+            docGroupLabels={{
+              operation: t("docGroup.operation"),
+              installation: t("docGroup.installation"),
+              maintenance: t("docGroup.maintenance"),
+              // servo/inverter live manuals land in this doc-group when
+              // ManualHub leaves document_type empty (see buildDocGroups'
+              // `type || "manual"` fallback in live-downloads-tree.tsx).
+              manual: t("docGroup.manual"),
+            }}
+            docTypeLabels={{
+              operation: t("docType.operation"),
+              installation: t("docType.installation"),
+              maintenance: t("docType.maintenance"),
+            }}
           />
         </div>
       </section>

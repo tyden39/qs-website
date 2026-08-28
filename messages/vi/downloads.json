@@ -18,7 +18,8 @@
     },
     "docType": {
       "operation": "Hướng dẫn vận hành",
-      "installation": "Hướng dẫn lắp đặt"
+      "installation": "Hướng dẫn lắp đặt",
+      "maintenance": "Hướng dẫn bảo trì"
     },
     "titles": {
       "productCatalogue": "Catalogue sản phẩm",
@@ -34,6 +35,16 @@
       "all": "Tất cả tài liệu",
       "support": "Hỗ trợ kỹ thuật",
       "supportCta": "Liên hệ kỹ thuật"
+    },
+    "latest": {
+      "eyebrow": "Cập nhật trực tiếp",
+      "heading": "Tài liệu mới nhất",
+      "lede": "Danh sách tài liệu hướng dẫn được cập nhật trực tiếp từ hệ thống — luôn là bản mới nhất đã phát hành.",
+      "loading": "Đang tải danh sách tài liệu...",
+      "empty": "Chưa có tài liệu nào được phát hành.",
+      "error": "Không tải được danh sách tài liệu. Vui lòng thử lại sau.",
+      "download": "Tải PDF",
+      "live": "Trực tiếp"
     },
     "families": {
       "catalogue": {
@@ -65,6 +76,7 @@
     "docGroup": {
       "operation": "Hướng dẫn vận hành",
       "installation": "Hướng dẫn lắp đặt",
+      "maintenance": "Hướng dẫn bảo trì",
       "manual": "Sổ tay & hướng dẫn",
       "drawing": "Bản vẽ kỹ thuật",
       "software": "Phần mềm & công cụ",

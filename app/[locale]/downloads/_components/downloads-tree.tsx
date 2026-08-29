@@ -21,6 +21,13 @@ export type DlVariant = {
   sizeLabel: string;
   /** External source (opens in a new tab, no `download` attribute). */
   external?: boolean;
+  /** This edition's own version — VI and EN editions of a ManualHub document
+   *  are independent lineages (separate publish history), so they can be on
+   *  different versions. Shown per-button instead of one shared row-level
+   *  version, which would otherwise misrepresent whichever edition is
+   *  actually behind. Falls back to `sizeLabel` in the same slot when unset
+   *  (the static catalogue's variants carry a file size there instead). */
+  version?: string;
 };
 
 /** One slice of a document that ships in parts. */
@@ -89,9 +96,8 @@ export function DocTable({
 }) {
   return (
     <div className="border border-line bg-white">
-      <div className="hidden md:grid grid-cols-[1fr_120px_minmax(200px,auto)] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
+      <div className="hidden md:grid grid-cols-[1fr_minmax(200px,auto)] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
         <span>{headers.name}</span>
-        <span>{headers.version}</span>
         <span className="text-right">{headers.download}</span>
       </div>
       {rows.map((row) =>
@@ -100,7 +106,7 @@ export function DocTable({
         ) : (
         <div
           key={row.key}
-          className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line transition-colors hover:bg-paper
+          className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line transition-colors hover:bg-paper
                      before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-gold-grad before:opacity-0 before:transition-opacity hover:before:opacity-100"
         >
           {/* name */}
@@ -125,9 +131,7 @@ export function DocTable({
               )}
             </div>
           </div>
-          {/* version / date */}
-          <span className="font-mono text-label text-muted md:text-[#3a3a3a] tabular-nums">{row.version}</span>
-          {/* download — one button per variant */}
+          {/* download — one button per variant, each carrying its own version (see DlVariant) */}
           <div className="flex flex-wrap gap-2 md:justify-end">
             {row.variants?.map((v) => (
               <a
@@ -140,7 +144,7 @@ export function DocTable({
                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2 focus-visible:ring-offset-1"
               >
                 <span className="font-mono text-label tracking-[.14em] uppercase">{v.lang} ↓</span>
-                <span className="font-mono text-label-xs tracking-[.06em] opacity-60">{v.sizeLabel}</span>
+                <span className="font-mono text-label-xs tracking-[.06em] opacity-60">{v.version ?? v.sizeLabel}</span>
               </a>
             ))}
           </div>

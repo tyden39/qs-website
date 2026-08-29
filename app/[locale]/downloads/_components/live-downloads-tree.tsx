@@ -178,6 +178,13 @@ function buildDocGroups(
 
 // Collapses VI/EN editions of the same manual into one DlRow with two
 // download buttons, same as the static tree's groupByDocument().
+//
+// VI and EN editions are independent ManualHub lineages (unlinked records,
+// each published on its own schedule — see ManualHubApp.tsx's create flow),
+// so they can legitimately sit on different version numbers. The row no
+// longer carries one shared version for both; each variant button shows its
+// own edition's version instead, so a visitor can tell if e.g. the EN PDF
+// hasn't caught up to a newer VI revision.
 function groupByLanguage(manuals: PublicManual[], docTypeLabels: Record<string, string>): DlRow[] {
   const sorted = [...manuals].sort((a, b) => (a.language === "vi" ? -1 : b.language === "vi" ? 1 : 0));
   const head = sorted[0];
@@ -187,8 +194,13 @@ function groupByLanguage(manuals: PublicManual[], docTypeLabels: Record<string, 
       key: head.id,
       title: docType ? `${head.productName ?? head.title} — ${docType}` : head.title,
       ext: "PDF",
-      version: head.version || "—",
-      variants: sorted.map((m) => ({ lang: m.language.toUpperCase(), url: m.downloadUrl, sizeLabel: "" })),
+      version: "—",
+      variants: sorted.map((m) => ({
+        lang: m.language.toUpperCase(),
+        url: m.downloadUrl,
+        sizeLabel: "",
+        version: m.version ? `v${m.version}` : undefined,
+      })),
     },
   ];
 }

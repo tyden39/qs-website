@@ -210,19 +210,20 @@ lets a redeploy be visible immediately.
 
 ---
 
-## Legacy files still in the tree
+## Migration to Cloudflare Pages in progress
 
-`public/_headers` and `public/_redirects` are Cloudflare Pages configuration
-left over from an earlier host. They are tracked in git, but `firebase.json`
-lists both in its `ignore` array, so nothing serves them.
+`public/_headers` and `public/_redirects` are **live Cloudflare Pages
+configuration**, kept as the source of truth for `yarn deploy:prod` (which now
+targets Cloudflare — see
+[`cloudflare-deployment-guide.md`](./cloudflare-deployment-guide.md)). This
+Firebase path is kept as `yarn deploy:firebase` for rollback during the
+transition; `firebase.json` still lists both files in its `ignore` array so
+Firebase itself never serves them.
 
-They are also **out of date and contradict live behaviour** — `_redirects` opens
-with a comment saying `/` is intentionally not redirected at the edge and that a
-prerendered `app/page.tsx` detects locale client-side, but there is no
-`app/page.tsx` and Firebase does 301 `/` to `/vi/`. Do not read them as
-documentation. One genuinely useful thing they contain that `firebase.json` does
-not is `Strict-Transport-Security: max-age=31536000` — worth considering as an
-addition to the Firebase header block.
+Both tables encode the same redirects and security headers as `firebase.json`
+below — **edit both together** until Firebase is fully decommissioned, at
+which point `firebase.json` and `deploy:firebase` should be deleted and this
+note removed.
 
 ---
 

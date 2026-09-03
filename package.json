@@ -4,7 +4,8 @@
   "private": true,
   "packageManager": "yarn@1.22.22",
   "scripts": {
-    "deploy:prod": "yarn build && firebase deploy --only hosting --project qstcnc-6207d --account qst.dev.admin@gmail.com",
+    "deploy:prod": "yarn build && wrangler pages deploy out",
+    "deploy:firebase": "yarn build && firebase deploy --only hosting --project qstcnc-6207d --account qst.dev.admin@gmail.com",
     "predev": "tsx scripts/build-search-index.ts && tsx scripts/generate-image-variants.ts",
     "dev": "next dev",
     "prebuild": "tsx scripts/build-search-index.ts && tsx scripts/generate-image-variants.ts",
@@ -44,6 +45,7 @@
     "sharp": "0.34.5",
     "tailwindcss": "^4.3.0",
     "tsx": "^4.20.0",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "wrangler": "^4.127.1"
   }
 }

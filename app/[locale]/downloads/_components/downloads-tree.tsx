@@ -131,27 +131,44 @@ export function DocTable({
               )}
             </div>
           </div>
-          {/* download — one button per variant, each carrying its own version (see DlVariant) */}
-          <div className="flex flex-wrap gap-2 md:justify-end">
-            {row.variants?.map((v) => (
-              <a
-                key={v.url}
-                href={v.url}
-                {...(v.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : { download: true })}
-                className="flex-1 md:flex-initial inline-flex flex-col items-center gap-0.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 transition-colors hover:bg-gold-3 hover:border-gold-3
-                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2 focus-visible:ring-offset-1"
-              >
-                <span className="font-mono text-label tracking-[.14em] uppercase">{v.lang} ↓</span>
-                <span className="font-mono text-label-xs tracking-[.06em] opacity-60">{v.version ?? v.sizeLabel}</span>
-              </a>
-            ))}
+          {/* download — a fixed VI/EN slot each, so every row's buttons land
+              in the same two columns regardless of which languages a given
+              document actually has (a 1-variant row would otherwise get
+              pushed to the far edge by justify-end and misalign with every
+              2-variant row above/below it). A variant in neither language —
+              only the catalogue's combined VI-EN file — falls outside the
+              slots and renders after them instead. */}
+          <div className="flex md:justify-end">
+            <div className="grid grid-cols-2 gap-2 w-full md:w-[188px]">
+              {LANG_SLOTS.map((lang) => {
+                const v = row.variants?.find((x) => x.lang === lang);
+                return v ? <VariantButton key={lang} v={v} /> : <span key={lang} aria-hidden="true" />;
+              })}
+            </div>
+            {row.variants
+              ?.filter((v) => !(LANG_SLOTS as readonly string[]).includes(v.lang))
+              .map((v) => <VariantButton key={v.url} v={v} className="ml-2" />)}
           </div>
         </div>
         ),
       )}
     </div>
+  );
+}
+
+const LANG_SLOTS = ["VI", "EN"] as const;
+
+function VariantButton({ v, className = "" }: { v: DlVariant; className?: string }) {
+  return (
+    <a
+      href={v.url}
+      {...(v.external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })}
+      className={`inline-flex flex-col items-center gap-0.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 transition-colors hover:bg-gold-3 hover:border-gold-3
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2 focus-visible:ring-offset-1 ${className}`}
+    >
+      <span className="font-mono text-label tracking-[.14em] uppercase">{v.lang} ↓</span>
+      <span className="font-mono text-label-xs tracking-[.06em] opacity-60">{v.version ?? v.sizeLabel}</span>
+    </a>
   );
 }
 

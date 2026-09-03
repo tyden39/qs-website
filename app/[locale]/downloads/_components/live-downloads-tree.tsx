@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { listPublicManuals, type PublicManual } from "@/lib/crm/manuals-client";
+import { useLiveManuals } from "@/lib/crm/live-manuals-context";
+import type { PublicManual } from "@/lib/crm/manuals-client";
 import { DownloadsTree, type DlGroup, type DlProduct, type DlRow } from "./downloads-tree";
 
 // Wraps the static <DownloadsTree> (sidebar groups → "Tất cả tài liệu" +
@@ -14,42 +14,15 @@ import { DownloadsTree, type DlGroup, type DlProduct, type DlRow } from "./downl
 // no server runtime), so the merge has to happen in the browser after
 // mount; the first paint is the static, build-time snapshot, then live
 // documents fold in a moment later. That's an acceptable tradeoff — no
-// rebuild+redeploy needed for a new manual to appear.
+// rebuild+redeploy needed for a new manual to appear. The actual fetch +
+// localStorage cache lives in LiveManualsProvider (lib/crm/live-manuals-context.tsx),
+// shared with the hero's live document count so the page makes one CRM
+// request, not two.
 //
 // Family membership below is hardcoded to the exact product codes seeded in
 // qs-crm-be/seeds/000013_website_product_catalog.sql — there is no
 // "family/category" concept on the BE side (ManualHub only knows
 // product_id), so this is the one place that knowledge has to live.
-// Client-side cache for the ManualHub listing: this page has no server
-// runtime to cache behind, and the listing rarely changes between visits, so
-// a returning visitor gets the last-known documents instantly from
-// localStorage while a fresh fetch quietly revalidates in the background —
-// avoiding the "blank sidebar for a second" flash on every repeat visit.
-// Bumped in the key (not just cleared) so an old cache shape from a prior
-// deploy is never handed to code that no longer expects it.
-const MANUALS_CACHE_KEY = "qs:manuals-cache:v1";
-const MANUALS_CACHE_TTL_MS = 30 * 60 * 1000;
-
-function readManualsCache(): PublicManual[] | null {
-  try {
-    const raw = localStorage.getItem(MANUALS_CACHE_KEY);
-    if (!raw) return null;
-    const { fetchedAt, items } = JSON.parse(raw) as { fetchedAt: number; items: PublicManual[] };
-    if (typeof fetchedAt !== "number" || Date.now() - fetchedAt > MANUALS_CACHE_TTL_MS) return null;
-    return items;
-  } catch {
-    return null; // corrupt entry or storage disabled (private mode) — just refetch
-  }
-}
-
-function writeManualsCache(items: PublicManual[]): void {
-  try {
-    localStorage.setItem(MANUALS_CACHE_KEY, JSON.stringify({ fetchedAt: Date.now(), items }));
-  } catch {
-    // storage full/disabled — cache is best-effort only, live fetch still works
-  }
-}
-
 const FAMILY_BY_PRODUCT_CODE: Record<string, string> = {
   "f54": "controllers",
   "f86": "controllers",
@@ -85,29 +58,7 @@ export function LiveDownloadsTree({
    *  same as the static tree's own titleOf(). */
   docTypeLabels: Record<string, string>;
 }) {
-  const [liveItems, setLiveItems] = useState<PublicManual[] | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    // Paint the cached snapshot first (if any) so a returning visitor sees
-    // their documents immediately instead of the empty static tree, then
-    // revalidate against ManualHub and replace it once the real data lands.
-    // localStorage only exists on the client, so this read must happen after
-    // mount to avoid a hydration mismatch — a legitimate set-state-in-effect
-    // the compiler rule can't tell apart from a cascading one.
-    const cached = readManualsCache();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only storage read, deferred past hydration by design
-    if (cached) setLiveItems(cached);
-    listPublicManuals().then((result) => {
-      if (!cancelled && result.ok) {
-        setLiveItems(result.items);
-        writeManualsCache(result.items);
-      }
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const liveItems = useLiveManuals();
 
   const merged = liveItems ? mergeLive(groups, liveItems, docGroupLabels, docTypeLabels) : groups;
 
@@ -176,15 +127,23 @@ function buildDocGroups(
   }));
 }
 
+// "2026/09" from an ISO releasedAt — same "YYYY/MM" shape as the static
+// tree's own date-as-version fallback (see page.tsx's editionVersion).
+function formatReleaseDate(iso?: string): string | undefined {
+  if (!iso) return undefined;
+  return iso.slice(0, 7).replace("-", "/");
+}
+
 // Collapses VI/EN editions of the same manual into one DlRow with two
 // download buttons, same as the static tree's groupByDocument().
 //
 // VI and EN editions are independent ManualHub lineages (unlinked records,
 // each published on its own schedule — see ManualHubApp.tsx's create flow),
-// so they can legitimately sit on different version numbers. The row no
-// longer carries one shared version for both; each variant button shows its
-// own edition's version instead, so a visitor can tell if e.g. the EN PDF
-// hasn't caught up to a newer VI revision.
+// so they can legitimately release on different days and sit on different
+// version numbers. The row no longer carries one shared version for both;
+// each variant button shows its own edition's release date instead (falling
+// back to "v<version>" if the API ever omits releasedAt), so a visitor can
+// tell at a glance whether the EN PDF is older than the VI one.
 function groupByLanguage(manuals: PublicManual[], docTypeLabels: Record<string, string>): DlRow[] {
   const sorted = [...manuals].sort((a, b) => (a.language === "vi" ? -1 : b.language === "vi" ? 1 : 0));
   const head = sorted[0];
@@ -199,7 +158,7 @@ function groupByLanguage(manuals: PublicManual[], docTypeLabels: Record<string, 
         lang: m.language.toUpperCase(),
         url: m.downloadUrl,
         sizeLabel: "",
-        version: m.version ? `v${m.version}` : undefined,
+        version: formatReleaseDate(m.releasedAt) ?? (m.version ? `v${m.version}` : undefined),
       })),
     },
   ];

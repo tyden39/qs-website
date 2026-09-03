@@ -21,7 +21,8 @@ yarn lint                       # eslint . (flat config; `next lint` is gone in 
 yarn i18n:check                 # fails if messages/en and messages/vi key sets differ
 yarn search:index               # rebuild public/search-index.{vi,en}.json only
 yarn img:variants               # rebuild responsive image variants + manifest only
-yarn deploy:prod                # yarn build + firebase deploy → project qstcnc-6207d
+yarn deploy:prod                # yarn build + wrangler pages deploy → Cloudflare Pages
+yarn deploy:firebase            # yarn build + firebase deploy → project qstcnc-6207d (legacy, kept during migration)
 ```
 
 `predev` / `prebuild` run `search:index` and `img:variants` automatically, so a plain `yarn dev` is enough.
@@ -77,9 +78,11 @@ A static export has no request-time image optimizer, so `scripts/generate-image-
 
 **Import `@/components/media/image`, never `next/image` directly.** The wrapper decides `unoptimized` and `fetchPriority` for you; going around it either emits a dead srcset or leaves an LCP hero queued behind the document. New images go in `public/` as `.webp`. Only the manifest is committed — the generated `-<w>w.webp` files are gitignored.
 
-### Redirects and headers live in `firebase.json`, not `next.config.mjs`
+### Redirects and headers live in `public/_redirects` and `public/_headers`, not `next.config.mjs`
 
-A static export ignores Next's `headers()` and `redirects()`, so **both the security headers (CSP, nosniff, referrer policy, frame options, permissions policy) and the entire 301 table are in `firebase.json`**: legacy unprefixed paths → `/vi/…`, `/products/*` → `/electronics/*`, `/cnc/*` → `/machine-building/*`, plus one renamed machine slug. Cache-Control is set there too. Editing `next.config.mjs` for either will silently do nothing.
+A static export ignores Next's `headers()` and `redirects()`, so **both the security headers (CSP, nosniff, referrer policy, frame options, permissions policy) and the entire 301 table live as plain files under `public/`** — `_redirects` and `_headers`, Cloudflare Pages' native config format, copied verbatim into `out/` by the export and picked up automatically on deploy. They cover: legacy unprefixed paths → `/vi/…`, `/products/*` → `/electronics/*`, `/cnc/*` → `/machine-building/*`, plus one renamed machine slug. Cache-Control is set there too. Editing `next.config.mjs` for either will silently do nothing.
+
+The project is mid-migration from Firebase Hosting to Cloudflare Pages (`yarn deploy:prod` now runs `wrangler pages deploy`). `firebase.json` is kept in sync as the legacy equivalent for `yarn deploy:firebase` — the two redirect/header tables must be edited together until Firebase is decommissioned, at which point `firebase.json` and `deploy:firebase` should be deleted.
 
 Any new outbound origin must be added to the CSP `connect-src` there, or it works locally and is blocked in production.
 
@@ -100,4 +103,4 @@ Any new outbound origin must be added to the CSP `connect-src` there, or it work
 
 ## Further reading
 
-`docs/` was regenerated from the code and is accurate: `codebase-summary.md` (file-by-file tour), `system-architecture.md` (pipeline diagrams), `code-standards.md` (full conventions), `design-guidelines.md` (tokens, motion), `deployment-guide.md`, `project-overview-pdr.md`, `project-roadmap.md` (verified gaps, including several known defects not yet fixed).
+`docs/` was regenerated from the code and is accurate: `codebase-summary.md` (file-by-file tour), `system-architecture.md` (pipeline diagrams), `code-standards.md` (full conventions), `design-guidelines.md` (tokens, motion), `deployment-guide.md` (Firebase, legacy during migration), `cloudflare-deployment-guide.md` (Cloudflare Pages, current `deploy:prod` target — from-zero setup walkthrough), `project-overview-pdr.md`, `project-roadmap.md` (verified gaps, including several known defects not yet fixed).

@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { fetchCurrentUser, login as loginRequest, logoutRequest } from "./api";
-import { clearTokens, getAccessToken, saveTokens } from "./storage";
+import { fetchCurrentUser, login as loginRequest, logoutRequest, refreshTokens } from "./api";
+import { clearTokens, getAccessToken, getRefreshToken, saveTokens } from "./storage";
 import type { AuthUser } from "./types";
 
 interface AuthContextValue {
@@ -20,19 +20,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Bootstrap the session from a token already in storage (page reload) so
   // a logged-in visitor isn't shown the logged-out header on every navigation.
+  // The access token is short-lived and expires well before the refresh
+  // token, so a plain reload used to 401 on /auth/me and log the user out —
+  // fall back to /auth/refresh before giving up on the session.
   useEffect(() => {
     let cancelled = false;
     if (!getAccessToken()) return;
-    fetchCurrentUser()
-      .then((me) => {
+
+    async function bootstrap() {
+      // The inline <script> in app/[locale]/layout.tsx already fired /auth/me
+      // during HTML parse, before this component's chunk even downloaded —
+      // await that instead of starting a second request from scratch now.
+      const prefetched = window.__authMePromise;
+      delete window.__authMePromise;
+
+      try {
+        const me = await (prefetched ?? fetchCurrentUser());
         console.log("[auth] bootstrap /auth/me success:", me);
         if (!cancelled) setUser(me);
-      })
-      .catch((err) => {
-        console.error("[auth] bootstrap /auth/me failed, clearing tokens:", err);
+        return;
+      } catch (err) {
+        console.warn("[auth] bootstrap /auth/me failed, trying token refresh:", err);
+      }
+
+      const refreshToken = getRefreshToken();
+      if (!refreshToken) {
         clearTokens();
-      })
-      .finally(() => !cancelled && setIsLoading(false));
+        return;
+      }
+
+      try {
+        const session = await refreshTokens(refreshToken);
+        saveTokens(session.access_token, session.refresh_token);
+        const me = await fetchCurrentUser();
+        console.log("[auth] bootstrap refresh success:", me);
+        if (!cancelled) setUser(me);
+      } catch (err) {
+        console.error("[auth] bootstrap refresh failed, clearing tokens:", err);
+        clearTokens();
+      }
+    }
+
+    bootstrap().finally(() => !cancelled && setIsLoading(false));
     return () => {
       cancelled = true;
     };

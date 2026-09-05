@@ -10,6 +10,8 @@ import SearchPanel, { type FeaturedProduct } from "@/components/SearchPanel";
 import FloatingContact from "@/components/floating-contact";
 import { LightboxProvider } from "@/components/media/image-lightbox";
 import { AuthProvider } from "@/lib/auth/auth-context";
+import { apiBase } from "@/lib/auth/api";
+import { ACCESS_TOKEN_KEY } from "@/lib/auth/storage";
 import { getAllProducts } from "@/lib/data/products";
 import { routing } from "@/lib/i18n/routing";
 import { pickClientMessages } from "@/lib/i18n/client-messages";
@@ -79,6 +81,27 @@ const REVEAL_FAILSAFE = `(function(){try{setTimeout(function(){
 if(!document.documentElement.hasAttribute('data-hydrated'))
 document.documentElement.classList.add('qs-reveal-failsafe');
 },4000)}catch(e){}})();`;
+
+const AUTH_API_BASE = apiBase();
+
+// AuthProvider's session-bootstrap effect (lib/auth/auth-context.tsx) can only
+// run once React has hydrated, which on a first load waits for the whole JS
+// bundle to download — so the header sat on a stale "logged out" render for
+// however long that took, then jumped to the account menu once /auth/me
+// finally came back. Firing the same request here, inline, during HTML parse
+// closes that gap: it runs before a single script tag has even been
+// requested, in parallel with the bundle download instead of after it.
+// AuthProvider awaits this promise instead of issuing its own first request.
+const PREFETCH_AUTH_ME = `(function(){try{
+var t=sessionStorage.getItem(${JSON.stringify(ACCESS_TOKEN_KEY)});
+if(!t)return;
+var p=fetch(${JSON.stringify(AUTH_API_BASE)}+"/auth/me",{headers:{Authorization:"Bearer "+t}}).then(function(r){
+if(!r.ok)throw new Error("auth/me "+r.status);
+return r.json();
+});
+window.__authMePromise=p;
+p.catch(function(){});
+}catch(e){}})();`;
 
 export async function generateMetadata({
   params,
@@ -153,6 +176,8 @@ export default async function LocaleLayout({
           <script dangerouslySetInnerHTML={{ __html: RESTORE_SAVED_LOCALE }} />
         )}
         <script dangerouslySetInnerHTML={{ __html: REVEAL_FAILSAFE }} />
+        <link rel="preconnect" href={new URL(AUTH_API_BASE).origin} />
+        <script dangerouslySetInnerHTML={{ __html: PREFETCH_AUTH_ME }} />
         <noscript>
           {/* Keep scroll-reveal content visible when JS is disabled. */}
           <style>{`.qs-reveal{opacity:1!important;transform:none!important}`}</style>

@@ -1,9 +1,16 @@
 import type { AuthUser, LoginResponse } from "./types";
 import { getAccessToken } from "./storage";
 
+// Same shape as /auth/login: erp-be issues a fresh access+refresh pair rather
+// than extending the old one, so both must be re-saved after a refresh.
+export type RefreshResponse = Pick<LoginResponse, "access_token" | "refresh_token">;
+
 const DEFAULT_API_BASE = "https://crm.qstcnc.com/api/v1";
 
-function apiBase(): string {
+// Exported so the early-bootstrap inline script in app/[locale]/layout.tsx can
+// fire the same /auth/me request at the same base URL without duplicating the
+// env-var fallback logic out of sync.
+export function apiBase(): string {
   return (process.env.NEXT_PUBLIC_API_LOGIN ?? DEFAULT_API_BASE).replace(/\/+$/, "");
 }
 
@@ -48,6 +55,15 @@ export function login(email: string, password: string): Promise<LoginResponse> {
 
 export function fetchCurrentUser(): Promise<AuthUser> {
   return request<AuthUser>("/auth/me");
+}
+
+// The access token is short-lived; the refresh token outlives it so a page
+// reload doesn't force a re-login every time the access token has expired.
+export function refreshTokens(refreshToken: string): Promise<RefreshResponse> {
+  return request<RefreshResponse>("/auth/refresh", {
+    method: "POST",
+    body: JSON.stringify({ refresh_token: refreshToken }),
+  });
 }
 
 export function logoutRequest(): Promise<void> {

@@ -472,7 +472,7 @@ function closeSearch(){
 
 export default function Header() {
   const t = useTranslations("nav");
-  const { user } = useAuth();
+  const { user, isLoading: isAuthLoading } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   // Sub-type labels are reused from the catalogue namespaces (not duplicated in
   // nav.json) so the flyout wording tracks the pages one-to-one.
@@ -736,7 +736,7 @@ export default function Header() {
               </div>
             </Link>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-1 items-center gap-2 min-w-0">
             {/* Nav links moved into the right-hand cluster (next to
                 search/locale/login) so they sit close to the right edge
                 instead of trailing the logo with a big empty gap between
@@ -745,12 +745,16 @@ export default function Header() {
             <div className="hidden min-[1366px]:flex gap-0.5">
               {all.map(renderDesktopItem)}
             </div>
-            <div className="flex items-center gap-1.5 pl-2 min-[1366px]:border-l border-line min-[1366px]:ml-1">
+            <div className="ml-auto flex items-center gap-1.5 pl-2 min-[1366px]:border-l border-line">
               <button onClick={openSearch} aria-label={t("search")} className="qs-icon-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
               </button>
               <div className="hidden sm:block"><LocaleSwitcher /></div>
-              {user ? (
+              {/* While the session bootstrap (auth-context) is still resolving —
+                  which can take a few round trips when the access token needs a
+                  refresh — render neither state rather than flashing "Login" and
+                  then swapping to the account menu a moment later. */}
+              {isAuthLoading ? null : user ? (
                 <AccountMenu className="hidden min-[1366px]:flex" />
               ) : (
                 <button
@@ -893,7 +897,7 @@ export default function Header() {
                 </div>
               );
             })}
-            {user ? (
+            {isAuthLoading ? null : user ? (
               <AccountMenu className="mt-5" onNavigate={() => setOpen(false)} />
             ) : (
               <button
@@ -931,4 +935,3 @@ export default function Header() {
     </>
   );
 }
-

@@ -23,3 +23,14 @@ export interface LoginResponse {
   refresh_token: string;
   user: AuthUser;
 }
+
+declare global {
+  interface Window {
+    // Set by the inline bootstrap script in app/[locale]/layout.tsx, which
+    // fires /auth/me during HTML parse — before the client JS bundle has even
+    // downloaded — so AuthProvider's mount effect (lib/auth/auth-context.tsx)
+    // can await an in-flight request instead of starting a fresh one after
+    // hydration. Consumed once, then deleted.
+    __authMePromise?: Promise<AuthUser>;
+  }
+}

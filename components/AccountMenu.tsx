@@ -12,6 +12,7 @@ export function AccountMenu({ className = "", onNavigate }: { className?: string
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [ssoError, setSsoError] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
   const displayName = user?.full_name || user?.username || "";
@@ -43,7 +44,10 @@ export function AccountMenu({ className = "", onNavigate }: { className?: string
       const { ticket } = await issueSSOTicket();
       window.open(`${targetUrl}/sso?ticket=${encodeURIComponent(ticket)}`, "_blank", "noopener,noreferrer");
     } catch {
-      // Best-effort: still let the user reach the target app and log in manually.
+      // Best-effort: still let the user reach the target app, but flag that the
+      // session did not carry over — the tab that opens will show its own login,
+      // which otherwise looks like an unrelated failure.
+      setSsoError(true);
       window.open(targetUrl, "_blank", "noopener,noreferrer");
     }
   };
@@ -119,6 +123,23 @@ export function AccountMenu({ className = "", onNavigate }: { className?: string
       )}
 
       {isInfoOpen && user && <AccountInfoModal user={user} onClose={() => setIsInfoOpen(false)} />}
+
+      {ssoError && (
+        <div
+          role="alert"
+          className="absolute right-0 top-full mt-2 w-max max-w-[240px] rounded-md border border-red-200 bg-red-50 px-3 py-2 text-[13px] text-red-700 shadow-[0_18px_40px_-20px_rgba(20,18,14,.35)] z-50"
+        >
+          {t("ssoError")}
+          <button
+            type="button"
+            onClick={() => setSsoError(false)}
+            aria-label={t("info.close")}
+            className="ml-2 text-red-700/70 hover:text-red-700"
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </div>
   );
 }

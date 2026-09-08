@@ -4,25 +4,7 @@ import { useLiveManuals } from "@/lib/crm/live-manuals-context";
 import type { PublicManual } from "@/lib/crm/manuals-client";
 import { DownloadsTree, type DlGroup, type DlProduct, type DlRow } from "./downloads-tree";
 
-// Wraps the static <DownloadsTree> (sidebar groups → "Tất cả tài liệu" +
-// per-product entries → click a product, its docs show on the right) and
-// merges in live ManualHub documents client-side, so a manual published in
-// ManualHub shows up right inside the existing sidebar navigation — under
-// its real product, in its real family — instead of a separate section.
-//
-// This site is a static export (see next.config.mjs: `output: "export"`,
-// no server runtime), so the merge has to happen in the browser after
-// mount; the first paint is the static, build-time snapshot, then live
-// documents fold in a moment later. That's an acceptable tradeoff — no
-// rebuild+redeploy needed for a new manual to appear. The actual fetch +
-// localStorage cache lives in LiveManualsProvider (lib/crm/live-manuals-context.tsx),
-// shared with the hero's live document count so the page makes one CRM
-// request, not two.
-//
-// Family membership below is hardcoded to the exact product codes seeded in
-// qs-crm-be/seeds/000013_website_product_catalog.sql — there is no
-// "family/category" concept on the BE side (ManualHub only knows
-// product_id), so this is the one place that knowledge has to live.
+
 const FAMILY_BY_PRODUCT_CODE: Record<string, string> = {
   "f54": "controllers",
   "f86": "controllers",
@@ -77,10 +59,13 @@ function mergeLive(
   // types (operation + installation) gets both tabs populated.
   const byProduct = new Map<string, Map<string, PublicManual[]>>();
   for (const m of items) {
-    const familyId = m.productCode ? FAMILY_BY_PRODUCT_CODE[m.productCode] : undefined;
-    if (!familyId || !m.productCode) continue; // no known family — nothing to merge into (see module comment)
-    if (!byProduct.has(m.productCode)) byProduct.set(m.productCode, new Map());
-    const byType = byProduct.get(m.productCode)!;
+    // CRM product_code case doesn't reliably match this site's lowercase
+    // productSlug (e.g. "F86" vs "f86") — normalize before lookup/keying.
+    const productCode = m.productCode?.toLowerCase();
+    const familyId = productCode ? FAMILY_BY_PRODUCT_CODE[productCode] : undefined;
+    if (!familyId || !productCode) continue; // no known family — nothing to merge into (see module comment)
+    if (!byProduct.has(productCode)) byProduct.set(productCode, new Map());
+    const byType = byProduct.get(productCode)!;
     const type = m.documentType ?? "";
     if (!byType.has(type)) byType.set(type, []);
     byType.get(type)!.push(m);

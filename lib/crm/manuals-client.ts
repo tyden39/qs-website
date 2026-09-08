@@ -8,11 +8,7 @@ export type PublicManual = {
   id: string;
   productId: string;
   productName?: string;
-  /** qs-crm-be products.code — for the real catalog this equals this
-   *  site's own productSlug (see qs-crm-be's
-   *  seeds/000013_website_product_catalog.sql), so it's the join key for
-   *  grouping a manual under /electronics/{productCode}. Empty for any
-   *  product qs-crm-be doesn't have a matching real record for yet. */
+
   productCode?: string;
   title: string;
   description?: string;

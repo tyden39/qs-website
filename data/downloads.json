@@ -120,18 +120,6 @@
     "productSlug": "astro-6av"
   },
   {
-    "slug": "astro-10i-operation-en",
-    "ext": "PDF",
-    "category": "operation",
-    "model": "Astro 10i",
-    "lang": "en",
-    "version": null,
-    "date": "2024-10-15",
-    "sizeBytes": 9686100,
-    "fileUrl": "/downloads/operation/astro-10i-operation-en.pdf",
-    "productSlug": "astro-10i"
-  },
-  {
     "slug": "f54-installation-vi",
     "ext": "PDF",
     "category": "installation",

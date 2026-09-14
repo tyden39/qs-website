@@ -5,6 +5,21 @@ import type { PublicManual } from "@/lib/crm/manuals-client";
 import { DownloadsTree, type DlGroup, type DlProduct, type DlRow } from "./downloads-tree";
 
 
+// CRM's products.code (lowercased) doesn't match this site's productSlug
+// 1:1 for the models the static catalogue already knows about — "Astro 6AV"
+// 's only CRM row is coded 6AVE, not 6AV. Map every such real CRM code to
+// the productSlug it should merge into. 10iV/10iVE are deliberately NOT
+// mapped here — they're two distinct CRM products and each gets its own
+// card (falls through to the "unmapped" branch in mergeLive, using its own
+// code as the slug) rather than being merged into one "Astro 10i" card.
+const SLUG_BY_PRODUCT_CODE: Record<string, string> = {
+  "f54": "f54",
+  "f86": "f86",
+  "f10t": "f10t",
+  "6ah": "astro-6ah",
+  "6ave": "astro-6av",
+};
+
 const FAMILY_BY_PRODUCT_CODE: Record<string, string> = {
   "f54": "controllers",
   "f86": "controllers",
@@ -55,17 +70,29 @@ function mergeLive(
   docGroupLabels: Record<string, string>,
   docTypeLabels: Record<string, string>,
 ): DlGroup[] {
-  // productCode -> documentType -> rows, so a product with manuals of two
-  // types (operation + installation) gets both tabs populated.
+  // productSlug -> documentType -> rows, so a product with manuals of two
+  // types (operation + installation) — or two CRM product rows sharing one
+  // slug, like 10iV/10iVE both under "astro-10i" — gets everything merged
+  // under the one card.
   const byProduct = new Map<string, Map<string, PublicManual[]>>();
+  const familyBySlug = new Map<string, string>();
   for (const m of items) {
     // CRM product_code case doesn't reliably match this site's lowercase
-    // productSlug (e.g. "F86" vs "f86") — normalize before lookup/keying.
+    // productSlug (e.g. "F86" vs "f86"), and some CRM codes don't match the
+    // slug at all (6AVE vs astro-6av, 10iV/10iVE both vs astro-10i) — go
+    // through SLUG_BY_PRODUCT_CODE rather than lowercasing productCode
+    // directly. Any CRM product with no entry here still gets shown (using
+    // its own code as the slug, defaulted into "controllers") — the site's
+    // product list is meant to track the CRM catalog automatically: every
+    // CRM product that has at least one released ManualHub document shows
+    // up, and one with none simply never appears (nothing here builds an
+    // empty card).
     const productCode = m.productCode?.toLowerCase();
-    const familyId = productCode ? FAMILY_BY_PRODUCT_CODE[productCode] : undefined;
-    if (!familyId || !productCode) continue; // no known family — nothing to merge into (see module comment)
-    if (!byProduct.has(productCode)) byProduct.set(productCode, new Map());
-    const byType = byProduct.get(productCode)!;
+    if (!productCode) continue;
+    const slug = SLUG_BY_PRODUCT_CODE[productCode] ?? productCode;
+    familyBySlug.set(slug, FAMILY_BY_PRODUCT_CODE[slug] ?? "controllers");
+    if (!byProduct.has(slug)) byProduct.set(slug, new Map());
+    const byType = byProduct.get(slug)!;
     const type = m.documentType ?? "";
     if (!byType.has(type)) byType.set(type, []);
     byType.get(type)!.push(m);
@@ -76,9 +103,9 @@ function mergeLive(
     if (!group.products) return group;
     const productsById = new Map(group.products.map((p) => [p.id, p]));
 
-    for (const [productCode, byType] of byProduct) {
-      if (FAMILY_BY_PRODUCT_CODE[productCode] !== group.id) continue;
-      const existing = productsById.get(productCode);
+    for (const [slug, byType] of byProduct) {
+      if (familyBySlug.get(slug) !== group.id) continue;
+      const existing = productsById.get(slug);
       const liveGroups = buildDocGroups(byType, docGroupLabels, docTypeLabels);
       if (existing) {
         // Merge: keep static doc-groups, append/replace matching-id ones
@@ -86,11 +113,11 @@ function mergeLive(
         // takes over from whatever static placeholder existed for it.
         const byId = new Map(existing.groups.map((g) => [g.id, g]));
         for (const lg of liveGroups) byId.set(lg.id, lg);
-        productsById.set(productCode, { ...existing, groups: [...byId.values()].filter((g) => g.rows.length > 0) });
+        productsById.set(slug, { ...existing, groups: [...byId.values()].filter((g) => g.rows.length > 0) });
       } else {
-        productsById.set(productCode, {
-          id: productCode,
-          label: byType.values().next().value?.[0]?.productName ?? productCode,
+        productsById.set(slug, {
+          id: slug,
+          label: byType.values().next().value?.[0]?.productName ?? slug,
           groups: liveGroups,
         });
       }

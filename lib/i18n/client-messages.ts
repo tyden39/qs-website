@@ -33,6 +33,7 @@ export const CLIENT_MESSAGE_PATHS = [
   "home", // hero-slider, video-reel, app-deck
   "news", // news-feed, news-list-filter
   "contact", // contact-form
+  "downloads.index", // live-website-tree (Downloads page is ERP-driven, client-fetched)
 ] as const;
 
 /**

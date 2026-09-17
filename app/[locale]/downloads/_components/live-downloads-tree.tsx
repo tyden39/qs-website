@@ -23,6 +23,17 @@ const WEBSITE_FOLDER_NAME_BY_FAMILY_ID: Record<string, string> = {
   software: "Phần mềm & Dữ liệu",
 };
 
+// Product-family folders (servo/inverter/controllers) whose *own* Website
+// folder also accepts a document not tied to any model — an admin uploads it
+// straight into "QS Servo" instead of one of the per-model subfolders that
+// mirror ManualHub. There's no product to attach it to, so it gets its own
+// catch-all card inside the family instead (see mergeGenericFolderProduct).
+const GENERIC_PRODUCT_FOLDER_BY_FAMILY_ID: Record<string, string> = {
+  controllers: "Bộ điều khiển",
+  servo: "QS Servo",
+  inverter: "Biến tần",
+};
+
 function slugify(name: string): string {
   return (
     name
@@ -49,6 +60,23 @@ function extFromUrl(url: string): string {
 // same PDF shows up twice. Comparing by filename instead catches that.
 function urlFilename(url: string): string {
   return url.split(/[?#]/)[0].split("/").pop() ?? url;
+}
+
+// A file dropped straight into a product family's own "Website" folder (e.g.
+// "QS Servo") rather than one of its per-model subfolders — those subfolders
+// are ManualHub's own mirror of the per-product documents already merged in
+// by mergeLive, so descending into them here would double them up. Only the
+// folder's direct document children have nowhere else to go.
+function directDocRows(node: PublicDocNode): DlRow[] {
+  return (node.children ?? [])
+    .filter((c): c is PublicDocNode & { fileUrl: string } => c.nodeType === "document" && !!c.fileUrl)
+    .map((c) => ({
+      key: c.id,
+      title: c.name,
+      ext: extFromUrl(c.fileUrl),
+      version: "—",
+      variants: [{ lang: extFromUrl(c.fileUrl), url: c.fileUrl, sizeLabel: "" }],
+    }));
 }
 
 function collectDocRows(node: PublicDocNode): DlRow[] {
@@ -143,6 +171,37 @@ const FAMILY_BY_PRODUCT_CODE: Record<string, string> = {
   "s3100": "inverter",
 };
 
+// A document dropped straight into a product family's own Website folder
+// (see GENERIC_PRODUCT_FOLDER_BY_FAMILY_ID) has no model to merge into, so it
+// gets one catch-all product card per family instead — appended after the
+// real model cards, replaced wholesale on every refresh (its id is derived,
+// never collides with a real model slug).
+function mergeGenericFolderProduct(
+  groups: DlGroup[],
+  root: PublicDocNode | null,
+  genericLabel: string,
+  docGroupLabel: string,
+): DlGroup[] {
+  if (!root?.children) return groups;
+  const folderByName = new Map(root.children.map((c) => [c.name, c]));
+
+  return groups.map((group) => {
+    if (!group.products) return group;
+    const folderName = GENERIC_PRODUCT_FOLDER_BY_FAMILY_ID[group.id];
+    if (!folderName) return group;
+    const folder = folderByName.get(folderName);
+    if (!folder) return group;
+
+    const rows = directDocRows(folder);
+    const genericId = `${group.id}-general`;
+    const products = group.products.filter((p) => p.id !== genericId);
+    if (rows.length === 0) return { ...group, products };
+
+    products.push({ id: genericId, label: genericLabel, groups: [{ id: "manual", label: docGroupLabel, rows }] });
+    return { ...group, products };
+  });
+}
+
 export function LiveDownloadsTree({
   groups,
   eyebrow,
@@ -151,6 +210,7 @@ export function LiveDownloadsTree({
   support,
   docGroupLabels,
   docTypeLabels,
+  genericProductLabel,
 }: {
   groups: DlGroup[];
   eyebrow: string;
@@ -163,13 +223,17 @@ export function LiveDownloadsTree({
   /** i18n `downloads.index.docType` — used to compose a live row's title,
    *  same as the static tree's own titleOf(). */
   docTypeLabels: Record<string, string>;
+  /** i18n `downloads.index.tree.generic` — card label for documents filed
+   *  straight into a family's Website folder rather than a model subfolder. */
+  genericProductLabel: string;
 }) {
   const liveItems = useLiveManuals();
   const websiteRoot = useLiveWebsiteDocs();
 
   const merged = liveItems ? mergeLive(groups, liveItems, docGroupLabels, docTypeLabels) : groups;
   const withWebsiteDocs = mergeLiveWebsiteDocs(merged, websiteRoot);
-  const withExtras = [...withWebsiteDocs, ...buildExtraFamilies(websiteRoot)];
+  const withGeneric = mergeGenericFolderProduct(withWebsiteDocs, websiteRoot, genericProductLabel, docGroupLabels.manual);
+  const withExtras = [...withGeneric, ...buildExtraFamilies(websiteRoot)];
 
   return (
     <DownloadsTree groups={withExtras} eyebrow={eyebrow} allLabel={allLabel} headers={headers} support={support} />

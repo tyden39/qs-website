@@ -34,7 +34,8 @@
       "eyebrow": "Document library",
       "all": "All documents",
       "support": "Technical support",
-      "supportCta": "Contact engineering"
+      "supportCta": "Contact engineering",
+      "generic": "General documents"
     },
     "latest": {
       "eyebrow": "Live updates",

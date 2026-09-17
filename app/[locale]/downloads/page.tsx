@@ -306,6 +306,7 @@ export default async function Downloads({ params }: Props) {
             allLabel={t("tree.all")}
             headers={{ name: t("table.name"), version: t("table.version"), download: t("table.download") }}
             support={{ title: t("tree.support"), cta: t("tree.supportCta") }}
+            genericProductLabel={t("tree.generic")}
             docGroupLabels={{
               operation: t("docGroup.operation"),
               installation: t("docGroup.installation"),

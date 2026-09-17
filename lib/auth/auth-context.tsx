@@ -1,7 +1,14 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { fetchCurrentUser, login as loginRequest, logoutRequest, refreshTokens } from "./api";
+import {
+  fetchCurrentUser,
+  login as loginRequest,
+  logoutRequest,
+  refreshTokens,
+  registerWebsiteCustomer,
+  type WebsiteRegisterPayload,
+} from "./api";
 import { clearTokens, getAccessToken, getRefreshToken, saveTokens } from "./storage";
 import type { AuthUser } from "./types";
 
@@ -9,6 +16,9 @@ interface AuthContextValue {
   user: AuthUser | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  // Sign-up returns a session directly (no verification step), so a new
+  // customer lands logged in rather than back at the login form.
+  register: (payload: WebsiteRegisterPayload) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -77,6 +87,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(me);
   };
 
+  const register = async (payload: WebsiteRegisterPayload) => {
+    const session = await registerWebsiteCustomer(payload);
+    saveTokens(session.access_token, session.refresh_token);
+    const me = await fetchCurrentUser();
+    setUser(me);
+  };
+
   const logout = async () => {
     try {
       await logoutRequest();
@@ -87,7 +104,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
-  return <AuthContext.Provider value={{ user, isLoading, login, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth(): AuthContextValue {

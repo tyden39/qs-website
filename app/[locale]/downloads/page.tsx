@@ -11,6 +11,7 @@ import { LiveDownloadsTree } from "./_components/live-downloads-tree";
 import LiveDocCount from "./_components/live-doc-count";
 import type { DlGroup, DlProduct, DlRow } from "./_components/downloads-tree";
 import { LiveManualsProvider } from "@/lib/crm/live-manuals-context";
+import { LiveWebsiteDocsProvider } from "@/lib/crm/live-website-docs-context";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
 import type { Locale } from "@/lib/i18n/config";
@@ -197,7 +198,9 @@ export default async function Downloads({ params }: Props) {
   // static export, so these files ship at build time). ManualHub's live
   // documents merge into "controllers"/"servo"/"inverter" on top of this
   // client-side (see live-downloads-tree.tsx's mergeLive) — "catalogue" and
-  // "software" have no live source at all, so they stay purely static.
+  // "software" merge live documents from the CRM's "Website" doc tree
+  // instead (mergeLiveWebsiteDocs), keyed by CRM folder name rather than
+  // product code since neither family has a product to key off of.
   const tree: DlGroup[] = [
     family("catalogue", { rows: localRows("catalogue") }),
     family("controllers", { products: controllerProducts() }),
@@ -227,6 +230,7 @@ export default async function Downloads({ params }: Props) {
 
   return (
     <LiveManualsProvider>
+    <LiveWebsiteDocsProvider>
       <JsonLd data={breadcrumb} />
       {/* HERO */}
       <section
@@ -342,6 +346,7 @@ export default async function Downloads({ params }: Props) {
           </div>
         </div>
       </section>
+    </LiveWebsiteDocsProvider>
     </LiveManualsProvider>
   );
 }

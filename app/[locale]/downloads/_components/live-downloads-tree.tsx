@@ -2,7 +2,116 @@
 
 import { useLiveManuals } from "@/lib/crm/live-manuals-context";
 import type { PublicManual } from "@/lib/crm/manuals-client";
+import { useLiveWebsiteDocs } from "@/lib/crm/live-website-docs-context";
+import type { PublicDocNode } from "@/lib/crm/company-docs-client";
 import { DownloadsTree, type DlGroup, type DlProduct, type DlRow } from "./downloads-tree";
+
+// The 5 static families above already mirror these exact CRM category
+// names (see qs-crm-be's 000206_company_doc_website_tree migration) — any
+// OTHER category an admin adds in the CRM shows up here as an extra family
+// instead of duplicating one of the 5. Keyed by the CRM node's own name.
+const STATIC_FAMILY_NAMES = new Set(["Catalogue & Hồ sơ", "Bộ điều khiển", "QS Servo", "Biến tần", "Phần mềm & Dữ liệu"]);
+
+// "controllers"/"servo"/"inverter" already merge live ManualHub documents
+// by product code (see mergeLive below) — "catalogue" and "software" have
+// no product to key off of, so their live source is this site's own CRM
+// "Website" doc tree instead, matched by the CRM folder's name. An admin
+// adding/editing a document under either CRM folder shows up here without
+// a site deploy, same as the other three families.
+const WEBSITE_FOLDER_NAME_BY_FAMILY_ID: Record<string, string> = {
+  catalogue: "Catalogue & Hồ sơ",
+  software: "Phần mềm & Dữ liệu",
+};
+
+function slugify(name: string): string {
+  return (
+    name
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/đ/gi, "d")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "muc"
+  );
+}
+
+function extFromUrl(url: string): string {
+  const match = url.match(/\.([a-zA-Z0-9]+)(?:\?.*)?$/);
+  return match ? match[1].toUpperCase() : "LINK";
+}
+
+// The static catalogue/software baseline mirrors its files locally
+// ("/downloads/catalogue/qs-product-catalogue.pdf"), while the CRM's
+// company_doc_nodes rows for the exact same files were seeded with the
+// live site's absolute URL ("https://qstcnc.com/downloads/catalogue/
+// qs-product-catalogue.pdf" — see qs-crm-be's 000207 migration). Same
+// file, different URL string, so an exact-string dedup misses it and the
+// same PDF shows up twice. Comparing by filename instead catches that.
+function urlFilename(url: string): string {
+  return url.split(/[?#]/)[0].split("/").pop() ?? url;
+}
+
+function collectDocRows(node: PublicDocNode): DlRow[] {
+  const rows: DlRow[] = [];
+  const walk = (n: PublicDocNode) => {
+    if (n.nodeType === "document" && n.fileUrl) {
+      rows.push({
+        key: n.id,
+        title: n.name,
+        ext: extFromUrl(n.fileUrl),
+        version: "—",
+        variants: [{ lang: extFromUrl(n.fileUrl), url: n.fileUrl, sizeLabel: "" }],
+      });
+      return;
+    }
+    for (const child of n.children ?? []) walk(child);
+  };
+  for (const child of node.children ?? []) walk(child);
+  return rows;
+}
+
+/** New CRM-managed categories under "Website" beyond the 5 static ones —
+ *  rendered as extra families appended after them, so adding a category in
+ *  the ERP shows up here as the next tab without any code change. */
+function buildExtraFamilies(root: PublicDocNode | null): DlGroup[] {
+  if (!root?.children) return [];
+  return root.children
+    .filter((child) => child.nodeType === "folder" && !STATIC_FAMILY_NAMES.has(child.name))
+    .map((child) => ({
+      id: slugify(child.name),
+      label: child.name,
+      heading: child.name,
+      desc: child.description ?? "",
+      rows: collectDocRows(child),
+    }))
+    .filter((g) => (g.rows?.length ?? 0) > 0);
+}
+
+// Appends live CRM documents onto "catalogue"/"software"'s static rows
+// (see WEBSITE_FOLDER_NAME_BY_FAMILY_ID) — additive, never replacing a
+// static row, since nothing here can tell a CRM doc apart from its static
+// counterpart other than URL. Deduped by file URL so re-uploading the same
+// static file's real link into the CRM doesn't double it up on the page.
+function mergeLiveWebsiteDocs(groups: DlGroup[], root: PublicDocNode | null): DlGroup[] {
+  if (!root?.children) return groups;
+  const folderByName = new Map(root.children.map((c) => [c.name, c]));
+
+  return groups.map((group) => {
+    const folderName = WEBSITE_FOLDER_NAME_BY_FAMILY_ID[group.id];
+    if (!folderName) return group;
+    const folder = folderByName.get(folderName);
+    if (!folder) return group;
+
+    const existingFilenames = new Set(
+      (group.rows ?? []).flatMap((r) => (r.variants ?? []).map((v) => urlFilename(v.url))),
+    );
+    const liveRows = collectDocRows(folder).filter(
+      (r) => !(r.variants ?? []).every((v) => existingFilenames.has(urlFilename(v.url))),
+    );
+    if (liveRows.length === 0) return group;
+    return { ...group, rows: [...(group.rows ?? []), ...liveRows] };
+  });
+}
 
 
 // CRM's products.code (lowercased) doesn't match this site's productSlug
@@ -56,11 +165,14 @@ export function LiveDownloadsTree({
   docTypeLabels: Record<string, string>;
 }) {
   const liveItems = useLiveManuals();
+  const websiteRoot = useLiveWebsiteDocs();
 
   const merged = liveItems ? mergeLive(groups, liveItems, docGroupLabels, docTypeLabels) : groups;
+  const withWebsiteDocs = mergeLiveWebsiteDocs(merged, websiteRoot);
+  const withExtras = [...withWebsiteDocs, ...buildExtraFamilies(websiteRoot)];
 
   return (
-    <DownloadsTree groups={merged} eyebrow={eyebrow} allLabel={allLabel} headers={headers} support={support} />
+    <DownloadsTree groups={withExtras} eyebrow={eyebrow} allLabel={allLabel} headers={headers} support={support} />
   );
 }
 

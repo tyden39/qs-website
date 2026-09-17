@@ -18,6 +18,10 @@ export class AuthApiError extends Error {
   constructor(
     message: string,
     public status: number,
+    // erp-be's stable error code (e.g. "PHONE_ALREADY_EXISTS"), when present —
+    // callers use this to pick a translated message instead of showing the
+    // English `message` string straight from the API.
+    public code?: string,
   ) {
     super(message);
   }
@@ -35,8 +39,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
 
   if (!res.ok) {
-    const data = (await res.json().catch(() => ({}))) as { error?: string };
-    throw new AuthApiError(data.error ?? `Request failed (${res.status})`, res.status);
+    const data = (await res.json().catch(() => ({}))) as { error?: string; code?: string };
+    throw new AuthApiError(data.error ?? `Request failed (${res.status})`, res.status, data.code);
   }
 
   if (res.status === 204) return undefined as T;
@@ -50,6 +54,25 @@ export function login(email: string, password: string): Promise<LoginResponse> {
   return request<LoginResponse>("/auth/login", {
     method: "POST",
     body: JSON.stringify({ username: email, password }),
+  });
+}
+
+export interface WebsiteRegisterPayload {
+  full_name: string;
+  phone: string;
+  email: string;
+  password: string;
+  region?: string;
+}
+
+// Site sign-up. Distinct from the Customer Portal's /auth/customer-register,
+// which requires an emailed OTP before the account works — this endpoint has no
+// verification step, so it returns a ready session and the visitor lands logged
+// in. It also creates the CRM lead record (source "website", status NEW).
+export function registerWebsiteCustomer(payload: WebsiteRegisterPayload): Promise<LoginResponse> {
+  return request<LoginResponse>("/auth/website-register", {
+    method: "POST",
+    body: JSON.stringify(payload),
   });
 }
 

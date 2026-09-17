@@ -5,7 +5,13 @@ import { useTranslations } from "next-intl";
 import Image from "@/components/media/image";
 import { useAuth } from "@/lib/auth/auth-context";
 
-export function LoginModal({ onClose }: { onClose: () => void }) {
+export function LoginModal({
+  onClose,
+  onSwitchToRegister,
+}: {
+  onClose: () => void;
+  onSwitchToRegister?: () => void;
+}) {
   const t = useTranslations("auth");
   const { login } = useAuth();
 
@@ -101,6 +107,15 @@ export function LoginModal({ onClose }: { onClose: () => void }) {
         >
           {isSubmitting ? t("submitting") : t("submit")}
         </button>
+
+        {onSwitchToRegister && (
+          <p className="mt-4 text-center text-[13px] text-white/60">
+            {t("register.haveNoAccount")}{" "}
+            <button type="button" onClick={onSwitchToRegister} className="text-gold-2 hover:underline">
+              {t("register.title")}
+            </button>
+          </p>
+        )}
 
         <button
           type="button"

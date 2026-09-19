@@ -1,0 +1,9 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	// Static export served as a Cloudflare Pages project — no Worker, no
+	// server runtime. Redirects and headers come from public/_redirects and
+	// public/_headers (copied verbatim into `out/` by the Next.js export),
+	// not from this file.
+	"name": "qs-shop",
+	"pages_build_output_dir": "out"
+}

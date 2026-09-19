@@ -1,29 +1,5 @@
 [
   {
-    "slug": "catalogue",
-    "ext": "PDF",
-    "category": "catalogue",
-    "model": null,
-    "titleKey": "productCatalogue",
-    "lang": "vi-en",
-    "version": null,
-    "date": null,
-    "sizeBytes": 2265936,
-    "fileUrl": "/downloads/catalogue/qs-product-catalogue.pdf"
-  },
-  {
-    "slug": "company-profile",
-    "ext": "PDF",
-    "category": "catalogue",
-    "model": null,
-    "titleKey": "companyProfile",
-    "lang": "vi-en",
-    "version": null,
-    "date": null,
-    "sizeBytes": 3973466,
-    "fileUrl": "/downloads/catalogue/qs-company-profile.pdf"
-  },
-  {
     "slug": "f54-operation-vi",
     "ext": "PDF",
     "category": "operation",
@@ -120,18 +96,6 @@
     "productSlug": "astro-6av"
   },
   {
-    "slug": "astro-10i-operation-en",
-    "ext": "PDF",
-    "category": "operation",
-    "model": "Astro 10i",
-    "lang": "en",
-    "version": null,
-    "date": "2024-10-15",
-    "sizeBytes": 9686100,
-    "fileUrl": "/downloads/operation/astro-10i-operation-en.pdf",
-    "productSlug": "astro-10i"
-  },
-  {
     "slug": "f54-installation-vi",
     "ext": "PDF",
     "category": "installation",
@@ -204,17 +168,6 @@
     "productSlug": "astro-6av"
   },
   {
-    "slug": "qsl-editor-2-11",
-    "ext": "ZIP",
-    "category": "software",
-    "model": "QSL Editor 2.11",
-    "lang": "en",
-    "version": "2.11",
-    "date": null,
-    "sizeBytes": 1124935,
-    "fileUrl": "/downloads/software/qsl-editor-2.11.zip"
-  },
-  {
     "slug": "qsl-editor-2-10",
     "ext": "ZIP",
     "category": "software",
@@ -235,17 +188,5 @@
     "date": null,
     "sizeBytes": 818060,
     "fileUrl": "/downloads/software/qs-explorer-4.06.zip"
-  },
-  {
-    "slug": "f54-update-data-2026-01",
-    "ext": "ZIP",
-    "category": "software",
-    "model": "F54 Update Data",
-    "lang": "en",
-    "version": null,
-    "date": "2026-01-22",
-    "sizeBytes": 1173086,
-    "fileUrl": "/downloads/software/f54-update-data-2026-01.zip",
-    "productSlug": "f54"
   }
 ]

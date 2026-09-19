@@ -1,3 +1,5 @@
+
+
 "use client";
 import Image from "@/components/media/image";
 import { useEffect, useState, type MouseEvent } from "react";
@@ -7,6 +9,10 @@ import { LocaleSwitcher } from "@/components/locale-switcher";
 import { CategoryIcon } from "@/components/category-icon";
 import { setFilterParams, useFilterParams } from "@/lib/use-filter-params";
 import { scrollToTop } from "@/lib/scroll-to-list";
+import { useAuth } from "@/lib/auth/auth-context";
+import { LoginModal } from "@/components/LoginModal";
+import { RegisterModal } from "@/components/register-modal";
+import { AccountMenu } from "@/components/AccountMenu";
 
 function closeSearch(){
   document.getElementById("qs-search-panel")?.classList.remove("open");
@@ -15,6 +21,9 @@ function closeSearch(){
 
 export default function Header() {
   const t = useTranslations("nav");
+  const { user, isLoading: isAuthLoading } = useAuth();
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   // Sub-type labels are reused from the catalogue namespaces (not duplicated in
   // nav.json) so the flyout wording tracks the pages one-to-one.
   const tp = useTranslations("product");
@@ -62,13 +71,7 @@ export default function Header() {
   const [openSub, setOpenSub] = useState<string | null>(null);
   const [openSub2, setOpenSub2] = useState<string | null>(null);
 
-  // Catalogue dropdown children deep-link into each landing page's category
-  // tree via its `?g=<group>[&t=<type>]` filter (see lib/use-filter-params). The
-  // ids are the tree's own slugs — including the Vietnamese material tags the
-  // applications tree derives its ids from — so they are URL-encoded here. A
-  // child that carries a clean sub-type taxonomy adds a `&t=..` flyout.
-  // `icon` is a CategoryIcon slug on the catalogue dropdown leaves at every
-  // depth; omitted on top-level items (no room in the desktop bar).
+
   type NavLeaf = { page: string; g: string; type?: string; label: string; icon?: string };
   type NavChild = NavLeaf & { children?: NavLeaf[] };
   type NavItem = { href: string; label: string; children?: NavChild[] };
@@ -276,20 +279,36 @@ export default function Header() {
                 <small className="hidden sm:block font-mono text-label-xs text-muted tracking-[.18em] uppercase whitespace-nowrap">CNC · Automation · Vietnam</small>
               </div>
             </Link>
-            <div className="hidden min-[1366px]:flex gap-0.5">
-              {left.map(renderDesktopItem)}
-            </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-1 items-center gap-2 min-w-0">
+            {/* Nav links moved into the right-hand cluster (next to
+                search/locale/login) so they sit close to the right edge
+                instead of trailing the logo with a big empty gap between
+                them and the icons — matches the requested "menu gần bên
+                phải hơn" layout. */}
             <div className="hidden min-[1366px]:flex gap-0.5">
-              {right.map(renderDesktopItem)}
+              {all.map(renderDesktopItem)}
             </div>
-            <div className="flex items-center gap-1.5 pl-2 min-[1366px]:border-l border-line min-[1366px]:ml-1">
+            <div className="ml-auto flex items-center gap-1.5 pl-2 min-[1366px]:border-l border-line">
               <button onClick={openSearch} aria-label={t("search")} className="qs-icon-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
               </button>
               <div className="hidden sm:block"><LocaleSwitcher /></div>
-              <a href="https://crm.qstcnc.com/login" className="hidden min-[1366px]:inline-flex items-center whitespace-nowrap rounded bg-ink px-3 py-1 text-label font-mono font-semibold uppercase tracking-widest text-white transition-colors hover:bg-black">{t("login")}</a>
+              {/* While the session bootstrap (auth-context) is still resolving —
+                  which can take a few round trips when the access token needs a
+                  refresh — render neither state rather than flashing "Login" and
+                  then swapping to the account menu a moment later. */}
+              {isAuthLoading ? null : user ? (
+                <AccountMenu className="hidden min-[1366px]:flex" />
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setIsLoginOpen(true)}
+                  className="hidden min-[1366px]:inline-flex items-center whitespace-nowrap rounded bg-ink px-3 py-1 text-label font-mono font-semibold uppercase tracking-widest text-white transition-colors hover:bg-black"
+                >
+                  {t("login")}
+                </button>
+              )}
               {/* hamburger — only below the desktop nav breakpoint. Wrapped in a
                   plain div so `min-[1366px]:hidden` wins: `.qs-icon-btn` is an unlayered
                   rule and would otherwise beat the layered utility on the button. */}
@@ -422,13 +441,20 @@ export default function Header() {
                 </div>
               );
             })}
-            <a
-              href="https://crm.qstcnc.com/login"
-              onClick={() => setOpen(false)}
-              className="mt-5 qs-btn qs-btn-gold justify-center"
-            >
-              {t("login")}
-            </a>
+            {isAuthLoading ? null : user ? (
+              <AccountMenu className="mt-5" onNavigate={() => setOpen(false)} />
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  setIsLoginOpen(true);
+                }}
+                className="mt-5 qs-btn qs-btn-gold justify-center"
+              >
+                {t("login")}
+              </button>
+            )}
             <div className="mt-5 flex items-center justify-between gap-4">
               <div className="flex flex-col gap-1.5 font-mono text-label tracking-[.1em] uppercase text-muted">
                 <a href="tel:+84909663350" className="hover:text-ink">Hotline · (+84) 909.663.350</a>
@@ -448,6 +474,25 @@ export default function Header() {
         aria-hidden="true"
         onClick={() => setOpen(false)}
       />
+
+      {isLoginOpen && (
+        <LoginModal
+          onClose={() => setIsLoginOpen(false)}
+          onSwitchToRegister={() => {
+            setIsLoginOpen(false);
+            setIsRegisterOpen(true);
+          }}
+        />
+      )}
+      {isRegisterOpen && (
+        <RegisterModal
+          onClose={() => setIsRegisterOpen(false)}
+          onSwitchToLogin={() => {
+            setIsRegisterOpen(false);
+            setIsLoginOpen(true);
+          }}
+        />
+      )}
     </>
   );
 }

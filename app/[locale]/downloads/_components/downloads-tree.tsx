@@ -21,6 +21,13 @@ export type DlVariant = {
   sizeLabel: string;
   /** External source (opens in a new tab, no `download` attribute). */
   external?: boolean;
+  /** This edition's own version — VI and EN editions of a ManualHub document
+   *  are independent lineages (separate publish history), so they can be on
+   *  different versions. Shown per-button instead of one shared row-level
+   *  version, which would otherwise misrepresent whichever edition is
+   *  actually behind. Falls back to `sizeLabel` in the same slot when unset
+   *  (the static catalogue's variants carry a file size there instead). */
+  version?: string;
 };
 
 /** One slice of a document that ships in parts. */
@@ -80,7 +87,7 @@ function resolveId<T extends { id: string }>(items: T[], param: string | null): 
   return (items.some((i) => i.id === param) ? param : null) ?? items[0]?.id ?? null;
 }
 
-function DocTable({
+export function DocTable({
   rows,
   headers,
 }: {
@@ -100,15 +107,12 @@ function DocTable({
         ) : (
         <div
           key={row.key}
-          className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line transition-colors hover:bg-paper
-                     before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-gold-grad before:opacity-0 before:transition-opacity hover:before:opacity-100"
+          className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line transition-colors hover:bg-paper"
         >
           {/* name */}
           <div className="flex items-center gap-4">
-            {/* document chip — dark plate, gold label, folded corner */}
-            <span className="relative w-11 h-[54px] flex-shrink-0 grid place-items-center bg-[#11120f] text-gold-2 font-mono text-label-xs font-bold tracking-[.06em] overflow-hidden
-                             before:content-[''] before:absolute before:top-0 before:right-0 before:border-t-[11px] before:border-l-[11px] before:border-t-transparent before:border-l-[#2a2822]
-                             after:content-[''] after:absolute after:top-0 after:right-0 after:border-t-[11px] after:border-r-[11px] after:border-t-gold-2/70 after:border-r-transparent">
+            {/* document chip — same plain white box as the controller detail page's own table */}
+            <span className="w-10 h-[52px] flex-shrink-0 border border-line grid place-items-center font-display font-extrabold text-label-xs tracking-[-.02em] bg-white text-ink">
               {row.ext}
             </span>
             <div className="flex flex-col gap-0.5 min-w-0">
@@ -125,29 +129,34 @@ function DocTable({
               )}
             </div>
           </div>
-          {/* version / date */}
+          {/* updated */}
           <span className="font-mono text-label text-muted md:text-[#3a3a3a] tabular-nums">{row.version}</span>
-          {/* download — one button per variant */}
+          {/* download — only the editions a document actually has, packed
+              together with no reserved empty slot for a missing language.
+              A fixed VI/EN slot layout left a visible gap on every row that
+              only shipped one language, which reads as messy clutter across
+              a list mixing 1- and 2-variant rows. */}
           <div className="flex flex-wrap gap-2 md:justify-end">
-            {row.variants?.map((v) => (
-              <a
-                key={v.url}
-                href={v.url}
-                {...(v.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : { download: true })}
-                className="flex-1 md:flex-initial inline-flex flex-col items-center gap-0.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 transition-colors hover:bg-gold-3 hover:border-gold-3
-                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2 focus-visible:ring-offset-1"
-              >
-                <span className="font-mono text-label tracking-[.14em] uppercase">{v.lang} ↓</span>
-                <span className="font-mono text-label-xs tracking-[.06em] opacity-60">{v.sizeLabel}</span>
-              </a>
-            ))}
+            {row.variants?.map((v) => <VariantButton key={v.url} v={v} />)}
           </div>
         </div>
         ),
       )}
     </div>
+  );
+}
+
+function VariantButton({ v, className = "" }: { v: DlVariant; className?: string }) {
+  return (
+    <a
+      href={v.url}
+      {...(v.external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })}
+      className={`inline-flex flex-col items-center gap-0.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 transition-colors hover:bg-gold-3 hover:border-gold-3
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2 focus-visible:ring-offset-1 ${className}`}
+    >
+      <span className="font-mono text-label tracking-[.14em] uppercase">{v.lang} ↓</span>
+      <span className="font-mono text-label-xs tracking-[.06em] opacity-60">{v.version ?? v.sizeLabel}</span>
+    </a>
   );
 }
 
@@ -160,13 +169,10 @@ function MultiPartRow({ row }: { row: DlRow }) {
   return (
     <details className="group/doc relative border-t border-line">
       <summary
-        className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 cursor-pointer list-none transition-colors hover:bg-paper [&::-webkit-details-marker]:hidden
-                   before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-gold-grad before:opacity-0 before:transition-opacity hover:before:opacity-100"
+        className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 cursor-pointer list-none transition-colors hover:bg-paper [&::-webkit-details-marker]:hidden"
       >
         <div className="flex items-center gap-4">
-          <span className="relative w-11 h-[54px] flex-shrink-0 grid place-items-center bg-[#11120f] text-gold-2 font-mono text-label-xs font-bold tracking-[.06em] overflow-hidden
-                           before:content-[''] before:absolute before:top-0 before:right-0 before:border-t-[11px] before:border-l-[11px] before:border-t-transparent before:border-l-[#2a2822]
-                           after:content-[''] after:absolute after:top-0 after:right-0 after:border-t-[11px] after:border-r-[11px] after:border-t-gold-2/70 after:border-r-transparent">
+          <span className="w-10 h-[52px] flex-shrink-0 border border-line grid place-items-center font-display font-extrabold text-label-xs tracking-[-.02em] bg-white text-ink">
             {row.ext}
           </span>
           <div className="flex flex-col gap-0.5 min-w-0">

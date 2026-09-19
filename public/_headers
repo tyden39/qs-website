@@ -16,3 +16,6 @@
 
 /img/*
   Cache-Control: public, max-age=604800
+
+/*
+  Content-Security-Policy: connect-src 'self' https://crm.qstcnc.com http://localhost:8080;

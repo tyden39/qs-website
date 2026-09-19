@@ -29,7 +29,7 @@ export function LocaleSwitcher() {
   }
 
   return (
-    <div className="flex items-center gap-0.5" aria-label="Language switcher">
+    <div className="flex items-center gap-0.5 " aria-label="Language switcher">
       {LOCALES.map(({ value, label }) => (
         <button
           key={value}

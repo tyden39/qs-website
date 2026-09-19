@@ -141,6 +141,26 @@ function baseTitle(name: string): string {
   return stripped || name;
 }
 
+// The two bilingual PDFs under "Catalogue & Hồ sơ" (the product catalogue
+// and the company profile) predate document_type on plain CompanyDoc
+// uploads and, in practice, still don't reliably carry it from the CRM —
+// their `name` is baked once, in Vietnamese, with no English edition, so an
+// English visitor saw the raw Vietnamese title. Recognizing them by that
+// fixed name — the one deliberate exception to buildTitle's "CRM-data-driven,
+// never a name lookup" rule above — lets buildTitle treat them as if
+// document_type were set, so its normal `!productLabel && typeLabel` branch
+// replaces the name with the localized docGroup label instead. Once the CRM
+// actually tags these with a document_type, `doc.documentType` below wins
+// and this map is never consulted for them.
+const DOC_TYPE_BY_KNOWN_NAME: Record<string, string> = {
+  [norm("Catalogue sản phẩm")]: "product_catalogue",
+  [norm("Hồ sơ công ty")]: "company_profile",
+};
+
+function resolveDocumentType(doc: PublicDocNode): string | undefined {
+  return doc.documentType ?? DOC_TYPE_BY_KNOWN_NAME[norm(baseTitle(doc.name))];
+}
+
 function toVariant(doc: PublicDocNode): DlVariant {
   const ext = extLabel(doc.fileUrl ?? "");
   return {
@@ -203,23 +223,42 @@ function titleWithType(name: string, documentType: string | undefined, docTypeLa
 // document_type that already has (or gets, once) a docTypeLabels entry —
 // it never requires touching this file again. Only falls back to the CRM's
 // own baked name (via baseTitle) when the document has no documentType at
-// all to build a title from.
+// all to build a title from — see resolveDocumentType's own comment for the
+// one deliberate exception to "CRM-data-driven".
 function buildTitle(
   doc: PublicDocNode,
   docTypeLabels: Record<string, string>,
   productLabel: string | undefined,
   appendType: boolean,
+  // QS Servo/Biến tần: each file under a model is its own distinct
+  // document (manufacturer-provided manuals, wiring diagrams, dimension
+  // sheets, ...), not a VI/EN pair of "the same document" the way a
+  // controller's operation/installation manual is — collapsing them all
+  // down to "<Model> — <type>" would make genuinely different documents
+  // (e.g. "SDV3 Basic Wiring Diagram" and "SDV3 Control Wiring Diagram")
+  // show up with the identical title. True here keeps each row's own
+  // filename-derived name regardless of documentType/productLabel.
+  preferRawName = false,
 ): string {
-  const typeLabel = doc.documentType ? (docTypeLabels[doc.documentType] ?? doc.documentType) : undefined;
+  if (preferRawName) {
+    // Never appends the type label here, tab or no tab — a raw filename
+    // like "SDV3 Basic Wiring Diagram" already reads as a complete title
+    // on its own; tacking "— Sổ tay & hướng dẫn" onto it is redundant even
+    // outside a type tab (unlike the productLabel branch below, where
+    // "<Model>" alone genuinely needs the type to stay meaningful).
+    return baseTitle(doc.name);
+  }
+  const documentType = resolveDocumentType(doc);
+  const typeLabel = documentType ? (docTypeLabels[documentType] ?? documentType) : undefined;
   if (!productLabel && typeLabel) {
     return typeLabel;
   }
-  if (productLabel && doc.documentType) {
-    const label = docTypeLabels[doc.documentType] ?? doc.documentType;
+  if (productLabel && documentType) {
+    const label = docTypeLabels[documentType] ?? documentType;
     return appendType ? `${productLabel} — ${label}` : productLabel;
   }
   const base = baseTitle(doc.name);
-  return appendType ? titleWithType(base, doc.documentType, docTypeLabels) : base;
+  return appendType ? titleWithType(base, documentType, docTypeLabels) : base;
 }
 
 // A VI/EN pair carries two independently-authored names (ManualHub names
@@ -242,6 +281,10 @@ function toRows(
   // already says the type, so repeating it in every row's title would be
   // redundant clutter.
   appendType = true,
+  // See buildTitle's own doc comment — true for QS Servo/Biến tần, where
+  // every document is genuinely distinct rather than a VI/EN pair of "the
+  // same" document.
+  preferRawName = false,
 ): DlRow[] {
   const paired = new Map<string, PublicDocNode[]>();
   const singles: PublicDocNode[] = [];
@@ -263,7 +306,7 @@ function toRows(
     const ext = extLabel(group[0].fileUrl ?? "");
     rows.push({
       key: group.map((d) => d.id).sort().join("+"),
-      title: buildTitle(titleDoc, docTypeLabels, product?.label, appendType),
+      title: buildTitle(titleDoc, docTypeLabels, product?.label, appendType, preferRawName),
       ext,
       version: latestUpdated(group),
       variants: group.map(toVariant),
@@ -274,7 +317,7 @@ function toRows(
   for (const doc of singles) {
     rows.push({
       key: doc.id,
-      title: buildTitle(doc, docTypeLabels, product?.label, appendType),
+      title: buildTitle(doc, docTypeLabels, product?.label, appendType, preferRawName),
       ext: extLabel(doc.fileUrl ?? ""),
       version: latestUpdated([doc]),
       variants: [toVariant(doc)],
@@ -304,6 +347,13 @@ function buildDocGroups(
   locale: string,
   product: { href?: string; label: string } | undefined,
   genericLabel: string,
+  // See buildTitle's own doc comment — true for QS Servo/Biến tần. Only
+  // affects each row's own title (still every file's own filename, never
+  // collapsed to "<Model> — <type>") — tabs still split by document_type
+  // exactly as for any other family, so admins can still organize QS
+  // Servo/Biến tần files into type tabs via the CRM's fixed catalog while
+  // each row keeps reading as its own distinct document.
+  preferRawName = false,
 ): DlDocGroup[] {
   const docs = collectDocuments(node);
   const byType = new Map<string, PublicDocNode[]>();
@@ -317,19 +367,19 @@ function buildDocGroups(
   // Nothing to split on (every doc untyped, or only one type present) — one
   // flat tab, same as a document that has no type info to show a tab for.
   if (byType.size <= 1) {
-    return [{ id: "all", label: genericLabel, rows: toRows(docs, docTypeLabels, locale, product, true) }];
+    return [{ id: "all", label: genericLabel, rows: toRows(docs, docTypeLabels, locale, product, true, preferRawName) }];
   }
 
   const groups: DlDocGroup[] = [];
   for (const [type, typeDocs] of byType) {
     if (!type) {
-      groups.push({ id: "general", label: genericLabel, rows: toRows(typeDocs, docTypeLabels, locale, product, true) });
+      groups.push({ id: "general", label: genericLabel, rows: toRows(typeDocs, docTypeLabels, locale, product, true, preferRawName) });
       continue;
     }
     groups.push({
       id: type,
       label: docTypeLabels[type] ?? type,
-      rows: toRows(typeDocs, docTypeLabels, locale, product, true),
+      rows: toRows(typeDocs, docTypeLabels, locale, product, true, preferRawName),
     });
   }
   return groups;
@@ -349,6 +399,10 @@ export function buildLiveDownloadGroups(
     const subFolders = (family.children ?? []).filter((c) => c.nodeType === "folder");
     const directDocs = (family.children ?? []).filter((c) => c.nodeType === "document" && c.fileUrl);
     const { label, heading, desc } = familyText(family.name, family.description, familyLabels);
+    // QS Servo/Biến tần: every file is its own distinct document (see
+    // buildTitle's own comment) — keep each row's actual filename as its
+    // title instead of collapsing by document_type.
+    const preferRawName = family.name === "QS Servo" || family.name === "Biến tần";
 
     if (subFolders.length === 0) {
       return {
@@ -356,7 +410,7 @@ export function buildLiveDownloadGroups(
         label,
         heading,
         desc,
-        rows: toRows(directDocs, docTypeLabels, locale),
+        rows: toRows(directDocs, docTypeLabels, locale, undefined, true, preferRawName),
       };
     }
 
@@ -378,7 +432,7 @@ export function buildLiveDownloadGroups(
           href: resolved ? `/electronics/${resolved.slug}` : undefined,
           label: productLabel,
         };
-        const groups = buildDocGroups(sub, docTypeLabels, locale, product, genericDocGroupLabel);
+        const groups = buildDocGroups(sub, docTypeLabels, locale, product, genericDocGroupLabel, preferRawName);
         return { id: sub.id, label: productLabel, groups };
       })
       // A model folder the CRM created but never filed a document under yet

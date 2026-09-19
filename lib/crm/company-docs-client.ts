@@ -22,6 +22,15 @@ export type PublicDocNode = {
    *  download buttons instead of two separate rows. */
   productId?: string;
   documentType?: string;
+  /** Documents only — last time this leaf's content changed, straight from
+   *  the ManualHub record it was synced from (a plain CompanyDoc upload has
+   *  no such field). ISO string; formatted for display in
+   *  live-download-groups.ts. */
+  updatedAt?: string;
+  /** Documents only — file size in bytes, when the API reports one; shown
+   *  under the download button (formatted with formatBytes) instead of the
+   *  bare extension. */
+  sizeBytes?: number;
   children?: PublicDocNode[];
 };
 
@@ -72,7 +81,25 @@ function toPublicDocNode(raw: Record<string, unknown>): PublicDocNode {
         : undefined,
     language: raw.manualhub_language ? String(raw.manualhub_language) : undefined,
     productId: raw.manualhub_product_id ? String(raw.manualhub_product_id) : undefined,
-    documentType: raw.manualhub_document_type ? String(raw.manualhub_document_type) : undefined,
+    // ManualHub-linked leaves carry it under the manualhub_-prefixed field;
+    // a plain CompanyDoc upload (no manualhub_document_id) carries its own
+    // document_type directly on the row instead — fall back to that so both
+    // kinds of documents can be split into type tabs the same way.
+    documentType: raw.manualhub_document_type
+      ? String(raw.manualhub_document_type)
+      : raw.document_type
+        ? String(raw.document_type)
+        : undefined,
+    updatedAt: raw.manualhub_updated_at
+      ? String(raw.manualhub_updated_at)
+      : raw.updated_at
+        ? String(raw.updated_at)
+        : undefined,
+    // Tolerate either JSON shape (a raw number, or a numeric string some
+    // serializers emit for large ids/sizes) rather than only `typeof
+    // === "number"`, which silently dropped every size once one of those
+    // came through as a string and fell back to the bare extension label.
+    sizeBytes: raw.file_size != null && !Number.isNaN(Number(raw.file_size)) ? Number(raw.file_size) : undefined,
     children,
   };
 }

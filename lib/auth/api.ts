@@ -11,7 +11,7 @@ const DEFAULT_API_BASE = "https://crm.qstcnc.com/api/v1";
 // fire the same /auth/me request at the same base URL without duplicating the
 // env-var fallback logic out of sync.
 export function apiBase(): string {
-  return (process.env.NEXT_PUBLIC_API_LOGIN ?? DEFAULT_API_BASE).replace(/\/+$/, "");
+  return (process.env.NEXT_PUBLIC_CRM_API_BASE ?? DEFAULT_API_BASE).replace(/\/+$/, "");
 }
 
 export class AuthApiError extends Error {

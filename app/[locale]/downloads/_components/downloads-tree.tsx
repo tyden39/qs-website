@@ -96,8 +96,9 @@ export function DocTable({
 }) {
   return (
     <div className="border border-line bg-white">
-      <div className="hidden md:grid grid-cols-[1fr_minmax(200px,auto)] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
+      <div className="hidden md:grid grid-cols-[1fr_120px_minmax(200px,auto)] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
         <span>{headers.name}</span>
+        <span>{headers.version}</span>
         <span className="text-right">{headers.download}</span>
       </div>
       {rows.map((row) =>
@@ -106,15 +107,12 @@ export function DocTable({
         ) : (
         <div
           key={row.key}
-          className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line transition-colors hover:bg-paper
-                     before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-gold-grad before:opacity-0 before:transition-opacity hover:before:opacity-100"
+          className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 border-t border-line transition-colors hover:bg-paper"
         >
           {/* name */}
           <div className="flex items-center gap-4">
-            {/* document chip — dark plate, gold label, folded corner */}
-            <span className="relative w-11 h-[54px] flex-shrink-0 grid place-items-center bg-[#11120f] text-gold-2 font-mono text-label-xs font-bold tracking-[.06em] overflow-hidden
-                             before:content-[''] before:absolute before:top-0 before:right-0 before:border-t-[11px] before:border-l-[11px] before:border-t-transparent before:border-l-[#2a2822]
-                             after:content-[''] after:absolute after:top-0 after:right-0 after:border-t-[11px] after:border-r-[11px] after:border-t-gold-2/70 after:border-r-transparent">
+            {/* document chip — same plain white box as the controller detail page's own table */}
+            <span className="w-10 h-[52px] flex-shrink-0 border border-line grid place-items-center font-display font-extrabold text-label-xs tracking-[-.02em] bg-white text-ink">
               {row.ext}
             </span>
             <div className="flex flex-col gap-0.5 min-w-0">
@@ -131,23 +129,15 @@ export function DocTable({
               )}
             </div>
           </div>
-          {/* download — a fixed VI/EN slot each, so every row's buttons land
-              in the same two columns regardless of which languages a given
-              document actually has (a 1-variant row would otherwise get
-              pushed to the far edge by justify-end and misalign with every
-              2-variant row above/below it). A variant in neither language —
-              only the catalogue's combined VI-EN file — falls outside the
-              slots and renders after them instead. */}
-          <div className="flex md:justify-end">
-            <div className="grid grid-cols-2 gap-2 w-full md:w-[188px]">
-              {LANG_SLOTS.map((lang) => {
-                const v = row.variants?.find((x) => x.lang === lang);
-                return v ? <VariantButton key={lang} v={v} /> : <span key={lang} aria-hidden="true" />;
-              })}
-            </div>
-            {row.variants
-              ?.filter((v) => !(LANG_SLOTS as readonly string[]).includes(v.lang))
-              .map((v) => <VariantButton key={v.url} v={v} className="ml-2" />)}
+          {/* updated */}
+          <span className="font-mono text-label text-muted md:text-[#3a3a3a] tabular-nums">{row.version}</span>
+          {/* download — only the editions a document actually has, packed
+              together with no reserved empty slot for a missing language.
+              A fixed VI/EN slot layout left a visible gap on every row that
+              only shipped one language, which reads as messy clutter across
+              a list mixing 1- and 2-variant rows. */}
+          <div className="flex flex-wrap gap-2 md:justify-end">
+            {row.variants?.map((v) => <VariantButton key={v.url} v={v} />)}
           </div>
         </div>
         ),
@@ -155,8 +145,6 @@ export function DocTable({
     </div>
   );
 }
-
-const LANG_SLOTS = ["VI", "EN"] as const;
 
 function VariantButton({ v, className = "" }: { v: DlVariant; className?: string }) {
   return (
@@ -181,13 +169,10 @@ function MultiPartRow({ row }: { row: DlRow }) {
   return (
     <details className="group/doc relative border-t border-line">
       <summary
-        className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 cursor-pointer list-none transition-colors hover:bg-paper [&::-webkit-details-marker]:hidden
-                   before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-gold-grad before:opacity-0 before:transition-opacity hover:before:opacity-100"
+        className="group/row relative grid grid-cols-1 md:grid-cols-[1fr_120px_minmax(200px,auto)] gap-x-4 gap-y-3 items-center px-5 py-4 cursor-pointer list-none transition-colors hover:bg-paper [&::-webkit-details-marker]:hidden"
       >
         <div className="flex items-center gap-4">
-          <span className="relative w-11 h-[54px] flex-shrink-0 grid place-items-center bg-[#11120f] text-gold-2 font-mono text-label-xs font-bold tracking-[.06em] overflow-hidden
-                           before:content-[''] before:absolute before:top-0 before:right-0 before:border-t-[11px] before:border-l-[11px] before:border-t-transparent before:border-l-[#2a2822]
-                           after:content-[''] after:absolute after:top-0 after:right-0 after:border-t-[11px] after:border-r-[11px] after:border-t-gold-2/70 after:border-r-transparent">
+          <span className="w-10 h-[52px] flex-shrink-0 border border-line grid place-items-center font-display font-extrabold text-label-xs tracking-[-.02em] bg-white text-ink">
             {row.ext}
           </span>
           <div className="flex flex-col gap-0.5 min-w-0">

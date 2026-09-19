@@ -91,10 +91,8 @@ Nothing is reconfigured at Cloudflare's end; a wrong value means rebuilding.
 | Variable | Production value | Effect if wrong |
 |---|---|---|
 | `NEXT_PUBLIC_APP_URL` | `https://qstcnc.com` | canonicals, hreflang, sitemap, OG images point at the wrong origin |
-| `NEXT_PUBLIC_CRM_API_BASE` | `https://crm.qstcnc.com/api/v1` | contact form posts nowhere, or to an origin the CSP blocks |
-| `NEXT_PUBLIC_API_LOGIN` | `https://crm.qstcnc.com/api/v1` | login modal / SSO ticket calls fail |
-| `NEXT_PUBLIC_API_PORTAL` | real Portal URL | "Portal" menu link is wrong or disabled |
-| `NEXT_PUBLIC_API_ERP` | real ERP URL | "ERP" menu link is wrong or disabled |
+| `NEXT_PUBLIC_CRM_API_BASE` | `https://crm.qstcnc.com/api/v1` | contact form posts nowhere, login modal / SSO ticket calls fail, or CSP blocks the origin |
+| `NEXT_PUBLIC_API_SSO` | real Portal/ERP URL | "Portal"/"ERP" menu link is wrong or disabled |
 
 `.env.local` is gitignored and machine-specific — **check it points at real
 production URLs before running `yarn deploy:prod` for anything that isn't a

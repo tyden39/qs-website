@@ -4,7 +4,6 @@ import { Link } from "@/lib/i18n/navigation";
 import CircuitTraces from "@/components/circuit-traces";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LiveWebsiteTree } from "./_components/live-website-tree";
-import { LiveDocCount, LiveModelCount } from "./_components/live-tree-stats";
 import { LiveWebsiteDocsProvider } from "@/lib/crm/live-website-docs-context";
 import { buildAlternates } from "@/lib/seo/alternates";
 import { buildTrail, JsonLd } from "@/lib/seo/jsonld";
@@ -39,12 +38,6 @@ export default async function Downloads({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "downloads.index" });
-
-  const stats = [
-    { v: <LiveDocCount />, l: t("stats.docs") },
-    { v: <LiveModelCount />, l: t("stats.models") },
-    { v: "VN / EN", l: t("stats.lang") },
-  ];
 
   const nav = await getTranslations({ locale, namespace: "nav" });
   const breadcrumb = buildTrail(locale, nav("home"), [
@@ -88,16 +81,6 @@ export default async function Downloads({ params }: Props) {
                 </span>
               </h1>
               <p className="qs-lede mt-5 max-w-[52ch] sm:text-justify qs-rise" style={{ animationDelay: "300ms" }}>{t("hero.lede")}</p>
-
-              {/* stats */}
-              <div className="mt-9 flex gap-10 qs-rise" style={{ animationDelay: "400ms" }}>
-                {stats.map((s) => (
-                  <div key={s.l}>
-                    <div className="font-display text-h2 font-bold text-ink leading-none">{s.v}</div>
-                    <div className="font-mono text-label-xs text-muted tracking-[.16em] uppercase mt-1.5">{s.l}</div>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* hero image */}
@@ -108,7 +91,7 @@ export default async function Downloads({ params }: Props) {
                 fill
                 priority
                 sizes="(max-width:768px) 100vw, 45vw"
-                className="qs-kenburns w-full h-full object-contain"
+                className="w-full h-full object-contain"
               />
               {/* gold blueprint scan sweeping the documents */}
               <div className="qs-scan" aria-hidden="true"></div>

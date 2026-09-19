@@ -9,16 +9,22 @@
 // design's "no rows" case, instead of the section disappearing.
 
 import { useMemo } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useLiveWebsiteDocs } from "@/lib/crm/live-website-docs-context";
 import { DownloadsTree } from "./downloads-tree";
 import { buildLiveDownloadGroups } from "./live-download-groups";
 
 export function LiveWebsiteTree() {
   const t = useTranslations("downloads.index");
+  const locale = useLocale();
   const root = useLiveWebsiteDocs();
 
-  const groups = useMemo(() => buildLiveDownloadGroups(root, t("tree.generic")), [root, t]);
+  const docTypeLabels = t.raw("docGroup") as Record<string, string>;
+  const familyLabels = t.raw("families") as Record<string, { label: string; heading: string; desc: string }>;
+  const groups = useMemo(
+    () => buildLiveDownloadGroups(root, t("tree.generic"), docTypeLabels, locale, familyLabels),
+    [root, t, docTypeLabels, locale, familyLabels],
+  );
 
   if (root === null) {
     return <p className="text-meta text-muted">{t("latest.loading")}</p>;

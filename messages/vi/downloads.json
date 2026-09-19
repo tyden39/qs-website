@@ -78,6 +78,8 @@
       "operation": "Hướng dẫn vận hành",
       "installation": "Hướng dẫn lắp đặt",
       "maintenance": "Hướng dẫn bảo trì",
+      "product_catalogue": "Catalogue sản phẩm",
+      "company_profile": "Hồ sơ công ty",
       "manual": "Sổ tay & hướng dẫn",
       "drawing": "Bản vẽ kỹ thuật",
       "software": "Phần mềm & công cụ",
@@ -87,7 +89,7 @@
     "table": {
       "name": "Tên tài liệu",
       "lang": "Ngôn ngữ",
-      "version": "Phiên bản",
+      "version": "Cập nhật",
       "size": "Dung lượng",
       "download": "Tải về",
       "parts": "{count} phần",

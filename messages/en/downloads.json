@@ -78,6 +78,8 @@
       "operation": "Operation manuals",
       "installation": "Installation manuals",
       "maintenance": "Maintenance manuals",
+      "product_catalogue": "Product Catalogue",
+      "company_profile": "Company Profile",
       "manual": "Manuals & guides",
       "drawing": "Technical drawings",
       "software": "Software & tools",
@@ -87,7 +89,7 @@
     "table": {
       "name": "Document name",
       "lang": "Language",
-      "version": "Version",
+      "version": "Updated",
       "size": "File size",
       "download": "Download",
       "parts": "{count} parts",

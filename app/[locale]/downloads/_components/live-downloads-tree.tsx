@@ -340,7 +340,7 @@ function groupByLanguage(manuals: PublicManual[], docTypeLabels: Record<string, 
     {
       key: head.id,
       title: docType ? `${head.productName ?? head.title} — ${docType}` : head.title,
-      ext: "PDF",
+      ext: extFromUrl(head.downloadUrl),
       version: "—",
       variants: sorted.map((m) => ({
         lang: m.language.toUpperCase(),

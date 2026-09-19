@@ -20,8 +20,9 @@ export function AccountMenu({ className = "", onNavigate }: { className?: string
   // "erp access" = holds any role other than the plain customer role (admin,
   // staff, etc.) — mirrors erp-fe's own TopBar gating.
   const isErpUser = user?.roles?.some((role) => role.code !== "customer") ?? false;
-  const portalUrl = process.env.NEXT_PUBLIC_API_PORTAL ?? "";
-  const erpUrl = process.env.NEXT_PUBLIC_API_ERP ?? "";
+  // ERP and Portal menu items are mutually exclusive by role, so both SSO
+  // targets share one env var.
+  const ssoUrl = process.env.NEXT_PUBLIC_API_SSO ?? "";
 
   useEffect(() => {
     if (!isOpen) return;
@@ -91,8 +92,8 @@ export function AccountMenu({ className = "", onNavigate }: { className?: string
               type="button"
               role="menuitem"
               className={item}
-              disabled={!erpUrl}
-              onClick={() => openWithSSO(erpUrl)}
+              disabled={!ssoUrl}
+              onClick={() => openWithSSO(ssoUrl)}
             >
               {t("erp")}
             </button>
@@ -102,8 +103,8 @@ export function AccountMenu({ className = "", onNavigate }: { className?: string
               type="button"
               role="menuitem"
               className={item}
-              disabled={!portalUrl}
-              onClick={() => openWithSSO(portalUrl)}
+              disabled={!ssoUrl}
+              onClick={() => openWithSSO(ssoUrl)}
             >
               {t("portal")}
             </button>

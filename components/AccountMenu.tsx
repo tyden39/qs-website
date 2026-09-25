@@ -7,7 +7,19 @@ import { issueSSOTicket } from "@/lib/auth/api";
 import { AccountInfoModal } from "@/components/AccountInfoModal";
 
 // Same "portal or ERP, by role" decision as erp-fe's TopBar account menu.
-export function AccountMenu({ className = "", onNavigate }: { className?: string; onNavigate?: () => void }) {
+export function AccountMenu({
+  className = "",
+  onNavigate,
+  variant = "desktop",
+}: {
+  className?: string;
+  onNavigate?: () => void;
+  // "mobile": rendered inside the drawer, full-width, matching the drawer's
+  // own gold login button — an absolute-positioned overlay would either
+  // clip against the drawer edge or float away from the trigger once the
+  // drawer scrolls, so the panel opens inline (accordion-style) instead.
+  variant?: "desktop" | "mobile";
+}) {
   const t = useTranslations("auth.menu");
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
@@ -54,18 +66,26 @@ export function AccountMenu({ className = "", onNavigate }: { className?: string
   };
 
   const item = "block w-full text-left px-3 py-2.5 text-[13px] text-ink hover:bg-paper rounded";
+  const isMobile = variant === "mobile";
 
   return (
-    <div ref={rootRef} className={`relative items-center gap-1.5 ${className}`}>
+    <div
+      ref={rootRef}
+      className={`relative gap-1.5 ${isMobile ? "flex flex-col items-stretch" : "items-center"} ${className}`}
+    >
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
         aria-label={t("ariaLabel")}
         aria-haspopup="true"
         aria-expanded={isOpen}
-        className="flex items-center gap-1.5 text-[13px] font-medium text-ink hover:text-black"
+        className={
+          isMobile
+            ? "qs-btn qs-btn-gold justify-between w-full"
+            : "flex items-center gap-1.5 text-[13px] font-medium text-ink hover:text-black"
+        }
       >
-        <span className="max-w-[140px] truncate">{displayName}</span>
+        <span className={isMobile ? "truncate" : "max-w-[140px] truncate"}>{displayName}</span>
         <svg
           width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
           className={`shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
@@ -75,7 +95,14 @@ export function AccountMenu({ className = "", onNavigate }: { className?: string
       </button>
 
       {isOpen && (
-        <div role="menu" className="absolute right-0 top-full mt-2 min-w-[180px] bg-white border border-line rounded-md shadow-[0_18px_40px_-20px_rgba(20,18,14,.35)] p-1.5 z-50">
+        <div
+          role="menu"
+          className={
+            isMobile
+              ? "w-full bg-paper border border-line rounded-md p-1.5"
+              : "absolute right-0 top-full mt-2 min-w-[180px] bg-white border border-line rounded-md shadow-[0_18px_40px_-20px_rgba(20,18,14,.35)] p-1.5 z-50"
+          }
+        >
           <button
             type="button"
             role="menuitem"

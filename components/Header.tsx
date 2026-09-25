@@ -442,7 +442,7 @@ export default function Header() {
               );
             })}
             {isAuthLoading ? null : user ? (
-              <AccountMenu className="mt-5" onNavigate={() => setOpen(false)} />
+              <AccountMenu variant="mobile" className="mt-5" onNavigate={() => setOpen(false)} />
             ) : (
               <button
                 type="button"

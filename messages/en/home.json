@@ -109,7 +109,7 @@
         "name": "F86 Controller",
         "desc": "A 6-axis controller for a wide range of machines. Supports Pulse Train — EtherCAT control.",
         "meta": [
-          "6 axes · closed loop",
+          "6 axes · open loop",
           "pulse train / ethercat"
         ]
       },

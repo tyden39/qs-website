@@ -3,7 +3,6 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
-
 Bilingual (Vietnamese default, English secondary) marketing and product-catalogue site for QS Technology Co., Ltd. — CNC controllers, servo drives, inverters, CNC machines, factory automation.
 
 Next.js 16 App Router exported as a **fully static site** (`output: "export"`, `trailingSlash: true`) and served from Firebase Hosting. No server runtime, no database, no API routes. Every page is HTML on disk; all content comes from JSON in the repo; the only runtime network call is the contact form POSTing a lead to the CRM.

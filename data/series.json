@@ -16,7 +16,7 @@
       },
       {
         "l": "Điện áp",
-        "v": "1 pha 220 V · 3 pha 220 V · 3 pha 440 V"
+        "v": "1 pha 220 V · 3 pha 220 V · 3 pha 380 V"
       },
       {
         "l": "Tần số đầu ra",
@@ -34,7 +34,7 @@
       },
       {
         "l": "Supply voltage",
-        "v": "1-ph 220 V · 3-ph 220 V · 3-ph 440 V"
+        "v": "1-ph 220 V · 3-ph 220 V · 3-ph 380 V"
       },
       {
         "l": "Output frequency",

@@ -170,7 +170,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={sans.variable}>
       <head>
-        <meta http-equiv="Content-Security-Policy" content="... connect-src 'self' https://crm.qstcnc.com http://localhost:8080; ..."></meta>
+        <meta http-equiv="Content-Security-Policy" content="... connect-src 'self' https://crm.qstcnc.com; ..."></meta>
         {/* Only shipped on the Vietnamese tree — the English pages are already
             where a saved English choice would send the visitor. */}
         {locale === routing.defaultLocale && (

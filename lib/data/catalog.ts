@@ -65,7 +65,7 @@ const SPEC_LABEL_EN: Record<string, string> = {
   "Cổng kết nối": "Connector",
   "Khối lượng": "Weight",
   "Đầu nối": "Connector",
-  Model: "Model",
+  "Model": "Model",
   "Loại đầu dò": "Probe type",
   "Độ chính xác": "Accuracy",
   "Hướng kích hoạt": "Trigger directions",

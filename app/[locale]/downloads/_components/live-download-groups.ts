@@ -157,8 +157,28 @@ const DOC_TYPE_BY_KNOWN_NAME: Record<string, string> = {
   [norm("Hồ sơ công ty")]: "company_profile",
 };
 
+// QS Servo/Biến tần: some documents were tagged in the CRM with the canonical
+// id ("manual", "drawing", ...) and some with the raw Vietnamese label text
+// itself ("Sổ tay & hướng dẫn", "Bản vẽ kỹ thuật", ...) — both exist side by
+// side in the live data. The label-text form has no English edition, so an
+// English visitor saw the raw Vietnamese tab name regardless of site locale.
+// Normalizing to the canonical id before any docTypeLabels lookup lets both
+// forms resolve to the same localized label.
+const DOC_GROUP_ID_BY_RAW_TYPE: Record<string, string> = {
+  [norm("Sổ tay & hướng dẫn")]: "manual",
+  [norm("Bản vẽ kỹ thuật")]: "drawing",
+  [norm("Phần mềm & công cụ")]: "software",
+  [norm("Catalogue & brochure")]: "brochure",
+  [norm("Chứng nhận")]: "certificate",
+};
+
+function normalizeDocType(type: string): string {
+  return DOC_GROUP_ID_BY_RAW_TYPE[norm(type)] ?? type;
+}
+
 function resolveDocumentType(doc: PublicDocNode): string | undefined {
-  return doc.documentType ?? DOC_TYPE_BY_KNOWN_NAME[norm(baseTitle(doc.name))];
+  const type = doc.documentType ?? DOC_TYPE_BY_KNOWN_NAME[norm(baseTitle(doc.name))];
+  return type ? normalizeDocType(type) : type;
 }
 
 function toVariant(doc: PublicDocNode): DlVariant {
@@ -358,7 +378,7 @@ function buildDocGroups(
   const docs = collectDocuments(node);
   const byType = new Map<string, PublicDocNode[]>();
   for (const doc of docs) {
-    const type = doc.documentType ?? "";
+    const type = doc.documentType ? normalizeDocType(doc.documentType) : "";
     const bucket = byType.get(type);
     if (bucket) bucket.push(doc);
     else byType.set(type, [doc]);

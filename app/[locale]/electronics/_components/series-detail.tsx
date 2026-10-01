@@ -4,7 +4,7 @@ import { Link } from "@/lib/i18n/navigation";
 import ContactCta from "@/components/contact-cta";
 import { getTranslations } from "next-intl/server";
 import { buildSeriesProduct, buildTrail, JsonLd } from "@/lib/seo/jsonld";
-import { toDocumentRows, type SeriesView } from "@/lib/data/series";
+import type { SeriesView } from "@/lib/data/series";
 import type { Locale } from "@/lib/i18n/config";
 import { SeriesModelTable } from "./series-model-table";
 import { SeriesFigures, SeriesNamingFigure, SeriesImageStrip } from "./series-figures";
@@ -12,6 +12,7 @@ import { SeriesNamingCode } from "./series-naming-code";
 import { SeriesSpecSheet } from "./series-spec-sheet";
 import { ProductDetailTabs, type ProductDetailTab } from "./product-detail-tabs";
 import { HeroSpecStrip } from "./hero-spec-strip";
+import { ProductLiveDocs } from "./product-live-docs";
 
 /**
  * Detail page for a drive-line series (QS Servo drives/motors/cables, Savch
@@ -30,11 +31,6 @@ const CATEGORY_PATH: Record<SeriesView["category"], string> = {
   servo: "/electronics/servo",
   inverter: "/electronics/inverters",
 };
-
-/** Order the Documentation tab groups its downloads in — manuals first, then
- *  drawings, tooling, marketing, compliance. Categories with no items are
- *  skipped at render time. */
-const DOC_CATEGORY_ORDER = ["manual", "drawing", "software", "brochure", "certificate"] as const;
 
 export async function SeriesDetail({
   series,
@@ -208,121 +204,18 @@ export async function SeriesDetail({
     </section>
   );
 
-  // ── Tab 3: Documentation — the 资料下载 download list, grouped by document
-  //    type so a long list stays browsable. Each present category renders its
-  //    own table; the category badge becomes the group heading, so the per-row
-  //    type column is dropped. A document that ships in parts occupies one row
-  //    that expands into its slices. ──
-  const docs = toDocumentRows(detail?.documentation ?? []);
-  // A PDF is worth opening in the browser's viewer; an archive would only leave
-  // a blank tab behind, so it saves straight to disk.
-  const fileLinkProps = (format: string) =>
-    format === "pdf"
-      ? { target: "_blank", rel: "noopener noreferrer" }
-      : { download: true };
-  const docGroups = DOC_CATEGORY_ORDER.map((category) => ({
-    category,
-    items: docs.filter((d) => d.category === category),
-  })).filter((g) => g.items.length > 0);
-  const docsPanel = docs.length > 0 && (
-    <section className="py-8 sm:py-10 lg:py-14 bg-paper border-b border-line">
-      <div className="qs-wrap-detail">
-        <div className="qs-eyebrow mb-2">{t("docsEyebrow")}</div>
-        <h2 className="qs-h2 mb-3">{t("docsHeading")}</h2>
-        <p className="text-meta text-muted leading-[1.7] max-w-[62ch] mb-10">{t("docsHint")}</p>
-        <div className="flex flex-col gap-10">
-          {docGroups.map((group) => (
-            <div key={group.category}>
-              <div className="flex items-baseline gap-3 pb-3 mb-4 border-b border-line">
-                <h3 className="font-display text-title font-bold tracking-[-.02em] text-ink m-0">
-                  {t(`docsCategory.${group.category}`)}
-                </h3>
-                <span className="font-mono text-label-xs tracking-[.14em] text-muted tabular-nums">
-                  {group.items.length}
-                </span>
-              </div>
-              <div className="border border-line bg-white">
-                <div className="hidden md:grid grid-cols-[1fr_90px_120px] gap-4 px-5 py-3 bg-[#0e0e0c] text-[#cfc9b8] font-mono text-label-xs tracking-[.16em] uppercase">
-                  <span>{t("docsTable.name")}</span>
-                  <span>{t("docsTable.size")}</span>
-                  <span className="text-right">{t("docsTable.download")}</span>
-                </div>
-                {group.items.map((d) =>
-                  d.parts ? (
-                    // Multi-part document: a native disclosure, so the row
-                    // expands with no client-side state behind it.
-                    <details key={d.key} className="group/doc border-t border-line">
-                      <summary className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 py-4 cursor-pointer list-none hover:bg-paper transition-colors [&::-webkit-details-marker]:hidden">
-                        <span className="min-w-0">
-                          <span className="font-semibold text-ink text-meta tracking-[-.005em]">
-                            {d.title}
-                          </span>
-                          <span className="block text-meta text-muted mt-0.5">
-                            {t("docsTable.partsHint")}
-                          </span>
-                        </span>
-                        <span className="font-mono text-meta text-muted md:text-[#3a3a3a]">
-                          {d.size_mb ? `${d.size_mb} MB` : "—"}
-                        </span>
-                        <div className="flex md:justify-end">
-                          <span className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink text-ink px-4 py-2 group-hover/doc:bg-ink group-hover/doc:text-white transition-colors font-mono text-label tracking-[.14em] uppercase">
-                            {t("docsTable.parts", { count: d.parts.length })}
-                            <span className="transition-transform group-open/doc:rotate-180">▾</span>
-                          </span>
-                        </div>
-                      </summary>
-                      <div className="bg-paper border-t border-line">
-                        {d.parts.map((p) => (
-                          <div
-                            key={p.url}
-                            className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 md:pl-10 py-3 border-t border-line/60 first:border-t-0"
-                          >
-                            <span className="text-meta text-[#3a3a3a] min-w-0">{p.label}</span>
-                            <span className="font-mono text-meta text-muted">
-                              {p.size_mb ? `${p.size_mb} MB` : "—"}
-                            </span>
-                            <div className="flex md:justify-end">
-                              <a
-                                href={p.url}
-                                {...fileLinkProps(d.format)}
-                                className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors font-mono text-label tracking-[.14em] uppercase"
-                              >
-                                {d.format.toUpperCase()} ↓
-                              </a>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </details>
-                  ) : (
-                    <div
-                      key={d.key}
-                      className="grid grid-cols-1 md:grid-cols-[1fr_90px_120px] gap-x-4 gap-y-2 items-center px-5 py-4 border-t border-line hover:bg-paper transition-colors"
-                    >
-                      <span className="font-semibold text-ink text-meta tracking-[-.005em] min-w-0">
-                        {d.title}
-                      </span>
-                      <span className="font-mono text-meta text-muted md:text-[#3a3a3a]">
-                        {d.size_mb ? `${d.size_mb} MB` : "—"}
-                      </span>
-                      <div className="flex md:justify-end">
-                        <a
-                          href={d.url}
-                          {...fileLinkProps(d.format)}
-                          className="inline-flex items-center gap-1.5 whitespace-nowrap border border-ink bg-ink text-white px-4 py-2 hover:bg-gold-3 hover:border-gold-3 transition-colors font-mono text-label tracking-[.14em] uppercase"
-                        >
-                          {d.format.toUpperCase()} ↓
-                        </a>
-                      </div>
-                    </div>
-                  ),
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+  // ── Tab 3: Documentation — live from the CRM's "Website" doc tree (see
+  //    product-live-docs.tsx), the same source /downloads renders, instead of
+  //    the old static data/series.ts documentation array. Always rendered:
+  //    whether this series actually has a matching CRM folder is only known
+  //    client-side, once the tree has loaded. ──
+  const docsPanel = (
+    <ProductLiveDocs
+      slug={series.slug}
+      eyebrow={t("docsEyebrow")}
+      heading={t("docsHeading")}
+      hint={t("docsHint")}
+    />
   );
 
   // ── Tab 4: Accessories — the 可选配件 catalogue (cable reference table and

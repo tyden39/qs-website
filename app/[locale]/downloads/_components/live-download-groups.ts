@@ -405,6 +405,51 @@ function buildDocGroups(
   return groups;
 }
 
+// Finds the CRM subfolder that resolves to a given product page's slug (a
+// controller model, or a QS Servo/Biến tần series), wherever in the tree it
+// sits — used by a product detail page's own Documentation tab so it can
+// show that one product's live CRM folder without walking the whole tree
+// itself. `preferRawName` carries the same family-level flag
+// buildLiveDownloadGroups computes, so a servo/inverter product's rows keep
+// their own distinct filenames instead of collapsing by document_type.
+function findProductDocsNode(
+  root: PublicDocNode,
+  slug: string,
+): { node: PublicDocNode; preferRawName: boolean } | undefined {
+  const families = (root.children ?? []).filter((c) => c.nodeType === "folder");
+  for (const family of families) {
+    const preferRawName = family.name === "QS Servo" || family.name === "Biến tần";
+    const subFolders = (family.children ?? []).filter((c) => c.nodeType === "folder");
+    for (const sub of subFolders) {
+      if (resolveProductForCrmFolder(sub.name)?.slug === slug) {
+        return { node: sub, preferRawName };
+      }
+    }
+  }
+  return undefined;
+}
+
+/** Live CRM documents for one product's own detail page, grouped into the
+ *  same doc-type tabs as the /downloads tree — `undefined` when the CRM has
+ *  no matching model folder (or none of its subfolders' names resolve to
+ *  this slug) yet, so the caller can render nothing / fall back. */
+export function buildProductDocGroups(
+  root: PublicDocNode | null,
+  slug: string,
+  docTypeLabels: Record<string, string>,
+  locale: string,
+  genericLabel: string,
+): DlDocGroup[] | undefined {
+  if (!root) return undefined;
+  const found = findProductDocsNode(root, slug);
+  if (!found) return undefined;
+  // No `product` (href/label) passed through: the row already sits on that
+  // product's own page, so repeating "<Model> — <Type>" in every title would
+  // be redundant — buildTitle falls back to the bare type label (or, for
+  // servo/inverter's preferRawName, the document's own filename) instead.
+  return buildDocGroups(found.node, docTypeLabels, locale, undefined, genericLabel, found.preferRawName);
+}
+
 export function buildLiveDownloadGroups(
   root: PublicDocNode | null,
   genericDocGroupLabel: string,

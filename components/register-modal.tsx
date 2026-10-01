@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
+import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
 import { AuthApiError } from "@/lib/auth/api";
 import Image from "@/components/media/image";
@@ -47,6 +48,7 @@ export function RegisterModal({
   const tAuth = useTranslations("auth");
   const { register: registerAccount } = useAuth();
   const [serverError, setServerError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   // Shown in place of the form once the account exists, so the visitor gets
   // explicit confirmation rather than the modal just vanishing.
   const [isDone, setIsDone] = useState(false);
@@ -148,13 +150,23 @@ export function RegisterModal({
 
         <label className="block mb-5">
           <span className="block text-label-xs text-white/60 mb-1.5">{tAuth("password")}</span>
-          <input
-            {...register("password")}
-            type="password"
-            autoComplete="new-password"
-            placeholder={tAuth("passwordPlaceholder")}
-            className={fieldCls(!!errors.password)}
-          />
+          <div className="relative">
+            <input
+              {...register("password")}
+              type={showPassword ? "text" : "password"}
+              autoComplete="new-password"
+              placeholder={tAuth("passwordPlaceholder")}
+              className={`${fieldCls(!!errors.password)} pr-10`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/80"
+              aria-label={tAuth("password")}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
           <span className={`mt-1 block text-[12px] ${errors.password ? "text-red-400" : "text-white/45"}`}>
             {t("passwordHint")}
           </span>

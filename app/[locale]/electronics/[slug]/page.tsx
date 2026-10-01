@@ -11,6 +11,7 @@ import { getCatalogProductBySlug, getCatalogSlugs } from "@/lib/data/catalog";
 import { getSeriesBySlug, getSeriesSlugs } from "@/lib/data/series";
 import { CatalogDetail } from "../_components/catalog-detail";
 import { SeriesDetail } from "../_components/series-detail";
+import { ProductLiveDocsList } from "../_components/product-live-docs";
 import { getProductDownloads, groupByDocument, formatBytes, type DownloadFile } from "@/lib/data/downloads";
 import { KitComponentIcon } from "@/components/products/kit-component-icon";
 import CircuitTraces from "@/components/circuit-traces";
@@ -363,10 +364,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
     { l: "I/O", v: findSpec(p, ["standard i/o", "i/o ports"]) ?? "—" },
   ];
 
-  const productDownloads = getProductDownloads(slug);
-  const docGroups = groupByDocument(productDownloads.filter((d) => d.category !== "software"));
-  const softwareGroups = groupByDocument(productDownloads.filter((d) => d.category === "software"));
-  const hasDownloads = productDownloads.length > 0;
+  // Model-specific manuals (operation/installation/...) now come live from the
+  // CRM tree (see ProductLiveDocsList) instead of this static catalogue — only
+  // the shared editor/explorer software, which applies to every controller
+  // rather than living under any one model's CRM folder, stays static here.
+  const softwareGroups = groupByDocument(getProductDownloads(slug).filter((d) => d.category === "software"));
+  const hasDownloads = softwareGroups.length > 0;
   const downloadTitle = (d: DownloadFile): string => {
     if (d.titleKey) return tDl(`titles.${d.titleKey}`);
     if (d.category === "operation" || d.category === "installation") return `${d.model} — ${tDl(`docType.${d.category}`)}`;
@@ -589,7 +592,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         </div>
 
         <div className="grid gap-10 lg:gap-8 lg:grid-cols-2 items-start">
-          {docGroups.length > 0 && downloadList(t("documentsHeading"), docGroups.length, docGroups)}
+          <ProductLiveDocsList slug={slug} heading={t("documentsHeading")} />
           {softwareGroups.length > 0 && downloadList(t("softwareHeading"), softwareGroups.length, softwareGroups)}
         </div>
       </div>

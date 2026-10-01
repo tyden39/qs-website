@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
+import { Eye, EyeOff } from "lucide-react";
 import Image from "@/components/media/image";
 import { useAuth } from "@/lib/auth/auth-context";
 
@@ -89,7 +90,7 @@ export function LoginModal({
               className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/80"
               aria-label={t("password")}
             >
-              👁
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
         </label>

@@ -9,7 +9,7 @@ import {
   registerWebsiteCustomer,
   type WebsiteRegisterPayload,
 } from "./api";
-import { clearTokens, getAccessToken, getRefreshToken, saveTokens } from "./storage";
+import { clearTokens, getAccessToken, getCachedUser, saveUser, getRefreshToken, saveTokens } from "./storage";
 import type { AuthUser } from "./types";
 
 interface AuthContextValue {
@@ -25,8 +25,10 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [isLoading, setIsLoading] = useState(() => !!getAccessToken());
+  // Seed from sessionStorage so a reload paints the logged-in header instantly
+  // instead of waiting 8s for /auth/me. The effect below still revalidates.
+  const [user, setUser] = useState<AuthUser | null>(() => getCachedUser<AuthUser>());
+  const [isLoading, setIsLoading] = useState(() => !!getAccessToken() && !getCachedUser());
 
   // Bootstrap the session from a token already in storage (page reload) so
   // a logged-in visitor isn't shown the logged-out header on every navigation.
@@ -47,7 +49,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const me = await (prefetched ?? fetchCurrentUser());
         console.log("[auth] bootstrap /auth/me success:", me);
-        if (!cancelled) setUser(me);
+        if (!cancelled) {
+          setUser(me);
+          saveUser(me);
+        }
         return;
       } catch (err) {
         console.warn("[auth] bootstrap /auth/me failed, trying token refresh:", err);
@@ -56,6 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const refreshToken = getRefreshToken();
       if (!refreshToken) {
         clearTokens();
+        if (!cancelled) setUser(null);
         return;
       }
 
@@ -64,10 +70,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         saveTokens(session.access_token, session.refresh_token);
         const me = await fetchCurrentUser();
         console.log("[auth] bootstrap refresh success:", me);
-        if (!cancelled) setUser(me);
+        if (!cancelled) {
+          setUser(me);
+          saveUser(me);
+        }
       } catch (err) {
         console.error("[auth] bootstrap refresh failed, clearing tokens:", err);
         clearTokens();
+        if (!cancelled) setUser(null);
       }
     }
 
@@ -84,6 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // fetch the full profile from /auth/me so `user` is always complete.
     const me = await fetchCurrentUser();
     console.log("[auth] login success, user:", me);
+    saveUser(me);
     setUser(me);
   };
 
@@ -91,6 +102,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const session = await registerWebsiteCustomer(payload);
     saveTokens(session.access_token, session.refresh_token);
     const me = await fetchCurrentUser();
+    saveUser(me);
     setUser(me);
   };
 

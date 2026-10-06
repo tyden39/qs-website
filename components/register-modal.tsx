@@ -25,7 +25,8 @@ const registerSchema = z.object({
     .min(8)
     .regex(/[A-Z]/)
     .regex(/[0-9]/),
-});
+  confirmPassword: z.string(),
+}).refine((v) => v.password === v.confirmPassword, { path: ["confirmPassword"] });
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
@@ -62,7 +63,8 @@ export function RegisterModal({
   const onSubmit = handleSubmit(async (values) => {
     setServerError(null);
     try {
-      await registerAccount({ ...values, region: "VN" });
+      const { confirmPassword: _c, ...payload } = values;
+      await registerAccount({ ...payload, region: "VN" });
       setIsDone(true);
     } catch (err) {
       setServerError(describeRegisterError(err, t));
@@ -70,7 +72,7 @@ export function RegisterModal({
   });
 
   const fieldCls = (invalid: boolean) =>
-    `w-full bg-white/5 border rounded px-3 py-2.5 text-white placeholder:text-white/35 outline-none focus:border-gold ${
+    `w-full bg-white/5 border rounded px-4 py-3.5 text-lg text-white placeholder:text-white/35 outline-none focus:border-gold ${
       invalid ? "border-red-400/70" : "border-white/15"
     }`;
 
@@ -83,7 +85,7 @@ export function RegisterModal({
     >
       <form
         onSubmit={isDone ? (e) => e.preventDefault() : onSubmit}
-        className="relative w-full max-w-[420px] bg-ink-2 border border-white/10 rounded-lg p-8 text-white"
+        className="relative w-full max-w-[560px] bg-ink-2 border border-white/10 rounded-lg p-10 text-white"
       >
         <div className="flex flex-col items-center mb-6">
           <Image src="/logo-st.webp" alt="" width={64} height={64} className="h-16 w-auto mb-4" />
@@ -94,13 +96,13 @@ export function RegisterModal({
 
         {isDone ? (
           <>
-            <p className="mb-6 text-center text-[14px] text-white/70" role="status">
+            <p className="mb-6 text-center text-base text-white/70" role="status">
               {t("successMessage")}
             </p>
             <button
               type="button"
               onClick={onClose}
-              className="w-full rounded bg-gold-1 py-2.5 font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors"
+              className="w-full rounded bg-gold-1 py-3.5 text-[17px] font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors"
             >
               {t("successClose")}
             </button>
@@ -108,24 +110,24 @@ export function RegisterModal({
         ) : (
           <>
         {serverError && (
-          <p className="text-[13px] text-red-400 mb-4" role="alert">
+          <p className="text-base text-red-400 mb-4" role="alert">
             {serverError}
           </p>
         )}
 
         <label className="block mb-4">
-          <span className="block text-label-xs text-white/60 mb-1.5">{t("fullName")}</span>
+          <span className="block text-base text-white/70 mb-2">{t("fullName")}<span className="text-red-400"> *</span></span>
           <input
             {...register("full_name")}
             autoComplete="name"
             autoFocus
             className={fieldCls(!!errors.full_name)}
           />
-          {errors.full_name && <span className="mt-1 block text-[12px] text-red-400">{t("error.fullName")}</span>}
+          {errors.full_name && <span className="mt-1 block text-base text-red-400">{t("error.fullName")}</span>}
         </label>
 
         <label className="block mb-4">
-          <span className="block text-label-xs text-white/60 mb-1.5">{t("phone")}</span>
+          <span className="block text-base text-white/70 mb-2">{t("phone")}<span className="text-red-400"> *</span></span>
           <input
             {...register("phone")}
             type="tel"
@@ -133,11 +135,11 @@ export function RegisterModal({
             placeholder={t("phonePlaceholder")}
             className={fieldCls(!!errors.phone)}
           />
-          {errors.phone && <span className="mt-1 block text-[12px] text-red-400">{t("error.phone")}</span>}
+          {errors.phone && <span className="mt-1 block text-base text-red-400">{t("error.phone")}</span>}
         </label>
 
         <label className="block mb-4">
-          <span className="block text-label-xs text-white/60 mb-1.5">{tAuth("email")}</span>
+          <span className="block text-base text-white/70 mb-2">{tAuth("email")}<span className="text-red-400"> *</span></span>
           <input
             {...register("email")}
             type="email"
@@ -145,11 +147,11 @@ export function RegisterModal({
             placeholder={tAuth("emailPlaceholder")}
             className={fieldCls(!!errors.email)}
           />
-          {errors.email && <span className="mt-1 block text-[12px] text-red-400">{t("error.email")}</span>}
+          {errors.email && <span className="mt-1 block text-base text-red-400">{t("error.email")}</span>}
         </label>
 
         <label className="block mb-5">
-          <span className="block text-label-xs text-white/60 mb-1.5">{tAuth("password")}</span>
+          <span className="block text-base text-white/70 mb-2">{tAuth("password")}<span className="text-red-400"> *</span></span>
           <div className="relative">
             <input
               {...register("password")}
@@ -167,20 +169,46 @@ export function RegisterModal({
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
-          <span className={`mt-1 block text-[12px] ${errors.password ? "text-red-400" : "text-white/45"}`}>
+          <span className={`mt-1 block text-base ${errors.password ? "text-red-400" : "text-white/45"}`}>
             {t("passwordHint")}
           </span>
+        </label>
+
+        <label className="block mb-5">
+          <span className="block text-base text-white/70 mb-2">
+            {t("confirmPassword")}<span className="text-red-400"> *</span>
+          </span>
+          <div className="relative">
+            <input
+              {...register("confirmPassword")}
+              type={showPassword ? "text" : "password"}
+              autoComplete="new-password"
+              placeholder={tAuth("passwordPlaceholder")}
+              className={`${fieldCls(!!errors.confirmPassword)} pr-10`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/80"
+              aria-label={tAuth("password")}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+          {errors.confirmPassword && (
+            <span className="mt-1 block text-base text-red-400">{t("error.confirmPassword")}</span>
+          )}
         </label>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded bg-gold-1 py-2.5 font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors disabled:opacity-60"
+          className="w-full rounded bg-gold-1 py-3.5 text-[17px] font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors disabled:opacity-60"
         >
           {isSubmitting ? t("submitting") : t("submit")}
         </button>
 
-        <p className="mt-4 text-center text-[13px] text-white/60">
+        <p className="mt-4 text-center text-base text-white/60">
           {t("haveAccount")}{" "}
           <button type="button" onClick={onSwitchToLogin} className="text-gold-2 hover:underline">
             {tAuth("submit")}

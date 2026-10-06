@@ -45,7 +45,7 @@ export function LoginModal({
     >
       <form
         onSubmit={handleSubmit}
-        className="relative w-full max-w-[380px] bg-ink-2 border border-white/10 rounded-lg p-8 text-white"
+        className="relative w-full max-w-[480px] bg-ink-2 border border-white/10 rounded-lg p-10 text-white"
       >
         <div className="flex flex-col items-center mb-6">
           <Image src="/logo-st.webp" alt="" width={64} height={64} className="h-16 w-auto mb-4" />
@@ -53,13 +53,13 @@ export function LoginModal({
         </div>
 
         {error && (
-          <p className="text-[13px] text-red-400 mb-4" role="alert">
+          <p className="text-base text-red-400 mb-4" role="alert">
             {error}
           </p>
         )}
 
         <label className="block mb-4">
-          <span className="block text-label-xs text-white/60 mb-1.5">{t("email")}</span>
+          <span className="block text-base text-white/70 mb-2">{t("email")}<span className="text-red-400"> *</span></span>
           <input
             type="email"
             value={email}
@@ -68,12 +68,12 @@ export function LoginModal({
             autoComplete="username"
             autoFocus
             required
-            className="w-full bg-white/5 border border-white/15 rounded px-3 py-2.5 text-white placeholder:text-white/35 outline-none focus:border-gold"
+            className="w-full bg-white/5 border border-white/15 rounded px-4 py-3.5 text-lg text-white placeholder:text-white/35 outline-none focus:border-gold"
           />
         </label>
 
         <label className="block mb-2">
-          <span className="block text-label-xs text-white/60 mb-1.5">{t("password")}</span>
+          <span className="block text-base text-white/70 mb-2">{t("password")}<span className="text-red-400"> *</span></span>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -96,7 +96,7 @@ export function LoginModal({
         </label>
 
         <div className="text-right mb-5">
-          <a href="#" className="text-[13px] text-gold-2 hover:underline">
+          <a href="#" className="text-base text-gold-2 hover:underline">
             {t("forgotPassword")}
           </a>
         </div>
@@ -104,13 +104,13 @@ export function LoginModal({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded bg-gold-1 py-2.5 font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors disabled:opacity-60"
+          className="w-full rounded bg-gold-1 py-3.5 text-[17px] font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors disabled:opacity-60"
         >
           {isSubmitting ? t("submitting") : t("submit")}
         </button>
 
         {onSwitchToRegister && (
-          <p className="mt-4 text-center text-[13px] text-white/60">
+          <p className="mt-4 text-center text-base text-white/60">
             {t("register.haveNoAccount")}{" "}
             <button type="button" onClick={onSwitchToRegister} className="text-gold-2 hover:underline">
               {t("register.title")}

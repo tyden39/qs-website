@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "@/components/media/image";
 import { useAuth } from "@/lib/auth/auth-context";
+import { Link } from "@/lib/i18n/navigation";
 
 export function LoginModal({
   onClose,
@@ -96,9 +97,9 @@ export function LoginModal({
         </label>
 
         <div className="text-right mb-5">
-          <a href="#" className="text-base text-gold-2 hover:underline">
+          <Link href="/forgot-password" onClick={onClose} className="text-base text-gold-2 hover:underline">
             {t("forgotPassword")}
-          </a>
+          </Link>
         </div>
 
         <button

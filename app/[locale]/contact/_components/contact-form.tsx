@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { z } from "zod";
+import { useAuth } from "@/lib/auth/auth-context";
 import { createPublicLead } from "@/lib/crm/leads-client";
 import {
   CRM_BUSINESS_GROUP_CODES,
@@ -16,8 +17,10 @@ import {
 // (qs-crm `docs/lead-form-page-guide.md` §2): name + phone required, email
 // optional, business_field (group code or free text), services[] of known codes.
 const contactSchema = z.object({
-  name: z.string().trim().min(1),
-  phone: z.string().trim().min(1),
+  // Required, but a logged-in account that already has them hides the inputs and
+  // supplies the values itself — so the check lives in onSubmit, not here.
+  name: z.string().trim().optional(),
+  phone: z.string().trim().optional(),
   // Optional, but must be a valid email when provided.
   email: z.union([z.literal(""), z.email()]).optional(),
   businessGroup: z.string().optional(),
@@ -34,6 +37,12 @@ export function ContactForm() {
   const t = useTranslations("contact");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  // Each contact field the account already holds is hidden and taken from the account;
+  // a missing one stays on screen. The lead is still a plain customer row, not tied to the login.
+  const { user } = useAuth();
+  const accountName = user?.full_name?.trim() ?? "";
+  const accountPhone = user?.phone?.trim() ?? "";
+  const accountEmail = user?.email?.trim() ?? "";
 
   const {
     register,
@@ -41,6 +50,7 @@ export function ContactForm() {
     watch,
     reset,
     setValue,
+    setError,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -65,6 +75,15 @@ export function ContactForm() {
       return;
     }
 
+    const name = accountName || values.name?.trim() || "";
+    const phone = accountPhone || values.phone?.trim() || "";
+    const email = accountEmail || values.email?.trim() || "";
+    if (!name || !phone) {
+      if (!name) setError("name", { type: "required" });
+      if (!phone) setError("phone", { type: "required" });
+      return;
+    }
+
     setStatus("submitting");
     setErrorMsg("");
 
@@ -75,9 +94,9 @@ export function ContactForm() {
     const services = values.services && values.services.length > 0 ? values.services : undefined;
 
     const payload: CrmLeadPayload = {
-      name: values.name.trim(),
-      phone: values.phone.trim(),
-      ...(values.email?.trim() ? { email: values.email.trim() } : {}),
+      name,
+      phone,
+      ...(email ? { email } : {}),
       ...(businessField ? { business_field: businessField } : {}),
       ...(values.message?.trim() ? { notes: values.message.trim() } : {}),
       ...(services ? { services } : {}),
@@ -130,33 +149,41 @@ export function ContactForm() {
       <p className="text-meta text-[#5a5650] leading-[1.6] m-0 mb-6">{t("form.note")}</p>
 
       <div className="space-y-5">
-        <FormField label={t("form.name")} error={errors.name && t("error.validation.name")}>
-          <input
-            {...register("name")}
-            type="text"
-            placeholder={t("form.namePlaceholder")}
-            className={inputCls(!!errors.name)}
-          />
-        </FormField>
+        {!accountName && (
+          <FormField label={t("form.name")} error={errors.name && t("error.validation.name")}>
+            <input
+              {...register("name")}
+              type="text"
+              placeholder={t("form.namePlaceholder")}
+              className={inputCls(!!errors.name)}
+            />
+          </FormField>
+        )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
-          <FormField label={t("form.phone")} error={errors.phone && t("error.validation.phone")}>
-            <input
-              {...register("phone")}
-              type="tel"
-              placeholder={t("form.phonePlaceholder")}
-              className={inputCls(!!errors.phone)}
-            />
-          </FormField>
-          <FormField label={t("form.email")} error={errors.email && t("error.validation.email")}>
-            <input
-              {...register("email")}
-              type="email"
-              placeholder={t("form.emailPlaceholder")}
-              className={inputCls(!!errors.email)}
-            />
-          </FormField>
-        </div>
+        {(!accountPhone || !accountEmail) && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
+            {!accountPhone && (
+              <FormField label={t("form.phone")} error={errors.phone && t("error.validation.phone")}>
+                <input
+                  {...register("phone")}
+                  type="tel"
+                  placeholder={t("form.phonePlaceholder")}
+                  className={inputCls(!!errors.phone)}
+                />
+              </FormField>
+            )}
+            {!accountEmail && (
+              <FormField label={t("form.email")} error={errors.email && t("error.validation.email")}>
+                <input
+                  {...register("email")}
+                  type="email"
+                  placeholder={t("form.emailPlaceholder")}
+                  className={inputCls(!!errors.email)}
+                />
+              </FormField>
+            )}
+          </div>
+        )}
 
         <FormField label={t("form.businessField")} error={errors.businessFieldOther?.message}>
           <select

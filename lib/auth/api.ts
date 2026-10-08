@@ -57,6 +57,14 @@ export function login(email: string, password: string): Promise<LoginResponse> {
   });
 }
 
+// Always resolves for a well-formed request (the API never reveals whether the email exists).
+export function forgotPassword(email: string): Promise<void> {
+  return request<void>("/auth/forgot-password", {
+    method: "POST",
+    body: JSON.stringify({ username: email }),
+  });
+}
+
 export interface WebsiteRegisterPayload {
   full_name: string;
   phone: string;
@@ -78,6 +86,14 @@ export function registerWebsiteCustomer(payload: WebsiteRegisterPayload): Promis
 
 export function fetchCurrentUser(): Promise<AuthUser> {
   return request<AuthUser>("/auth/me");
+}
+
+// Only the name is self-editable: PATCH /profile takes first/last name, not email or phone.
+export function updateProfile(firstName: string, lastName: string): Promise<void> {
+  return request<void>("/profile", {
+    method: "PATCH",
+    body: JSON.stringify({ first_name: firstName, last_name: lastName }),
+  });
 }
 
 // The access token is short-lived; the refresh token outlives it so a page

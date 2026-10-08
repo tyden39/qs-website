@@ -6,6 +6,7 @@ import {
   login as loginRequest,
   logoutRequest,
   refreshTokens,
+  updateProfile,
   registerWebsiteCustomer,
   type WebsiteRegisterPayload,
 } from "./api";
@@ -20,6 +21,7 @@ interface AuthContextValue {
   // customer lands logged in rather than back at the login form.
   register: (payload: WebsiteRegisterPayload) => Promise<void>;
   logout: () => Promise<void>;
+  updateFullName: (fullName: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -116,8 +118,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
+  // The API rebuilds full_name as "last first", so the Vietnamese order splits on
+  // the final word: "Nguyễn Văn An" → last "Nguyễn Văn", first "An".
+  const updateFullName = async (fullName: string) => {
+    const parts = fullName.trim().split(/\s+/);
+    const first = parts.pop() ?? "";
+    await updateProfile(first, parts.join(" "));
+    const me = await fetchCurrentUser();
+    saveUser(me);
+    setUser(me);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, updateFullName }}>
       {children}
     </AuthContext.Provider>
   );

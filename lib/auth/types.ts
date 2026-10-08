@@ -12,6 +12,7 @@ export interface AuthUser {
   username: string;
   email?: string;
   full_name?: string;
+  phone?: string;
   is_active: boolean;
   // Omitted entirely by the API for an account with no roles assigned
   // (encoded with `omitempty` on qs-crm-be).

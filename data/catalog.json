@@ -217,6 +217,51 @@
     "sourceUrl": "https://qstcnc.com/san-pham/micro-dnc-3a"
   },
   {
+    "slug": "io-link-1616",
+    "category": "accessory",
+    "name": "I/O LINK-1616",
+    "tag": "Board mở rộng I/O · 16 in / 16 out",
+    "tagEn": "I/O expansion board · 16 in / 16 out",
+    "desc": "Mở rộng thêm 16 cổng input và 16 cổng output (relay) cho bộ điều khiển.",
+    "descEn": "Adds 16 more input ports and 16 output ports (relay) to the controller.",
+    "specsIntro": "Board IO-LINK-1616 giúp mở rộng khả năng kết nối cho bộ điều khiển CNC với 16 cổng Input và 16 cổng Output Relay. Module hỗ trợ kết nối thêm các thiết bị ngoại vi, cảm biến và cơ cấu điều khiển, giúp hệ thống CNC linh hoạt hơn trong quá trình tích hợp và vận hành.",
+    "specsIntroEn": "The IO-LINK-1616 board extends the connectivity of a CNC controller with 16 inputs and 16 relay outputs. The module adds support for peripheral devices, sensors and actuators, making the CNC system more flexible to integrate and operate.",
+    "specsPhoto": {
+      "src": "/img/products/catalog/io-link-1616.webp",
+      "w": 1606,
+      "h": 1370,
+      "alt": "Board IO-LINK-1616",
+      "altEn": "IO-LINK-1616 board"
+    },
+    "specs": [
+      {
+        "l": "Kích thước",
+        "v": "107 x 140 (mm)"
+      },
+      {
+        "l": "Điện áp đầu vào",
+        "v": "12-24 VDC"
+      },
+      {
+        "l": "Số cổng Input",
+        "v": "16"
+      },
+      {
+        "l": "Số cổng Output",
+        "v": "16"
+      }
+    ],
+    "image": {
+      "src": "/img/products/catalog/io-link-1616.webp",
+      "w": 1606,
+      "h": 1370,
+      "alt": "Board IO-LINK-1616",
+      "altEn": "IO-LINK-1616 board"
+    },
+    "features": [],
+    "sourceUrl": ""
+  },
+  {
     "slug": "io-link-32",
     "category": "accessory",
     "name": "I/O Link 32_V1_10722",

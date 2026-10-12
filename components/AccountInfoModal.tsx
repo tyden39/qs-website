@@ -41,7 +41,7 @@ export function AccountInfoModal({ user, onClose }: { user: AuthUser; onClose: (
 
   return (
     <div
-      className="fixed inset-0 z-[100] grid place-items-center bg-black/70 px-4"
+      className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto bg-black/70 px-4 py-8"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

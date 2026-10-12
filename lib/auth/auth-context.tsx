@@ -16,7 +16,7 @@ import type { AuthUser } from "./types";
 interface AuthContextValue {
   user: AuthUser | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<AuthUser>;
   // Sign-up returns a session directly (no verification step), so a new
   // customer lands logged in rather than back at the login form.
   register: (payload: WebsiteRegisterPayload) => Promise<void>;
@@ -98,6 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     console.log("[auth] login success, user:", me);
     saveUser(me);
     setUser(me);
+    return me;
   };
 
   const register = async (payload: WebsiteRegisterPayload) => {

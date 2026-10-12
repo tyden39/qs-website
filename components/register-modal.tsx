@@ -32,7 +32,6 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 
 function describeRegisterError(err: unknown, t: ReturnType<typeof useTranslations>): string {
   if (err instanceof AuthApiError) {
-    if (err.code === "PHONE_ALREADY_EXISTS") return t("error.phoneAlreadyExists");
     if (err.code === "USER_ALREADY_EXISTS") return t("error.userAlreadyExists");
   }
   return t("error.generic");
@@ -78,7 +77,7 @@ export function RegisterModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] grid place-items-center bg-black/70 px-4"
+      className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto bg-black/70 px-4 py-8"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

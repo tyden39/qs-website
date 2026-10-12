@@ -37,8 +37,8 @@ export function ContactForm() {
   const t = useTranslations("contact");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  // Each contact field the account already holds is hidden and taken from the account;
-  // a missing one stays on screen. The lead is still a plain customer row, not tied to the login.
+  // A logged-in account only pre-fills the contact fields; they stay visible and
+  // editable, because the lead is a plain customer row and may name someone else.
   const { user } = useAuth();
   const accountName = user?.full_name?.trim() ?? "";
   const accountPhone = user?.phone?.trim() ?? "";
@@ -65,6 +65,13 @@ export function ContactForm() {
     if (msg) setValue("message", msg);
   }, [setValue]);
 
+  // Fills in once the auth context resolves the account.
+  useEffect(() => {
+    if (accountName) setValue("name", accountName);
+    if (accountPhone) setValue("phone", accountPhone);
+    if (accountEmail) setValue("email", accountEmail);
+  }, [accountName, accountPhone, accountEmail, setValue]);
+
   const isOther = watch("businessGroup") === "other";
 
   async function onSubmit(values: ContactFormValues) {
@@ -75,9 +82,9 @@ export function ContactForm() {
       return;
     }
 
-    const name = accountName || values.name?.trim() || "";
-    const phone = accountPhone || values.phone?.trim() || "";
-    const email = accountEmail || values.email?.trim() || "";
+    const name = values.name?.trim() || accountName;
+    const phone = values.phone?.trim() || accountPhone;
+    const email = values.email?.trim() || accountEmail;
     if (!name || !phone) {
       if (!name) setError("name", { type: "required" });
       if (!phone) setError("phone", { type: "required" });
@@ -149,41 +156,33 @@ export function ContactForm() {
       <p className="text-meta text-[#5a5650] leading-[1.6] m-0 mb-6">{t("form.note")}</p>
 
       <div className="space-y-5">
-        {!accountName && (
-          <FormField label={t("form.name")} error={errors.name && t("error.validation.name")}>
+        <FormField label={t("form.name")} error={errors.name && t("error.validation.name")}>
+          <input
+            {...register("name")}
+            type="text"
+            placeholder={t("form.namePlaceholder")}
+            className={inputCls(!!errors.name)}
+          />
+        </FormField>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
+          <FormField label={t("form.phone")} error={errors.phone && t("error.validation.phone")}>
             <input
-              {...register("name")}
-              type="text"
-              placeholder={t("form.namePlaceholder")}
-              className={inputCls(!!errors.name)}
+              {...register("phone")}
+              type="tel"
+              placeholder={t("form.phonePlaceholder")}
+              className={inputCls(!!errors.phone)}
             />
           </FormField>
-        )}
-
-        {(!accountPhone || !accountEmail) && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
-            {!accountPhone && (
-              <FormField label={t("form.phone")} error={errors.phone && t("error.validation.phone")}>
-                <input
-                  {...register("phone")}
-                  type="tel"
-                  placeholder={t("form.phonePlaceholder")}
-                  className={inputCls(!!errors.phone)}
-                />
-              </FormField>
-            )}
-            {!accountEmail && (
-              <FormField label={t("form.email")} error={errors.email && t("error.validation.email")}>
-                <input
-                  {...register("email")}
-                  type="email"
-                  placeholder={t("form.emailPlaceholder")}
-                  className={inputCls(!!errors.email)}
-                />
-              </FormField>
-            )}
-          </div>
-        )}
+          <FormField label={t("form.email")} error={errors.email && t("error.validation.email")}>
+            <input
+              {...register("email")}
+              type="email"
+              placeholder={t("form.emailPlaceholder")}
+              className={inputCls(!!errors.email)}
+            />
+          </FormField>
+        </div>
 
         <FormField label={t("form.businessField")} error={errors.businessFieldOther?.message}>
           <select

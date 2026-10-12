@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "@/components/media/image";
+import { issueSSOTicket } from "@/lib/auth/api";
 import { useAuth } from "@/lib/auth/auth-context";
 import { Link } from "@/lib/i18n/navigation";
 
@@ -28,8 +29,18 @@ export function LoginModal({
     setError(null);
     setIsSubmitting(true);
     try {
-      await login(email, password);
+      const me = await login(email, password);
       onClose();
+      const ssoUrl = process.env.NEXT_PUBLIC_API_SSO ?? "";
+      if (ssoUrl && me.roles?.some((r) => r.code === "customer")) {
+        // Same-tab navigation: window.open after an await would be popup-blocked.
+        try {
+          const { ticket } = await issueSSOTicket();
+          window.location.href = `${ssoUrl}/sso?ticket=${encodeURIComponent(ticket)}`;
+        } catch {
+          // Best-effort: stay on the site, already logged in.
+        }
+      }
     } catch {
       setError(t("error"));
     } finally {
@@ -39,7 +50,7 @@ export function LoginModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] grid place-items-center bg-black/70 px-4"
+      className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto bg-black/70 px-4 py-8"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

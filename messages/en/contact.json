@@ -48,6 +48,7 @@
   },
   "error": {
     "generic": "Something went wrong. Please try again.",
+    "duplicate": "This phone number is already registered. Please contact your sales representative.",
     "rateLimit": "Too many requests. Please wait and try again.",
     "validation": {
       "name": "Please enter your full name",

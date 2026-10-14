@@ -7,7 +7,6 @@ const fb = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
 const yt = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7.5v9l8-4.5z"/></svg>`;
 const pin =`<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>`;
 const phone = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1l-2.22 2.2z"/></svg>`;
-const mail = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>`;
 
 export default async function Footer() {
   const t = await getTranslations("footer");
@@ -74,9 +73,6 @@ export default async function Footer() {
               <ContactGroup svg={phone} label={t("contact.phone")}>
                 <Line href="tel:+84909663350">(+84) 909.663.350</Line>
                 <Line href="tel:+84922322338">(+84) 922.322.338</Line>
-              </ContactGroup>
-              <ContactGroup svg={mail} label={t("contact.email")}>
-                <Line href="mailto:support@qstcnc.com">support@qstcnc.com</Line>
               </ContactGroup>
               <ContactGroup svg={pin} label={t("contact.address")}>
                 <Line href="https://maps.app.goo.gl/axYe5FydxeNHuCXT6">117 Đường Trương Thị Như, Xuân Thới Sơn, Hóc Môn, Thành phố Hồ Chí Minh – Việt Nam (700000).</Line>

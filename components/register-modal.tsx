@@ -33,6 +33,8 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 function describeRegisterError(err: unknown, t: ReturnType<typeof useTranslations>): string {
   if (err instanceof AuthApiError) {
     if (err.code === "USER_ALREADY_EXISTS") return t("error.userAlreadyExists");
+    // erp-be reports a taken phone as a generic `BAD_REQUEST`, so only the message tells it apart.
+    if (/phone.*already exists/i.test(err.message)) return t("error.phoneAlreadyExists");
   }
   return t("error.generic");
 }

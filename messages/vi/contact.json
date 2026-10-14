@@ -48,6 +48,7 @@
   },
   "error": {
     "generic": "Có lỗi xảy ra. Vui lòng thử lại.",
+    "duplicate": "Số điện thoại này đã được đăng ký. Vui lòng liên hệ người phụ trách kinh doanh (sale).",
     "rateLimit": "Quá nhiều yêu cầu. Vui lòng chờ và thử lại.",
     "validation": {
       "name": "Vui lòng nhập họ tên",

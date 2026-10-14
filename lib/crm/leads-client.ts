@@ -15,6 +15,7 @@ export type CreateLeadResult =
   | { ok: true }
   | { ok: false; kind: "validation"; error: string; code?: string }
   | { ok: false; kind: "rate_limit" }
+  | { ok: false; kind: "duplicate" }
   | { ok: false; kind: "server"; status: number; error: string }
   | { ok: false; kind: "network"; error: string };
 
@@ -34,6 +35,9 @@ export async function createPublicLead(payload: CrmLeadPayload): Promise<CreateL
   if (res.status === 429) return { ok: false, kind: "rate_limit" };
 
   const data = (await res.json().catch(() => ({}))) as { error?: string; code?: string };
+  // The CRM reports a duplicate phone as `400 {"error":"phone number already exists","code":"BAD_REQUEST"}`
+  // — the code is generic, so the message text is the only discriminator.
+  if (res.status === 409 || /already exists/i.test(data.error ?? "")) return { ok: false, kind: "duplicate" };
   if (res.status === 400) {
     return { ok: false, kind: "validation", error: data.error ?? "Validation failed", code: data.code };
   }

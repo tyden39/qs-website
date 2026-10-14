@@ -246,19 +246,17 @@ export default function Header() {
   };
 
   return (
-    <>
+    // The strip + nav stick together at every width so the hotline stays reachable.
+    <div className="sticky top-0 z-50">
       <div className="qs-topstrip">
         <div className="qs-wrap-wide py-1.5 flex justify-between items-center gap-6">
-          <span className="min-w-0 truncate"><span className="qs-topstrip-dot"></span>QS Technology Co., Ltd · {t("tagline")}</span>
-          {/* On phones the tap-to-call hotline is the highest-value strip item, so
-              it stays visible while the full hotline+email pair waits for md. */}
+          <span className="hidden md:block min-w-0 truncate"><span className="qs-topstrip-dot"></span>QS Technology Co., Ltd · {t("tagline")}</span>
+          <a href="tel:+84922322338" className="md:hidden shrink-0 qs-topstrip-link">(+84) 922.322.338</a>
           <a href="tel:+84909663350" className="md:hidden shrink-0 qs-topstrip-link">(+84) 909.663.350</a>
           <span className="hidden md:inline shrink-0">
             Hotline <a href="tel:+84909663350" className="qs-topstrip-link">(+84) 909.663.350</a>
             {" · "}
             <a href="tel:+84922322338" className="qs-topstrip-link">(+84) 922.322.338</a>
-            {" · "}
-            <a href="mailto:support@qstcnc.com" className="qs-topstrip-link">support@qstcnc.com</a>
           </span>
         </div>
       </div>
@@ -459,7 +457,6 @@ export default function Header() {
               <div className="flex flex-col gap-1.5 font-mono text-label tracking-[.1em] uppercase text-muted">
                 <a href="tel:+84909663350" className="hover:text-ink">Hotline · (+84) 909.663.350</a>
                 <a href="tel:+84922322338" className="hover:text-ink">Hotline · (+84) 922.322.338</a>
-                <a href="mailto:support@qstcnc.com" className="hover:text-ink lowercase tracking-[.06em]">support@qstcnc.com</a>
               </div>
               <div className="sm:hidden shrink-0"><LocaleSwitcher /></div>
             </div>
@@ -493,6 +490,6 @@ export default function Header() {
           }}
         />
       )}
-    </>
+    </div>
   );
 }

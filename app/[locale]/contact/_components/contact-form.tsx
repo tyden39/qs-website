@@ -118,6 +118,7 @@ export function ContactForm() {
 
     setStatus("error");
     if (result.kind === "rate_limit") setErrorMsg(t("error.rateLimit"));
+    else if (result.kind === "duplicate") setErrorMsg(t("error.duplicate"));
     else if (result.kind === "validation") setErrorMsg(result.error);
     else setErrorMsg(t("error.generic"));
   }

@@ -174,8 +174,6 @@ export async function CategoryShell({
             <a href="tel:+84909663350" className="hover:text-ink">(+84) 909.663.350</a>
             <span aria-hidden> · </span>
             <a href="tel:+84922322338" className="hover:text-ink">(+84) 922.322.338</a>
-            <span aria-hidden> · </span>
-            <a href="mailto:support@qstcnc.com" className="hover:text-ink">support@qstcnc.com</a>
           </p>
           <Link className="qs-btn qs-btn-sm sm:ml-auto" href="/contact">
             {t("sidebar.support.cta")}

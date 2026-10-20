@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
-import { AuthApiError } from "@/lib/auth/api";
+import { AuthApiError, issueSSOTicket } from "@/lib/auth/api";
 import Image from "@/components/media/image";
 import { useAuth } from "@/lib/auth/auth-context";
 
@@ -35,6 +35,7 @@ function describeRegisterError(err: unknown, t: ReturnType<typeof useTranslation
     if (err.code === "USER_ALREADY_EXISTS") return t("error.userAlreadyExists");
     // erp-be reports a taken phone as a generic `BAD_REQUEST`, so only the message tells it apart.
     if (/phone.*already exists/i.test(err.message)) return t("error.phoneAlreadyExists");
+    if (/phone number must be a valid/i.test(err.message)) return t("error.phone");
   }
   return t("error.generic");
 }
@@ -54,6 +55,7 @@ export function RegisterModal({
   // Shown in place of the form once the account exists, so the visitor gets
   // explicit confirmation rather than the modal just vanishing.
   const [isDone, setIsDone] = useState(false);
+  const [isLeaving, setIsLeaving] = useState(false);
 
   const {
     register,
@@ -71,6 +73,26 @@ export function RegisterModal({
       setServerError(describeRegisterError(err, t));
     }
   });
+
+  // "Continue" hands the new customer straight to the customer portal, signed
+  // in via an SSO ticket like AccountMenu's portal item. Navigates in the same
+  // tab: a window.open after the awaited ticket is no longer inside the click
+  // gesture and gets popup-blocked. If the ticket fails the portal still
+  // opens and shows its own login; with no portal URL configured, just close.
+  const continueToPortal = async () => {
+    const portalUrl = process.env.NEXT_PUBLIC_API_SSO ?? "";
+    if (!portalUrl) {
+      onClose();
+      return;
+    }
+    setIsLeaving(true);
+    try {
+      const { ticket } = await issueSSOTicket();
+      window.location.assign(`${portalUrl}/sso?ticket=${encodeURIComponent(ticket)}`);
+    } catch {
+      window.location.assign(portalUrl);
+    }
+  };
 
   const fieldCls = (invalid: boolean) =>
     `w-full bg-white/5 border rounded px-4 py-3.5 text-lg text-white placeholder:text-white/35 outline-none focus:border-gold ${
@@ -102,8 +124,9 @@ export function RegisterModal({
             </p>
             <button
               type="button"
-              onClick={onClose}
-              className="w-full rounded bg-gold-1 py-3.5 text-[17px] font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors"
+              onClick={continueToPortal}
+              disabled={isLeaving}
+              className="w-full rounded bg-gold-1 py-3.5 text-[17px] font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors disabled:opacity-60"
             >
               {t("successClose")}
             </button>

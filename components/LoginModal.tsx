@@ -32,7 +32,9 @@ export function LoginModal({
       const me = await login(email, password);
       onClose();
       const ssoUrl = process.env.NEXT_PUBLIC_API_SSO ?? "";
-      if (ssoUrl && me.roles?.some((r) => r.code === "customer")) {
+      // Customers land in the portal, staff/admin in the ERP — the same split as
+      // AccountMenu, and both live behind the one SSO target, so any role goes.
+      if (ssoUrl && me.roles?.length) {
         // Same-tab navigation: window.open after an await would be popup-blocked.
         try {
           const { ticket } = await issueSSOTicket();

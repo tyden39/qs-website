@@ -63,26 +63,16 @@ export function RegisterModal({
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormValues>({ resolver: zodResolver(registerSchema) });
 
-  const onSubmit = handleSubmit(async (values) => {
-    setServerError(null);
-    try {
-      const { confirmPassword: _c, ...payload } = values;
-      await registerAccount({ ...payload, region: "VN" });
-      setIsDone(true);
-    } catch (err) {
-      setServerError(describeRegisterError(err, t));
-    }
-  });
-
-  // "Continue" hands the new customer straight to the customer portal, signed
-  // in via an SSO ticket like AccountMenu's portal item. Navigates in the same
-  // tab: a window.open after the awaited ticket is no longer inside the click
-  // gesture and gets popup-blocked. If the ticket fails the portal still
-  // opens and shows its own login; with no portal URL configured, just close.
-  const continueToPortal = async () => {
+  // Hands the new customer straight to the customer portal, signed in via an
+  // SSO ticket like AccountMenu's portal item. Navigates in the same tab: a
+  // window.open here is not inside a click gesture at all (it runs right after
+  // the awaited registration) and would be popup-blocked. If the ticket fails
+  // the portal still opens and shows its own login. With no portal URL
+  // configured there is nowhere to go, so the success panel just stays up.
+  const goToPortal = async (closeIfUnavailable = false) => {
     const portalUrl = process.env.NEXT_PUBLIC_API_SSO ?? "";
     if (!portalUrl) {
-      onClose();
+      if (closeIfUnavailable) onClose();
       return;
     }
     setIsLeaving(true);
@@ -93,6 +83,21 @@ export function RegisterModal({
       window.location.assign(portalUrl);
     }
   };
+
+  const onSubmit = handleSubmit(async (values) => {
+    setServerError(null);
+    try {
+      const { confirmPassword: _c, ...payload } = values;
+      await registerAccount({ ...payload, region: "VN" });
+      setIsDone(true);
+      // Registration already returns a signed-in session, so there is nothing
+      // left for the visitor to confirm: hand them to the portal right away and
+      // leave the success panel on screen only as the fallback if that fails.
+      void goToPortal();
+    } catch (err) {
+      setServerError(describeRegisterError(err, t));
+    }
+  });
 
   const fieldCls = (invalid: boolean) =>
     `w-full bg-white/5 border rounded px-4 py-3.5 text-lg text-white placeholder:text-white/35 outline-none focus:border-gold ${
@@ -120,11 +125,11 @@ export function RegisterModal({
         {isDone ? (
           <>
             <p className="mb-6 text-center text-base text-white/70" role="status">
-              {t("successMessage")}
+              {isLeaving ? t("redirecting") : t("successMessage")}
             </p>
             <button
               type="button"
-              onClick={continueToPortal}
+              onClick={() => goToPortal(true)}
               disabled={isLeaving}
               className="w-full rounded bg-gold-1 py-3.5 text-[17px] font-mono font-semibold uppercase tracking-widest text-ink hover:bg-gold transition-colors disabled:opacity-60"
             >

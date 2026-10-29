@@ -22,6 +22,12 @@ export type PublicDocNode = {
    *  download buttons instead of two separate rows. */
   productId?: string;
   documentType?: string;
+  /** Hand-created CompanyDoc VI/EN pair key — two plain (non-ManualHub)
+   *  documents sharing it are the Vietnamese and English editions of the
+   *  same logical document, so live-download-groups.ts merges them into one
+   *  row with two download buttons (see qs-crm-be's Node.DocumentGroupID).
+   *  undefined for ManualHub-linked leaves. */
+  documentGroupId?: string;
   /** Documents only — last time this leaf's content changed, straight from
    *  the ManualHub record it was synced from (a plain CompanyDoc upload has
    *  no such field). ISO string; formatted for display in
@@ -79,7 +85,14 @@ function toPublicDocNode(raw: Record<string, unknown>): PublicDocNode {
           ? fileUrl
           : `${apiOrigin()}${fileUrl}`
         : undefined,
-    language: raw.manualhub_language ? String(raw.manualhub_language) : undefined,
+    // ManualHub-linked leaves carry it under the manualhub_-prefixed field;
+    // a plain CompanyDoc upload carries its own "vi"/"en" directly on the
+    // row instead — fall back to that so both kinds get a VI/EN button.
+    language: raw.manualhub_language
+      ? String(raw.manualhub_language)
+      : raw.language
+        ? String(raw.language)
+        : undefined,
     productId: raw.manualhub_product_id ? String(raw.manualhub_product_id) : undefined,
     // ManualHub-linked leaves carry it under the manualhub_-prefixed field;
     // a plain CompanyDoc upload (no manualhub_document_id) carries its own
@@ -90,6 +103,9 @@ function toPublicDocNode(raw: Record<string, unknown>): PublicDocNode {
       : raw.document_type
         ? String(raw.document_type)
         : undefined,
+    documentGroupId: raw.document_group_id
+      ? String(raw.document_group_id)
+      : undefined,
     updatedAt: raw.manualhub_updated_at
       ? String(raw.manualhub_updated_at)
       : raw.updated_at

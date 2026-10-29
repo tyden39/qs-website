@@ -310,7 +310,11 @@ function toRows(
   const singles: PublicDocNode[] = [];
 
   for (const doc of docs) {
-    const key = doc.productId && doc.documentType ? `${doc.productId}::${doc.documentType}` : null;
+    const key = doc.productId && doc.documentType
+      ? `product::${doc.productId}::${doc.documentType}`
+      : doc.documentGroupId
+        ? `group::${doc.documentGroupId}`
+        : null;
     if (!key) {
       singles.push(doc);
       continue;
@@ -345,7 +349,13 @@ function toRows(
       productLabel: product?.label,
     });
   }
-  return rows;
+  // A-Z by the row's own displayed title, case-insensitively and in the
+  // page's locale — the CRM tree already sorts that way, but the pairing
+  // above (VI/EN editions grouped) and a mixed-case batch ("S3100A ..." vs
+  // "s3100A ...") could still interleave (yêu cầu 2026-10-29).
+  return rows.sort((a, b) =>
+    a.title.localeCompare(b.title, locale, { sensitivity: "base", numeric: true }),
+  );
 }
 
 // A model folder's (e.g. "F54") documents carry their document type as a

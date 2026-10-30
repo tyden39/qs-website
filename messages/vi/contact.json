@@ -49,11 +49,13 @@
   "error": {
     "generic": "Có lỗi xảy ra. Vui lòng thử lại.",
     "duplicate": "Số điện thoại này đã được đăng ký. Vui lòng liên hệ người phụ trách kinh doanh (sale).",
+    "invalid": "Thông tin chưa hợp lệ. Vui lòng kiểm tra lại và gửi lại.",
     "rateLimit": "Quá nhiều yêu cầu. Vui lòng chờ và thử lại.",
     "validation": {
       "name": "Vui lòng nhập họ tên",
       "email": "Email không hợp lệ",
-      "phone": "Vui lòng nhập số điện thoại"
+      "phone": "Vui lòng nhập số điện thoại",
+      "phoneInvalid": "Số điện thoại không hợp lệ. Vui lòng nhập số di động/cố định Việt Nam (VD: 0912 345 678) hoặc số quốc tế bắt đầu bằng + hoặc 00 (VD: +84 912 345 678)."
     }
   },
   "newsletter": {

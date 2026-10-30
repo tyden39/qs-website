@@ -49,11 +49,13 @@
   "error": {
     "generic": "Something went wrong. Please try again.",
     "duplicate": "This phone number is already registered. Please contact your sales representative.",
+    "invalid": "Some details are invalid. Please check and try again.",
     "rateLimit": "Too many requests. Please wait and try again.",
     "validation": {
       "name": "Please enter your full name",
       "email": "Invalid email address",
-      "phone": "Please enter your phone number"
+      "phone": "Please enter your phone number",
+      "phoneInvalid": "Invalid phone number. Enter a Vietnamese mobile/landline number (e.g. 0912 345 678) or an international number starting with + or 00 (e.g. +84 912 345 678)."
     }
   },
   "newsletter": {

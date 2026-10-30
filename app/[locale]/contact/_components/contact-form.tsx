@@ -116,10 +116,18 @@ export function ContactForm() {
       return;
     }
 
+    // A field-level rejection goes back onto its input; everything else becomes a
+    // localized banner. The CRM's own `error` text is English-only, so it is never
+    // shown as-is.
+    if (result.kind === "validation" && result.field) {
+      setStatus("idle");
+      setError(result.field, { type: "server" });
+      return;
+    }
     setStatus("error");
     if (result.kind === "rate_limit") setErrorMsg(t("error.rateLimit"));
     else if (result.kind === "duplicate") setErrorMsg(t("error.duplicate"));
-    else if (result.kind === "validation" || result.kind === "server") setErrorMsg(result.error);
+    else if (result.kind === "validation") setErrorMsg(t("error.invalid"));
     else setErrorMsg(t("error.generic"));
   }
 
@@ -167,7 +175,10 @@ export function ContactForm() {
         </FormField>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
-          <FormField label={t("form.phone")} error={errors.phone && t("error.validation.phone")}>
+          <FormField label={t("form.phone")} error={
+              errors.phone &&
+              t(errors.phone.type === "server" ? "error.validation.phoneInvalid" : "error.validation.phone")
+            }>
             <input
               {...register("phone")}
               type="tel"
